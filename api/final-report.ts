@@ -1,5 +1,7 @@
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const DEFAULT_REPORT_HIDDEN_COPY_TO = "n.petyaev@gmail.com";
+const MERGEVUE_PUBLIC_REPORT_PDF_FILE_NAME = "mergevue-forecast-brief.pdf";
+const MERGEVUE_REPORT_EMAIL_SUBJECT = "Mergevue Forecast Brief: Post-Deal Behavior Forecast";
 
 type NodeRequest = {
   body?: unknown;
@@ -14,6 +16,13 @@ type NodeResponse = {
   status?: (statusCode: number) => NodeResponse;
   setHeader: (name: string, value: string) => void;
   end: (body: string) => void;
+};
+
+type ReportEmailCopy = {
+  subject: string;
+  attachmentFileName: string;
+  previewText: string;
+  textLines: string[];
 };
 
 function sendJson(response: NodeResponse, statusCode: number, body: unknown) {
@@ -122,6 +131,102 @@ function escapeHtml(value: string) {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#39;");
+}
+
+function publicSafeReportString(value: unknown) {
+  return cleanString(value)
+    .replace(/Academy of Structural Typology/gi, "Mergevue")
+    .replace(/Structural Typology/gi, "Mergevue")
+    .replace(/structural-typology\.academy/gi, "mergevue.com")
+    .replace(/structural-typology\.com/gi, "mergevue.com")
+    .replace(/info@structural-typology\.academy/gi, "report@mergevue.com")
+    .replace(/Forward-verifiable\s*·\s*on record/gi, "Display-only preview")
+    .replace(/lodged against public ledger/gi, "available as a display-only preview")
+    .replace(/timestamped against public ledger/gi, "available as a display-only preview")
+    .replace(/USD 50\.0B/gi, "Enterprise value band: $50M-$500M EV")
+    .replace(/USD 350M to USD 2\.2B/gi, "Enterprise value band: $50M-$500M EV")
+    .replace(/Indicative Total Risk Envelope/gi, "Economic risk posture")
+    .replace(/Total Risk Envelope/gi, "Economic risk posture")
+    .replace(/hard risk envelope/gi, "engagement-tier economic model")
+    .replace(/absolute loss range/gi, "engagement-tier economic model")
+    .replace(/Kill a Competitor/gi, "Absorb / neutralize a competitor")
+    .replace(/\bMcDonalds\b/g, "McDonald's");
+}
+
+function normalizeReportEmailCopy(value: any): ReportEmailCopy {
+  const textLines = Array.isArray(value?.textLines)
+    ? value.textLines.map(publicSafeReportString).filter(Boolean)
+    : [];
+
+  return {
+    subject: publicSafeReportString(value?.subject) || MERGEVUE_REPORT_EMAIL_SUBJECT,
+    attachmentFileName: publicSafeReportString(value?.attachmentFileName) || MERGEVUE_PUBLIC_REPORT_PDF_FILE_NAME,
+    previewText: publicSafeReportString(value?.previewText) || "Mergevue Forecast Brief: Post-Deal Behavior Forecast",
+    textLines: textLines.length > 0
+      ? textLines
+      : [
+        "Mergevue Forecast Brief",
+        "Post-Deal Behavior Forecast",
+        "Contact: report@mergevue.com",
+        "Sealed Prediction Preview: Display-only preview; not ledger-recorded.",
+        "Enterprise value band: $50M-$500M EV",
+        "Illustrative posture, not a valuation.",
+        "Absolute risk figures require the engagement-tier economic model.",
+      ],
+  };
+}
+
+export function buildFinalReportEmailMessage(firstName: string, reportId: string, reportEmailCopyValue: any) {
+  const reportEmailCopy = normalizeReportEmailCopy(reportEmailCopyValue);
+  const text = [
+    `Hello ${firstName},`,
+    "",
+    "Your Mergevue Forecast Brief is attached.",
+    "",
+    ...reportEmailCopy.textLines,
+    "",
+    `Report reference: ${reportId}`,
+  ].join("\n");
+  const html = [
+    `<p>Hello ${escapeHtml(firstName)},</p>`,
+    "<p>Your Mergevue Forecast Brief is attached.</p>",
+    `<p>${escapeHtml(reportEmailCopy.previewText)}</p>`,
+    "<ul>",
+    ...reportEmailCopy.textLines.filter(Boolean).map((line) => `<li>${escapeHtml(line)}</li>`),
+    "</ul>",
+    `<p><strong>Report reference:</strong> ${escapeHtml(reportId)}</p>`,
+  ].join("");
+
+  return {
+    subject: reportEmailCopy.subject,
+    text,
+    html,
+  };
+}
+
+export function buildHiddenFinalReportCopyMessage(reportId: string, reportEmailCopyValue: any) {
+  const reportEmailCopy = normalizeReportEmailCopy(reportEmailCopyValue);
+  const text = [
+    "A Mergevue Forecast Brief PDF was saved from the public diagnostic.",
+    "",
+    ...reportEmailCopy.textLines,
+    "",
+    `Report reference: ${reportId}`,
+  ].join("\n");
+  const html = [
+    "<p>A Mergevue Forecast Brief PDF was saved from the public diagnostic.</p>",
+    `<p>${escapeHtml(reportEmailCopy.previewText)}</p>`,
+    "<ul>",
+    ...reportEmailCopy.textLines.filter(Boolean).map((line) => `<li>${escapeHtml(line)}</li>`),
+    "</ul>",
+    `<p><strong>Report reference:</strong> ${escapeHtml(reportId)}</p>`,
+  ].join("");
+
+  return {
+    subject: `${reportEmailCopy.subject} Copy`,
+    text,
+    html,
+  };
 }
 
 function validateAuthorizedSurveyLink(value: string) {
@@ -297,7 +402,7 @@ async function sendFinalReport(request: NodeRequest, response: NodeResponse) {
   const recipientEmail = normalizeEmail(body?.recipientEmail);
   const firstName = cleanString(body?.firstName);
   const reportId = cleanString(body?.reportId);
-  const fileName = cleanString(body?.fileName) || "structural-typology-final-deliverables-report.pdf";
+  const fileName = MERGEVUE_PUBLIC_REPORT_PDF_FILE_NAME;
   const pdfBase64 = cleanString(body?.pdfBase64);
 
   if (!EMAIL_PATTERN.test(recipientEmail) || !firstName) {
@@ -340,19 +445,7 @@ async function sendFinalReport(request: NodeRequest, response: NodeResponse) {
     return;
   }
 
-  const subject = "Structural Typology Final Report";
-  const text = [
-    `Hello ${firstName},`,
-    "",
-    "Your Structural Typology final report is attached.",
-    "",
-    `Report reference: ${reportId}`,
-  ].join("\n");
-  const html = [
-    `<p>Hello ${escapeHtml(firstName)},</p>`,
-    "<p>Your Structural Typology final report is attached.</p>",
-    `<p><strong>Report reference:</strong> ${escapeHtml(reportId)}</p>`,
-  ].join("");
+  const reportMessage = buildFinalReportEmailMessage(firstName, reportId, body?.reportEmailCopy);
 
   const providerResponse = await fetch("https://api.resend.com/emails", {
     method: "POST",
@@ -364,9 +457,9 @@ async function sendFinalReport(request: NodeRequest, response: NodeResponse) {
       from,
       to: [recipientEmail],
       ...(bcc ? { bcc } : {}),
-      subject,
-      text,
-      html,
+      subject: reportMessage.subject,
+      text: reportMessage.text,
+      html: reportMessage.html,
       attachments: [
         {
           filename: fileName,
@@ -405,7 +498,7 @@ async function sendFinalReportHiddenCopy(request: NodeRequest, response: NodeRes
 
   const body = await parseBody(request);
   const reportId = cleanString(body?.reportId);
-  const fileName = cleanString(body?.fileName) || "structural-typology-final-deliverables-report.pdf";
+  const fileName = MERGEVUE_PUBLIC_REPORT_PDF_FILE_NAME;
   const pdfBase64 = cleanString(body?.pdfBase64);
 
   if (!reportId || !validPdfFileName(fileName) || !validPdfBase64(pdfBase64)) {
@@ -438,6 +531,8 @@ async function sendFinalReportHiddenCopy(request: NodeRequest, response: NodeRes
     return;
   }
 
+  const reportMessage = buildHiddenFinalReportCopyMessage(reportId, body?.reportEmailCopy);
+
   const providerResponse = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
@@ -447,9 +542,9 @@ async function sendFinalReportHiddenCopy(request: NodeRequest, response: NodeRes
     body: JSON.stringify({
       from,
       to: [hiddenCopyTo],
-      subject: "Structural Typology Final Report Copy",
-      text: `A final report PDF was saved from the public diagnostic.\n\nReport reference: ${reportId}`,
-      html: `<p>A final report PDF was saved from the public diagnostic.</p><p><strong>Report reference:</strong> ${escapeHtml(reportId)}</p>`,
+      subject: reportMessage.subject,
+      text: reportMessage.text,
+      html: reportMessage.html,
       attachments: [
         {
           filename: fileName,

@@ -1,6 +1,7 @@
 import { FINAL_DELIVERABLE_DATA } from "../data/finalDeliverableData.js";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const MERGEVUE_PUBLIC_REPORT_PDF_FILE_NAME = "mergevue-forecast-brief.pdf";
 
 function normalizeEmail(value) {
   return String(value ?? "").trim().toLowerCase();
@@ -70,7 +71,7 @@ export function createReportDeliveryRecord(capture, deliveredAt = new Date().toI
     completed: true,
     status: "delivered",
     reportId,
-    fileName: options.fileName ?? "structural-typology-final-deliverables-report.pdf",
+    fileName: options.fileName ?? MERGEVUE_PUBLIC_REPORT_PDF_FILE_NAME,
     mimeType: "application/pdf",
     deliveredAt,
     generatedAt: options.generatedAt ?? deliveredAt,

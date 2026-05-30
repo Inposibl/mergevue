@@ -12,6 +12,7 @@ const BRAND = Object.freeze({
 });
 
 export const MERGEVUE_PUBLIC_REPORT_PDF_FILE_NAME = "mergevue-forecast-brief.pdf";
+export const MERGEVUE_PUBLIC_REPORT_EMAIL_SUBJECT = "Mergevue Forecast Brief: Post-Deal Behavior Forecast";
 export const MERGEVUE_PUBLIC_REPORT_BLOCKS = Object.freeze([
   "Executive Decision Summary",
   "Sealed Predictions",
@@ -537,6 +538,38 @@ export function buildMergevuePublicReportPdfTextModel(report) {
         line("Public URL pattern", footer.publicUrlPattern),
         line("Track record URL", footer.trackRecordUrl),
       ]),
+    ]),
+  });
+}
+
+export function buildMergevuePublicReportEmailCopy(report) {
+  const brand = report.brand;
+  const scenario = report.compatibilityScoreAndDealScenario;
+  const sealed = report.sealedPredictions;
+  const economics = report.economicRiskTranslation;
+  const evidence = report.evidenceBasisAndLimits;
+  const engagement = report.whatTheFullEngagementAdds;
+
+  return Object.freeze({
+    subject: MERGEVUE_PUBLIC_REPORT_EMAIL_SUBJECT,
+    attachmentFileName: MERGEVUE_PUBLIC_REPORT_PDF_FILE_NAME,
+    previewText: `${brand.name} ${brand.reportType}: ${brand.product}`,
+    textLines: Object.freeze([
+      `${brand.name} ${brand.reportType}`,
+      brand.product,
+      `Contact: ${brand.contactEmail}`,
+      "",
+      `Scenario: ${scenario.acquirerName} acquiring ${scenario.targetName}`,
+      `Deal type: ${scenario.dealType}`,
+      `Compatibility: ${textValue(scenario.compatibilityScore)} / ${scenario.compatibilityBand}`,
+      "",
+      `${sealed.statusTitle}: ${sealed.statusDescription}`,
+      economics.enterpriseValueBand,
+      economics.valuationDisclaimer,
+      economics.engagementTierRequirement,
+      "",
+      `Evidence basis: ${evidence.dataQualityLevel}`,
+      `Engagement contact: ${engagement.contactEmail}`,
     ]),
   });
 }

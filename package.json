@@ -28,6 +28,7 @@
     "validate:mergevue-public-report": "node scripts/validate-mergevue-public-report-model.mjs",
     "validate:mergevue-public-report-screen": "node scripts/validate-mergevue-public-report-screen.mjs",
     "validate:mergevue-public-report-pdf": "node scripts/validate-mergevue-public-report-pdf.mjs",
+    "validate:mergevue-public-report-email": "node scripts/validate-mergevue-public-report-email.mjs",
     "export:newlogic": "python scripts/export_newlogic_json.py"
   },
   "dependencies": {

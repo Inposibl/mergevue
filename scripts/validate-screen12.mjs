@@ -44,7 +44,7 @@ assert.equal(result.reportDelivery.completed, true);
 assert.equal(result.reportDelivery.status, "delivered");
 assert.equal(result.reportDelivery.mimeType, "application/pdf");
 assert.equal(result.reportDelivery.recipientEmail, "founder@example.com");
-assert.equal(result.reportDelivery.fileName, "structural-typology-final-deliverables-report.pdf");
+assert.equal(result.reportDelivery.fileName, "mergevue-forecast-brief.pdf");
 assert.equal(result.session.emailCapture, result.emailCapture);
 assert.equal(result.session.reportDelivery, result.reportDelivery);
 
@@ -53,7 +53,7 @@ const sentResult = attachEmailCapture(baseSession, {
   firstName: "Nataly",
 }, {
   capturedAt: "2026-05-01T12:00:00.000Z",
-  fileName: "structural-typology-final-deliverables-report.pdf",
+  fileName: "mergevue-forecast-brief.pdf",
   provider: "resend",
   messageId: "email_123",
   hiddenCopy: true,

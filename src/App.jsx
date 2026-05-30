@@ -127,6 +127,7 @@ import { calculateDealEconomicsRiskEnvelope } from "./flow/dealEconomicsRiskEnve
 import {
   MERGEVUE_PUBLIC_REPORT_BLOCKS,
   MERGEVUE_PUBLIC_REPORT_PDF_FILE_NAME,
+  buildMergevuePublicReportEmailCopy,
   buildMergevuePublicReportModel,
   buildMergevuePublicReportPdfTextModel,
 } from "./reporting/mergevuePublicReportModel.js";
@@ -7173,6 +7174,11 @@ function createFinalDeliverablesReportPdf(deliverable, session) {
   return createSimplePdf(buildFinalDeliverablesReportLines(deliverable, session));
 }
 
+function createFinalDeliverablesReportEmailCopy(deliverable, session) {
+  const report = buildMergevuePublicReportModel(session, { deliverable });
+  return buildMergevuePublicReportEmailCopy(report);
+}
+
 function downloadFinalDeliverablesReportPdf(deliverable, offer, session, existingPdf = null) {
   const pdf = existingPdf ?? createFinalDeliverablesReportPdf(deliverable, session);
   const blob = new Blob([pdf], { type: "application/pdf" });
@@ -7192,6 +7198,7 @@ async function sendHiddenFinalDeliverablesReportCopy(deliverable, session, exist
   }
 
   const pdf = existingPdf ?? createFinalDeliverablesReportPdf(deliverable, session);
+  const reportEmailCopy = createFinalDeliverablesReportEmailCopy(deliverable, session);
   const response = await fetch("/api/final-report?action=send-final-report-hidden-copy", {
     method: "POST",
     headers: {
@@ -7202,6 +7209,7 @@ async function sendHiddenFinalDeliverablesReportCopy(deliverable, session, exist
       fileName: MERGEVUE_FORECAST_BRIEF_PDF_FILE_NAME,
       mimeType: "application/pdf",
       pdfBase64: window.btoa(pdf),
+      reportEmailCopy,
     }),
   });
   const payload = await response.json().catch(() => null);
@@ -7336,6 +7344,7 @@ function EmailCaptureScreen({ session, setSession }) {
           fileName: MERGEVUE_FORECAST_BRIEF_PDF_FILE_NAME,
           mimeType: "application/pdf",
           pdfBase64: window.btoa(pdf),
+          reportEmailCopy: createFinalDeliverablesReportEmailCopy(deliverable, result.session),
         }),
       });
       const payload = await response.json().catch(() => null);
