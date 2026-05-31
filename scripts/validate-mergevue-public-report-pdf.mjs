@@ -4,8 +4,13 @@ import {
   MERGEVUE_PUBLIC_REPORT_BLOCKS,
   MERGEVUE_PUBLIC_REPORT_PDF_FILE_NAME,
   buildMergevuePublicReportModel,
-  buildMergevuePublicReportPdfTextModel,
 } from "../src/reporting/mergevuePublicReportModel.js";
+import {
+  buildMergevueForecastBriefDesignModel,
+  forecastBriefDesignClassContract,
+  forecastBriefScoreBand,
+  renderMergevueForecastBriefHtml,
+} from "../src/reporting/mergevueForecastBriefDesignRenderer.js";
 
 const APP_SOURCE = readFileSync(new URL("../src/App.jsx", import.meta.url), "utf8");
 
@@ -23,6 +28,7 @@ const REQUIRED_PDF_STRINGS = Object.freeze([
   "before Day 30",
   "Days 30–60",
   "Day 60",
+  "$50M–$500M EV",
   "Absorb / neutralize a competitor",
 ]);
 
@@ -110,17 +116,18 @@ const demoSession = Object.freeze({
 const model = buildMergevuePublicReportModel(demoSession, {
   generatedAt: "2026-05-30T00:00:00.000Z",
 });
-const pdfTextModel = buildMergevuePublicReportPdfTextModel(model);
+const pdfModel = buildMergevueForecastBriefDesignModel(model);
+const pdfHtml = renderMergevueForecastBriefHtml(pdfModel);
 
-assert.equal(pdfTextModel.fileName, MERGEVUE_PUBLIC_REPORT_PDF_FILE_NAME);
-assert.equal(pdfTextModel.fileName, "mergevue-forecast-brief.pdf");
-assert.equal(pdfTextModel.fileName.includes("structural-typology-final-deliverables-report"), false);
-assert.deepEqual(pdfTextModel.sections.map((section) => section.title), MERGEVUE_PUBLIC_REPORT_BLOCKS);
+assert.equal(pdfModel.fileName, MERGEVUE_PUBLIC_REPORT_PDF_FILE_NAME);
+assert.equal(pdfModel.fileName, "mergevue-forecast-brief.pdf");
+assert.equal(pdfModel.fileName.includes("structural-typology-final-deliverables-report"), false);
+assert.deepEqual(pdfModel.sections.map((section) => section.title), MERGEVUE_PUBLIC_REPORT_BLOCKS);
 
 const pdfText = [
-  pdfTextModel.fileName,
-  ...pdfTextModel.cover,
-  ...pdfTextModel.sections.flatMap((section) => [section.title, ...section.lines]),
+  pdfModel.fileName,
+  pdfHtml,
+  ...pdfModel.renderedTextBlocks.map((block) => block.text),
 ].join("\n");
 
 for (const required of REQUIRED_PDF_STRINGS) {
@@ -138,8 +145,17 @@ assert.ok(
   "PDF path must build the Mergevue adapter model from the current session and deliverable",
 );
 assert.ok(
+  APP_SOURCE.includes("buildMergevueForecastBriefDesignModel(report)"),
+  "PDF path must use the designed Forecast Brief model built from the Mergevue adapter",
+);
+assert.ok(
+  APP_SOURCE.includes("renderMergevueForecastBriefHtml(designModel)"),
+  "PDF path must exercise the shared designed HTML/print renderer contract",
+);
+assert.equal(
   APP_SOURCE.includes("buildMergevuePublicReportPdfTextModel(report)"),
-  "PDF path must use the Mergevue adapter PDF text model",
+  false,
+  "PDF path must not use the flat adapter PDF text model",
 );
 assert.ok(
   APP_SOURCE.includes("MERGEVUE_PUBLIC_REPORT_PDF_FILE_NAME"),
@@ -176,5 +192,78 @@ const alignedValues = Object.freeze([
 for (const value of alignedValues) {
   assert.ok(pdfText.includes(String(value)), `PDF output missing adapter-aligned value: ${value}`);
 }
+
+for (const className of forecastBriefDesignClassContract()) {
+  assert.ok(pdfHtml.includes(className), `Designed print renderer missing class contract: ${className}`);
+}
+
+for (const cssNeedle of ["@media print", "break-inside: avoid", "print-color-adjust"]) {
+  assert.ok(pdfHtml.includes(cssNeedle), `Designed print renderer missing print CSS: ${cssNeedle}`);
+}
+
+assert.ok(pdfHtml.includes("masthead"), "PDF renderer must include masthead layout.");
+assert.ok(pdfHtml.includes("exec"), "PDF renderer must include executive hero layout.");
+assert.ok(pdfHtml.includes("ECS"), "PDF renderer must include ECS number.");
+assert.ok(pdfHtml.includes("0–100 scale"), "PDF renderer must include 0-100 scale marker.");
+assert.ok(pdfHtml.includes("pips"), "PDF renderer must include confidence pips.");
+assert.ok(pdfHtml.includes("deal-grid"), "PDF renderer must include a deal grid.");
+assert.ok(pdfHtml.includes("sealed-preview-1"), "PDF renderer must include sealed prediction lock id.");
+assert.ok(pdfHtml.includes("Watch for:"), "PDF renderer must include evidence-required timeline watch labels.");
+assert.ok(pdfHtml.includes("Falsification condition"), "PDF renderer must include falsification condition.");
+assert.ok(pdfHtml.includes("Legend"), "PDF renderer must include resource-map legend.");
+assert.ok(pdfHtml.includes("Before close") && pdfHtml.includes("After close"), "PDF renderer must split recommended actions before/after close.");
+assert.ok(pdfHtml.includes("Evidence basis") && pdfHtml.includes("Limits"), "PDF renderer must split evidence and limits panels.");
+assert.ok(pdfHtml.includes("qr"), "PDF renderer must include audit QR treatment.");
+
+assert.equal(pdfText.includes("Enterprise value band: Enterprise value band:"), false, "Enterprise value band label must not be duplicated.");
+
+const firstPrediction = pdfModel.sections[1].predictions[0];
+assert.notEqual(firstPrediction.statement, firstPrediction.evidenceRequired, "Prediction statement and evidence required must remain distinct.");
+assert.ok(firstPrediction.evidenceRequired, "Prediction evidence required must be preserved when available.");
+
+const firstPhase = pdfModel.sections[6].phases[0];
+assert.equal(firstPhase.heading, firstPrediction.oneLine.replace(/\.$/, ""), "Timeline heading must come from the prediction one-liner.");
+assert.notEqual(firstPhase.body, firstPhase.heading, "Timeline body must not copy the heading.");
+assert.equal(firstPhase.watchFor, firstPrediction.evidenceRequired, "Timeline watch-for must come from evidenceRequired.");
+
+const environmentSection = pdfModel.sections[3];
+assert.equal(environmentSection.acquirer.environment.includes(environmentSection.acquirer.environment + " / "), false);
+assert.equal(environmentSection.target.environment.includes(environmentSection.target.environment + " / "), false);
+
+const executiveHeadline = pdfModel.sections[0].hero.headline;
+const headlineOccurrences = pdfModel.renderedTextBlocks.filter((block) => block.text === executiveHeadline).length;
+assert.equal(headlineOccurrences, 1, "Executive headline must render once and must not be backfilled into other slots.");
+
+const seen = new Map();
+const allowedDuplicates = new Set([
+  "Mergevue",
+  "Forecast Brief",
+  "report@mergevue.com",
+  "before Day 30",
+  "Days 30–60",
+  "Day 60",
+  "$50M–$500M EV",
+  model.compatibilityScoreAndDealScenario.dataQuality,
+  model.evidenceBasisAndLimits.inputCompleteness,
+  model.compatibilityScoreAndDealScenario.acquirerName,
+  model.compatibilityScoreAndDealScenario.targetName,
+  ...pdfModel.sections[1].predictions.map((prediction) => prediction.oneLine),
+  ...pdfModel.sections[1].predictions.map((prediction) => prediction.statement),
+  ...pdfModel.sections[1].predictions.map((prediction) => prediction.evidenceRequired),
+]);
+for (const block of pdfModel.renderedTextBlocks) {
+  if (allowedDuplicates.has(block.text)) continue;
+  const existingSection = seen.get(block.text);
+  assert.ok(
+    !existingSection || existingSection === block.sectionId,
+    `Duplicate text block found across sections ${existingSection} and ${block.sectionId}: ${block.text}`,
+  );
+  seen.set(block.text, block.sectionId);
+}
+
+assert.equal(forecastBriefScoreBand(38.2), "mod", "Score 38.2 should map to canonical mod band.");
+assert.equal(pdfText.includes("MODERATE-LOW"), false, "PDF output must not use old MODERATE-LOW band copy.");
+assert.equal(pdfText.includes(" - "), false, "PDF text must use em dash semantics instead of ASCII dash separators.");
+assert.ok(pdfModel.humanSignOffNote.includes("human sign-off"), "Section appendix toggles must carry human sign-off note.");
 
 console.log("Mergevue public report PDF validation passed");

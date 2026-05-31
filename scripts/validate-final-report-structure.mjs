@@ -615,8 +615,8 @@ assert.ok(
 );
 assert.ok(
   appSource.includes("addEconomicRiskTranslationPdfSection(items, report, nextSectionNumber())")
-    || appSource.includes("buildMergevuePublicReportPdfTextModel(report)"),
-  "PDF Section 8 must render Economic Risk Translation from legacy report economics or Mergevue adapter PDF text model.",
+    || appSource.includes("buildMergevueForecastBriefDesignModel(report)"),
+  "PDF Section 8 must render Economic Risk Translation from legacy report economics or Mergevue adapter design model.",
 );
 assert.ok(appSource.includes("addCaseStudyPdfSection(items, sectionNumber, \"Economic Risk Translation\")"), "PDF Section 8 heading must be Economic Risk Translation.");
 assert.ok(!appSource.includes("addCaseStudyPdfSection(items, nextSectionNumber(), \"Deal Economics\")"), "PDF Section 8 must not keep the old Deal Economics heading.");

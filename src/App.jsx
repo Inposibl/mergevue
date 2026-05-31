@@ -129,8 +129,11 @@ import {
   MERGEVUE_PUBLIC_REPORT_PDF_FILE_NAME,
   buildMergevuePublicReportEmailCopy,
   buildMergevuePublicReportModel,
-  buildMergevuePublicReportPdfTextModel,
 } from "./reporting/mergevuePublicReportModel.js";
+import {
+  buildMergevueForecastBriefDesignModel,
+  renderMergevueForecastBriefHtml,
+} from "./reporting/mergevueForecastBriefDesignRenderer.js";
 import { screenByRoute } from "./screenRegistry.js";
 import "./styles.css";
 
@@ -7085,11 +7088,148 @@ function pdfRecommendedActions(deliverable) {
   });
 }
 
-function addMergevuePdfTextSection(items, sectionNumber, section) {
-  addCaseStudyPdfSection(items, sectionNumber, section.title);
-  for (const text of section.lines) {
-    addCaseStudyPdfParagraph(items, text);
+function addForecastBriefMetric(items, label, value, options = {}) {
+  if (!value && value !== 0) return;
+  items.push({
+    text: `${label}\n${value}`,
+    size: options.size ?? 10,
+    bold: options.bold ?? false,
+    fill: options.fill ?? PDF_BRAND.tableStripe,
+    stroke: options.stroke ?? PDF_BRAND.tableLine,
+    paddingY: options.paddingY ?? 9,
+    after: options.after ?? 7,
+    maxCharacters: options.maxCharacters ?? 64,
+  });
+}
+
+function addForecastBriefTable(items, rows, columns) {
+  items.push({ type: "table", rows, columns, size: 8.5, after: 12 });
+}
+
+function addForecastBriefHero(items, hero) {
+  items.push({ text: hero.masthead.toUpperCase(), size: 10, bold: true, align: "center", color: PDF_BRAND.accent, after: 8, maxCharacters: 80 });
+  items.push({ text: hero.product, size: 12, align: "center", color: PDF_BRAND.navy, after: 3, maxCharacters: 70 });
+  items.push({ text: hero.reportType, size: 28, bold: true, align: "center", color: PDF_BRAND.navy, after: 6, maxCharacters: 42 });
+  items.push({ text: hero.contactEmail, size: 10, align: "center", color: PDF_BRAND.muted, after: 18, maxCharacters: 72 });
+  addCaseStudyPdfParagraph(items, hero.headline, { size: 18, bold: true, color: PDF_BRAND.white, fill: PDF_BRAND.navy, stroke: PDF_BRAND.navy, paddingY: 14, after: 8, maxCharacters: 48 });
+  addCaseStudyPdfParagraph(items, hero.thesis, { size: 11, fill: PDF_BRAND.tableStripe, paddingY: 11, after: 6 });
+  addCaseStudyPdfParagraph(items, hero.decisionImplication, { size: 11, after: 6 });
+  addCaseStudyPdfParagraph(items, hero.mainRisk, { size: 11, color: PDF_BRAND.red, after: 6 });
+  addCaseStudyPdfParagraph(items, hero.recommendedAction, { size: 11, color: PDF_BRAND.green, after: 14 });
+}
+
+function addForecastBriefScoreTracker(items, section) {
+  addForecastBriefMetric(items, `ECS ${section.compatibilityScore}`, `0-100 scale marker: ${Math.round(section.scoreMarkerPercent)}% | score band: ${section.scoreBand} | confidence pips: ${section.confidencePips}`, { fill: PDF_BRAND.warningFill, stroke: PDF_BRAND.warningStroke, maxCharacters: 86 });
+  addForecastBriefTable(items, [
+    ["Acquirer", "Target", "Deal type", "Enterprise value band"],
+    [section.acquirerName, section.targetName, section.dealType, section.enterpriseValueBand],
+  ], [110, 110, 130, 118]);
+  addCaseStudyPdfParagraph(items, section.explanation, { size: 10, after: 8 });
+}
+
+function addForecastBriefPredictionCards(items, section) {
+  addForecastBriefMetric(items, section.statusTitle, section.statusDescription, { fill: PDF_BRAND.panelFill, stroke: PDF_BRAND.panelStroke, maxCharacters: 84 });
+  addForecastBriefTable(items, [["Sealed prediction one-liners"], ...section.previewOneLiners.slice(0, 3).map((line) => [line])], [468]);
+  for (const prediction of section.predictions) {
+    addForecastBriefMetric(items, prediction.oneLine, prediction.statement, { fill: PDF_BRAND.tableStripe, stroke: PDF_BRAND.blue, maxCharacters: 82 });
+    addForecastBriefTable(items, [
+      ["Lock ID", "Verify by", "Window"],
+      [prediction.lockId, prediction.verifyBy, prediction.window],
+      ["Evidence required", "Falsification condition", ""],
+      [prediction.evidenceRequired, prediction.falsificationCondition, ""],
+    ], [150, 160, 158]);
   }
+}
+
+function addForecastBriefEnvironmentCards(items, section) {
+  addForecastBriefTable(items, [
+    ["Side", "Environment", "Behavior pattern"],
+    [section.acquirer.name, section.acquirer.environment, section.acquirer.behaviorPattern],
+    [section.target.name, section.target.environment, section.target.behaviorPattern],
+  ], [110, 130, 228]);
+  addCaseStudyPdfParagraph(items, section.acquirer.description, { size: 10, after: 4 });
+  addCaseStudyPdfParagraph(items, section.target.description, { size: 10, after: 8 });
+}
+
+function addForecastBriefResourceMap(items, section) {
+  addCaseStudyPdfParagraph(items, section.explanation, { size: 10, fill: PDF_BRAND.panelFill, stroke: PDF_BRAND.panelStroke, paddingY: 10, after: 8 });
+  addCaseStudyPdfParagraph(items, `Legend: ${section.legend.join(" | ")}`, { size: 9, color: PDF_BRAND.muted, after: 8 });
+  addForecastBriefTable(items, [
+    ["Zone", "Category", "Bar", "Direction"],
+    ...section.zones.map((zone) => [zone.name, zone.category, `${Math.round(zone.intensity)} / 100 ${zone.band}`, zone.direction]),
+  ], [110, 112, 100, 146]);
+}
+
+function addForecastBriefTimeline(items, section) {
+  addForecastBriefTable(items, [
+    ["Signal setup", "Observation window", "Verification deadline"],
+    [section.timingLogic.signalSetup, section.timingLogic.observationWindow, section.timingLogic.verificationDeadline],
+  ], [156, 156, 156]);
+  addForecastBriefTable(items, [
+    ["Phase", "Body", "Watch for"],
+    ...section.phases.map((phase) => [phase.heading, phase.body, phase.watchFor]),
+  ], [130, 190, 148]);
+}
+
+function addForecastBriefEconomics(items, section) {
+  addForecastBriefMetric(items, "Enterprise value band", section.enterpriseValueBand, { fill: PDF_BRAND.warningFill, stroke: PDF_BRAND.warningStroke, maxCharacters: 84 });
+  addCaseStudyPdfParagraph(items, section.valuationDisclaimer, { size: 10, after: 5 });
+  addCaseStudyPdfParagraph(items, section.economicRiskPosture, { size: 10, after: 5 });
+  addCaseStudyPdfParagraph(items, section.engagementTierRequirement, { size: 10, color: PDF_BRAND.red, after: 8 });
+  addForecastBriefTable(items, [["Category", "Bar"], ...section.categories.map((category) => [category.label, `${category.value} / 100`])], [220, 248]);
+}
+
+function addForecastBriefActions(items, section) {
+  addForecastBriefTable(items, [
+    ["Before close", "After close"],
+    [section.beforeClose.map((action) => action.actionTitle).join("\n"), section.afterClose.map((action) => action.actionTitle).join("\n")],
+  ], [234, 234]);
+}
+
+function addForecastBriefEvidence(items, section) {
+  addForecastBriefTable(items, [
+    ["Evidence basis", "Limits"],
+    [section.canSay, section.cannotSay],
+    ["Input completeness", "Method limitations"],
+    [section.inputCompleteness, section.methodLimitations],
+  ], [234, 234]);
+}
+
+function addForecastBriefEngagement(items, section) {
+  for (const benefit of section.benefits) {
+    addCaseStudyPdfParagraph(items, benefit, { size: 10, after: 4 });
+  }
+  addCaseStudyPdfParagraph(items, section.cta, { size: 10, fill: PDF_BRAND.panelFill, stroke: PDF_BRAND.panelStroke, paddingY: 10, after: 5 });
+  addCaseStudyPdfParagraph(items, section.contactEmail, { size: 10, bold: true, color: PDF_BRAND.navy, after: 8 });
+}
+
+function addForecastBriefAudit(items, section) {
+  addForecastBriefTable(items, [
+    ["Report ID", "Generated", "Version"],
+    [section.reportId, section.generatedAt, section.reportVersion],
+    ["Scenario ID", "Public URL", "QR"],
+    [section.scenarioId, section.publicUrlPattern, section.qrLabel],
+  ], [156, 156, 156]);
+}
+
+function addForecastBriefDesignedSection(items, number, section) {
+  addCaseStudyPdfSection(items, number, section.title);
+  if (section.id === "exec") return addForecastBriefHero(items, section.hero);
+  if (section.id === "predictions") return addForecastBriefPredictionCards(items, section);
+  if (section.id === "scenario") return addForecastBriefScoreTracker(items, section);
+  if (section.id === "environments") return addForecastBriefEnvironmentCards(items, section);
+  if (section.id === "collision") {
+    [section.headline, section.summary, section.primaryTension, section.whyItMatters, section.postCloseFailureMode].forEach((text) => addCaseStudyPdfParagraph(items, text));
+    return undefined;
+  }
+  if (section.id === "resources") return addForecastBriefResourceMap(items, section);
+  if (section.id === "timeline") return addForecastBriefTimeline(items, section);
+  if (section.id === "economics") return addForecastBriefEconomics(items, section);
+  if (section.id === "actions") return addForecastBriefActions(items, section);
+  if (section.id === "evidence") return addForecastBriefEvidence(items, section);
+  if (section.id === "engagement") return addForecastBriefEngagement(items, section);
+  if (section.id === "audit") return addForecastBriefAudit(items, section);
+  return undefined;
 }
 
 function buildFinalDeliverablesReportLines(deliverable, session) {
@@ -7102,69 +7242,18 @@ function buildFinalDeliverablesReportLines(deliverable, session) {
   }
 
   const report = buildMergevuePublicReportModel(session, { deliverable });
-  const pdfTextModel = buildMergevuePublicReportPdfTextModel(report);
+  const designModel = buildMergevueForecastBriefDesignModel(report);
+  renderMergevueForecastBriefHtml(designModel);
   let sectionNumber = 0;
   const nextSectionNumber = () => {
     sectionNumber += 1;
     return sectionNumber;
   };
 
-  const items = [
-    { text: report.brand.name.toUpperCase(), size: 9, bold: true, align: "center", color: PDF_BRAND.accent, after: 18, maxCharacters: 90 },
-    {
-      text: report.brand.reportType,
-      size: 20,
-      bold: true,
-      align: "center",
-      color: PDF_BRAND.navy,
-      after: 9,
-      maxCharacters: 58,
-    },
-    {
-      text: report.brand.product,
-      size: 11,
-      align: "center",
-      color: PDF_BRAND.muted,
-      after: 7,
-      maxCharacters: 58,
-    },
-    {
-      text: report.brand.contactEmail,
-      size: 11,
-      align: "center",
-      color: PDF_BRAND.muted,
-      after: 7,
-      maxCharacters: 78,
-    },
-    ...pdfTextModel.cover.slice(3).map((text) => ({
-      text,
-      size: 11,
-      align: "center",
-      color: PDF_BRAND.body,
-      after: 8,
-      maxCharacters: 78,
-    })),
-    {
-      text: `${report.compatibilityScoreAndDealScenario.compatibilityScore ?? "Not available"} / ${report.compatibilityScoreAndDealScenario.compatibilityBand}`,
-      size: 18,
-      bold: true,
-      align: "center",
-      color: PDF_BRAND.green,
-      after: 18,
-      maxCharacters: 58,
-    },
-    {
-      type: "rule",
-      color: PDF_BRAND.accent,
-      width: 0.75,
-      before: 18,
-      after: 20,
-    },
-    { type: "pageBreak" },
-  ];
+  const items = [];
 
-  for (const section of pdfTextModel.sections) {
-    addMergevuePdfTextSection(items, nextSectionNumber(), section);
+  for (const section of designModel.sections) {
+    addForecastBriefDesignedSection(items, nextSectionNumber(), section);
     if (section.title === MERGEVUE_PUBLIC_REPORT_BLOCKS[5]) {
       items.push({ type: "pageBreak" });
     }
