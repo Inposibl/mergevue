@@ -3662,6 +3662,7 @@ function TargetSelfAssessmentSurvey({ session, setSession, invite = null }) {
       return;
     }
 
+    let nextSession;
     if (invite) {
       const completedInvite = completeTargetInvite(invite, targetSelfAssessment);
       if (!completedInvite.ok) {
@@ -3670,13 +3671,13 @@ function TargetSelfAssessmentSurvey({ session, setSession, invite = null }) {
       }
 
       publishTargetSelfCompletion(completedInvite.invite);
-      setSession(Object.freeze({
+      nextSession = Object.freeze({
         ...session,
         targetInvite: completedInvite.invite,
         targetSelfAssessment,
-      }));
+      });
     } else {
-      setSession(Object.freeze({
+      nextSession = Object.freeze({
         ...session,
         targetSelfAssessment,
         targetSelfDirect: Object.freeze({
@@ -3684,7 +3685,14 @@ function TargetSelfAssessmentSurvey({ session, setSession, invite = null }) {
           route: "step-2c-direct",
           completedAt: targetSelfAssessment.submittedAt,
         }),
-      }));
+      });
+    }
+
+    setSession(nextSession);
+    const finalDeliverable = buildFinalDeliverable(nextSession);
+    if (finalDeliverable.ready) {
+      navigate(finalDeliverable.route);
+      return;
     }
     setReceipt(true);
   }

@@ -164,6 +164,7 @@ assert.equal(inviteMarkerOnlyFinalDeliverable.status, "target-self-assessment-re
 
 const appSource = readFileSync(new URL("../src/App.jsx", import.meta.url), "utf8");
 assert.match(appSource, /function TargetReceiptScreen\(\{ invited = false, session = null \}\)[\s\S]*const finalDeliverable = buildFinalDeliverable\(session\);[\s\S]*Go to final report page[\s\S]*navigate\(finalDeliverable\.route\)/);
+assert.match(appSource, /function TargetSelfAssessmentSurvey\(\{ session, setSession, invite = null \}\)[\s\S]*setSession\(nextSession\);[\s\S]*const finalDeliverable = buildFinalDeliverable\(nextSession\);[\s\S]*if \(finalDeliverable\.ready\) \{[\s\S]*navigate\(finalDeliverable\.route\);[\s\S]*return;[\s\S]*\}[\s\S]*setReceipt\(true\);/);
 
 const otherPositioningMissingText = validateTargetSelfPositioning({ p1: "D", p2: "C" });
 assert.equal(otherPositioningMissingText.valid, false);
