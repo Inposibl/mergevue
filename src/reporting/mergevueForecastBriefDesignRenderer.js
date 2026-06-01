@@ -565,8 +565,8 @@ function sectionHead(num, title, note) {
 function renderArchiveMasthead(model) {
   const titleParts = escapeHtml(model.header.title).split(" × ");
   const title = titleParts.length === 2 ? `${titleParts[0]} <span class="x">×</span> ${titleParts[1]}` : escapeHtml(model.header.title);
-  return `<header class="mast masthead">
-    <div class="mast-row">
+  return `<header class="mast">
+    <div class="masthead mast-row">
       <div class="brand"><div class="mark" aria-hidden="true"></div><div><div class="brand-name">MERGEVUE</div><div class="brand-sub">View into the merge</div></div></div>
       <div class="mast-meta">Diagnostic <b>${escapeHtml(model.masthead.diagnosticId)}</b><br>Issued <b>${escapeHtml(formatForecastDate(model.masthead.issuedAt))}</b><br>Tier <b>${escapeHtml(model.masthead.tierLabel)}</b><br><div class="classif">Preview</div></div>
     </div>

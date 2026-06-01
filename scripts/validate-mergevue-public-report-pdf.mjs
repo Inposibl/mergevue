@@ -133,12 +133,27 @@ const pdfText = [
   ...pdfModel.renderedTextBlocks.map((block) => block.text),
 ].join("\n");
 
+const FORBIDDEN_RENDERED_DUMP_MARKERS = Object.freeze([
+  "ECS 91.2 0-100 scale marker",
+  "Lock ID Verify by Window",
+  "Zone Category Bar Direction Explanation",
+  "Timing Action Owner Reason Expected effect",
+  "Phase Body Watch for",
+  "Post-Deal Behavior Forecast Forecast Brief",
+  "Days 30-60",
+  " - ",
+]);
+
 for (const required of REQUIRED_PDF_STRINGS) {
   assert.ok(pdfText.includes(required), `Required PDF output missing: ${required}`);
 }
 
 for (const forbidden of FORBIDDEN_PDF_STRINGS) {
   assert.equal(pdfText.includes(forbidden), false, `Forbidden PDF output string found: ${forbidden}`);
+}
+
+for (const forbidden of FORBIDDEN_RENDERED_DUMP_MARKERS) {
+  assert.equal(pdfHtml.includes(forbidden), false, `Printable HTML must not contain table/text dump marker: ${forbidden}`);
 }
 
 assert.ok(pdfText.includes("McDonald's"), "PDF output should normalize McDonalds to McDonald's");
@@ -154,6 +169,20 @@ assert.ok(
 assert.ok(
   APP_SOURCE.includes("renderMergevueForecastBriefHtml(designModel)"),
   "PDF path must exercise the shared designed HTML/print renderer contract",
+);
+assert.ok(
+  APP_SOURCE.includes("openForecastBriefPrintView(deliverable, session)"),
+  "Public PDF button must open the printable Forecast Brief HTML path",
+);
+assert.equal(
+  APP_SOURCE.includes("const pdf = createFinalDeliverablesReportPdf(deliverable, session);"),
+  false,
+  "Public PDF save path must not create the simple line/table PDF",
+);
+assert.equal(
+  APP_SOURCE.includes("downloadFinalDeliverablesReportPdf(deliverable, offer, session, pdf)"),
+  false,
+  "Public PDF save path must not download the simple line/table PDF",
 );
 assert.equal(
   APP_SOURCE.includes("buildMergevuePublicReportPdfTextModel(report)"),
@@ -198,6 +227,25 @@ for (const value of alignedValues) {
 
 for (const className of forecastBriefDesignClassContract()) {
   assert.ok(pdfHtml.includes(className), `Designed print renderer missing class contract: ${className}`);
+}
+
+for (const layoutMarker of [
+  'class="sheet"',
+  'class="mast"',
+  'class="exec"',
+  'class="exec-score"',
+  'class="score-num',
+  'class="score-scale"',
+  'class="pips"',
+  'class="pred"',
+  'class="tracker"',
+  'class="env"',
+  'class="zone"',
+  'class="tl-col"',
+  'class="cat"',
+  'class="panel"',
+]) {
+  assert.ok(pdfHtml.includes(layoutMarker), `Printable HTML missing required layout marker: ${layoutMarker}`);
 }
 
 for (const cssNeedle of ["@media print", "break-inside: avoid", "print-color-adjust"]) {
