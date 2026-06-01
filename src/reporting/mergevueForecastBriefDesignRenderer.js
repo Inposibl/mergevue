@@ -544,6 +544,11 @@ ${renderArchiveMasthead(model)}
 ${renderArchiveExecutive(model)}
 ${model.sections.filter((section) => section.id !== "exec" && section.id !== "scenario").map((section, index) => renderHtmlSection(section, index + 1)).join("\n")}
 </main>
+<script>
+  window.addEventListener("load", () => {
+    window.setTimeout(() => window.print(), 150);
+  });
+</script>
 </body>
 </html>`;
 }
