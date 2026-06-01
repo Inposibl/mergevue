@@ -133,12 +133,27 @@ const pdfText = [
   ...pdfModel.renderedTextBlocks.map((block) => block.text),
 ].join("\n");
 
+const FORBIDDEN_RENDERED_DUMP_MARKERS = Object.freeze([
+  "ECS 91.2 0-100 scale marker",
+  "Lock ID Verify by Window",
+  "Zone Category Bar Direction Explanation",
+  "Timing Action Owner Reason Expected effect",
+  "Phase Body Watch for",
+  "Post-Deal Behavior Forecast Forecast Brief",
+  "Days 30-60",
+  " - ",
+]);
+
 for (const required of REQUIRED_PDF_STRINGS) {
   assert.ok(pdfText.includes(required), `Required PDF output missing: ${required}`);
 }
 
 for (const forbidden of FORBIDDEN_PDF_STRINGS) {
   assert.equal(pdfText.includes(forbidden), false, `Forbidden PDF output string found: ${forbidden}`);
+}
+
+for (const forbidden of FORBIDDEN_RENDERED_DUMP_MARKERS) {
+  assert.equal(pdfHtml.includes(forbidden), false, `Printable HTML must not contain table/text dump marker: ${forbidden}`);
 }
 
 assert.ok(pdfText.includes("McDonald's"), "PDF output should normalize McDonalds to McDonald's");
@@ -154,6 +169,40 @@ assert.ok(
 assert.ok(
   APP_SOURCE.includes("renderMergevueForecastBriefHtml(designModel)"),
   "PDF path must exercise the shared designed HTML/print renderer contract",
+);
+assert.ok(
+  APP_SOURCE.includes("downloadFinalDeliverablesReportPdf(deliverable, offer, session);"),
+  "Public PDF button must call the direct Forecast Brief PDF download path",
+);
+assert.ok(
+  APP_SOURCE.includes("new Blob([pdf], { type: \"application/pdf\" })"),
+  "Public PDF save path must create an application/pdf Blob",
+);
+assert.ok(
+  APP_SOURCE.includes("URL.createObjectURL(pdfBlob)"),
+  "Public PDF save path must create a Blob URL for the generated PDF",
+);
+assert.ok(
+  APP_SOURCE.includes("link.download = MERGEVUE_FORECAST_BRIEF_PDF_FILE_NAME"),
+  "Public PDF save path must set the Mergevue Forecast Brief download filename",
+);
+assert.ok(
+  APP_SOURCE.includes("link.click()"),
+  "Public PDF save path must trigger a browser download without opening the print dialog",
+);
+assert.ok(
+  APP_SOURCE.includes("URL.revokeObjectURL(pdfUrl)"),
+  "Public PDF save path must revoke the generated PDF Blob URL",
+);
+assert.equal(
+  pdfHtml.includes(["window", "print"].join(".") + "()"),
+  false,
+  "Forecast Brief export HTML must not auto-trigger the browser print dialog",
+);
+assert.equal(
+  APP_SOURCE.includes(`setDownloadState("${["Opening", "printable", "Forecast Brief."].join(" ")}")`),
+  false,
+  "Public PDF button must not describe the old print-dialog path",
 );
 assert.equal(
   APP_SOURCE.includes("buildMergevuePublicReportPdfTextModel(report)"),
@@ -172,36 +221,6 @@ assert.equal(
   APP_SOURCE.includes('const FINAL_DELIVERABLE_PDF_FILE_NAME = "structural-typology-final-deliverables-report.pdf"'),
   false,
   "App.jsx must not define the old Structural Typology PDF filename",
-);
-assert.ok(
-  APP_SOURCE.includes("openForecastBriefPrintView(deliverable, session)"),
-  "Public PDF button must open the printable Forecast Brief HTML path",
-);
-
-assert.ok(
-  APP_SOURCE.includes("new Blob([html], { type: \"text/html;charset=utf-8\" })"),
-  "Public PDF print path must create a text/html Blob from the rendered Forecast Brief HTML",
-);
-
-assert.ok(
-  APP_SOURCE.includes("URL.createObjectURL(printBlob)"),
-  "Public PDF print path must create a Blob URL for the rendered Forecast Brief HTML",
-);
-
-assert.ok(
-  APP_SOURCE.includes("window.open(printUrl, \"_blank\")"),
-  "Public PDF print path must open the Blob URL in a new tab",
-);
-
-assert.ok(
-  APP_SOURCE.includes("URL.revokeObjectURL(printUrl)"),
-  "Public PDF print path must revoke the Blob URL after opening",
-);
-
-assert.equal(
-  APP_SOURCE.includes("printWindow.document.write(html)"),
-  false,
-  "Public PDF print path must not write HTML into a popup",
 );
 
 const alignedValues = Object.freeze([
@@ -228,6 +247,25 @@ for (const value of alignedValues) {
 
 for (const className of forecastBriefDesignClassContract()) {
   assert.ok(pdfHtml.includes(className), `Designed print renderer missing class contract: ${className}`);
+}
+
+for (const layoutMarker of [
+  'class="sheet"',
+  'class="mast"',
+  'class="exec"',
+  'class="exec-score"',
+  'class="score-num',
+  'class="score-scale"',
+  'class="pips"',
+  'class="pred"',
+  'class="tracker"',
+  'class="env"',
+  'class="zone"',
+  'class="tl-col"',
+  'class="cat"',
+  'class="panel"',
+]) {
+  assert.ok(pdfHtml.includes(layoutMarker), `Printable HTML missing required layout marker: ${layoutMarker}`);
 }
 
 for (const cssNeedle of ["@media print", "break-inside: avoid", "print-color-adjust"]) {

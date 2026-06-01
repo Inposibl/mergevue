@@ -538,17 +538,12 @@ export function renderMergevueForecastBriefHtml(model) {
 </style>
 </head>
 <body class="${classContract}">
-<div class="controls"><div class="cb-brand">Mergevue Forecast Brief</div><button class="cb-print" onclick="window.print()">Download PDF</button></div>
+<div class="controls"><div class="cb-brand">Mergevue Forecast Brief</div></div>
 <main class="sheet">
 ${renderArchiveMasthead(model)}
 ${renderArchiveExecutive(model)}
 ${model.sections.filter((section) => section.id !== "exec" && section.id !== "scenario").map((section, index) => renderHtmlSection(section, index + 1)).join("\n")}
 </main>
-<script>
-  window.addEventListener("load", () => {
-    window.setTimeout(() => window.print(), 150);
-  });
-</script>
 </body>
 </html>`;
 }

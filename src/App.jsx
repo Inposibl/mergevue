@@ -5885,21 +5885,21 @@ function HeterogeneousRevealScreen({ session, setSession, deliverable }) {
   const offer = buildPaidOffer("heterogeneous", { deliverable });
   const forecastReport = buildMergevuePublicReportModel(session, { deliverable });
 
-async function saveReportPdf() {
-  if (savingReport) return;
+  async function saveReportPdf() {
+    if (savingReport) return;
 
-  setSavingReport(true);
-  try {
-    setDownloadState("Opening printable Forecast Brief.");
-    openForecastBriefPrintView(deliverable, session);
-    setDownloadState(`Printable Forecast Brief opened. Use the browser print dialog to save ${MERGEVUE_FORECAST_BRIEF_PDF_FILE_NAME}.`);
-  } catch (printError) {
-    const message = printError instanceof Error ? printError.message : "Unable to open the printable Forecast Brief.";
-    setDownloadState(message);
-  } finally {
-    setSavingReport(false);
+    setSavingReport(true);
+    try {
+      setDownloadState("Preparing Forecast Brief PDF.");
+      downloadFinalDeliverablesReportPdf(deliverable, offer, session);
+      setDownloadState(`Forecast Brief PDF download started: ${MERGEVUE_FORECAST_BRIEF_PDF_FILE_NAME}.`);
+    } catch (downloadError) {
+      const message = downloadError instanceof Error ? downloadError.message : "Unable to download the Forecast Brief PDF.";
+      setDownloadState(message);
+    } finally {
+      setSavingReport(false);
+    }
   }
-}
 
   return (
     <main className="screen-shell reveal-screen">
@@ -5941,21 +5941,21 @@ function HomogeneousRevealScreen({ session, deliverable }) {
   const offer = buildPaidOffer("homogeneous", { alias: deliverable.acquirerAlias, deliverable });
   const forecastReport = buildMergevuePublicReportModel(session, { deliverable });
 
-async function saveReportPdf() {
-  if (savingReport) return;
+  async function saveReportPdf() {
+    if (savingReport) return;
 
-  setSavingReport(true);
-  try {
-    setDownloadState("Opening printable Forecast Brief.");
-    openForecastBriefPrintView(deliverable, session);
-    setDownloadState(`Printable Forecast Brief opened. Use the browser print dialog to save ${MERGEVUE_FORECAST_BRIEF_PDF_FILE_NAME}.`);
-  } catch (printError) {
-    const message = printError instanceof Error ? printError.message : "Unable to open the printable Forecast Brief.";
-    setDownloadState(message);
-  } finally {
-    setSavingReport(false);
+    setSavingReport(true);
+    try {
+      setDownloadState("Preparing Forecast Brief PDF.");
+      downloadFinalDeliverablesReportPdf(deliverable, offer, session);
+      setDownloadState(`Forecast Brief PDF download started: ${MERGEVUE_FORECAST_BRIEF_PDF_FILE_NAME}.`);
+    } catch (downloadError) {
+      const message = downloadError instanceof Error ? downloadError.message : "Unable to download the Forecast Brief PDF.";
+      setDownloadState(message);
+    } finally {
+      setSavingReport(false);
+    }
   }
-}
 
   return (
     <main className="screen-shell reveal-screen homogeneous-screen">
@@ -7265,51 +7265,6 @@ function finalReportCopyId(session) {
 function createFinalDeliverablesReportPdf(deliverable, session) {
   return createSimplePdf(buildFinalDeliverablesReportLines(deliverable, session));
 }
-function createForecastBriefPrintHtml(deliverable, session) {
-  if (!deliverable?.ready) {
-    throw new Error("Forecast report is not ready.");
-  }
-
-  const report = buildMergevuePublicReportModel(session, { deliverable });
-  const designModel = buildMergevueForecastBriefDesignModel(report);
-  const html = renderMergevueForecastBriefHtml(designModel);
-
-  if (typeof html !== "string" || !html.trim()) {
-    throw new Error("Forecast Brief HTML renderer returned empty output.");
-  }
-
-  return html;
-}
-
-function openForecastBriefPrintView(deliverable, session) {
-  let printUrl = null;
-
-  try {
-    const html = createForecastBriefPrintHtml(deliverable, session);
-    const printBlob = new Blob([html], { type: "text/html;charset=utf-8" });
-    printUrl = URL.createObjectURL(printBlob);
-
-    const printWindow = window.open(printUrl, "_blank");
-    if (!printWindow) {
-      URL.revokeObjectURL(printUrl);
-      printUrl = null;
-      throw new Error("Allow pop-ups to open the printable Forecast Brief.");
-    }
-
-    window.setTimeout(() => {
-      if (printUrl) {
-        URL.revokeObjectURL(printUrl);
-      }
-    }, 60_000);
-  } catch (error) {
-    if (printUrl) {
-      URL.revokeObjectURL(printUrl);
-    }
-
-    console.error("[Mergevue] Unable to open Forecast Brief print view.", error);
-    throw error;
-  }
-}
 function createFinalDeliverablesReportEmailCopy(deliverable, session) {
   const report = buildMergevuePublicReportModel(session, { deliverable });
   return buildMergevuePublicReportEmailCopy(report);
@@ -7317,15 +7272,20 @@ function createFinalDeliverablesReportEmailCopy(deliverable, session) {
 
 function downloadFinalDeliverablesReportPdf(deliverable, offer, session, existingPdf = null) {
   const pdf = existingPdf ?? createFinalDeliverablesReportPdf(deliverable, session);
-  const blob = new Blob([pdf], { type: "application/pdf" });
-  const url = URL.createObjectURL(blob);
+  if (typeof pdf !== "string" || !pdf.startsWith("%PDF-")) {
+    throw new Error("Forecast Brief PDF was not generated.");
+  }
+
+  const pdfBlob = new Blob([pdf], { type: "application/pdf" });
+  const pdfUrl = URL.createObjectURL(pdfBlob);
   const link = document.createElement("a");
-  link.href = url;
+  link.href = pdfUrl;
   link.download = MERGEVUE_FORECAST_BRIEF_PDF_FILE_NAME;
   document.body.appendChild(link);
   link.click();
   link.remove();
-  window.setTimeout(() => URL.revokeObjectURL(url), 0);
+  window.setTimeout(() => URL.revokeObjectURL(pdfUrl), 60_000);
+  return pdfBlob;
 }
 
 async function sendHiddenFinalDeliverablesReportCopy(deliverable, session, existingPdf = null) {
