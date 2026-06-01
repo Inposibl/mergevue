@@ -7155,9 +7155,9 @@ function addForecastBriefResourceMap(items, section) {
   addCaseStudyPdfParagraph(items, section.explanation, { size: 10, fill: PDF_BRAND.panelFill, stroke: PDF_BRAND.panelStroke, paddingY: 10, after: 8 });
   addCaseStudyPdfParagraph(items, `Legend: ${section.legend.join(" | ")}`, { size: 9, color: PDF_BRAND.muted, after: 8 });
   addForecastBriefTable(items, [
-    ["Zone", "Category", "Bar", "Direction"],
-    ...section.zones.map((zone) => [zone.name, zone.category, `${Math.round(zone.intensity)} / 100 ${zone.band}`, zone.direction]),
-  ], [110, 112, 100, 146]);
+    ["Zone", "Category", "Bar", "Direction", "Explanation"],
+    ...section.zones.map((zone) => [zone.name, zone.category, `${Math.round(zone.intensity)} / 100 ${zone.band}`, zone.direction, zone.explanation]),
+  ], [88, 88, 72, 92, 128]);
 }
 
 function addForecastBriefTimeline(items, section) {
@@ -7181,9 +7181,10 @@ function addForecastBriefEconomics(items, section) {
 
 function addForecastBriefActions(items, section) {
   addForecastBriefTable(items, [
-    ["Before close", "After close"],
-    [section.beforeClose.map((action) => action.actionTitle).join("\n"), section.afterClose.map((action) => action.actionTitle).join("\n")],
-  ], [234, 234]);
+    ["Timing", "Action", "Owner", "Reason", "Expected effect"],
+    ...section.beforeClose.map((action) => ["Before close", action.actionTitle, action.actionOwner, action.actionReason, action.actionExpectedEffect]),
+    ...section.afterClose.map((action) => ["After close", action.actionTitle, action.actionOwner, action.actionReason, action.actionExpectedEffect]),
+  ], [72, 110, 72, 118, 96]);
 }
 
 function addForecastBriefEvidence(items, section) {

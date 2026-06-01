@@ -29,6 +29,9 @@ const REQUIRED_PDF_STRINGS = Object.freeze([
   "Days 30–60",
   "Day 60",
   "$50M–$500M EV",
+  "high",
+  "moderate",
+  "aligned",
   "Absorb / neutralize a competitor",
 ]);
 
@@ -215,6 +218,10 @@ assert.ok(pdfHtml.includes("Before close") && pdfHtml.includes("After close"), "
 assert.ok(pdfHtml.includes("Evidence basis") && pdfHtml.includes("Limits"), "PDF renderer must split evidence and limits panels.");
 assert.ok(pdfHtml.includes("qr"), "PDF renderer must include audit QR treatment.");
 
+for (const archiveClass of ["exec-score", "pred-top", "pred-meta", "zone", "rbar", "tl-col", "env-total", "act-meta", "audit-grid"]) {
+  assert.ok(pdfHtml.includes(archiveClass), `Archive-aligned renderer missing class: ${archiveClass}`);
+}
+
 assert.equal(pdfText.includes("Enterprise value band: Enterprise value band:"), false, "Enterprise value band label must not be duplicated.");
 
 const firstPrediction = pdfModel.sections[1].predictions[0];
@@ -243,8 +250,13 @@ const allowedDuplicates = new Set([
   "Days 30–60",
   "Day 60",
   "$50M–$500M EV",
+  "high",
+  "moderate",
+  "aligned",
   model.compatibilityScoreAndDealScenario.dataQuality,
   model.evidenceBasisAndLimits.inputCompleteness,
+  model.auditFooter.publicUrlPattern,
+  model.auditFooter.trackRecordUrl,
   model.compatibilityScoreAndDealScenario.acquirerName,
   model.compatibilityScoreAndDealScenario.targetName,
   ...pdfModel.sections[1].predictions.map((prediction) => prediction.oneLine),
@@ -265,5 +277,20 @@ assert.equal(forecastBriefScoreBand(38.2), "mod", "Score 38.2 should map to cano
 assert.equal(pdfText.includes("MODERATE-LOW"), false, "PDF output must not use old MODERATE-LOW band copy.");
 assert.equal(pdfText.includes(" - "), false, "PDF text must use em dash semantics instead of ASCII dash separators.");
 assert.ok(pdfModel.humanSignOffNote.includes("human sign-off"), "Section appendix toggles must carry human sign-off note.");
+
+const firstResource = pdfModel.sections[5].zones[0];
+assert.ok(pdfText.includes(firstResource.name), "PDF output must preserve resource name.");
+assert.ok(pdfText.includes(firstResource.category), "PDF output must preserve resource category.");
+assert.ok(pdfText.includes(firstResource.direction), "PDF output must preserve resource direction.");
+assert.ok(pdfText.includes(String(firstResource.intensity)), "PDF output must preserve conflict intensity.");
+assert.ok(pdfText.includes(firstResource.band), "PDF output must preserve conflict band.");
+assert.ok(pdfText.includes(firstResource.explanation), "PDF output must preserve resource explanation.");
+
+const firstAction = pdfModel.sections[8].beforeClose[0] ?? pdfModel.sections[8].afterClose[0];
+assert.ok(pdfText.includes(firstAction.actionTitle), "PDF output must preserve recommended action title.");
+assert.ok(pdfText.includes(firstAction.actionTiming), "PDF output must preserve recommended action timing.");
+assert.ok(pdfText.includes(firstAction.actionOwner), "PDF output must preserve recommended action owner.");
+assert.ok(pdfText.includes(firstAction.actionReason), "PDF output must preserve recommended action reason.");
+assert.ok(pdfText.includes(firstAction.actionExpectedEffect), "PDF output must preserve recommended action expected effect.");
 
 console.log("Mergevue public report PDF validation passed");
