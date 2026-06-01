@@ -173,6 +173,36 @@ assert.equal(
   false,
   "App.jsx must not define the old Structural Typology PDF filename",
 );
+assert.ok(
+  APP_SOURCE.includes("openForecastBriefPrintView(deliverable, session)"),
+  "Public PDF button must open the printable Forecast Brief HTML path",
+);
+
+assert.ok(
+  APP_SOURCE.includes("new Blob([html], { type: \"text/html;charset=utf-8\" })"),
+  "Public PDF print path must create a text/html Blob from the rendered Forecast Brief HTML",
+);
+
+assert.ok(
+  APP_SOURCE.includes("URL.createObjectURL(printBlob)"),
+  "Public PDF print path must create a Blob URL for the rendered Forecast Brief HTML",
+);
+
+assert.ok(
+  APP_SOURCE.includes("window.open(printUrl, \"_blank\")"),
+  "Public PDF print path must open the Blob URL in a new tab",
+);
+
+assert.ok(
+  APP_SOURCE.includes("URL.revokeObjectURL(printUrl)"),
+  "Public PDF print path must revoke the Blob URL after opening",
+);
+
+assert.equal(
+  APP_SOURCE.includes("printWindow.document.write(html)"),
+  false,
+  "Public PDF print path must not write HTML into a popup",
+);
 
 const alignedValues = Object.freeze([
   model.brand.name,

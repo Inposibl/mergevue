@@ -88,7 +88,8 @@ assert.match(appSource, /action=send-final-report/);
 assert.match(appSource, /action=send-final-report-hidden-copy/);
 assert.match(appSource, /sendHiddenFinalDeliverablesReportCopy/);
 assert.match(appSource, /Save full report in PDF/);
-assert.match(appSource, /hidden copy was not sent/);
+assert.match(appSource, /openForecastBriefPrintView\(deliverable, session\)/);
+assert.match(appSource, /Printable Forecast Brief opened/);
 assert.match(appSource, /pdfBase64/);
 
 const resetSession = resetPublicAssessmentSession(result.session, "2026-05-01T13:00:00.000Z");
