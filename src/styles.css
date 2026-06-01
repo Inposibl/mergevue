@@ -2948,7 +2948,8 @@ textarea {
 }
 
 .client-output-stack > article {
-  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  border: 1px solid #d8e2ef;
   border-radius: 8px;
   display: grid;
   gap: 8px;
@@ -2957,6 +2958,52 @@ textarea {
 
 .client-output-stack strong {
   color: #121826;
+}
+
+.client-output-stack p,
+.client-output-stack span,
+.client-output-stack em,
+.client-output-stack small {
+  color: #334155;
+}
+
+.forecast-report-document,
+.forecast-report-document p,
+.forecast-report-document span,
+.forecast-report-document em,
+.forecast-report-document small,
+.forecast-report-document li {
+  color: #1f2937;
+}
+
+.forecast-report-document strong,
+.forecast-report-document h2,
+.forecast-report-document h3 {
+  color: #111827;
+}
+
+.forecast-report-document .source-note {
+  color: #475569;
+}
+
+.forecast-report-section--premium {
+  background: #183a63;
+  border-color: #183a63;
+}
+
+.forecast-report-section--premium,
+.forecast-report-section--premium p,
+.forecast-report-section--premium span,
+.forecast-report-section--premium em,
+.forecast-report-section--premium small,
+.forecast-report-section--premium li {
+  color: #f8fafc;
+}
+
+.forecast-report-section--premium h2,
+.forecast-report-section--premium h3,
+.forecast-report-section--premium strong {
+  color: #ffffff;
 }
 
 .compact-anchors {
@@ -3460,5 +3507,39 @@ textarea {
   .resource-conflict-summary {
     align-items: flex-start;
     flex-direction: column;
+  }
+}
+
+@media print {
+  .forecast-report-document,
+  .forecast-report-document p,
+  .forecast-report-document span,
+  .forecast-report-document em,
+  .forecast-report-document small,
+  .forecast-report-document li,
+  .client-output-stack p,
+  .client-output-stack span,
+  .client-output-stack em,
+  .client-output-stack small {
+    color: #1f2937 !important;
+  }
+
+  .forecast-report-document strong,
+  .forecast-report-document h2,
+  .forecast-report-document h3,
+  .client-output-stack strong {
+    color: #111827 !important;
+  }
+
+  .forecast-report-section--premium,
+  .forecast-report-section--premium p,
+  .forecast-report-section--premium span,
+  .forecast-report-section--premium em,
+  .forecast-report-section--premium small,
+  .forecast-report-section--premium li {
+    background: #183a63 !important;
+    color: #ffffff !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
   }
 }
