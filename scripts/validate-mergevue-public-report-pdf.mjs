@@ -174,6 +174,40 @@ assert.ok(
   APP_SOURCE.includes("openForecastBriefPrintView(deliverable, session)"),
   "Public PDF button must open the printable Forecast Brief HTML path",
 );
+assert.ok(
+  APP_SOURCE.includes('typeof html !== "string" || !html.trim()'),
+  "Printable Forecast Brief opener must validate non-empty HTML before opening a new window",
+);
+assert.ok(
+  APP_SOURCE.includes('new Blob([html], { type: "text/html;charset=utf-8" })'),
+  "Printable Forecast Brief opener must create a complete HTML Blob before opening a new window",
+);
+assert.ok(
+  APP_SOURCE.includes("URL.createObjectURL(printBlob)"),
+  "Printable Forecast Brief opener must use a Blob URL instead of writing into an empty popup",
+);
+assert.ok(
+  APP_SOURCE.includes('window.open(printUrl, "_blank")'),
+  "Printable Forecast Brief opener must open the rendered Blob URL",
+);
+assert.ok(
+  APP_SOURCE.includes("URL.revokeObjectURL(printUrl)"),
+  "Printable Forecast Brief opener must clean up Blob URLs after opening or failure",
+);
+assert.ok(
+  APP_SOURCE.includes('console.error("[Mergevue] Unable to open Forecast Brief print view.", error)'),
+  "Printable Forecast Brief opener must surface rendering/open failures in the console",
+);
+assert.equal(
+  APP_SOURCE.includes('window.open("", MERGEVUE_FORECAST_BRIEF_PRINT_WINDOW_NAME, "noopener,noreferrer'),
+  false,
+  "Printable Forecast Brief opener must not open a blank noopener popup before HTML generation",
+);
+assert.equal(
+  APP_SOURCE.includes("printWindow.document.write(html)"),
+  false,
+  "Printable Forecast Brief opener must not document.write into an empty popup",
+);
 assert.equal(
   APP_SOURCE.includes("const pdf = createFinalDeliverablesReportPdf(deliverable, session);"),
   false,

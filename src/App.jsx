@@ -7274,24 +7274,34 @@ function createForecastBriefPrintHtml(deliverable, session) {
 
   const report = buildMergevuePublicReportModel(session, { deliverable });
   const designModel = buildMergevueForecastBriefDesignModel(report);
-  return renderMergevueForecastBriefHtml(designModel);
+  const html = renderMergevueForecastBriefHtml(designModel);
+  if (typeof html !== "string" || !html.trim()) {
+    throw new Error("Forecast Brief print HTML was not generated.");
+  }
+  return html;
 }
 
 function openForecastBriefPrintView(deliverable, session) {
-  const html = createForecastBriefPrintHtml(deliverable, session);
-  const printWindow = window.open("", MERGEVUE_FORECAST_BRIEF_PRINT_WINDOW_NAME, "noopener,noreferrer,width=980,height=1100");
-  if (!printWindow) {
-    throw new Error("Allow pop-ups to open the printable Forecast Brief.");
-  }
+  let printUrl = "";
 
-  printWindow.document.open();
-  printWindow.document.write(html);
-  printWindow.document.close();
-  printWindow.document.title = MERGEVUE_FORECAST_BRIEF_PDF_FILE_NAME;
-  printWindow.focus();
-  printWindow.setTimeout(() => {
-    printWindow.print();
-  }, 250);
+  try {
+    const html = createForecastBriefPrintHtml(deliverable, session);
+    const printBlob = new Blob([html], { type: "text/html;charset=utf-8" });
+    printUrl = URL.createObjectURL(printBlob);
+    const printWindow = window.open(printUrl, "_blank");
+    if (!printWindow) {
+      URL.revokeObjectURL(printUrl);
+      printUrl = "";
+      throw new Error("Allow pop-ups to open the printable Forecast Brief.");
+    }
+    window.setTimeout(() => URL.revokeObjectURL(printUrl), 60000);
+  } catch (error) {
+    if (printUrl) {
+      URL.revokeObjectURL(printUrl);
+    }
+    console.error("[Mergevue] Unable to open Forecast Brief print view.", error);
+    throw error;
+  }
 }
 
 function createFinalDeliverablesReportEmailCopy(deliverable, session) {
