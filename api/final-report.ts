@@ -800,6 +800,17 @@ async function readTargetSelfCompletion(request: NodeRequest, response: NodeResp
 
 export default async function handler(request: NodeRequest, response: NodeResponse) {
   const requestUrl = new URL(request.url ?? "/api/final-report", "https://st.local");
+  
+  if (requestUrl.searchParams.get("action") === "save-target-self-completion") {
+    await saveTargetSelfCompletion(request, response);
+    return;
+  }
+
+  if (requestUrl.searchParams.get("action") === "target-self-state") {
+    await readTargetSelfCompletion(request, response, requestUrl.searchParams);
+    return;
+  }
+
   if (requestUrl.searchParams.get("action") === "send-final-report-hidden-copy") {
     await sendFinalReportHiddenCopy(request, response);
     return;
