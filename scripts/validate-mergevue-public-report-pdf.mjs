@@ -175,11 +175,19 @@ assert.ok(
   "Public PDF button must call the direct Forecast Brief PDF download path",
 );
 assert.ok(
-  APP_SOURCE.includes("new Blob([pdf], { type: \"application/pdf\" })"),
-  "Public PDF save path must create an application/pdf Blob",
+  APP_SOURCE.includes("async function createForecastBriefVisualPdfBlob"),
+  "Public PDF path must generate the visual Forecast Brief PDF through the HTML-to-PDF service",
 );
 assert.ok(
-  APP_SOURCE.includes("URL.createObjectURL(pdfBlob)"),
+  APP_SOURCE.includes("contentType.toLowerCase().includes(\"application/pdf\")"),
+  "Public PDF path must validate that the PDF render service returns application/pdf",
+);
+assert.ok(
+  APP_SOURCE.includes("const blob = await response.blob()"),
+  "Public PDF save path must read an application/pdf Blob from the render service response",
+);
+assert.ok(
+  APP_SOURCE.includes("URL.createObjectURL(blob)"),
   "Public PDF save path must create a Blob URL for the generated PDF",
 );
 assert.ok(
@@ -191,7 +199,7 @@ assert.ok(
   "Public PDF save path must trigger a browser download without opening the print dialog",
 );
 assert.ok(
-  APP_SOURCE.includes("URL.revokeObjectURL(pdfUrl)"),
+  APP_SOURCE.includes("URL.revokeObjectURL(url)"),
   "Public PDF save path must revoke the generated PDF Blob URL",
 );
 assert.equal(

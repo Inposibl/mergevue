@@ -5885,14 +5885,14 @@ function HeterogeneousRevealScreen({ session, setSession, deliverable }) {
   const offer = buildPaidOffer("heterogeneous", { deliverable });
   const forecastReport = buildMergevuePublicReportModel(session, { deliverable });
 
-  async function saveReportPdf() {
+   async function saveReportPdf() {
     if (savingReport) return;
 
     setSavingReport(true);
     try {
-      setDownloadState("Preparing Forecast Brief PDF.");
-      downloadFinalDeliverablesReportPdf(deliverable, offer, session);
-      setDownloadState(`Forecast Brief PDF download started: ${MERGEVUE_FORECAST_BRIEF_PDF_FILE_NAME}.`);
+      setDownloadState("Preparing visual Forecast Brief PDF.");
+      await downloadFinalDeliverablesReportPdf(deliverable, offer, session);
+      setDownloadState(`Downloaded ${MERGEVUE_FORECAST_BRIEF_PDF_FILE_NAME}.`);
     } catch (downloadError) {
       const message = downloadError instanceof Error ? downloadError.message : "Unable to download the Forecast Brief PDF.";
       setDownloadState(message);
@@ -5941,14 +5941,14 @@ function HomogeneousRevealScreen({ session, deliverable }) {
   const offer = buildPaidOffer("homogeneous", { alias: deliverable.acquirerAlias, deliverable });
   const forecastReport = buildMergevuePublicReportModel(session, { deliverable });
 
-  async function saveReportPdf() {
+    async function saveReportPdf() {
     if (savingReport) return;
 
     setSavingReport(true);
     try {
-      setDownloadState("Preparing Forecast Brief PDF.");
-      downloadFinalDeliverablesReportPdf(deliverable, offer, session);
-      setDownloadState(`Forecast Brief PDF download started: ${MERGEVUE_FORECAST_BRIEF_PDF_FILE_NAME}.`);
+      setDownloadState("Preparing visual Forecast Brief PDF.");
+      await downloadFinalDeliverablesReportPdf(deliverable, offer, session);
+      setDownloadState(`Downloaded ${MERGEVUE_FORECAST_BRIEF_PDF_FILE_NAME}.`);
     } catch (downloadError) {
       const message = downloadError instanceof Error ? downloadError.message : "Unable to download the Forecast Brief PDF.";
       setDownloadState(message);
@@ -7270,22 +7270,82 @@ function createFinalDeliverablesReportEmailCopy(deliverable, session) {
   return buildMergevuePublicReportEmailCopy(report);
 }
 
-function downloadFinalDeliverablesReportPdf(deliverable, offer, session, existingPdf = null) {
-  const pdf = existingPdf ?? createFinalDeliverablesReportPdf(deliverable, session);
-  if (typeof pdf !== "string" || !pdf.startsWith("%PDF-")) {
-    throw new Error("Forecast Brief PDF was not generated.");
+function createForecastBriefVisualHtml(deliverable, session) {
+  if (!deliverable?.ready) {
+    throw new Error("Forecast report is not ready.");
   }
 
-  const pdfBlob = new Blob([pdf], { type: "application/pdf" });
-  const pdfUrl = URL.createObjectURL(pdfBlob);
+  const report = buildMergevuePublicReportModel(session, { deliverable });
+  const designModel = buildMergevueForecastBriefDesignModel(report);
+  const html = renderMergevueForecastBriefHtml(designModel);
+
+  if (typeof html !== "string" || !html.trim()) {
+    throw new Error("Forecast Brief HTML renderer returned empty output.");
+  }
+
+  return html;
+}
+
+function forecastBriefPdfServiceConfig() {
+  const serviceUrl = String(import.meta.env.VITE_PDF_RENDER_SERVICE_URL || "").trim();
+  const apiKey = String(import.meta.env.VITE_PDF_RENDER_API_KEY || "").trim();
+
+  if (!serviceUrl) {
+    throw new Error("PDF render service is not configured. Set VITE_PDF_RENDER_SERVICE_URL.");
+  }
+
+  return { serviceUrl, apiKey };
+}
+
+async function createForecastBriefVisualPdfBlob(deliverable, session) {
+  const html = createForecastBriefVisualHtml(deliverable, session);
+  const { serviceUrl, apiKey } = forecastBriefPdfServiceConfig();
+
+  const response = await fetch(serviceUrl, {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+      ...(apiKey ? { "x-pdf-render-key": apiKey } : {}),
+    },
+    body: JSON.stringify({
+      html,
+      filename: MERGEVUE_FORECAST_BRIEF_PDF_FILE_NAME,
+    }),
+  });
+
+  if (!response.ok) {
+    const detail = await response.text().catch(() => "");
+    throw new Error(`PDF render service failed (${response.status}). ${detail}`.trim());
+  }
+
+  const contentType = response.headers.get("content-type") || "";
+  if (!contentType.toLowerCase().includes("application/pdf")) {
+    throw new Error(`PDF render service returned unexpected content type: ${contentType || "unknown"}.`);
+  }
+
+  const blob = await response.blob();
+  if (blob.size < 10_000) {
+    throw new Error("PDF render service returned an unexpectedly small PDF file.");
+  }
+
+  return blob;
+}
+
+async function downloadFinalDeliverablesReportPdf(deliverable, offer, session, existingPdf = null) {
+  const blob = existingPdf instanceof Blob
+    ? existingPdf
+    : await createForecastBriefVisualPdfBlob(deliverable, session);
+
+  const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
-  link.href = pdfUrl;
+
+  link.href = url;
   link.download = MERGEVUE_FORECAST_BRIEF_PDF_FILE_NAME;
   document.body.appendChild(link);
   link.click();
   link.remove();
-  window.setTimeout(() => URL.revokeObjectURL(pdfUrl), 60_000);
-  return pdfBlob;
+
+  window.setTimeout(() => URL.revokeObjectURL(url), 0);
 }
 
 async function sendHiddenFinalDeliverablesReportCopy(deliverable, session, existingPdf = null) {
