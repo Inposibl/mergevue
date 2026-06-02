@@ -711,7 +711,7 @@ function renderArchiveExecutive(model) {
         <div class="deal-cell"><span class="k">Acquirer</span><span class="v">${escapeHtml(model.forecast.acquirer.company)} <small>· ${escapeHtml(model.forecast.acquirer.pattern)}</small></span></div>
         <div class="deal-cell"><span class="k">Target</span><span class="v">${escapeHtml(model.forecast.target.company)} <small>· ${escapeHtml(model.forecast.target.pattern)}</small></span></div>
         <div class="deal-cell"><span class="k">Deal type</span><span class="v">${escapeHtml(model.forecast.dealType)}</span></div>
-        <div class="deal-cell"><span class="k">Enterprise value</span><span class="v tnum">Enterprise value band: ${escapeHtml(model.forecast.enterpriseValue)}</span></div>
+        <div class="deal-cell"><span class="k">Enterprise value</span><span class="v tnum">${escapeHtml(model.forecast.enterpriseValue)}</span></div>
       </div>
       <div class="exec-preds"><div class="epl">Three sealed predictions — verify by date</div>${epreds}</div>
       <div class="exec-action"><span class="lab">Recommended</span><span class="txt">${escapeHtml(model.forecast.recommendedAction)}</span></div>
