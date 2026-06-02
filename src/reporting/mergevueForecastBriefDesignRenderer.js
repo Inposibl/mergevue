@@ -762,7 +762,10 @@ function renderHtmlSection(section, number) {
     return `<section class="sec" id="resources" data-screen-label="Resource Map">${sectionHead(number, section.title, `${section.scanned} resources scanned`)}<p class="thresholds">${escapeHtml(section.explanation)}</p><div class="legend"><span class="lg">Legend</span><span class="lg"><span class="sw" style="background:var(--sig-risk)"></span>High-risk · 70–100</span><span class="lg"><span class="sw" style="background:var(--sig-mod)"></span>Moderate · 40–69</span><span class="lg"><span class="sw" style="background:var(--sig-high)"></span>Aligned · 0–39</span><span class="anchor">Score = structural contestation intensity</span></div>${renderResourceZones(section)}</section>`;
   }
   if (section.id === "timeline") {
-    const columns = section.phases.map((phase, index) => `<div class="tl-col"><div class="tl-progress"><span></span></div><div class="tl-when"><span class="ph">FP${index + 1} · ${escapeHtml(phase.verifyBy)}</span><span class="win">${escapeHtml(phase.verifyBy)}</span></div><div class="tl-body"><div class="h">${escapeHtml(phase.heading)}</div><p>${escapeHtml(phase.body)}</p><div class="tl-marker"><div class="ml">Watch for:</div><div class="mv">${escapeHtml(phase.watchFor)}</div></div></div></div>`).join("");
+    const columns = section.phases.map((phase, index) => {
+      const watchFor = cleanText(phase.watchFor);
+      return `<div class="tl-col"><div class="tl-progress"><span></span></div><div class="tl-when"><span class="ph">FP${index + 1} · ${escapeHtml(phase.verifyBy)}</span><span class="win">${escapeHtml(phase.verifyBy)}</span></div><div class="tl-body"><div class="h">${escapeHtml(phase.heading)}</div><p>${escapeHtml(phase.body)}</p>${watchFor ? `<div class="tl-marker"><div class="ml">Watch for:</div><div class="mv">${escapeHtml(watchFor)}</div></div>` : ""}</div></div>`;
+    }).join("");
     return `<section class="sec" id="timeline" data-screen-label="Friction Timeline">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.timeline)}<div class="legend"><span>${escapeHtml(section.timingLogic.signalSetup)}</span><span>${escapeHtml(section.timingLogic.observationWindow)}</span><span>${escapeHtml(section.timingLogic.verificationDeadline)}</span></div><div class="tl">${columns}</div></section>`;
   }
   if (section.id === "economics") {
