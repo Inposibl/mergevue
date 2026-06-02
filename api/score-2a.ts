@@ -1,5 +1,5 @@
 import { scoreAcquirerModule } from "../src/flow/acquirerTrackFlow.js";
-import { methodNotAllowed, parseJsonBody, jsonResponse } from "./_response.js";
+import { methodNotAllowed, parseJsonBody, jsonResponse } from "../src/server/_response.js";
 
 export default async function handler(request: Request) {
   if (request.method !== "POST") {
@@ -24,3 +24,4 @@ export default async function handler(request: Request) {
     score,
   });
 }
+

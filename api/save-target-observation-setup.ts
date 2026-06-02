@@ -1,5 +1,5 @@
 import { validateTargetObservationSetup } from "../src/flow/targetObservationFlow.js";
-import { isSessionLedgerStorageError, saveTargetObservationSetup } from "./_sessionLedger.js";
+import { isSessionLedgerStorageError, saveTargetObservationSetup } from "../src/server/_sessionLedger.js";
 
 type NodeApiRequest = {
   method: string;
@@ -76,3 +76,4 @@ export default async function handler(req: NodeApiRequest, res: NodeApiResponse)
     targetObservationSetup: session.targetObservationSetup,
   });
 }
+

@@ -1,5 +1,5 @@
 import { buildPairDeliverable } from "../src/flow/finalDeliverableFlow.js";
-import { jsonResponse, methodNotAllowed, parseJsonBody } from "./_response.ts";
+import { jsonResponse, methodNotAllowed, parseJsonBody } from "../src/server/_response.ts";
 
 export default async function handler(request: Request) {
   if (request.method !== "POST") {
@@ -30,3 +30,4 @@ export default async function handler(request: Request) {
     frictionFound: "friction" in result ? Boolean(result.friction) : false,
   });
 }
+

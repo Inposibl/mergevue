@@ -1,5 +1,5 @@
-import { verifyServerTargetCode } from "./_sessionLedger.js";
-import { methodNotAllowed, parseJsonBody, jsonResponse } from "./_response.js";
+import { verifyServerTargetCode } from "../src/server/_sessionLedger.js";
+import { methodNotAllowed, parseJsonBody, jsonResponse } from "../src/server/_response.js";
 
 export default async function handler(request: Request) {
   if (request.method !== "POST") {
@@ -16,3 +16,4 @@ export default async function handler(request: Request) {
     ...result,
   });
 }
+

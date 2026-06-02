@@ -3,8 +3,8 @@ import {
   PREDICTION_LEDGER_SHEET,
   PREDICTION_LEDGER_WORKBOOK,
   exportSealedPredictionAuditRows,
-} from "./_predictionLedger.ts";
-import { jsonResponse, methodNotAllowed } from "./_response.ts";
+} from "../src/server/_predictionLedger.ts";
+import { jsonResponse, methodNotAllowed } from "../src/server/_response.ts";
 
 function isLocalRequest(request: Request) {
   const url = new URL(request.url, "https://st.local");
@@ -67,3 +67,4 @@ export default async function handler(request: Request) {
     rows,
   });
 }
+

@@ -1,4 +1,4 @@
-import { sealPrediction } from "./_predictionLedger.ts";
+import { sealPrediction } from "../src/server/_predictionLedger.ts";
 
 type NodeApiRequest = {
   method: string;
@@ -93,3 +93,4 @@ export default async function handler(req: NodeApiRequest, res: NodeApiResponse)
     });
   }
 }
+

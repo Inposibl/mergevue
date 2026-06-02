@@ -4,7 +4,7 @@ import {
   scoreTargetDiagnosticQuestions,
 } from "../src/flow/targetDiagnosticFlow.js";
 import { TARGET_DIAGNOSTIC_DATA } from "../src/data/targetDiagnosticData.js";
-import { methodNotAllowed, parseJsonBody, jsonResponse } from "./_response.js";
+import { methodNotAllowed, parseJsonBody, jsonResponse } from "../src/server/_response.js";
 
 export default async function handler(request: Request) {
   if (request.method !== "POST") {
@@ -53,3 +53,4 @@ export default async function handler(request: Request) {
     finalScore: scoreTargetDiagnosticCombined(level1Answers, level2Answers),
   });
 }
+

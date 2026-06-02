@@ -1,4 +1,4 @@
-import { isSessionLedgerStorageError, saveTargetObservationCompletion } from "./_sessionLedger.js";
+import { isSessionLedgerStorageError, saveTargetObservationCompletion } from "../src/server/_sessionLedger.js";
 
 type NodeApiRequest = {
   method: string;
@@ -82,3 +82,4 @@ export default async function handler(req: NodeApiRequest, res: NodeApiResponse)
     ...result,
   });
 }
+
