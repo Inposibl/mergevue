@@ -32,7 +32,9 @@
     "export:newlogic": "python scripts/export_newlogic_json.py"
   },
   "dependencies": {
+    "@sparticuz/chromium": "^149.0.0",
     "@vitejs/plugin-react": "^5.0.0",
+    "puppeteer-core": "^25.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "typescript": "^5.7.0",
