@@ -614,7 +614,7 @@ export function renderMergevueForecastBriefHtml(model) {
   @media print{ .controls{ display:none!important; } body{ background:var(--bg)!important; color:#161616; } .page{ print-color-adjust:exact; -webkit-print-color-adjust:exact; } .sheet{ width:100%!important; max-width:100%!important; margin:0!important; padding:0!important; } .sec,.pred,.env,.tl,.panel,.cat,.exec,.tracker,.cta,.audit,.exec-action,.classif{ break-inside: avoid; print-color-adjust:exact; -webkit-print-color-adjust:exact; } .mast-meta,.brand-sub,.classif,.score-ends,.gate-verdict,.deal-cell .k,.deal-cell small,.exec-preds .epl{ color:#555d66!important; } .exec-thesis,.deal-cell .v,.epred .what,.exec-action .txt,.gate-verdict{ color:#161616!important; } .epred .when,.exec-action .lab{ color:#1f5f95!important; } }
 </style>
 </head>
-<body class="${classContract} mergevue-forecast-brief-canon">
+<body class="mergevue-forecast-brief-canon" data-design-contract="${classContract}">
 <div class="controls"><div class="cb-brand">Mergevue Forecast Brief</div></div>
 ${renderForecastBriefPages(model)}
 </body>
