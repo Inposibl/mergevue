@@ -313,6 +313,55 @@ function publishTargetSelfCompletion(completedInvite) {
   return payload;
 }
 
+async function persistTargetSelfCompletion(completedInvite) {
+  const payload = parseTargetSelfCompletion({
+    targetSessionId: completedInvite?.targetSessionId,
+    assessmentId: completedInvite?.assessmentId,
+    codeHash: completedInvite?.codeHash,
+    completed: true,
+    completedAt: completedInvite?.completedAt ?? new Date().toISOString(),
+    targetSelfAssessment: completedInvite?.targetSelfAssessment,
+  });
+
+  if (!payload) {
+    return Object.freeze({
+      ok: false,
+      status: "invalid-target-self-completion",
+    });
+  }
+
+  try {
+    const response = await fetch("/api/final-report?action=save-target-self-completion", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    const result = await response.json().catch(() => null);
+
+    if (!response.ok || result?.status !== "target-self-completion-saved") {
+      return Object.freeze({
+        ok: false,
+        status: result?.status ?? "target-self-completion-save-failed",
+        error: result?.error ?? "Target Self-Assessment completion could not be saved.",
+      });
+    }
+
+    return Object.freeze({
+      ok: true,
+      status: result.status,
+    });
+  } catch {
+    return Object.freeze({
+      ok: false,
+      status: "target-self-completion-save-unavailable",
+      error: "Target Self-Assessment completion service is unavailable.",
+    });
+  }
+}
+
 function attachTargetSelfCompletion(currentSession, completedInvite) {
   if (!completedInvite?.completed || !completedInvite.targetSelfAssessment?.completed) return currentSession;
 
@@ -3619,7 +3668,7 @@ function TargetSelfAssessmentSurvey({ session, setSession, invite = null }) {
     setError("");
   }
 
-  function submit(event) {
+  async function submit(event) {
     event.preventDefault();
     if (!selectedAnswer) {
       setError("Select one answer to continue.");
@@ -3670,6 +3719,12 @@ function TargetSelfAssessmentSurvey({ session, setSession, invite = null }) {
       const completedInvite = completeTargetInvite(invite, targetSelfAssessment);
       if (!completedInvite.ok) {
         setError("This target survey is no longer active.");
+        return;
+      }
+
+      const persistence = await persistTargetSelfCompletion(completedInvite.invite);
+      if (!persistence.ok) {
+        setError(persistence.error ?? "Target Self-Assessment completion could not be saved. Please try again.");
         return;
       }
 
@@ -4745,7 +4800,7 @@ function PreliminaryTargetGateScreen({ session, setSession }) {
     }
   }, [preliminary?.completed, invite, targetSelfComplete, session, setSession]);
 
-  useEffect(() => {
+    useEffect(() => {
     if (!invite || targetSelfComplete) return undefined;
 
     let cancelled = false;
@@ -4760,6 +4815,39 @@ function PreliminaryTargetGateScreen({ session, setSession }) {
       applyCompletion(parseTargetSelfCompletion(event.detail));
     }
 
+    async function refreshTargetSelfCompletion() {
+      try {
+        const params = new URLSearchParams({
+          action: "target-self-state",
+          targetSessionId: invite.targetSessionId,
+          assessmentId: invite.assessmentId,
+          codeHash: invite.codeHash ?? "",
+        });
+
+        const response = await fetch(`/api/final-report?${params.toString()}`);
+        if (!response.ok) return;
+
+        const body = await response.json().catch(() => null);
+        if (cancelled || body?.status !== "target-self-completed" || !body?.completed) return;
+
+        const completedInvite = parseTargetSelfCompletion({
+          targetSessionId: body.targetSessionId,
+          assessmentId: body.assessmentId,
+          codeHash: body.codeHash,
+          completed: true,
+          completedAt: body.completedAt,
+          targetSelfAssessment: body.targetSelfAssessment,
+        });
+
+        if (!completedInvite) return;
+
+        publishTargetSelfCompletion(completedInvite);
+        applyCompletion(completedInvite);
+      } catch {
+        // Static preview or protected preview may not expose API polling; same-browser events still work.
+      }
+    }
+
     try {
       completionChannel = new BroadcastChannel(TARGET_SELF_COMPLETION_CHANNEL);
       completionChannel.onmessage = (event) => {
@@ -4770,13 +4858,17 @@ function PreliminaryTargetGateScreen({ session, setSession }) {
     }
 
     window.addEventListener(TARGET_SELF_COMPLETION_EVENT, handleCompletionEvent);
+    refreshTargetSelfCompletion();
+    const timer = window.setInterval(refreshTargetSelfCompletion, 5000);
+
     return () => {
       cancelled = true;
       window.removeEventListener(TARGET_SELF_COMPLETION_EVENT, handleCompletionEvent);
       completionChannel?.close();
+      window.clearInterval(timer);
     };
   }, [invite, targetSelfComplete, setSession]);
-
+  
   if (!track1Ready && !preliminary?.completed) {
     return (
       <main className="screen-shell flow-screen compact-flow">

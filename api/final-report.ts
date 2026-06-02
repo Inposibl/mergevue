@@ -574,6 +574,230 @@ async function sendFinalReportHiddenCopy(request: NodeRequest, response: NodeRes
   });
 }
 
+const TARGET_SELF_COMPLETION_TTL_SECONDS = 259200;
+const REDIS_REST_TIMEOUT_MS = 4000;
+
+type TargetSelfCompletionRecord = {
+  targetSessionId: string;
+  assessmentId: string;
+  codeHash?: string;
+  completed: true;
+  completedAt: string;
+  targetSelfAssessment: unknown;
+};
+
+type TargetSelfCompletionGlobal = typeof globalThis & {
+  __mergevueTargetSelfCompletionStore?: Map<string, TargetSelfCompletionRecord>;
+};
+
+function targetSelfCompletionStore() {
+  const root = globalThis as TargetSelfCompletionGlobal;
+  if (!root.__mergevueTargetSelfCompletionStore) {
+    root.__mergevueTargetSelfCompletionStore = new Map<string, TargetSelfCompletionRecord>();
+  }
+  return root.__mergevueTargetSelfCompletionStore;
+}
+
+function targetSelfCompletionKey(assessmentId: string, targetSessionId: string) {
+  return `target-self-completion:${assessmentId}:${targetSessionId}`;
+}
+
+function targetSelfPersistentStorageConfig() {
+  const url = firstConfiguredString(
+    process.env.KV_REST_API_URL,
+    process.env.UPSTASH_REDIS_REST_URL,
+  );
+  const token = firstConfiguredString(
+    process.env.KV_REST_API_TOKEN,
+    process.env.UPSTASH_REDIS_REST_TOKEN,
+  );
+
+  if (url && token) {
+    return {
+      url: url.replace(/\/$/, ""),
+      token,
+    };
+  }
+
+  return null;
+}
+
+async function targetSelfRedisCommand(command: unknown[]) {
+  const config = targetSelfPersistentStorageConfig();
+  if (!config) return null;
+
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), REDIS_REST_TIMEOUT_MS);
+
+  try {
+    const providerResponse = await fetch(config.url, {
+      method: "POST",
+      headers: {
+        authorization: `Bearer ${config.token}`,
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(command),
+      signal: controller.signal,
+    });
+
+    const providerBody = await providerResponse.json().catch(() => null);
+
+    if (!providerResponse.ok || providerBody?.error) {
+      throw new Error(providerBody?.error ?? `KV returned HTTP ${providerResponse.status}`);
+    }
+
+    return providerBody?.result ?? null;
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+function normalizeTargetSelfCompletion(value: unknown): TargetSelfCompletionRecord | null {
+  const record = typeof value === "object" && value ? value as Partial<TargetSelfCompletionRecord> : null;
+
+  if (
+    !record
+    || !cleanString(record.targetSessionId)
+    || !cleanString(record.assessmentId)
+    || record.completed !== true
+    || !record.targetSelfAssessment
+    || typeof record.targetSelfAssessment !== "object"
+    || (record.targetSelfAssessment as { completed?: unknown }).completed !== true
+  ) {
+    return null;
+  }
+
+  return {
+    targetSessionId: cleanString(record.targetSessionId),
+    assessmentId: cleanString(record.assessmentId),
+    codeHash: cleanString(record.codeHash),
+    completed: true,
+    completedAt: cleanString(record.completedAt) || new Date().toISOString(),
+    targetSelfAssessment: record.targetSelfAssessment,
+  };
+}
+
+async function saveTargetSelfCompletionRecord(record: TargetSelfCompletionRecord) {
+  const key = targetSelfCompletionKey(record.assessmentId, record.targetSessionId);
+  targetSelfCompletionStore().set(key, record);
+
+  await targetSelfRedisCommand([
+    "SET",
+    key,
+    JSON.stringify(record),
+    "EX",
+    String(TARGET_SELF_COMPLETION_TTL_SECONDS),
+  ]);
+
+  return record;
+}
+
+async function readTargetSelfCompletionRecord(assessmentId: string, targetSessionId: string) {
+  const key = targetSelfCompletionKey(assessmentId, targetSessionId);
+  const localRecord = targetSelfCompletionStore().get(key);
+  if (localRecord) return localRecord;
+
+  const raw = await targetSelfRedisCommand(["GET", key]);
+  if (raw === null || raw === undefined) return null;
+
+  const parsed = typeof raw === "string" ? JSON.parse(raw) : raw;
+  const record = normalizeTargetSelfCompletion(parsed);
+  if (record) {
+    targetSelfCompletionStore().set(key, record);
+  }
+
+  return record;
+}
+
+async function saveTargetSelfCompletion(request: NodeRequest, response: NodeResponse) {
+  if (request.method !== "POST") {
+    sendMethodNotAllowed(response, request.method, ["POST"]);
+    return;
+  }
+
+  const body = await parseBody(request);
+  const record = normalizeTargetSelfCompletion(body);
+
+  if (!record) {
+    sendJson(response, 400, {
+      endpoint: "/api/final-report?action=save-target-self-completion",
+      status: "invalid-target-self-completion",
+      error: "A completed Target Self-Assessment record with targetSessionId and assessmentId is required.",
+    });
+    return;
+  }
+
+  try {
+    await saveTargetSelfCompletionRecord(record);
+    sendJson(response, 200, {
+      endpoint: "/api/final-report?action=save-target-self-completion",
+      status: "target-self-completion-saved",
+      completed: true,
+      targetSessionId: record.targetSessionId,
+      assessmentId: record.assessmentId,
+      completedAt: record.completedAt,
+    });
+  } catch (error) {
+    sendJson(response, 503, {
+      endpoint: "/api/final-report?action=save-target-self-completion",
+      status: "target-self-completion-save-failed",
+      error: error instanceof Error ? error.message : "Target Self-Assessment completion could not be saved.",
+    });
+  }
+}
+
+async function readTargetSelfCompletion(request: NodeRequest, response: NodeResponse, params: URLSearchParams) {
+  if (request.method !== "GET" && request.method !== "POST") {
+    sendMethodNotAllowed(response, request.method, ["GET", "POST"]);
+    return;
+  }
+
+  const targetSessionId = cleanString(params.get("targetSessionId"));
+  const assessmentId = cleanString(params.get("assessmentId"));
+  const codeHash = cleanString(params.get("codeHash"));
+
+  if (!targetSessionId || !assessmentId) {
+    sendJson(response, 400, {
+      endpoint: "/api/final-report?action=target-self-state",
+      status: "invalid-target-self-state-request",
+      error: "targetSessionId and assessmentId are required.",
+    });
+    return;
+  }
+
+  try {
+    const record = await readTargetSelfCompletionRecord(assessmentId, targetSessionId);
+
+    if (!record || (codeHash && record.codeHash && record.codeHash !== codeHash)) {
+      sendJson(response, 200, {
+        endpoint: "/api/final-report?action=target-self-state",
+        status: "target-self-pending",
+        completed: false,
+        targetSessionId,
+        assessmentId,
+      });
+      return;
+    }
+
+    sendJson(response, 200, {
+      endpoint: "/api/final-report?action=target-self-state",
+      status: "target-self-completed",
+      completed: true,
+      targetSessionId: record.targetSessionId,
+      assessmentId: record.assessmentId,
+      codeHash: record.codeHash,
+      completedAt: record.completedAt,
+      targetSelfAssessment: record.targetSelfAssessment,
+    });
+  } catch (error) {
+    sendJson(response, 503, {
+      endpoint: "/api/final-report?action=target-self-state",
+      status: "target-self-state-unavailable",
+      error: error instanceof Error ? error.message : "Target Self-Assessment state is unavailable.",
+    });
+  }
+}
+
 export default async function handler(request: NodeRequest, response: NodeResponse) {
   const requestUrl = new URL(request.url ?? "/api/final-report", "https://st.local");
   if (requestUrl.searchParams.get("action") === "send-final-report-hidden-copy") {
