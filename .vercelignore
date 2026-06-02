@@ -1,0 +1,7 @@
+﻿api/create-target-session.ts
+api/export-prediction-ledger.ts
+api/resolve-pair.ts
+api/score-2a.ts
+api/score-2b.ts
+api/submit-target-2c.ts
+api/verify-target-code.ts
