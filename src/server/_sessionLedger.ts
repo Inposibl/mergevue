@@ -4,14 +4,14 @@ import {
   canStartTargetObservation,
   hashObservationSetupCode,
   scoreTargetObservation,
-} from "../src/flow/targetObservationFlow.js";
+} from "../flow/targetObservationFlow.js";
 import {
   scoreTargetDiagnosticCombined,
   scoreTargetDiagnosticLevel1,
   scoreTargetDiagnosticQuestions,
-} from "../src/flow/targetDiagnosticFlow.js";
-import { validateEvidenceClassifiedAnswers } from "../src/flow/evidenceClassification.js";
-import { TARGET_DIAGNOSTIC_DATA } from "../src/data/targetDiagnosticData.js";
+} from "../flow/targetDiagnosticFlow.js";
+import { validateEvidenceClassifiedAnswers } from "../flow/evidenceClassification.js";
+import { TARGET_DIAGNOSTIC_DATA } from "../data/targetDiagnosticData.js";
 
 const TARGET_INVITE_TTL_HOURS = 72;
 const TARGET_OBSERVATION_SESSION_TTL_SECONDS = 259200;
@@ -554,3 +554,4 @@ export function completeServerTargetSession(targetSessionId: string, code: strin
     completedAt: now,
   };
 }
+
