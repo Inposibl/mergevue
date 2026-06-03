@@ -150,6 +150,18 @@ function conflictBandFromIntensity(intensity) {
   return "aligned";
 }
 
+
+function publicResourceDirection(text) {
+  const RESOURCE_TIER_DISPLAY_LABELS = Object.freeze({
+    IGN: "Baseline",
+    LOW: "Low",
+    MID: "Medium",
+    TOP: "High",
+  });
+
+  return cleanText(text).replace(/\b(IGN|LOW|MID|TOP)\b/g, (token) => RESOURCE_TIER_DISPLAY_LABELS[token] ?? token);
+}
+
 function archiveResourceGroups(resources = []) {
   const groups = [
     { band: "high", label: "High-risk · 70–100", rows: [] },
@@ -163,7 +175,7 @@ function archiveResourceGroups(resources = []) {
     group.rows.push(Object.freeze({
       label: cleanText(resource.resourceName),
       category: cleanText(resource.resourceCategory),
-      direction: cleanText(resource.direction),
+      direction: publicResourceDirection(resource.direction),
       explanation: cleanText(resource.explanation),
       intensity,
       band,
