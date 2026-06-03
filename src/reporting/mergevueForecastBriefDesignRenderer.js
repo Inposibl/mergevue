@@ -118,26 +118,29 @@ function publicEnvironmentName(name, code) {
 }
 
 function actionBuckets(actions) {
+  const normalizedActions = (actions ?? []).map((action, sourceIndex) => Object.freeze({
+    actionTitle: cleanText(action.actionTitle),
+    actionTiming: cleanText(action.actionTiming),
+    actionOwner: cleanText(action.actionOwner),
+    actionReason: cleanText(action.actionReason) ? `Rationale: ${cleanText(action.actionReason)}` : "",
+    actionExpectedEffect: cleanText(action.actionExpectedEffect),
+    sourceIndex,
+  }));
   const beforeClose = [];
   const afterClose = [];
-  for (const action of actions ?? []) {
-    const publicAction = Object.freeze({
-      actionTitle: cleanText(action.actionTitle),
-      actionTiming: cleanText(action.actionTiming),
-      actionOwner: cleanText(action.actionOwner),
-      actionReason: cleanText(action.actionReason) ? `Rationale: ${cleanText(action.actionReason)}` : "",
-      actionExpectedEffect: cleanText(action.actionExpectedEffect),
-    });
-    const timing = cleanText(action.actionTiming).toLowerCase();
+  for (const publicAction of normalizedActions) {
+    const timing = publicAction.actionTiming.toLowerCase();
     if (/after|day\s*[3-9]|\b60\b|post/i.test(timing)) {
       afterClose.push(publicAction);
     } else {
       beforeClose.push(publicAction);
     }
   }
+  const assigned = new Set([...beforeClose, ...afterClose].map((action) => action.sourceIndex));
+  const unassigned = normalizedActions.filter((action) => !assigned.has(action.sourceIndex));
   return {
-    beforeClose: beforeClose.length ? beforeClose : (actions ?? []).slice(0, 2),
-    afterClose: afterClose.length ? afterClose : (actions ?? []).slice(2),
+    beforeClose: beforeClose.length ? beforeClose : unassigned.slice(0, 2),
+    afterClose: afterClose.length ? afterClose : unassigned.slice(0, 2),
   };
 }
 
