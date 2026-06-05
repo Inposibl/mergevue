@@ -543,6 +543,7 @@ export function buildPairDeliverable(input = {}) {
       targetAlias,
       headline: FINAL_DELIVERABLE_DATA.screenCopy.homogeneousHeaderTemplate.replaceAll("{alias}", acquirerAlias),
       body: publicText(FINAL_DELIVERABLE_DATA.screenCopy.homogeneousBody.replaceAll("{alias}", acquirerAlias)),
+      compatibilityScore: 88,
       compatibilityRange: compatibilityRangeValue,
       riskBand: "HIGH COMPATIBILITY",
       resourceConflictProfile: buildResourceConflictProfile(acquirerEnvironmentCode, targetEnvironmentCode, {
