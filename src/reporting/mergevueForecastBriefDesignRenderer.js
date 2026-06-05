@@ -748,8 +748,8 @@ function renderPredictionCards(section) {
     return `<article class="pred"><div class="pred-top">
       <div class="pred-id"><span class="pno">PREDICTION ${no}</span><span class="seal">Sealed</span><span class="lock">lock: ${escapeHtml(prediction.lockId)}</span></div>
       <div class="pred-main"><p class="pred-claim">${escapeHtml(prediction.statement)}</p></div>
-      <div class="pred-verify"><span class="vl">Verify by</span><span class="vd tnum">${escapeHtml(prediction.verifyByDisplay)}</span><span class="vw">Window · ${escapeHtml(prediction.window)}</span></div>
-    </div><div class="pred-meta"><div class="pm"><div class="pml">Evidence required</div><div class="pmv">${escapeHtml(prediction.evidenceRequired)}</div></div><div class="pm"><div class="pml">Falsification condition</div><div class="pmv">${escapeHtml(prediction.falsificationCondition)}</div></div></div></article>`;
+      <div class="pred-verify"><span class="vl">Verify by</span><span class="vd tnum">${escapeHtml(prediction.verifyByDisplay)}</span></div>
+    </div><div class="pred-meta"><div class="pm"><div class="pml">Evidence required</div><div class="pmv">${escapeHtml(prediction.evidenceRequired)}</div></div><div class="pm"><div class="pml">Consequences and Risk Mitigation</div><div class="pmv">${escapeHtml(prediction.falsificationCondition)}</div></div></div></article>`;
   }).join("");
 }
 
