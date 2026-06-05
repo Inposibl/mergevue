@@ -778,8 +778,13 @@ function renderHtmlSection(section, number) {
     return `<section class="sec" id="environments" data-screen-label="Identified Environment Types">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.environments)}<div class="envs"><article class="env"><div class="role">Acquirer</div><div class="co">${escapeHtml(section.acquirer.name)}</div><div class="arc">${escapeHtml(section.acquirer.environment)}</div><p>${escapeHtml(section.acquirer.description)}</p><p>${escapeHtml(section.acquirer.behaviorPattern)}</p></article><article class="env"><div class="role">Target</div><div class="co">${escapeHtml(section.target.name)}</div><div class="arc">${escapeHtml(section.target.environment)}</div><p>${escapeHtml(section.target.description)}</p><p>${escapeHtml(section.target.behaviorPattern)}</p></article></div></section>`;
   }
   if (section.id === "collision") {
-    const rows = ["headline", "summary", "primaryTension", "whyItMatters", "postCloseFailureMode"].filter((key) => cleanText(section[key]));
-    return `<section class="sec" id="collision" data-screen-label="Collision Thesis">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.collision)}<div class="collide">${rows.map((key) => `<div class="collide-row"><div class="cl">${escapeHtml(key)}</div><div class="cr">${escapeHtml(section[key])}</div></div>`).join("")}</div></section>`;
+    const collisionRows = [
+      ["What we found", section.primaryTension || section.headline || section.summary],
+      ["Why it matters", section.postCloseFailureMode || section.whyItMatters || section.summary],
+      ["What you can do", "Protect the affected operating resources first; delay irreversible integration changes until the Day 60 verification review confirms which routines should be preserved, simplified, or integrated."],
+    ].filter(([, value]) => cleanText(value));
+
+    return `<section class="sec" id="collision" data-screen-label="Collision Thesis">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.collision)}<div class="collide">${collisionRows.map(([label, value]) => `<div class="collide-row"><div class="cl">${escapeHtml(label)}</div><div class="cr">${escapeHtml(value)}</div></div>`).join("")}</div></section>`;
   }
   if (section.id === "resources") {
     return `<section class="sec" id="resources" data-screen-label="Resource Map">${sectionHead(number, section.title, `${section.scanned} resources scanned`)}<p class="thresholds">${escapeHtml(section.explanation)}</p><div class="legend"><span class="lg">Legend</span><span class="lg"><span class="sw" style="background:var(--sig-risk)"></span>High-risk · 70–100</span><span class="lg"><span class="sw" style="background:var(--sig-mod)"></span>Moderate · 40–69</span><span class="lg"><span class="sw" style="background:var(--sig-high)"></span>Aligned · 0–39</span><span class="anchor">Score = structural contestation intensity</span></div>${renderResourceZones(section)}</section>`;
