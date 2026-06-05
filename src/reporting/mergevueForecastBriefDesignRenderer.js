@@ -659,8 +659,8 @@ function renderForecastBriefPages(model) {
 
   const pages = [
     renderReportPage(`${renderArchiveMasthead(model)}${renderArchiveExecutive(model)}`),
-    predictions ? renderReportPage(renderHtmlSection(predictions, 1), "page-preds") : "",
-    renderReportPage(`${environments ? renderHtmlSection(environments, 2) : ""}${collision ? renderHtmlSection(collision, 3) : ""}`),
+    renderReportPage(`${environments ? renderHtmlSection(environments, 1) : ""}${predictions ? renderHtmlSection(predictions, 2) : ""}`, "page-preds"),
+    collision ? renderReportPage(renderHtmlSection(collision, 3)) : "",
     resources ? renderReportPage(renderHtmlSection(resources, 4)) : "",
     timeline ? renderReportPage(renderHtmlSection(timeline, 5), "timeline-page") : "",
     economics ? renderReportPage(renderHtmlSection(economics, 6)) : "",
