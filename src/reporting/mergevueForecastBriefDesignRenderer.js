@@ -588,7 +588,7 @@ export function renderMergevueForecastBriefHtml(model) {
   .sec-head{ margin-bottom:16px; padding-bottom:12px; }
   .exec{ margin-top:20px; grid-template-columns:276px 1fr; }
   .score-num{ font-size:101px; letter-spacing:-.065em; }
-  .score-of{ margin-top:-8px; }
+  .score-of{ margin-top:4px; }
   .pred{ break-inside: avoid; page-break-inside: avoid; margin-bottom:12px; }
   .pred-top{ min-height:120px; }
   .pred-main{ padding:16px 20px; }
