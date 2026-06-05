@@ -21,7 +21,9 @@ const REQUIRED_PDF_STRINGS = Object.freeze([
   "report@mergevue.com",
   "Sealed Prediction Preview",
   "Display-only preview; not ledger-recorded.",
-  "Enterprise value band: $50M–$500M EV",
+  "Valuation risks",
+  "Valuation risk band",
+  "$50M–$500M EV",
   "Illustrative posture, not a valuation.",
   "Absolute risk figures require the engagement-tier economic model.",
   "The main risk is not direct resource conflict. It is overwrite risk: the acquirer may simplify or underuse the target’s more structured operating system, causing institutional knowledge and planning discipline to decay after close.",
@@ -231,6 +233,8 @@ assert.equal(
   "App.jsx must not define the old Structural Typology PDF filename",
 );
 
+const valuationRiskBandDisplay = String(model.economicRiskTranslation.enterpriseValueBand).replace(/^Enterprise value band:\s*/i, "");
+
 const alignedValues = Object.freeze([
   model.brand.name,
   model.brand.product,
@@ -239,7 +243,7 @@ const alignedValues = Object.freeze([
   model.compatibilityScoreAndDealScenario.dealType,
   model.sealedPredictions.statusTitle,
   model.sealedPredictions.statusDescription,
-  model.economicRiskTranslation.enterpriseValueBand,
+  valuationRiskBandDisplay,
   model.economicRiskTranslation.valuationDisclaimer,
   model.economicRiskTranslation.engagementTierRequirement,
   model.timelineOfExpectedFriction.timingLogic.signalSetup,
