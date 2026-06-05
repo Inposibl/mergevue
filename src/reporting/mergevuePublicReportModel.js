@@ -17,7 +17,7 @@ export const MERGEVUE_PUBLIC_REPORT_BLOCKS = Object.freeze([
   "Executive Decision Summary",
   "Sealed Predictions",
   "Compatibility Score & Deal Scenario",
-  "The Two Environments",
+  "Identified Environment Types",
   "Collision Thesis",
   "Resource Conflict Map",
   "Timeline of Expected Friction",

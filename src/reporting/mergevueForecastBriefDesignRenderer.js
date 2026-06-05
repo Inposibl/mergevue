@@ -29,7 +29,7 @@ const ARCHIVE_SECTION_NOTES = Object.freeze({
   exec: "Executive Summary",
   predictions: "Display-only prediction preview",
   scenario: "Compatibility and deal grid",
-  environments: "Two operating logics",
+  environments: "Two distinctive operating models",
   collision: "Collision thesis",
   resources: "Resource map",
   timeline: "Derived from sealed prediction windows",
@@ -775,7 +775,7 @@ function renderHtmlSection(section, number) {
     return `<section class="sec" id="predictions" data-screen-label="Sealed Predictions">${sectionHead(number, section.title, section.statusDescription)}<div class="panel"><h4>${escapeHtml(section.statusTitle)}</h4><p>${escapeHtml(section.statusDescription)}</p></div><div class="preds-wrap">${renderPredictionCards(section)}</div><div class="tracker"><div class="qr" aria-label="QR preview tracker"></div><div class="tk-body"><h4>Preview verification tracker</h4><p>${escapeHtml(section.trackerStatement)}</p>${trackerUrl ? `<div class="tk-url">${escapeHtml(trackerUrl)}</div>` : ""}</div></div></section>`;
   }
   if (section.id === "environments") {
-    return `<section class="sec" id="environments" data-screen-label="The Two Environments">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.environments)}<div class="envs"><article class="env"><div class="role">Acquirer</div><div class="co">${escapeHtml(section.acquirer.name)}</div><div class="arc">${escapeHtml(section.acquirer.environment)}</div><p>${escapeHtml(section.acquirer.description)}</p><p>${escapeHtml(section.acquirer.behaviorPattern)}</p></article><article class="env"><div class="role">Target</div><div class="co">${escapeHtml(section.target.name)}</div><div class="arc">${escapeHtml(section.target.environment)}</div><p>${escapeHtml(section.target.description)}</p><p>${escapeHtml(section.target.behaviorPattern)}</p></article></div></section>`;
+    return `<section class="sec" id="environments" data-screen-label="Identified Environment Types">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.environments)}<div class="envs"><article class="env"><div class="role">Acquirer</div><div class="co">${escapeHtml(section.acquirer.name)}</div><div class="arc">${escapeHtml(section.acquirer.environment)}</div><p>${escapeHtml(section.acquirer.description)}</p><p>${escapeHtml(section.acquirer.behaviorPattern)}</p></article><article class="env"><div class="role">Target</div><div class="co">${escapeHtml(section.target.name)}</div><div class="arc">${escapeHtml(section.target.environment)}</div><p>${escapeHtml(section.target.description)}</p><p>${escapeHtml(section.target.behaviorPattern)}</p></article></div></section>`;
   }
   if (section.id === "collision") {
     const rows = ["headline", "summary", "primaryTension", "whyItMatters", "postCloseFailureMode"].filter((key) => cleanText(section[key]));
