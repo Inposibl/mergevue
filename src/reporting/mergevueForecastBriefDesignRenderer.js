@@ -778,8 +778,13 @@ function renderHtmlSection(section, number) {
     return `<section class="sec" id="environments" data-screen-label="Identified Environment Types">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.environments)}<div class="envs"><article class="env"><div class="role">Acquirer</div><div class="co">${escapeHtml(section.acquirer.name)}</div><div class="arc">${escapeHtml(section.acquirer.environment)}</div><p>${escapeHtml(section.acquirer.description)}</p><p>${escapeHtml(section.acquirer.behaviorPattern)}</p></article><article class="env"><div class="role">Target</div><div class="co">${escapeHtml(section.target.name)}</div><div class="arc">${escapeHtml(section.target.environment)}</div><p>${escapeHtml(section.target.description)}</p><p>${escapeHtml(section.target.behaviorPattern)}</p></article></div></section>`;
   }
   if (section.id === "collision") {
+    const rawFinding = section.primaryTension || section.headline || section.summary;
+    const findingExplanation = cleanText(rawFinding)
+      ? `${cleanText(rawFinding)}\nPlain English: “+” means the environment amplifies, protects, or actively relies on that resource; “−” means it suppresses, weakens, or underuses that resource; “~” means the resource is present but mixed, unstable, or only baseline.\nThe resources listed here are the key collision resources selected from the full set of 17 resource types for this specific comparison. They show where the two operating environments are most likely to pull in different directions. The practical risk is overwrite: integration may damage the routines that make the target work.`
+      : "";
+
     const collisionRows = [
-      ["What we found", section.primaryTension || section.headline || section.summary],
+      ["What we found", findingExplanation],
       ["Why it matters", section.postCloseFailureMode || section.whyItMatters || section.summary],
       ["What you can do", "Protect the affected operating resources first; delay irreversible integration changes until the Day 60 verification review confirms which routines should be preserved, simplified, or integrated."],
     ].filter(([, value]) => cleanText(value));
