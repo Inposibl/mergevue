@@ -292,7 +292,11 @@ assert.ok(pdfHtml.includes("pips"), "PDF renderer must include confidence pips."
 assert.ok(pdfHtml.includes("deal-grid"), "PDF renderer must include a deal grid.");
 assert.ok(pdfHtml.includes("sealed-preview-1"), "PDF renderer must include sealed prediction lock id.");
 assert.ok(pdfHtml.includes("Watch for:"), "PDF renderer must include evidence-required timeline watch labels.");
-assert.ok(pdfHtml.includes("Falsification condition"), "PDF renderer must include falsification condition.");
+assert.ok(pdfHtml.includes("Verify by"), "PDF renderer must include sealed prediction verification labels.");
+assert.ok(pdfHtml.includes("Evidence required"), "PDF renderer must include sealed prediction evidence labels.");
+assert.equal(pdfHtml.includes("Falsification condition"), false, "PDF renderer must not include the old falsification condition label.");
+assert.equal(pdfHtml.includes("Window Days"), false, "PDF renderer must not include the old window-days label.");
+assert.equal(pdfHtml.includes("Window ·"), false, "PDF renderer must not include visible prediction window labels.");
 assert.ok(pdfHtml.includes("Legend"), "PDF renderer must include resource-map legend.");
 assert.ok(pdfHtml.includes("Before close") && pdfHtml.includes("After close"), "PDF renderer must split recommended actions before/after close.");
 assert.ok(pdfHtml.includes("Evidence basis") && pdfHtml.includes("Limits"), "PDF renderer must split evidence and limits panels.");
