@@ -358,11 +358,11 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
     },
     whatTheFullEngagementAdds: {
       benefits: [
-        "Validated environment codes with deeper evidence review.",
-        "Named role and leadership-team implications instead of environment-level inference only.",
-        "Engagement-tier economic modeling and integration-control recommendations.",
+        "Evidence-reviewed environment coding that separates durable operating routines from one-off survey signals.",
+        "Named role and leadership-team implications, showing where decision rights, management cadence, and preservation risks sit after close.",
+        "Engagement-tier economic modeling and integration-control design, translating forecast risks into exposure ranges, owner-level actions, and Day 30/60/90 governance.",
       ],
-      cta: `Contact ${BRAND.name} for the full engagement review.`,
+      cta: `Contact ${BRAND.name} to scope the full engagement review.`,
       contactEmail: BRAND.contactEmail,
     },
     auditFooter: {
