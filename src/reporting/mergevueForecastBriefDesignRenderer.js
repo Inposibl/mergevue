@@ -874,6 +874,14 @@ function explainEconomicLine(line) {
   return ["Economic input", text, "This line is part of the deal economics input used to translate operating friction into a practical financial exposure range."];
 }
 
+function explainEconomicCategory(label) {
+  const text = cleanText(label).toLowerCase();
+  if (text.includes("operating drift")) return "Risk that post-close working rhythm, management discipline, and operating process start drifting away from the integration plan.";
+  if (text.includes("knowledge leakage")) return "Risk that critical know-how is lost, blocked, or made inaccessible as people leave, protect local practices, or stop transferring expertise.";
+  if (text.includes("decision delay")) return "Risk that decisions slow down because governance, authority, documentation, and escalation logic do not match across the combined organisation.";
+  return "Risk indicator showing where economic exposure may appear if behavioural friction persists after close.";
+}
+
 function renderEconomicLineItems(lines) {
   const items = Array.isArray(lines) ? lines.filter((line) => cleanText(line)).map(explainEconomicLine) : [];
   if (!items.length) return "";
@@ -923,7 +931,7 @@ function renderHtmlSection(section, number, context = {}) {
   if (section.id === "economics") {
     const economicLines = Array.isArray(section.economicRiskLines) ? section.economicRiskLines : [];
     const economicLineItems = renderEconomicLineItems(economicLines);
-    const categories = section.categories.map((category) => `<div class="cat"><div class="cat-top"><span class="cn">${escapeHtml(category.label)}</span><span class="cr tnum">${category.value} / 100</span></div><p>${escapeHtml(section.economicRiskPosture)}</p><div class="cat-bar"><span style="width:${category.value}%"></span></div></div>`).join("");
+    const categories = section.categories.map((category) => `<div class="cat"><div class="cat-top"><span class="cn">${escapeHtml(category.label)}</span><span class="cr tnum">${category.value} / 100</span></div><p>${escapeHtml(explainEconomicCategory(category.label))}</p><div class="cat-bar"><span style="width:${category.value}%"></span></div></div>`).join("");
     return `<section class="sec" id="economic" data-screen-label="Economic Translation">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.economics)}<div class="env-total"><div class="et-l"><div class="lab">Economic exposure</div><div class="economic-label">${escapeHtml(section.enterpriseValueBand)}</div></div><div class="et-r">${escapeHtml(section.valuationDisclaimer)}<br>${escapeHtml(section.engagementTierRequirement)}</div></div>${economicLineItems}<div class="cats">${categories}</div></section>`;
   }
   if (section.id === "actions") {
