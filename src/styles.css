@@ -3543,3 +3543,71 @@ textarea {
     -webkit-print-color-adjust: exact;
   }
 }
+
+.deal-choice-field {
+  align-content: start;
+}
+
+.deal-choice-field-wide {
+  grid-column: 1 / -1;
+}
+
+.deal-choice-grid {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.deal-choice-button {
+  background: #ffffff;
+  border: 1px solid #d9dee8;
+  border-radius: 8px;
+  color: #0f172a;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.25;
+  min-height: 44px;
+  padding: 10px 12px;
+  text-align: left;
+  transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+}
+
+.deal-choice-button:hover {
+  border-color: #1b4d89;
+}
+
+.deal-choice-button:focus-visible {
+  outline: 2px solid #183a63;
+  outline-offset: 2px;
+}
+
+.deal-choice-button.is-selected {
+  background: #ecfdf5;
+  border-color: #16a34a;
+  box-shadow: inset 0 0 0 1px rgba(22, 163, 74, 0.22);
+  color: #15803d;
+  font-weight: 800;
+}
+
+.deal-choice-button.is-selected:hover {
+  background: #dcfce7;
+  border-color: #15803d;
+}
+
+.deal-choice-clear {
+  background: transparent;
+  border: 0;
+  color: #516075;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+  justify-self: start;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.deal-choice-clear:hover {
+  color: #183a63;
+}
+

@@ -1136,6 +1136,44 @@ function canOpenPreliminaryAssessment(session) {
   return Boolean(canCreatePreliminaryAssessment(session) && hasSessionTargetObserverSubmission(session));
 }
 
+function DealContextButtonGroup({
+  label,
+  helper,
+  options,
+  value,
+  onChange,
+  allowClear = false,
+  clearLabel = "Clear selection",
+  className = "",
+}) {
+  return (
+    <div className={`field-block deal-choice-field${className ? ` ${className}` : ""}`}>
+      <span>{label} <small>{helper}</small></span>
+      <div className="deal-choice-grid" role="radiogroup" aria-label={label}>
+        {options.map((option) => {
+          const isSelected = value === option.value;
+          return (
+            <button
+              key={option.value}
+              type="button"
+              className={`deal-choice-button${isSelected ? " is-selected" : ""}`}
+              aria-pressed={isSelected}
+              onClick={() => onChange(option.value)}
+            >
+              {option.title}
+            </button>
+          );
+        })}
+      </div>
+      {allowClear && value ? (
+        <button className="deal-choice-clear" type="button" onClick={() => onChange("")}>
+          {clearLabel}
+        </button>
+      ) : null}
+    </div>
+  );
+}
+
 function AcquisitionMotiveScreen({ session, setSession }) {
   const existingContext = session.dealContext?.data ?? {};
   const [dealIdentity, setDealIdentity] = useState(() => initialDealIdentity(existingContext));
@@ -1211,33 +1249,30 @@ function AcquisitionMotiveScreen({ session, setSession }) {
                 onChange={(event) => updateDealIdentity("targetName", event.target.value)}
               />
             </label>
-            <label className="field-block">
-              <span>Respondent side <small>(choose who you represent; keeps evidence separated by perspective)</small></span>
-              <select value={dealIdentity.respondentSide} onChange={(event) => updateDealIdentity("respondentSide", event.target.value)}>
-                <option value="">Select respondent side</option>
-                {RESPONDENT_SIDE_OPTIONS.map((option) => (
-                  <option key={option.value} value={option.value}>{option.title}</option>
-                ))}
-              </select>
-            </label>
-            <label className="field-block">
-              <span>Deal type <small>(choose primary deal rationale; sets the integration-risk lens)</small></span>
-              <select value={dealIdentity.dealType} onChange={(event) => updateDealIdentity("dealType", event.target.value)}>
-                <option value="">Select deal type</option>
-                {DEAL_TYPE_OPTIONS.map((option) => (
-                  <option key={option.value} value={option.value}>{option.title}</option>
-                ))}
-              </select>
-            </label>
-            <label className="field-block">
-              <span>How close are you to the deal room? <small>(optional; adjusts confidence conservatively when skipped)</small></span>
-              <select value={dealIdentity.respondentAccessLevel} onChange={(event) => updateDealIdentity("respondentAccessLevel", event.target.value)}>
-                <option value="">Select access level</option>
-                {RESPONDENT_ACCESS_LEVEL_OPTIONS.map((option) => (
-                  <option key={option.value} value={option.value}>{option.title}</option>
-                ))}
-              </select>
-            </label>
+            <DealContextButtonGroup
+              label="Respondent side"
+              helper="choose who you represent; keeps evidence separated by perspective"
+              options={RESPONDENT_SIDE_OPTIONS}
+              value={dealIdentity.respondentSide}
+              onChange={(value) => updateDealIdentity("respondentSide", value)}
+            />
+            <DealContextButtonGroup
+              label="Deal type"
+              helper="choose primary deal rationale; sets the integration-risk lens"
+              options={DEAL_TYPE_OPTIONS}
+              value={dealIdentity.dealType}
+              onChange={(value) => updateDealIdentity("dealType", value)}
+            />
+            <DealContextButtonGroup
+              label="How close are you to the deal room?"
+              helper="optional; adjusts confidence conservatively when skipped"
+              options={RESPONDENT_ACCESS_LEVEL_OPTIONS}
+              value={dealIdentity.respondentAccessLevel}
+              onChange={(value) => updateDealIdentity("respondentAccessLevel", value)}
+              allowClear
+              clearLabel="Clear access level"
+              className="deal-choice-field-wide"
+            />
           </div>
         </section>
 
