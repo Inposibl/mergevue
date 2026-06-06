@@ -142,6 +142,13 @@ function fallbackPredictionText(deliverable) {
 
 function buildPredictions(deliverable) {
   const anchors = deliverable?.anchors ?? [];
+  const actions = recommendedActions(deliverable);
+  const actionCopy = (index, fallback) => {
+    const action = actions[index];
+    if (!action) return fallback;
+    return cleanString(`${action.actionTitle}. ${action.actionExpectedEffect} ${action.actionReason}`);
+  };
+
   return [
     {
       predictionTitle: "Signal setup",
@@ -149,6 +156,7 @@ function buildPredictions(deliverable) {
       predictionClaim: cleanString(fallbackPredictionText(deliverable)),
       observableSignal: cleanString(anchors[0]?.text ?? fallbackPredictionText(deliverable)),
       verificationMethod: "Check whether the named behavior appears before Day 30.",
+      recommendedAction: actionCopy(0, "Protect the highest-risk operating resource before irreversible integration changes begin."),
     },
     {
       predictionTitle: "Observation window",
@@ -156,6 +164,7 @@ function buildPredictions(deliverable) {
       predictionClaim: cleanString(anchors[1]?.text ?? "Observe whether the same friction pattern repeats during the first operating cycle."),
       observableSignal: cleanString(anchors[1]?.text ?? "Repeated friction in planning, authority, information flow, or resource allocation."),
       verificationMethod: "Review operating meetings, decisions, and handoffs during Days 30–60.",
+      recommendedAction: actionCopy(2, "Separate preservation from simplification while the repeated friction pattern is tested."),
     },
     {
       predictionTitle: "Verification deadline",
@@ -163,6 +172,7 @@ function buildPredictions(deliverable) {
       predictionClaim: cleanString("By Day 60, the preview signal should either be visible enough to escalate or absent enough to lower the current concern."),
       observableSignal: cleanString(anchors[2]?.text ?? "A clear repeatable signal by Day 60."),
       verificationMethod: "Use the Day 60 review to confirm, revise, or dismiss the preview claim.",
+      recommendedAction: actionCopy(1, "Run the Day 60 verification review and decide whether to escalate, revise, or dismiss the preview claim."),
     },
   ];
 }
