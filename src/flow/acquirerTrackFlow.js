@@ -207,6 +207,7 @@ export const TRANSACTION_DETAIL_SECTIONS = Object.freeze([
 export const DEAL_ECONOMICS_CURRENCY_OPTIONS = Object.freeze(["USD", "EUR"]);
 export const DEAL_ECONOMICS_SINGLE_CURRENCY_ERROR = "Deal Economics must use one currency for enterprise value and compensation. No FX conversion is applied.";
 export const DEAL_ECONOMICS_SINGLE_CURRENCY_MISSING_FIELD = "dealEconomicsCurrencyMismatch";
+const DEAL_VALUE_INPUT_UNITS_PER_MILLION = 1000000;
 
 export const DEAL_ECONOMICS_STATUS_OPTIONS = Object.freeze([
   Object.freeze({ title: "Confirmed", value: "confirmed" }),
@@ -360,10 +361,14 @@ function normalizeDealEconomicsInput(input, config, missing) {
   const status = normalizeDealEconomicsStatus(input[config.statusKey]);
   const currency = normalizeDealEconomicsCurrency(input[config.currencyKey]);
   const parsedValue = parseNonNegativeNumber(input[config.valueKey]);
+  const valueMultiplier = config.inputUnitKey && input[config.inputUnitKey] === "millions"
+    ? DEAL_VALUE_INPUT_UNITS_PER_MILLION
+    : 1;
+  const normalizedValue = parsedValue.value === null ? null : parsedValue.value * valueMultiplier;
   const requiresValue = status === "confirmed" || status === "estimated";
 
   const normalized = {
-    [config.valueKey]: requiresValue ? parsedValue.value : null,
+    [config.valueKey]: requiresValue ? normalizedValue : null,
     [config.currencyKey]: requiresValue ? currency : "",
     [config.statusKey]: status,
   };
@@ -400,6 +405,7 @@ export function validateDealEconomics(input = {}) {
     valueKey: "enterpriseValue",
     currencyKey: "enterpriseValueCurrency",
     statusKey: "enterpriseValueStatus",
+    inputUnitKey: "enterpriseValueInputUnit",
   }, missing);
   const compensation = normalizeDealEconomicsInput(input, {
     valueKey: "compensationAssumptions",

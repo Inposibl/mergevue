@@ -81,6 +81,26 @@ function formatDealEconomicsAmount(currency, amount) {
   return `${currency} ${formatted}`;
 }
 
+function formatDealEconomicsHumanAmount(currency, amount) {
+  const number = Number(amount);
+  if (!Number.isFinite(number) || number < 0) return formatDealEconomicsAmount(currency, amount);
+  if (number >= 1000000000) {
+    const billions = number / 1000000000;
+    const formatted = Number.isInteger(billions)
+      ? billions.toLocaleString("en-US")
+      : billions.toLocaleString("en-US", { maximumFractionDigits: 2 });
+    return `${currency} ${formatted} billion`;
+  }
+  if (number >= 1000000) {
+    const millions = number / 1000000;
+    const formatted = Number.isInteger(millions)
+      ? millions.toLocaleString("en-US")
+      : millions.toLocaleString("en-US", { maximumFractionDigits: 2 });
+    return `${currency} ${formatted} million`;
+  }
+  return formatDealEconomicsAmount(currency, amount);
+}
+
 function parseDealEconomicsInteger(value) {
   if (value === undefined || value === null || value === "") return null;
   const number = Number(value);
@@ -99,7 +119,7 @@ function dealEconomicsInput(session, config) {
     statusLabel: dealEconomicsStatusLabel(status),
     amount,
     currency,
-    line: provided ? `${config.label}: ${formatDealEconomicsAmount(currency, amount)} (${dealEconomicsStatusLabel(status)}).` : "",
+    line: provided ? `${config.label}: ${(config.humanReadableAmount ? formatDealEconomicsHumanAmount : formatDealEconomicsAmount)(currency, amount)} (${dealEconomicsStatusLabel(status)}).` : "",
   });
 }
 
@@ -144,6 +164,7 @@ export function buildDealEconomicsReport(session = {}, options = {}) {
     currencyKey: "enterpriseValueCurrency",
     statusKey: "enterpriseValueStatus",
     label: "Enterprise value / deal value provided",
+    humanReadableAmount: true,
   });
   const compensation = dealEconomicsInput(session, {
     valueKey: "compensationAssumptions",

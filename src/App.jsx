@@ -1004,6 +1004,31 @@ function validDealEconomicsCurrency(value) {
   return DEAL_ECONOMICS_CURRENCY_OPTIONS.includes(value) ? value : "";
 }
 
+function dealValueMillionsInput(value) {
+  if (value === null || value === undefined || value === "") return "";
+  const number = Number(value);
+  if (!Number.isFinite(number) || number < 0) return "";
+  return Number.isInteger(number / 1000000) ? String(number / 1000000) : String(number / 1000000);
+}
+
+function formatDealValueMillionsPreview(value, currency) {
+  const number = Number(value);
+  if (!value || !Number.isFinite(number) || number < 0 || !currency) {
+    return "Enter a value to preview the interpreted deal size.";
+  }
+  if (number >= 1000) {
+    const billions = number / 1000;
+    const formatted = Number.isInteger(billions)
+      ? billions.toLocaleString("en-US")
+      : billions.toLocaleString("en-US", { maximumFractionDigits: 2 });
+    return `Interpreted as: ${currency} ${formatted} billion`;
+  }
+  const formatted = Number.isInteger(number)
+    ? number.toLocaleString("en-US")
+    : number.toLocaleString("en-US", { maximumFractionDigits: 2 });
+  return `Interpreted as: ${currency} ${formatted} million`;
+}
+
 function initialDealEconomicsCurrency(existingContext) {
   const enterpriseStatus = existingContext.enterpriseValueStatus ?? "not_available";
   const compensationStatus = existingContext.compensationStatus ?? "not_available";
@@ -1294,7 +1319,7 @@ function TransactionDetailsScreen({ session, setSession }) {
   const initialCurrency = initialDealEconomicsCurrency(existingContext);
   const [form, setForm] = useState(() => ({
     ...Object.fromEntries(TRANSACTION_DETAIL_SECTIONS.map((section) => [section.id, existingContext[section.id] ?? ""])),
-    enterpriseValue: existingContext.enterpriseValue ?? "",
+    enterpriseValue: dealValueMillionsInput(existingContext.enterpriseValue),
     enterpriseValueCurrency: initialCurrency || existingContext.enterpriseValueCurrency || "",
     enterpriseValueStatus: existingContext.enterpriseValueStatus ?? "not_available",
     keyPersonnelAtRisk: existingContext.keyPersonnelAtRisk ?? "",
@@ -1377,6 +1402,7 @@ function TransactionDetailsScreen({ session, setSession }) {
     const result = attachDealContext(session, {
       ...existingContext,
       ...form,
+      enterpriseValueInputUnit: "millions",
     });
     if (!result.validation.valid) {
       if (result.validation.missing.includes(DEAL_ECONOMICS_SINGLE_CURRENCY_MISSING_FIELD)) {
@@ -1449,14 +1475,16 @@ function TransactionDetailsScreen({ session, setSession }) {
             </div>
             <div className="deal-economics-card">
               <label className="field-block">
-                <span>Estimated deal value / enterprise value <small>Used only to estimate the structure-based risk envelope in the preliminary forecast.</small></span>
+                <span>Estimated Deal Value / Enterprise Value <small>Enter the approximate transaction value in millions of the selected currency. For example, enter 100 for 100 million.</small></span>
                 <input
                   min="0"
                   onChange={(event) => updateDetail("enterpriseValue", event.target.value)}
+                  placeholder="e.g. 100"
                   step="any"
                   type="number"
                   value={form.enterpriseValue}
                 />
+                <small>{formatDealValueMillionsPreview(form.enterpriseValue, form.enterpriseValueCurrency || form.dealEconomicsCurrency)}</small>
               </label>
               <label className="field-block">
                 <span>Status</span>
