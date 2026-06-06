@@ -3,6 +3,7 @@ import {
   buildFinalDeliverable,
   publicText,
 } from "../flow/finalDeliverableFlow.js";
+import { buildDealEconomicsReport } from "../flow/finalReportEngine.js";
 
 const BRAND = Object.freeze({
   name: "Mergevue",
@@ -341,12 +342,29 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
       timingLogic: { ...TIMING_LOGIC },
       phases: timelinePhases(deliverable),
     },
-    economicRiskTranslation: {
-      enterpriseValueBand: APPROVED_ENTERPRISE_VALUE_BAND,
-      valuationDisclaimer: APPROVED_VALUATION_DISCLAIMER,
-      economicRiskPosture: "Directional risk posture only: the public brief identifies where value leakage could emerge, not a quantified loss range.",
-      engagementTierRequirement: APPROVED_ENGAGEMENT_TIER_REQUIREMENT,
-    },
+    economicRiskTranslation: (() => {
+      const dealEconomicsReport = buildDealEconomicsReport(session, {
+        baseEcsScore: compatibilityScore,
+      });
+      const hasDealEconomicsInputs = Boolean(dealEconomicsReport?.available);
+      const reportLines = Array.isArray(dealEconomicsReport?.lines)
+        ? dealEconomicsReport.lines.filter(Boolean).map((line) => line.replace(/Total Risk Envelope/g, "Economic risk posture"))
+        : [];
+      return {
+        enterpriseValueBand: hasDealEconomicsInputs
+          ? (dealEconomicsReport?.enterpriseValue?.line || "Economic exposure: qualitative only")
+          : "Economic exposure: qualitative only",
+        valuationDisclaimer: hasDealEconomicsInputs
+          ? "Illustrative posture, not a valuation. Deal economics inputs are used only to size an order-of-magnitude risk envelope."
+          : "Deal economics were not provided. No EV-based risk envelope has been calculated.",
+        economicRiskPosture: hasDealEconomicsInputs
+          ? reportLines.join(" ")
+          : "Qualitative only: the public brief identifies where value leakage could emerge, but does not assign a quantified exposure range.",
+        engagementTierRequirement: hasDealEconomicsInputs
+          ? `${APPROVED_ENGAGEMENT_TIER_REQUIREMENT} ${dealEconomicsReport?.missingInput || dealEconomicsReport?.prompt || ""}`.trim()
+          : "Quantified exposure requires deal value, personnel-at-risk, compensation assumptions, and engagement-tier review.",
+      };
+    })(),
     recommendedActions: recommendedActions(deliverable),
     evidenceBasisAndLimits: {
       dataQualityLevel: scoreQualityLabel(session),
