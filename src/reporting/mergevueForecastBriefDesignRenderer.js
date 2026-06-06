@@ -826,8 +826,7 @@ function renderHtmlSection(section, number, context = {}) {
       beforeClose.length ? renderActionPanel("Before close", beforeClose) : "",
       afterClose.length ? renderActionPanel("After close", afterClose) : "",
     ].filter(Boolean);
-    const nextActionTitle = beforeClose[0]?.actionTitle || afterClose[0]?.actionTitle;
-    const proposedActions = actionPanels.length ? `<div class="timeline-actions"><h4 class="timeline-actions-title">Proposed actions</h4><div class="acts${actionPanels.length === 1 ? " acts-single" : ""}">${actionPanels.join("")}</div><div class="cta"><div><div class="cl">Recommended next action</div><div class="ct">${escapeHtml(nextActionTitle)}</div></div><div class="cbtn">Book practitioner session</div></div></div>` : "";
+    const proposedActions = actionPanels.length ? `<div class="timeline-actions"><h4 class="timeline-actions-title">Proposed actions</h4><div class="acts${actionPanels.length === 1 ? " acts-single" : ""}">${actionPanels.join("")}</div></div>` : "";
     return `<section class="sec" id="timeline" data-screen-label="Timeline of Proposed Actions">${sectionHead(number, "Timeline of Proposed Actions", ARCHIVE_SECTION_NOTES.timeline)}<div class="legend"><span>${escapeHtml(section.timingLogic.signalSetup)}</span><span>${escapeHtml(section.timingLogic.observationWindow)}</span><span>${escapeHtml(section.timingLogic.verificationDeadline)}</span></div><div class="tl">${columns}</div>${proposedActions}</section>`;
   }
   if (section.id === "economics") {
