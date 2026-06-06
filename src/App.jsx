@@ -673,9 +673,15 @@ function AboutMethodologyScreen() {
     <main className="marketing-screen">
       <section className="page-shell">
         <header className="framework-hero">
-          <h1>The ST Framework</h1>
+          <h1>The Post-Deal Behavior Forecast Methodology</h1>
           <p>
-            Structural Typology is a 15-year developed behavioural intelligence framework that synthesises Jung, Myers-Briggs, Piaget, and Vygotsky to predict organisational compatibility with numerical precision. The diagnostic unit is the interaction environment, not the individual.
+            The Post-Deal Behavior Forecast models how an acquired organisation will actually behave after close. People don't behave "in general" — they respond to the norms, incentives and pressures of a specific operating environment. So the diagnostic unit is the interaction environment, not the individual.
+          </p>
+          <p>
+            It reads each side of a deal as one of nine archetypal operating environments and identifies where the two will pull apart under integration pressure. The output is a time-bound, per-leader forecast — not a personality label.
+          </p>
+          <p>
+            What separates it from a culture quiz is that it is falsifiable: each forecast commits to dated, checkable claims, sealed before close and verified afterwards. A personality test can never be wrong. This can — on a clock — and that is where its credibility comes from.
           </p>
           <p>
             <a href="/about-methodology/overview" onClick={handleRouteClick("/about-methodology/overview")}>Read the methodology paper</a>
