@@ -565,6 +565,12 @@ export function renderMergevueForecastBriefHtml(model) {
   .resource-summary-row span{ display:block; font-size:11px; font-weight:650; color:var(--ink); margin-bottom:3px; }
   .resource-summary-row p{ margin:0; font-size:9.8px; line-height:1.28; color:var(--ink-2); }
   .env-rich{ padding:18px; }
+  .econ-lines{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:14px 0; }
+  .econ-line{ padding:10px 12px; border:var(--card-border); border-radius:var(--r); background:var(--surface); }
+  .econ-line-head{ display:flex; flex-direction:column; gap:3px; }
+  .econ-line-head span{ font-family:var(--mono); font-size:8.4px; letter-spacing:.11em; text-transform:uppercase; color:var(--accent); }
+  .econ-line-head b{ font-size:10.8px; line-height:1.22; color:var(--ink); font-weight:650; }
+  .econ-line p{ margin:6px 0 0; font-size:9.6px; line-height:1.28; color:var(--ink-2); }
   .env-rich > p{ font-size:11.6px; line-height:1.38; }
   .env-facts{ margin-top:12px; display:flex; flex-direction:column; gap:7px; }
   .env-fact{ padding-top:7px; border-top:var(--hair) solid var(--line); }
@@ -855,6 +861,25 @@ function renderResourceConflictSummary(section) {
   return `<div class="resource-summary"><h4>What this means in practice</h4><p>The map does not say that the deal will fail. It shows where the two operating environments are most likely to create practical friction. In this case, the main watch areas are ${escapeHtml(resourceNames)}. These are the places where integration decisions can accidentally damage trust, slow knowledge transfer, weaken information flow, or make people protect their local operating habits instead of sharing them.</p><div class="resource-summary-grid">${rows}</div></div>`;
 }
 
+function explainEconomicLine(line) {
+  const text = cleanText(line);
+  if (/Average annual compensation/i.test(text)) return ["Compensation assumption", text, "This is the annual cost assumption used to estimate how expensive key-person departure could become. It is not a salary audit; it is an input for exposure sizing."];
+  if (/Key personnel at risk/i.test(text)) return ["Key people at risk", text, "This is the number of people whose departure, disengagement, or defensive behaviour could materially affect integration quality."];
+  if (/ECS valuation band/i.test(text)) return ["ECS risk band", text, "This translates the environment compatibility score into a financial-risk band. It tells the deal team how severe the operating mismatch is for pricing and integration planning."];
+  if (/EV Discount/i.test(text)) return ["Potential EV discount pressure", text, "This indicates the range of valuation pressure that may appear if the market, investment committee, or buyer prices the integration risk into the transaction."];
+  if (/Earn-Out Exposure/i.test(text)) return ["Earn-out exposure", text, "This estimates how much contingent value may become harder to realise if post-close behaviour friction disrupts performance milestones."];
+  if (/Talent Cost/i.test(text)) return ["Talent-loss exposure", text, "This estimates the replacement, retention, disruption, and productivity cost attached to key people leaving or becoming ineffective after close."];
+  if (/Economic risk posture/i.test(text)) return ["Total economic exposure range", text, "This is the combined order-of-magnitude exposure range from valuation pressure, earn-out risk, and key-person cost. It is a planning range, not a formal valuation."];
+  if (/Order-of-magnitude/i.test(text)) return ["Method limit", text, "The numbers are intended for decision posture and integration planning. Formal financial treatment requires engagement-tier modelling and analyst review."];
+  return ["Economic input", text, "This line is part of the deal economics input used to translate operating friction into a practical financial exposure range."];
+}
+
+function renderEconomicLineItems(lines) {
+  const items = Array.isArray(lines) ? lines.filter((line) => cleanText(line)).map(explainEconomicLine) : [];
+  if (!items.length) return "";
+  return `<div class="econ-lines">${items.map(([label, value, explanation]) => `<div class="econ-line"><div class="econ-line-head"><span>${escapeHtml(label)}</span><b>${escapeHtml(value)}</b></div><p>${escapeHtml(explanation)}</p></div>`).join("")}</div>`;
+}
+
 function renderHtmlSection(section, number, context = {}) {
   if (section.id === "predictions") {
     const trackerUrl = cleanText(section.trackerUrl).includes(":reportId") ? "" : cleanText(section.trackerUrl);
@@ -897,7 +922,7 @@ function renderHtmlSection(section, number, context = {}) {
   }
   if (section.id === "economics") {
     const economicLines = Array.isArray(section.economicRiskLines) ? section.economicRiskLines : [];
-    const economicLineItems = economicLines.length ? `<div class="econ-lines">${economicLines.map((line) => `<p>${escapeHtml(line)}</p>`).join("")}</div>` : "";
+    const economicLineItems = renderEconomicLineItems(economicLines);
     const categories = section.categories.map((category) => `<div class="cat"><div class="cat-top"><span class="cn">${escapeHtml(category.label)}</span><span class="cr tnum">${category.value} / 100</span></div><p>${escapeHtml(section.economicRiskPosture)}</p><div class="cat-bar"><span style="width:${category.value}%"></span></div></div>`).join("");
     return `<section class="sec" id="economic" data-screen-label="Economic Translation">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.economics)}<div class="env-total"><div class="et-l"><div class="lab">Economic exposure</div><div class="rng tnum">${escapeHtml(section.enterpriseValueBand)}</div></div><div class="et-r">${escapeHtml(section.valuationDisclaimer)}<br>${escapeHtml(section.engagementTierRequirement)}</div></div>${economicLineItems}<div class="cats">${categories}</div></section>`;
   }

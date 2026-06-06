@@ -368,7 +368,7 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
       phases: timelinePhases(deliverable),
     },
     economicRiskTranslation: {
-      enterpriseValueBand: hasDealEconomicsInputs ? "Economic exposure based on provided deal value" : publicEnterpriseValueLabel,
+      enterpriseValueBand: hasDealEconomicsInputs ? "ECONOMIC EXPOSURE MODEL" : publicEnterpriseValueLabel,
       valuationDisclaimer: hasDealEconomicsInputs
         ? "Illustrative posture, not a valuation. Deal economics inputs are used only to size an order-of-magnitude risk envelope."
         : "Deal economics were not provided. No EV-based risk envelope has been calculated.",
