@@ -843,7 +843,7 @@ function renderArchiveExecutive(model) {
         <div class="deal-cell"><span class="k">Economic exposure</span><span class="v tnum">${escapeHtml(model.forecast.enterpriseValue)}</span></div>
       </div>
       <div class="exec-preds"><div class="epl">Three sealed predictions — verify by date</div>${epreds}</div>
-      <div class="exec-action"><span class="lab">Recommended</span><span class="txt">${escapeHtml(model.forecast.recommendedAction)}</span></div>
+      <div class="exec-action"><span class="lab">First integration control move</span><span class="txt">${escapeHtml(model.forecast.recommendedAction)}</span></div>
     </div>
   </div></section>`;
 }

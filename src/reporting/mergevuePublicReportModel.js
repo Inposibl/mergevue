@@ -259,6 +259,19 @@ function recommendedActions(deliverable) {
   }));
 }
 
+function firstIntegrationControlMove(deliverable) {
+  const resources = resourceRows(deliverable)
+    .map((row) => row.resourceName)
+    .filter(Boolean)
+    .slice(0, 3);
+
+  const signalText = resources.length
+    ? `Track friction around ${resources.join(", ")} before deciding what to integrate, simplify, or preserve.`
+    : "Track the named preview signals before deciding what to integrate, simplify, or preserve.";
+
+  return cleanString(`Freeze irreversible operating-model changes until Day 60. The immediate priority is to identify which target routines preserve value and which ones create governance risk. ${signalText}`);
+}
+
 function buildScenarioId(session, dealContext) {
   return compactId(session?.scenarioId ?? dealContext?.scenarioId ?? session?.sessionId);
 }
@@ -322,7 +335,7 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
       oneParagraphSummary: cleanString(narrative.situation ?? deliverable?.body ?? "This brief summarizes the most likely post-close behavior friction visible from the current diagnostic inputs."),
       decisionImplication: cleanString(narrative.implication ?? "Use this brief to decide what must be observed before the integration plan hardens."),
       mainRisk: cleanString(friction.fp1 ?? `${leadResource} may become the first visible post-close friction point.`),
-      recommendedAction: "Preserve the target operating pattern until the Day 60 verification review confirms what should be integrated, simplified, or left intact.",
+      recommendedAction: firstIntegrationControlMove(deliverable),
     },
     sealedPredictions: {
       statusTitle: "Sealed Prediction Preview",
