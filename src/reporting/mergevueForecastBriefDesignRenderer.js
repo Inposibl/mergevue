@@ -35,7 +35,7 @@ const ARCHIVE_SECTION_NOTES = Object.freeze({
   timeline: "Derived from sealed prediction windows",
   economics: "Decision posture, not valuation",
   actions: "Before and after close",
-  evidence: "Showing the work",
+  evidence: "What this preview cannot decide for you",
   engagement: "Full engagement adds",
   audit: "Audit trail",
 });
@@ -1051,7 +1051,12 @@ function renderHtmlSection(section, number, context = {}) {
     return `<section class="sec" id="actions" data-screen-label="Recommended Actions">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.actions)}<div class="acts">${renderActionPanel("Before close", section.beforeClose)}${renderActionPanel("After close", section.afterClose)}</div><div class="cta"><div><div class="cl">Recommended next action</div><div class="ct">${escapeHtml(section.beforeClose[0]?.actionTitle || section.afterClose[0]?.actionTitle)}</div></div><div class="cbtn">Book practitioner session</div></div></section>`;
   }
   if (section.id === "evidence") {
-    return `<section class="sec" id="evidence" data-screen-label="Evidence & Limits">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.evidence)}<div class="split2"><div class="panel"><h4>Evidence basis & confidence gate</h4>${[["Data quality", section.dataQualityLevel], ["Input completeness", section.inputCompleteness], ["What this report can say", section.canSay]].map(([k, v]) => `<div class="evrow"><span class="ek">${escapeHtml(k)}</span><span class="ev">${escapeHtml(v)}</span></div>`).join("")}</div><div class="panel warn"><h4>What this report does not tell you</h4><ul class="notlist"><li>${escapeHtml(section.cannotSay)}</li><li>${escapeHtml(section.knownLimits)}</li><li>${escapeHtml(section.methodLimitations)}</li></ul></div></div></section>`;
+    const gaps = [
+      ["Who carries the risk", "Which named leaders, roles, or teams are most exposed to disengagement, resistance, or knowledge loss."],
+      ["What must be protected", "Which decision rights, knowledge flows, routines, or trust mechanisms should be preserved before integration changes begin."],
+      ["How much value is at stake", "Which part of the exposure belongs to valuation pressure, earn-out risk, talent loss, or operating drift."],
+    ];
+    return `<section class="sec" id="evidence" data-screen-label="Decision Gap">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.evidence)}<div class="panel decision-gap"><h4>What this preview cannot decide for you</h4><p>This brief identifies the likely post-close fault lines, but it does not yet tell the deal team which leaders carry the risk, which routines must be protected, or how much economic value is exposed under the final integration plan.</p><div class="decision-gap-grid">${gaps.map(([label, value]) => `<div class="evrow"><span class="ek">${escapeHtml(label)}</span><span class="ev">${escapeHtml(value)}</span></div>`).join("")}</div><p><strong>The full engagement converts this preview into an executable integration-control plan.</strong></p></div></section>`;
   }
   if (section.id === "engagement") {
     return `<section class="sec" id="engagement" data-screen-label="Full Engagement Adds">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.engagement)}<div class="panel">${section.benefits.map(renderEngagementBenefit).join("")}</div><div class="cta"><div><div class="cl">Engagement contact</div><div class="ct">Next step: contact us to scope the engagement</div></div><a class="cbtn" href="mailto:${escapeHtml(section.contactEmail)}">${escapeHtml(section.contactEmail)}</a></div></section>`;

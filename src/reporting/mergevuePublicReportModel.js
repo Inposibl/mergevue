@@ -24,7 +24,7 @@ export const MERGEVUE_PUBLIC_REPORT_BLOCKS = Object.freeze([
   "Timeline of Expected Friction",
   "Economic Risk Translation",
   "Recommended Actions",
-  "Evidence Basis & Limits",
+  "Decision Gap",
   "What the Full Engagement Adds",
   "Audit Footer",
 ]);
