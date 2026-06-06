@@ -219,11 +219,17 @@ function predictionCard(prediction, index) {
 function timelinePhase(prediction, index) {
   const oneLine = cleanText(prediction.oneLine).replace(/\.$/, "");
   const body = timelineBodyText(prediction.statement);
+  const fallbackWatchFor = `During ${cleanText(prediction.verifyBy)}, watch whether this pattern appears in meetings, decisions, handoffs, escalation behaviour, or resistance to the proposed governance rhythm.`;
+  const genericWatchForPattern = /^Review operating meetings, decisions, and handoffs/i;
+  const evidenceWatchFor = distinctText(prediction.evidenceRequired, body);
+  const verificationWatchFor = distinctText(prediction.falsificationCondition, body);
+  const watchForCandidate = [evidenceWatchFor, verificationWatchFor].find((value) => cleanText(value) && !genericWatchForPattern.test(cleanText(value)));
+  const watchFor = watchForCandidate || fallbackWatchFor;
   return Object.freeze({
     id: `T${index + 1}`,
     heading: oneLine,
     body: distinctText(body, oneLine),
-    watchFor: distinctText(prediction.evidenceRequired, body),
+    watchFor,
     verifyBy: prediction.verifyBy,
   });
 }
@@ -336,12 +342,24 @@ export function buildMergevueForecastBriefDesignModel(report, options = {}) {
         environment: acquirerPattern,
         description: environments.acquirerEnvironmentDescription,
         behaviorPattern: environments.acquirerBehaviorPattern,
+        oneLineDefinition: environments.acquirerOneLineDefinition,
+        authorityStructure: environments.acquirerAuthorityStructure,
+        innovationStance: environments.acquirerInnovationStance,
+        economicFunction: environments.acquirerEconomicFunction,
+        resourceTarget: environments.acquirerResourceTarget,
+        systemicRole: environments.acquirerSystemicRole,
       },
       target: {
         name: scenario.targetName,
         environment: targetPattern,
         description: environments.targetEnvironmentDescription,
         behaviorPattern: environments.targetBehaviorPattern,
+        oneLineDefinition: environments.targetOneLineDefinition,
+        authorityStructure: environments.targetAuthorityStructure,
+        innovationStance: environments.targetInnovationStance,
+        economicFunction: environments.targetEconomicFunction,
+        resourceTarget: environments.targetResourceTarget,
+        systemicRole: environments.targetSystemicRole,
       },
     },
     {
@@ -539,6 +557,12 @@ export function renderMergevueForecastBriefHtml(model) {
 <meta charset="utf-8">
 <title>${model.fileName}</title>
 <style>
+  .env-rich{ padding:18px; }
+  .env-rich > p{ font-size:11.6px; line-height:1.38; }
+  .env-facts{ margin-top:12px; display:flex; flex-direction:column; gap:7px; }
+  .env-fact{ padding-top:7px; border-top:var(--hair) solid var(--line); }
+  .env-fact span{ display:block; font-family:var(--mono); font-size:8.7px; letter-spacing:.11em; text-transform:uppercase; color:var(--accent); margin-bottom:2px; }
+  .env-fact p{ margin:0; font-size:10.4px; line-height:1.28; color:var(--ink-2); }
   :root{ --maxw:880px; --gut:42px; --bg:#f6f7f8; --ink:#161616; --ink-2:#555d66; --ink-3:#8a949e; --surface:#fff; --surface-2:#f3f5f7; --line:#d9dde2; --line-strong:#b9c1ca; --accent:#2e75b6; --accent-soft:#e8f2fb; --sig-high:#2e7d32; --sig-mod:#e8a33d; --sig-risk:#c0392b; --mono:ui-monospace,SFMono-Regular,Consolas,monospace; --hair:1px; --r:8px; --card-border:var(--hair) solid var(--line); --card-shadow:0 10px 28px rgba(23,50,77,.08); --display-weight:650; color-scheme:light; font-family:Inter,Arial,sans-serif; }
   *{ box-sizing:border-box; } body{ margin:0; background:var(--bg); color:var(--ink); } .controls{ position:sticky; top:0; z-index:50; display:flex; align-items:center; gap:12px; padding:12px 20px; border-bottom:var(--hair) solid var(--line); background:color-mix(in oklab,var(--surface) 86%,transparent); backdrop-filter:blur(10px); } .controls .cb-brand{ font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-2); } .cb-print{ margin-left:auto; border:var(--hair) solid var(--line-strong); border-radius:100px; background:transparent; padding:8px 13px; font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; }
   .sheet{ max-width:var(--maxw); margin:0 auto; padding:0 var(--gut) 70px; background:var(--bg); } .mono{ font-family:var(--mono); } .tnum{ font-variant-numeric:tabular-nums; } .kicker{ font-family:var(--mono); font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-3); }
@@ -765,7 +789,7 @@ function renderArchiveExecutive(model) {
         <div class="deal-cell"><span class="k">Acquirer</span><span class="v">${escapeHtml(model.forecast.acquirer.company)} <small>· ${escapeHtml(model.forecast.acquirer.pattern)}</small></span></div>
         <div class="deal-cell"><span class="k">Target</span><span class="v">${escapeHtml(model.forecast.target.company)} <small>· ${escapeHtml(model.forecast.target.pattern)}</small></span></div>
         <div class="deal-cell"><span class="k">Deal type</span><span class="v">${escapeHtml(model.forecast.dealType)}</span></div>
-        <div class="deal-cell"><span class="k">Valuation risks</span><span class="v tnum">${escapeHtml(model.forecast.enterpriseValue)}</span></div>
+        <div class="deal-cell"><span class="k">Economic exposure</span><span class="v tnum">${escapeHtml(model.forecast.enterpriseValue)}</span></div>
       </div>
       <div class="exec-preds"><div class="epl">Three sealed predictions — verify by date</div>${epreds}</div>
       <div class="exec-action"><span class="lab">Recommended</span><span class="txt">${escapeHtml(model.forecast.recommendedAction)}</span></div>
@@ -818,11 +842,14 @@ function renderHtmlSection(section, number, context = {}) {
     return `<section class="sec" id="predictions" data-screen-label="Sealed Predictions">${sectionHead(number, section.title, section.statusDescription)}<div class="panel"><h4>${escapeHtml(section.statusTitle)}</h4><p>${escapeHtml(section.statusDescription)}</p></div><div class="preds-wrap">${renderPredictionCards(section)}</div><div class="tracker"><div class="qr" aria-label="QR preview tracker"></div><div class="tk-body"><h4>Preview verification tracker</h4><p>${escapeHtml(section.trackerStatement)}</p>${trackerUrl ? `<div class="tk-url">${escapeHtml(trackerUrl)}</div>` : ""}</div></div></section>`;
   }
   if (section.id === "environments") {
-    return `<section class="sec" id="environments" data-screen-label="Identified Environment Types">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.environments)}<div class="envs"><article class="env"><div class="role">Acquirer</div><div class="co">${escapeHtml(section.acquirer.name)}</div><div class="arc">${escapeHtml(section.acquirer.environment)}</div><p>${escapeHtml(section.acquirer.description)}</p><p>${escapeHtml(section.acquirer.behaviorPattern)}</p></article><article class="env"><div class="role">Target</div><div class="co">${escapeHtml(section.target.name)}</div><div class="arc">${escapeHtml(section.target.environment)}</div><p>${escapeHtml(section.target.description)}</p><p>${escapeHtml(section.target.behaviorPattern)}</p></article></div></section>`;
+    const renderEnvironmentCard = (role, env) => {
+      const rows = [["Definition", env.oneLineDefinition || env.description], ["Authority", env.authorityStructure], ["Decision logic", env.behaviorPattern], ["Innovation stance", env.innovationStance], ["Economic function", env.economicFunction], ["Resource focus", env.resourceTarget], ["Systemic role", env.systemicRole]].filter(([, value]) => cleanText(value));
+      return `<article class="env env-rich"><div class="role">${escapeHtml(role)}</div><div class="co">${escapeHtml(env.name)}</div><div class="arc">${escapeHtml(env.environment)}</div><p>${escapeHtml(env.description)}</p><div class="env-facts">${rows.map(([label, value]) => `<div class="env-fact"><span>${escapeHtml(label)}</span><p>${escapeHtml(value)}</p></div>`).join("")}</div></article>`;
+    };
+    return `<section class="sec" id="environments" data-screen-label="Identified Environment Types">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.environments)}<div class="envs">${renderEnvironmentCard("Acquirer", section.acquirer)}${renderEnvironmentCard("Target", section.target)}</div></section>`;
   }
   if (section.id === "collision") {
     const rawFinding = section.primaryTension || section.headline || section.summary;
-
     const collisionRows = [
       ["What we found", renderCollisionFinding(rawFinding), true],
       ["Why it matters", section.postCloseFailureMode || section.whyItMatters || section.summary, false],
