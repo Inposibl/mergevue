@@ -158,6 +158,29 @@ function conflictBandFromIntensity(intensity) {
   return "aligned";
 }
 
+function clampScore(value) {
+  const number = Number(value);
+  if (!Number.isFinite(number)) return 0;
+  return Math.max(0, Math.min(100, Math.round(number)));
+}
+
+function averageScore(values) {
+  const valid = values.map(Number).filter(Number.isFinite);
+  if (!valid.length) return 0;
+  return valid.reduce((sum, value) => sum + value, 0) / valid.length;
+}
+
+function resourceScore(resources, names) {
+  const wanted = names.map((name) => name.toLowerCase());
+  const matches = resources.filter((resource) => {
+    const label = String(resource.name || resource.label || resource.resourceName || "").toLowerCase();
+    return wanted.some((name) => label.includes(name));
+  });
+
+  const selected = matches.length ? matches : resources;
+  return averageScore(selected.map((resource) => resource.conflictIntensity ?? resource.intensity ?? 0));
+}
+
 
 function publicResourceDirection(text) {
   const RESOURCE_TIER_DISPLAY_LABELS = Object.freeze({
@@ -291,6 +314,23 @@ export function buildMergevueForecastBriefDesignModel(report, options = {}) {
   const issuedAt = cleanText(audit.generatedAt).slice(0, 10);
   const acquirerPattern = publicEnvironmentName(environments.acquirerEnvironmentName, environments.acquirerEnvironmentCode);
   const targetPattern = publicEnvironmentName(environments.targetEnvironmentName, environments.targetEnvironmentCode);
+  const resourceList = Array.isArray(resources.resources) ? resources.resources : [];
+  const averageResourceIntensity = averageScore(resourceList.map((resource) => resource.conflictIntensity ?? resource.intensity ?? 0));
+  const compatibilityFriction = Number.isFinite(score) ? 100 - score : averageResourceIntensity;
+  const economicCategories = [
+    {
+      label: "Operating drift",
+      value: clampScore(0.55 * averageResourceIntensity + 0.45 * compatibilityFriction),
+    },
+    {
+      label: "Knowledge leakage",
+      value: clampScore(0.65 * resourceScore(resourceList, ["knowledge", "information", "trust", "connections"]) + 0.35 * averageResourceIntensity),
+    },
+    {
+      label: "Decision delay",
+      value: clampScore(0.65 * resourceScore(resourceList, ["authority", "organisation", "organization", "system", "decisiveness", "information"]) + 0.35 * compatibilityFriction),
+    },
+  ];
 
   const sections = [
     {
@@ -402,11 +442,7 @@ export function buildMergevueForecastBriefDesignModel(report, options = {}) {
       economicRiskPosture: economics.economicRiskPosture,
       economicRiskLines: Array.isArray(economics.economicRiskLines) ? economics.economicRiskLines : [],
       engagementTierRequirement: economics.engagementTierRequirement,
-      categories: [
-        { label: "Operating drift", value: 72 },
-        { label: "Knowledge leakage", value: 64 },
-        { label: "Decision delay", value: 58 },
-      ],
+      categories: economicCategories,
     },
     {
       id: SECTION_IDS[8],
