@@ -279,6 +279,19 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
   const friction = deliverable?.friction ?? {};
   const resources = resourceRows(deliverable);
   const leadResource = resources[0]?.resourceName ?? "operating system";
+  const dealEconomicsReport = buildDealEconomicsReport(session, {
+    baseEcsScore: compatibilityScore,
+  });
+  const hasDealEconomicsInputs = Boolean(dealEconomicsReport?.available);
+  const publicEconomicLines = Array.isArray(dealEconomicsReport?.lines)
+    ? dealEconomicsReport.lines
+      .filter(Boolean)
+      .filter((line) => !line.startsWith("Enterprise value / deal value provided:"))
+      .map((line) => line.replace(/Total Risk Envelope/g, "Economic risk posture"))
+    : [];
+  const publicEnterpriseValueLabel = hasDealEconomicsInputs
+    ? (dealEconomicsReport?.enterpriseValue?.line || "Economic exposure: qualitative only")
+    : "Economic exposure: qualitative only";
 
   return {
     brand: { ...BRAND },
@@ -311,7 +324,7 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
       acquirerName,
       targetName,
       dealType: dealTypeLabel(dealContext.dealType),
-      enterpriseValueBand: APPROVED_ENTERPRISE_VALUE_BAND,
+      enterpriseValueBand: publicEnterpriseValueLabel,
       dataQuality: scoreQualityLabel(session),
       compatibilityScore,
       compatibilityBand,
@@ -342,29 +355,24 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
       timingLogic: { ...TIMING_LOGIC },
       phases: timelinePhases(deliverable),
     },
-    economicRiskTranslation: (() => {
-      const dealEconomicsReport = buildDealEconomicsReport(session, {
-        baseEcsScore: compatibilityScore,
-      });
-      const hasDealEconomicsInputs = Boolean(dealEconomicsReport?.available);
-      const reportLines = Array.isArray(dealEconomicsReport?.lines)
-        ? dealEconomicsReport.lines.filter(Boolean).map((line) => line.replace(/Total Risk Envelope/g, "Economic risk posture"))
-        : [];
-      return {
-        enterpriseValueBand: hasDealEconomicsInputs
-          ? (dealEconomicsReport?.enterpriseValue?.line || "Economic exposure: qualitative only")
-          : "Economic exposure: qualitative only",
-        valuationDisclaimer: hasDealEconomicsInputs
-          ? "Illustrative posture, not a valuation. Deal economics inputs are used only to size an order-of-magnitude risk envelope."
-          : "Deal economics were not provided. No EV-based risk envelope has been calculated.",
-        economicRiskPosture: hasDealEconomicsInputs
-          ? reportLines.join(" ")
-          : "Qualitative only: the public brief identifies where value leakage could emerge, but does not assign a quantified exposure range.",
-        engagementTierRequirement: hasDealEconomicsInputs
-          ? `${APPROVED_ENGAGEMENT_TIER_REQUIREMENT} ${dealEconomicsReport?.missingInput || dealEconomicsReport?.prompt || ""}`.trim()
-          : "Quantified exposure requires deal value, personnel-at-risk, compensation assumptions, and engagement-tier review.",
-      };
-    })(),
+    economicRiskTranslation: {
+      enterpriseValueBand: hasDealEconomicsInputs ? "Economic exposure based on provided deal value" : publicEnterpriseValueLabel,
+      valuationDisclaimer: hasDealEconomicsInputs
+        ? "Illustrative posture, not a valuation. Deal economics inputs are used only to size an order-of-magnitude risk envelope."
+        : "Deal economics were not provided. No EV-based risk envelope has been calculated.",
+      economicRiskPosture: hasDealEconomicsInputs
+        ? "Quantified exposure summary is based on the provided deal economics inputs and ECS band."
+        : "Qualitative only: the public brief identifies where value leakage could emerge, but does not assign a quantified exposure range.",
+      engagementTierRequirement: hasDealEconomicsInputs
+        ? `${APPROVED_ENGAGEMENT_TIER_REQUIREMENT} ${dealEconomicsReport?.missingInput || dealEconomicsReport?.prompt || ""}`.trim()
+        : "Quantified exposure requires deal value, personnel-at-risk, compensation assumptions, and engagement-tier review.",
+      economicRiskLines: hasDealEconomicsInputs
+        ? publicEconomicLines
+        : [
+          "Deal value was not provided. No EV-based risk envelope has been calculated.",
+          "This public brief therefore treats valuation risk qualitatively through ECS, resource conflict, and post-close behavior signals.",
+        ],
+    },
     recommendedActions: recommendedActions(deliverable),
     evidenceBasisAndLimits: {
       dataQualityLevel: scoreQualityLabel(session),

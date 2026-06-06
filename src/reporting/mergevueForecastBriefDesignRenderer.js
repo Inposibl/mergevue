@@ -382,6 +382,7 @@ export function buildMergevueForecastBriefDesignModel(report, options = {}) {
       enterpriseValueBand: stripLabel(economics.enterpriseValueBand, "Enterprise value band"),
       valuationDisclaimer: economics.valuationDisclaimer,
       economicRiskPosture: economics.economicRiskPosture,
+      economicRiskLines: Array.isArray(economics.economicRiskLines) ? economics.economicRiskLines : [],
       engagementTierRequirement: economics.engagementTierRequirement,
       categories: [
         { label: "Operating drift", value: 72 },
@@ -615,7 +616,26 @@ export function renderMergevueForecastBriefHtml(model) {
   .rbar .rt{ height:8px!important; background:#E7EAE7!important; }
   .rbar .rf{ display:block!important; opacity:1!important; min-width:2px; }
   .zone{ margin-bottom:13px; }
+  .timeline-page{ padding-top:10mm; padding-bottom:9mm; }
+  .timeline-page .sec{ padding-top:16px; }
+  .timeline-page .sec-head{ margin-bottom:10px; padding-bottom:8px; }
+  .timeline-page .legend{ margin-bottom:10px; }
   .timeline-page .tl{ grid-template-columns:1fr 1fr 1fr; }
+  .timeline-page .tl-when{ padding:9px 11px; }
+  .timeline-page .tl-body{ padding:10px 11px; }
+  .timeline-page .tl-body .h{ font-size:12px; line-height:1.2; }
+  .timeline-page .tl-body p{ font-size:9.2px; line-height:1.23; margin-top:6px; }
+  .timeline-page .tl-marker{ margin-top:7px; padding-top:6px; }
+  .timeline-page .tl-marker .mv{ font-size:8.8px; line-height:1.2; }
+  .timeline-page .timeline-actions{ margin-top:10px; padding-top:9px; }
+  .timeline-page .timeline-actions-title{ margin-bottom:7px; font-size:9.5px; }
+  .timeline-page .acts{ gap:9px; }
+  .timeline-page .act{ padding:10px 12px; }
+  .timeline-page .act h4{ margin-bottom:7px; font-size:9.5px; }
+  .timeline-page .act-item{ padding:6px 0; }
+  .timeline-page .act-title{ font-size:10.8px; line-height:1.2; }
+  .timeline-page .act-meta{ font-size:8.4px; line-height:1.2; margin-top:3px; }
+  .timeline-page .act-reason{ font-size:8.9px; line-height:1.22; margin-top:4px; }
   .tl-body p{ font-size:11.5px; line-height:1.45; }
   .tl-marker .mv{ font-size:10.8px; }
   .env-total .rng{ font-size:33px; }
@@ -830,7 +850,10 @@ function renderHtmlSection(section, number, context = {}) {
     return `<section class="sec" id="timeline" data-screen-label="Timeline of Proposed Actions">${sectionHead(number, "Timeline of Proposed Actions", ARCHIVE_SECTION_NOTES.timeline)}<div class="legend"><span>${escapeHtml(section.timingLogic.signalSetup)}</span><span>${escapeHtml(section.timingLogic.observationWindow)}</span><span>${escapeHtml(section.timingLogic.verificationDeadline)}</span></div><div class="tl">${columns}</div>${proposedActions}</section>`;
   }
   if (section.id === "economics") {
-    return `<section class="sec" id="economic" data-screen-label="Economic Translation">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.economics)}<div class="env-total"><div class="et-l"><div class="lab">Valuation risk band</div><div class="rng tnum">${escapeHtml(section.enterpriseValueBand)}</div></div><div class="et-r">${escapeHtml(section.valuationDisclaimer)}<br>${escapeHtml(section.engagementTierRequirement)}</div></div><div class="cats">${section.categories.map((category) => `<div class="cat"><div class="cat-top"><span class="cn">${escapeHtml(category.label)}</span><span class="cr tnum">${category.value} / 100</span></div><p>${escapeHtml(section.economicRiskPosture)}</p><div class="cat-bar"><span style="width:${category.value}%"></span></div></div>`).join("")}</div></section>`;
+    const economicLines = Array.isArray(section.economicRiskLines) ? section.economicRiskLines : [];
+    const economicLineItems = economicLines.length ? `<div class="econ-lines">${economicLines.map((line) => `<p>${escapeHtml(line)}</p>`).join("")}</div>` : "";
+    const categories = section.categories.map((category) => `<div class="cat"><div class="cat-top"><span class="cn">${escapeHtml(category.label)}</span><span class="cr tnum">${category.value} / 100</span></div><p>${escapeHtml(section.economicRiskPosture)}</p><div class="cat-bar"><span style="width:${category.value}%"></span></div></div>`).join("");
+    return `<section class="sec" id="economic" data-screen-label="Economic Translation">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.economics)}<div class="env-total"><div class="et-l"><div class="lab">Economic exposure</div><div class="rng tnum">${escapeHtml(section.enterpriseValueBand)}</div></div><div class="et-r">${escapeHtml(section.valuationDisclaimer)}<br>${escapeHtml(section.engagementTierRequirement)}</div></div>${economicLineItems}<div class="cats">${categories}</div></section>`;
   }
   if (section.id === "actions") {
     return `<section class="sec" id="actions" data-screen-label="Recommended Actions">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.actions)}<div class="acts">${renderActionPanel("Before close", section.beforeClose)}${renderActionPanel("After close", section.afterClose)}</div><div class="cta"><div><div class="cl">Recommended next action</div><div class="ct">${escapeHtml(section.beforeClose[0]?.actionTitle || section.afterClose[0]?.actionTitle)}</div></div><div class="cbtn">Book practitioner session</div></div></section>`;
