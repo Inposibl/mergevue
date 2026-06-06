@@ -1062,14 +1062,12 @@ function initialDealIdentity(existingContext) {
 
 function roleOptionsForSide(respondentSide) {
   if (!respondentSide) return RESPONDENT_ROLE_OPTIONS;
-  return RESPONDENT_ROLE_OPTIONS.filter((option) => option.sides.includes(respondentSide) || option.sides.includes("other"));
+  return RESPONDENT_ROLE_OPTIONS.filter((option) => option.sides.includes(respondentSide));
 }
 
 function dealStartSubmitLabel(respondentSide) {
-  if (respondentSide === "target") return "Continue to Target Self-Assessment";
-  if (respondentSide === "advisor") return "Continue to Advisor Diagnostic";
-  if (respondentSide === "other") return "Continue to Consultation";
-  return "Continue";
+  if (!respondentSide) return "Continue";
+  return "Continue to optional evidence quality";
 }
 
 function targetDiagnosticCompletionRoute(session) {
@@ -1143,13 +1141,15 @@ function AcquisitionMotiveScreen({ session, setSession }) {
   const [dealIdentity, setDealIdentity] = useState(() => initialDealIdentity(existingContext));
   const [error, setError] = useState("");
   const finalDeliverable = buildFinalDeliverable(session);
-  const respondentRoleOptions = roleOptionsForSide(dealIdentity.respondentSide);
-  const respondentRoleValid = respondentRoleOptions.some((option) => option.value === dealIdentity.respondentRole);
-  const dealIdentityComplete = Object.values(dealIdentity).every(Boolean) && respondentRoleValid;
+  const dealIdentityComplete = Boolean(
+    dealIdentity.acquirerName
+      && dealIdentity.targetName
+      && dealIdentity.respondentSide
+      && dealIdentity.dealType,
+  );
   const canContinue = Boolean(dealIdentityComplete);
   const submitLabel = dealStartSubmitLabel(dealIdentity.respondentSide);
   const derivedAcquisitionMotive = acquisitionMotiveForDealType(dealIdentity.dealType);
-  const isOtherIntegrationSensitiveDeal = dealIdentity.dealType === "other_integration_sensitive";
   const motiveProfile = ACQUISITION_MOTIVE_OPTIONS.find((motive) => motive.value === derivedAcquisitionMotive);
 
   function updateDealIdentity(fieldId, value) {
@@ -1178,7 +1178,7 @@ function AcquisitionMotiveScreen({ session, setSession }) {
     }
     setSession(result.session);
     setError("");
-    navigate(result.session.dealContext.nextRoute ?? nextRouteForDealStart(result.session.dealContext.data));
+    navigate("/start-diagnostic/deal-context/refine-evidence-quality");
   }
 
   return (
@@ -1212,15 +1212,6 @@ function AcquisitionMotiveScreen({ session, setSession }) {
               />
             </label>
             <label className="field-block">
-              <span>Deal type <small>(choose primary deal rationale; sets the integration-risk lens)</small></span>
-              <select value={dealIdentity.dealType} onChange={(event) => updateDealIdentity("dealType", event.target.value)}>
-                <option value="">Select deal type</option>
-                {DEAL_TYPE_OPTIONS.map((option) => (
-                  <option key={option.value} value={option.value}>{option.title}</option>
-                ))}
-              </select>
-            </label>
-            <label className="field-block">
               <span>Respondent side <small>(choose who you represent; keeps evidence separated by perspective)</small></span>
               <select value={dealIdentity.respondentSide} onChange={(event) => updateDealIdentity("respondentSide", event.target.value)}>
                 <option value="">Select respondent side</option>
@@ -1230,34 +1221,16 @@ function AcquisitionMotiveScreen({ session, setSession }) {
               </select>
             </label>
             <label className="field-block">
-              <span>Respondent role <small>(choose your role in the deal; calibrates what you can know directly)</small></span>
-              <select value={dealIdentity.respondentRole} onChange={(event) => updateDealIdentity("respondentRole", event.target.value)}>
-                <option value="">Select respondent role</option>
-                {respondentRoleOptions.map((option) => (
+              <span>Deal type <small>(choose primary deal rationale; sets the integration-risk lens)</small></span>
+              <select value={dealIdentity.dealType} onChange={(event) => updateDealIdentity("dealType", event.target.value)}>
+                <option value="">Select deal type</option>
+                {DEAL_TYPE_OPTIONS.map((option) => (
                   <option key={option.value} value={option.value}>{option.title}</option>
                 ))}
               </select>
             </label>
             <label className="field-block">
-              <span>Seniority <small>(choose decision level; calibrates authority, access, and accountability evidence)</small></span>
-              <select value={dealIdentity.respondentSeniority} onChange={(event) => updateDealIdentity("respondentSeniority", event.target.value)}>
-                <option value="">Select seniority</option>
-                {RESPONDENT_SENIORITY_OPTIONS.map((option) => (
-                  <option key={option.value} value={option.value}>{option.title}</option>
-                ))}
-              </select>
-            </label>
-            <label className="field-block">
-              <span>Function <small>(choose functional area; shows which facts you can observe directly)</small></span>
-              <select value={dealIdentity.respondentFunction} onChange={(event) => updateDealIdentity("respondentFunction", event.target.value)}>
-                <option value="">Select function</option>
-                {RESPONDENT_FUNCTION_OPTIONS.map((option) => (
-                  <option key={option.value} value={option.value}>{option.title}</option>
-                ))}
-              </select>
-            </label>
-            <label className="field-block">
-              <span>Access level <small>(choose diligence access; marks answer reliability and missing-evidence risk)</small></span>
+              <span>How close are you to the deal room? <small>(optional; adjusts confidence conservatively when skipped)</small></span>
               <select value={dealIdentity.respondentAccessLevel} onChange={(event) => updateDealIdentity("respondentAccessLevel", event.target.value)}>
                 <option value="">Select access level</option>
                 {RESPONDENT_ACCESS_LEVEL_OPTIONS.map((option) => (
@@ -1278,14 +1251,7 @@ function AcquisitionMotiveScreen({ session, setSession }) {
         </section>
 
         <section className="motive-info-panel" aria-label="Acquisition motive information">
-          {isOtherIntegrationSensitiveDeal ? (
-            <article className="motive-card motive-info-card active">
-              <span>Derived from Deal type</span>
-              <strong>Insufficient information</strong>
-              <em>Mapped internally to absorb or neutralize a competitor.</em>
-              <p>There is insufficient information to clarify the value of the composite score indicator (ECS).</p>
-            </article>
-          ) : motiveProfile ? (
+          {motiveProfile ? (
             <article className="motive-card motive-info-card active">
               <span>Derived from Deal type</span>
               <strong>{motiveProfile.title}</strong>
@@ -1314,6 +1280,116 @@ function AcquisitionMotiveScreen({ session, setSession }) {
   );
 }
 
+function RefineEvidenceQualityScreen({ session, setSession }) {
+  const existingContext = session.dealContext?.data ?? {};
+  const [form, setForm] = useState(() => ({
+    respondentRole: existingContext.respondentRole ?? "",
+    respondentSeniority: existingContext.respondentSeniority ?? "",
+    respondentFunction: existingContext.respondentFunction ?? "",
+  }));
+  const [error, setError] = useState("");
+  const respondentRoleOptions = roleOptionsForSide(existingContext.respondentSide);
+  const nextRoute = session.dealContext?.nextRoute ?? nextRouteForDealStart(existingContext);
+
+  function updateField(fieldId, value) {
+    setForm((current) => ({ ...current, [fieldId]: value }));
+    setError("");
+  }
+
+  function continueOn(event) {
+    event.preventDefault();
+    const result = attachAcquisitionMotive(session, {
+      ...existingContext,
+      ...form,
+    });
+    if (!result.validation.valid) {
+      setError(`Required: ${result.validation.missing.map(dealContextFieldLabel).join(", ")}`);
+      return;
+    }
+    setSession(result.session);
+    setError("");
+    navigate(result.session.dealContext.nextRoute ?? nextRoute);
+  }
+
+  function skipStep() {
+    const result = attachAcquisitionMotive(session, {
+      ...existingContext,
+      respondentRole: "",
+      respondentSeniority: "",
+      respondentFunction: "",
+    });
+    if (result.validation.valid) {
+      setSession(result.session);
+      navigate(result.session.dealContext.nextRoute ?? nextRoute);
+      return;
+    }
+    navigate(nextRoute);
+  }
+
+  if (!existingContext.acquirerName || !existingContext.targetName || !existingContext.respondentSide || !existingContext.dealType) {
+    return (
+      <main className="screen-shell flow-screen compact-flow">
+        <p className="eyebrow">DEAL CONTEXT</p>
+        <h1>Deal context is required first</h1>
+        <button type="button" onClick={() => navigate("/start-diagnostic/deal-context")}>Open Deal Context</button>
+      </main>
+    );
+  }
+
+  return (
+    <main className="screen-shell flow-screen compact-flow deal-context-screen">
+      <p className="eyebrow">DEAL CONTEXT</p>
+      <form className="deal-context-form" onSubmit={continueOn}>
+        <section className="deal-context-intro">
+          <p className="section-label">Optional</p>
+          <h1>Refine evidence quality (optional)</h1>
+          <p className="lead">
+            These fields add context to the evidence read. They do not route the diagnostic and can be skipped.
+          </p>
+        </section>
+
+        <section className="deal-identity-panel" aria-label="Optional respondent context">
+          <div className="deal-identity-grid">
+            <label className="field-block">
+              <span>Respondent role <small>(optional; filtered by respondent side)</small></span>
+              <select value={form.respondentRole} onChange={(event) => updateField("respondentRole", event.target.value)}>
+                <option value="">Select respondent role</option>
+                {respondentRoleOptions.map((option) => (
+                  <option key={option.value} value={option.value}>{option.title}</option>
+                ))}
+              </select>
+            </label>
+            <label className="field-block">
+              <span>Seniority <small>(optional; context/report only)</small></span>
+              <select value={form.respondentSeniority} onChange={(event) => updateField("respondentSeniority", event.target.value)}>
+                <option value="">Select seniority</option>
+                {RESPONDENT_SENIORITY_OPTIONS.map((option) => (
+                  <option key={option.value} value={option.value}>{option.title}</option>
+                ))}
+              </select>
+            </label>
+            <label className="field-block">
+              <span>Function <small>(optional; context/report only)</small></span>
+              <select value={form.respondentFunction} onChange={(event) => updateField("respondentFunction", event.target.value)}>
+                <option value="">Select function</option>
+                {RESPONDENT_FUNCTION_OPTIONS.map((option) => (
+                  <option key={option.value} value={option.value}>{option.title}</option>
+                ))}
+              </select>
+            </label>
+          </div>
+        </section>
+
+        {error ? <p className="form-error">{error}</p> : null}
+        <div className="button-row">
+          <button className="secondary-flow-action" type="button" onClick={skipStep}>Skip</button>
+          <button className="primary-flow-action" type="submit">Continue</button>
+        </div>
+      </form>
+    </main>
+  );
+}
+
 function TransactionDetailsScreen({ session, setSession }) {
   const existingContext = session.dealContext?.data ?? {};
   const initialCurrency = initialDealEconomicsCurrency(existingContext);
@@ -1336,7 +1412,7 @@ function TransactionDetailsScreen({ session, setSession }) {
     ["Target", existingContext.targetName ?? "Pending"],
     ["Deal type", optionTitle(DEAL_TYPE_OPTIONS, existingContext.dealType)],
     ["Respondent side", optionTitle(RESPONDENT_SIDE_OPTIONS, existingContext.respondentSide)],
-    ["Respondent role", optionTitle(RESPONDENT_ROLE_OPTIONS, existingContext.respondentRole)],
+    ["Respondent role", optionalOptionTitle(RESPONDENT_ROLE_OPTIONS, existingContext.respondentRole)],
   ];
   function updateDetail(sectionId, value) {
     setForm((current) => {
@@ -3955,6 +4031,10 @@ function optionTitle(options, value) {
   return options.find((option) => option.value === value)?.title ?? value ?? "Pending";
 }
 
+function optionalOptionTitle(options, value) {
+  return value ? optionTitle(options, value) : "not specified";
+}
+
 function optionLabel(options, value, fallback = "Pending") {
   const match = options.find((option) => option.value === value);
   return match?.label ?? match?.title ?? value ?? fallback;
@@ -4196,10 +4276,10 @@ function PreliminaryAssessmentReport({ session }) {
   const motive = optionTitle(ACQUISITION_MOTIVE_OPTIONS, dealContext.acquisitionMotive);
   const dealType = optionTitle(DEAL_TYPE_OPTIONS, dealContext.dealType);
   const respondentSide = optionTitle(RESPONDENT_SIDE_OPTIONS, dealContext.respondentSide);
-  const respondentRole = optionTitle(RESPONDENT_ROLE_OPTIONS, dealContext.respondentRole);
-  const respondentSeniority = optionTitle(RESPONDENT_SENIORITY_OPTIONS, dealContext.respondentSeniority);
-  const respondentFunction = optionTitle(RESPONDENT_FUNCTION_OPTIONS, dealContext.respondentFunction);
-  const respondentAccessLevel = optionTitle(RESPONDENT_ACCESS_LEVEL_OPTIONS, dealContext.respondentAccessLevel);
+  const respondentRole = optionalOptionTitle(RESPONDENT_ROLE_OPTIONS, dealContext.respondentRole);
+  const respondentSeniority = optionalOptionTitle(RESPONDENT_SENIORITY_OPTIONS, dealContext.respondentSeniority);
+  const respondentFunction = optionalOptionTitle(RESPONDENT_FUNCTION_OPTIONS, dealContext.respondentFunction);
+  const respondentAccessLevel = optionalOptionTitle(RESPONDENT_ACCESS_LEVEL_OPTIONS, dealContext.respondentAccessLevel);
   const integrationTimeline = transactionDetailTitle("integrationTimeline", dealContext.integrationTimeline);
   const transactionRole = transactionDetailTitle("transactionRole", dealContext.transactionRole);
   const firmTenure = transactionDetailTitle("firmTenure", dealContext.firmTenure);
@@ -6514,7 +6594,7 @@ function buildPreliminaryAssessmentReportLines(lines, seen, session, deliverable
   addReportBullets(lines, seen, [
     `Deal: ${dealContext.acquirerName ?? "Acquirer pending"} acquiring ${dealContext.targetName ?? "target pending"}.`,
     `Deal type: ${optionTitle(DEAL_TYPE_OPTIONS, dealContext.dealType)}.`,
-    `Respondent: ${optionTitle(RESPONDENT_SIDE_OPTIONS, dealContext.respondentSide)}; ${optionTitle(RESPONDENT_ROLE_OPTIONS, dealContext.respondentRole)}; ${optionTitle(RESPONDENT_SENIORITY_OPTIONS, dealContext.respondentSeniority)}; ${optionTitle(RESPONDENT_FUNCTION_OPTIONS, dealContext.respondentFunction)}; ${optionTitle(RESPONDENT_ACCESS_LEVEL_OPTIONS, dealContext.respondentAccessLevel)}.`,
+    `Respondent: ${optionTitle(RESPONDENT_SIDE_OPTIONS, dealContext.respondentSide)}; ${optionalOptionTitle(RESPONDENT_ROLE_OPTIONS, dealContext.respondentRole)}; ${optionalOptionTitle(RESPONDENT_SENIORITY_OPTIONS, dealContext.respondentSeniority)}; ${optionalOptionTitle(RESPONDENT_FUNCTION_OPTIONS, dealContext.respondentFunction)}; ${optionalOptionTitle(RESPONDENT_ACCESS_LEVEL_OPTIONS, dealContext.respondentAccessLevel)}.`,
     `Acquisition motive: ${optionTitle(ACQUISITION_MOTIVE_OPTIONS, dealContext.acquisitionMotive)}.`,
     `Acquirer environment: ${scoreAlias(acquirerScore)}.`,
     `Acquirer score basis: ${acquirerBasis}.`,
@@ -7674,8 +7754,8 @@ function ConsultationRequestScreen({ session, setSession }) {
     const dealContext = session.dealContext?.data ?? {};
     const respondentRole = [
       optionTitle(RESPONDENT_SIDE_OPTIONS, dealContext.respondentSide),
-      optionTitle(RESPONDENT_ROLE_OPTIONS, dealContext.respondentRole),
-      optionTitle(RESPONDENT_FUNCTION_OPTIONS, dealContext.respondentFunction),
+      optionalOptionTitle(RESPONDENT_ROLE_OPTIONS, dealContext.respondentRole),
+      optionalOptionTitle(RESPONDENT_FUNCTION_OPTIONS, dealContext.respondentFunction),
     ].filter((item) => item && item !== "Pending").join("; ");
     const dealSummary = [
       dealContext.acquirerName && dealContext.targetName ? `${dealContext.acquirerName} acquiring ${dealContext.targetName}` : "",
@@ -7843,6 +7923,9 @@ export default function App() {
     }
     if (screen.id === "deal-context-acquisition-motive") {
       return <AcquisitionMotiveScreen session={session} setSession={setSession} />;
+    }
+    if (screen.id === "deal-context-refine-evidence-quality") {
+      return <RefineEvidenceQualityScreen session={session} setSession={setSession} />;
     }
     if (screen.id === "deal-context-transaction-details") {
       return <TransactionDetailsScreen session={session} setSession={setSession} />;

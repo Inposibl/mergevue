@@ -37,6 +37,16 @@ const CONFIDENCE_WEIGHTS = Object.freeze({
   cannot_determine: 0,
 });
 
+export const ACCESS_LEVEL_CONFIDENCE_DEFAULT = 0.55;
+
+export const ACCESS_LEVEL_CONFIDENCE = Object.freeze({
+  full_deal_room_leadership_access: 1,
+  functional_evidence_access: 0.85,
+  interview_meeting_access: 0.75,
+  limited_partial_access: 0.55,
+  external_advisor_access: 0.55,
+});
+
 const RELIABILITY_FLAG_MULTIPLIERS = Object.freeze({
   contradicted_by_respondent: 0.5,
   contradicted_by_document: 0.2,
@@ -148,12 +158,39 @@ function reliabilityMultiplier(flags) {
   }, 1);
 }
 
-function answerWeight(answer, excluded) {
+function accessLevelConfidence(input) {
+  const value = normalizeString(input);
+  if (Object.hasOwn(ACCESS_LEVEL_CONFIDENCE, value)) {
+    return Object.freeze({
+      coefficient: ACCESS_LEVEL_CONFIDENCE[value],
+      source: "respondent_access_level",
+      value,
+      note: "Confidence is adjusted by the respondent's stated proximity to the deal room.",
+    });
+  }
+
+  return Object.freeze({
+    coefficient: ACCESS_LEVEL_CONFIDENCE_DEFAULT,
+    source: "missing",
+    value: value || null,
+    note: "Confidence is reduced because deal-room access was not specified or was not recognised.",
+  });
+}
+
+function accessAdjustedConfidence(baseConfidence, coefficient) {
+  if (baseConfidence === "cannot_determine") return baseConfidence;
+  if (coefficient >= 1) return baseConfidence;
+  if (coefficient <= 0.55) return "low";
+  if (baseConfidence === "high") return "medium";
+  return baseConfidence;
+}
+
+function answerWeight(answer, excluded, accessLevelConfidenceCoefficient = ACCESS_LEVEL_CONFIDENCE_DEFAULT) {
   if (excluded) return 0;
   const evidenceWeight = EVIDENCE_WEIGHTS[answer.evidenceType] ?? EVIDENCE_WEIGHTS.inference;
   const knowledgeWeight = KNOWLEDGE_WEIGHTS[answer.knowledgeLevel] ?? KNOWLEDGE_WEIGHTS.pattern_based;
   const confidenceWeight = CONFIDENCE_WEIGHTS[answer.confidence] ?? CONFIDENCE_WEIGHTS.low;
-  return roundScore(evidenceWeight * knowledgeWeight * confidenceWeight * reliabilityMultiplier(answer.reliabilityFlags));
+  return roundScore(evidenceWeight * knowledgeWeight * (confidenceWeight * accessLevelConfidenceCoefficient) * reliabilityMultiplier(answer.reliabilityFlags));
 }
 
 function freezeRanked(scores) {
@@ -189,7 +226,7 @@ function signalBadge(strength) {
   return "* weak signal pattern";
 }
 
-function responseSetEntries(questionSet, environmentCodes) {
+function responseSetEntries(questionSet, environmentCodes, accessLevelConfidenceCoefficient) {
   const questions = Array.isArray(questionSet.questions) ? questionSet.questions : [];
   const answers = questionSet.answers ?? {};
   const setId = normalizeString(questionSet.respondentId ?? questionSet.id);
@@ -212,7 +249,7 @@ function responseSetEntries(questionSet, environmentCodes) {
     const option = selectedOption(question, answer.selectedOption);
     const signalCodes = optionSignalCodes(option, environmentCodes);
     const excluded = isExcludedOption(option, signalCodes);
-    const weight = answerWeight(answer, excluded);
+    const weight = answerWeight(answer, excluded, accessLevelConfidenceCoefficient);
 
     return Object.freeze({
       questionId: question.id,
@@ -234,13 +271,14 @@ function responseSetEntries(questionSet, environmentCodes) {
 
 export function scoreLayeredEvidenceQuestionSets(questionSets = [], options = {}) {
   const environmentCodes = Object.freeze(options.environmentCodes ?? DEFAULT_ENVIRONMENT_CODES);
+  const accessLevel = accessLevelConfidence(options.respondentAccessLevel ?? options.accessLevel);
   const rawScores = emptyScoreMap(environmentCodes);
   const weightedScores = emptyScoreMap(environmentCodes);
   const missingQuestionIds = [];
   const questionResponses = [];
 
   for (const questionSet of questionSets) {
-    const setEntries = responseSetEntries(questionSet, environmentCodes);
+    const setEntries = responseSetEntries(questionSet, environmentCodes, accessLevel.coefficient);
     for (const entry of setEntries) {
       questionResponses.push(entry);
       if (entry.missing) {
@@ -268,7 +306,7 @@ export function scoreLayeredEvidenceQuestionSets(questionSets = [], options = {}
   const legacyCount = answeredResponses.filter((entry) => entry.classificationSource === "legacy_option_only").length;
   const excludedAnswerCount = answeredResponses.filter((entry) => entry.excludedFromPrimaryScoring).length;
   const totalWeight = roundScore(weightedResponses.reduce((sum, entry) => sum + entry.weight, 0));
-  const confidence = confidenceBand({
+  const baseConfidence = confidenceBand({
     answeredCount: answeredResponses.length,
     directCount,
     documentCount,
@@ -276,6 +314,7 @@ export function scoreLayeredEvidenceQuestionSets(questionSets = [], options = {}
     legacyCount,
     totalWeight,
   });
+  const confidence = accessAdjustedConfidence(baseConfidence, accessLevel.coefficient);
   const rankedEnvironments = freezeRanked(weightedScores);
   const rawRankedEnvironments = freezeRanked(rawScores);
   const primary = rankedEnvironments[0] ?? { code: null, score: 0 };
@@ -319,13 +358,20 @@ export function scoreLayeredEvidenceQuestionSets(questionSets = [], options = {}
     confidence,
     evidenceQuality: Object.freeze({
       confidence,
+      baseConfidence,
+      accessLevelConfidenceCoefficient: accessLevel.coefficient,
+      accessLevelConfidenceSource: accessLevel.source,
+      accessLevelConfidenceValue: accessLevel.value,
+      accessLevelConfidenceNote: accessLevel.note,
       directObservationCount: directCount,
       documentSupportedCount: documentCount,
       evidenceSupportedShare: answeredResponses.length ? roundScore((directCount + documentCount) / answeredResponses.length) : 0,
       reliabilityFlagCount: flaggedCount,
       reliabilityFlagRate: answeredResponses.length ? roundScore(flaggedCount / answeredResponses.length) : 0,
       legacyOptionOnlyCount: legacyCount,
-      confidenceCapReason: legacyCount > 0
+      confidenceCapReason: accessLevel.source === "missing"
+        ? accessLevel.note
+        : legacyCount > 0
         ? "Legacy option-only answers do not include evidence classification; confidence is capped low until the respondent questionnaire captures evidence fields."
         : "Confidence reflects evidence type, knowledge level, reliability flags, and direct/document-supported answer share.",
     }),

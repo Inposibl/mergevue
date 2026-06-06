@@ -69,7 +69,6 @@ const DEAL_TYPE_LABELS = Object.freeze({
   kpi_driven_ma: "Protect KPI-driven deal value",
   competitor_absorption: APPROVED_DEAL_TYPE,
   platform_acquisition: APPROVED_DEAL_TYPE,
-  other_integration_sensitive: "Other integration-sensitive deal",
 });
 
 function cleanString(value, fallback = FALLBACK) {
@@ -130,7 +129,7 @@ function inputCompleteness(session) {
 }
 
 function dealTypeLabel(value) {
-  if (value === "competitor_absorption" || value === "platform_acquisition") {
+  if (value === "competitor_absorption" || value === "platform_acquisition" || value === "other_integration_sensitive") {
     return APPROVED_DEAL_TYPE;
   }
   return cleanString(DEAL_TYPE_LABELS[value] ?? value ?? "Deal type not specified");

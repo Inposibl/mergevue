@@ -86,11 +86,6 @@ export const DEAL_TYPE_OPTIONS = Object.freeze([
     description: "The transaction depends on customer absorption, product consolidation, price-war termination, or competitor removal.",
     value: "competitor_absorption",
   }),
-  Object.freeze({
-    title: "Other integration-sensitive deal",
-    description: "The deal has another integration rationale, but post-close value still depends on how the organizations operate together.",
-    value: "other_integration_sensitive",
-  }),
 ]);
 
 export const DEAL_TYPE_ACQUISITION_MOTIVE_MAP = Object.freeze({
@@ -98,7 +93,6 @@ export const DEAL_TYPE_ACQUISITION_MOTIVE_MAP = Object.freeze({
   market_entry: "cross_border_integration",
   kpi_driven_ma: "operational_roll_up",
   competitor_absorption: COMPETITOR_MOTIVE_VALUE,
-  other_integration_sensitive: COMPETITOR_MOTIVE_VALUE,
 });
 
 export const RESPONDENT_SIDE_OPTIONS = Object.freeze([
@@ -106,7 +100,6 @@ export const RESPONDENT_SIDE_OPTIONS = Object.freeze([
   Object.freeze({ title: "Target", value: "target" }),
   Object.freeze({ title: "Advisor", value: "advisor" }),
   Object.freeze({ title: "Board / Investment Committee", value: "board" }),
-  Object.freeze({ title: "Other", value: "other" }),
 ]);
 
 export const RESPONDENT_ROLE_OPTIONS = Object.freeze([
@@ -124,12 +117,11 @@ export const RESPONDENT_ROLE_OPTIONS = Object.freeze([
   Object.freeze({ title: "Senior Individual Contributor / Key Person", value: "senior_ic_key_person", sides: Object.freeze(["target"]) }),
   Object.freeze({ title: "Recently Promoted Leader", value: "recently_promoted_leader", sides: Object.freeze(["target"]) }),
   Object.freeze({ title: "Leader at Risk of Departure", value: "leader_at_risk", sides: Object.freeze(["target"]) }),
-  Object.freeze({ title: "Advisor", value: "advisor", sides: Object.freeze(["advisor", "other"]) }),
-  Object.freeze({ title: "Consultant", value: "consultant", sides: Object.freeze(["advisor", "other"]) }),
+  Object.freeze({ title: "Advisor", value: "advisor", sides: Object.freeze(["advisor"]) }),
+  Object.freeze({ title: "Consultant", value: "consultant", sides: Object.freeze(["advisor"]) }),
   Object.freeze({ title: "Board Observer", value: "board_observer", sides: Object.freeze(["board", "advisor"]) }),
-  Object.freeze({ title: "Former Executive", value: "former_executive", sides: Object.freeze(["advisor", "other"]) }),
-  Object.freeze({ title: "Integration Consultant", value: "integration_consultant", sides: Object.freeze(["advisor", "acquirer", "other"]) }),
-  Object.freeze({ title: "Other role", value: "other_role", sides: Object.freeze(["acquirer", "target", "advisor", "board", "other"]) }),
+  Object.freeze({ title: "Former Executive", value: "former_executive", sides: Object.freeze(["advisor"]) }),
+  Object.freeze({ title: "Integration Consultant", value: "integration_consultant", sides: Object.freeze(["advisor", "acquirer"]) }),
 ]);
 
 export const RESPONDENT_SENIORITY_OPTIONS = Object.freeze([
@@ -154,7 +146,6 @@ export const RESPONDENT_FUNCTION_OPTIONS = Object.freeze([
   Object.freeze({ title: "Strategy / Corporate Development", value: "strategy_corpdev" }),
   Object.freeze({ title: "Board / Investment Committee", value: "board_investment_committee" }),
   Object.freeze({ title: "External Advisory", value: "external_advisory" }),
-  Object.freeze({ title: "Other / Specify Later", value: "other_function" }),
 ]);
 
 export const RESPONDENT_ACCESS_LEVEL_OPTIONS = Object.freeze([
@@ -170,7 +161,6 @@ export const RESPONDENT_SIDE_NEXT_ROUTES = Object.freeze({
   board: "/start-diagnostic/deal-context/details",
   target: "/screen-2c-target-self-assessment",
   advisor: "/screen-7-step-2b-level-1",
-  other: "/screen-12-consultation-request",
 });
 
 export const TRANSACTION_DETAIL_SECTIONS = Object.freeze([
@@ -255,6 +245,8 @@ const DEAL_ECONOMICS_CURRENCY_VALUES = new Set(DEAL_ECONOMICS_CURRENCY_OPTIONS);
 const DEAL_ECONOMICS_STATUS_VALUES = new Set(DEAL_ECONOMICS_STATUS_OPTIONS.map((option) => option.value));
 
 const DEAL_IDENTITY_TEXT_FIELDS = Object.freeze(["acquirerName", "targetName"]);
+const REQUIRED_DEAL_IDENTITY_FIELD_IDS = Object.freeze(["acquirerName", "targetName", "dealType", "respondentSide"]);
+const OPTIONAL_DEAL_IDENTITY_FIELD_IDS = Object.freeze(["respondentRole", "respondentSeniority", "respondentFunction", "respondentAccessLevel"]);
 const DEAL_IDENTITY_OPTION_FIELDS = Object.freeze([
   Object.freeze({ id: "dealType", values: DEAL_TYPE_VALUES }),
   Object.freeze({ id: "respondentSide", values: RESPONDENT_SIDE_VALUES }),
@@ -292,7 +284,7 @@ export function requiresAcquirerTransactionDetails(input = {}) {
 
 export function nextRouteForDealStart(input = {}) {
   const respondentSide = normalizeString(input.respondentSide);
-  return RESPONDENT_SIDE_NEXT_ROUTES[respondentSide] ?? RESPONDENT_SIDE_NEXT_ROUTES.other;
+  return RESPONDENT_SIDE_NEXT_ROUTES[respondentSide] ?? "/start-diagnostic/deal-context";
 }
 
 function pickDealIdentity(input = {}) {
@@ -439,6 +431,7 @@ function pickDealEconomics(input = {}) {
 export function validateDealIdentity(input = {}) {
   const normalized = {};
   const missing = [];
+  const requiredFields = new Set(REQUIRED_DEAL_IDENTITY_FIELD_IDS);
 
   for (const fieldId of CANONICAL_DEAL_CONTEXT_FIELD_IDS) {
     const value = normalizeString(input[fieldId]);
@@ -453,7 +446,9 @@ export function validateDealIdentity(input = {}) {
 
     const field = DEAL_IDENTITY_OPTION_FIELD_BY_ID[fieldId];
     if (!field?.values.has(value)) {
-      missing.push(fieldId);
+      if (requiredFields.has(fieldId)) {
+        missing.push(fieldId);
+      }
       continue;
     }
     normalized[fieldId] = value;
@@ -548,6 +543,12 @@ export function attachAcquisitionMotive(session, input, storedAt = new Date().to
   const existingDetails = pickTransactionDetails(session?.dealContext?.data ?? {});
   const existingIdentity = pickDealIdentity(session?.dealContext?.data ?? {});
   const existingEconomics = pickDealEconomics(session?.dealContext?.data ?? {});
+  const nextIdentity = { ...existingIdentity, ...validation.normalized };
+  for (const fieldId of OPTIONAL_DEAL_IDENTITY_FIELD_IDS) {
+    if (Object.hasOwn(input, fieldId) && !Object.hasOwn(validation.normalized, fieldId)) {
+      delete nextIdentity[fieldId];
+    }
+  }
   const requiresTransactionDetails = validation.valid && requiresAcquirerTransactionDetails(validation.normalized);
   const nextRoute = validation.valid ? nextRouteForDealStart(validation.normalized) : null;
 
@@ -561,8 +562,7 @@ export function attachAcquisitionMotive(session, input, storedAt = new Date().to
             nextRoute,
             storedAt,
             data: Object.freeze({
-              ...existingIdentity,
-              ...validation.normalized,
+              ...nextIdentity,
               ...existingDetails,
               ...existingEconomics,
             }),
@@ -632,10 +632,11 @@ function hashValue(input) {
   return `h${(hash >>> 0).toString(16).padStart(8, "0")}`;
 }
 
-export function scoreAcquirerModule(answers = {}, data = ACQUIRER_TRACK_DATA) {
+export function scoreAcquirerModule(answers = {}, data = ACQUIRER_TRACK_DATA, options = {}) {
   const score = scoreLayeredEvidenceQuestionSet(data.acquirerModule.questions, answers, {
     environmentCodes: ACQUIRER_ENVIRONMENT_CODES,
     moduleId: "acquirer_environment",
+    respondentAccessLevel: options.respondentAccessLevel,
   });
   return Object.freeze({
     ...score,
@@ -643,7 +644,7 @@ export function scoreAcquirerModule(answers = {}, data = ACQUIRER_TRACK_DATA) {
   });
 }
 
-export function scoreCombinedAcquirerModule(primaryAnswers = {}, verificationAnswers = {}, data = ACQUIRER_TRACK_DATA) {
+export function scoreCombinedAcquirerModule(primaryAnswers = {}, verificationAnswers = {}, data = ACQUIRER_TRACK_DATA, options = {}) {
   const score = scoreLayeredEvidenceQuestionSets(
     [
       { id: "primary", respondentId: "primary", questions: data.acquirerModule.questions, answers: primaryAnswers },
@@ -652,6 +653,7 @@ export function scoreCombinedAcquirerModule(primaryAnswers = {}, verificationAns
     {
       environmentCodes: ACQUIRER_ENVIRONMENT_CODES,
       moduleId: "acquirer_environment_combined",
+      respondentAccessLevel: options.respondentAccessLevel,
     },
   );
   return Object.freeze({
@@ -662,7 +664,9 @@ export function scoreCombinedAcquirerModule(primaryAnswers = {}, verificationAns
 }
 
 export function attachAcquirerModuleResult(session, answers, scoredAt = new Date().toISOString()) {
-  const score = scoreAcquirerModule(answers);
+  const score = scoreAcquirerModule(answers, ACQUIRER_TRACK_DATA, {
+    respondentAccessLevel: session?.dealContext?.data?.respondentAccessLevel,
+  });
   const classificationValidation = validateEvidenceClassifiedAnswers(ACQUIRER_TRACK_DATA.acquirerModule.questions, answers);
   return Object.freeze({
     session: Object.freeze({
@@ -844,6 +848,10 @@ export function attachAcquirerVerificationCompletion(currentSession, completedIn
   const combinedScore = scoreCombinedAcquirerModule(
     currentSession.acquirer2A.answers,
     completedInvite.acquirerVerification.answers,
+    ACQUIRER_TRACK_DATA,
+    {
+      respondentAccessLevel: currentSession?.dealContext?.data?.respondentAccessLevel,
+    },
   );
   const mergedInvite = Object.freeze({
     ...(currentSession.acquirerVerificationInvite ?? {}),
