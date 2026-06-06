@@ -557,6 +557,13 @@ export function renderMergevueForecastBriefHtml(model) {
 <meta charset="utf-8">
 <title>${model.fileName}</title>
 <style>
+  .resource-summary{ margin-top:14px; padding:14px 16px; border:var(--card-border); border-radius:var(--r); background:var(--surface); box-shadow:var(--card-shadow); }
+  .resource-summary h4{ margin:0 0 7px; font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); }
+  .resource-summary > p{ margin:0; font-size:11.2px; line-height:1.38; color:var(--ink-2); }
+  .resource-summary-grid{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-top:10px; }
+  .resource-summary-row{ padding-top:8px; border-top:var(--hair) solid var(--line); }
+  .resource-summary-row span{ display:block; font-size:11px; font-weight:650; color:var(--ink); margin-bottom:3px; }
+  .resource-summary-row p{ margin:0; font-size:9.8px; line-height:1.28; color:var(--ink-2); }
   .env-rich{ padding:18px; }
   .env-rich > p{ font-size:11.6px; line-height:1.38; }
   .env-facts{ margin-top:12px; display:flex; flex-direction:column; gap:7px; }
@@ -836,6 +843,18 @@ function renderCollisionFinding(rawFinding) {
   return `<div class="collision-finding"><div class="finding-resource-line">${escapeHtml(finding)}</div><div class="finding-rule"></div><div class="finding-meaning"><div class="finding-meaning-title">Meaning of special characters:</div><span class="finding-line">“+” means the environment amplifies, protects, or actively relies on that resource;</span><span class="finding-line">“−” means it suppresses, weakens, or underuses that resource;</span><span class="finding-line">“~” means the resource is present but mixed, unstable, or only baseline.</span></div><div class="finding-rule"></div><div class="finding-interpretation">The resources listed here are the key collision resources selected from the full set of 17 resource types for this specific comparison. They show where the two operating environments are most likely to pull in different directions. The practical risk is overwrite: integration may damage the routines that make the target work.</div></div>`;
 }
 
+function renderResourceConflictSummary(section) {
+  const topResources = Array.isArray(section.zones) ? section.zones.slice(0, 3).filter((resource) => cleanText(resource.name)) : [];
+  if (!topResources.length) return "";
+  const resourceNames = topResources.map((resource) => resource.name).join(", ");
+  const rows = topResources.map((resource) => {
+    const intensity = Number(resource.intensity) || 0;
+    const band = intensity >= 70 ? "high-risk" : intensity >= 40 ? "moderate-risk" : "lower-risk";
+    return `<div class="resource-summary-row"><span>${escapeHtml(resource.name)}</span><p>${escapeHtml(resource.explanation || `This resource may become a ${band} integration pressure point if the acquirer changes the target operating rhythm before the Day 60 review.`)}</p></div>`;
+  }).join("");
+  return `<div class="resource-summary"><h4>What this means in practice</h4><p>The map does not say that the deal will fail. It shows where the two operating environments are most likely to create practical friction. In this case, the main watch areas are ${escapeHtml(resourceNames)}. These are the places where integration decisions can accidentally damage trust, slow knowledge transfer, weaken information flow, or make people protect their local operating habits instead of sharing them.</p><div class="resource-summary-grid">${rows}</div></div>`;
+}
+
 function renderHtmlSection(section, number, context = {}) {
   if (section.id === "predictions") {
     const trackerUrl = cleanText(section.trackerUrl).includes(":reportId") ? "" : cleanText(section.trackerUrl);
@@ -859,7 +878,7 @@ function renderHtmlSection(section, number, context = {}) {
     return `<section class="sec" id="collision" data-screen-label="Collision Thesis">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.collision)}<div class="collide">${collisionRows.map(([label, value, isHtml]) => `<div class="collide-row"><div class="cl">${escapeHtml(label)}</div><div class="cr">${isHtml ? value : escapeHtml(value)}</div></div>`).join("")}</div></section>`;
   }
   if (section.id === "resources") {
-    return `<section class="sec" id="resources" data-screen-label="Resource Map">${sectionHead(number, section.title, `${section.scanned} resources scanned`)}<p class="thresholds">${escapeHtml(section.explanation)}</p><div class="legend"><span class="lg">Legend</span><span class="lg"><span class="sw" style="background:var(--sig-risk)"></span>High-risk · 70–100</span><span class="lg"><span class="sw" style="background:var(--sig-mod)"></span>Moderate · 40–69</span><span class="lg"><span class="sw" style="background:var(--sig-high)"></span>Aligned · 0–39</span><span class="anchor">Score = structural contestation intensity</span></div>${renderResourceZones(section)}</section>`;
+    return `<section class="sec" id="resources" data-screen-label="Resource Map">${sectionHead(number, section.title, `${section.scanned} resources scanned`)}<p class="thresholds">${escapeHtml(section.explanation)}</p><div class="legend"><span class="lg">Legend</span><span class="lg"><span class="sw" style="background:var(--sig-risk)"></span>High-risk · 70–100</span><span class="lg"><span class="sw" style="background:var(--sig-mod)"></span>Moderate · 40–69</span><span class="lg"><span class="sw" style="background:var(--sig-high)"></span>Aligned · 0–39</span><span class="anchor">Score = structural contestation intensity</span></div>${renderResourceZones(section)}${renderResourceConflictSummary(section)}</section>`;
   }
   if (section.id === "timeline") {
     const actions = context.actions ?? {};
