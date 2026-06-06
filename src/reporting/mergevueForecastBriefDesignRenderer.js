@@ -883,10 +883,23 @@ function renderActionPanel(title, actions) {
   return `<div class="act"><h4>${escapeHtml(title)}</h4>${actions.map((action) => `<div class="act-item"><div class="act-title">${escapeHtml(action.actionTitle)}</div><div class="act-meta">${escapeHtml(action.actionTiming)} · ${escapeHtml(action.actionOwner)} · expected effect: ${escapeHtml(action.actionExpectedEffect)}</div><div class="act-reason">${escapeHtml(action.actionReason)}</div></div>`).join("")}</div>`;
 }
 
-function renderCollisionFinding(rawFinding) {
-  const finding = cleanText(rawFinding);
-  if (!finding) return "";
-  return `<div class="collision-finding"><div class="finding-resource-line">${escapeHtml(finding)}</div><div class="finding-rule"></div><div class="finding-meaning"><div class="finding-meaning-title">Meaning of special characters:</div><span class="finding-line">“+” means the environment amplifies, protects, or actively relies on that resource;</span><span class="finding-line">“−” means it suppresses, weakens, or underuses that resource;</span><span class="finding-line">“~” means the resource is present but mixed, unstable, or only baseline.</span></div><div class="finding-rule"></div><div class="finding-interpretation">The resources listed here are the key collision resources selected from the full set of 17 resource types for this specific comparison. They show where the two operating environments are most likely to pull in different directions. The practical risk is overwrite: integration may damage the routines that make the target work.</div></div>`;
+function collisionFindingHumanText(section) {
+  const resources = Array.isArray(section.zones)
+    ? section.zones.slice(0, 3).filter((resource) => cleanText(resource.name))
+    : [];
+
+  if (!resources.length) {
+    return "The main friction is concentrated around the operating resources where the two environments rely on different behaviours. In practice, the integration team should protect these areas before making irreversible operating-model changes.";
+  }
+
+  const names = resources.map((resource) => cleanText(resource.name));
+  const resourceList = names.length === 1
+    ? names[0]
+    : names.length === 2
+      ? `${names[0]} and ${names[1]}`
+      : `${names.slice(0, -1).join(", ")}, and ${names[names.length - 1]}`;
+
+  return cleanText(`The main friction is around ${resourceList}. The acquirer needs these resources to become visible, transferable, and governable during integration. The target is more likely to protect local routines, limit disclosure, or keep control over how these resources move. In practice, the risk is that integration does not create transparency. It may instead make critical routines harder to access, govern, or preserve.`);
 }
 
 function isTechnicalResourceDirection(text) {
@@ -1001,9 +1014,9 @@ function renderHtmlSection(section, number, context = {}) {
     return `<section class="sec" id="environments" data-screen-label="Identified Environment Types">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.environments)}<div class="envs">${renderEnvironmentCard("Acquirer", section.acquirer)}${renderEnvironmentCard("Target", section.target)}</div></section>`;
   }
   if (section.id === "collision") {
-    const rawFinding = section.primaryTension || section.headline || section.summary;
+    const humanFinding = collisionFindingHumanText(section);
     const collisionRows = [
-      ["What we found", renderCollisionFinding(rawFinding), true],
+      ["What we found", humanFinding, false],
       ["Why it matters", section.postCloseFailureMode || section.whyItMatters || section.summary, false],
       ["What you can do", "Protect the affected operating resources first; delay irreversible integration changes until the Day 60 verification review confirms which routines should be preserved, simplified, or integrated.", false],
     ].filter(([, value]) => cleanText(value));
