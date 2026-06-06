@@ -849,14 +849,55 @@ function renderCollisionFinding(rawFinding) {
   return `<div class="collision-finding"><div class="finding-resource-line">${escapeHtml(finding)}</div><div class="finding-rule"></div><div class="finding-meaning"><div class="finding-meaning-title">Meaning of special characters:</div><span class="finding-line">“+” means the environment amplifies, protects, or actively relies on that resource;</span><span class="finding-line">“−” means it suppresses, weakens, or underuses that resource;</span><span class="finding-line">“~” means the resource is present but mixed, unstable, or only baseline.</span></div><div class="finding-rule"></div><div class="finding-interpretation">The resources listed here are the key collision resources selected from the full set of 17 resource types for this specific comparison. They show where the two operating environments are most likely to pull in different directions. The practical risk is overwrite: integration may damage the routines that make the target work.</div></div>`;
 }
 
+function isTechnicalResourceDirection(text) {
+  const value = cleanText(text);
+  return /[+~−-].+\bvs\b/i.test(value) || /\(.+\bvs\b.+\)/i.test(value);
+}
+
+function explainResourceInPractice(resource) {
+  const name = cleanText(resource.name);
+  const existing = cleanText(resource.explanation);
+  if (existing && !isTechnicalResourceDirection(existing)) return existing;
+
+  const key = name.toLowerCase();
+  if (key.includes("health")) {
+    return "Health conflict can raise burnout risk, reduce sustainable pace, and make the combined organisation dependent on short-term overextension.";
+  }
+  if (key.includes("connections")) {
+    return "Connections conflict can weaken informal coordination, isolate key relationship holders, and increase dependency on a small number of brokers.";
+  }
+  if (key.includes("trust")) {
+    return "Trust conflict can trigger defensive behaviour, reduce disclosure quality, and make even technically sound integration decisions feel unsafe.";
+  }
+  if (key.includes("knowledge")) {
+    return "Knowledge conflict can block transfer of know-how, make expertise harder to access, and increase the chance that critical operating memory leaves with key people.";
+  }
+  if (key.includes("information")) {
+    return "Information conflict can weaken signal flow, delay issue detection, and make integration decisions depend on incomplete or protected data.";
+  }
+  if (key.includes("creativity")) {
+    return "Creativity conflict can suppress useful adaptation, make new operating ideas feel unsafe, and reduce the target's ability to solve integration problems locally.";
+  }
+  if (key.includes("decisiveness")) {
+    return "Decisiveness conflict can create decision stalls, repeated escalation, and unclear ownership when integration tradeoffs need fast resolution.";
+  }
+  if (key.includes("attention")) {
+    return "Attention conflict can fragment leadership focus, slow issue detection, and make critical post-close signals easier to miss.";
+  }
+  if (key.includes("organisation") || key.includes("organization") || key.includes("system")) {
+    return "Organisation / system conflict can make routines, ownership, and operating cadence harder to stabilise after close.";
+  }
+
+  return "This resource may become an integration pressure point if the acquirer changes the target operating rhythm before the Day 60 review.";
+}
+
 function renderResourceConflictSummary(section) {
   const topResources = Array.isArray(section.zones) ? section.zones.slice(0, 3).filter((resource) => cleanText(resource.name)) : [];
   if (!topResources.length) return "";
   const resourceNames = topResources.map((resource) => resource.name).join(", ");
   const rows = topResources.map((resource) => {
-    const intensity = Number(resource.intensity) || 0;
-    const band = intensity >= 70 ? "high-risk" : intensity >= 40 ? "moderate-risk" : "lower-risk";
-    return `<div class="resource-summary-row"><span>${escapeHtml(resource.name)}</span><p>${escapeHtml(resource.explanation || `This resource may become a ${band} integration pressure point if the acquirer changes the target operating rhythm before the Day 60 review.`)}</p></div>`;
+    const explanation = explainResourceInPractice(resource);
+    return `<div class="resource-summary-row"><span>${escapeHtml(resource.name)}</span><p>${escapeHtml(explanation)}</p></div>`;
   }).join("");
   return `<div class="resource-summary"><h4>What this means in practice</h4><p>The map does not say that the deal will fail. It shows where the two operating environments are most likely to create practical friction. In this case, the main watch areas are ${escapeHtml(resourceNames)}. These are the places where integration decisions can accidentally damage trust, slow knowledge transfer, weaken information flow, or make people protect their local operating habits instead of sharing them.</p><div class="resource-summary-grid">${rows}</div></div>`;
 }
