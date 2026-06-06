@@ -621,7 +621,7 @@ function SiteSidebar({ currentRoute }) {
   return (
     <aside className="site-sidebar" aria-label="Primary navigation">
       <a className="sidebar-header" href="/home" onClick={handleRouteClick("/home")}>
-        <strong>Structural Typology</strong>
+        <strong>MergeVue</strong>
         <span>Diagnostic</span>
       </a>
       <nav className="sidebar-nav" aria-label="Site sections">
