@@ -837,6 +837,53 @@ export function renderMergevueForecastBriefHtml(model) {
   .evidence-page .ql{ font-size:7.2px; line-height:1.2; margin-top:5px; }
   .evidence-page .audit-foot{ margin-top:14px; padding-top:9px; font-size:8px; }
 
+  .environments-page #environments{ min-height:244mm; display:flex; flex-direction:column; }
+  .environments-page .envs{ flex:1; align-items:stretch; }
+
+  .predictions-page #predictions{ min-height:244mm; display:flex; flex-direction:column; }
+  .predictions-page .preds-wrap{ flex:1; justify-content:space-between; gap:10px; }
+  .predictions-page .tracker{ display:none; }
+
+  .timeline-page #timeline{ min-height:244mm; display:flex; flex-direction:column; }
+  .timeline-page #timeline .legend{ margin-bottom:12px; }
+  .timeline-page .tl{ flex:1; min-height:96mm; }
+  .timeline-page .timeline-actions{ margin-top:auto; }
+
+  .collision-resources-page{ padding-top:9mm; padding-bottom:9mm; }
+  .collision-resources-page .sec{ padding-top:12px; }
+  .collision-resources-page .sec-head{ margin-bottom:8px; padding-bottom:7px; }
+  .collision-resources-page #collision{ margin-bottom:10px; }
+  .collision-resources-page #collision .collide{ margin-top:8px; }
+  .collision-resources-page #collision .collide-row{ grid-template-columns:148px 1fr; }
+  .collision-resources-page #collision .collide-row .cl{ padding:7px 10px; font-size:10px; }
+  .collision-resources-page #collision .collide-row .cr{ padding:7px 10px; font-size:10.2px; line-height:1.3; }
+  .collision-resources-page #resources .thresholds{ font-size:9.6px; line-height:1.24; margin-bottom:8px; }
+  .collision-resources-page #resources .legend{ margin-bottom:8px; gap:5px 10px; font-size:8.4px; }
+  .collision-resources-page #resources .zone{ margin-bottom:7px; }
+  .collision-resources-page #resources .zone-head{ margin-bottom:5px; }
+  .collision-resources-page #resources .zone-name{ font-size:9.2px; }
+  .collision-resources-page #resources .zone-count{ font-size:8.4px; }
+  .collision-resources-page #resources .rbar{ padding:5px 9px; grid-template-columns:138px 1fr 30px; gap:7px; }
+  .collision-resources-page #resources .rn{ font-size:9.3px; }
+  .collision-resources-page #resources .rd{ font-size:7.6px; line-height:1.12; }
+  .collision-resources-page #resources .rt{ height:5px!important; }
+  .collision-resources-page #resources .rv{ font-size:8px; }
+  .collision-resources-page #resources .resource-summary{ margin-top:8px; padding:8px 10px; }
+  .collision-resources-page #resources .resource-summary > p{ font-size:8.8px; line-height:1.2; }
+  .collision-resources-page #resources .resource-summary-grid{ grid-template-columns:repeat(3,1fr); gap:7px; margin-top:7px; }
+  .collision-resources-page #resources .resource-summary-row{ padding:6px 7px; }
+  .collision-resources-page #resources .resource-summary-row span{ font-size:9.2px; }
+  .collision-resources-page #resources .resource-summary-row p{ font-size:8px; line-height:1.15; }
+
+  .economic-page #economic{ min-height:244mm; display:flex; flex-direction:column; }
+  .economic-page #economic .env-total{ margin-bottom:18px; }
+  .economic-page #economic .econ-lines{ margin:18px 0; gap:12px; }
+  .economic-page #economic .cats{ margin-top:auto; gap:13px; }
+  .economic-page #economic .cat{ padding:13px 16px; }
+  .economic-page #economic .cat p{ font-size:10.6px; line-height:1.34; }
+
+  .evidence-page .audit-tracker{ margin-top:7px; padding-top:7px; border-top:var(--hair) solid var(--line); line-height:1.38; }
+
   .audit{ margin-top:28px; }
   .full-list p{ margin:0 0 10px; font-size:12px; line-height:1.45; }
   .page-tight .sec{ padding-top:20px; }
@@ -875,12 +922,12 @@ function renderForecastBriefPages(model) {
   const audit = reportSectionById(model, "audit");
 
   const pages = [
-    renderReportPage(`${renderArchiveMasthead(model)}${renderArchiveExecutive(model)}`),
-    renderReportPage(`${environments ? renderHtmlSection(environments, 1) : ""}${predictions ? renderHtmlSection(predictions, 2) : ""}`, "page-preds"),
+    renderReportPage(`${renderArchiveMasthead(model)}${renderArchiveExecutive(model)}`, "cover-page"),
+    environments ? renderReportPage(renderHtmlSection(environments, 1), "environments-page") : "",
+    predictions ? renderReportPage(renderHtmlSection(predictions, 2), "page-preds predictions-page") : "",
     timeline ? renderReportPage(renderHtmlSection(timeline, 3, { actions }), "timeline-page") : "",
-    collision ? renderReportPage(renderHtmlSection(collision, 4)) : "",
-    resources ? renderReportPage(renderHtmlSection(resources, 5)) : "",
-    economics ? renderReportPage(renderHtmlSection(economics, 6)) : "",
+    renderReportPage(`${collision ? renderHtmlSection(collision, 4) : ""}${resources ? renderHtmlSection(resources, 5) : ""}`, "collision-resources-page"),
+    economics ? renderReportPage(renderHtmlSection(economics, 6), "economic-page") : "",
     renderReportPage(`${evidence ? renderHtmlSection(evidence, 7) : ""}${engagement ? renderHtmlSection(engagement, 8) : ""}${audit ? renderHtmlSection(audit, 9) : ""}`, "page-tight evidence-page"),
   ];
 
@@ -1117,8 +1164,7 @@ function renderEngagementBenefit(benefit) {
 
 function renderHtmlSection(section, number, context = {}) {
   if (section.id === "predictions") {
-    const trackerUrl = cleanText(section.trackerUrl).includes(":reportId") ? "" : cleanText(section.trackerUrl);
-    return `<section class="sec" id="predictions" data-screen-label="Sealed Predictions">${sectionHead(number, section.title, section.statusDescription)}<div class="panel"><h4>${escapeHtml(section.statusTitle)}</h4><p>${escapeHtml(section.statusDescription)}</p></div><div class="preds-wrap">${renderPredictionCards(section)}</div><div class="tracker"><div class="qr" aria-label="QR preview tracker"></div><div class="tk-body"><h4>Preview verification tracker</h4><p>${escapeHtml(section.trackerStatement)}</p>${trackerUrl ? `<div class="tk-url">${escapeHtml(trackerUrl)}</div>` : ""}</div></div></section>`;
+    return `<section class="sec" id="predictions" data-screen-label="Sealed Predictions">${sectionHead(number, section.title, section.statusDescription)}<div class="panel"><h4>${escapeHtml(section.statusTitle)}</h4><p>${escapeHtml(section.statusDescription)}</p></div><div class="preds-wrap">${renderPredictionCards(section)}</div></section>`;
   }
   if (section.id === "environments") {
     const renderEnvironmentCard = (role, env) => {
@@ -1176,7 +1222,7 @@ function renderHtmlSection(section, number, context = {}) {
     return `<section class="sec" id="engagement" data-screen-label="Full Engagement Adds">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.engagement)}<div class="panel">${section.benefits.map(renderEngagementBenefit).join("")}</div><div class="cta"><div><div class="cl">Engagement contact</div><div class="ct">Next step: contact us to scope the engagement</div></div><a class="cbtn" href="mailto:${escapeHtml(section.contactEmail)}">${escapeHtml(section.contactEmail)}</a></div></section>`;
   }
   if (section.id === "audit") {
-    return `<footer class="audit" id="audit">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.audit)}<div class="audit-grid"><div class="audit-col"><div class="acl">Methodology</div><div class="acv"><b>Mergevue Forecast Method</b><br>${escapeHtml(section.reportVersion)}<br>${escapeHtml(section.contactEmail)}</div></div><div class="audit-col"><div class="acl">Audit trail</div><div class="acv">Report · <b>${escapeHtml(section.reportId)}</b><br>Generated · ${escapeHtml(section.generatedAt)}<br>Scenario · ${escapeHtml(section.scenarioId)}<br>Tracker · ${escapeHtml(section.trackRecordUrl)}</div></div><div class="audit-qr"><div class="qr" aria-label="QR ${escapeHtml(section.qrLabel)}"></div><div class="ql">Preview audit<br>reference</div></div></div><div class="audit-foot"><span>© 2026 Mergevue</span><span>Display-only preview; not ledger-recorded.</span></div></footer>`;
+    return `<footer class="audit" id="audit">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.audit)}<div class="audit-grid"><div class="audit-col"><div class="acl">Methodology</div><div class="acv"><b>Mergevue Forecast Method</b><br>${escapeHtml(section.reportVersion)}<br>${escapeHtml(section.contactEmail)}<div class="audit-tracker"><b>Preview verification tracker</b><br>Display-only preview; not ledger-recorded. Verification outcomes require the engagement workflow before any public record treatment.</div></div></div><div class="audit-col"><div class="acl">Audit trail</div><div class="acv">Report · <b>${escapeHtml(section.reportId)}</b><br>Generated · ${escapeHtml(section.generatedAt)}<br>Scenario · ${escapeHtml(section.scenarioId)}<br>Tracker · ${escapeHtml(section.trackRecordUrl)}</div></div><div class="audit-qr"><div class="qr" aria-label="QR ${escapeHtml(section.qrLabel)}"></div><div class="ql">Preview audit<br>reference</div></div></div><div class="audit-foot"><span>© 2026 Mergevue</span><span>Display-only preview; not ledger-recorded.</span></div></footer>`;
   }
   return `<section class="sec">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES[section.id] ?? "")}</section>`;
 }
