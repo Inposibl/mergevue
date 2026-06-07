@@ -841,7 +841,9 @@ export function renderMergevueForecastBriefHtml(model) {
   .environments-page .envs{ flex:1; align-items:stretch; }
 
   .predictions-page #predictions{ min-height:244mm; display:flex; flex-direction:column; }
-  .predictions-page .preds-wrap{ flex:1; justify-content:space-between; gap:10px; }
+  .predictions-page .preds-wrap{ flex:1; justify-content:space-between; gap:8px; }
+  .predictions-page .pred-meta .pm{ padding:5px 10px; }
+  .predictions-page .pred-meta .pmv{ font-size:8.6px; line-height:1.24; }
   .predictions-page .tracker{ display:none; }
 
   .timeline-page #timeline{ min-height:244mm; display:flex; flex-direction:column; }
@@ -859,7 +861,7 @@ export function renderMergevueForecastBriefHtml(model) {
   .collision-resources-page #collision .collide-row .cr{ padding:7px 10px; font-size:10.2px; line-height:1.3; }
   .collision-resources-page #resources .thresholds{ font-size:9.6px; line-height:1.24; margin-bottom:8px; }
   .collision-resources-page #resources .legend{ margin-bottom:8px; gap:5px 10px; font-size:8.4px; }
-  .collision-resources-page #resources .zone{ margin-bottom:7px; }
+  .collision-resources-page #resources .zone{ margin-bottom:6px; }
   .collision-resources-page #resources .zone-head{ margin-bottom:5px; }
   .collision-resources-page #resources .zone-name{ font-size:9.2px; }
   .collision-resources-page #resources .zone-count{ font-size:8.4px; }
@@ -868,7 +870,7 @@ export function renderMergevueForecastBriefHtml(model) {
   .collision-resources-page #resources .rd{ font-size:7.6px; line-height:1.12; }
   .collision-resources-page #resources .rt{ height:5px!important; }
   .collision-resources-page #resources .rv{ font-size:8px; }
-  .collision-resources-page #resources .resource-summary{ margin-top:8px; padding:8px 10px; }
+  .collision-resources-page #resources .resource-summary{ margin-top:14px; padding:8px 10px; }
   .collision-resources-page #resources .resource-summary > p{ font-size:8.8px; line-height:1.2; }
   .collision-resources-page #resources .resource-summary-grid{ grid-template-columns:repeat(3,1fr); gap:7px; margin-top:7px; }
   .collision-resources-page #resources .resource-summary-row{ padding:6px 7px; }
@@ -883,6 +885,10 @@ export function renderMergevueForecastBriefHtml(model) {
   .economic-page #economic .cat p{ font-size:10.6px; line-height:1.34; }
 
   .evidence-page .audit-tracker{ margin-top:7px; padding-top:7px; border-top:var(--hair) solid var(--line); line-height:1.38; }
+  .evidence-page > .sheet{ min-height:271mm; display:flex; flex-direction:column; }
+  .evidence-page #evidence .ek{ font-weight:700; color:var(--ink); }
+  .evidence-page #engagement{ margin-bottom:14px; }
+  .evidence-page .audit{ margin-top:auto; }
 
   .audit{ margin-top:28px; }
   .full-list p{ margin:0 0 10px; font-size:12px; line-height:1.45; }
@@ -1193,7 +1199,14 @@ function renderHtmlSection(section, number, context = {}) {
       return `<div class="tl-col"><div class="tl-progress"><span></span></div><div class="tl-when"><span class="ph">FP${index + 1} · ${escapeHtml(phase.verifyBy)}</span><span class="win">${escapeHtml(phase.verifyBy)}</span></div><div class="tl-body"><div class="h">${escapeHtml(phase.heading)}</div><p>${escapeHtml(phase.body)}</p>${watchFor ? `<div class="tl-marker"><div class="ml">Watch for:</div><div class="mv">${escapeHtml(watchFor)}</div></div>` : ""}</div></div>`;
     }).join("");
     const beforeClose = actions.beforeClose ?? [];
-    const afterClose = actions.afterClose ?? [];
+    const afterClose = [...(actions.afterClose ?? [])].sort((left, right) => {
+      const leftTiming = cleanText(left.actionTiming);
+      const rightTiming = cleanText(right.actionTiming);
+      const leftDay60 = /\bday\s*60\b/i.test(leftTiming);
+      const rightDay60 = /\bday\s*60\b/i.test(rightTiming);
+      if (leftDay60 === rightDay60) return 0;
+      return leftDay60 ? 1 : -1;
+    });
     const actionPanels = [
       beforeClose.length ? renderActionPanel("Before close", beforeClose) : "",
       afterClose.length ? renderActionPanel("After close", afterClose) : "",
