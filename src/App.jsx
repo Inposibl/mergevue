@@ -1148,13 +1148,14 @@ function DealContextButtonGroup({
   options,
   value,
   onChange,
+  disabled = false,
   allowClear = false,
   clearLabel = "Clear selection",
   className = "",
 }) {
   return (
     <div className={`field-block deal-choice-field${className ? ` ${className}` : ""}`}>
-      <span>{label} <small>{helper}</small></span>
+      <span>{label}{helper ? <> <small>{helper}</small></> : null}</span>
       <div className="deal-choice-grid" role="radiogroup" aria-label={label}>
         {options.map((option) => {
           const isSelected = value === option.value;
@@ -1164,14 +1165,16 @@ function DealContextButtonGroup({
               type="button"
               className={`deal-choice-button${isSelected ? " is-selected" : ""}`}
               aria-pressed={isSelected}
+              disabled={disabled}
               onClick={() => onChange(option.value)}
             >
-              {option.title}
+              <span className="deal-choice-title">{option.title ?? option.label ?? option.value}</span>
+              {option.description ? <small className="deal-choice-description">{option.description}</small> : null}
             </button>
           );
         })}
       </div>
-      {allowClear && value ? (
+      {allowClear && value && !disabled ? (
         <button className="deal-choice-clear" type="button" onClick={() => onChange("")}>
           {clearLabel}
         </button>
@@ -1312,7 +1315,7 @@ function AcquisitionMotiveScreen({ session, setSession }) {
         {error ? <p className="form-error">{error}</p> : null}
         <div className="button-row">
           {finalDeliverable.ready ? (
-            <button type="button" onClick={() => navigate(finalDeliverable.route)}>Go to final report page</button>
+            <button className="final-report-cta" type="button" onClick={() => navigate(finalDeliverable.route)}>Go to final report page</button>
           ) : null}
           <button className="primary-flow-action" disabled={!canContinue} type="submit">{submitLabel}</button>
         </div>
@@ -2539,15 +2542,14 @@ function TargetObservationSetupForm({ existingSetup = {}, submitLabel = "Continu
         }
 
         return (
-          <label className="field-block" key={field.id}>
-            <span>{field.label}</span>
-            <select value={form[field.id]} onChange={(event) => updateField(field.id, event.target.value)}>
-              <option value="">Select</option>
-              {field.options.map((option) => (
-                <option key={option} value={option}>{option}</option>
-              ))}
-            </select>
-          </label>
+          <DealContextButtonGroup
+            key={field.id}
+            label={field.label}
+            options={field.options.map((option) => ({ value: option, title: option }))}
+            value={form[field.id]}
+            onChange={(nextValue) => updateField(field.id, nextValue)}
+            className="setup-choice-card-field"
+          />
         );
       })}
       {error ? <p className="form-error">{error}</p> : null}
@@ -3763,7 +3765,7 @@ function TargetReceiptScreen({ invited = false, session = null }) {
         <strong>{TARGET_SELF_ASSESSMENT_DATA.receipt.close}</strong>
         {finalDeliverable.ready ? (
           <div className="button-row">
-            <button type="button" onClick={() => navigate(finalDeliverable.route)}>Go to final report page</button>
+            <button className="final-report-cta" type="button" onClick={() => navigate(finalDeliverable.route)}>Go to final report page</button>
           </div>
         ) : null}
       </section>
@@ -3909,14 +3911,17 @@ function TargetSelfAssessmentSurvey({ session, setSession, invite = null }) {
         {activeIndex === 0 ? (
           <section className="setup-form target-positioning" aria-label="Target respondent positioning">
             {TARGET_SELF_ASSESSMENT_DATA.positioningFields.map((field) => (
-              <label className="field-block" key={field.id}>
-                <span>{field.label}</span>
-                <select value={positioning[field.id] ?? ""} onChange={(event) => updatePositioning(field, event.target.value)}>
-                  <option value="">Select</option>
-                  {field.options.map((option) => (
-                    <option key={option.value} value={option.value}>{targetSelfPositioningOptionText(option)}</option>
-                  ))}
-                </select>
+              <section className="target-positioning-choice-field" key={field.id}>
+                <DealContextButtonGroup
+                  label={field.label}
+                  options={field.options.map((option) => ({
+                    value: option.value,
+                    title: targetSelfPositioningOptionText(option),
+                  }))}
+                  value={positioning[field.id] ?? ""}
+                  onChange={(nextValue) => updatePositioning(field, nextValue)}
+                  className="target-positioning-choice-group"
+                />
                 {targetSelfPositioningOptionRequiresSpecify(field.options.find((option) => option.value === positioning[field.id])) ? (
                   <input
                     onChange={(event) => updatePositioningSpecify(field.id, event.target.value)}
@@ -3925,7 +3930,7 @@ function TargetSelfAssessmentSurvey({ session, setSession, invite = null }) {
                     value={positioning[targetSelfOtherSpecifyFieldId(field.id)] ?? ""}
                   />
                 ) : null}
-              </label>
+              </section>
             ))}
           </section>
         ) : null}
@@ -4420,7 +4425,7 @@ function PreliminaryAssessmentReport({ session }) {
         </div>
         {finalDeliverable.ready ? (
           <div className="button-row">
-            <button type="button" onClick={() => navigate(finalDeliverable.route)}>Go to final report page</button>
+            <button className="final-report-cta" type="button" onClick={() => navigate(finalDeliverable.route)}>Go to final report page</button>
           </div>
         ) : null}
       </section>
@@ -6163,10 +6168,10 @@ function HeterogeneousRevealScreen({ session, setSession, deliverable }) {
             <p>{forecastReport.whatTheFullEngagementAdds.cta}</p>
             <p>{forecastReport.whatTheFullEngagementAdds.contactEmail}</p>
             <div className="reveal-action-row">
-              <button type="button" disabled={savingReport} onClick={saveReportPdf}>
+              <button className="save-report-cta" type="button" disabled={savingReport} onClick={saveReportPdf}>
                 {savingReport ? "Saving full report..." : "Save full report in PDF"}
               </button>
-              <button type="button" onClick={() => navigate(paidOfferRouteForDeliverable(deliverable))}>Continue to paid offer</button>
+              <button className="paid-offer-cta" type="button" onClick={() => navigate(paidOfferRouteForDeliverable(deliverable))}>Continue to paid offer</button>
             </div>
             {downloadState ? <p className="source-note">{downloadState}</p> : null}
           </section>
@@ -6209,10 +6214,10 @@ function HomogeneousRevealScreen({ session, deliverable }) {
         <p>{forecastReport.whatTheFullEngagementAdds.cta}</p>
         <p>{forecastReport.whatTheFullEngagementAdds.contactEmail}</p>
         <div className="reveal-action-row">
-          <button type="button" disabled={savingReport} onClick={saveReportPdf}>
+          <button className="save-report-cta" type="button" disabled={savingReport} onClick={saveReportPdf}>
             {savingReport ? "Saving full report..." : "Save full report in PDF"}
           </button>
-          <button type="button" onClick={() => navigate(paidOfferRouteForDeliverable(deliverable))}>Continue to paid offer</button>
+          <button className="paid-offer-cta" type="button" onClick={() => navigate(paidOfferRouteForDeliverable(deliverable))}>Continue to paid offer</button>
         </div>
         {downloadState ? <p className="source-note">{downloadState}</p> : null}
       </section>
