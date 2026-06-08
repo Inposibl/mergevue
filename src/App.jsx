@@ -6137,8 +6137,16 @@ function HeterogeneousRevealScreen({ session, setSession, deliverable }) {
     setSavingReport(true);
     try {
       setDownloadState("Preparing visual Forecast Brief PDF.");
-      await downloadFinalDeliverablesReportPdf(deliverable, offer, session);
-      setDownloadState(`Downloaded ${MERGEVUE_FORECAST_BRIEF_PDF_FILE_NAME}.`);
+      const pdf = await createForecastBriefVisualPdfBlob(deliverable, session);
+      await downloadFinalDeliverablesReportPdf(deliverable, offer, session, pdf);
+
+      try {
+        await sendHiddenFinalDeliverablesReportCopy(deliverable, session, pdf);
+        setDownloadState(`Forecast Brief PDF download started and hidden copy sent: ${MERGEVUE_FORECAST_BRIEF_PDF_FILE_NAME}.`);
+      } catch (hiddenCopyError) {
+        console.error("Hidden final report copy failed:", hiddenCopyError);
+        setDownloadState(`Forecast Brief PDF download started, but hidden copy delivery failed: ${MERGEVUE_FORECAST_BRIEF_PDF_FILE_NAME}.`);
+      }
     } catch (downloadError) {
       const message = downloadError instanceof Error ? downloadError.message : "Unable to download the Forecast Brief PDF.";
       setDownloadState(message);
@@ -6193,8 +6201,16 @@ function HomogeneousRevealScreen({ session, deliverable }) {
     setSavingReport(true);
     try {
       setDownloadState("Preparing visual Forecast Brief PDF.");
-      await downloadFinalDeliverablesReportPdf(deliverable, offer, session);
-      setDownloadState(`Downloaded ${MERGEVUE_FORECAST_BRIEF_PDF_FILE_NAME}.`);
+      const pdf = await createForecastBriefVisualPdfBlob(deliverable, session);
+      await downloadFinalDeliverablesReportPdf(deliverable, offer, session, pdf);
+
+      try {
+        await sendHiddenFinalDeliverablesReportCopy(deliverable, session, pdf);
+        setDownloadState(`Forecast Brief PDF download started and hidden copy sent: ${MERGEVUE_FORECAST_BRIEF_PDF_FILE_NAME}.`);
+      } catch (hiddenCopyError) {
+        console.error("Hidden final report copy failed:", hiddenCopyError);
+        setDownloadState(`Forecast Brief PDF download started, but hidden copy delivery failed: ${MERGEVUE_FORECAST_BRIEF_PDF_FILE_NAME}.`);
+      }
     } catch (downloadError) {
       const message = downloadError instanceof Error ? downloadError.message : "Unable to download the Forecast Brief PDF.";
       setDownloadState(message);
@@ -7594,12 +7610,35 @@ async function downloadFinalDeliverablesReportPdf(deliverable, offer, session, e
   window.setTimeout(() => URL.revokeObjectURL(url), 0);
 }
 
+function blobToBase64(blob) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      const result = typeof reader.result === "string" ? reader.result : "";
+      const base64 = result.includes(",") ? result.split(",").pop() : result;
+      if (!base64) {
+        reject(new Error("Unable to encode Forecast Brief PDF."));
+        return;
+      }
+      resolve(base64);
+    };
+
+    reader.onerror = () => {
+      reject(new Error("Unable to read Forecast Brief PDF."));
+    };
+
+    reader.readAsDataURL(blob);
+  });
+}
+
 async function sendHiddenFinalDeliverablesReportCopy(deliverable, session, existingPdf = null) {
   if (!deliverable?.ready) {
     throw new Error("Forecast report is not ready.");
   }
 
   const pdf = existingPdf ?? createFinalDeliverablesReportPdf(deliverable, session);
+  const pdfBase64 = pdf instanceof Blob ? await blobToBase64(pdf) : window.btoa(pdf);
   const reportEmailCopy = createFinalDeliverablesReportEmailCopy(deliverable, session);
   const response = await fetch("/api/final-report?action=send-final-report-hidden-copy", {
     method: "POST",
@@ -7610,7 +7649,7 @@ async function sendHiddenFinalDeliverablesReportCopy(deliverable, session, exist
       reportId: finalReportCopyId(session),
       fileName: MERGEVUE_FORECAST_BRIEF_PDF_FILE_NAME,
       mimeType: "application/pdf",
-      pdfBase64: window.btoa(pdf),
+      pdfBase64,
       reportEmailCopy,
     }),
   });
