@@ -858,10 +858,37 @@ export function renderMergevueForecastBriefHtml(model) {
   .evidence-page .audit-qr .qr{ width:62px; height:62px; border-width:5px; }
   .evidence-page .ql{ font-size:7.2px; line-height:1.2; margin-top:5px; }
   .evidence-page .audit-foot{ margin-top:14px; padding-top:9px; font-size:8px; }
+  .evidence-page .audit{ margin-top:8px!important; padding-top:8px!important; }
+  .evidence-page .audit-grid{ gap:10px!important; grid-template-columns:1fr 1fr 70px!important; }
+  .evidence-page .acl,
+  .evidence-page .acv,
+  .evidence-page .ql,
+  .evidence-page .audit-foot{ font-size:7pt!important; line-height:1.18!important; color:#8b929a!important; }
+  .evidence-page .audit-foot{ margin-top:6px!important; padding-top:5px!important; }
+  .evidence-page .audit-qr .qr{ width:48px!important; height:48px!important; border-width:4px!important; opacity:.65; }
 
   .environments-page #environments{ min-height:244mm; display:flex; flex-direction:column; }
   .environments-page .envs{ flex:1; align-items:stretch; }
 
+  .predictions-page{ padding:8mm 12mm 8mm; }
+  .predictions-page #predictions .sec{ padding-top:10px; }
+  .predictions-page #predictions .sec-head{ margin-bottom:6px; padding-bottom:5px; }
+  .predictions-page #predictions .panel{ padding:7px 10px; margin-bottom:5px; }
+  .predictions-page #predictions .panel h4{ margin-bottom:2px; }
+  .predictions-page #predictions .panel p{ line-height:1.18; margin-top:2px; }
+  .predictions-page #predictions .preds-wrap{ gap:4px!important; justify-content:flex-start!important; }
+  .predictions-page #predictions .pred{ margin-bottom:4px!important; }
+  .predictions-page #predictions .pred-top{ min-height:0!important; }
+  .predictions-page #predictions .pred-id{ width:98px!important; padding:6px 8px!important; gap:3px; }
+  .predictions-page #predictions .pred-main{ padding:6px 9px!important; }
+  .predictions-page #predictions .pred-claim{ line-height:1.12!important; }
+  .predictions-page #predictions .pred-verify{ width:96px!important; padding:6px 8px!important; }
+  .predictions-page #predictions .pred-verify .vd{ margin-top:2px; }
+  .predictions-page #predictions .pred-verify .vw{ margin-top:2px; }
+  .predictions-page #predictions .pred-meta .pm{ padding:4px 8px!important; }
+  .predictions-page #predictions .pred-meta .pml{ margin-bottom:2px!important; }
+  .predictions-page #predictions .pred-meta .pmv{ line-height:1.12!important; }
+  .predictions-page #predictions .tracker{ display:none!important; }
   .predictions-page #predictions{ min-height:244mm; display:flex; flex-direction:column; }
   .predictions-page .preds-wrap{ flex:1; justify-content:space-between; gap:8px; }
   .predictions-page .pred-meta .pm{ padding:5px 10px; }
@@ -933,7 +960,7 @@ export function renderMergevueForecastBriefHtml(model) {
   .full-list p{ margin:0 0 10px; font-size:12px; line-height:1.45; }
   .page-tight .sec{ padding-top:20px; }
   .cta .cbtn{ padding:8px 12px!important; font-size:8.6px!important; max-width:none; overflow:visible; text-overflow:clip; }
-  .page :is(small,.resource-summary h4,.resource-summary>p,.resource-summary-row span,.resource-summary-row p,.econ-line-head span,.econ-line-head b,.econ-line p,.env-rich>p,.env-fact span,.env-fact p,.kicker,.sec-note,.brand-sub,.mast-meta,.classif,.doc-type,.score-expl,.band-pill,.scale-ends,.gate-label,.gate-verdict,.evidence-gate-title,.evidence-gate-label,.evidence-gate-copy,.deal-cell .k,.exec-preds .epl,.epred .when,.epred .what,.exec-action .lab,.exec-action .txt,.pred-id .pno,.pred-id .seal,.pred-id .lock,.pred-claim,.pred-verify .vl,.pred-verify .vw,.pred-meta .pml,.pred-meta .pmv,.tracker p,.tk-url,.env .role,.env p,.collide-row .cl,.collide-row .cr,.legend,.zone-name,.zone-count,.rn,.rd,.rv,.tl-when .ph,.tl-when .win,.tl-body .h,.tl-body p,.tl-marker .ml,.tl-marker .mv,.timeline-actions-title,.act h4,.act-title,.act-meta,.act-reason,.et-l .lab,.et-r,.cn,.cr,.cat p,.cta .cl,.cta .cbtn,.evrow,.ev,.notlist li,.acl,.acv,.ql,.audit-foot,.thresholds,.economic-line-title,.economic-line-value,.economic-line-explain,.panel h4,.panel p){ font-size:12px!important; }
+  .page :is(small,.resource-summary h4,.resource-summary>p,.resource-summary-row span,.resource-summary-row p,.econ-line-head span,.econ-line-head b,.econ-line p,.env-rich>p,.env-fact span,.env-fact p,.kicker,.sec-note,.brand-sub,.mast-meta,.classif,.doc-type,.score-expl,.band-pill,.scale-ends,.gate-label,.gate-verdict,.evidence-gate-title,.evidence-gate-label,.evidence-gate-copy,.deal-cell .k,.exec-preds .epl,.epred .when,.epred .what,.exec-action .lab,.exec-action .txt,.pred-id .pno,.pred-id .seal,.pred-id .lock,.pred-claim,.pred-verify .vl,.pred-verify .vw,.pred-meta .pml,.pred-meta .pmv,.tracker p,.tk-url,.env .role,.env p,.collide-row .cl,.collide-row .cr,.legend,.zone-name,.zone-count,.rn,.rd,.rv,.tl-when .ph,.tl-when .win,.tl-body .h,.tl-body p,.tl-marker .ml,.tl-marker .mv,.timeline-actions-title,.act h4,.act-title,.act-meta,.act-reason,.et-l .lab,.et-r,.cn,.cr,.cat p,.cta .cl,.cta .cbtn,.evrow,.ev,.notlist li,.thresholds,.economic-line-title,.economic-line-value,.economic-line-explain,.panel h4,.panel p){ font-size:12px!important; }
   .mast-row,.sec-head,.exec,.pred-top,.envs,.acts,.split2,.tl,.collide-row,.rbar,.env-total,.cat-top{ min-width:0!important; }
   .cta,.tk-url,.acv{ overflow-wrap:anywhere; }
   @media print{ .controls{ display:none!important; } body{ background:var(--bg)!important; color:#161616; } .page{ print-color-adjust:exact; -webkit-print-color-adjust:exact; } .sheet{ width:100%!important; max-width:100%!important; margin:0!important; padding:0!important; } .pred,.env,.panel,.cat,.tracker,.cta,.exec-action,.classif{ break-inside: avoid; print-color-adjust:exact; -webkit-print-color-adjust:exact; } .sec,.tl,.exec,.audit{ break-inside:auto!important; page-break-inside:auto!important; print-color-adjust:exact; -webkit-print-color-adjust:exact; } .mast-meta,.brand-sub,.classif,.score-ends,.gate-verdict,.deal-cell .k,.deal-cell small,.exec-preds .epl{ color:#555d66!important; } .exec-thesis,.deal-cell .v,.epred .what,.exec-action .txt,.gate-verdict{ color:#161616!important; } .epred .when,.exec-action .lab{ color:#1f5f95!important; } }
