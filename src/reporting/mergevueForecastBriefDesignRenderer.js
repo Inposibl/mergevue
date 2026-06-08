@@ -865,6 +865,19 @@ export function renderMergevueForecastBriefHtml(model) {
   .evidence-page .ql,
   .evidence-page .audit-foot{ font-size:7pt!important; line-height:1.18!important; color:#8b929a!important; }
   .evidence-page .audit-foot{ margin-top:6px!important; padding-top:5px!important; }
+  .evidence-page{ position:relative; padding-bottom:9mm!important; }
+  .evidence-page .audit-foot{
+    position:absolute!important;
+    left:13mm!important;
+    right:13mm!important;
+    bottom:3mm!important;
+    margin-top:0!important;
+    padding-top:0!important;
+    border-top:0!important;
+    font-size:6.5pt!important;
+    line-height:1!important;
+    opacity:.55!important;
+  }
   .evidence-page .audit-qr .qr{ width:48px!important; height:48px!important; border-width:4px!important; opacity:.65; }
 
   .environments-page #environments{ min-height:244mm; display:flex; flex-direction:column; }
