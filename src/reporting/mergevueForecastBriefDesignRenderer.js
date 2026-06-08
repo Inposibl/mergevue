@@ -877,18 +877,18 @@ export function renderMergevueForecastBriefHtml(model) {
   .collision-resources-page #resources .resource-summary-row span{ font-size:9.2px; }
   .collision-resources-page #resources .resource-summary-row p{ font-size:8px; line-height:1.15; }
 
-  .economic-page #economic{ min-height:244mm; display:flex; flex-direction:column; }
-  .economic-page #economic .env-total{ margin-bottom:18px; }
-  .economic-page #economic .econ-lines{ margin:18px 0; gap:12px; }
-  .economic-page #economic .cats{ margin-top:auto; gap:13px; }
-  .economic-page #economic .cat{ padding:13px 16px; }
-  .economic-page #economic .cat p{ font-size:10.6px; line-height:1.34; }
+  .economic-page #economic{ min-height:0; display:block; }
+  .economic-page #economic .env-total{ margin-bottom:10px; }
+  .economic-page #economic .econ-lines{ margin:10px 0; gap:7px; }
+  .economic-page #economic .cats{ margin-top:0; gap:7px; }
+  .economic-page #economic .cat{ padding:9px 12px; }
+  .economic-page #economic .cat p{ font-size:10.6px; line-height:1.26; margin-top:4px; }
 
-  .evidence-page .audit-tracker{ margin-top:7px; padding-top:7px; border-top:var(--hair) solid var(--line); line-height:1.38; }
-  .evidence-page > .sheet{ min-height:271mm; display:flex; flex-direction:column; }
+  .evidence-page .audit-tracker{ margin-top:6px; padding-top:6px; border-top:var(--hair) solid var(--line); line-height:1.3; }
+  .evidence-page > .sheet{ min-height:0; display:block; }
   .evidence-page #evidence .ek{ font-weight:700; color:var(--ink); }
-  .evidence-page #engagement{ margin-bottom:14px; }
-  .evidence-page .audit{ margin-top:auto; }
+  .evidence-page #engagement{ margin-bottom:8px; }
+  .evidence-page .audit{ margin-top:12px; }
 
   .audit{ margin-top:28px; }
   .full-list p{ margin:0 0 10px; font-size:12px; line-height:1.45; }
@@ -897,7 +897,7 @@ export function renderMergevueForecastBriefHtml(model) {
   .page :is(small,.resource-summary h4,.resource-summary>p,.resource-summary-row span,.resource-summary-row p,.econ-line-head span,.econ-line-head b,.econ-line p,.env-rich>p,.env-fact span,.env-fact p,.kicker,.sec-note,.brand-sub,.mast-meta,.classif,.doc-type,.score-expl,.band-pill,.scale-ends,.gate-label,.gate-verdict,.evidence-gate-title,.evidence-gate-label,.evidence-gate-copy,.deal-cell .k,.exec-preds .epl,.epred .when,.epred .what,.exec-action .lab,.exec-action .txt,.pred-id .pno,.pred-id .seal,.pred-id .lock,.pred-claim,.pred-verify .vl,.pred-verify .vw,.pred-meta .pml,.pred-meta .pmv,.tracker p,.tk-url,.env .role,.env p,.collide-row .cl,.collide-row .cr,.legend,.zone-name,.zone-count,.rn,.rd,.rv,.tl-when .ph,.tl-when .win,.tl-body .h,.tl-body p,.tl-marker .ml,.tl-marker .mv,.timeline-actions-title,.act h4,.act-title,.act-meta,.act-reason,.et-l .lab,.et-r,.cn,.cr,.cat p,.cta .cl,.cta .cbtn,.evrow,.ev,.notlist li,.acl,.acv,.ql,.audit-foot,.thresholds,.economic-line-title,.economic-line-value,.economic-line-explain,.panel h4,.panel p){ font-size:12px!important; }
   .mast-row,.sec-head,.exec,.pred-top,.envs,.acts,.split2,.tl,.collide-row,.rbar,.env-total,.cat-top{ min-width:0!important; }
   .cta,.tk-url,.acv{ overflow-wrap:anywhere; }
-  @media print{ .controls{ display:none!important; } body{ background:var(--bg)!important; color:#161616; } .page{ print-color-adjust:exact; -webkit-print-color-adjust:exact; } .sheet{ width:100%!important; max-width:100%!important; margin:0!important; padding:0!important; } .sec,.pred,.env,.tl,.panel,.cat,.exec,.tracker,.cta,.audit,.exec-action,.classif{ break-inside: avoid; print-color-adjust:exact; -webkit-print-color-adjust:exact; } .mast-meta,.brand-sub,.classif,.score-ends,.gate-verdict,.deal-cell .k,.deal-cell small,.exec-preds .epl{ color:#555d66!important; } .exec-thesis,.deal-cell .v,.epred .what,.exec-action .txt,.gate-verdict{ color:#161616!important; } .epred .when,.exec-action .lab{ color:#1f5f95!important; } }
+  @media print{ .controls{ display:none!important; } body{ background:var(--bg)!important; color:#161616; } .page{ print-color-adjust:exact; -webkit-print-color-adjust:exact; } .sheet{ width:100%!important; max-width:100%!important; margin:0!important; padding:0!important; } .pred,.env,.panel,.cat,.tracker,.cta,.exec-action,.classif{ break-inside: avoid; print-color-adjust:exact; -webkit-print-color-adjust:exact; } .sec,.tl,.exec,.audit{ break-inside:auto!important; page-break-inside:auto!important; print-color-adjust:exact; -webkit-print-color-adjust:exact; } .mast-meta,.brand-sub,.classif,.score-ends,.gate-verdict,.deal-cell .k,.deal-cell small,.exec-preds .epl{ color:#555d66!important; } .exec-thesis,.deal-cell .v,.epred .what,.exec-action .txt,.gate-verdict{ color:#161616!important; } .epred .when,.exec-action .lab{ color:#1f5f95!important; } }
 </style>
 </head>
 <body class="mergevue-forecast-brief-canon" data-design-contract="${classContract}">
