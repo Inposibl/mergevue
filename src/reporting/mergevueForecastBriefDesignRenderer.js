@@ -899,6 +899,23 @@ export function renderMergevueForecastBriefHtml(model) {
   .collision-resources-page #resources .resource-summary-row span{ font-size:9.2px; }
   .collision-resources-page #resources .resource-summary-row p{ font-size:8px; line-height:1.15; }
 
+  .economic-page{ padding:9mm 13mm 8mm; }
+  .economic-page #economic .sec{ padding-top:10px; }
+  .economic-page #economic .sec-head{ margin-bottom:7px; padding-bottom:6px; }
+  .economic-page #economic .env-total{ padding:8px 10px!important; margin-bottom:6px!important; gap:8px!important; }
+  .economic-page #economic .et-l,
+  .economic-page #economic .et-r{ padding:8px 10px; }
+  .economic-page #economic .et-r{ line-height:1.22; }
+  .economic-page #economic .econ-lines{ margin:6px 0!important; gap:5px!important; }
+  .economic-page #economic .econ-line{ padding:7px 9px; }
+  .economic-page #economic .economic-line-item{ padding:5px 0; }
+  .economic-page #economic .economic-line-explain{ line-height:1.18; margin-top:2px; }
+  .economic-page #economic .cats{ gap:5px!important; margin-top:6px!important; }
+  .economic-page #economic .cat{ padding:7px 9px!important; }
+  .economic-page #economic .cat-top{ margin-bottom:2px; }
+  .economic-page #economic .cat p{ line-height:1.16!important; margin:2px 0 4px!important; }
+  .economic-page #economic .cat-bar,
+  .economic-page #economic .bar{ margin-top:4px!important; height:4px!important; }
   .economic-page #economic{ min-height:0; display:block; }
   .economic-page #economic .env-total{ margin-bottom:10px; }
   .economic-page #economic .econ-lines{ margin:10px 0; gap:7px; }
