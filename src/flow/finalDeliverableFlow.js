@@ -1,4 +1,4 @@
-import { environmentAlias, publicSafeText } from "../constants/envAliases.ts";
+﻿import { environmentAlias, publicSafeText } from "../constants/envAliases.ts";
 import { FINAL_DELIVERABLE_DATA } from "../data/finalDeliverableData.js";
 
 export const FINAL_ENVIRONMENT_CODES = Object.freeze([
@@ -676,7 +676,7 @@ export function isFinalDeliverableSourceLoaded(data = FINAL_DELIVERABLE_DATA) {
       && data?.sources?.includes("ST_UI_Track_Coder_Agent_Specification_v1.xlsx")
       && data?.sources?.includes("ST_Investment_Memorandum_final.docx")
       && data.narratives.length === 72
-      && data.frictionPoints.length === 56
+      && data.frictionPoints.length === 72
       && data.screenCopy.screen11Header
       && data.screenCopy.screen11Body
       && data.screenCopy.screen11Cta
@@ -690,3 +690,4 @@ export function isFinalDeliverableSourceLoaded(data = FINAL_DELIVERABLE_DATA) {
       && data.clientJourney.outcomes.D,
   );
 }
+

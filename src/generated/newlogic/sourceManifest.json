@@ -3,7 +3,7 @@
     "id": "newlogic-2026-05-03",
     "name": "NewLogic 03.05.2026",
     "path": "NewLogic 03.05.2026",
-    "exportedAt": "2026-05-20T21:49:03.717255+00:00"
+    "exportedAt": "2026-06-10T20:40:23.939987+00:00"
   },
   "environmentAliases": {
     "NF/NT": "The Idea Lab",
@@ -20,7 +20,7 @@
     {
       "file": "ST_Acquirer_Environment_Module.xlsx",
       "sizeBytes": 42888,
-      "lastModified": "2026-05-06T15:25:52.499565+00:00",
+      "lastModified": "2026-06-01T19:11:51.389239+00:00",
       "sheets": [
         "0_Instructions",
         "1_Respondent_Metadata",
@@ -36,7 +36,7 @@
     {
       "file": "ST_Analyst_Methodology.xlsx",
       "sizeBytes": 42611,
-      "lastModified": "2026-05-06T15:25:52.589903+00:00",
+      "lastModified": "2026-06-01T19:11:51.390241+00:00",
       "sheets": [
         "0_Index",
         "1_Three_Layer_Architecture",
@@ -56,7 +56,7 @@
     {
       "file": "ST_B_Single_Output_Template_v1.xlsx",
       "sizeBytes": 63692,
-      "lastModified": "2026-05-06T15:25:52.609741+00:00",
+      "lastModified": "2026-06-01T19:11:51.391241+00:00",
       "sheets": [
         "0_Index",
         "1_Executive_Summary",
@@ -85,7 +85,7 @@
     {
       "file": "ST_Canonical_Schema.xlsx",
       "sizeBytes": 49008,
-      "lastModified": "2026-05-06T15:25:52.652230+00:00",
+      "lastModified": "2026-06-01T19:11:51.392236+00:00",
       "sheets": [
         "0_Index",
         "1_Sides",
@@ -112,7 +112,7 @@
     {
       "file": "ST_Client_Journey_v5.xlsx",
       "sizeBytes": 21070,
-      "lastModified": "2026-05-06T15:25:52.437147+00:00",
+      "lastModified": "2026-06-01T19:11:51.393237+00:00",
       "sheets": [
         "Client Journey",
         "v3_1_Build_Notes",
@@ -122,7 +122,7 @@
     {
       "file": "ST_Dual_Respondent_Axis_Comparison_v1.xlsx",
       "sizeBytes": 40817,
-      "lastModified": "2026-05-06T15:25:52.638464+00:00",
+      "lastModified": "2026-06-01T19:11:51.394477+00:00",
       "sheets": [
         "0_Index",
         "1_Answer_Env_Map",
@@ -138,9 +138,31 @@
       ]
     },
     {
+      "file": "ST_ECS_Derivation_Method_v1.xlsx",
+      "sizeBytes": 25562,
+      "lastModified": "2026-06-10T20:01:44.457693+00:00",
+      "sheets": [
+        "Method",
+        "Net_Effect_Vectors",
+        "Pair_Computation",
+        "Reproduction_Test",
+        "Interpretation_Caveats"
+      ]
+    },
+    {
+      "file": "ST_ECS_to_Valuation_Bridge_v1_1.xlsx",
+      "sizeBytes": 25216,
+      "lastModified": "2026-06-01T19:11:51.395477+00:00",
+      "sheets": [
+        "ECS_Valuation_Bridge",
+        "Benchmark_Library",
+        "Deal_Pricing_Calculator"
+      ]
+    },
+    {
       "file": "ST_Environment_Diagnostic_v2.xlsx",
       "sizeBytes": 54609,
-      "lastModified": "2026-05-06T15:25:52.459894+00:00",
+      "lastModified": "2026-06-01T19:11:51.396479+00:00",
       "sheets": [
         "0_Instructions",
         "1_Respondent_Metadata",
@@ -157,7 +179,7 @@
     {
       "file": "ST_Form_Binding_Prompt.xlsx",
       "sizeBytes": 60478,
-      "lastModified": "2026-05-06T15:25:52.533347+00:00",
+      "lastModified": "2026-06-01T19:11:51.397479+00:00",
       "sheets": [
         "MASTER PROMPT",
         "STEP-1",
@@ -173,7 +195,7 @@
     {
       "file": "ST_Free_Tier_Output_Narratives_updated.xlsx",
       "sizeBytes": 49155,
-      "lastModified": "2026-05-06T15:25:52.624350+00:00",
+      "lastModified": "2026-06-01T19:11:51.398477+00:00",
       "sheets": [
         "Implementation_Guide",
         "All_72_Narratives",
@@ -185,8 +207,8 @@
     },
     {
       "file": "ST_Friction_Point_Lookup_updated.xlsx",
-      "sizeBytes": 49704,
-      "lastModified": "2026-05-06T15:25:52.575979+00:00",
+      "sizeBytes": 57002,
+      "lastModified": "2026-06-10T19:49:05.872067+00:00",
       "sheets": [
         "Friction_Lookup",
         "ECS_Matrix",
@@ -198,7 +220,7 @@
     {
       "file": "ST_Prediction_Ledger_v1.xlsx",
       "sizeBytes": 33512,
-      "lastModified": "2026-05-06T15:25:52.666221+00:00",
+      "lastModified": "2026-06-01T19:11:51.400475+00:00",
       "sheets": [
         "PROVENANCE",
         "SEALED_PREDICTIONS",
@@ -214,7 +236,7 @@
     {
       "file": "ST_Step3_Output_Screens_Spec.xlsx",
       "sizeBytes": 39029,
-      "lastModified": "2026-05-06T15:25:52.562094+00:00",
+      "lastModified": "2026-06-01T19:11:51.400475+00:00",
       "sheets": [
         "0_Index",
         "SCREEN_1_WEAK_RESULT",
@@ -226,7 +248,7 @@
     {
       "file": "ST_Target_Observed_Environment_Diagnostic.xlsx",
       "sizeBytes": 56070,
-      "lastModified": "2026-05-20T21:48:42.898705+00:00",
+      "lastModified": "2026-06-01T19:11:51.401476+00:00",
       "sheets": [
         "README",
         "0_Respondent_Metadata",
@@ -244,7 +266,7 @@
     {
       "file": "ST_Target_Self_Assessment_Module.xlsx",
       "sizeBytes": 46609,
-      "lastModified": "2026-05-06T15:25:52.548419+00:00",
+      "lastModified": "2026-06-01T19:11:51.402984+00:00",
       "sheets": [
         "0_Instructions",
         "1_Respondent_Metadata",
@@ -261,7 +283,7 @@
     {
       "file": "ST_Triage_Framework.xlsx",
       "sizeBytes": 38487,
-      "lastModified": "2026-05-06T15:25:52.485676+00:00",
+      "lastModified": "2026-06-01T19:11:51.403992+00:00",
       "sheets": [
         "0_Index",
         "1_Trigger_Conditions",
@@ -274,6 +296,27 @@
         "8_Decision_Tree",
         "9_Methodology_Audit",
         "10_v3_1_Build_Notes"
+      ]
+    },
+    {
+      "file": "ST_UI_Track_Coder_Agent_Specification_v1.xlsx",
+      "sizeBytes": 41715,
+      "lastModified": "2026-06-10T20:25:59.954973+00:00",
+      "sheets": [
+        "B-01 PROVENANCE",
+        "B-02 FILE_REGISTER",
+        "B-03 DEPENDENCY_MAP",
+        "B-04 READ_ORDER",
+        "B-05 HARD_RULES",
+        "B-06 DO_NOT_MODIFY",
+        "B-07 VALIDATION_CHECKLIST",
+        "B-08 CONSISTENCY_AUDIT",
+        "B-09 SEQUENCE_GATES",
+        "B-10 ERROR_HANDLING",
+        "APPENDIX_A ALIAS_LOOKUP",
+        "APPENDIX_B SCREEN_SPEC",
+        "APPENDIX_C BUILD_ORDER",
+        "SELF_CHECK"
       ]
     }
   ]

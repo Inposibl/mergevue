@@ -1,4 +1,4 @@
-import assert from "node:assert/strict";
+﻿import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import {
   MERGEVUE_PUBLIC_REPORT_PDF_FILE_NAME,
@@ -16,7 +16,7 @@ const REQUIRED_EMAIL_STRINGS = Object.freeze([
   "report@mergevue.com",
   "Sealed Prediction Preview",
   "Display-only preview; not ledger-recorded.",
-  "Enterprise value band: $50M\u2013$500M EV",
+  "ECONOMIC EXPOSURE MODEL",
   "Illustrative posture, not a valuation.",
   "Absolute risk figures require the engagement-tier economic model.",
   "Absorb / neutralize a competitor",
@@ -182,3 +182,7 @@ assert.equal(
 );
 
 console.log("Mergevue public report email validation passed");
+
+
+
+

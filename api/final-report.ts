@@ -1,4 +1,4 @@
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+﻿const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const DEFAULT_REPORT_HIDDEN_COPY_TO = "n.petyaev@gmail.com";
 const MERGEVUE_PUBLIC_REPORT_PDF_FILE_NAME = "mergevue-forecast-brief.pdf";
 const MERGEVUE_REPORT_EMAIL_SUBJECT = "Mergevue Forecast Brief: Post-Deal Behavior Forecast";
@@ -140,11 +140,11 @@ function publicSafeReportString(value: unknown) {
     .replace(/structural-typology\.academy/gi, "mergevue.com")
     .replace(/structural-typology\.com/gi, "mergevue.com")
     .replace(/info@structural-typology\.academy/gi, "report@mergevue.com")
-    .replace(/Forward-verifiable\s*·\s*on record/gi, "Display-only preview")
+    .replace(/Forward-verifiable\s*В·\s*on record/gi, "Display-only preview")
     .replace(/lodged against public ledger/gi, "available as a display-only preview")
     .replace(/timestamped against public ledger/gi, "available as a display-only preview")
-    .replace(/USD 50\.0B/gi, "Enterprise value band: $50M-$500M EV")
-    .replace(/USD 350M to USD 2\.2B/gi, "Enterprise value band: $50M-$500M EV")
+    .replace(/USD 50\.0B/gi, "Valuation risk band: $50M-$500M EV")
+    .replace(/USD 350M to USD 2\.2B/gi, "Valuation risk band: $50M-$500M EV")
     .replace(/Indicative Total Risk Envelope/gi, "Economic risk posture")
     .replace(/Total Risk Envelope/gi, "Economic risk posture")
     .replace(/hard risk envelope/gi, "engagement-tier economic model")
@@ -169,7 +169,7 @@ function normalizeReportEmailCopy(value: any): ReportEmailCopy {
         "Post-Deal Behavior Forecast",
         "Contact: report@mergevue.com",
         "Sealed Prediction Preview: Display-only preview; not ledger-recorded.",
-        "Enterprise value band: $50M-$500M EV",
+        "Valuation risk band: $50M-$500M EV",
         "Illustrative posture, not a valuation.",
         "Absolute risk figures require the engagement-tier economic model.",
       ],
@@ -853,4 +853,5 @@ export default async function handler(request: NodeRequest, response: NodeRespon
     message: "Returns final report only after Acquirer and verified Target completion.",
   });
 }
+
 

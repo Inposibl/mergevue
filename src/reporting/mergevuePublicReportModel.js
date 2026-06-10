@@ -1,4 +1,4 @@
-import { ENVIRONMENTS } from "../data/environments.js";
+﻿import { ENVIRONMENTS } from "../data/environments.js";
 import {
   buildFinalDeliverable,
   publicText,
@@ -32,7 +32,7 @@ export const MERGEVUE_PUBLIC_REPORT_BLOCKS = Object.freeze([
 const REPORT_VERSION = "mergevue-public-forecast-brief-mvp-1";
 const FALLBACK = "Not available";
 const APPROVED_DEAL_TYPE = "Absorb / neutralize a competitor";
-const APPROVED_ENTERPRISE_VALUE_BAND = "Enterprise value band: $50M-$500M EV";
+const APPROVED_ENTERPRISE_VALUE_BAND = "Valuation risk band: $50M-$500M EV";
 const APPROVED_VALUATION_DISCLAIMER = "Illustrative posture, not a valuation.";
 const APPROVED_ENGAGEMENT_TIER_REQUIREMENT = "Absolute risk figures require the engagement-tier economic model.";
 const APPROVED_OVERWRITE_RISK_EXPLANATION = "The main risk is translation failure: the acquirer may impose its standard integration logic before it understands which target routines preserve loyalty, trust, knowledge flow, execution quality, or deal-critical continuity after close.";
@@ -654,3 +654,4 @@ export function buildMergevuePublicReportEmailCopy(report) {
 }
 
 export default buildMergevuePublicReportModel;
+
