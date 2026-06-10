@@ -265,7 +265,7 @@ function archiveResourceGroups(resources = []) {
   return Object.freeze(groups.map((group) => Object.freeze({
     ...group,
     count: group.rows.length,
-    rows: Object.freeze(group.rows),
+    rows: Object.freeze([...group.rows].sort((a, b) => a.intensity - b.intensity || a.label.localeCompare(b.label))),
   })));
 }
 
