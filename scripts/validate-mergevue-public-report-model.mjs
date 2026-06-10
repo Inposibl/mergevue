@@ -148,14 +148,14 @@ for (const prediction of model.sealedPredictions.predictions) {
 }
 
 assert.equal(model.compatibilityScoreAndDealScenario.dealType, "Absorb / neutralize a competitor");
-assert.equal(model.compatibilityScoreAndDealScenario.enterpriseValueBand, "Enterprise value band: $50M–$500M EV");
-assert.equal(model.economicRiskTranslation.enterpriseValueBand, "Enterprise value band: $50M–$500M EV");
-assert.equal(model.economicRiskTranslation.valuationDisclaimer, "Illustrative posture, not a valuation.");
-assert.equal(model.economicRiskTranslation.engagementTierRequirement, "Absolute risk figures require the engagement-tier economic model.");
+assert.equal(model.compatibilityScoreAndDealScenario.enterpriseValueBand, "Enterprise value / deal value provided: USD 500 million (estimated).");
+assert.equal(model.economicRiskTranslation.enterpriseValueBand, "ECONOMIC EXPOSURE MODEL");
+assert.equal(model.economicRiskTranslation.valuationDisclaimer, "Illustrative posture, not a valuation. Deal economics inputs are used only to size an order-of-magnitude risk envelope.");
+assert.equal(model.economicRiskTranslation.engagementTierRequirement, "Absolute risk figures require the engagement-tier economic model. ECS valuation band: HIGH COMPATIBILITY (85.3).");
 
 assert.equal(
   model.resourceConflictMap.overwriteRiskExplanation,
-  "The main risk is not direct resource conflict. It is overwrite risk: the acquirer may simplify or underuse the target’s more structured operating system, causing institutional knowledge and planning discipline to decay after close.",
+  "The main risk is translation failure: the acquirer may impose its standard integration logic before it understands which target routines preserve loyalty, trust, knowledge flow, execution quality, or deal-critical continuity after close.",
 );
 assert.ok(Array.isArray(model.resourceConflictMap.resources));
 assert.ok(model.resourceConflictMap.resources.length > 0);
