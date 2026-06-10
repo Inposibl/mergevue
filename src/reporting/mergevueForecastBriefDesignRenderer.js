@@ -131,6 +131,47 @@ function publicEnvironmentName(name, code) {
   return displayName;
 }
 
+function resourceBandLookup(groups = []) {
+  const lookup = new Map();
+  for (const group of Array.isArray(groups) ? groups : []) {
+    const band = cleanText(group?.band);
+    const rows = Array.isArray(group?.rows) ? group.rows : [];
+    for (const row of rows) {
+      const name = cleanText(row?.label || row?.name);
+      if (name && band) lookup.set(name.toLowerCase(), band);
+    }
+  }
+  return lookup;
+}
+
+function actionResourceName(actionTitle, rationale) {
+  const text = `${cleanText(actionTitle)} ${cleanText(rationale)}`.toLowerCase();
+  const resourceNames = ["Health", "Energy", "Knowledge", "Trust", "Connections", "Information", "Creativity", "Decisiveness", "Attention", "Organisation / system", "Organization / system"];
+  return resourceNames.find((name) => text.includes(name.toLowerCase())) || "";
+}
+
+function alignedActionRationale(actionTitle, rationale, resourceGroups) {
+  const resourceName = actionResourceName(actionTitle, rationale);
+  if (!resourceName) return rationale;
+  const lookup = resourceBandLookup(resourceGroups);
+  const normalizedName = resourceName.toLowerCase();
+  const band = lookup.get(normalizedName) || (normalizedName.includes("organization") ? lookup.get("organisation / system") : "");
+  if (band !== "aligned") return rationale;
+  const key = resourceName.toLowerCase();
+
+  if (key.includes("health")) return "Health is an alignment asset. The risk is not current health conflict; the risk is damaging sustainable pace if integration pressure turns endurance into burnout.";
+  if (key.includes("energy")) return "Energy is an alignment asset. The risk is not current energy conflict; the risk is damaging execution capacity through excessive integration load or poorly paced change.";
+  if (key.includes("knowledge")) return "Knowledge is an alignment asset. The risk is not current knowledge conflict; the risk is losing access to know-how if ownership, routines, or knowledge holders are changed too early.";
+  if (key.includes("trust")) return "Trust is an alignment asset. The risk is not current trust conflict; the risk is damaging disclosure quality, credibility, or psychological safety through careless integration decisions.";
+  if (key.includes("connections")) return "Connections are an alignment asset. The risk is not current connections conflict; the risk is weakening informal coordination or isolating key relationship holders during governance redesign.";
+  if (key.includes("information")) return "Information is an alignment asset. The risk is not current information conflict; the risk is disrupting signal flow or access to operating data during reporting-line changes.";
+  if (key.includes("creativity")) return "Creativity is an alignment asset. The risk is not current creativity conflict; the risk is suppressing local problem-solving before integration problems are understood.";
+  if (key.includes("decisiveness")) return "Decisiveness is an alignment asset. The risk is not current decisiveness conflict; the risk is slowing clear ownership and escalation paths during the transition.";
+  if (key.includes("attention")) return "Attention is an alignment asset. The risk is not current attention conflict; the risk is fragmenting leadership focus and missing critical post-close signals.";
+  if (key.includes("organisation") || key.includes("organization") || key.includes("system")) return "Organisation / system is an alignment asset. The risk is not current system conflict; the risk is damaging routines and cadence that already support stable execution.";
+
+  return `${resourceName} is an alignment asset. The risk is not current conflict; the risk is damaging this strength through careless integration pressure.`;
+}
 function actionBuckets(actions) {
   const normalizedActions = (actions ?? []).map((action, sourceIndex) => Object.freeze({
     actionTitle: cleanText(action.actionTitle),
@@ -274,8 +315,9 @@ function predictionCard(prediction, index, actions = {}) {
   const actionExpectedEffect = cleanText(action?.actionExpectedEffect);
   const actionMeta = [actionTiming, actionOwner, actionExpectedEffect ? `expected effect: ${actionExpectedEffect}` : ""]
     .filter(Boolean)
-    .join(" · ");
-  const rationale = cleanText(action?.actionReason || recommendedAction);
+    .join(" | ");
+  const rawRationale = cleanText(action?.actionReason || recommendedAction);
+  const rationale = alignedActionRationale(actionTitle, rawRationale, actions.resourceGroups);
   const displayStatement = index === 2 && observableSignal ? observableSignal : statement;
   const displayEvidence = index === 2
     ? (statement || verification)
@@ -374,9 +416,10 @@ export function buildMergevueForecastBriefDesignModel(report, options = {}) {
   const scoreBandKey = forecastBriefScoreBand(score);
   const confidenceGate = confidenceGateLabel(evidence.dataQualityLevel || scenario.dataQuality);
   const actions = actionBuckets(report.recommendedActions);
-  const predictions = Object.freeze(sealed.predictions.map((prediction, index) => predictionCard(prediction, index, actions)));
-  const includeAppendixSections = options.includeAppendixSections !== false;
   const resourceGroups = archiveResourceGroups(resources.resources);
+  const predictionContext = { ...actions, resourceGroups };
+  const predictions = Object.freeze(sealed.predictions.map((prediction, index) => predictionCard(prediction, index, predictionContext)));
+  const includeAppendixSections = options.includeAppendixSections !== false;
   const issuedAt = cleanText(audit.generatedAt).slice(0, 10);
   const acquirerPattern = publicEnvironmentName(environments.acquirerEnvironmentName, environments.acquirerEnvironmentCode);
   const targetPattern = publicEnvironmentName(environments.targetEnvironmentName, environments.targetEnvironmentCode);
