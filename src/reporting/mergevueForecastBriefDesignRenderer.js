@@ -248,11 +248,11 @@ function archiveResourceGroups(resources = []) {
     { band: "moderate", label: "Moderate | 40-69", rows: [] },
     { band: "aligned", label: "Aligned | 70-100", rows: [] },
   ];
-  for (const resource of resources) {
+
+  const rows = resources.map((resource) => {
     const intensity = Math.max(0, Math.min(100, Number(resource.conflictIntensity) || 0));
     const band = conflictBandFromIntensity(intensity);
-    const group = groups.find((item) => item.band === band);
-    group.rows.push(Object.freeze({
+    return Object.freeze({
       label: cleanText(resource.resourceName),
       category: cleanText(resource.resourceCategory),
       direction: publicResourceDirection(resource.direction),
@@ -260,13 +260,25 @@ function archiveResourceGroups(resources = []) {
       intensity,
       band,
       sourceBand: cleanText(resource.conflictBand),
-    }));
+    });
+  });
+
+  const selectedRows = rows
+    .sort((a, b) => a.intensity - b.intensity || a.label.localeCompare(b.label))
+    .slice(0, 5);
+
+  for (const row of selectedRows) {
+    const group = groups.find((item) => item.band === row.band);
+    if (group) group.rows.push(row);
   }
-  return Object.freeze(groups.map((group) => Object.freeze({
-    ...group,
-    count: group.rows.length,
-    rows: Object.freeze([...group.rows].sort((a, b) => a.intensity - b.intensity || a.label.localeCompare(b.label))),
-  })));
+
+  return Object.freeze(groups
+    .filter((group) => group.rows.length)
+    .map((group) => Object.freeze({
+      ...group,
+      count: group.rows.length,
+      rows: Object.freeze(group.rows),
+    })));
 }
 
 function actionForPrediction(actions, index) {
@@ -1430,20 +1442,20 @@ function renderEconomicLineItems(lines) {
 }
 
 function renderEngagementBenefit(benefit) {
-  const text = cleanText(benefit);
+  const text = cleanText(benefit).replace(/\s+\|\s+/g, ". ");
   if (/^De-risked next step\./i.test(text)) {
     const rest = text.replace(/^De-risked next step\.\s*/i, "");
     return `<p><strong class="eng-next-step">De-risked next step.</strong> ${escapeHtml(rest)}</p>`;
   }
 
-  const match = text.match(/^(\d+\.\s*)(Audit-Grade Confirmation|Definitive Personnel Mapping|Quantified Exposure & Playbook)\s*-\s*(.*)$/i);
+  const match = text.match(/^(\d+\.\s*)(Audit-Grade Confirmation|Definitive Personnel Mapping|Quantified Exposure & Playbook)\s*\.\s*(.*)$/i);
   if (!match) return `<p>${escapeHtml(text)}</p>`;
 
   const prefix = match[1];
   const title = match[2];
   const rest = match[3] || "";
 
-  return `<p><span class="eng-benefit-head">${escapeHtml(prefix)}${escapeHtml(title)}</span> - ${escapeHtml(rest)}</p>`;
+  return `<p><span class="eng-benefit-head">${escapeHtml(prefix)}${escapeHtml(title)}</span>. ${escapeHtml(rest)}</p>`;
 }
 
 function renderHtmlSection(section, number, context = {}) {
