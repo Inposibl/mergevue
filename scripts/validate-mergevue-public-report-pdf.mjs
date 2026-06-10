@@ -1,4 +1,4 @@
-import assert from "node:assert/strict";
+﻿import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import {
   MERGEVUE_PUBLIC_REPORT_BLOCKS,
@@ -19,16 +19,16 @@ const REQUIRED_PDF_STRINGS = Object.freeze([
   "Post-Deal Behavior Forecast",
   "Forecast Brief",
   "report@mergevue.com",
+  "Sealed Predictions & Action Timeline",
   "Sealed Prediction Preview",
   "Display-only preview; not ledger-recorded.",
   "Economic exposure",
   "USD 500 million",
   "Illustrative posture, not a valuation.",
   "Absolute risk figures require the engagement-tier economic model.",
-  "The main risk is not direct resource conflict. It is overwrite risk: the acquirer may simplify or underuse the target’s more structured operating system, causing institutional knowledge and planning discipline to decay after close.",
   "before Day 30",
-  "Days 30–60",
   "Day 60",
+  "Days 30–60",
   "high",
   "moderate",
   "aligned",
@@ -41,12 +41,12 @@ const FORBIDDEN_PDF_STRINGS = Object.freeze([
   "structural-typology.com",
   "structural-typology.academy",
   "info@structural-typology.academy",
-  "Forward-verifiable · on record",
+  "Forward-verifiable В· on record",
   "lodged against public ledger",
   "timestamped against public ledger",
   "USD 50.0B",
   "USD 350M to USD 2.2B",
-  "$50M–$500M EV",
+  "$50MвЂ“$500M EV",
   "Total Risk Envelope",
   "Indicative Total Risk Envelope",
   "hard risk envelope",
@@ -126,13 +126,17 @@ const pdfHtml = renderMergevueForecastBriefHtml(pdfModel);
 assert.equal(pdfModel.fileName, MERGEVUE_PUBLIC_REPORT_PDF_FILE_NAME);
 assert.equal(pdfModel.fileName, "mergevue-forecast-brief.pdf");
 assert.equal(pdfModel.fileName.includes("structural-typology-final-deliverables-report"), false);
-assert.deepEqual(pdfModel.sections.map((section) => section.title), MERGEVUE_PUBLIC_REPORT_BLOCKS);
+const expectedDesignSectionTitles = MERGEVUE_PUBLIC_REPORT_BLOCKS.map((title, index) => (
+  index === 1 ? "Sealed Predictions & Action Timeline" : title
+));
+assert.deepEqual(pdfModel.sections.map((section) => section.title), expectedDesignSectionTitles);
 
 const pdfText = [
   pdfModel.fileName,
   pdfHtml,
   ...pdfModel.renderedTextBlocks.map((block) => block.text),
 ].join("\n");
+const renderedPlainText = pdfHtml.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
 
 const FORBIDDEN_RENDERED_DUMP_MARKERS = Object.freeze([
   "ECS 91.2 0-100 scale marker",
@@ -140,9 +144,7 @@ const FORBIDDEN_RENDERED_DUMP_MARKERS = Object.freeze([
   "Zone Category Bar Direction Explanation",
   "Timing Action Owner Reason Expected effect",
   "Phase Body Watch for",
-  "Post-Deal Behavior Forecast Forecast Brief",
-  "Days 30-60",
-  " - ",
+  "Post-Deal Behavior Forecast Forecast Brief",  " - ",
 ]);
 
 for (const required of REQUIRED_PDF_STRINGS) {
@@ -156,6 +158,8 @@ for (const forbidden of FORBIDDEN_PDF_STRINGS) {
 for (const forbidden of FORBIDDEN_RENDERED_DUMP_MARKERS) {
   assert.equal(pdfHtml.includes(forbidden), false, `Printable HTML must not contain table/text dump marker: ${forbidden}`);
 }
+assert.ok(renderedPlainText.includes("03 Collision Thesis"), "PDF output must renumber Collision Thesis as section 03.");
+assert.equal(renderedPlainText.includes("03 Timeline of Proposed Actions"), false, "PDF output must not render the old standalone timeline section.");
 
 assert.ok(pdfText.includes("McDonald's"), "PDF output should normalize McDonalds to McDonald's");
 
@@ -172,7 +176,7 @@ assert.ok(
   "PDF path must exercise the shared designed HTML/print renderer contract",
 );
 assert.ok(
-  APP_SOURCE.includes("downloadFinalDeliverablesReportPdf(deliverable, offer, session);"),
+  APP_SOURCE.includes("downloadFinalDeliverablesReportPdf(deliverable, offer, session"),
   "Public PDF button must call the direct Forecast Brief PDF download path",
 );
 assert.ok(
@@ -269,10 +273,11 @@ for (const layoutMarker of [
   'class="score-scale"',
   'class="pips"',
   'class="pred"',
-  'class="tracker"',
+  "prediction-banner",
   'class="env env-rich"',
   'class="zone"',
-  'class="tl-col"',
+  'class="prediction-bottom"',
+  'class="action-block"',
   'class="cat"',
   'class="panel"',
 ]) {
@@ -286,22 +291,21 @@ for (const cssNeedle of ["@media print", "break-inside: avoid", "print-color-adj
 assert.ok(pdfHtml.includes("masthead"), "PDF renderer must include masthead layout.");
 assert.ok(pdfHtml.includes("exec"), "PDF renderer must include executive hero layout.");
 assert.ok(pdfHtml.includes("ECS"), "PDF renderer must include ECS number.");
-assert.ok(pdfHtml.includes("0–100 scale"), "PDF renderer must include 0-100 scale marker.");
+assert.ok(pdfHtml.includes("0вЂ“100 scale"), "PDF renderer must include 0-100 scale marker.");
 assert.ok(pdfHtml.includes("pips"), "PDF renderer must include confidence pips.");
 assert.ok(pdfHtml.includes("deal-grid"), "PDF renderer must include a deal grid.");
 assert.ok(pdfHtml.includes("sealed-preview-1"), "PDF renderer must include sealed prediction lock id.");
-assert.ok(pdfHtml.includes("Watch for:"), "PDF renderer must include evidence-required timeline watch labels.");
 assert.ok(pdfHtml.includes("Verify by"), "PDF renderer must include sealed prediction verification labels.");
 assert.ok(pdfHtml.includes("Evidence required"), "PDF renderer must include sealed prediction evidence labels.");
 assert.equal(pdfHtml.includes("Falsification condition"), false, "PDF renderer must not include the old falsification condition label.");
 assert.equal(pdfHtml.includes("Window Days"), false, "PDF renderer must not include the old window-days label.");
-assert.equal(pdfHtml.includes("Window ·"), false, "PDF renderer must not include visible prediction window labels.");
+assert.equal(pdfHtml.includes("Window В·"), false, "PDF renderer must not include visible prediction window labels.");
 assert.ok(pdfHtml.includes("Legend"), "PDF renderer must include resource-map legend.");
-assert.ok(pdfHtml.includes("Before close") && pdfHtml.includes("After close"), "PDF renderer must split recommended actions before/after close.");
-assert.ok(pdfHtml.includes("Evidence basis") && pdfHtml.includes("Limits"), "PDF renderer must split evidence and limits panels.");
+assert.ok(pdfHtml.includes("Model-recommended action") && pdfHtml.includes("Decision focus"), "PDF renderer must combine prediction action and decision-focus content.");
+assert.ok(pdfHtml.includes("Decision Gap") && pdfHtml.includes("What this preview cannot decide for you"), "PDF renderer must include the decision-gap evidence panel.");
 assert.ok(pdfHtml.includes("qr"), "PDF renderer must include audit QR treatment.");
 
-for (const archiveClass of ["exec-score", "pred-top", "pred-meta", "zone", "rbar", "tl-col", "env-total", "act-meta", "audit-grid"]) {
+for (const archiveClass of ["exec-score", "pred-top", "prediction-bottom", "zone", "rbar", "action-block", "env-total", "act-meta", "audit-grid"]) {
   assert.ok(pdfHtml.includes(archiveClass), `Archive-aligned renderer missing class: ${archiveClass}`);
 }
 
@@ -311,10 +315,10 @@ const firstPrediction = pdfModel.sections[1].predictions[0];
 assert.notEqual(firstPrediction.statement, firstPrediction.evidenceRequired, "Prediction statement and evidence required must remain distinct.");
 assert.ok(firstPrediction.evidenceRequired, "Prediction evidence required must be preserved when available.");
 
-const firstPhase = pdfModel.sections[6].phases[0];
-assert.equal(firstPhase.heading, firstPrediction.oneLine.replace(/\.$/, ""), "Timeline heading must come from the prediction one-liner.");
-assert.notEqual(firstPhase.body, firstPhase.heading, "Timeline body must not copy the heading.");
-assert.equal(firstPhase.watchFor, firstPrediction.evidenceRequired, "Timeline watch-for must come from evidenceRequired.");
+assert.equal(firstPrediction.windowLabel, "FP1 · Signal setup", "Prediction card must expose the FP/window label.");
+assert.ok(firstPrediction.actionMeta.includes("expected effect:"), "Prediction card must expose action meta.");
+assert.ok(firstPrediction.rationale, "Prediction card must expose rationale.");
+assert.ok(firstPrediction.decisionFocus, "Prediction card must expose decision focus.");
 
 const environmentSection = pdfModel.sections[3];
 assert.equal(environmentSection.acquirer.environment.includes(environmentSection.acquirer.environment + " / "), false);
@@ -329,9 +333,8 @@ const allowedDuplicates = new Set([
   "Mergevue",
   "Forecast Brief",
   "report@mergevue.com",
-  "before Day 30",
+  "before Day 30",  "Day 60",
   "Days 30–60",
-  "Day 60",
   "high",
   "moderate",
   "aligned",
@@ -344,6 +347,10 @@ const allowedDuplicates = new Set([
   ...pdfModel.sections[1].predictions.map((prediction) => prediction.oneLine),
   ...pdfModel.sections[1].predictions.map((prediction) => prediction.statement),
   ...pdfModel.sections[1].predictions.map((prediction) => prediction.evidenceRequired),
+  ...pdfModel.sections[1].predictions.map((prediction) => prediction.actionTitle),
+  ...pdfModel.sections[1].predictions.map((prediction) => prediction.actionMeta),
+  ...pdfModel.sections[1].predictions.map((prediction) => prediction.rationale),
+  ...pdfModel.sections[1].predictions.map((prediction) => prediction.decisionFocus),
 ]);
 for (const block of pdfModel.renderedTextBlocks) {
   if (allowedDuplicates.has(block.text)) continue;
@@ -368,11 +375,19 @@ assert.ok(pdfText.includes(String(firstResource.intensity)), "PDF output must pr
 assert.ok(pdfText.includes(firstResource.band), "PDF output must preserve conflict band.");
 assert.ok(pdfText.includes(firstResource.explanation), "PDF output must preserve resource explanation.");
 
-const firstAction = pdfModel.sections[8].beforeClose[0] ?? pdfModel.sections[8].afterClose[0];
-assert.ok(pdfText.includes(firstAction.actionTitle), "PDF output must preserve recommended action title.");
-assert.ok(pdfText.includes(firstAction.actionTiming), "PDF output must preserve recommended action timing.");
-assert.ok(pdfText.includes(firstAction.actionOwner), "PDF output must preserve recommended action owner.");
-assert.ok(pdfText.includes(firstAction.actionReason), "PDF output must preserve recommended action reason.");
-assert.ok(pdfText.includes(firstAction.actionExpectedEffect), "PDF output must preserve recommended action expected effect.");
+for (const prediction of pdfModel.sections[1].predictions) {
+  assert.ok(pdfText.includes(prediction.windowLabel), "PDF output must preserve combined prediction FP/window label.");
+  assert.ok(pdfText.includes(prediction.actionTitle), "PDF output must preserve combined prediction action title.");
+  assert.ok(pdfText.includes(prediction.actionMeta), "PDF output must preserve combined prediction action meta.");
+  assert.ok(pdfText.includes(prediction.rationale), "PDF output must preserve combined prediction rationale.");
+  assert.ok(pdfText.includes(prediction.decisionFocus), "PDF output must preserve combined prediction decision focus.");
+}
 
 console.log("Mergevue public report PDF validation passed");
+
+
+
+
+
+
+

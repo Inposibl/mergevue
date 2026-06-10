@@ -1,4 +1,4 @@
-import {
+﻿import {
   MERGEVUE_PUBLIC_REPORT_BLOCKS,
   MERGEVUE_PUBLIC_REPORT_PDF_FILE_NAME,
 } from "./mergevuePublicReportModel.js";
@@ -25,9 +25,17 @@ const ALLOWED_DUPLICATE_TEXT = new Set([
   "Day 60",
 ]);
 
+const COMBINED_PREDICTION_TITLE = "Sealed Predictions & Action Timeline";
+const COMBINED_PREDICTION_NOTE = "DISPLAY-ONLY PREVIEW; NOT LEDGER-RECORDED.";
+
+const COMBINED_PREDICTION_LABELS = Object.freeze([
+  "FP1 · Signal setup",
+  "FP2 · Observation window",
+  "FP3 · Verification deadline",
+]);
 const ARCHIVE_SECTION_NOTES = Object.freeze({
   exec: "Executive Summary",
-  predictions: "Display-only prediction preview",
+  predictions: COMBINED_PREDICTION_NOTE,
   scenario: "Compatibility and deal grid",
   environments: "Two distinctive operating models",
   collision: "Collision thesis",
@@ -50,7 +58,7 @@ const SCORE_BAND_LABEL = Object.freeze({
 function cleanText(value) {
   if (value === null || value === undefined) return "";
   return String(value)
-    .replace(/\s+-\s+/g, " — ")
+    .replace(/\s+-\s+/g, " вЂ” ")
     .replace(/\s+/g, " ")
     .trim();
 }
@@ -91,7 +99,7 @@ function distinctText(value, compareValue) {
 
 function timelineBodyText(value) {
   const text = cleanText(value);
-  const withoutTimingPrefix = text.replace(/^(within\s+\d+\s+days(?:\s+of\s+close)?|before\s+day\s+\d+|days\s+\d+\s*[–-]\s*\d+|day\s+\d+)\s*:\s*/i, "").trim();
+  const withoutTimingPrefix = text.replace(/^(within\s+\d+\s+days(?:\s+of\s+close)?|before\s+day\s+\d+|days\s+\d+\s*[вЂ“-]\s*\d+|day\s+\d+)\s*:\s*/i, "").trim();
   return withoutTimingPrefix || text;
 }
 
@@ -195,9 +203,9 @@ function publicResourceDirection(text) {
 
 function archiveResourceGroups(resources = []) {
   const groups = [
-    { band: "high", label: "High-risk · 70–100", rows: [] },
-    { band: "moderate", label: "Moderate · 40–69", rows: [] },
-    { band: "aligned", label: "Aligned · 0–39", rows: [] },
+    { band: "high", label: "High-risk В· 70вЂ“100", rows: [] },
+    { band: "moderate", label: "Moderate В· 40вЂ“69", rows: [] },
+    { band: "aligned", label: "Aligned В· 0вЂ“39", rows: [] },
   ];
   for (const resource of resources) {
     const intensity = Math.max(0, Math.min(100, Number(resource.conflictIntensity) || 0));
@@ -220,18 +228,74 @@ function archiveResourceGroups(resources = []) {
   })));
 }
 
-function predictionCard(prediction, index) {
+function actionForPrediction(actions, index) {
+  const allActions = [...(actions.beforeClose ?? []), ...(actions.afterClose ?? [])];
+  const timingText = (action) => cleanText(action?.actionTiming).toLowerCase();
+
+  if (index === 0) {
+    return allActions.find((action) => /before/.test(timingText(action)))
+      ?? allActions.find((action) => /30/.test(timingText(action)) && !/60/.test(timingText(action)))
+      ?? allActions[0];
+  }
+
+  if (index === 1) {
+    return allActions.find((action) => /30/.test(timingText(action)) && /60/.test(timingText(action)))
+      ?? allActions.find((action) => /days/.test(timingText(action)) && !/^day\s*60$/.test(timingText(action)))
+      ?? allActions[1]
+      ?? allActions[0];
+  }
+
+  if (index === 2) {
+    return allActions.find((action) => /^day\s*60$/.test(timingText(action)))
+      ?? allActions.find((action) => /day/.test(timingText(action)) && /60/.test(timingText(action)))
+      ?? allActions[2]
+      ?? allActions[allActions.length - 1];
+  }
+
+  return allActions[index];
+}
+
+function predictionCard(prediction, index, actions = {}) {
   const statement = cleanText(prediction.predictionClaim);
-  const evidenceRequired = distinctText(prediction.observableSignal, statement);
-  const verification = distinctText(prediction.verificationMethod, evidenceRequired || statement);
-  const recommendedAction = distinctText(prediction.recommendedAction, evidenceRequired || statement) || cleanText(prediction.recommendedAction);
+  const observableSignal = distinctText(prediction.observableSignal, statement);
+  const verification = distinctText(prediction.verificationMethod, observableSignal || statement);
+  const recommendedAction = distinctText(prediction.recommendedAction, observableSignal || statement) || cleanText(prediction.recommendedAction);
+  const timeline = timelinePhase({
+    oneLine: prediction.predictionTitle,
+    statement,
+    verifyBy: prediction.predictionWindow,
+    evidenceRequired: observableSignal,
+    falsificationCondition: verification,
+  }, index);
+  const action = actionForPrediction(actions, index);
+  const actionTitle = cleanText(action?.actionTitle || recommendedAction);
+  const actionTiming = cleanText(action?.actionTiming || prediction.predictionWindow);
+  const actionOwner = cleanText(action?.actionOwner);
+  const actionExpectedEffect = cleanText(action?.actionExpectedEffect);
+  const actionMeta = [actionTiming, actionOwner, actionExpectedEffect ? `expected effect: ${actionExpectedEffect}` : ""]
+    .filter(Boolean)
+    .join(" · ");
+  const rationale = cleanText(action?.actionReason || recommendedAction);
+  const displayStatement = index === 2 && observableSignal ? observableSignal : statement;
+  const displayEvidence = index === 2
+    ? (statement || verification)
+    : (verification || observableSignal);
+  const decisionFocus = index === 2
+    ? (verification || timeline.watchFor)
+    : timeline.watchFor;
+
   return Object.freeze({
     id: `P${index + 1}`,
     index: index + 1,
     oneLine: cleanText(prediction.predictionTitle).replace(/\.$/, ""),
-    statement,
-    evidenceRequired,
+    windowLabel: COMBINED_PREDICTION_LABELS[index] ?? cleanText(prediction.predictionTitle),
+    statement: cleanText(displayStatement),
+    evidenceRequired: cleanText(displayEvidence),
     recommendedAction,
+    actionTitle,
+    actionMeta,
+    rationale,
+    decisionFocus: cleanText(decisionFocus),
     verifyBy: cleanText(prediction.predictionWindow),
     verifyByDisplay: cleanText(prediction.predictionWindow),
     window: cleanText(prediction.predictionWindow),
@@ -309,8 +373,8 @@ export function buildMergevueForecastBriefDesignModel(report, options = {}) {
   const score = Number(scenario.compatibilityScore);
   const scoreBandKey = forecastBriefScoreBand(score);
   const confidenceGate = confidenceGateLabel(evidence.dataQualityLevel || scenario.dataQuality);
-  const predictions = Object.freeze(sealed.predictions.map(predictionCard));
   const actions = actionBuckets(report.recommendedActions);
+  const predictions = Object.freeze(sealed.predictions.map((prediction, index) => predictionCard(prediction, index, actions)));
   const includeAppendixSections = options.includeAppendixSections !== false;
   const resourceGroups = archiveResourceGroups(resources.resources);
   const issuedAt = cleanText(audit.generatedAt).slice(0, 10);
@@ -352,7 +416,7 @@ export function buildMergevueForecastBriefDesignModel(report, options = {}) {
     },
     {
       id: SECTION_IDS[1],
-      title: MERGEVUE_PUBLIC_REPORT_BLOCKS[1],
+      title: COMBINED_PREDICTION_TITLE,
       statusTitle: sealed.statusTitle,
       statusDescription: sealed.statusDescription,
       previewOneLiners: predictions.map((prediction) => prediction.oneLine),
@@ -417,7 +481,7 @@ export function buildMergevueForecastBriefDesignModel(report, options = {}) {
       id: SECTION_IDS[5],
       title: MERGEVUE_PUBLIC_REPORT_BLOCKS[5],
       explanation: resources.overwriteRiskExplanation,
-      legend: ["High-risk · 70–100", "Moderate · 40–69", "Aligned · 0–39"],
+      legend: ["High-risk В· 70вЂ“100", "Moderate В· 40вЂ“69", "Aligned В· 0вЂ“39"],
       scanned: resources.resources.length,
       groups: resourceGroups,
       zones: resources.resources.map((resource, index) => Object.freeze({
@@ -494,8 +558,8 @@ export function buildMergevueForecastBriefDesignModel(report, options = {}) {
       confidential: false,
     }),
     header: Object.freeze({
-      eyebrow: `${report.brand.reportType.toUpperCase()} · ${report.brand.product.toUpperCase()}`,
-      title: `${scenario.acquirerName} × ${scenario.targetName}`,
+      eyebrow: `${report.brand.reportType.toUpperCase()} В· ${report.brand.product.toUpperCase()}`,
+      title: `${scenario.acquirerName} Г— ${scenario.targetName}`,
       subtitle: "Display-only forecast preview. This is a specification of expected post-deal behaviour, not a verdict on the deal.",
     }),
     compatibility: Object.freeze({
@@ -541,7 +605,7 @@ export function buildMergevueForecastBriefDesignModel(report, options = {}) {
       }),
     }),
     resourceConflictMap: Object.freeze({
-      legend: "Score = structural contestation intensity · 0 aligned → 100 maximal conflict",
+      legend: "Score = structural contestation intensity В· 0 aligned в†’ 100 maximal conflict",
       scanned: resources.resources.length,
       groups: resourceGroups,
     }),
@@ -624,13 +688,14 @@ export function renderMergevueForecastBriefHtml(model) {
   .score-scale{ margin-top:18px; } .scale-track{ height:5px; border-radius:3px; background:linear-gradient(90deg,var(--sig-risk),var(--sig-mod) 55%,var(--sig-high)); position:relative; } .scale-mark{ position:absolute; top:-4px; width:2px; height:13px; background:var(--ink); border-radius:2px; } .scale-ends{ display:flex; justify-content:space-between; font-family:var(--mono); font-size:9px; color:var(--ink-2); margin-top:6px; } .gate{ margin-top:auto; padding-top:20px; } .gate-row{ display:flex; align-items:center; gap:8px; } .gate-label{ font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-2); } .pips{ display:flex; gap:4px; } .pip{ width:14px; height:6px; border-radius:2px; background:var(--line-strong); } .pip.on{ background:var(--accent); } .gate-verdict{ font-family:var(--mono); font-size:10.5px; color:var(--ink); margin-top:8px; line-height:1.5; } .evidence-gate-head{ display:flex; align-items:center; justify-content:space-between; gap:10px; } .evidence-gate-title{ font-family:var(--mono); font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-2); font-weight:600; } .evidence-gate-row{ padding:7px 0 0; margin-top:7px; border-top:var(--hair) solid var(--line); } .evidence-gate-label{ font-size:11.5px; font-weight:600; color:var(--ink); } .evidence-gate-copy{ font-size:10.5px; color:var(--ink-2); line-height:1.35; margin-top:2px; }
   .exec-body{ padding:26px 28px; display:flex; flex-direction:column; gap:18px; } .exec-thesis{ font-size:20px; font-weight:500; line-height:1.32; color:var(--ink); } .exec-deal{ display:flex; flex-wrap:wrap; gap:10px 26px; padding:14px 0; border-top:var(--card-border); border-bottom:var(--card-border); } .deal-cell{ display:flex; flex-direction:column; gap:3px; } .deal-cell .k{ font-family:var(--mono); font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-2); } .deal-cell .v{ font-size:13.5px; font-weight:600; color:var(--ink); } .deal-cell small{ color:var(--ink-2); font-weight:500; } .exec-preds{ display:flex; flex-direction:column; gap:9px; } .exec-preds .epl{ font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-2); } .epred{ display:grid; grid-template-columns:92px 1fr; gap:12px; align-items:baseline; } .epred .when{ font-family:var(--mono); font-size:11px; color:#1f5f95; font-weight:700; } .epred .what{ font-size:13px; line-height:1.4; color:var(--ink); } .exec-action{ display:block; padding:12px 14px; background:var(--accent-soft); border:var(--hair) solid #bfd8ec; border-radius:var(--r); } .exec-action .lab{ display:block; font-family:var(--mono); font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:#1f5f95; font-weight:700; } .exec-action .txt{ display:block; margin-top:5px; font-size:12.2px; line-height:1.32; font-weight:600; color:var(--ink); }
   .preds-wrap{ display:flex; flex-direction:column; gap:16px; } .pred{ border:var(--card-border); border-radius:var(--r); background:var(--surface); box-shadow:var(--card-shadow); overflow:hidden; break-inside: avoid; } .pred-top{ display:flex; align-items:stretch; } .pred-id{ flex:none; width:150px; padding:20px; border-right:var(--card-border); background:var(--surface-2); display:flex; flex-direction:column; gap:8px; } .pred-id .pno{ font-family:var(--mono); font-size:11px; color:var(--ink-3); letter-spacing:.1em; } .pred-id .seal{ display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--sig-high); font-weight:500; } .pred-id .seal:before{ content:""; width:7px; height:7px; border-radius:50%; background:var(--sig-high); } .pred-id .lock{ font-family:var(--mono); font-size:9px; color:var(--ink-3); word-break:break-all; line-height:1.4; margin-top:auto; } .pred-main{ flex:1; padding:20px 24px; } .pred-claim{ font-size:16px; font-weight:500; line-height:1.42; } .pred-verify{ flex:none; width:170px; padding:20px; border-left:var(--card-border); text-align:right; display:flex; flex-direction:column; } .pred-verify .vl{ font-family:var(--mono); font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); } .pred-verify .vd{ font-family:var(--mono); font-size:21px; font-weight:600; margin-top:5px; } .pred-verify .vw{ font-family:var(--mono); font-size:10.5px; color:var(--accent); margin-top:6px; } .pred-meta{ display:grid; grid-template-columns:1fr; border-top:var(--card-border); } .pred-meta .pm{ padding:13px 24px; } .pred-meta .pm+.pm{ border-left:var(--card-border); } .pred-meta .pml{ font-family:var(--mono); font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); margin-bottom:5px; } .pred-meta .pmv{ font-size:12.5px; color:var(--ink-2); line-height:1.45; }
+  .prediction-stack{ gap:12px; } .prediction-banner{ margin-bottom:12px; } .window-label{ font-family:var(--mono); font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); margin-bottom:7px; } .prediction-bottom{ display:grid; grid-template-columns:1fr 1.15fr 1fr; border-top:var(--card-border); } .evidence-block,.action-block,.decision-output{ padding:12px 16px; break-inside:avoid; page-break-inside:avoid; } .action-block{ background:var(--accent-soft); border-left:var(--card-border); border-right:var(--card-border); } .decision-output{ background:var(--surface-2); } .evidence-block .pmv,.decision-output .pmv{ font-size:12px; color:var(--ink-2); line-height:1.34; } .prediction-bottom .pml{ font-family:var(--mono); font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); margin-bottom:5px; } .action-block .act-title{ font-size:12px; font-weight:650; } .action-block .act-meta{ font-size:12px; line-height:1.32; color:var(--ink-3); } .action-block .act-reason{ font-size:12px; line-height:1.34; color:var(--ink-2); }
   .tracker{ display:flex; align-items:center; gap:22px; padding:20px 24px; border:var(--card-border); border-radius:var(--r); background:var(--accent-soft); margin-top:16px; break-inside: avoid; } .qr,.audit-qr .qr{ width:96px; height:96px; flex:none; display:block; border:8px solid var(--ink); background:repeating-linear-gradient(45deg,#fff 0 4px,var(--ink) 4px 8px); } .tracker h4{ font-size:14px; font-weight:600; margin:0; } .tracker p{ font-size:12.5px; color:var(--ink-2); margin:6px 0 0; max-width:52ch; line-height:1.5; } .tk-url{ font-family:var(--mono); font-size:12px; color:var(--accent); margin-top:9px; font-weight:500; }
   .envs{ display:grid; grid-template-columns:1fr 1fr; gap:16px; } .env,.panel{ border:var(--card-border); border-radius:var(--r); background:var(--surface); padding:22px; box-shadow:var(--card-shadow); break-inside: avoid; } .env .role{ font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3); } .env .co{ font-size:15px; font-weight:600; margin-top:4px; } .env .arc{ font-size:18px; font-weight:600; margin-top:10px; color:var(--accent); } .env p,.panel p{ font-size:13px; color:var(--ink-2); line-height:1.55; margin:10px 0 0; } .eng-benefit-head{ color:#008c95; font-weight:800; text-transform:uppercase; } .eng-next-step{ color:var(--ink); font-weight:800; } .collide{ margin-top:16px; border:var(--card-border); border-radius:var(--r); overflow:hidden; } .collide-row{ display:grid; grid-template-columns:210px 1fr; } .collide-row+.collide-row{ border-top:var(--card-border); } .collide-row .cl{ padding:14px 18px; background:var(--surface-2); font-size:12px; font-weight:600; border-right:var(--card-border); } .collide-row .cr{ padding:14px 18px; font-size:12.5px; color:var(--ink-2); line-height:1.5; background:var(--surface); } .collision-finding{ display:block; } .finding-resource-line{ display:block; } .finding-rule{ height:1px; background:var(--line); margin:10px 0; } .finding-meaning,.finding-interpretation{ display:block; } .finding-meaning-title{ font-weight:600; color:var(--ink); margin-bottom:4px; } .finding-line{ display:block; }
   .legend{ display:flex; flex-wrap:wrap; gap:8px 18px; align-items:center; margin-bottom:18px; font-family:var(--mono); font-size:10.5px; color:var(--ink-2); } .legend .lg{ display:flex; align-items:center; gap:7px; } .legend .sw{ width:11px; height:11px; border-radius:2px; } .legend .anchor{ margin-left:auto; color:var(--ink-3); } .zone{ margin-bottom:14px; } .zone-head{ display:flex; align-items:center; gap:10px; margin-bottom:8px; } .zone-dot{ width:9px; height:9px; border-radius:50%; } .zone-name{ font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; font-weight:500; } .zone-count{ font-family:var(--mono); font-size:10px; color:var(--ink-3); } .rbars{ border:var(--card-border); border-radius:var(--r); overflow:hidden; background:var(--surface); } .rbar{ display:grid; grid-template-columns:160px 1fr 46px; align-items:center; gap:14px; padding:9px 16px; } .rbar+.rbar{ border-top:var(--card-border); } .rn{ font-size:12px; font-weight:500; } .rd{ font-size:11px; color:var(--ink-3); margin-top:2px; } .rt{ height:7px; border-radius:4px; background:var(--surface-2); position:relative; overflow:hidden; } .rf{ position:absolute; left:0; top:0; bottom:0; border-radius:4px; } .rv{ font-family:var(--mono); font-size:11px; text-align:right; color:var(--ink-2); }
   .tl{ display:grid; grid-template-columns:repeat(3,1fr); gap:0; border:var(--card-border); border-radius:var(--r); overflow:hidden; background:var(--surface); break-inside: avoid; } .tl-col+.tl-col{ border-left:var(--card-border); } .tl-progress{ display:flex; height:4px; } .tl-progress span{ flex:1; background:var(--accent); } .tl-when{ padding:14px 18px; background:var(--surface-2); border-bottom:var(--card-border); display:flex; align-items:baseline; justify-content:space-between; } .tl-when .ph{ font-family:var(--mono); font-size:11px; color:var(--accent); font-weight:500; } .tl-when .win{ font-family:var(--mono); font-size:10px; color:var(--ink-3); } .tl-body{ padding:16px 18px; } .tl-body .h{ font-size:13.5px; font-weight:600; line-height:1.3; } .tl-body p{ font-size:12px; color:var(--ink-2); line-height:1.5; margin-top:9px; } .tl-marker{ margin-top:14px; padding-top:12px; border-top:var(--card-border); } .tl-marker .ml{ font-family:var(--mono); font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); margin-bottom:5px; } .tl-marker .mv{ font-size:11.5px; line-height:1.4; }
   .env-total{ display:flex; align-items:flex-end; justify-content:space-between; gap:24px; padding:22px 24px; border:var(--card-border); border-radius:var(--r); background:var(--surface); box-shadow:var(--card-shadow); margin-bottom:14px; } .et-l .lab{ font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); } .rng{ font-size:38px; font-weight:var(--display-weight); margin-top:6px; } .economic-label{ font-size:18px; line-height:1.08; font-weight:var(--display-weight); letter-spacing:.035em; text-transform:uppercase; white-space:nowrap; margin-top:6px; } .et-r{ text-align:right; font-family:var(--mono); font-size:11px; color:var(--ink-2); line-height:1.7; } .cats{ display:flex; flex-direction:column; gap:10px; } .cat{ border:var(--card-border); border-radius:var(--r); background:var(--surface); padding:14px 18px; break-inside: avoid; } .cat-top{ display:flex; justify-content:space-between; align-items:baseline; gap:16px; } .cn{ font-size:13px; font-weight:600; } .cr{ font-family:var(--mono); font-size:13px; font-weight:500; } .cat p{ font-size:12px; color:var(--ink-2); line-height:1.5; margin-top:6px; } .cat-bar,.bar{ height:6px; border-radius:4px; background:var(--surface-2); margin-top:10px; position:relative; overflow:hidden; } .cat-bar span,.bar i{ position:absolute; top:0; bottom:0; left:0; border-radius:4px; background:var(--accent); }
   .acts,.split2{ display:grid; grid-template-columns:1fr 1fr; gap:16px; } .acts-single{ grid-template-columns:1fr; } .timeline-actions{ margin-top:20px; padding-top:16px; border-top:var(--card-border); } .timeline-actions-title{ font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); margin:0 0 12px; } .act{ border:var(--card-border); border-radius:var(--r); background:var(--surface); padding:20px 22px; } .act h4,.panel h4{ font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); margin:0 0 14px; } .act-item{ padding:10px 0; border-top:var(--card-border); } .act-item:first-of-type{ border-top:0; } .act-title{ font-size:12.8px; font-weight:600; } .act-meta{ font-family:var(--mono); font-size:10px; color:var(--ink-3); margin-top:5px; } .act-reason{ font-size:12px; color:var(--ink-2); line-height:1.45; margin-top:6px; } .cta{ margin-top:16px; display:flex; align-items:center; gap:20px; padding:22px 26px; border-radius:var(--r); background:var(--ink); color:var(--bg); break-inside: avoid; } .cta .cl{ font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:#c8d0d8; } .cta .ct{ font-size:17px; font-weight:600; margin-top:6px; line-height:1.3; } .cta .cbtn{ margin-left:auto; padding:11px 20px; border-radius:100px; background:var(--accent); color:white; font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; font-weight:600; white-space:normal; overflow-wrap:anywhere; text-align:center; } #engagement .cta{ margin-top:12px; padding:14px 18px; gap:14px; align-items:flex-start; } #engagement .cta .ct{ font-size:14px; line-height:1.25; margin-top:4px; } #engagement .cta .cbtn{ white-space:nowrap; overflow-wrap:normal; word-break:normal; }
-  .evrow{ display:flex; justify-content:space-between; gap:14px; padding:9px 0; border-bottom:var(--card-border); font-size:12.5px; } .evrow:last-child{ border-bottom:0; } .ek{ color:var(--ink-2); } .ev{ font-weight:500; text-align:right; } .notlist{ display:flex; flex-direction:column; gap:9px; padding-left:0; list-style:none; } .notlist li{ display:grid; grid-template-columns:16px 1fr; gap:10px; font-size:12.5px; color:var(--ink-2); line-height:1.45; } .notlist li:before{ content:"×"; color:var(--sig-risk); font-weight:600; }
+  .evrow{ display:flex; justify-content:space-between; gap:14px; padding:9px 0; border-bottom:var(--card-border); font-size:12.5px; } .evrow:last-child{ border-bottom:0; } .ek{ color:var(--ink-2); } .ev{ font-weight:500; text-align:right; } .notlist{ display:flex; flex-direction:column; gap:9px; padding-left:0; list-style:none; } .notlist li{ display:grid; grid-template-columns:16px 1fr; gap:10px; font-size:12.5px; color:var(--ink-2); line-height:1.45; } .notlist li:before{ content:"Г—"; color:var(--sig-risk); font-weight:600; }
   .audit{ margin-top:56px; padding-top:26px; border-top:2px solid var(--ink); } .audit-grid{ display:grid; grid-template-columns:1fr 1fr 120px; gap:30px; align-items:start; } .acl{ font-family:var(--mono); font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3); margin-bottom:9px; } .acv{ font-family:var(--mono); font-size:11px; color:var(--ink-2); line-height:1.9; } .acv b{ color:var(--ink); font-weight:500; } .audit-qr{ text-align:center; } .ql{ font-family:var(--mono); font-size:8.5px; letter-spacing:.08em; color:var(--ink-3); margin-top:8px; line-height:1.4; } .audit-foot{ display:flex; justify-content:space-between; margin-top:26px; padding-top:16px; border-top:var(--hair) solid var(--line); font-family:var(--mono); font-size:10px; color:var(--ink-3); }
   @media(max-width:760px){ :root{ --gut:22px; } .exec{ grid-template-columns:1fr; } .exec-score{ border-right:0; border-bottom:var(--card-border); } .envs,.acts,.split2{ grid-template-columns:1fr; } .tl{ grid-template-columns:1fr; } .tl-col+.tl-col{ border-left:0; border-top:var(--card-border); } .pred-top{ flex-direction:column; } .pred-id{ width:auto; flex-direction:row; align-items:center; justify-content:space-between; border-right:0; border-bottom:var(--card-border); } .pred-id .lock{ margin-top:0; } .pred-verify{ width:auto; text-align:left; border-left:0; border-top:var(--card-border); } .audit-grid{ grid-template-columns:1fr; } .epred{ grid-template-columns:1fr; } }
   .thresholds{ display:block; font-size:11.5px; color:var(--ink-2); line-height:1.5; letter-spacing:0; font-family:Inter,Arial,sans-serif; margin:0 0 14px; }
@@ -672,18 +737,18 @@ export function renderMergevueForecastBriefHtml(model) {
   .page-preds .pred{ margin-bottom:8px; }
   .page-preds .pred-top{ min-height:88px; }
   .page-preds .pred-id{ width:122px; padding:10px 12px; }
-  .page-preds .pred-id .pno{ font-size:8.6px; }
-  .page-preds .pred-id .seal{ font-size:8.5px; }
-  .page-preds .pred-id .lock{ font-size:7.3px; }
+  .page-preds .pred-id .pno{ font-size:9px; }
+  .page-preds .pred-id .seal{ font-size:9px; }
+  .page-preds .pred-id .lock{ font-size:9px; }
   .page-preds .pred-main{ padding:10px 14px; }
   .page-preds .pred-claim{ font-size:10.2px; line-height:1.26; }
   .page-preds .pred-verify{ width:122px; padding:10px 12px; }
   .page-preds .pred-verify .vd{ font-size:12px; }
-  .page-preds .pred-verify .vl,.page-preds .pred-verify .vw{ font-size:8px; }
+  .page-preds .pred-verify .vl,.page-preds .pred-verify .vw{ font-size:9px; }
   .page-preds .pred-meta{ grid-template-columns:1fr; }
   .page-preds .pred-meta .pm{ padding:7px 12px; }
-  .page-preds .pred-meta .pml{ font-size:7.4px; margin-bottom:3px; }
-  .page-preds .pred-meta .pmv{ font-size:8.45px; line-height:1.24; }
+  .page-preds .pred-meta .pml{ font-size:9px; margin-bottom:3px; }
+  .page-preds .pred-meta .pmv{ font-size:9px; line-height:1.24; }
   .page-preds .tracker{ margin-top:8px; padding:10px 14px; min-height:0; }
   .page-preds .tracker .qr{ width:48px; height:48px; }
   .page-preds .tk-body h4{ margin-bottom:4px; }
@@ -698,7 +763,7 @@ export function renderMergevueForecastBriefHtml(model) {
   .page-preds .pred-id{ width:112px; padding:8px 10px; }
   .page-preds .pred-verify{ width:110px; padding:8px 10px; }
   .page-preds .pred-meta .pm{ padding:5px 10px; }
-  .page-preds .pred-meta .pmv{ font-size:7.8px; line-height:1.18; }
+  .page-preds .pred-meta .pmv{ font-size:9px; line-height:1.18; }
   .page-preds .tracker{ margin-top:6px; padding:8px 12px; }
   #collision .sec-head{ margin-bottom:10px; padding-bottom:8px; }
   #collision .collide{ margin-top:10px; }
@@ -905,7 +970,7 @@ export function renderMergevueForecastBriefHtml(model) {
   .predictions-page #predictions{ min-height:244mm; display:flex; flex-direction:column; }
   .predictions-page .preds-wrap{ flex:1; justify-content:space-between; gap:8px; }
   .predictions-page .pred-meta .pm{ padding:5px 10px; }
-  .predictions-page .pred-meta .pmv{ font-size:8.6px; line-height:1.24; }
+  .predictions-page .pred-meta .pmv{ font-size:9px; line-height:1.24; }
   .predictions-page .tracker{ display:none; }
 
   .timeline-page #timeline{ min-height:244mm; display:flex; flex-direction:column; }
@@ -1000,9 +1065,7 @@ function renderForecastBriefPages(model) {
   const environments = reportSectionById(model, "environments");
   const collision = reportSectionById(model, "collision");
   const resources = reportSectionById(model, "resources");
-  const timeline = reportSectionById(model, "timeline");
   const economics = reportSectionById(model, "economics");
-  const actions = reportSectionById(model, "actions");
   const evidence = reportSectionById(model, "evidence");
   const engagement = reportSectionById(model, "engagement");
   const audit = reportSectionById(model, "audit");
@@ -1011,10 +1074,9 @@ function renderForecastBriefPages(model) {
     renderReportPage(`${renderArchiveMasthead(model)}${renderArchiveExecutive(model)}`, "cover-page"),
     environments ? renderReportPage(renderHtmlSection(environments, 1), "environments-page") : "",
     predictions ? renderReportPage(renderHtmlSection(predictions, 2), "page-preds predictions-page") : "",
-    timeline ? renderReportPage(renderHtmlSection(timeline, 3, { actions }), "timeline-page") : "",
-    renderReportPage(`${collision ? renderHtmlSection(collision, 4) : ""}${resources ? renderHtmlSection(resources, 5) : ""}`, "collision-resources-page"),
-    economics ? renderReportPage(renderHtmlSection(economics, 6), "economic-page") : "",
-    renderReportPage(`${evidence ? renderHtmlSection(evidence, 7) : ""}${engagement ? renderHtmlSection(engagement, 8) : ""}${audit ? renderHtmlSection(audit, 9) : ""}`, "page-tight evidence-page"),
+    renderReportPage(`${collision ? renderHtmlSection(collision, 3) : ""}${resources ? renderHtmlSection(resources, 4) : ""}`, "collision-resources-page"),
+    economics ? renderReportPage(renderHtmlSection(economics, 5), "economic-page") : "",
+    renderReportPage(`${evidence ? renderHtmlSection(evidence, 6) : ""}${engagement ? renderHtmlSection(engagement, 7) : ""}${audit ? renderHtmlSection(audit, 8) : ""}`, "page-tight evidence-page"),
   ];
 
   return pages.filter(Boolean).join("\n");
@@ -1035,8 +1097,8 @@ function sectionHead(num, title, note) {
 }
 
 function renderArchiveMasthead(model) {
-  const titleParts = escapeHtml(model.header.title).split(" × ");
-  const title = titleParts.length === 2 ? `${titleParts[0]} <span class="x">×</span> ${titleParts[1]}` : escapeHtml(model.header.title);
+  const titleParts = escapeHtml(model.header.title).split(" Г— ");
+  const title = titleParts.length === 2 ? `${titleParts[0]} <span class="x">Г—</span> ${titleParts[1]}` : escapeHtml(model.header.title);
   return `<header class="mast">
     <div class="masthead mast-row">
       <div class="brand"><div class="mark" aria-hidden="true"></div><div><div class="brand-name">MERGEVUE</div><div class="brand-sub">View into the merge</div></div></div>
@@ -1073,23 +1135,23 @@ function renderArchiveExecutive(model) {
   )).join("");
   return `<section class="sec" id="exec" style="padding-top:0" data-screen-label="Executive Summary"><div class="exec">
     <div class="exec-score">
-      <div class="kicker">Environment Compatibility Score · ECS</div>
+      <div class="kicker">Environment Compatibility Score В· ECS</div>
       <div class="score-num tnum">${scoreDisplay === null ? "NA" : escapeHtml(scoreDisplay)}</div>
       <div class="score-of">of 100</div>
       <div class="score-expl">ECS estimates structural compatibility between the two identified operating environments. Higher scores indicate stronger alignment; lower scores indicate higher friction risk.</div>
       <div class="band-pill ${bandClass}">${escapeHtml(model.compatibility.bandLabel)}</div>
-      <div class="score-scale" aria-label="0–100 scale"><div class="scale-track"><div class="scale-mark" style="left:${Math.max(0, Math.min(100, Number(score) || 0))}%"></div></div><div class="scale-ends"><span>0 · ${escapeHtml(model.compatibility.scaleLow)}</span><span>100 · ${escapeHtml(model.compatibility.scaleHigh)}</span></div></div>
+      <div class="score-scale" aria-label="0вЂ“100 scale"><div class="scale-track"><div class="scale-mark" style="left:${Math.max(0, Math.min(100, Number(score) || 0))}%"></div></div><div class="scale-ends"><span>0 В· ${escapeHtml(model.compatibility.scaleLow)}</span><span>100 В· ${escapeHtml(model.compatibility.scaleHigh)}</span></div></div>
       ${renderFirstPageEvidenceGate(model)}
     </div>
     <div class="exec-body">
       <p class="exec-thesis">${escapeHtml(model.forecast.headline)}</p>
       <div class="exec-deal deal-grid">
-        <div class="deal-cell"><span class="k">Acquirer</span><span class="v">${escapeHtml(model.forecast.acquirer.company)} <small>· ${escapeHtml(model.forecast.acquirer.pattern)}</small></span></div>
-        <div class="deal-cell"><span class="k">Target</span><span class="v">${escapeHtml(model.forecast.target.company)} <small>· ${escapeHtml(model.forecast.target.pattern)}</small></span></div>
+        <div class="deal-cell"><span class="k">Acquirer</span><span class="v">${escapeHtml(model.forecast.acquirer.company)} <small>В· ${escapeHtml(model.forecast.acquirer.pattern)}</small></span></div>
+        <div class="deal-cell"><span class="k">Target</span><span class="v">${escapeHtml(model.forecast.target.company)} <small>В· ${escapeHtml(model.forecast.target.pattern)}</small></span></div>
         <div class="deal-cell"><span class="k">Deal type</span><span class="v">${escapeHtml(model.forecast.dealType)}</span></div>
         <div class="deal-cell"><span class="k">Economic exposure</span><span class="v tnum">${escapeHtml(model.forecast.enterpriseValue)}</span></div>
       </div>
-      <div class="exec-preds"><div class="epl">Three sealed predictions — verify by date</div>${epreds}</div>
+      <div class="exec-preds"><div class="epl">Three sealed predictions вЂ” verify by date</div>${epreds}</div>
       <div class="exec-action"><span class="lab">First integration control move</span><span class="txt">${escapeHtml(model.forecast.recommendedAction)}</span></div>
     </div>
   </div></section>`;
@@ -1104,30 +1166,28 @@ function bandColor(band) {
 function renderPredictionCards(section) {
   return section.predictions.map((prediction) => {
     const no = String(prediction.index).padStart(2, "0");
-    const evidence = cleanText(prediction.evidenceRequired);
-    const consequences = cleanText(prediction.falsificationCondition);
-    const visibleEvidence = evidence && consequences && evidence !== consequences
-      ? `${evidence} ${consequences}`
-      : evidence || consequences;
-    const action = cleanText(prediction.recommendedAction);
-    const actionBlock = action ? `<div class="pm"><div class="pml">Model-recommended action</div><div class="pmv">${escapeHtml(action)}</div></div>` : "";
+    const actionTitle = cleanText(prediction.actionTitle || prediction.recommendedAction);
     return `<article class="pred"><div class="pred-top">
       <div class="pred-id"><span class="pno">PREDICTION ${no}</span><span class="seal">Sealed</span><span class="lock">lock: ${escapeHtml(prediction.lockId)}</span></div>
-      <div class="pred-main"><p class="pred-claim">${escapeHtml(prediction.statement)}</p></div>
+      <div class="pred-main"><div class="window-label">${escapeHtml(prediction.windowLabel || prediction.oneLine)}</div><p class="pred-claim">${escapeHtml(prediction.statement)}</p></div>
       <div class="pred-verify"><span class="vl">Verify by</span><span class="vd tnum">${escapeHtml(prediction.verifyByDisplay)}</span></div>
-    </div><div class="pred-meta"><div class="pm"><div class="pml">Evidence required</div><div class="pmv">${escapeHtml(visibleEvidence)}</div></div>${actionBlock}</div></article>`;
+    </div><div class="prediction-bottom">
+      <div class="evidence-block"><div class="pml">Evidence required</div><div class="pmv">${escapeHtml(prediction.evidenceRequired)}</div></div>
+      <div class="action-block"><div class="pml">Model-recommended action</div><div class="act-title">${escapeHtml(actionTitle)}</div><div class="act-meta">${escapeHtml(prediction.actionMeta)}</div><div class="act-reason">${escapeHtml(prediction.rationale)}</div></div>
+      <div class="decision-output"><div class="pml">Decision focus</div><div class="pmv">${escapeHtml(prediction.decisionFocus)}</div></div>
+    </div></article>`;
   }).join("");
 }
 
 function renderResourceZones(section) {
   return section.groups.filter((group) => group.count > 0).map((group) => {
-    const rows = group.rows.map((row) => `<div class="rbar"><span><span class="rn">${escapeHtml(row.label)}</span><div class="rd">${escapeHtml(row.category)} · ${escapeHtml(row.direction)}</div></span><span class="rt"><span class="rf" style="width:${row.intensity}%; background-color:${bandColor(row.band)} !important; background:${bandColor(row.band)} !important;"></span></span><span class="rv tnum">${escapeHtml(row.intensity)}</span></div>`).join("");
+    const rows = group.rows.map((row) => `<div class="rbar"><span><span class="rn">${escapeHtml(row.label)}</span><div class="rd">${escapeHtml(row.category)} В· ${escapeHtml(row.direction)}</div></span><span class="rt"><span class="rf" style="width:${row.intensity}%; background-color:${bandColor(row.band)} !important; background:${bandColor(row.band)} !important;"></span></span><span class="rv tnum">${escapeHtml(row.intensity)}</span></div>`).join("");
     return `<div class="zone"><div class="zone-head"><span class="zone-dot" style="background:${bandColor(group.band)} !important"></span><span class="zone-name" style="color:${bandColor(group.band)} !important">${escapeHtml(group.label)}</span><span class="zone-count">${group.count} of ${section.scanned}</span></div><div class="rbars">${rows}</div></div>`;
   }).join("");
 }
 
 function renderActionPanel(title, actions) {
-  return `<div class="act"><h4>${escapeHtml(title)}</h4>${actions.map((action) => `<div class="act-item"><div class="act-title">${escapeHtml(action.actionTitle)}</div><div class="act-meta">${escapeHtml(action.actionTiming)} · ${escapeHtml(action.actionOwner)} · expected effect: ${escapeHtml(action.actionExpectedEffect)}</div><div class="act-reason">${escapeHtml(action.actionReason)}</div></div>`).join("")}</div>`;
+  return `<div class="act"><h4>${escapeHtml(title)}</h4>${actions.map((action) => `<div class="act-item"><div class="act-title">${escapeHtml(action.actionTitle)}</div><div class="act-meta">${escapeHtml(action.actionTiming)} В· ${escapeHtml(action.actionOwner)} В· expected effect: ${escapeHtml(action.actionExpectedEffect)}</div><div class="act-reason">${escapeHtml(action.actionReason)}</div></div>`).join("")}</div>`;
 }
 
 function collisionFindingHumanText(section) {
@@ -1151,7 +1211,7 @@ function collisionFindingHumanText(section) {
 
 function isTechnicalResourceDirection(text) {
   const value = cleanText(text);
-  return /[+~−-].+\bvs\b/i.test(value) || /\(.+\bvs\b.+\)/i.test(value);
+  return /[+~в€’-].+\bvs\b/i.test(value) || /\(.+\bvs\b.+\)/i.test(value);
 }
 
 function explainResourceInPractice(resource) {
@@ -1236,7 +1296,7 @@ function renderEngagementBenefit(benefit) {
     return `<p><strong class="eng-next-step">De-risked next step.</strong> ${escapeHtml(rest)}</p>`;
   }
 
-  const match = text.match(/^(\d+\s*[·.-]\s*)([^—.]+)(.*)$/);
+  const match = text.match(/^(\d+\s*[В·.-]\s*)([^вЂ”.]+)(.*)$/);
   if (!match) return `<p>${escapeHtml(text)}</p>`;
 
   const prefix = match[1];
@@ -1250,7 +1310,7 @@ function renderEngagementBenefit(benefit) {
 
 function renderHtmlSection(section, number, context = {}) {
   if (section.id === "predictions") {
-    return `<section class="sec" id="predictions" data-screen-label="Sealed Predictions">${sectionHead(number, section.title, section.statusDescription)}<div class="panel"><h4>${escapeHtml(section.statusTitle)}</h4><p>${escapeHtml(section.statusDescription)}</p></div><div class="preds-wrap">${renderPredictionCards(section)}</div></section>`;
+    return `<section class="sec" id="predictions" data-screen-label="${escapeHtml(COMBINED_PREDICTION_TITLE)}">${sectionHead(number, section.title, COMBINED_PREDICTION_NOTE)}<div class="panel prediction-banner"><h4>SEALED PREDICTION PREVIEW</h4><p>Display-only preview; not ledger-recorded. Each sealed prediction is paired with its verification window and model-recommended action.</p></div><div class="preds-wrap prediction-stack">${renderPredictionCards(section)}</div></section>`;
   }
   if (section.id === "environments") {
     const renderEnvironmentCard = (role, env) => {
@@ -1270,13 +1330,13 @@ function renderHtmlSection(section, number, context = {}) {
     return `<section class="sec" id="collision" data-screen-label="Collision Thesis">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.collision)}<div class="collide">${collisionRows.map(([label, value, isHtml]) => `<div class="collide-row"><div class="cl">${escapeHtml(label)}</div><div class="cr">${isHtml ? value : escapeHtml(value)}</div></div>`).join("")}</div></section>`;
   }
   if (section.id === "resources") {
-    return `<section class="sec" id="resources" data-screen-label="Resource Map">${sectionHead(number, section.title, `${section.scanned} resources scanned`)}<p class="thresholds">${escapeHtml(section.explanation)}</p><div class="legend"><span class="lg">Legend</span><span class="lg"><span class="sw" style="background:var(--sig-risk)"></span>High-risk · 70–100</span><span class="lg"><span class="sw" style="background:var(--sig-mod)"></span>Moderate · 40–69</span><span class="lg"><span class="sw" style="background:var(--sig-high)"></span>Aligned · 0–39</span><span class="anchor">Score = structural contestation intensity</span></div>${renderResourceZones(section)}${renderResourceConflictSummary(section)}</section>`;
+    return `<section class="sec" id="resources" data-screen-label="Resource Map">${sectionHead(number, section.title, `${section.scanned} resources scanned`)}<p class="thresholds">${escapeHtml(section.explanation)}</p><div class="legend"><span class="lg">Legend</span><span class="lg"><span class="sw" style="background:var(--sig-risk)"></span>High-risk В· 70вЂ“100</span><span class="lg"><span class="sw" style="background:var(--sig-mod)"></span>Moderate В· 40вЂ“69</span><span class="lg"><span class="sw" style="background:var(--sig-high)"></span>Aligned В· 0вЂ“39</span><span class="anchor">Score = structural contestation intensity</span></div>${renderResourceZones(section)}${renderResourceConflictSummary(section)}</section>`;
   }
   if (section.id === "timeline") {
     const actions = context.actions ?? {};
     const columns = section.phases.map((phase, index) => {
       const watchFor = cleanText(phase.watchFor);
-      return `<div class="tl-col"><div class="tl-progress"><span></span></div><div class="tl-when"><span class="ph">FP${index + 1} · ${escapeHtml(phase.verifyBy)}</span><span class="win">${escapeHtml(phase.verifyBy)}</span></div><div class="tl-body"><div class="h">${escapeHtml(phase.heading)}</div><p>${escapeHtml(phase.body)}</p>${watchFor ? `<div class="tl-marker"><div class="ml">Watch for:</div><div class="mv">${escapeHtml(watchFor)}</div></div>` : ""}</div></div>`;
+      return `<div class="tl-col"><div class="tl-progress"><span></span></div><div class="tl-when"><span class="ph">FP${index + 1} В· ${escapeHtml(phase.verifyBy)}</span><span class="win">${escapeHtml(phase.verifyBy)}</span></div><div class="tl-body"><div class="h">${escapeHtml(phase.heading)}</div><p>${escapeHtml(phase.body)}</p>${watchFor ? `<div class="tl-marker"><div class="ml">Watch for:</div><div class="mv">${escapeHtml(watchFor)}</div></div>` : ""}</div></div>`;
     }).join("");
     const beforeClose = actions.beforeClose ?? [];
     const afterClose = [...(actions.afterClose ?? [])].sort((left, right) => {
@@ -1315,7 +1375,11 @@ function renderHtmlSection(section, number, context = {}) {
     return `<section class="sec" id="engagement" data-screen-label="Full Engagement Adds">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.engagement)}<div class="panel">${section.benefits.map(renderEngagementBenefit).join("")}</div><div class="cta"><div><div class="cl">Engagement contact</div><div class="ct">Next step: contact us to scope the engagement</div></div><a class="cbtn" href="mailto:${escapeHtml(section.contactEmail)}">${escapeHtml(section.contactEmail)}</a></div></section>`;
   }
   if (section.id === "audit") {
-    return `<footer class="audit" id="audit">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.audit)}<div class="audit-grid"><div class="audit-col"><div class="acl">Methodology</div><div class="acv"><b>Mergevue Forecast Method</b><br>${escapeHtml(section.reportVersion)}<br>${escapeHtml(section.contactEmail)}<div class="audit-tracker"><b>Preview verification tracker</b><br>Display-only preview; not ledger-recorded. Verification outcomes require the engagement workflow before any public record treatment.</div></div></div><div class="audit-col"><div class="acl">Audit trail</div><div class="acv">Report · <b>${escapeHtml(section.reportId)}</b><br>Generated · ${escapeHtml(section.generatedAt)}<br>Scenario · ${escapeHtml(section.scenarioId)}<br>Tracker · ${escapeHtml(section.trackRecordUrl)}</div></div><div class="audit-qr"><div class="qr" aria-label="QR ${escapeHtml(section.qrLabel)}"></div><div class="ql">Preview audit<br>reference</div></div></div><div class="audit-foot"><span>© 2026 Mergevue</span><span>Display-only preview; not ledger-recorded.</span></div></footer>`;
+    return `<footer class="audit" id="audit">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.audit)}<div class="audit-grid"><div class="audit-col"><div class="acl">Methodology</div><div class="acv"><b>Mergevue Forecast Method</b><br>${escapeHtml(section.reportVersion)}<br>${escapeHtml(section.contactEmail)}<div class="audit-tracker"><b>Preview verification tracker</b><br>Display-only preview; not ledger-recorded. Verification outcomes require the engagement workflow before any public record treatment.</div></div></div><div class="audit-col"><div class="acl">Audit trail</div><div class="acv">Report В· <b>${escapeHtml(section.reportId)}</b><br>Generated В· ${escapeHtml(section.generatedAt)}<br>Scenario В· ${escapeHtml(section.scenarioId)}<br>Tracker В· ${escapeHtml(section.trackRecordUrl)}</div></div><div class="audit-qr"><div class="qr" aria-label="QR ${escapeHtml(section.qrLabel)}"></div><div class="ql">Preview audit<br>reference</div></div></div><div class="audit-foot"><span>В© 2026 Mergevue</span><span>Display-only preview; not ledger-recorded.</span></div></footer>`;
   }
   return `<section class="sec">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES[section.id] ?? "")}</section>`;
 }
+
+
+
+
