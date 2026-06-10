@@ -140,6 +140,24 @@ function fallbackPredictionText(deliverable) {
   return deliverable?.anchors?.[0]?.text ?? "Monitor whether the expected integration friction appears during the preview window.";
 }
 
+function clientFacingPredictionText(text, index) {
+  const value = cleanString(text);
+  if (!value) return "";
+  const lower = value.toLowerCase();
+  const looksTheoretical = lower.includes("ethics-mechanism")
+    || lower.includes("degradation path")
+    || lower.includes("began as")
+    || lower.includes("evolved when")
+    || lower.includes("ethical constraints")
+    || lower.includes("combined entity may slide");
+
+  if (index === 2 && looksTheoretical) {
+    return "Authority norms may harden under integration pressure. The target environment uses fast unilateral control, selective rule enforcement, and visible dominance to keep execution moving. The acquirer environment depends on evidence, accountability, and documented decision logic. By Day 60, the key test is whether integration pressure makes the combined team more disciplined or simply more forceful. If speed, pressure, or enforcement starts replacing documented reasoning, the acquirer is not absorbing the target's operating logic; it is being pulled toward it.";
+  }
+
+  return value;
+}
+
 function buildPredictions(deliverable) {
   const anchors = deliverable?.anchors ?? [];
   const actions = recommendedActions(deliverable);
@@ -153,30 +171,29 @@ function buildPredictions(deliverable) {
     {
       predictionTitle: "Signal setup",
       predictionWindow: TIMING_LOGIC.signalSetup,
-      predictionClaim: cleanString(fallbackPredictionText(deliverable)),
-      observableSignal: cleanString(anchors[0]?.text ?? fallbackPredictionText(deliverable)),
+      predictionClaim: clientFacingPredictionText(fallbackPredictionText(deliverable), 0),
+      observableSignal: clientFacingPredictionText(anchors[0]?.text ?? fallbackPredictionText(deliverable), 0),
       verificationMethod: "Check whether the named behavior appears before Day 30.",
       recommendedAction: actionCopy(0, "Protect the highest-risk operating resource before irreversible integration changes begin."),
     },
     {
       predictionTitle: "Observation window",
       predictionWindow: TIMING_LOGIC.observationWindow,
-      predictionClaim: cleanString(anchors[1]?.text ?? "Observe whether the same friction pattern repeats during the first operating cycle."),
-      observableSignal: cleanString(anchors[1]?.text ?? "Repeated friction in planning, authority, information flow, or resource allocation."),
+      predictionClaim: clientFacingPredictionText(anchors[1]?.text ?? "Observe whether the same friction pattern repeats during the first operating cycle.", 1),
+      observableSignal: clientFacingPredictionText(anchors[1]?.text ?? "Repeated friction in planning, authority, information flow, or resource allocation.", 1),
       verificationMethod: "Review operating meetings, decisions, and handoffs during Days 30-60.",
       recommendedAction: actionCopy(2, "Separate preservation from simplification while the repeated friction pattern is tested."),
     },
     {
       predictionTitle: "Verification deadline",
       predictionWindow: TIMING_LOGIC.verificationDeadline,
-      predictionClaim: cleanString("By Day 60, the preview signal should either be visible enough to escalate or absent enough to lower the current concern."),
-      observableSignal: cleanString(anchors[2]?.text ?? "A clear repeatable signal by Day 60."),
+      predictionClaim: clientFacingPredictionText("By Day 60, the preview signal should either be visible enough to escalate or absent enough to lower the current concern.", 2),
+      observableSignal: clientFacingPredictionText(anchors[2]?.text ?? "A clear repeatable signal by Day 60.", 2),
       verificationMethod: "Use the Day 60 review to confirm, revise, or dismiss the preview claim.",
       recommendedAction: actionCopy(1, "Run the Day 60 verification review and decide whether to escalate, revise, or dismiss the preview claim."),
     },
   ];
 }
-
 function resourceRows(deliverable) {
   const profile = deliverable?.resourceConflictProfile;
   const rows = (profile?.highProbabilityConflicts?.length ? profile.highProbabilityConflicts : profile?.allResources)?.slice(0, 5) ?? [];
