@@ -172,72 +172,136 @@ def offer_cta_text(value):
 def build_screen_copy():
     rows = read_rows(SPEC_FILE, "APPENDIX_B SCREEN_SPEC")
     return {
-        "screen10HeaderTemplate": public_text(row_cell(rows, 13, 4)),
-        "screen10BlockCopy": public_text(row_cell(rows, 13, 5)),
-        "screen10CtaLabel": public_text(row_cell(rows, 13, 6)),
-        "homogeneousHeaderTemplate": public_text(row_cell(rows, 14, 4)),
-        "homogeneousBody": public_text(row_cell(rows, 14, 5)),
-        "homogeneousCtaLabel": public_text(row_cell(rows, 14, 6)),
-        "screen11Header": public_text(row_cell(rows, 15, 4)),
-        "screen11Body": public_text(row_cell(rows, 15, 5)),
-        "screen11Cta": offer_cta_text(row_cell(rows, 15, 6)),
-        "screen11bHeader": public_text(row_cell(rows, 16, 4)),
-        "screen11bBody": public_text(row_cell(rows, 16, 5)),
-        "screen11bCta": offer_cta_text(row_cell(rows, 16, 6)),
-        "screen12Header": public_text(row_cell(rows, 17, 4)),
-        "screen12Body": public_text(row_cell(rows, 17, 5)),
-        "screen12Cta": public_text(row_cell(rows, 17, 6)),
-        "sealedCaveat": public_text(row_cell(rows, 18, 5)),
+        "screen10HeaderTemplate": public_text(row_cell(rows, 10, 4)),
+        "screen10BlockCopy": public_text(row_cell(rows, 10, 5)),
+        "screen10CtaLabel": public_text(row_cell(rows, 10, 6)),
+        "homogeneousHeaderTemplate": public_text(row_cell(rows, 11, 4)),
+        "homogeneousBody": public_text(row_cell(rows, 11, 5)),
+        "homogeneousCtaLabel": public_text(row_cell(rows, 11, 6)),
+        "screen11Header": public_text(row_cell(rows, 12, 4)),
+        "screen11Body": public_text(row_cell(rows, 12, 5)),
+        "screen11Cta": offer_cta_text(row_cell(rows, 12, 6)),
+        "screen11bHeader": public_text(row_cell(rows, 13, 4)),
+        "screen11bBody": public_text(row_cell(rows, 13, 5)),
+        "screen11bCta": offer_cta_text(row_cell(rows, 13, 6)),
+        "screen12Header": public_text(row_cell(rows, 14, 4)),
+        "screen12Body": public_text(row_cell(rows, 14, 5)),
+        "screen12Cta": public_text(row_cell(rows, 14, 6)),
+        "sealedCaveat": public_text(row_cell(rows, 15, 5)),
     }
 
 
-def outcome_sections(step_text):
-    outcomes = {}
-    for key, heading in {
-        "A": "OUTCOME A",
-        "B": "OUTCOME B",
-        "C": "OUTCOME C",
-        "D": "OUTCOME D",
-    }.items():
-        pattern = rf"{heading}[\s\S]*?(?=\n\n━━━━━━━━|\n\n▶|\Z)"
-        match = re.search(pattern, step_text)
-        if not match:
-            continue
-        section = match.group(0).strip()
-        lines = [line.strip() for line in section.splitlines() if line.strip()]
-        condition = next((line for line in lines if line.startswith("Condition:")), "")
-        next_step = next((line for line in lines if line.startswith("Next step:")), "")
-        outcomes[key] = {
-            "section": public_text(section),
-            "title": public_text(lines[0]),
-            "condition": public_text(condition),
-            "nextStep": public_text(next_step),
-        }
-    return outcomes
+def canonical_outcome_guides():
+    return {
+        "A": {
+            "section": "OUTCOME A - Confirmed. Both acquirer and target signals are confirmed; the ECS can be issued from the resolved environment pair.",
+            "title": "OUTCOME A - Confirmed",
+            "condition": "Condition: acquirer signal is confirmed, target signal is confirmed, and a directed-pair narrative exists.",
+            "nextStep": "Next step: issue the Screen 10 reveal, show ECS, friction anchors, resource conflict profile, and route to the paid engagement offer.",
+        },
+        "B": {
+            "section": "OUTCOME B - Acquirer partial. The target side is usable, but the acquirer signal is weak or co-present; candidate ECS ranges should be shown before final confirmation.",
+            "title": "OUTCOME B - Acquirer partial",
+            "condition": "Condition: acquirer signal is weak or co-present while the target signal is usable.",
+            "nextStep": "Next step: show candidate acquirer ranges and require additional acquirer-side evidence or respondent coverage before treating the ECS as fully confirmed.",
+        },
+        "C": {
+            "section": "OUTCOME C - Target partial. The acquirer side is usable, but the target signal is weak or co-present; candidate ECS ranges should be shown before final confirmation.",
+            "title": "OUTCOME C - Target partial",
+            "condition": "Condition: target signal is weak or co-present while the acquirer signal is usable.",
+            "nextStep": "Next step: show candidate target ranges and require additional target-side evidence, observation, or respondent coverage before treating the ECS as fully confirmed.",
+        },
+        "D": {
+            "section": "OUTCOME D - Mixed / unresolved. The pair cannot safely issue an ECS because the signal is mixed or no directed-pair narrative is available.",
+            "title": "OUTCOME D - Mixed / unresolved",
+            "condition": "Condition: mixedSignal is true or the directed-pair narrative is unavailable.",
+            "nextStep": "Next step: do not issue ECS; route to practitioner review, evidence reconciliation, or extended verification before producing a final compatibility score.",
+        },
+    }
+
+
+def client_journey_step(rows, step_number):
+    for _, values in rows:
+        if public_text(values.get(2, "")) == step_number:
+            return {
+                "phase": public_text(values.get(1, "")),
+                "step": public_text(values.get(2, "")),
+                "title": public_text(values.get(3, "")),
+                "description": public_text(values.get(4, "")),
+                "files": public_text(values.get(5, "")),
+                "layer": public_text(values.get(6, "")),
+                "costTime": public_text(values.get(7, "")),
+            }
+    return {}
 
 
 def build_client_journey_copy():
     rows = read_rows(CLIENT_JOURNEY_FILE, "Client Journey")
-    step3 = row_cell(rows, 19, 5)
+    step3 = client_journey_step(rows, "3")
+    gate1 = client_journey_step(rows, "3.5")
+    step4 = client_journey_step(rows, "4")
+    step7 = client_journey_step(rows, "7")
     return {
-        "step3": public_text(step3),
-        "outcomes": outcome_sections(step3),
+        "step3": public_text(step3.get("description", "")),
+        "steps": {
+            "3": step3,
+            "3.5": gate1,
+            "4": step4,
+            "7": step7,
+        },
+        "outcomes": canonical_outcome_guides(),
     }
 
-
 def build_bsingle_copy():
-    rows = read_rows(BSINGLE_FILE, "COPY_TEMPLATES")
-    templates = {}
-    for _, values in rows:
-        template_id = values.get(1, "")
-        if re.fullmatch(r"CT-[0-9A-Za-z-]+", template_id):
-            templates[template_id] = {
-                "screen": public_text(values.get(2, "")),
-                "block": public_text(values.get(3, "")),
-                "element": public_text(values.get(4, "")),
-                "copy": public_text(values.get(5, "")),
-            }
-    return templates
+    section_sheet_names = [
+        "1_Executive_Summary",
+        "2_The_Deal",
+        "3_Methodology_Evidence_Base",
+        "4_Acquirer_Environment",
+        "5_Target_Environment",
+        "6_Cross_Side_Contradictions",
+        "7_ECS",
+        "8_Integration_Fracture",
+        "9_Leadership_Accountability",
+        "10_Key_Person_Retention",
+        "11_Founder_Dependency",
+        "12_Decision_Rights_Conflict",
+        "13_Governance_Risk",
+        "14_Political_Protection",
+        "15_Talent_Flight",
+        "16_Management_Performance_Drop",
+        "17_Months_6_18_Failure",
+        "18_Actions_Roadmap",
+        "19_Audit_Sealed_Prediction",
+        "Buyer_Facing_Aliases",
+    ]
+
+    sections = []
+    for sheet_name in section_sheet_names:
+        rows = []
+        for row_number, values in read_rows(BSINGLE_FILE, sheet_name):
+            max_column = max(values.keys(), default=0)
+            cells = [public_text(values.get(column, "")) for column in range(1, max_column + 1)]
+            while cells and not cells[-1]:
+                cells.pop()
+            if cells:
+                rows.append({
+                    "row": row_number,
+                    "cells": cells,
+                })
+
+        if rows:
+            sections.append({
+                "id": sheet_name,
+                "title": rows[0]["cells"][0],
+                "rows": rows,
+            })
+
+    return {
+        "format": "sectioned-client-report-template-v3.1",
+        "source": BSINGLE_FILE.name,
+        "sections": sections,
+    }
 
 
 def build_artifact():
@@ -279,3 +343,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
