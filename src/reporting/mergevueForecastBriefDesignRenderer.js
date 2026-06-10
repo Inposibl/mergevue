@@ -1,4 +1,4 @@
-﻿import {
+import {
   MERGEVUE_PUBLIC_REPORT_BLOCKS,
   MERGEVUE_PUBLIC_REPORT_PDF_FILE_NAME,
 } from "./mergevuePublicReportModel.js";
@@ -29,9 +29,9 @@ const COMBINED_PREDICTION_TITLE = "Sealed Predictions & Action Timeline";
 const COMBINED_PREDICTION_NOTE = "DISPLAY-ONLY PREVIEW; NOT LEDGER-RECORDED.";
 
 const COMBINED_PREDICTION_LABELS = Object.freeze([
-  "FP1 · Signal setup",
-  "FP2 · Observation window",
-  "FP3 · Verification deadline",
+  "FP1 | Signal setup",
+  "FP2 | Observation window",
+  "FP3 | Verification deadline",
 ]);
 const ARCHIVE_SECTION_NOTES = Object.freeze({
   exec: "Executive Summary",
@@ -244,9 +244,9 @@ function publicResourceDirection(text) {
 
 function archiveResourceGroups(resources = []) {
   const groups = [
-    { band: "high", label: "High-risk · 0–39", rows: [] },
-    { band: "moderate", label: "Moderate · 40–69", rows: [] },
-    { band: "aligned", label: "Aligned · 70–100", rows: [] },
+    { band: "high", label: "High-risk | 0-39", rows: [] },
+    { band: "moderate", label: "Moderate | 40-69", rows: [] },
+    { band: "aligned", label: "Aligned | 70-100", rows: [] },
   ];
   for (const resource of resources) {
     const intensity = Math.max(0, Math.min(100, Number(resource.conflictIntensity) || 0));
@@ -524,7 +524,7 @@ export function buildMergevueForecastBriefDesignModel(report, options = {}) {
       id: SECTION_IDS[5],
       title: MERGEVUE_PUBLIC_REPORT_BLOCKS[5],
       explanation: resources.overwriteRiskExplanation,
-      legend: ["High-risk · 0–39", "Moderate · 40–69", "Aligned · 70–100"],
+      legend: ["High-risk | 0-39", "Moderate | 40-69", "Aligned | 70-100"],
       scanned: resources.resources.length,
       groups: resourceGroups,
       zones: resources.resources.map((resource, index) => Object.freeze({
@@ -649,7 +649,7 @@ export function buildMergevueForecastBriefDesignModel(report, options = {}) {
       }),
     }),
     resourceConflictMap: Object.freeze({
-      legend: "Score = structural alignment match · 0 low match → 100 aligned",
+      legend: "Score = structural alignment match | 0 low match -> 100 aligned",
       scanned: resources.resources.length,
       groups: resourceGroups,
     }),
@@ -1470,7 +1470,7 @@ function renderHtmlSection(section, number, context = {}) {
     return `<section class="sec" id="collision" data-screen-label="Collision Thesis">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.collision)}<div class="collide">${collisionRows.map(([label, value, isHtml]) => `<div class="collide-row"><div class="cl">${escapeHtml(label)}</div><div class="cr">${isHtml ? value : escapeHtml(value)}</div></div>`).join("")}</div></section>`;
   }
   if (section.id === "resources") {
-    return `<section class="sec" id="resources" data-screen-label="Resource Map">${sectionHead(number, section.title, `${section.scanned} resources scanned`)}<p class="thresholds">${escapeHtml(section.explanation)}</p><div class="legend"><span class="lg">Legend</span><span class="lg"><span class="sw" style="background:var(--sig-risk)"></span>High-risk · 0–39</span><span class="lg"><span class="sw" style="background:var(--sig-mod)"></span>Moderate · 40–69</span><span class="lg"><span class="sw" style="background:var(--sig-high)"></span>Aligned · 70–100</span><span class="anchor">Score = structural alignment match</span></div>${renderResourceZones(section)}${renderResourceConflictSummary(section)}</section>`;
+    return `<section class="sec" id="resources" data-screen-label="Resource Map">${sectionHead(number, section.title, `${section.scanned} resources scanned`)}<p class="thresholds">${escapeHtml(section.explanation)}</p><div class="legend"><span class="lg">Legend</span><span class="lg"><span class="sw" style="background:var(--sig-risk)"></span>High-risk | 0-39</span><span class="lg"><span class="sw" style="background:var(--sig-mod)"></span>Moderate | 40-69</span><span class="lg"><span class="sw" style="background:var(--sig-high)"></span>Aligned | 70-100</span><span class="anchor">Score = structural alignment match</span></div>${renderResourceZones(section)}${renderResourceConflictSummary(section)}</section>`;
   }
   if (section.id === "timeline") {
     const actions = context.actions ?? {};

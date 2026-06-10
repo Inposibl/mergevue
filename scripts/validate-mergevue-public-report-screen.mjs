@@ -18,7 +18,7 @@ const REQUIRED_OUTPUT_STRINGS = Object.freeze([
   "This public brief therefore treats valuation risk qualitatively through ECS, resource conflict, and post-close behavior signals.",
   "The main risk is translation failure: the acquirer may impose its standard integration logic before it understands which target routines preserve loyalty, trust, knowledge flow, execution quality, or deal-critical continuity after close.",
   "before Day 30",
-  "Days 30–60",
+  "Days 30-60",
   "Day 60",
   "Absorb / neutralize a competitor",
 ]);
@@ -29,7 +29,7 @@ const FORBIDDEN_SCREEN_STRINGS = Object.freeze([
   "structural-typology.com",
   "structural-typology.academy",
   "info@structural-typology.academy",
-  "Forward-verifiable · on record",
+  "Forward-verifiable | on record",
   "lodged against public ledger",
   "timestamped against public ledger",
   "USD 50.0B",

@@ -39,7 +39,7 @@ const APPROVED_OVERWRITE_RISK_EXPLANATION = "The main risk is translation failur
 
 const TIMING_LOGIC = Object.freeze({
   signalSetup: "before Day 30",
-  observationWindow: "Days 30–60",
+  observationWindow: "Days 30-60",
   verificationDeadline: "Day 60",
 });
 
@@ -49,7 +49,7 @@ const UNSAFE_PUBLIC_REPLACEMENTS = Object.freeze([
   [/structural-typology\.academy/gi, "mergevue.com"],
   [/structural-typology\.com/gi, "mergevue.com"],
   [/info@structural-typology\.academy/gi, BRAND.contactEmail],
-  [/Forward-verifiable\s*·\s*on record/gi, "Display-only preview"],
+  [/Forward-verifiable\s*\|\s*on record/gi, "Display-only preview"],
   [/lodged against public ledger/gi, "available as a display-only preview"],
   [/timestamped against public ledger/gi, "available as a display-only preview"],
   [/USD 50\.0B/gi, APPROVED_ENTERPRISE_VALUE_BAND],
@@ -163,7 +163,7 @@ function buildPredictions(deliverable) {
       predictionWindow: TIMING_LOGIC.observationWindow,
       predictionClaim: cleanString(anchors[1]?.text ?? "Observe whether the same friction pattern repeats during the first operating cycle."),
       observableSignal: cleanString(anchors[1]?.text ?? "Repeated friction in planning, authority, information flow, or resource allocation."),
-      verificationMethod: "Review operating meetings, decisions, and handoffs during Days 30–60.",
+      verificationMethod: "Review operating meetings, decisions, and handoffs during Days 30-60.",
       recommendedAction: actionCopy(2, "Separate preservation from simplification while the repeated friction pattern is tested."),
     },
     {
@@ -208,7 +208,7 @@ function timelinePhases(deliverable) {
       timeWindow: TIMING_LOGIC.observationWindow,
       expectedFriction: cleanString(anchors[1]?.text ?? "The same friction pattern repeats across planning, authority, information flow, or resource allocation."),
       observableSignal: cleanString(anchors[1]?.text ?? "Repeated behavior across more than one operating forum."),
-      recommendedCheck: "Review whether the friction repeats during Days 30–60.",
+      recommendedCheck: "Review whether the friction repeats during Days 30-60.",
     },
     {
       phaseName: "Verification deadline",
@@ -419,9 +419,9 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
 whatTheFullEngagementAdds: {
   benefits: [
     "This preview flags where your post-close fault lines sit. The full engagement removes the guesswork: it translates that exposure into financial ranges, names who carries the risk, and hands you an executable integration-control framework.",
-    "1 · Audit-Grade Confirmation — beyond survey noise. The buyer's risk: that a pre-close read is just self-reported survey data — easy to posture for, gone the day the deal closes. What you get: an evidence-reviewed environment coding process run by M&A analysts, cross-referenced against the target's operational artefacts, structure charts, and documentary evidence — signed off by an analyst. You build integration strategy on durable operating routines, not temporary pre-close posturing.",
-    "2 · Definitive Personnel Mapping — named roles and vulnerability windows. The buyer's risk: scepticism that an external framework can call who actually leaves. What you get: an individual-level read of the target's actual leadership team — who is structurally most exposed to disengaging, in which observation window, and where decision rights and management cadence fracture under your standard integration logic. It moves retention budget from blanket coverage to targeted hold.",
-    "3 · Quantified Exposure & Playbook — the number and the Day 30 / 60 / 90 governance. The buyer's risk: paying for an abstract risk index that won't survive an investment-committee meeting. What you get: engagement-tier economic modelling that translates this deal's risk band into exposure ranges — EV-discount, earn-out and talent-loss envelopes (structuring-grade ranges, not a valuation) — paired with a ready-to-execute integration-control design: owner-level actions and a Day 30 / 60 / 90 governance cadence.",
+    "1 | Audit-Grade Confirmation - beyond survey noise. The buyer's risk: that a pre-close read is just self-reported survey data - easy to posture for, gone the day the deal closes. What you get: an evidence-reviewed environment coding process run by M&A analysts, cross-referenced against the target's operational artefacts, structure charts, and documentary evidence - signed off by an analyst. You build integration strategy on durable operating routines, not temporary pre-close posturing.",
+    "2 | Definitive Personnel Mapping - named roles and vulnerability windows. The buyer's risk: scepticism that an external framework can call who actually leaves. What you get: an individual-level read of the target's actual leadership team - who is structurally most exposed to disengaging, in which observation window, and where decision rights and management cadence fracture under your standard integration logic. It moves retention budget from blanket coverage to targeted hold.",
+    "3 | Quantified Exposure & Playbook - the number and the Day 30 / 60 / 90 governance. The buyer's risk: paying for an abstract risk index that won't survive an investment-committee meeting. What you get: engagement-tier economic modelling that translates this deal's risk band into exposure ranges - EV-discount, earn-out and talent-loss envelopes (structuring-grade ranges, not a valuation) - paired with a ready-to-execute integration-control design: owner-level actions and a Day 30 / 60 / 90 governance cadence.",
     "De-risked next step. Before any full commitment, your deal team can scope this against your live transaction — and, if useful, start with a single-deal pilot rather than the full engagement.",
   ],
   cta: `Next step: contact ${BRAND.contactEmail} to scope the engagement.`,

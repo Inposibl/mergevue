@@ -40,7 +40,7 @@ const FORBIDDEN_OUTPUT_STRINGS = Object.freeze([
   "structural-typology.com",
   "structural-typology.academy",
   "info@structural-typology.academy",
-  "Forward-verifiable · on record",
+  "Forward-verifiable | on record",
   "lodged against public ledger",
   "timestamped against public ledger",
   "USD 50.0B",
@@ -168,7 +168,7 @@ for (const resource of model.resourceConflictMap.resources) {
 
 assert.deepEqual(model.timelineOfExpectedFriction.timingLogic, {
   signalSetup: "before Day 30",
-  observationWindow: "Days 30–60",
+  observationWindow: "Days 30-60",
   verificationDeadline: "Day 60",
 });
 assert.ok(Array.isArray(model.timelineOfExpectedFriction.phases));
