@@ -58,7 +58,7 @@ const SCORE_BAND_LABEL = Object.freeze({
 function cleanText(value) {
   if (value === null || value === undefined) return "";
   return String(value)
-    .replace(/\s+-\s+/g, " вЂ” ")
+    .replace(/\s+-\s+/g, " | ")
     .replace(/\s+/g, " ")
     .trim();
 }
@@ -99,7 +99,7 @@ function distinctText(value, compareValue) {
 
 function timelineBodyText(value) {
   const text = cleanText(value);
-  const withoutTimingPrefix = text.replace(/^(within\s+\d+\s+days(?:\s+of\s+close)?|before\s+day\s+\d+|days\s+\d+\s*[вЂ“-]\s*\d+|day\s+\d+)\s*:\s*/i, "").trim();
+  const withoutTimingPrefix = text.replace(/^(within\s+\d+\s+days(?:\s+of\s+close)?|before\s+day\s+\d+|days\s+\d+\s*[-]\s*\d+|day\s+\d+)\s*:\s*/i, "").trim();
   return withoutTimingPrefix || text;
 }
 
@@ -558,8 +558,8 @@ export function buildMergevueForecastBriefDesignModel(report, options = {}) {
       confidential: false,
     }),
     header: Object.freeze({
-      eyebrow: `${report.brand.reportType.toUpperCase()} В· ${report.brand.product.toUpperCase()}`,
-      title: `${scenario.acquirerName} Г— ${scenario.targetName}`,
+      eyebrow: `${report.brand.reportType.toUpperCase()} | ${report.brand.product.toUpperCase()}`,
+      title: `${scenario.acquirerName} x ${scenario.targetName}`,
       subtitle: "Display-only forecast preview. This is a specification of expected post-deal behaviour, not a verdict on the deal.",
     }),
     compatibility: Object.freeze({
@@ -696,7 +696,7 @@ export function renderMergevueForecastBriefHtml(model) {
   .tl{ display:grid; grid-template-columns:repeat(3,1fr); gap:0; border:var(--card-border); border-radius:var(--r); overflow:hidden; background:var(--surface); break-inside: avoid; } .tl-col+.tl-col{ border-left:var(--card-border); } .tl-progress{ display:flex; height:4px; } .tl-progress span{ flex:1; background:var(--accent); } .tl-when{ padding:14px 18px; background:var(--surface-2); border-bottom:var(--card-border); display:flex; align-items:baseline; justify-content:space-between; } .tl-when .ph{ font-family:var(--mono); font-size:11px; color:var(--accent); font-weight:500; } .tl-when .win{ font-family:var(--mono); font-size:10px; color:var(--ink-3); } .tl-body{ padding:16px 18px; } .tl-body .h{ font-size:13.5px; font-weight:600; line-height:1.3; } .tl-body p{ font-size:12px; color:var(--ink-2); line-height:1.5; margin-top:9px; } .tl-marker{ margin-top:14px; padding-top:12px; border-top:var(--card-border); } .tl-marker .ml{ font-family:var(--mono); font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); margin-bottom:5px; } .tl-marker .mv{ font-size:11.5px; line-height:1.4; }
   .env-total{ display:flex; align-items:flex-end; justify-content:space-between; gap:24px; padding:22px 24px; border:var(--card-border); border-radius:var(--r); background:var(--surface); box-shadow:var(--card-shadow); margin-bottom:14px; } .et-l .lab{ font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); } .rng{ font-size:38px; font-weight:var(--display-weight); margin-top:6px; } .economic-label{ font-size:18px; line-height:1.08; font-weight:var(--display-weight); letter-spacing:.035em; text-transform:uppercase; white-space:nowrap; margin-top:6px; } .et-r{ text-align:right; font-family:var(--mono); font-size:11px; color:var(--ink-2); line-height:1.7; } .cats{ display:flex; flex-direction:column; gap:10px; } .cat{ border:var(--card-border); border-radius:var(--r); background:var(--surface); padding:14px 18px; break-inside: avoid; } .cat-top{ display:flex; justify-content:space-between; align-items:baseline; gap:16px; } .cn{ font-size:13px; font-weight:600; } .cr{ font-family:var(--mono); font-size:13px; font-weight:500; } .cat p{ font-size:12px; color:var(--ink-2); line-height:1.5; margin-top:6px; } .cat-bar,.bar{ height:6px; border-radius:4px; background:var(--surface-2); margin-top:10px; position:relative; overflow:hidden; } .cat-bar span,.bar i{ position:absolute; top:0; bottom:0; left:0; border-radius:4px; background:var(--accent); }
   .acts,.split2{ display:grid; grid-template-columns:1fr 1fr; gap:16px; } .acts-single{ grid-template-columns:1fr; } .timeline-actions{ margin-top:20px; padding-top:16px; border-top:var(--card-border); } .timeline-actions-title{ font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); margin:0 0 12px; } .act{ border:var(--card-border); border-radius:var(--r); background:var(--surface); padding:20px 22px; } .act h4,.panel h4{ font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); margin:0 0 14px; } .act-item{ padding:10px 0; border-top:var(--card-border); } .act-item:first-of-type{ border-top:0; } .act-title{ font-size:12.8px; font-weight:600; } .act-meta{ font-family:var(--mono); font-size:10px; color:var(--ink-3); margin-top:5px; } .act-reason{ font-size:12px; color:var(--ink-2); line-height:1.45; margin-top:6px; } .cta{ margin-top:16px; display:flex; align-items:center; gap:20px; padding:22px 26px; border-radius:var(--r); background:var(--ink); color:var(--bg); break-inside: avoid; } .cta .cl{ font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:#c8d0d8; } .cta .ct{ font-size:17px; font-weight:600; margin-top:6px; line-height:1.3; } .cta .cbtn{ margin-left:auto; padding:11px 20px; border-radius:100px; background:var(--accent); color:white; font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; font-weight:600; white-space:normal; overflow-wrap:anywhere; text-align:center; } #engagement .cta{ margin-top:12px; padding:14px 18px; gap:14px; align-items:flex-start; } #engagement .cta .ct{ font-size:14px; line-height:1.25; margin-top:4px; } #engagement .cta .cbtn{ white-space:nowrap; overflow-wrap:normal; word-break:normal; }
-  .evrow{ display:flex; justify-content:space-between; gap:14px; padding:9px 0; border-bottom:var(--card-border); font-size:12.5px; } .evrow:last-child{ border-bottom:0; } .ek{ color:var(--ink-2); } .ev{ font-weight:500; text-align:right; } .notlist{ display:flex; flex-direction:column; gap:9px; padding-left:0; list-style:none; } .notlist li{ display:grid; grid-template-columns:16px 1fr; gap:10px; font-size:12.5px; color:var(--ink-2); line-height:1.45; } .notlist li:before{ content:"Г—"; color:var(--sig-risk); font-weight:600; }
+  .evrow{ display:flex; justify-content:space-between; gap:14px; padding:9px 0; border-bottom:var(--card-border); font-size:12.5px; } .evrow:last-child{ border-bottom:0; } .ek{ color:var(--ink-2); } .ev{ font-weight:500; text-align:right; } .notlist{ display:flex; flex-direction:column; gap:9px; padding-left:0; list-style:none; } .notlist li{ display:grid; grid-template-columns:16px 1fr; gap:10px; font-size:12.5px; color:var(--ink-2); line-height:1.45; } .notlist li:before{ content:"x"; color:var(--sig-risk); font-weight:600; }
   .audit{ margin-top:56px; padding-top:26px; border-top:2px solid var(--ink); } .audit-grid{ display:grid; grid-template-columns:1fr 1fr 120px; gap:30px; align-items:start; } .acl{ font-family:var(--mono); font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3); margin-bottom:9px; } .acv{ font-family:var(--mono); font-size:11px; color:var(--ink-2); line-height:1.9; } .acv b{ color:var(--ink); font-weight:500; } .audit-qr{ text-align:center; } .ql{ font-family:var(--mono); font-size:8.5px; letter-spacing:.08em; color:var(--ink-3); margin-top:8px; line-height:1.4; } .audit-foot{ display:flex; justify-content:space-between; margin-top:26px; padding-top:16px; border-top:var(--hair) solid var(--line); font-family:var(--mono); font-size:10px; color:var(--ink-3); }
   @media(max-width:760px){ :root{ --gut:22px; } .exec{ grid-template-columns:1fr; } .exec-score{ border-right:0; border-bottom:var(--card-border); } .envs,.acts,.split2{ grid-template-columns:1fr; } .tl{ grid-template-columns:1fr; } .tl-col+.tl-col{ border-left:0; border-top:var(--card-border); } .pred-top{ flex-direction:column; } .pred-id{ width:auto; flex-direction:row; align-items:center; justify-content:space-between; border-right:0; border-bottom:var(--card-border); } .pred-id .lock{ margin-top:0; } .pred-verify{ width:auto; text-align:left; border-left:0; border-top:var(--card-border); } .audit-grid{ grid-template-columns:1fr; } .epred{ grid-template-columns:1fr; } }
   .thresholds{ display:block; font-size:11.5px; color:var(--ink-2); line-height:1.5; letter-spacing:0; font-family:Inter,Arial,sans-serif; margin:0 0 14px; }
@@ -1122,8 +1122,8 @@ function sectionHead(num, title, note) {
 }
 
 function renderArchiveMasthead(model) {
-  const titleParts = escapeHtml(model.header.title).split(" Г— ");
-  const title = titleParts.length === 2 ? `${titleParts[0]} <span class="x">Г—</span> ${titleParts[1]}` : escapeHtml(model.header.title);
+  const titleParts = escapeHtml(model.header.title).split(" x ");
+  const title = titleParts.length === 2 ? `${titleParts[0]} <span class="x">x</span> ${titleParts[1]}` : escapeHtml(model.header.title);
   return `<header class="mast">
     <div class="masthead mast-row">
       <div class="brand"><div class="mark" aria-hidden="true"></div><div><div class="brand-name">MERGEVUE</div><div class="brand-sub">View into the merge</div></div></div>
@@ -1180,30 +1180,40 @@ function renderCoverExecutiveSummary(model) {
   return `<div class="cover-executive-summary"><div class="cover-executive-summary-title">Executive summary</div><p>${escapeHtml(summary)}</p></div>`;
 }
 
+function renderCoverControlMove(model) {
+  const groups = Array.isArray(model?.resourceConflictMap?.groups) ? model.resourceConflictMap.groups : [];
+  const items = resourceSummaryItems({ groups });
+  const watch = items.filter((resource) => resource.band === "high" || resource.band === "moderate").map((resource) => resource.name);
+  const aligned = items.filter((resource) => resource.band === "aligned").map((resource) => resource.name);
+  const listText = (items) => items.length <= 1 ? (items[0] || "") : `${items.slice(0, -1).join(", ")} and ${items[items.length - 1]}`;
+  const watchText = watch.length ? `Track friction around ${listText(watch)}.` : "No primary low-match resource zone is visible in this preview.";
+  const alignedText = aligned.length ? `Protect ${listText(aligned)} as alignment assets.` : "";
+  return `${watchText} ${alignedText} Freeze irreversible operating-model changes until Day 60 before deciding what to integrate, simplify, or preserve.`.replace(/\s+/g, " ").trim();
+}
 function renderArchiveExecutive(model) {
   const score = model.compatibility.score;
   const scoreDisplay = Number.isFinite(score) ? Math.ceil(score) : null;
   const bandClass = `band-${model.compatibility.bandKey}`;
   return `<section class="sec" id="exec" style="padding-top:0" data-screen-label="Executive Summary"><div class="exec">
     <div class="exec-score">
-      <div class="kicker">Environment Compatibility Score В· ECS</div>
+      <div class="kicker">Environment Compatibility Score | ECS</div>
       <div class="score-num tnum">${scoreDisplay === null ? "NA" : escapeHtml(scoreDisplay)}</div>
       <div class="score-of">of 100</div>
       <div class="score-expl">ECS estimates structural compatibility between the two identified operating environments. Higher scores indicate stronger alignment; lower scores indicate higher friction risk.</div>
       <div class="band-pill ${bandClass}">${escapeHtml(model.compatibility.bandLabel)}</div>
-      <div class="score-scale" aria-label="0вЂ“100 scale"><div class="scale-track"><div class="scale-mark" style="left:${Math.max(0, Math.min(100, Number(score) || 0))}%"></div></div><div class="scale-ends"><span>0 В· ${escapeHtml(model.compatibility.scaleLow)}</span><span>100 В· ${escapeHtml(model.compatibility.scaleHigh)}</span></div></div>
+      <div class="score-scale" aria-label="0-100 scale"><div class="scale-track"><div class="scale-mark" style="left:${Math.max(0, Math.min(100, Number(score) || 0))}%"></div></div><div class="scale-ends"><span>0 | ${escapeHtml(model.compatibility.scaleLow)}</span><span>100 | ${escapeHtml(model.compatibility.scaleHigh)}</span></div></div>
       ${renderFirstPageEvidenceGate(model)}
     </div>
     <div class="exec-body">
       <p class="exec-thesis">${escapeHtml(renderCoverHeadline(model))}</p>
       <div class="exec-deal deal-grid">
-        <div class="deal-cell"><span class="k">Acquirer</span><span class="v">${escapeHtml(model.forecast.acquirer.company)} <small>В· ${escapeHtml(model.forecast.acquirer.pattern)}</small></span></div>
-        <div class="deal-cell"><span class="k">Target</span><span class="v">${escapeHtml(model.forecast.target.company)} <small>В· ${escapeHtml(model.forecast.target.pattern)}</small></span></div>
+        <div class="deal-cell"><span class="k">Acquirer</span><span class="v">${escapeHtml(model.forecast.acquirer.company)} <small>- ${escapeHtml(model.forecast.acquirer.pattern)}</small></span></div>
+        <div class="deal-cell"><span class="k">Target</span><span class="v">${escapeHtml(model.forecast.target.company)} <small>- ${escapeHtml(model.forecast.target.pattern)}</small></span></div>
         <div class="deal-cell"><span class="k">Deal type</span><span class="v">${escapeHtml(model.forecast.dealType)}</span></div>
         ${renderCoverEconomicExposure(model)}
       </div>
       ${renderCoverExecutiveSummary(model)}
-      <div class="exec-action"><span class="lab">First integration control move</span><span class="txt">${escapeHtml(model.forecast.recommendedAction)}</span></div>
+      <div class="exec-action"><span class="lab">First integration control move</span><span class="txt">${escapeHtml(renderCoverControlMove(model))}</span></div>
     </div>
   </div></section>`;
 }
@@ -1232,13 +1242,13 @@ function renderPredictionCards(section) {
 
 function renderResourceZones(section) {
   return section.groups.filter((group) => group.count > 0).map((group) => {
-    const rows = group.rows.map((row) => `<div class="rbar"><span><span class="rn">${escapeHtml(row.label)}</span><div class="rd">${escapeHtml(row.category)} В· ${escapeHtml(row.direction)}</div></span><span class="rt"><span class="rf" style="width:${row.intensity}%; background-color:${bandColor(row.band)} !important; background:${bandColor(row.band)} !important;"></span></span><span class="rv tnum">${escapeHtml(row.intensity)}</span></div>`).join("");
+    const rows = group.rows.map((row) => `<div class="rbar"><span><span class="rn">${escapeHtml(row.label)}</span><div class="rd">${escapeHtml(row.category)} | ${escapeHtml(row.direction)}</div></span><span class="rt"><span class="rf" style="width:${row.intensity}%; background-color:${bandColor(row.band)} !important; background:${bandColor(row.band)} !important;"></span></span><span class="rv tnum">${escapeHtml(row.intensity)}</span></div>`).join("");
     return `<div class="zone"><div class="zone-head"><span class="zone-dot" style="background:${bandColor(group.band)} !important"></span><span class="zone-name" style="color:${bandColor(group.band)} !important">${escapeHtml(group.label)}</span><span class="zone-count">${group.count} of ${section.scanned}</span></div><div class="rbars">${rows}</div></div>`;
   }).join("");
 }
 
 function renderActionPanel(title, actions) {
-  return `<div class="act"><h4>${escapeHtml(title)}</h4>${actions.map((action) => `<div class="act-item"><div class="act-title">${escapeHtml(action.actionTitle)}</div><div class="act-meta">${escapeHtml(action.actionTiming)} В· ${escapeHtml(action.actionOwner)} В· expected effect: ${escapeHtml(action.actionExpectedEffect)}</div><div class="act-reason">${escapeHtml(action.actionReason)}</div></div>`).join("")}</div>`;
+  return `<div class="act"><h4>${escapeHtml(title)}</h4>${actions.map((action) => `<div class="act-item"><div class="act-title">${escapeHtml(action.actionTitle)}</div><div class="act-meta">${escapeHtml(action.actionTiming)} | ${escapeHtml(action.actionOwner)} | expected effect: ${escapeHtml(action.actionExpectedEffect)}</div><div class="act-reason">${escapeHtml(action.actionReason)}</div></div>`).join("")}</div>`;
 }
 
 function collisionFindingHumanText(section) {
@@ -1262,7 +1272,7 @@ function collisionFindingHumanText(section) {
 
 function isTechnicalResourceDirection(text) {
   const value = cleanText(text);
-  return /[+~в€’-].+\bvs\b/i.test(value) || /\(.+\bvs\b.+\)/i.test(value);
+  return /[+~-].+\bvs\b/i.test(value) || /\(.+\bvs\b.+\)/i.test(value);
 }
 
 function explainResourceInPractice(resource, band = "moderate") {
@@ -1383,7 +1393,7 @@ function renderEngagementBenefit(benefit) {
     return `<p><strong class="eng-next-step">De-risked next step.</strong> ${escapeHtml(rest)}</p>`;
   }
 
-  const match = text.match(/^(\d+\s*[В·.-]\s*)([^вЂ”.]+)(.*)$/);
+  const match = text.match(/^(\d+\s*[-.]\s*)([^-.]+)(.*)$/);
   if (!match) return `<p>${escapeHtml(text)}</p>`;
 
   const prefix = match[1];
@@ -1423,7 +1433,7 @@ function renderHtmlSection(section, number, context = {}) {
     const actions = context.actions ?? {};
     const columns = section.phases.map((phase, index) => {
       const watchFor = cleanText(phase.watchFor);
-      return `<div class="tl-col"><div class="tl-progress"><span></span></div><div class="tl-when"><span class="ph">FP${index + 1} В· ${escapeHtml(phase.verifyBy)}</span><span class="win">${escapeHtml(phase.verifyBy)}</span></div><div class="tl-body"><div class="h">${escapeHtml(phase.heading)}</div><p>${escapeHtml(phase.body)}</p>${watchFor ? `<div class="tl-marker"><div class="ml">Watch for:</div><div class="mv">${escapeHtml(watchFor)}</div></div>` : ""}</div></div>`;
+      return `<div class="tl-col"><div class="tl-progress"><span></span></div><div class="tl-when"><span class="ph">FP${index + 1} | ${escapeHtml(phase.verifyBy)}</span><span class="win">${escapeHtml(phase.verifyBy)}</span></div><div class="tl-body"><div class="h">${escapeHtml(phase.heading)}</div><p>${escapeHtml(phase.body)}</p>${watchFor ? `<div class="tl-marker"><div class="ml">Watch for:</div><div class="mv">${escapeHtml(watchFor)}</div></div>` : ""}</div></div>`;
     }).join("");
     const beforeClose = actions.beforeClose ?? [];
     const afterClose = [...(actions.afterClose ?? [])].sort((left, right) => {
@@ -1462,7 +1472,7 @@ function renderHtmlSection(section, number, context = {}) {
     return `<section class="sec" id="engagement" data-screen-label="Full Engagement Adds">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.engagement)}<div class="panel">${section.benefits.map(renderEngagementBenefit).join("")}</div><div class="cta"><div><div class="cl">Engagement contact</div><div class="ct">Next step: contact us to scope the engagement</div></div><a class="cbtn" href="mailto:${escapeHtml(section.contactEmail)}">${escapeHtml(section.contactEmail)}</a></div></section>`;
   }
   if (section.id === "audit") {
-    return `<footer class="audit" id="audit">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.audit)}<div class="audit-grid"><div class="audit-col"><div class="acl">Methodology</div><div class="acv"><b>Mergevue Forecast Method</b><br>${escapeHtml(section.reportVersion)}<br>${escapeHtml(section.contactEmail)}<div class="audit-tracker"><b>Preview verification tracker</b><br>Display-only preview; not ledger-recorded. Verification outcomes require the engagement workflow before any public record treatment.</div></div></div><div class="audit-col"><div class="acl">Audit trail</div><div class="acv">Report В· <b>${escapeHtml(section.reportId)}</b><br>Generated В· ${escapeHtml(section.generatedAt)}<br>Scenario В· ${escapeHtml(section.scenarioId)}<br>Tracker В· ${escapeHtml(section.trackRecordUrl)}</div></div><div class="audit-qr"><div class="qr" aria-label="QR ${escapeHtml(section.qrLabel)}"></div><div class="ql">Preview audit<br>reference</div></div></div><div class="audit-foot"><span>В© 2026 Mergevue</span><span>Display-only preview; not ledger-recorded.</span></div></footer>`;
+    return `<footer class="audit" id="audit">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.audit)}<div class="audit-grid"><div class="audit-col"><div class="acl">Methodology</div><div class="acv"><b>Mergevue Forecast Method</b><br>${escapeHtml(section.reportVersion)}<br>${escapeHtml(section.contactEmail)}<div class="audit-tracker"><b>Preview verification tracker</b><br>Display-only preview; not ledger-recorded. Verification outcomes require the engagement workflow before any public record treatment.</div></div></div><div class="audit-col"><div class="acl">Audit trail</div><div class="acv">Report | <b>${escapeHtml(section.reportId)}</b><br>Generated | ${escapeHtml(section.generatedAt)}<br>Scenario | ${escapeHtml(section.scenarioId)}<br>Tracker | ${escapeHtml(section.trackRecordUrl)}</div></div><div class="audit-qr"><div class="qr" aria-label="QR ${escapeHtml(section.qrLabel)}"></div><div class="ql">Preview audit<br>reference</div></div></div><div class="audit-foot"><span>(c) 2026 Mergevue</span><span>Display-only preview; not ledger-recorded.</span></div></footer>`;
   }
   return `<section class="sec">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES[section.id] ?? "")}</section>`;
 }

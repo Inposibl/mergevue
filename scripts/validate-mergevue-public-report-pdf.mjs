@@ -41,12 +41,12 @@ const FORBIDDEN_PDF_STRINGS = Object.freeze([
   "structural-typology.com",
   "structural-typology.academy",
   "info@structural-typology.academy",
-  "Forward-verifiable В· on record",
+  "Forward-verifiable | on record",
   "lodged against public ledger",
   "timestamped against public ledger",
   "USD 50.0B",
   "USD 350M to USD 2.2B",
-  "$50MвЂ“$500M EV",
+  "$50M-$500M EV",
   "Total Risk Envelope",
   "Indicative Total Risk Envelope",
   "hard risk envelope",
@@ -291,7 +291,7 @@ for (const cssNeedle of ["@media print", "break-inside: avoid", "print-color-adj
 assert.ok(pdfHtml.includes("masthead"), "PDF renderer must include masthead layout.");
 assert.ok(pdfHtml.includes("exec"), "PDF renderer must include executive hero layout.");
 assert.ok(pdfHtml.includes("ECS"), "PDF renderer must include ECS number.");
-assert.ok(pdfHtml.includes("0вЂ“100 scale"), "PDF renderer must include 0-100 scale marker.");
+assert.ok(pdfHtml.includes("0-100 scale"), "PDF renderer must include 0-100 scale marker.");
 assert.ok(pdfHtml.includes("pips"), "PDF renderer must include confidence pips.");
 assert.ok(pdfHtml.includes("deal-grid"), "PDF renderer must include a deal grid.");
 assert.ok(pdfHtml.includes("sealed-preview-1"), "PDF renderer must include sealed prediction lock id.");
@@ -299,7 +299,7 @@ assert.ok(pdfHtml.includes("Verify by"), "PDF renderer must include sealed predi
 assert.ok(pdfHtml.includes("Evidence required"), "PDF renderer must include sealed prediction evidence labels.");
 assert.equal(pdfHtml.includes("Falsification condition"), false, "PDF renderer must not include the old falsification condition label.");
 assert.equal(pdfHtml.includes("Window Days"), false, "PDF renderer must not include the old window-days label.");
-assert.equal(pdfHtml.includes("Window В·"), false, "PDF renderer must not include visible prediction window labels.");
+assert.equal(pdfHtml.includes("Window |"), false, "PDF renderer must not include visible prediction window labels.");
 assert.ok(pdfHtml.includes("Legend"), "PDF renderer must include resource-map legend.");
 assert.ok(pdfHtml.includes("Model-recommended action") && pdfHtml.includes("Decision focus"), "PDF renderer must combine prediction action and decision-focus content.");
 assert.ok(pdfHtml.includes("Decision Gap") && pdfHtml.includes("What this preview cannot decide for you"), "PDF renderer must include the decision-gap evidence panel.");
