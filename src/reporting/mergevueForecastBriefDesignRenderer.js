@@ -1070,16 +1070,35 @@ function renderForecastBriefPages(model) {
   const engagement = reportSectionById(model, "engagement");
   const audit = reportSectionById(model, "audit");
 
+  const firstPredictions = predictions
+    ? { ...predictions, predictions: predictions.predictions.slice(0, 2), predictionStartIndex: 0 }
+    : null;
+
+  const continuationPredictions = predictions && predictions.predictions.length > 2
+    ? {
+        ...predictions,
+        title: `${COMBINED_PREDICTION_TITLE} (continuation)`,
+        predictions: predictions.predictions.slice(2),
+        predictionStartIndex: 2,
+        isContinuation: true,
+      }
+    : null;
+
   const pages = [
     renderReportPage(`${renderArchiveMasthead(model)}${renderArchiveExecutive(model)}`, "cover-page"),
     environments ? renderReportPage(renderHtmlSection(environments, 1), "environments-page") : "",
-    predictions ? renderReportPage(renderHtmlSection(predictions, 2), "page-preds predictions-page") : "",
-    renderReportPage(`${collision ? renderHtmlSection(collision, 3) : ""}${resources ? renderHtmlSection(resources, 4) : ""}`, "collision-resources-page"),
+    firstPredictions ? renderReportPage(renderHtmlSection(firstPredictions, 2), "page-preds predictions-page") : "",
+    renderReportPage(`${continuationPredictions ? renderPredictionContinuation(continuationPredictions, 2) : ""}${collision ? renderHtmlSection(collision, 3) : ""}`, "prediction-collision-page"),
+    resources ? renderReportPage(renderHtmlSection(resources, 4), "resources-page") : "",
     economics ? renderReportPage(renderHtmlSection(economics, 5), "economic-page") : "",
     renderReportPage(`${evidence ? renderHtmlSection(evidence, 6) : ""}${engagement ? renderHtmlSection(engagement, 7) : ""}${audit ? renderHtmlSection(audit, 8) : ""}`, "page-tight evidence-page"),
   ];
 
   return pages.filter(Boolean).join("\n");
+}
+
+function renderPredictionContinuation(section, number) {
+  return `<section class="sec sec-continuation predictions-continuation" id="predictions-continuation" data-screen-label="${escapeHtml(section.title)}">${sectionHead(number, section.title, COMBINED_PREDICTION_NOTE)}<div class="preds-wrap prediction-stack">${renderPredictionCards(section)}</div></section>`;
 }
 
 function escapeHtml(value) {
@@ -1379,6 +1398,9 @@ function renderHtmlSection(section, number, context = {}) {
   }
   return `<section class="sec">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES[section.id] ?? "")}</section>`;
 }
+
+
+
 
 
 
