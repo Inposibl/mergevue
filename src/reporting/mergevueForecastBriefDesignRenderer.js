@@ -1265,52 +1265,79 @@ function isTechnicalResourceDirection(text) {
   return /[+~в€’-].+\bvs\b/i.test(value) || /\(.+\bvs\b.+\)/i.test(value);
 }
 
-function explainResourceInPractice(resource) {
-  const name = cleanText(resource.name);
-  const existing = cleanText(resource.explanation);
-  if (existing && !isTechnicalResourceDirection(existing)) return existing;
-
+function explainResourceInPractice(resource, band = "moderate") {
+  const name = cleanText(resource.name || resource.label);
   const key = name.toLowerCase();
-  if (key.includes("health")) {
-    return "Health conflict can raise burnout risk, reduce sustainable pace, and make the combined organisation dependent on short-term overextension.";
-  }
-  if (key.includes("connections")) {
-    return "Connections conflict can weaken informal coordination, isolate key relationship holders, and increase dependency on a small number of brokers.";
-  }
-  if (key.includes("trust")) {
-    return "Trust conflict can trigger defensive behaviour, reduce disclosure quality, and make even technically sound integration decisions feel unsafe.";
-  }
-  if (key.includes("knowledge")) {
-    return "Knowledge conflict can block transfer of know-how, make expertise harder to access, and increase the chance that critical operating memory leaves with key people.";
-  }
-  if (key.includes("information")) {
-    return "Information conflict can weaken signal flow, delay issue detection, and make integration decisions depend on incomplete or protected data.";
-  }
-  if (key.includes("creativity")) {
-    return "Creativity conflict can suppress useful adaptation, make new operating ideas feel unsafe, and reduce the target's ability to solve integration problems locally.";
-  }
-  if (key.includes("decisiveness")) {
-    return "Decisiveness conflict can create decision stalls, repeated escalation, and unclear ownership when integration tradeoffs need fast resolution.";
-  }
-  if (key.includes("attention")) {
-    return "Attention conflict can fragment leadership focus, slow issue detection, and make critical post-close signals easier to miss.";
-  }
-  if (key.includes("organisation") || key.includes("organization") || key.includes("system")) {
-    return "Organisation / system conflict can make routines, ownership, and operating cadence harder to stabilise after close.";
+  const status = band === "high"
+    ? "a low-match risk area"
+    : band === "moderate"
+      ? "a partial-match watch area"
+      : "an alignment asset";
+
+  if (band === "aligned") {
+    if (key.includes("health")) return "Health is currently an alignment asset. Protect sustainable pace and avoid integration pressure that turns endurance into burnout.";
+    if (key.includes("connections")) return "Connections are currently an alignment asset. Preserve informal coordination and key relationship holders while formal governance is redesigned.";
+    if (key.includes("trust")) return "Trust is currently an alignment asset. Protect disclosure quality, credibility, and psychological safety during integration decisions.";
+    if (key.includes("knowledge")) return "Knowledge is currently an alignment asset. Preserve the routines and people that keep know-how accessible before changing ownership of expertise.";
+    if (key.includes("information")) return "Information is currently an alignment asset. Preserve signal flow and access to operating data while reporting lines are redesigned.";
+    if (key.includes("creativity")) return "Creativity is currently an alignment asset. Preserve local problem-solving capacity while integration rules are being installed.";
+    if (key.includes("decisiveness")) return "Decisiveness is currently an alignment asset. Preserve clear ownership and fast escalation paths during the transition.";
+    if (key.includes("attention")) return "Attention is currently an alignment asset. Preserve leadership focus and keep critical post-close signals visible.";
+    if (key.includes("organisation") || key.includes("organization") || key.includes("system")) return "Organisation / system is currently an alignment asset. Preserve the routines and cadence that already support stable execution.";
+    return `${name} is currently an alignment asset. Protect it during integration rather than treating it as a present conflict zone.`;
   }
 
-  return "This resource may become an integration pressure point if the acquirer changes the target operating rhythm before the Day 60 review.";
+  if (key.includes("health")) return `Health is ${status}. Health conflict can raise burnout risk, reduce sustainable pace, and make the combined organisation dependent on short-term overextension.`;
+  if (key.includes("connections")) return `Connections are ${status}. Connections conflict can weaken informal coordination, isolate key relationship holders, and increase dependency on a small number of brokers.`;
+  if (key.includes("trust")) return `Trust is ${status}. Trust conflict can trigger defensive behaviour, reduce disclosure quality, and make even technically sound integration decisions feel unsafe.`;
+  if (key.includes("knowledge")) return `Knowledge is ${status}. Knowledge conflict can block transfer of know-how, make expertise harder to access, and increase the chance that critical operating memory leaves with key people.`;
+  if (key.includes("information")) return `Information is ${status}. Information conflict can weaken signal flow, delay issue detection, and make integration decisions depend on incomplete or protected data.`;
+  if (key.includes("creativity")) return `Creativity is ${status}. Creativity conflict can suppress useful adaptation, make new operating ideas feel unsafe, and reduce the target's ability to solve integration problems locally.`;
+  if (key.includes("decisiveness")) return `Decisiveness is ${status}. Decisiveness conflict can create decision stalls, repeated escalation, and unclear ownership when integration tradeoffs need fast resolution.`;
+  if (key.includes("attention")) return `Attention is ${status}. Attention conflict can fragment leadership focus, slow issue detection, and make critical post-close signals easier to miss.`;
+  if (key.includes("organisation") || key.includes("organization") || key.includes("system")) return `Organisation / system is ${status}. Organisation / system conflict can make routines, ownership, and operating cadence harder to stabilise after close.`;
+
+  return `${name} is ${status}. Monitor it during integration and avoid changing the target operating rhythm before the Day 60 review.`;
+}
+
+function resourceSummaryItems(section) {
+  const groups = Array.isArray(section.groups) ? section.groups : [];
+  const items = [];
+  for (const band of ["high", "moderate", "aligned"]) {
+    const group = groups.find((entry) => entry.band === band);
+    const rows = Array.isArray(group?.rows) ? group.rows : [];
+    for (const row of rows) {
+      const name = cleanText(row.label || row.name);
+      if (name) items.push({ ...row, name, band });
+    }
+  }
+  return items;
 }
 
 function renderResourceConflictSummary(section) {
-  const topResources = Array.isArray(section.zones) ? section.zones.slice(0, 3).filter((resource) => cleanText(resource.name)) : [];
-  if (!topResources.length) return "";
-  const resourceNames = topResources.map((resource) => resource.name).join(", ");
-  const rows = topResources.map((resource) => {
-    const explanation = explainResourceInPractice(resource);
+  const items = resourceSummaryItems(section);
+  if (!items.length) return "";
+
+  const watchItems = items.filter((resource) => resource.band === "high" || resource.band === "moderate");
+  const alignedItems = items.filter((resource) => resource.band === "aligned");
+  const displayItems = watchItems.length
+    ? watchItems.slice(0, 3).concat(alignedItems.slice(0, Math.max(0, 3 - Math.min(3, watchItems.length))))
+    : alignedItems.slice(0, 3);
+
+  const watchNames = watchItems.map((resource) => resource.name).join(", ");
+  const alignedNames = alignedItems.map((resource) => resource.name).join(", ");
+  const intro = watchItems.length && alignedItems.length
+    ? `The map does not say that the deal will fail. It separates current watch areas from alignment assets. In this case, the main watch areas are ${watchNames}. ${alignedNames} are alignment assets: they should be protected during integration, not treated as current conflict zones.`
+    : watchItems.length
+      ? `The map does not say that the deal will fail. It shows where the two operating environments have low or partial structural match. In this case, the main watch areas are ${watchNames}. These are the places where integration decisions need the most control.`
+      : `The map does not say that the deal will fail. It shows that the listed resources are currently alignment assets. The main task is to protect ${alignedNames} during integration so that existing strengths are not damaged by careless operating-model changes.`;
+
+  const rows = displayItems.map((resource) => {
+    const explanation = explainResourceInPractice(resource, resource.band);
     return `<div class="resource-summary-row"><span>${escapeHtml(resource.name)}</span><p>${escapeHtml(explanation)}</p></div>`;
   }).join("");
-  return `<div class="resource-summary"><h4>What this means in practice</h4><p>The map does not say that the deal will fail. It shows where the two operating environments are most likely to create practical friction. In this case, the main watch areas are ${escapeHtml(resourceNames)}. These are the places where integration decisions can accidentally damage trust, slow knowledge transfer, weaken information flow, or make people protect their local operating habits instead of sharing them.</p><div class="resource-summary-grid">${rows}</div></div>`;
+
+  return `<div class="resource-summary"><h4>What this means in practice</h4><p>${escapeHtml(intro)}</p><div class="resource-summary-grid">${rows}</div></div>`;
 }
 
 function explainEconomicLine(line) {
