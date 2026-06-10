@@ -1436,16 +1436,14 @@ function renderEngagementBenefit(benefit) {
     return `<p><strong class="eng-next-step">De-risked next step.</strong> ${escapeHtml(rest)}</p>`;
   }
 
-  const match = text.match(/^(\d+\s*[-.]\s*)([^-.]+)(.*)$/);
+  const match = text.match(/^(\d+\.\s*)(Audit-Grade Confirmation|Definitive Personnel Mapping|Quantified Exposure & Playbook)\s*-\s*(.*)$/i);
   if (!match) return `<p>${escapeHtml(text)}</p>`;
 
   const prefix = match[1];
-  const rawTitle = match[2];
-  const title = rawTitle.trim().toUpperCase();
-  const titleSpacing = /\s$/.test(rawTitle) ? " " : "";
+  const title = match[2];
   const rest = match[3] || "";
 
-  return `<p><span class="eng-benefit-head">${escapeHtml(prefix)}${escapeHtml(title)}</span>${titleSpacing}${escapeHtml(rest)}</p>`;
+  return `<p><span class="eng-benefit-head">${escapeHtml(prefix)}${escapeHtml(title)}</span> - ${escapeHtml(rest)}</p>`;
 }
 
 function renderHtmlSection(section, number, context = {}) {
