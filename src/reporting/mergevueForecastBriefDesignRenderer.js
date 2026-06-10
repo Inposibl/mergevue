@@ -1075,7 +1075,6 @@ function renderForecastBriefPages(model) {
   const economics = reportSectionById(model, "economics");
   const evidence = reportSectionById(model, "evidence");
   const engagement = reportSectionById(model, "engagement");
-  const audit = reportSectionById(model, "audit");
 
   const firstPredictions = predictions
     ? { ...predictions, predictions: predictions.predictions.slice(0, 2), predictionStartIndex: 0 }
@@ -1098,7 +1097,7 @@ function renderForecastBriefPages(model) {
     renderReportPage(`${continuationPredictions ? renderPredictionContinuation(continuationPredictions, 2) : ""}${collision ? renderHtmlSection(collision, 3) : ""}`, "prediction-collision-page"),
     resources ? renderReportPage(renderHtmlSection(resources, 4), "resources-page") : "",
     economics ? renderReportPage(renderHtmlSection(economics, 5), "economic-page") : "",
-    renderReportPage(`${evidence ? renderHtmlSection(evidence, 6) : ""}${engagement ? renderHtmlSection(engagement, 7) : ""}${audit ? renderHtmlSection(audit, 8) : ""}`, "page-tight evidence-page"),
+    renderReportPage(`${evidence ? renderHtmlSection(evidence, 6) : ""}${engagement ? renderHtmlSection(engagement, 7) : ""}`, "page-tight evidence-page"),
   ];
 
   return pages.filter(Boolean).join("\n");
