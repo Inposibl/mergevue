@@ -1,4 +1,4 @@
-import assert from "node:assert/strict";
+﻿import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import {
   MERGEVUE_PUBLIC_REPORT_BLOCKS,
@@ -315,7 +315,7 @@ const firstPrediction = pdfModel.sections[1].predictions[0];
 assert.notEqual(firstPrediction.statement, firstPrediction.evidenceRequired, "Prediction statement and evidence required must remain distinct.");
 assert.ok(firstPrediction.evidenceRequired, "Prediction evidence required must be preserved when available.");
 
-assert.equal(firstPrediction.windowLabel, "FP1 | Signal setup", "Prediction card must expose the FP/window label.");
+assert.equal(firstPrediction.windowLabel, "FP1 | Evidence challenge test", "Prediction card must expose the FP/window label.");
 assert.ok(firstPrediction.actionMeta.includes("expected effect:"), "Prediction card must expose action meta.");
 assert.ok(firstPrediction.rationale, "Prediction card must expose rationale.");
 assert.ok(firstPrediction.decisionFocus, "Prediction card must expose decision focus.");
@@ -384,6 +384,7 @@ for (const prediction of pdfModel.sections[1].predictions) {
 }
 
 console.log("Mergevue public report PDF validation passed");
+
 
 
 
