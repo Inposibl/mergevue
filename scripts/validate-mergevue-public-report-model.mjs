@@ -1,4 +1,4 @@
-import assert from "node:assert/strict";
+﻿import assert from "node:assert/strict";
 import { buildMergevuePublicReportModel } from "../src/reporting/mergevuePublicReportModel.js";
 
 const TOP_LEVEL_KEYS = Object.freeze([
@@ -151,7 +151,7 @@ assert.equal(model.compatibilityScoreAndDealScenario.dealType, "Absorb / neutral
 assert.equal(model.compatibilityScoreAndDealScenario.enterpriseValueBand, "Enterprise value / deal value provided: USD 500 million (estimated).");
 assert.equal(model.economicRiskTranslation.enterpriseValueBand, "ECONOMIC EXPOSURE MODEL");
 assert.equal(model.economicRiskTranslation.valuationDisclaimer, "Illustrative posture, not a valuation. Deal economics inputs are used only to size an order-of-magnitude risk envelope.");
-assert.equal(model.economicRiskTranslation.engagementTierRequirement, "Absolute risk figures require the engagement-tier economic model. ECS valuation band: HIGH COMPATIBILITY (85.3).");
+assert.equal(model.economicRiskTranslation.engagementTierRequirement, "Absolute risk figures require the engagement-tier economic model. ECS valuation band: HIGH COMPATIBILITY (85.3; rounded to 86 / 100).");
 
 assert.equal(
   model.resourceConflictMap.overwriteRiskExplanation,
@@ -201,3 +201,4 @@ assert.equal(serialized.includes("McDonald's"), true);
 assert.equal(JSON.parse(serialized).brand.name, "Mergevue");
 
 console.log("Mergevue public report model validation passed");
+

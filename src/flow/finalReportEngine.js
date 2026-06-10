@@ -1,4 +1,4 @@
-import { buildAnalystWorksheet } from "./analystWorkflow.js";
+﻿import { buildAnalystWorksheet } from "./analystWorkflow.js";
 import { buildContradictionReport } from "./contradictionEngine.js";
 import { buildEvidenceCoverage, evidenceItemsFromSession } from "./evidenceCapture.js";
 import { buildRiskOutputReport } from "./riskOutputEngine.js";
@@ -236,7 +236,7 @@ export function buildDealEconomicsReport(session = {}, options = {}) {
     const earnOutExposureHigh = enterpriseValueMillions * band.earnOutExposureHighRate;
     return riskEnvelopeUnavailable([
       enterpriseValue.line,
-      `ECS valuation band: ${band.name} (${baseEcsScore}).`,
+      Number.isFinite(Number(baseEcsScore)) ? `ECS valuation band: ${band.name} (${baseEcsScore}; rounded to ${Math.ceil(Number(baseEcsScore))} / 100).` : `ECS valuation band: ${band.name} (${baseEcsScore}).`,
       lineWithOpenEndedHigh("EV Discount", evDiscountLow, evDiscountHigh, calculationCurrency, Boolean(band.evDiscountHighOpenEnded)),
       lineWithOpenEndedHigh("Earn-Out Exposure", earnOutExposureLow, earnOutExposureHigh, calculationCurrency, Boolean(band.earnOutExposureHighOpenEnded)),
       `Talent Cost: ${DEAL_ECONOMICS_PERSONNEL_REQUIRED_TEXT}.`,
@@ -270,7 +270,7 @@ export function buildDealEconomicsReport(session = {}, options = {}) {
     enterpriseValue.line,
     compensation.line,
     `Key personnel at risk: ${keyPersonnelAtRisk}.`,
-    `ECS valuation band: ${calculation.bandName} (${calculation.baseEcsScore}).`,
+    Number.isFinite(Number(calculation.baseEcsScore)) ? `ECS valuation band: ${calculation.bandName} (${calculation.baseEcsScore}; rounded to ${Math.ceil(Number(calculation.baseEcsScore))} / 100).` : `ECS valuation band: ${calculation.bandName} (${calculation.baseEcsScore}).`,
     lineWithOpenEndedHigh("EV Discount", calculation.evDiscountLow, calculation.evDiscountHigh, calculationCurrency, calculation.evDiscountHighOpenEnded),
     lineWithOpenEndedHigh("Earn-Out Exposure", calculation.earnOutExposureLow, calculation.earnOutExposureHigh, calculationCurrency, calculation.earnOutExposureHighOpenEnded),
     lineWithOpenEndedHigh("Talent Cost", calculation.talentCostLow, calculation.talentCostHigh, calculationCurrency, calculation.costPerDepartureHighOpenEnded),
@@ -488,3 +488,5 @@ export function buildFinalReportStructure(session = {}, deliverable = {}, option
     riskOutputReport,
   });
 }
+
+

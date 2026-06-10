@@ -185,12 +185,12 @@ function buildPredictions(deliverable) {
       recommendedAction: actionCopy(2, "Separate preservation from simplification while the repeated friction pattern is tested."),
     },
     {
-      predictionTitle: "Verification deadline",
+      predictionTitle: "Early checkpoint",
       predictionWindow: TIMING_LOGIC.verificationDeadline,
-      predictionClaim: clientFacingPredictionText("By Day 60, the preview signal should either be visible enough to escalate or absent enough to lower the current concern.", 2),
+      predictionClaim: clientFacingPredictionText("By Day 60, check whether early signs are visible enough to escalate, revise, or lower the Month 12 concern.", 2),
       observableSignal: clientFacingPredictionText(anchors[2]?.text ?? "A clear repeatable signal by Day 60.", 2),
-      verificationMethod: "Use the Day 60 review to confirm, revise, or dismiss the preview claim.",
-      recommendedAction: actionCopy(1, "Run the Day 60 verification review and decide whether to escalate, revise, or dismiss the preview claim."),
+      verificationMethod: "Use the Day 60 review as an early checkpoint for the longer Month 12 retention-risk claim.",
+      recommendedAction: actionCopy(1, "Run the Day 60 early-checkpoint review and decide whether to escalate, revise, or lower the Month 12 concern."),
     },
   ];
 }
@@ -228,11 +228,11 @@ function timelinePhases(deliverable) {
       recommendedCheck: "Review whether the friction repeats during Days 30-60.",
     },
     {
-      phaseName: "Verification deadline",
+      phaseName: "Early checkpoint",
       timeWindow: TIMING_LOGIC.verificationDeadline,
-      expectedFriction: cleanString("The preview claim should be confirmed, revised, or dismissed by the Day 60 review."),
+      expectedFriction: cleanString("The Month 12 preview claim should be escalated, revised, or lowered at the Day 60 early checkpoint."),
       observableSignal: cleanString(anchors[2]?.text ?? "A clear enough signal to decide whether deeper engagement is needed."),
-      recommendedCheck: "Run a Day 60 decision review against the sealed preview claim.",
+      recommendedCheck: "Run a Day 60 early-checkpoint review against the sealed preview claim.",
     },
   ];
 }
@@ -254,7 +254,7 @@ function recommendedActions(deliverable) {
       actionExpectedEffect: "Preserves the target operating capability while the preview signal is tested.",
     },
     {
-      actionTitle: "Run the Day 60 verification review",
+      actionTitle: "Run the Day 60 early-checkpoint review",
       actionTiming: TIMING_LOGIC.verificationDeadline,
       actionOwner: "Deal sponsor",
       actionReason: "The preview claim should not drift into an untested integration assumption.",
@@ -412,7 +412,7 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
         ? "Illustrative posture, not a valuation. Deal economics inputs are used only to size an order-of-magnitude risk envelope."
         : "Deal economics were not provided. No EV-based risk envelope has been calculated.",
       economicRiskPosture: hasDealEconomicsInputs
-        ? "Quantified exposure summary is based on the provided deal economics inputs and ECS band."
+        ? "Main economic message: high-risk integration posture, with exposure concentrated in EV discount pressure, earn-out delivery, and key-person continuity."
         : "Qualitative only: the public brief identifies where value leakage could emerge, but does not assign a quantified exposure range.",
       engagementTierRequirement: hasDealEconomicsInputs
         ? `${APPROVED_ENGAGEMENT_TIER_REQUIREMENT} ${dealEconomicsReport?.missingInput || dealEconomicsReport?.prompt || ""}`.trim()
@@ -436,9 +436,9 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
 whatTheFullEngagementAdds: {
   benefits: [
     "This preview flags where your post-close fault lines sit. The full engagement removes the guesswork: it translates that exposure into financial ranges, names who carries the risk, and hands you an executable integration-control framework.",
-    "1. Audit-Grade Confirmation - beyond survey noise. The buyer's risk: that a pre-close read is just self-reported survey data - easy to posture for, gone the day the deal closes. What you get: an evidence-reviewed environment coding process run by M&A analysts, cross-referenced against the target's operational artefacts, structure charts, and documentary evidence - signed off by an analyst. You build integration strategy on durable operating routines, not temporary pre-close posturing.",
-    "2. Definitive Personnel Mapping - named roles and vulnerability windows. The buyer's risk: scepticism that an external framework can call who actually leaves. What you get: an individual-level read of the target's actual leadership team - who is structurally most exposed to disengaging, in which observation window, and where decision rights and management cadence fracture under your standard integration logic. It moves retention budget from blanket coverage to targeted hold.",
-    "3. Quantified Exposure & Playbook - the number and the Day 30 / 60 / 90 governance. The buyer's risk: paying for an abstract risk index that won't survive an investment-committee meeting. What you get: engagement-tier economic modelling that translates this deal's risk band into exposure ranges - EV-discount, earn-out and talent-loss envelopes (structuring-grade ranges, not a valuation) - paired with a ready-to-execute integration-control design: owner-level actions and a Day 30 / 60 / 90 governance cadence.",
+    "1. Audit-Grade Confirmation. Beyond survey noise. The buyer's risk: a pre-close read may be just self-reported survey data — easy to posture for and gone the day the deal closes. What you get: an evidence-reviewed environment coding process run by M&A analysts, cross-referenced against the target's operational artefacts, structure charts, and documentary evidence, then signed off by an analyst. You build integration strategy on durable operating routines, not temporary pre-close posturing.",
+    "2. Definitive Personnel Mapping. Named roles and vulnerability windows. The buyer's risk: scepticism that an external model can identify who is actually exposed. What you get: an individual-level read of the target's actual leadership team — who is structurally most exposed to disengaging, in which observation window, and where decision rights and management cadence fracture under your standard integration logic. It moves retention budget from blanket coverage to targeted hold.",
+    "3. Quantified Exposure & Playbook. The number and the Day 30 / 60 / 90 governance. The buyer's risk: paying for an abstract risk index that will not survive an investment-committee meeting. What you get: engagement-tier economic modelling that translates this deal's risk band into exposure ranges — EV-discount, earn-out and talent-loss envelopes, structuring-grade ranges rather than a valuation — paired with a ready-to-execute integration-control design: owner-level actions and a Day 30 / 60 / 90 governance cadence.",
     "De-risked next step. Before any full commitment, your deal team can scope this against your live transaction - and, if useful, start with a single-deal pilot rather than the full engagement.",
   ],
   cta: `Next step: contact ${BRAND.contactEmail} to scope the engagement.`,
@@ -584,7 +584,7 @@ export function buildMergevuePublicReportPdfTextModel(report) {
       pdfSection(MERGEVUE_PUBLIC_REPORT_BLOCKS[6], [
         line("Signal setup", timeline.timingLogic.signalSetup),
         line("Observation window", timeline.timingLogic.observationWindow),
-        line("Verification deadline", timeline.timingLogic.verificationDeadline),
+        line("Early checkpoint", timeline.timingLogic.verificationDeadline),
         ...timeline.phases.flatMap(phaseLines),
       ]),
       pdfSection(MERGEVUE_PUBLIC_REPORT_BLOCKS[7], [
@@ -654,4 +654,13 @@ export function buildMergevuePublicReportEmailCopy(report) {
 }
 
 export default buildMergevuePublicReportModel;
+
+
+
+
+
+
+
+
+
 

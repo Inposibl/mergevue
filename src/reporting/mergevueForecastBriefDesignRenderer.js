@@ -1,4 +1,4 @@
-import {
+﻿import {
   MERGEVUE_PUBLIC_REPORT_BLOCKS,
   MERGEVUE_PUBLIC_REPORT_PDF_FILE_NAME,
 } from "./mergevuePublicReportModel.js";
@@ -31,7 +31,7 @@ const COMBINED_PREDICTION_NOTE = "DISPLAY-ONLY PREVIEW; NOT LEDGER-RECORDED.";
 const COMBINED_PREDICTION_LABELS = Object.freeze([
   "FP1 | Signal setup",
   "FP2 | Observation window",
-  "FP3 | Verification deadline",
+  "FP3 | Early checkpoint",
 ]);
 const ARCHIVE_SECTION_NOTES = Object.freeze({
   exec: "Executive Summary",
@@ -634,7 +634,7 @@ export function buildMergevueForecastBriefDesignModel(report, options = {}) {
       target: Object.freeze({ company: scenario.targetName, pattern: targetPattern }),
       dealType: scenario.dealType,
       enterpriseValue: stripLabel(scenario.enterpriseValueBand, "Enterprise value band"),
-      totalEconomicExposureRange: cleanText((Array.isArray(economics?.economicRiskLines) ? economics.economicRiskLines : []).find((line) => /Economic risk posture/i.test(String(line))) ?? "TOTAL ECONOMIC EXPOSURE RANGE: Not calculated — deal economics inputs were not provided."),
+      totalEconomicExposureRange: cleanText((Array.isArray(economics?.economicRiskLines) ? economics.economicRiskLines : []).find((line) => /Economic risk posture/i.test(String(line))) ?? "TOTAL ECONOMIC EXPOSURE RANGE: Not calculated вЂ” deal economics inputs were not provided."),
       predictionsSummary: Object.freeze(predictions.map((prediction) => Object.freeze({
         windowLabel: prediction.window,
         verifyBy: prediction.verifyBy,
@@ -1219,7 +1219,7 @@ function renderCoverHeadline(model) {
 
 function renderCoverEconomicExposure(model) {
   const enterpriseValue = cleanText(model?.forecast?.enterpriseValue || "Economic exposure: qualitative only");
-  const rawRange = cleanText(model?.forecast?.totalEconomicExposureRange || "TOTAL ECONOMIC EXPOSURE RANGE: Not calculated — deal economics inputs were not provided.");
+  const rawRange = cleanText(model?.forecast?.totalEconomicExposureRange || "TOTAL ECONOMIC EXPOSURE RANGE: Not calculated вЂ” deal economics inputs were not provided.");
   const rangeValue = rawRange.replace(/^Economic risk posture:\s*/i, "").replace(/^TOTAL ECONOMIC EXPOSURE RANGE:\s*/i, "");
   return `<div class="deal-cell economic-cover-cell"><span class="k">Economic exposure</span><span class="v tnum">${escapeHtml(enterpriseValue)}</span><span class="k economic-range-k">Total economic exposure range</span><span class="v tnum economic-range-v">${escapeHtml(rangeValue)}</span></div>`;
 }
@@ -1402,19 +1402,19 @@ function renderResourceConflictSummary(section) {
     return `<div class="resource-summary-row"><span>${escapeHtml(resource.name)}</span><p>${escapeHtml(explanation)}</p></div>`;
   }).join("");
 
-  return `<div class="resource-summary"><h4>What this means in practice</h4><p>${escapeHtml(intro)}</p><div class="resource-summary-grid">${rows}</div></div>`;
+  const ecsClarifier = "ECS is not an average of the displayed resources. It reflects structural compatibility between the two operating environments; the resource map shows where integration pressure is most likely to damage or preserve value."; return `<div class="resource-summary"><h4>What this means in practice</h4><p>${escapeHtml(intro)} ${escapeHtml(ecsClarifier)}</p><div class="resource-summary-grid">${rows}</div></div>`;
 }
 
 function explainEconomicLine(line) {
   const text = cleanText(line);
   if (/Average annual compensation/i.test(text)) return ["Compensation assumption", text, "This is the annual cost assumption used to estimate how expensive key-person departure could become. It is not a salary audit; it is an input for exposure sizing."];
-  if (/Key personnel at risk/i.test(text)) return ["Key people at risk", text, "This is the number of people whose departure, disengagement, or defensive behaviour could materially affect integration quality."];
+  if (/Key personnel at risk/i.test(text)) return ["Key people at risk", text, "This is the provided or estimated count of people whose departure, disengagement, or defensive behaviour could materially affect integration quality. It is an exposure input, not a prediction that all named people will leave."];
   if (/ECS valuation band/i.test(text)) return ["ECS risk band", text, "This translates the environment compatibility score into a financial-risk band. It tells the deal team how severe the operating mismatch is for pricing and integration planning."];
   if (/EV Discount/i.test(text)) return ["Potential EV discount pressure", text, "This indicates the range of valuation pressure that may appear if the market, investment committee, or buyer prices the integration risk into the transaction."];
   if (/Earn-Out Exposure/i.test(text)) return ["Earn-out exposure", text, "This estimates how much contingent value may become harder to realise if post-close behaviour friction disrupts performance milestones."];
   if (/Talent Cost/i.test(text)) return ["Talent-loss exposure", text, "This estimates the replacement, retention, disruption, and productivity cost attached to key people leaving or becoming ineffective after close."];
-  if (/Economic risk posture/i.test(text)) return ["Total economic exposure range", text, "This is the combined order-of-magnitude exposure range from valuation pressure, earn-out risk, and key-person cost. It is a planning range, not a formal valuation."];
-  if (/Order-of-magnitude/i.test(text)) return ["Method limit", text, "The numbers are intended for decision posture and integration planning. Formal financial treatment requires engagement-tier modelling and analyst review."];
+  if (/Economic risk posture/i.test(text)) return ["Total economic exposure range", text, "This is an order-of-magnitude decision-risk envelope across valuation pressure, earn-out risk, and key-person cost. Components may overlap and should not be read as a formal additive loss estimate. It is a planning range, not a formal valuation."];
+  if (/Order-of-magnitude/i.test(text)) return ["Method limit", text, "The numbers are intended for decision posture and integration planning, not as a forecast of realised loss. Formal financial treatment requires engagement-tier modelling and analyst review."];
   return ["Economic input", text, "This line is part of the deal economics input used to translate operating friction into a practical financial exposure range."];
 }
 
@@ -1442,13 +1442,13 @@ function renderEconomicLineItems(lines) {
 }
 
 function renderEngagementBenefit(benefit) {
-  const text = cleanText(benefit).replace(/\s+\|\s+/g, ". ");
+  const text = cleanText(benefit).replace(/\s+\|\s+/g, ". ").replace(/\beyond survey noise\./i, "Beyond survey noise.").replace(/\beasy to posture for,/i, "Easy to posture for,").replace(/\bsigned off by an analyst\./i, "Signed off by an analyst.").replace(/\bwho is structurally most exposed/i, "Who is structurally most exposed").replace(/\bthe number and the Day 30 \/ 60 \/ 90 governance\./i, "The number and the Day 30 / 60 / 90 governance.").replace(/\bpaired with a ready-to-execute/i, "Paired with a ready-to-execute").replace(/\band, if useful,/i, "And, if useful,");
   if (/^De-risked next step\./i.test(text)) {
     const rest = text.replace(/^De-risked next step\.\s*/i, "");
     return `<p><strong class="eng-next-step">De-risked next step.</strong> ${escapeHtml(rest)}</p>`;
   }
 
-  const match = text.match(/^(\d+\.\s*)(Audit-Grade Confirmation|Definitive Personnel Mapping|Quantified Exposure & Playbook)\s*\.\s*(.*)$/i);
+  const match = text.match(/^(\d+\.\s*)(Audit-Grade Confirmation|Definitive Personnel Mapping|Quantified Exposure & Playbook)\s*\.\s*(.*)$/i) || text.match(/^(\d+\.)(Audit-Grade Confirmation|Definitive Personnel Mapping|Quantified Exposure & Playbook)\s*\.\s*(.*)$/i);
   if (!match) return `<p>${escapeHtml(text)}</p>`;
 
   const prefix = match[1];
@@ -1467,11 +1467,12 @@ function renderHtmlSection(section, number, context = {}) {
       const rows = [["Definition", env.oneLineDefinition || env.description], ["Authority", env.authorityStructure], ["Decision logic", env.behaviorPattern], ["Innovation stance", env.innovationStance], ["Economic function", env.economicFunction], ["Resource focus", env.resourceTarget], ["Systemic role", env.systemicRole]].filter(([, value]) => cleanText(value));
       return `<article class="env env-rich"><div class="role">${escapeHtml(role)}</div><div class="co">${escapeHtml(env.name)}</div><div class="arc">${escapeHtml(env.environment)}</div><p>${escapeHtml(env.description)}</p><div class="env-facts">${rows.map(([label, value]) => `<div class="env-fact"><span>${escapeHtml(label)}</span><p>${escapeHtml(value)}</p></div>`).join("")}</div></article>`;
     };
-    return `<section class="sec" id="environments" data-screen-label="Identified Environment Types">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.environments)}<div class="envs">${renderEnvironmentCard("Acquirer", section.acquirer)}${renderEnvironmentCard("Target", section.target)}</div></section>`;
+    return `<section class="sec" id="environments" data-screen-label="Identified Environment Types">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.environments)}<div class="envs">${renderEnvironmentCard("Acquirer", section.acquirer)}${renderEnvironmentCard("Target", section.target)}</div><div class="panel env-bridge"><strong>Core mismatch.</strong> The core mismatch is between evidence-based authority and mission-based legitimacy.</div></section>`;
   }
   if (section.id === "collision") {
     const humanFinding = collisionFindingHumanText(section);
     const collisionRows = [
+      ["Core thesis", "The deal risk is premature translation of the target operating system into the acquirer's management language.", false],
       ["What we found", humanFinding, false],
       ["Why it matters", section.postCloseFailureMode || section.whyItMatters || section.summary, false],
       ["What you can do", "Protect the affected operating resources first; delay irreversible integration changes until the Day 60 verification review confirms which routines should be preserved, simplified, or integrated.", false],
@@ -1517,18 +1518,29 @@ function renderHtmlSection(section, number, context = {}) {
     const gaps = [
       ["Who carries the risk", "Which named leaders, roles, or teams are most exposed to disengagement, resistance, or knowledge loss."],
       ["What must be protected", "Which decision rights, knowledge flows, routines, or trust mechanisms should be preserved before integration changes begin."],
-      ["How much value is at stake", "Which part of the exposure belongs to valuation pressure, earn-out risk, talent loss, or operating drift."],
+      ["Which value pools are actually exposed", "The preview provides an order-of-magnitude posture; the full engagement allocates exposure to actual value pools, owners, time windows, and mitigation levers."],
     ];
-    return `<section class="sec" id="evidence" data-screen-label="Decision Gap">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.evidence)}<div class="panel decision-gap"><h4>What this preview cannot decide for you</h4><p>This brief identifies the likely post-close fault lines, but it does not yet tell the deal team which leaders carry the risk, which routines must be protected, or how much economic value is exposed under the final integration plan.</p><div class="decision-gap-grid">${gaps.map(([label, value]) => `<div class="evrow"><span class="ek">${escapeHtml(label)}</span><span class="ev">${escapeHtml(value)}</span></div>`).join("")}</div><p><strong>The full engagement converts this preview into an executable integration-control plan.</strong></p></div></section>`;
+    return `<section class="sec" id="evidence" data-screen-label="Decision Gap">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.evidence)}<div class="panel decision-gap"><h4>What this preview cannot decide for you</h4><p>This brief identifies the likely post-close fault lines and gives an order-of-magnitude economic posture, but it does not yet allocate risk to named leaders, protected routines, value pools, owners, or mitigation levers.</p><div class="decision-gap-grid">${gaps.map(([label, value]) => `<div class="evrow"><span class="ek">${escapeHtml(label)}</span><span class="ev">${escapeHtml(value)}</span></div>`).join("")}</div><p><strong>The full engagement converts this preview into an executable integration-control plan.</strong></p></div></section>`;
   }
   if (section.id === "engagement") {
-    return `<section class="sec" id="engagement" data-screen-label="Full Engagement Adds">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.engagement)}<div class="panel">${section.benefits.map(renderEngagementBenefit).join("")}</div><div class="cta"><div><div class="cl">Engagement contact</div><div class="ct">Next step: contact us to scope the engagement</div></div><a class="cbtn" href="mailto:${escapeHtml(section.contactEmail)}">${escapeHtml(section.contactEmail)}</a></div></section>`;
+    return `<section class="sec" id="engagement" data-screen-label="Full Engagement Adds">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.engagement)}<div class="panel">${section.benefits.map(renderEngagementBenefit).join("")}</div><div class="cta"><div><div class="cl">Engagement contact</div><div class="ct">Next step: scope a single-deal pilot against your live transaction</div></div><a class="cbtn" href="mailto:${escapeHtml(section.contactEmail)}">${escapeHtml(section.contactEmail)}</a></div></section>`;
   }
   if (section.id === "audit") {
     return `<footer class="audit" id="audit">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.audit)}<div class="audit-grid"><div class="audit-col"><div class="acl">Methodology</div><div class="acv"><b>Mergevue Forecast Method</b><br>${escapeHtml(section.reportVersion)}<br>${escapeHtml(section.contactEmail)}<div class="audit-tracker"><b>Preview verification tracker</b><br>Display-only preview; not ledger-recorded. Verification outcomes require the engagement workflow before any public record treatment.</div></div></div><div class="audit-col"><div class="acl">Audit trail</div><div class="acv">Report | <b>${escapeHtml(section.reportId)}</b><br>Generated | ${escapeHtml(section.generatedAt)}<br>Scenario | ${escapeHtml(section.scenarioId)}<br>Tracker | ${escapeHtml(section.trackRecordUrl)}</div></div><div class="audit-qr"><div class="qr" aria-label="QR ${escapeHtml(section.qrLabel)}"></div><div class="ql">Preview audit<br>reference</div></div></div><div class="audit-foot"><span>(c) 2026 Mergevue</span><span>Display-only preview; not ledger-recorded.</span></div></footer>`;
   }
   return `<section class="sec">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES[section.id] ?? "")}</section>`;
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
