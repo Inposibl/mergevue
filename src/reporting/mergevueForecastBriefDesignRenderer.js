@@ -579,6 +579,7 @@ export function buildMergevueForecastBriefDesignModel(report, options = {}) {
       target: Object.freeze({ company: scenario.targetName, pattern: targetPattern }),
       dealType: scenario.dealType,
       enterpriseValue: stripLabel(scenario.enterpriseValueBand, "Enterprise value band"),
+      totalEconomicExposureRange: cleanText((Array.isArray(economics?.economicRiskLines) ? economics.economicRiskLines : []).find((line) => /Economic risk posture/i.test(String(line))) ?? "TOTAL ECONOMIC EXPOSURE RANGE: Not calculated — deal economics inputs were not provided."),
       predictionsSummary: Object.freeze(predictions.map((prediction) => Object.freeze({
         windowLabel: prediction.window,
         verifyBy: prediction.verifyBy,
@@ -728,6 +729,12 @@ export function renderMergevueForecastBriefHtml(model) {
   .cover-page .epred .what{ line-height:1.2; }
   .cover-page .exec-action{ padding:8px 10px; }
   .cover-page .exec-action .txt{ margin-top:3px; line-height:1.22; }
+  .cover-page .economic-cover-cell{ min-width:260px; }
+  .cover-page .economic-range-k{ margin-top:5px; }
+  .cover-page .economic-range-v{ font-size:12px; line-height:1.18; max-width:320px; }
+  .cover-page .cover-executive-summary{ padding:8px 10px; border:var(--hair) solid var(--line); border-radius:var(--r); background:var(--surface-2); }
+  .cover-page .cover-executive-summary-title{ font-family:var(--mono); font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); font-weight:800; }
+  .cover-page .cover-executive-summary p{ margin:4px 0 0; font-size:12px; line-height:1.24; color:var(--ink); }
   .page-preds{ padding:10mm 13mm 9mm; }
   .page-preds .sec{ padding-top:18px; }
   .page-preds .sec-head{ margin-bottom:10px; padding-bottom:8px; }
@@ -1121,7 +1128,7 @@ function renderArchiveMasthead(model) {
   return `<header class="mast">
     <div class="masthead mast-row">
       <div class="brand"><div class="mark" aria-hidden="true"></div><div><div class="brand-name">MERGEVUE</div><div class="brand-sub">View into the merge</div></div></div>
-      <div class="mast-meta">Diagnostic <b>${escapeHtml(model.masthead.diagnosticId)}</b><br>Issued <b>${escapeHtml(formatForecastDate(model.masthead.issuedAt))}</b><br>Tier <b>${escapeHtml(model.masthead.tierLabel)}</b><br><div class="classif">Preview</div></div>
+      <div class="mast-meta">Diagnostic <b>${escapeHtml(model.masthead.diagnosticId)}</b><br>Issued <b>${escapeHtml(formatForecastDate(model.masthead.issuedAt))}</b><br>Tier <b>${escapeHtml(model.masthead.tierLabel)}</b><br><div class="classif">STRICTLY CONFIDENTIAL</div></div>
     </div>
     <div class="doc-title-wrap">
       <div class="doc-type">${escapeHtml(model.header.eyebrow)}</div>
@@ -1145,13 +1152,39 @@ function renderFirstPageEvidenceGate(model) {
   return `<div class="gate evidence-gate"><div class="evidence-gate-head"><div class="evidence-gate-title">EVIDENCE BASIS & CONFIDENCE GATE</div><span class="pips">${renderPips(model.compatibility.confidence)}</span></div>${rows.map(([label, value]) => `<div class="evidence-gate-row"><div class="evidence-gate-label">${escapeHtml(label)}</div><div class="evidence-gate-copy">${escapeHtml(value)}</div></div>`).join("")}</div>`;
 }
 
+function renderCoverHeadline(model) {
+  const headline = String(model?.forecast?.headline ?? "").trim();
+  const acquirerPattern = String(model?.forecast?.acquirer?.pattern ?? "").trim();
+  const targetPattern = String(model?.forecast?.target?.pattern ?? "").trim();
+  const baseHeadline = headline || "The survey results identify the operating environments used for this forecast.";
+  const surveySentence = acquirerPattern && targetPattern && acquirerPattern === targetPattern
+    ? "The survey results indicate a shared operating logic, so the main integration risk is less about open cultural collision and more about hidden differences in authority, routines, and control expectations."
+    : "The survey results indicate different operating logics, so the main integration risk is likely to appear where decision authority, trust, and execution rhythm are translated into daily integration practice.";
+  return `${baseHeadline} ${surveySentence}`;
+}
+
+function renderCoverEconomicExposure(model) {
+  const enterpriseValue = cleanText(model?.forecast?.enterpriseValue || "Economic exposure: qualitative only");
+  const rawRange = cleanText(model?.forecast?.totalEconomicExposureRange || "TOTAL ECONOMIC EXPOSURE RANGE: Not calculated — deal economics inputs were not provided.");
+  const rangeValue = rawRange.replace(/^Economic risk posture:\s*/i, "").replace(/^TOTAL ECONOMIC EXPOSURE RANGE:\s*/i, "");
+  return `<div class="deal-cell economic-cover-cell"><span class="k">Economic exposure</span><span class="v tnum">${escapeHtml(enterpriseValue)}</span><span class="k economic-range-k">Total economic exposure range</span><span class="v tnum economic-range-v">${escapeHtml(rangeValue)}</span></div>`;
+}
+
+function renderCoverExecutiveSummary(model) {
+  const band = cleanText(model?.compatibility?.bandLabel || "current compatibility band").toLowerCase();
+  const acquirerPattern = cleanText(model?.forecast?.acquirer?.pattern || "the acquirer environment");
+  const targetPattern = cleanText(model?.forecast?.target?.pattern || "the target environment");
+  const samePattern = acquirerPattern && targetPattern && acquirerPattern === targetPattern;
+  const summary = samePattern
+    ? `The result indicates ${band} because both organisations show the same operating environment. The executive risk is false confidence: integration may look aligned while authority duplication, routine overwrite, or control friction appears during the first 60 days.`
+    : `The result indicates ${band} across two different operating environments: ${acquirerPattern} and ${targetPattern}. The executive risk is translation failure: integration decisions may damage the routines, authority patterns, or trust mechanisms that currently protect deal value.`;
+  return `<div class="cover-executive-summary"><div class="cover-executive-summary-title">Executive summary</div><p>${escapeHtml(summary)}</p></div>`;
+}
+
 function renderArchiveExecutive(model) {
   const score = model.compatibility.score;
   const scoreDisplay = Number.isFinite(score) ? Math.ceil(score) : null;
   const bandClass = `band-${model.compatibility.bandKey}`;
-  const epreds = model.forecast.predictionsSummary.map((prediction) => (
-    `<div class="epred"><span class="when mono">${escapeHtml(prediction.verifyBy)}</span><span class="what">${escapeHtml(prediction.oneLine)}</span></div>`
-  )).join("");
   return `<section class="sec" id="exec" style="padding-top:0" data-screen-label="Executive Summary"><div class="exec">
     <div class="exec-score">
       <div class="kicker">Environment Compatibility Score В· ECS</div>
@@ -1163,14 +1196,14 @@ function renderArchiveExecutive(model) {
       ${renderFirstPageEvidenceGate(model)}
     </div>
     <div class="exec-body">
-      <p class="exec-thesis">${escapeHtml(model.forecast.headline)}</p>
+      <p class="exec-thesis">${escapeHtml(renderCoverHeadline(model))}</p>
       <div class="exec-deal deal-grid">
         <div class="deal-cell"><span class="k">Acquirer</span><span class="v">${escapeHtml(model.forecast.acquirer.company)} <small>В· ${escapeHtml(model.forecast.acquirer.pattern)}</small></span></div>
         <div class="deal-cell"><span class="k">Target</span><span class="v">${escapeHtml(model.forecast.target.company)} <small>В· ${escapeHtml(model.forecast.target.pattern)}</small></span></div>
         <div class="deal-cell"><span class="k">Deal type</span><span class="v">${escapeHtml(model.forecast.dealType)}</span></div>
-        <div class="deal-cell"><span class="k">Economic exposure</span><span class="v tnum">${escapeHtml(model.forecast.enterpriseValue)}</span></div>
+        ${renderCoverEconomicExposure(model)}
       </div>
-      <div class="exec-preds"><div class="epl">Three sealed predictions вЂ” verify by date</div>${epreds}</div>
+      ${renderCoverExecutiveSummary(model)}
       <div class="exec-action"><span class="lab">First integration control move</span><span class="txt">${escapeHtml(model.forecast.recommendedAction)}</span></div>
     </div>
   </div></section>`;
