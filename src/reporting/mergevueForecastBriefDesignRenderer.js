@@ -905,7 +905,7 @@ export function renderMergevueForecastBriefHtml(model) {
   #economic .cat-top{ margin-bottom:5px; }
   #economic .cat .cn{ font-size:10.5px; }
   #economic .cat .cr{ font-size:10px; }
-  #economic .cat p{ font-size:9.6px; line-height:1.25; margin:5px 0 7px; }
+  #economic .cat p{ font-size:9.6px; line-height:1.25; margin:5px 0 4px; } #economic .cat-scale-note{ font-family:var(--mono); font-size:12px!important; line-height:1.12; color:var(--ink-3); margin:0 0 3px; }
 
   .evidence-page .sec{ padding-top:14px; }
   .evidence-page .panel{ padding:14px 16px; }
@@ -1025,7 +1025,7 @@ export function renderMergevueForecastBriefHtml(model) {
   .economic-page #economic .cats{ gap:5px!important; margin-top:6px!important; }
   .economic-page #economic .cat{ padding:7px 9px!important; }
   .economic-page #economic .cat-top{ margin-bottom:2px; }
-  .economic-page #economic .cat p{ line-height:1.16!important; margin:2px 0 4px!important; }
+  .economic-page #economic .cat p{ line-height:1.14!important; margin:2px 0 2px!important; } .economic-page #economic .cat-scale-note{ font-family:var(--mono); font-size:12px!important; line-height:1.08!important; color:var(--ink-3); margin:0 0 2px!important; }
   .economic-page #economic .cat-bar,
   .economic-page #economic .bar{ margin-top:4px!important; height:4px!important; }
   .economic-page #economic{ min-height:0; display:block; }
@@ -1335,6 +1335,15 @@ function explainEconomicCategory(label) {
   return "Risk indicator showing where economic exposure may appear if behavioural friction persists after close.";
 }
 
+function explainEconomicScore(label, value) {
+  const score = Math.max(0, Math.min(100, Number(value) || 0));
+  const text = cleanText(label).toLowerCase();
+  if (text.includes("operating drift")) return `${score} on this scale = current drift exposure; 100 = maximum operating drift exposure.`;
+  if (text.includes("knowledge leakage")) return `${score} on this scale = current leakage exposure; 100 = maximum knowledge leakage exposure.`;
+  if (text.includes("decision delay")) return `${score} on this scale = current delay exposure; 100 = maximum decision-delay exposure.`;
+  return `${score} on this scale = current exposure; 100 = maximum exposure.`;
+}
+
 function renderEconomicLineItems(lines) {
   const items = Array.isArray(lines) ? lines.filter((line) => cleanText(line)).map(explainEconomicLine) : [];
   if (!items.length) return "";
@@ -1409,7 +1418,7 @@ function renderHtmlSection(section, number, context = {}) {
   if (section.id === "economics") {
     const economicLines = Array.isArray(section.economicRiskLines) ? section.economicRiskLines : [];
     const economicLineItems = renderEconomicLineItems(economicLines);
-    const categories = section.categories.map((category) => `<div class="cat"><div class="cat-top"><span class="cn">${escapeHtml(category.label)}</span><span class="cr tnum">${category.value} / 100</span></div><p>${escapeHtml(explainEconomicCategory(category.label))}</p><div class="cat-bar"><span style="width:${category.value}%"></span></div></div>`).join("");
+    const categories = section.categories.map((category) => `<div class="cat"><div class="cat-top"><span class="cn">${escapeHtml(category.label)}</span><span class="cr tnum">${category.value} / 100</span></div><p>${escapeHtml(explainEconomicCategory(category.label))}</p><div class="cat-scale-note">${escapeHtml(explainEconomicScore(category.label, category.value))}</div><div class="cat-bar"><span style="width:${category.value}%"></span></div></div>`).join("");
     return `<section class="sec" id="economic" data-screen-label="Economic Translation">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.economics)}<div class="env-total"><div class="et-l"><div class="lab">Economic exposure</div><div class="economic-label">${escapeHtml(section.enterpriseValueBand)}</div></div><div class="et-r">${escapeHtml(section.valuationDisclaimer)}<br>${escapeHtml(section.engagementTierRequirement)}</div></div>${economicLineItems}<div class="cats">${categories}</div></section>`;
   }
   if (section.id === "actions") {
