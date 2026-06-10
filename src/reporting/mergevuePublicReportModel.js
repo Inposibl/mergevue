@@ -32,10 +32,10 @@ export const MERGEVUE_PUBLIC_REPORT_BLOCKS = Object.freeze([
 const REPORT_VERSION = "mergevue-public-forecast-brief-mvp-1";
 const FALLBACK = "Not available";
 const APPROVED_DEAL_TYPE = "Absorb / neutralize a competitor";
-const APPROVED_ENTERPRISE_VALUE_BAND = "Enterprise value band: $50M–$500M EV";
+const APPROVED_ENTERPRISE_VALUE_BAND = "Enterprise value band: $50M-$500M EV";
 const APPROVED_VALUATION_DISCLAIMER = "Illustrative posture, not a valuation.";
 const APPROVED_ENGAGEMENT_TIER_REQUIREMENT = "Absolute risk figures require the engagement-tier economic model.";
-const APPROVED_OVERWRITE_RISK_EXPLANATION = "The main risk is not direct resource conflict. It is overwrite risk: the acquirer may simplify or underuse the target’s more structured operating system, causing institutional knowledge and planning discipline to decay after close.";
+const APPROVED_OVERWRITE_RISK_EXPLANATION = "The main risk is translation failure: the acquirer may impose its standard integration logic before it understands which target routines preserve loyalty, trust, knowledge flow, execution quality, or deal-critical continuity after close.";
 
 const TIMING_LOGIC = Object.freeze({
   signalSetup: "before Day 30",
@@ -379,7 +379,7 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
       collisionSummary: cleanString(friction.fp1 ?? narrative.situation ?? "The collision thesis is based on the current environment-pair result."),
       primaryTension: cleanString(friction.primaryConflictedResources ?? `${leadResource} is the primary tension to monitor.`),
       whyItMatters: cleanString(narrative.implication ?? "The risk matters because early operating assumptions can become permanent integration defaults."),
-      postCloseFailureMode: "The acquirer simplifies the target operating system before it understands which routines carry planning discipline, knowledge transfer, or execution quality.",
+      postCloseFailureMode: "The acquirer translates the target operating system too early into its own management language before it understands which routines preserve trust, knowledge flow, informal authority, execution quality, or deal-critical continuity.",
     },
     resourceConflictMap: {
       overwriteRiskExplanation: APPROVED_OVERWRITE_RISK_EXPLANATION,
