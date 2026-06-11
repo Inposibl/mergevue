@@ -634,7 +634,7 @@ export function buildMergevueForecastBriefDesignModel(report, options = {}) {
     {
       id: SECTION_IDS[7],
       title: MERGEVUE_PUBLIC_REPORT_BLOCKS[7],
-      enterpriseValueBand: cleanText(economics.enterpriseValueBand).replace(/^Enterprise value \/ deal value provided:/, "Deal value context:"),
+      enterpriseValueBand: cleanText(economics.enterpriseValueBand).replace(/^Enterprise value \/ deal value provided:\s*/, ""),
       valuationDisclaimer: economics.valuationDisclaimer,
       economicRiskPosture: economics.economicRiskPosture,
       economicTriageJudgement: economics.economicTriageJudgement,
@@ -1308,7 +1308,7 @@ function renderCoverEconomicExposure(model) {
   const enterpriseValue = cleanText(model?.forecast?.enterpriseValue || "Deal value not provided");
   const posture = cleanText(model?.forecast?.economicPosture || "Directional");
   const limitation = "Directional triage only. Not a valuation or loss estimate.";
-  return `<div class="deal-cell economic-cover-cell"><span class="k">Economic exposure posture</span><span class="v tnum">${escapeHtml(posture)}</span><span class="k economic-range-k">Preview limitation</span><span class="v economic-range-v">${escapeHtml(limitation)}</span><span class="k economic-range-note">Deal value context: ${escapeHtml(enterpriseValue)}</span></div>`;
+  return `<div class="deal-cell economic-cover-cell"><span class="k">Economic exposure posture</span><span class="v tnum">${escapeHtml(posture)}</span><span class="k economic-range-k">Preview limitation</span><span class="v economic-range-v">${escapeHtml(limitation)}</span><span class="k economic-range-note">Deal value context: ${escapeHtml(cleanText(enterpriseValue).replace(/^Enterprise value \/ deal value provided:\s*/, ""))}</span></div>`;
 }
 
 function renderCoverExecutiveSummary(model) {
