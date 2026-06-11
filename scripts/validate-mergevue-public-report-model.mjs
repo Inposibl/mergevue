@@ -149,9 +149,9 @@ for (const prediction of model.sealedPredictions.predictions) {
 
 assert.equal(model.compatibilityScoreAndDealScenario.dealType, "Absorb / neutralize a competitor");
 assert.equal(model.compatibilityScoreAndDealScenario.enterpriseValueBand, "Enterprise value / deal value provided: USD 500 million (estimated).");
-assert.equal(model.economicRiskTranslation.enterpriseValueBand, "ECONOMIC EXPOSURE MODEL");
-assert.equal(model.economicRiskTranslation.valuationDisclaimer, "Illustrative posture, not a valuation. Deal economics inputs are used only to size an order-of-magnitude risk envelope.");
-assert.equal(model.economicRiskTranslation.engagementTierRequirement, "Absolute risk figures require the engagement-tier economic model. ECS valuation band: HIGH COMPATIBILITY (85.3; rounded to 86 / 100).");
+assert.equal(model.economicRiskTranslation.enterpriseValueBand, "Enterprise value / deal value provided: USD 500 million (estimated).");
+assert.equal(model.economicRiskTranslation.valuationDisclaimer, "Directional triage only. Not a valuation or loss estimate.");
+assert.equal(model.economicRiskTranslation.engagementTierRequirement, "Quantified modelling requires deal-room economics, role-level evidence, integration milestones, and analyst review.");
 
 assert.equal(
   model.resourceConflictMap.overwriteRiskExplanation,

@@ -72,6 +72,16 @@ function stripLabel(value, label) {
   return text.replace(pattern, "").trim();
 }
 
+function formatValuationRiskBasis(value) {
+  const text = stripLabel(value, "Enterprise value band");
+  if (!text) return "";
+  const provided = text.match(/Enterprise value \/ deal value provided:\s*(.+?)\s*\(estimated\)\.?$/i);
+  if (provided) return `Valuation risk basis: ${provided[1]} estimated deal value.`;
+  const band = text.match(/Enterprise value band:\s*(.+)$/i);
+  if (band) return `Valuation risk basis: ${band[1]}.`;
+  return `Valuation risk basis: ${text}`;
+}
+
 function formatForecastDate(value) {
   const text = cleanText(value);
   const match = text.match(/^(\d{4})-(\d{2})-(\d{2})/);
@@ -634,7 +644,7 @@ export function buildMergevueForecastBriefDesignModel(report, options = {}) {
     {
       id: SECTION_IDS[7],
       title: MERGEVUE_PUBLIC_REPORT_BLOCKS[7],
-      enterpriseValueBand: stripLabel(economics.enterpriseValueBand, "Enterprise value band"),
+      enterpriseValueBand: formatValuationRiskBasis(economics.enterpriseValueBand),
       valuationDisclaimer: economics.valuationDisclaimer,
       economicRiskPosture: economics.economicRiskPosture,
       economicRiskLines: Array.isArray(economics.economicRiskLines) ? economics.economicRiskLines : [],
@@ -710,7 +720,7 @@ export function buildMergevueForecastBriefDesignModel(report, options = {}) {
       target: Object.freeze({ company: scenario.targetName, pattern: targetPattern }),
       dealType: scenario.dealType,
       enterpriseValue: stripLabel(scenario.enterpriseValueBand, "Enterprise value band"),
-      totalEconomicExposureRange: cleanText((Array.isArray(economics?.economicRiskLines) ? economics.economicRiskLines : []).find((line) => /Economic risk posture/i.test(String(line))) ?? "TOTAL ECONOMIC EXPOSURE RANGE: Not calculated вЂ” deal economics inputs were not provided."),
+      economicPosture: cleanText(economics?.economicRiskPosture || "Directional"),
       predictionsSummary: Object.freeze(predictions.map((prediction) => Object.freeze({
         windowLabel: prediction.window,
         verifyBy: prediction.verifyBy,
@@ -1297,10 +1307,10 @@ function renderCoverHeadline(model) {
 }
 
 function renderCoverEconomicExposure(model) {
-  const enterpriseValue = cleanText(model?.forecast?.enterpriseValue || "Economic exposure: qualitative only");
-  const rawRange = cleanText(model?.forecast?.totalEconomicExposureRange || "TOTAL ECONOMIC EXPOSURE RANGE: Not calculated вЂ” deal economics inputs were not provided.");
-  const rangeValue = rawRange.replace(/^Economic risk posture:\s*/i, "").replace(/^TOTAL ECONOMIC EXPOSURE RANGE:\s*/i, "");
-  return `<div class="deal-cell economic-cover-cell"><span class="k">Economic exposure</span><span class="v tnum">${escapeHtml(enterpriseValue)}</span><span class="k economic-range-k">Total economic exposure range</span><span class="v tnum economic-range-v">${escapeHtml(rangeValue)}</span><span class="k economic-range-note">Planning envelope; components may overlap. Not a valuation.</span></div>`;
+  const enterpriseValue = cleanText(model?.forecast?.enterpriseValue || "Deal value not provided");
+  const posture = cleanText(model?.forecast?.economicPosture || "Directional");
+  const limitation = "Directional triage only. Not a valuation or loss estimate.";
+  return `<div class="deal-cell economic-cover-cell"><span class="k">Economic exposure posture</span><span class="v tnum">${escapeHtml(posture)}</span><span class="k economic-range-k">Preview limitation</span><span class="v economic-range-v">${escapeHtml(limitation)}</span><span class="k economic-range-note">Deal value context: ${escapeHtml(enterpriseValue)}</span></div>`;
 }
 
 function renderCoverExecutiveSummary(model) {
@@ -1484,19 +1494,6 @@ function renderResourceConflictSummary(section) {
   const ecsClarifier = "ECS is not an average of the displayed resources. It reflects structural compatibility between the two operating environments; the resource map shows where integration pressure is most likely to damage or preserve value."; return `<div class="resource-summary"><h4>What this means in practice</h4><p>${escapeHtml(intro)} ${escapeHtml(ecsClarifier)}</p><div class="resource-summary-grid">${rows}</div></div>`;
 }
 
-function explainEconomicLine(line) {
-  const text = cleanText(line);
-  if (/Average annual compensation/i.test(text)) return ["Compensation assumption", text, "Annual cost input for continuity sizing, not a salary audit."];
-  if (/Key personnel at risk/i.test(text)) { const count = Number(String(text).replace(/[^0-9.]/g, "")); const isLargePool = Number.isFinite(count) && count > 100; const formattedCount = Number.isFinite(count) ? count.toLocaleString("en-US") : String(text).replace(/^Key personnel at risk:\s*/i, "").replace(/\.$/, ""); return [isLargePool ? "Continuity exposure pool" : "Key people at risk", isLargePool ? `Continuity exposure pool: ${formattedCount} affected employees / roles.` : text.replace(/^Key personnel at risk:/i, "Key personnel at risk:"), isLargePool ? "Affected population for continuity-cost sizing; not a prediction that all will leave." : "This is the provided or estimated count of people whose departure, disengagement, or defensive behaviour could materially affect integration quality. It is an exposure input, not a prediction that all named people will leave."]; }
-  if (/ECS valuation band/i.test(text)) return ["ECS economic risk band", text.replace(/^ECS valuation band:/i, "ECS economic risk band:"), "Translates ECS into financial-risk posture. Separate from the cover label: large deal value, contingent value, or continuity exposure can still create material risk."];
-  if (/EV Discount/i.test(text)) return ["Potential EV discount pressure", text, "Potential valuation pressure if integration risk is priced into the transaction."];
-  if (/Earn-Out Exposure/i.test(text)) return ["Earn-out exposure", text, "Contingent value that may be harder to realise if friction disrupts milestones."];
-  if (/Talent Cost/i.test(text)) return ["Talent-loss exposure", text, "Replacement, retention, disruption, and productivity cost tied to key-person continuity."];
-  if (/Economic risk posture/i.test(text)) return ["Total economic exposure range", text, "Order-of-magnitude decision-risk envelope across EV pressure, earn-out, and key-person cost. Components may overlap; planning range, not formal valuation."];
-  if (/Order-of-magnitude/i.test(text)) return ["Method limit", text, "The numbers are intended for decision posture and integration planning, not as a forecast of realised loss. Formal financial treatment requires engagement-tier modelling and analyst review."];
-  return ["Economic input", text, "This line is part of the deal economics input used to translate operating friction into a practical financial exposure range."];
-}
-
 function explainEconomicCategory(label) {
   const text = cleanText(label).toLowerCase();
   if (text.includes("operating drift")) return "Risk that post-close working rhythm, management discipline, and operating process start drifting away from the integration plan.";
@@ -1514,11 +1511,6 @@ function explainEconomicScore(label, value) {
   return "";
 }
 
-function renderEconomicLineItems(lines) {
-  const items = Array.isArray(lines) ? lines.filter((line) => cleanText(line)).map(explainEconomicLine) : [];
-  if (!items.length) return "";
-  return `<div class="econ-lines">${items.map(([label, value, explanation]) => `<div class="econ-line"><div class="econ-line-head"><span>${escapeHtml(label)}</span><b>${escapeHtml(value)}</b></div>${cleanText(explanation) ? `<p>${escapeHtml(explanation)}</p>` : ""}</div>`).join("")}</div>`;
-}
 
 function renderEngagementBenefit(benefit) {
   const text = cleanText(benefit).replace(/\s+\|\s+/g, ". ").replace(/\beyond survey noise\./i, "Beyond survey noise.");
@@ -1585,10 +1577,9 @@ function renderHtmlSection(section, number, context = {}) {
     return `<section class="sec" id="timeline" data-screen-label="Timeline of Proposed Actions">${sectionHead(number, "Timeline of Proposed Actions", ARCHIVE_SECTION_NOTES.timeline)}<div class="legend"><span>${escapeHtml(section.timingLogic.signalSetup)}</span><span>${escapeHtml(section.timingLogic.observationWindow)}</span><span>${escapeHtml(section.timingLogic.verificationDeadline)}</span></div><div class="tl">${columns}</div>${proposedActions}</section>`;
   }
   if (section.id === "economics") {
-    const economicLines = Array.isArray(section.economicRiskLines) ? section.economicRiskLines : [];
-    const economicLineItems = renderEconomicLineItems(economicLines);
-    const categories = section.categories.map((category) => { const scaleNote = explainEconomicScore(category.label, category.value); return `<div class="cat"><div class="cat-top"><span class="cn">${escapeHtml(category.label)}</span><span class="cr tnum">${category.value} / 100</span></div><p>${escapeHtml(explainEconomicCategory(category.label))}</p>${cleanText(scaleNote) ? `<div class="cat-scale-note">${escapeHtml(scaleNote)}</div>` : ""}<div class="cat-bar"><span style="width:${category.value}%"></span></div></div>`; }).join("");
-    return `<section class="sec" id="economic" data-screen-label="Economic Translation">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.economics)}<div class="env-total"><div class="et-l"><div class="lab">Economic exposure</div><div class="economic-label">${escapeHtml(section.enterpriseValueBand)}</div></div><div class="et-r">${escapeHtml(section.valuationDisclaimer)}<br>${escapeHtml(section.engagementTierRequirement)}</div></div><div class="panel economic-message"><strong>Main economic message.</strong> ${escapeHtml(section.economicRiskPosture).replace(/^Main economic message:\s*/i, "")}</div>${economicLineItems}<div class="cats">${categories}</div></section>`;
+    const channels = Array.isArray(section.economicTriageChannels) ? section.economicTriageChannels : [];
+    const channelRows = channels.map((channel) => `<div class="evrow"><span class="ek">${escapeHtml(channel.label)}</span><span class="ev">${escapeHtml(channel.severity)}</span></div>`).join("");
+    return `<section class="sec" id="economic" data-screen-label="Economic Exposure Triage">${sectionHead(number, "Economic Exposure Triage", ARCHIVE_SECTION_NOTES.economics)}<div class="panel economic-message"><strong>Preview judgement.</strong> ${escapeHtml(section.economicTriageJudgement)}</div><div class="env-total"><div class="et-l"><div class="lab">Economic posture</div><div class="economic-label">${escapeHtml(section.economicRiskPosture)}</div></div><div class="et-r">${escapeHtml(section.valuationDisclaimer)}<br>${escapeHtml(section.evUse)}</div></div><div class="collide"><div class="collide-row"><div class="cl">Posture rule</div><div class="cr">${escapeHtml(section.economicTriageRule)}</div></div><div class="collide-row"><div class="cl">Why this posture</div><div class="cr">${escapeHtml(section.economicTriageReason)}</div></div><div class="collide-row"><div class="cl">Deal value context</div><div class="cr">${escapeHtml(section.enterpriseValueBand)}</div></div></div><div class="panel decision-gap"><h4>Exposure channels</h4><div class="decision-gap-grid">${channelRows}</div></div><div class="collide"><div class="collide-row"><div class="cl">What this preview can say</div><div class="cr">${escapeHtml(section.whatThisPreviewCanSay)}</div></div><div class="collide-row"><div class="cl">What it cannot say</div><div class="cr">${escapeHtml(section.whatThisPreviewCannotSay)}</div></div><div class="collide-row"><div class="cl">Required for quantified modelling</div><div class="cr">${escapeHtml(section.requiredForQuantifiedModelling)}</div></div></div></section>`;
   }
   if (section.id === "actions") {
     return `<section class="sec" id="actions" data-screen-label="Recommended Actions">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.actions)}<div class="acts">${renderActionPanel("Before close", section.beforeClose)}${renderActionPanel("After close", section.afterClose)}</div><div class="cta"><div><div class="cl">Recommended next action</div><div class="ct">${escapeHtml(section.beforeClose[0]?.actionTitle || section.afterClose[0]?.actionTitle)}</div></div><div class="cbtn">Book practitioner session</div></div></section>`;
@@ -1597,9 +1588,9 @@ function renderHtmlSection(section, number, context = {}) {
     const gaps = [
       ["Who carries the risk", "Which named leaders, roles, or teams are most exposed to disengagement, resistance, or knowledge loss."],
       ["What must be protected", "Which decision rights, knowledge flows, routines, or trust mechanisms should be preserved before integration changes begin."],
-      ["Which value pools are actually exposed", "The preview provides an order-of-magnitude posture; the full engagement allocates exposure to actual value pools, owners, time windows, and mitigation levers."],
+      ["Which value pools are actually exposed", "The preview provides a directional economic triage posture; the full engagement allocates exposure to actual value pools, owners, time windows, and mitigation levers."],
     ];
-    return `<section class="sec" id="evidence" data-screen-label="Decision Gap">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.evidence)}<div class="panel decision-gap"><h4>What this preview cannot decide for you</h4><p>This brief identifies the likely post-close fault lines and gives an order-of-magnitude economic posture, but it does not yet allocate risk to named leaders, protected routines, value pools, owners, or mitigation levers.</p><div class="decision-gap-grid">${gaps.map(([label, value]) => `<div class="evrow"><span class="ek">${escapeHtml(label)}</span><span class="ev">${escapeHtml(value)}</span></div>`).join("")}</div><p><strong>The full engagement converts this preview into an executable integration-control plan.</strong></p></div></section>`;
+    return `<section class="sec" id="evidence" data-screen-label="Decision Gap">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.evidence)}<div class="panel decision-gap"><h4>What this preview cannot decide for you</h4><p>This brief identifies the likely post-close fault lines and gives a directional economic triage posture, but it does not yet allocate risk to named leaders, protected routines, value pools, owners, or mitigation levers.</p><div class="decision-gap-grid">${gaps.map(([label, value]) => `<div class="evrow"><span class="ek">${escapeHtml(label)}</span><span class="ev">${escapeHtml(value)}</span></div>`).join("")}</div><p><strong>The full engagement converts this preview into an executable integration-control plan.</strong></p></div></section>`;
   }
   if (section.id === "engagement") {
     return `<section class="sec" id="engagement" data-screen-label="Full Engagement Adds">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.engagement)}<div class="panel">${section.benefits.map(renderEngagementBenefit).join("")}</div><div class="cta"><div><div class="cl">Engagement contact</div><div class="ct">Next step: scope a single-deal pilot against your live transaction</div></div><a class="cbtn" href="mailto:${escapeHtml(section.contactEmail)}">${escapeHtml(section.contactEmail)}</a></div></section>`;

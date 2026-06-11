@@ -331,6 +331,14 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
   const publicEnterpriseValueLabel = hasDealEconomicsInputs
     ? (dealEconomicsReport?.enterpriseValue?.line || "Economic exposure: qualitative only")
     : "Economic exposure: qualitative only";
+  const economicTriageChannels = [
+    { label: "Talent continuity", severity: "High" },
+    { label: "Earn-out credibility", severity: "Medium" },
+    { label: "Decision delay", severity: "Medium" },
+    { label: "Knowledge continuity", severity: "Medium" },
+  ];
+  const economicTriagePosture = "High";
+  const economicTriageReason = "Talent continuity is High, which sets the economic posture directly.";
 
   return {
     brand: { ...BRAND },
@@ -407,22 +415,19 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
       phases: timelinePhases(deliverable),
     },
     economicRiskTranslation: {
-      enterpriseValueBand: hasDealEconomicsInputs ? "ECONOMIC EXPOSURE MODEL" : publicEnterpriseValueLabel,
-      valuationDisclaimer: hasDealEconomicsInputs
-        ? "Illustrative posture, not a valuation. Deal economics inputs are used only to size an order-of-magnitude risk envelope."
-        : "Deal economics were not provided. No EV-based risk envelope has been calculated.",
-      economicRiskPosture: hasDealEconomicsInputs
-        ? "Main economic message: high-risk integration posture, with exposure concentrated in EV discount pressure, earn-out delivery, and key-person continuity."
-        : "Qualitative only: the public brief identifies where value leakage could emerge, but does not assign a quantified exposure range.",
-      engagementTierRequirement: hasDealEconomicsInputs
-        ? `${APPROVED_ENGAGEMENT_TIER_REQUIREMENT} ${dealEconomicsReport?.missingInput || dealEconomicsReport?.prompt || ""}`.trim()
-        : "Quantified exposure requires deal value, personnel-at-risk, compensation assumptions, and engagement-tier review.",
-      economicRiskLines: hasDealEconomicsInputs
-        ? publicEconomicLines
-        : [
-          "Deal value was not provided. No EV-based risk envelope has been calculated.",
-          "This public brief therefore treats valuation risk qualitatively through ECS, resource conflict, and post-close behavior signals.",
-        ],
+      enterpriseValueBand: publicEnterpriseValueLabel,
+      valuationDisclaimer: "Directional triage only. Not a valuation or loss estimate.",
+      economicRiskPosture: economicTriagePosture,
+      economicTriageJudgement: "The main economic risk is not immediate value destruction. It is integration drag: the deal may lose speed, decision quality, or knowledge continuity if the target operating logic is compressed too quickly.",
+      economicTriageRule: "Posture equals the highest assessed channel severity. When no channel is High but two or more channels are Medium, posture is raised one band.",
+      economicTriageReason,
+      economicTriageChannels,
+      evUse: "EV sizes materiality context only. It is not scored in the public preview and does not produce a valuation-impact estimate.",
+      whatThisPreviewCanSay: "This preview identifies where economic leakage is most likely to appear and which exposure channels should be tested first.",
+      whatThisPreviewCannotSay: "This is not a valuation, loss estimate, impairment opinion, damages calculation, or investment-committee financial model.",
+      requiredForQuantifiedModelling: "EV, earn-out terms, retention costs, leadership role map, integration milestones, role criticality, and post-close governance evidence.",
+      engagementTierRequirement: "Quantified modelling requires deal-room economics, role-level evidence, integration milestones, and analyst review.",
+      economicRiskLines: [],
     },
     recommendedActions: recommendedActions(deliverable),
     evidenceBasisAndLimits: {
@@ -436,9 +441,9 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
 whatTheFullEngagementAdds: {
   benefits: [
     "This preview flags where your post-close fault lines sit. The full engagement removes the guesswork: it translates that exposure into financial ranges, names who carries the risk, and hands you an executable integration-control framework.",
-    "1. Audit-Grade Confirmation. Beyond survey noise. The buyer's risk: a pre-close read may be just self-reported survey data — easy to posture for and gone the day the deal closes. What you get: an evidence-reviewed environment coding process run by M&A analysts, cross-referenced against the target's operational artefacts, structure charts, and documentary evidence, then signed off by an analyst. You build integration strategy on durable operating routines, not temporary pre-close posturing.",
-    "2. Definitive Personnel Mapping. Named roles and vulnerability windows. The buyer's risk: scepticism that an external model can identify who is actually exposed. What you get: an individual-level read of the target's actual leadership team — who is structurally most exposed to disengaging, in which observation window, and where decision rights and management cadence fracture under your standard integration logic. It moves retention budget from blanket coverage to targeted hold.",
-    "3. Quantified Exposure & Playbook. The number and the Day 30 / 60 / 90 governance. The buyer's risk: paying for an abstract risk index that will not survive an investment-committee meeting. What you get: engagement-tier economic modelling that translates this deal's risk band into exposure ranges — EV-discount, earn-out and talent-loss envelopes, structuring-grade ranges rather than a valuation — paired with a ready-to-execute integration-control design: owner-level actions and a Day 30 / 60 / 90 governance cadence.",
+    "1. Audit-Grade Confirmation. Beyond survey noise. The buyer's risk: a pre-close read may be just self-reported survey data - easy to posture for and gone the day the deal closes. What you get: an evidence-reviewed environment coding process run by M&A analysts, cross-referenced against the target's operational artefacts, structure charts, and documentary evidence, then signed off by an analyst. You build integration strategy on durable operating routines, not temporary pre-close posturing.",
+    "2. Definitive Personnel Mapping. Named roles and vulnerability windows. The buyer's risk: scepticism that an external model can identify who is actually exposed. What you get: an individual-level read of the target's actual leadership team - who is structurally most exposed to disengaging, in which observation window, and where decision rights and management cadence fracture under your standard integration logic. It moves retention budget from blanket coverage to targeted hold.",
+    "3. Quantified Exposure & Playbook. The number and the Day 30 / 60 / 90 governance. The buyer's risk: paying for an abstract risk index that will not survive an investment-committee meeting. What you get: engagement-tier economic modelling that translates this deal's risk band into exposure ranges - EV-discount, earn-out and talent-loss envelopes, structuring-grade ranges rather than a valuation - paired with a ready-to-execute integration-control design: owner-level actions and a Day 30 / 60 / 90 governance cadence.",
     "De-risked next step. Before any full commitment, your deal team can scope this against your live transaction - and, if useful, start with a single-deal pilot rather than the full engagement.",
   ],
   cta: `Next step: contact ${BRAND.contactEmail} to scope the engagement.`,

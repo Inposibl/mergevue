@@ -15,7 +15,7 @@ const REQUIRED_OUTPUT_STRINGS = Object.freeze([
   "report@mergevue.com",
   "Forecast Preview",
   "Display-only preview; not ledger-recorded.",
-  "This public brief therefore treats valuation risk qualitatively through ECS, resource conflict, and post-close behavior signals.",
+  "Directional triage only. Not a valuation or loss estimate.",
   "The main risk is translation failure: the acquirer may impose its standard integration logic before it understands which target routines preserve loyalty, trust, knowledge flow, execution quality, or deal-critical continuity after close.",
   "before Day 30",
   "Days 30-60",

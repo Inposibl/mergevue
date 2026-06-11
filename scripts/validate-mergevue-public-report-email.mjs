@@ -16,9 +16,9 @@ const REQUIRED_EMAIL_STRINGS = Object.freeze([
   "report@mergevue.com",
   "Forecast Preview",
   "Display-only preview; not ledger-recorded.",
-  "ECONOMIC EXPOSURE MODEL",
-  "Illustrative posture, not a valuation.",
-  "Absolute risk figures require the engagement-tier economic model.",
+  "Not a valuation or loss estimate",
+  "Directional triage only. Not a valuation or loss estimate.",
+  "Quantified modelling requires deal-room economics, role-level evidence, integration milestones, and analyst review.",
   "Absorb / neutralize a competitor",
   "McDonald's",
 ]);
