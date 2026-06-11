@@ -173,7 +173,7 @@ function buildPredictions(deliverable) {
       predictionWindow: TIMING_LOGIC.signalSetup,
       predictionClaim: clientFacingPredictionText(fallbackPredictionText(deliverable), 0),
       observableSignal: clientFacingPredictionText(anchors[0]?.text ?? fallbackPredictionText(deliverable), 0),
-      verificationMethod: "Check whether the named behavior appears before Day 30.",
+      verificationMethod: "Review Day 0-30 changes to the target planning function: planning-team role changes, cancelled or shortened planning forums, revised integration governance notes, decision logs, and management comments that deprioritise long-range planning.",
       recommendedAction: actionCopy(0, "Protect the highest-risk operating resource before irreversible integration changes begin."),
     },
     {
@@ -181,13 +181,13 @@ function buildPredictions(deliverable) {
       predictionWindow: TIMING_LOGIC.observationWindow,
       predictionClaim: clientFacingPredictionText(anchors[1]?.text ?? "Observe whether the same friction pattern repeats during the first operating cycle.", 1),
       observableSignal: clientFacingPredictionText(anchors[1]?.text ?? "Repeated friction in planning, authority, information flow, or resource allocation.", 1),
-      verificationMethod: "Review operating meetings, decisions, and handoffs during Days 30-60.",
+      verificationMethod: "Review Days 30-60 operating meeting notes, escalation records, handoff documents, planning-cycle changes, decision-rights updates, and examples where strategic planning work is bypassed, compressed, or replaced by immediate execution requests.",
       recommendedAction: actionCopy(2, "Separate preservation from simplification while the repeated friction pattern is tested."),
     },
     {
       predictionTitle: "Early checkpoint",
       predictionWindow: TIMING_LOGIC.verificationDeadline,
-      predictionClaim: clientFacingPredictionText("By Day 60, check whether early signs are visible enough to escalate, revise, or lower the Month 12 concern.", 2),
+      predictionClaim: clientFacingPredictionText("By Day 60, review documentation maintenance, ownership of planning artefacts, dependency on named experts, knowledge-transfer logs, departures or disengagement signals among planning and analyst roles, and whether systematised knowledge is being replaced by informal practitioner memory.", 2),
       observableSignal: clientFacingPredictionText(anchors[2]?.text ?? "A clear repeatable signal by Day 60.", 2),
       verificationMethod: "Use the Day 60 review as an early checkpoint for the longer Month 12 retention-risk claim.",
       recommendedAction: actionCopy(1, "Run the Day 60 early-checkpoint review and decide whether to escalate, revise, or lower the Month 12 concern."),
@@ -654,6 +654,7 @@ export function buildMergevuePublicReportEmailCopy(report) {
 }
 
 export default buildMergevuePublicReportModel;
+
 
 
 

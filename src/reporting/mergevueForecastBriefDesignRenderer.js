@@ -1411,7 +1411,7 @@ function renderResourceConflictSummary(section) {
 function explainEconomicLine(line) {
   const text = cleanText(line);
   if (/Average annual compensation/i.test(text)) return ["Compensation assumption", text, "This is the annual cost assumption used to estimate how expensive key-person departure could become. It is not a salary audit; it is an input for exposure sizing."];
-  if (/Key personnel at risk/i.test(text)) { const count = Number(String(text).replace(/[^0-9.]/g, "")); const isLargePool = Number.isFinite(count) && count > 100; return [isLargePool ? "Continuity exposure pool" : "Key people at risk", text.replace(/^Key personnel at risk:/i, isLargePool ? "Continuity exposure pool:" : "Key personnel at risk:"), isLargePool ? "This is the affected population used for continuity-cost sizing, not a list of individually critical people. It is an exposure input, not a prediction that all named people will leave." : "This is the provided or estimated count of people whose departure, disengagement, or defensive behaviour could materially affect integration quality. It is an exposure input, not a prediction that all named people will leave."]; }
+  if (/Key personnel at risk/i.test(text)) { const count = Number(String(text).replace(/[^0-9.]/g, "")); const isLargePool = Number.isFinite(count) && count > 100; const formattedCount = Number.isFinite(count) ? count.toLocaleString("en-US") : String(text).replace(/^Key personnel at risk:\s*/i, "").replace(/\.$/, ""); return [isLargePool ? "Continuity exposure pool" : "Key people at risk", isLargePool ? `Continuity exposure pool: ${formattedCount} affected employees / roles.` : text.replace(/^Key personnel at risk:/i, "Key personnel at risk:"), isLargePool ? "This is the affected population used for continuity-cost sizing, not a list of individually critical people. It is an exposure input, not a prediction that all named people will leave." : "This is the provided or estimated count of people whose departure, disengagement, or defensive behaviour could materially affect integration quality. It is an exposure input, not a prediction that all named people will leave."]; }
   if (/ECS valuation band/i.test(text)) return ["ECS risk band", text, "This translates the environment compatibility score into a financial-risk band. It tells the deal team how severe the operating mismatch is for pricing and integration planning."];
   if (/EV Discount/i.test(text)) return ["Potential EV discount pressure", text, "This indicates the range of valuation pressure that may appear if the market, investment committee, or buyer prices the integration risk into the transaction."];
   if (/Earn-Out Exposure/i.test(text)) return ["Earn-out exposure", text, "This estimates how much contingent value may become harder to realise if post-close behaviour friction disrupts performance milestones."];
@@ -1458,7 +1458,7 @@ function renderEngagementBenefit(benefit) {
   const title = match[2];
   const rest = match[3] || "";
 
-  return `<p><span class="eng-benefit-head">${escapeHtml(prefix)}${escapeHtml(title)}</span>. ${escapeHtml(rest)}</p>`;
+  return `<p><span class="eng-benefit-head">${escapeHtml(prefix.trimEnd())}&nbsp;${escapeHtml(title)}</span>. ${escapeHtml(rest)}</p>`;
 }
 
 function renderHtmlSection(section, number, context = {}) {
@@ -1533,6 +1533,8 @@ function renderHtmlSection(section, number, context = {}) {
   }
   return `<section class="sec">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES[section.id] ?? "")}</section>`;
 }
+
+
 
 
 
