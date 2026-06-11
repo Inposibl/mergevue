@@ -341,10 +341,30 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
     ? (dealEconomicsReport?.enterpriseValue?.line || "Economic exposure: qualitative only")
     : "Economic exposure: qualitative only";
   const economicTriageChannels = [
-    { label: "Talent continuity", severity: "High" },
-    { label: "Earn-out credibility", severity: "Medium" },
-    { label: "Decision delay", severity: "Medium" },
-    { label: "Knowledge continuity", severity: "Medium" },
+    {
+      label: "Talent continuity",
+      severity: "High",
+      meaning: "Risk that deal-critical people disengage, slow down, or leave before the integration model stabilises.",
+      testFirst: "Map named critical roles, retention exposure, and the first 90-day decision points that depend on them.",
+    },
+    {
+      label: "Earn-out credibility",
+      severity: "Medium",
+      meaning: "Risk that behavioural friction makes performance milestones harder to trust, govern, or deliver.",
+      testFirst: "Compare earn-out milestones with the operating routines and decision rights needed to hit them.",
+    },
+    {
+      label: "Decision delay",
+      severity: "Medium",
+      meaning: "Risk that approvals, escalation paths, and authority conflicts slow value capture after close.",
+      testFirst: "Identify decisions that must not wait for a full integration redesign.",
+    },
+    {
+      label: "Knowledge continuity",
+      severity: "Medium",
+      meaning: "Risk that informal know-how, customer context, or execution memory stops moving through the combined organisation.",
+      testFirst: "Name the knowledge holders, handover routines, and early warning signs of information blockage.",
+    },
   ];
   const economicTriagePosture = "High";
   const economicTriageReason = "Talent continuity is High, which sets the economic posture directly.";
