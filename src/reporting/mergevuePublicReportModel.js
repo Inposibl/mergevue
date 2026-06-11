@@ -160,7 +160,40 @@ function clientFacingPredictionText(text, index) {
     return "Authority norms may harden under integration pressure. The target environment uses fast unilateral control, selective rule enforcement, and visible dominance to keep execution moving. The acquirer environment depends on evidence, accountability, and documented decision logic. By Day 60, the key test is whether integration pressure makes the combined team more disciplined or simply more forceful. If speed, pressure, or enforcement starts replacing documented reasoning, the acquirer is not absorbing the target's operating logic; it is being pulled toward it.";
   }
 
-  return value;
+  return publicFrictionText(value);
+}
+
+function publicFrictionText(text) {
+  let value = cleanString(text);
+  if (!value) return "";
+
+  const replacements = [
+    [/\bdoctrinal compliance\b/gi, "mission-alignment requirements"],
+    [/\bheresy mechanism\b/gi, "mission-protection response"],
+    [/\bcoercive redistribution\b/gi, "force-based resource control"],
+    [/\bcoercive logic\b/gi, "force-based operating logic"],
+    [/\bnaked coercion\b/gi, "visible pressure-based control"],
+    [/\bforce-based compliance\b/gi, "pressure-based compliance"],
+    [/\bcomplete authority mechanism collapse\b/gi, "authority legitimacy breakdown"],
+    [/\bmoral collapse cascade\b/gi, "mission-trust breakdown"],
+    [/\btalent exodus\b/gi, "high-value talent departure"],
+    [/\btalent flight\b/gi, "high-value talent departure"],
+    [/\bextraction mechanism\b/gi, "value-capture mechanism"],
+    [/\bbelief extraction\b/gi, "belief-based retention pressure"],
+    [/\bextraction pressure\b/gi, "value-capture pressure"],
+    [/\bpsychological safety has already been eliminated\b/gi, "psychological safety has materially weakened"],
+    [/\bdestroying\b/gi, "weakening"],
+    [/\bdestroys\b/gi, "weakens"],
+    [/\bcollapse\b/gi, "breakdown"],
+    [/\beliminated\b/gi, "removed"],
+    [/\beliminates\b/gi, "removes"],
+  ];
+
+  for (const [pattern, replacement] of replacements) {
+    value = value.replace(pattern, replacement);
+  }
+
+  return cleanString(value);
 }
 
 function buildPredictions(deliverable) {
@@ -225,22 +258,22 @@ function timelinePhases(deliverable) {
     {
       phaseName: "Signal setup",
       timeWindow: TIMING_LOGIC.signalSetup,
-      expectedFriction: cleanString(anchors[0]?.text ?? fallbackPredictionText(deliverable)),
-      observableSignal: cleanString(anchors[0]?.text ?? "First visible mismatch in operating assumptions."),
+      expectedFriction: publicFrictionText(anchors[0]?.text ?? fallbackPredictionText(deliverable)),
+      observableSignal: publicFrictionText(anchors[0]?.text ?? "First visible mismatch in operating assumptions."),
       recommendedCheck: "Confirm whether the first signal appears before Day 30.",
     },
     {
       phaseName: "Observation window",
       timeWindow: TIMING_LOGIC.observationWindow,
-      expectedFriction: cleanString(anchors[1]?.text ?? "The same friction pattern repeats across planning, authority, information flow, or resource allocation."),
-      observableSignal: cleanString(anchors[1]?.text ?? "Repeated behavior across more than one operating forum."),
+      expectedFriction: publicFrictionText(anchors[1]?.text ?? "The same friction pattern repeats across planning, authority, information flow, or resource allocation."),
+      observableSignal: publicFrictionText(anchors[1]?.text ?? "Repeated behavior across more than one operating forum."),
       recommendedCheck: "Review whether the friction repeats during Days 30-60.",
     },
     {
       phaseName: "Early checkpoint",
       timeWindow: TIMING_LOGIC.verificationDeadline,
       expectedFriction: cleanString("The Day 60 preview checkpoint should decide whether the concern is escalated into full engagement monitoring, revised, or lowered."),
-      observableSignal: cleanString(anchors[2]?.text ?? "A clear enough signal to decide whether deeper engagement is needed."),
+      observableSignal: publicFrictionText(anchors[2]?.text ?? "A clear enough signal to decide whether deeper engagement is needed."),
       recommendedCheck: "Run a Day 60 early-checkpoint review against the forecast preview claim.",
     },
   ];
@@ -387,8 +420,8 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
     executiveDecisionSummary: {
       headline: cleanString(narrative.headline ?? deliverable?.headline ?? "Post-close behavior risk preview"),
       oneParagraphSummary: cleanString(narrative.situation ?? deliverable?.body ?? "This brief summarizes the most likely post-close behavior friction visible from the current diagnostic inputs."),
-      decisionImplication: cleanString(narrative.implication ?? "Use this brief to decide what must be observed before the integration plan hardens."),
-      mainRisk: cleanString(friction.fp1 ?? `${leadResource} may become the first visible post-close friction point.`),
+      decisionImplication: publicFrictionText(narrative.implication ?? "Use this brief to decide what must be observed before the integration plan hardens."),
+      mainRisk: publicFrictionText(friction.fp1 ?? `${leadResource} may become the first visible post-close friction point.`),
       recommendedAction: firstIntegrationControlMove(deliverable),
     },
     sealedPredictions: {
@@ -431,9 +464,9 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
     collisionThesis: {
       collisionHeadline: cleanString(narrative.headline ?? "Operating systems may collide after close"),
       coreMismatch: cleanString(narrative.coreMismatch ?? "The core mismatch depends on the current environment-pair result."),
-      collisionSummary: cleanString(friction.fp1 ?? narrative.situation ?? "The collision thesis is based on the current environment-pair result."),
+      collisionSummary: publicFrictionText(friction.fp1 ?? narrative.situation ?? "The collision thesis is based on the current environment-pair result."),
       primaryTension: cleanString(friction.primaryConflictedResources ?? `${leadResource} is the primary tension to monitor.`),
-      whyItMatters: cleanString(narrative.implication ?? "The risk matters because early operating assumptions can become permanent integration defaults."),
+      whyItMatters: publicFrictionText(narrative.implication ?? "The risk matters because early operating assumptions can become permanent integration defaults."),
       postCloseFailureMode: "The acquirer translates the target operating system too early into its own management language before it understands which routines preserve trust, knowledge flow, informal authority, execution quality, or deal-critical continuity.",
     },
     resourceConflictMap: {
