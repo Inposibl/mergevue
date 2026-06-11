@@ -1517,7 +1517,7 @@ function renderEngagementBenefit(benefit) {
     return `<p><strong class="eng-next-step">De-risked next step.</strong> ${escapeHtml(rest)}</p>`;
   }
 
-  const match = text.match(/^(\d+\.\s*)(Audit-Grade Confirmation|Definitive Personnel Mapping|Quantified Exposure & Playbook)\s*\.\s*(.*)$/i) || text.match(/^(\d+\.)(Audit-Grade Confirmation|Definitive Personnel Mapping|Quantified Exposure & Playbook)\s*\.\s*(.*)$/i);
+  const match = text.match(/^(\d+\.\s*)(Audit-Grade Confirmation|Role-Level Exposure Mapping|Quantified Exposure & Playbook)\s*\.\s*(.*)$/i) || text.match(/^(\d+\.)(Audit-Grade Confirmation|Role-Level Exposure Mapping|Quantified Exposure & Playbook)\s*\.\s*(.*)$/i);
   if (!match) return `<p>${escapeHtml(text)}</p>`;
 
   const prefix = match[1].trimEnd() + " ";
