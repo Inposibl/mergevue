@@ -1,4 +1,4 @@
-﻿import fs from "node:fs";
+import fs from "node:fs";
 import assert from "node:assert/strict";
 import { buildMergevuePublicReportModel } from "../src/reporting/mergevuePublicReportModel.js";
 import { FINAL_DELIVERABLE_DATA } from "../src/data/finalDeliverableData.js";
@@ -119,6 +119,47 @@ const demoSession = Object.freeze({
 const model = buildMergevuePublicReportModel(demoSession, {
   generatedAt: "2026-05-30T00:00:00.000Z",
 });
+
+const FINAL_DELIVERABLE_COMPATIBILITY_SOURCES = Object.freeze([
+  "ST_Free_Tier_Output_Narratives_updated.xlsx",
+  "ST_Friction_Point_Lookup_updated.xlsx",
+]);
+
+for (const sourceName of FINAL_DELIVERABLE_COMPATIBILITY_SOURCES) {
+  assert.ok(
+    FINAL_DELIVERABLE_DATA.sources.includes(sourceName),
+    `Final deliverable compatibility source missing: ${sourceName}`,
+  );
+}
+
+assert.equal(
+  FINAL_DELIVERABLE_DATA.sources.includes("ST_ECS_to_Valuation_Bridge_v1_1.xlsx"),
+  false,
+  "ECS-to-Valuation bridge workbook must not be treated as the final-deliverable compatibility ECS source.",
+);
+
+function sourcePair(rows, acquirerEnvironmentCode, targetEnvironmentCode) {
+  return rows.find((row) => row.acquirerEnvironmentCode === acquirerEnvironmentCode && row.targetEnvironmentCode === targetEnvironmentCode);
+}
+
+const demoAcquirerEnvironmentCode = "NF/NT";
+const demoTargetEnvironmentCode = "NT/STJ";
+const demoNarrativeSource = sourcePair(FINAL_DELIVERABLE_DATA.narratives, demoAcquirerEnvironmentCode, demoTargetEnvironmentCode);
+const demoFrictionSource = sourcePair(FINAL_DELIVERABLE_DATA.frictionPoints, demoAcquirerEnvironmentCode, demoTargetEnvironmentCode);
+
+assert.ok(demoNarrativeSource, "Demo pair must exist in final-deliverable narrative source rows.");
+assert.ok(demoFrictionSource, "Demo pair must exist in final-deliverable friction source rows.");
+assert.equal(demoNarrativeSource.ecs, demoFrictionSource.ecs, "Narrative and friction ECS values must agree for the public report demo pair.");
+assert.equal(
+  model.compatibilityScoreAndDealScenario.compatibilityScore,
+  demoFrictionSource.ecs,
+  "Public compatibility score must be bound to final-deliverable source-row ECS, not recalculated from the valuation bridge.",
+);
+assert.equal(
+  model.compatibilityScoreAndDealScenario.compatibilityBand,
+  demoFrictionSource.riskBand,
+  "Public compatibility band must be bound to final-deliverable source-row riskBand.",
+);
 
 assert.deepEqual(Object.keys(model), TOP_LEVEL_KEYS);
 
