@@ -367,7 +367,7 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
     },
   ];
   const economicTriagePosture = "High";
-  const economicTriageReason = "Talent continuity is High, which sets the economic posture directly.";
+  const economicTriageReason = "This is High because talent continuity is already the most exposed channel: if critical people slow down, disengage, or leave, speed, knowledge transfer, and earn-out confidence become harder to protect.";
 
   return {
     brand: { ...BRAND },
@@ -448,10 +448,10 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
       valuationDisclaimer: "Directional triage only. Not a valuation or loss estimate.",
       economicRiskPosture: economicTriagePosture,
       economicTriageJudgement: "The main economic risk is not immediate value destruction. It is integration drag: the deal may lose speed, decision quality, or knowledge continuity if the target operating logic is compressed too quickly.",
-      economicTriageRule: "Posture equals the highest assessed channel severity. When no channel is High but two or more channels are Medium, posture is raised one band.",
+      economicTriageRule: "Read the posture as a prioritisation signal: the strongest exposure channel sets the headline risk, and clustered Medium channels are treated as an attention area before they become value leakage.",
       economicTriageReason,
       economicTriageChannels,
-      evUse: "EV sizes materiality context only. It is not scored in the public preview and does not produce a valuation-impact estimate.",
+      evUse: "Deal value is used only to understand materiality. It is not scored in this public preview and does not produce a valuation-impact estimate.",
       whatThisPreviewCanSay: "This preview identifies where economic leakage is most likely to appear and which exposure channels should be tested first.",
       whatThisPreviewCannotSay: "This is not a valuation, loss estimate, impairment opinion, damages calculation, or investment-committee financial model.",
       requiredForQuantifiedModelling: "EV, earn-out terms, retention costs, leadership role map, integration milestones, role criticality, and post-close governance evidence.",
