@@ -31,7 +31,7 @@ const COMBINED_PREDICTION_NOTE = "DISPLAY-ONLY PREVIEW; NOT LEDGER-RECORDED.";
 const COMBINED_PREDICTION_LABELS = Object.freeze([
   "FP1 | Early evidence test",
   "FP2 | Operating logic displacement",
-  "FP3 | Long-range risk checkpoint",
+  "FP3 | Day 60 risk checkpoint",
 ]);
 const ARCHIVE_SECTION_NOTES = Object.freeze({
   exec: "Executive Summary",

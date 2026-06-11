@@ -187,10 +187,10 @@ function buildPredictions(deliverable) {
     {
       predictionTitle: "Early checkpoint",
       predictionWindow: TIMING_LOGIC.verificationDeadline,
-      predictionClaim: clientFacingPredictionText("By Day 60, review documentation maintenance, ownership of planning artefacts, dependency on named experts, knowledge-transfer logs, departures or disengagement signals among planning and analyst roles, and whether systematised knowledge is being replaced by informal practitioner memory.", 2),
-      observableSignal: clientFacingPredictionText(anchors[2]?.text ?? "A clear repeatable signal by Day 60.", 2),
-      verificationMethod: "Use the Day 60 review as an early checkpoint for the longer Month 12 retention-risk claim.",
-      recommendedAction: actionCopy(1, "Run the Day 60 early-checkpoint review and decide whether to escalate, revise, or lower the Month 12 concern."),
+      predictionClaim: clientFacingPredictionText("By Day 60, review documentation maintenance, ownership of planning artefacts, dependency on named experts, knowledge-transfer logs, early departures or disengagement signals, and whether systematised knowledge is becoming harder to preserve under integration pressure.", 2),
+      observableSignal: clientFacingPredictionText("A clear Day 60 signal that retention, delivery confidence, or knowledge continuity needs escalation into the full engagement workflow.", 2),
+      verificationMethod: "Use the Day 60 review to decide whether early retention, delivery-confidence, or knowledge-continuity signals require escalation into the full engagement workflow.",
+      recommendedAction: actionCopy(1, "Run the Day 60 early-checkpoint review and decide whether the risk should be escalated into full engagement monitoring, revised, or lowered."),
     },
   ];
 }
@@ -230,7 +230,7 @@ function timelinePhases(deliverable) {
     {
       phaseName: "Early checkpoint",
       timeWindow: TIMING_LOGIC.verificationDeadline,
-      expectedFriction: cleanString("The Month 12 preview claim should be escalated, revised, or lowered at the Day 60 early checkpoint."),
+      expectedFriction: cleanString("The Day 60 preview checkpoint should decide whether the concern is escalated into full engagement monitoring, revised, or lowered."),
       observableSignal: cleanString(anchors[2]?.text ?? "A clear enough signal to decide whether deeper engagement is needed."),
       recommendedCheck: "Run a Day 60 early-checkpoint review against the forecast preview claim.",
     },
