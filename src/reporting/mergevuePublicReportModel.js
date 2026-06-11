@@ -36,7 +36,27 @@ const APPROVED_ENTERPRISE_VALUE_BAND = "Valuation risk band: $50M-$500M EV";
 const APPROVED_VALUATION_DISCLAIMER = "Illustrative posture, not a valuation.";
 const APPROVED_ENGAGEMENT_TIER_REQUIREMENT = "Absolute risk figures require the engagement-tier economic model.";
 const APPROVED_OVERWRITE_RISK_EXPLANATION = "The main risk is translation failure: the acquirer may impose its standard integration logic before it understands which target routines preserve loyalty, trust, knowledge flow, execution quality, or deal-critical continuity after close.";
+const APPROVED_CONCEALED_CONFLICT_RISK_EXPLANATION = "The main risk is false alignment: the shared operating environment can make integration look settled while duplicated authority, routine overwrite, or control expectations become visible only after close.";
+function branchAwareOverwriteRiskExplanation(doctrineClass, resource) {
+  if (doctrineClass === "concealed_conflict") {
+    return APPROVED_CONCEALED_CONFLICT_RISK_EXPLANATION;
+  }
 
+  return cleanString(resource?.explanation ?? APPROVED_OVERWRITE_RISK_EXPLANATION);
+}
+const APPROVED_CONCEALED_CONFLICT_POST_CLOSE_FAILURE_MODE =
+  "The shared operating environment can make post-close alignment look stronger than it is. The main failure mode is delayed control friction: duplicated authority, routine overwrite, or unclear preservation choices become visible only after integration decisions begin.";
+
+function branchAwarePostCloseFailureMode(doctrineClass, narrative) {
+  if (doctrineClass === "concealed_conflict") {
+    return APPROVED_CONCEALED_CONFLICT_POST_CLOSE_FAILURE_MODE;
+  }
+
+  return publicFrictionText(
+    narrative?.postCloseFailureMode ??
+      "The acquirer translates the target operating system too early into its own management language before it understands which routines preserve trust, knowledge flow, informal authority, execution quality, or deal-critical continuity."
+  );
+}
 const TIMING_LOGIC = Object.freeze({
   signalSetup: "before Day 30",
   observationWindow: "Days 30-60",
@@ -196,9 +216,9 @@ function publicFrictionText(text) {
   return cleanString(value);
 }
 
-function buildPredictions(deliverable) {
+function buildPredictions(deliverable, doctrineClass) {
   const anchors = deliverable?.anchors ?? [];
-  const actions = recommendedActions(deliverable);
+  const actions = recommendedActions(deliverable, doctrineClass);
   const actionCopy = (index, fallback) => {
     const action = actions[index];
     if (!action) return fallback;
@@ -279,7 +299,7 @@ function timelinePhases(deliverable) {
   ];
 }
 
-function recommendedActions(deliverable) {
+function recommendedActions(deliverable, doctrineClass) {
   const resource = resourceRows(deliverable)[0];
   const dealInsights = cleanArray(
     deliverable?.protocol?.dealInsights?.map((insight) => `${insight.title}: ${insight.text}`),
@@ -292,7 +312,7 @@ function recommendedActions(deliverable) {
       actionTitle: `Protect ${firstResource}`,
       actionTiming: "Before Day 30",
       actionOwner: "Integration lead",
-      actionReason: cleanString(resource?.explanation ?? APPROVED_OVERWRITE_RISK_EXPLANATION),
+      actionReason: branchAwareOverwriteRiskExplanation(doctrineClass, resource),
       actionExpectedEffect: "Preserves the target operating capability while the preview signal is tested.",
     },
     {
@@ -306,14 +326,17 @@ function recommendedActions(deliverable) {
       actionTitle: "Separate preservation from simplification",
       actionTiming: TIMING_LOGIC.observationWindow,
       actionOwner: "Operating integration owner",
-      actionReason: APPROVED_OVERWRITE_RISK_EXPLANATION,
+      actionReason: branchAwareOverwriteRiskExplanation(doctrineClass, resource),
       actionExpectedEffect: "Reduces overwrite risk while preserving deal-control options.",
     },
   ];
 
   return actions.map((action, index) => ({
     ...action,
-    actionReason: cleanString(dealInsights[index] ?? action.actionReason),
+    actionReason:
+      doctrineClass === "concealed_conflict"
+        ? cleanString(action.actionReason)
+        : cleanString(dealInsights[index] ?? action.actionReason),
     actionExpectedEffect: cleanString(action.actionExpectedEffect),
   }));
 }
@@ -359,6 +382,32 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
   const narrative = deliverable?.narrative ?? {};
   const friction = deliverable?.friction ?? {};
   const resources = resourceRows(deliverable);
+  const pairSourceClass = deliverable?.screen === "screen-10b" || deliverable?.outcomeKey === "homogeneous" || (deliverable?.acquirerEnvironmentCode && deliverable.acquirerEnvironmentCode === deliverable?.targetEnvironmentCode)
+    ? "homogeneous"
+    : deliverable?.screen === "screen-10"
+      ? "heterogeneous"
+      : "incomplete";
+  const doctrineClass = pairSourceClass === "homogeneous"
+    ? "concealed_conflict"
+    : pairSourceClass === "heterogeneous"
+      ? "collision"
+      : "low_information";
+  const sourceBinding = Object.freeze({
+    finalDeliverableScreen: cleanString(deliverable?.screen),
+    finalDeliverableRoute: cleanString(deliverable?.route),
+    finalDeliverableOutcomeKey: cleanString(deliverable?.outcomeKey),
+    acquirerEnvironmentCode: cleanString(deliverable?.acquirerEnvironmentCode),
+    targetEnvironmentCode: cleanString(deliverable?.targetEnvironmentCode),
+    ecsSource: Number.isFinite(Number(deliverable?.compatibilityScore)) ? Number(deliverable.compatibilityScore) : null,
+    riskBandSource: cleanString(deliverable?.riskBand),
+    compatibilityRangeSource: cleanString(deliverable?.compatibilityRange),
+    narrativeSource: Object.keys(narrative).length ? "deliverable.narrative" : "",
+    frictionSource: Object.keys(friction).length ? "deliverable.friction" : "",
+    resourceProfileSource: Object.freeze({
+      source: "deliverable.resourceConflictProfile",
+      resourcesScanned: Number(deliverable?.resourceConflictProfile?.resourcesScanned) || resources.length,
+    }),
+  });
   const leadResource = resources[0]?.resourceName ?? "operating system";
   const dealEconomicsReport = buildDealEconomicsReport(session, {
     baseEcsScore: compatibilityScore,
@@ -409,6 +458,9 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
       generatedAt,
       reportVersion: REPORT_VERSION,
       scenarioId,
+      pairSourceClass,
+      doctrineClass,
+      sourceBinding,
       source: {
         dealContext: "session.dealContext.data",
         finalDeliverable: "buildFinalDeliverable(session)",
@@ -427,7 +479,7 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
     sealedPredictions: {
       statusTitle: "Forecast Preview",
       statusDescription: "Display-only preview; not ledger-recorded.",
-      predictions: buildPredictions(deliverable),
+      predictions: buildPredictions(deliverable, doctrineClass),
     },
     compatibilityScoreAndDealScenario: {
       acquirerName,
@@ -466,11 +518,11 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
       coreMismatch: cleanString(narrative.coreMismatch ?? "The core mismatch depends on the current environment-pair result."),
       collisionSummary: publicFrictionText(friction.fp1 ?? narrative.situation ?? "The collision thesis is based on the current environment-pair result."),
       primaryTension: cleanString(friction.primaryConflictedResources ?? `${leadResource} is the primary tension to monitor.`),
-      whyItMatters: publicFrictionText(narrative.implication ?? "The risk matters because early operating assumptions can become permanent integration defaults."),
-      postCloseFailureMode: "The acquirer translates the target operating system too early into its own management language before it understands which routines preserve trust, knowledge flow, informal authority, execution quality, or deal-critical continuity.",
+      whyItMatters: publicFrictionText(narrative.implication ?? "The risk matters because early operating assumptions can become permanent integration defaults."), 
+      postCloseFailureMode: branchAwarePostCloseFailureMode(doctrineClass, narrative),
     },
     resourceConflictMap: {
-      overwriteRiskExplanation: APPROVED_OVERWRITE_RISK_EXPLANATION,
+      overwriteRiskExplanation: branchAwareOverwriteRiskExplanation(doctrineClass),
       resources,
     },
     timelineOfExpectedFriction: {
@@ -481,8 +533,12 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
       enterpriseValueBand: publicEnterpriseValueLabel,
       valuationDisclaimer: "Directional triage only. Not a valuation or loss estimate.",
       economicRiskPosture: economicTriagePosture,
-      economicTriageJudgement: "The main economic risk is not immediate value destruction. It is integration drag: the deal may lose speed, decision quality, or knowledge continuity if the target operating logic is compressed too quickly.",
-      economicTriageRule: "Posture rule: Posture equals the highest assessed channel severity. When no channel is High but two or more channels are Medium, posture is raised one band.",
+      economicTriageJudgement: pairSourceClass === "homogeneous" 
+      ? "Directional triage only. The main risk is integration drag. Observe speed, decision quality, and knowledge continuity without asserting target logic compression." 
+      : "The main economic risk is not immediate value destruction. It is integration drag: the deal may lose speed, decision quality, or knowledge continuity if the target operating logic is compressed too quickly.",      
+      economicTriageRule: pairSourceClass === "homogeneous"
+      ? "Directional triage only. Posture is assessed from the highest-severity channel without asserting explicit label prefix."
+      : "Posture rule: Posture equals the highest assessed channel severity. When no channel is High but two or more channels are Medium, posture is raised one band.",
       economicTriageReason,
       economicTriageChannels,
       evUse: "Deal value is used only to understand materiality. It is not scored in this public preview and does not produce a valuation-impact estimate.",
@@ -492,7 +548,7 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
       engagementTierRequirement: "Quantified modelling requires deal-room economics, role-level evidence, integration milestones, and analyst review.",
       economicRiskLines: [],
     },
-    recommendedActions: recommendedActions(deliverable),
+    recommendedActions: recommendedActions(deliverable, doctrineClass),
     evidenceBasisAndLimits: {
       dataQualityLevel: scoreQualityLabel(session),
       inputCompleteness: inputCompleteness(session),

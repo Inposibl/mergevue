@@ -1,7 +1,11 @@
 import fs from "node:fs";
 import assert from "node:assert/strict";
 import { buildMergevuePublicReportModel } from "../src/reporting/mergevuePublicReportModel.js";
-import { buildFinalDeliverable } from "../src/flow/finalDeliverableFlow.js";
+import {
+  FINAL_ENVIRONMENT_CODES,
+  buildFinalDeliverable,
+  buildPairDeliverable,
+} from "../src/flow/finalDeliverableFlow.js";
 import { FINAL_DELIVERABLE_DATA } from "../src/data/finalDeliverableData.js";
 
 const TOP_LEVEL_KEYS = Object.freeze([
@@ -54,7 +58,46 @@ const FORBIDDEN_OUTPUT_STRINGS = Object.freeze([
   "absolute loss range",
   "Kill a Competitor",
   "McDonalds",
+  "current environment-pair result",
+  "placeholder",
+  "TODO",
+  "Posture rule Posture rule",
+  "Deal value context Deal value context",
+  "Preview judgement Preview judgement",
+  "Core thesis Core thesis",
+  "Enterprise value band: Enterprise value band:",
 ]);
+
+const HOMOGENEOUS_FORBIDDEN_STRINGS = Object.freeze([
+  "translation failure",
+  "premature translation",
+  "translates the target operating system",
+  "acquirer's management language",
+  "different behaviours",
+  "target operating logic is compressed too quickly",
+  "impose its standard integration logic",
+  "two different operating environments",
+]);
+
+const MODEL_VALUE_FORBIDDEN_LABEL_PREFIXES = Object.freeze([
+  "Posture rule:",
+  "Deal value context:",
+  "Preview judgement:",
+  "Core thesis:",
+  "Why it matters:",
+  "What you can do:",
+  "Enterprise value band:",
+  "Economic posture:",
+]);
+
+
+
+function collectStringValues(value, out = []) {
+  if (typeof value === "string") out.push(value);
+  else if (Array.isArray(value)) value.forEach((item) => collectStringValues(item, out));
+  else if (value && typeof value === "object") Object.values(value).forEach((item) => collectStringValues(item, out));
+  return out;
+}
 
 function score(primaryEnvironmentCode, overrides = {}) {
   return Object.freeze({
@@ -333,4 +376,50 @@ assert(
   rendererSource.includes("section.coreMismatch"),
   "Environment core mismatch must render the pair-specific section.coreMismatch field."
 );
+
+for (const code of FINAL_ENVIRONMENT_CODES) {
+  const deliverable = buildPairDeliverable({
+    acquirerEnvironmentCode: code,
+    targetEnvironmentCode: code,
+  });
+
+  assert.equal(deliverable.screen, "screen-10b", `${code} self-pair must route to homogeneous Screen 10b before public adaptation.`);
+
+  const homogeneousModel = buildMergevuePublicReportModel(demoSession, {
+    deliverable,
+    generatedAt: "2026-05-30T00:00:00.000Z",
+  });
+
+  assert.equal(
+    homogeneousModel.metadata.pairSourceClass,
+    "homogeneous",
+    `${code} public report must expose homogeneous pairSourceClass.`
+  );
+
+  assert.equal(
+    homogeneousModel.metadata.sourceBinding?.finalDeliverableScreen,
+    "screen-10b",
+    `${code} public report must preserve final deliverable homogeneous screen binding.`
+  );
+
+  const homogeneousSerialized = JSON.stringify(homogeneousModel);
+
+  for (const forbidden of HOMOGENEOUS_FORBIDDEN_STRINGS) {
+    assert.equal(
+      homogeneousSerialized.includes(forbidden),
+      false,
+      `${code} homogeneous public model leaked cross-pair doctrine: ${forbidden}`
+    );
+  }
+
+  for (const value of collectStringValues(homogeneousModel)) {
+    for (const prefix of MODEL_VALUE_FORBIDDEN_LABEL_PREFIXES) {
+      assert.equal(
+        value.startsWith(prefix),
+        false,
+        `${code} model value must not include renderer label prefix: ${prefix}`
+      );
+    }
+  }
+}
 console.log("Mergevue public report model validation passed");
