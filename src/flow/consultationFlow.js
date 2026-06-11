@@ -44,7 +44,7 @@ export function createConsultationEmailRecord(request, sentAt = new Date().toISO
     to: CONSULTATION_RECIPIENT,
     sentAt,
     messageId: `consult-${simpleHash(`${request.name}:${request.role}:${sentAt}`)}`,
-    subject: "Structural Typology consultation request",
+    subject: "Mergevue consultation request",
   });
 }
 
