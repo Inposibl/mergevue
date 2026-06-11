@@ -147,7 +147,7 @@ for (const prediction of model.sealedPredictions.predictions) {
   }
 }
 
-assert.equal(model.compatibilityScoreAndDealScenario.dealType, "Absorb / neutralize a competitor");
+assert.equal(model.compatibilityScoreAndDealScenario.dealType, "Competitive consolidation");
 assert.equal(model.compatibilityScoreAndDealScenario.enterpriseValueBand, "Enterprise value / deal value provided: USD 500 million (estimated).");
 assert.equal(model.economicRiskTranslation.enterpriseValueBand, "Enterprise value / deal value provided: USD 500 million (estimated).");
 assert.equal(model.economicRiskTranslation.valuationDisclaimer, "Directional triage only. Not a valuation or loss estimate.");

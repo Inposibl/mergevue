@@ -31,7 +31,7 @@ export const MERGEVUE_PUBLIC_REPORT_BLOCKS = Object.freeze([
 
 const REPORT_VERSION = "mergevue-public-forecast-brief-mvp-1";
 const FALLBACK = "Not available";
-const APPROVED_DEAL_TYPE = "Absorb / neutralize a competitor";
+const APPROVED_DEAL_TYPE = "Competitive consolidation";
 const APPROVED_ENTERPRISE_VALUE_BAND = "Valuation risk band: $50M-$500M EV";
 const APPROVED_VALUATION_DISCLAIMER = "Illustrative posture, not a valuation.";
 const APPROVED_ENGAGEMENT_TIER_REQUIREMENT = "Absolute risk figures require the engagement-tier economic model.";

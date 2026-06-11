@@ -35,7 +35,7 @@ const REQUIRED_PDF_STRINGS = Object.freeze([
   "Medium",
   "High",
   "moderate",
-  "Absorb / neutralize a competitor",
+  "Competitive consolidation",
 ]);
 
 const FORBIDDEN_PDF_STRINGS = Object.freeze([

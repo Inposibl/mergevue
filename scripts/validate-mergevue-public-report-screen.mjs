@@ -20,7 +20,7 @@ const REQUIRED_OUTPUT_STRINGS = Object.freeze([
   "before Day 30",
   "Days 30-60",
   "Day 60",
-  "Absorb / neutralize a competitor",
+  "Competitive consolidation",
 ]);
 
 const FORBIDDEN_SCREEN_STRINGS = Object.freeze([
