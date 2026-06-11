@@ -60,6 +60,11 @@ const UNSAFE_PUBLIC_REPLACEMENTS = Object.freeze([
   [/absolute loss range/gi, "engagement-tier economic model"],
   [/Kill a Competitor/gi, APPROVED_DEAL_TYPE],
   [/Absorb or neutralize a competitor/gi, APPROVED_DEAL_TYPE],
+  [/\bfirst senior hire,\s*promotion,\s*or significant appointment\b/gi, "first senior hire, mandate expansion, or significant appointment"],
+  [/\bfirst promotion or appointment\b/gi, "first mandate expansion or appointment"],
+  [/\bappointment or promotion\b/gi, "appointment or mandate expansion"],
+  [/\bSubstitution of patronage for promotion\b/gi, "Substitution of patronage for mandate expansion"],
+  [/\bpromotion\b/gi, "mandate expansion"],
   [/\bMcDonalds\b/g, "McDonald's"],
 ]);
 
