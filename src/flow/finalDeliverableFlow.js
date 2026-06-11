@@ -1,4 +1,4 @@
-﻿import { environmentAlias, publicSafeText } from "../constants/envAliases.ts";
+import { environmentAlias, publicSafeText } from "../constants/envAliases.ts";
 import { FINAL_DELIVERABLE_DATA } from "../data/finalDeliverableData.js";
 
 export const FINAL_ENVIRONMENT_CODES = Object.freeze([
@@ -595,6 +595,8 @@ export function buildPairDeliverable(input = {}) {
     compatibilityScore: score,
     compatibilityRange: compatibilityRange(score),
     riskBand,
+    targetCanonicalSource: input.targetCanonicalSource,
+    targetCanonicalWeights: input.targetCanonicalWeights,
     resourceConflictProfile,
     isEcsIssued: outcomeLetter !== "D",
     candidateRanges: Object.freeze(buildCandidateRanges(outcomeLetter, acquirerScore, targetScore, targetEnvironmentCode)),
@@ -611,6 +613,164 @@ export function buildPairDeliverable(input = {}) {
   });
 }
 
+
+const TARGET_OBSERVER_EVIDENCE_WEIGHT = 0.8;
+const TARGET_SELF_ASSESSMENT_WEIGHT = 0.2;
+
+function roundThree(value) {
+  return Math.round((Number(value) || 0) * 1000) / 1000;
+}
+
+function scoreMapFrom(score, field) {
+  const source = score?.[field] ?? {};
+  const hasSourceMap = source && typeof source === "object" && FINAL_ENVIRONMENT_CODES.some((code) => Number(source[code]) > 0);
+  if (hasSourceMap) {
+    return Object.freeze(Object.fromEntries(
+      FINAL_ENVIRONMENT_CODES.map((code) => [code, Number(source[code]) || 0]),
+    ));
+  }
+
+  const primaryCode = normalizeEnvironmentCode(score?.primaryEnvironmentCode ?? score?.topEnvironmentCode);
+  const primaryWeight = Number(score?.primarySignalScore) > 0
+    ? Number(score.primarySignalScore)
+    : sourceWeight(score) || 1;
+
+  return Object.freeze(Object.fromEntries(
+    FINAL_ENVIRONMENT_CODES.map((code) => [code, code === primaryCode ? primaryWeight : 0]),
+  ));
+}
+
+function rankedFromScoreMap(scores) {
+  return Object.freeze(
+    Object.entries(scores)
+      .map(([code, score]) => Object.freeze({ code, score: roundThree(score) }))
+      .sort((left, right) => right.score - left.score || left.code.localeCompare(right.code)),
+  );
+}
+
+function combineScoreMaps(left, leftWeight, right, rightWeight) {
+  return Object.freeze(Object.fromEntries(
+    FINAL_ENVIRONMENT_CODES.map((code) => [
+      code,
+      roundThree((Number(left?.[code]) || 0) * leftWeight + (Number(right?.[code]) || 0) * rightWeight),
+    ]),
+  ));
+}
+
+function sourceWeight(score) {
+  return Number(score?.totalEvidenceWeight) > 0 ? Number(score.totalEvidenceWeight) : Number(score?.effectiveAnswerCount) || Number(score?.answeredQuestionCount) || 0;
+}
+
+function mergeTwoScores(leftScore = {}, rightScore = {}, options = {}) {
+  const leftValid = leftScore?.valid === true;
+  const rightValid = rightScore?.valid === true;
+
+  if (leftValid && !rightValid) return leftScore;
+  if (!leftValid && rightValid) return rightScore;
+  if (!leftValid && !rightValid) return leftScore ?? rightScore ?? {};
+
+  const leftWeight = Number.isFinite(options.leftWeight) ? options.leftWeight : null;
+  const rightWeight = Number.isFinite(options.rightWeight) ? options.rightWeight : null;
+  const totalSourceWeight = sourceWeight(leftScore) + sourceWeight(rightScore);
+  const normalizedLeftWeight = leftWeight ?? (totalSourceWeight > 0 ? sourceWeight(leftScore) / totalSourceWeight : 0.5);
+  const normalizedRightWeight = rightWeight ?? (totalSourceWeight > 0 ? sourceWeight(rightScore) / totalSourceWeight : 0.5);
+
+  const environmentScores = combineScoreMaps(
+    scoreMapFrom(leftScore, "environmentScores"),
+    normalizedLeftWeight,
+    scoreMapFrom(rightScore, "environmentScores"),
+    normalizedRightWeight,
+  );
+  const weightedEnvironmentScores = combineScoreMaps(
+    scoreMapFrom(leftScore, "weightedEnvironmentScores"),
+    normalizedLeftWeight,
+    scoreMapFrom(rightScore, "weightedEnvironmentScores"),
+    normalizedRightWeight,
+  );
+  const rawRankedEnvironments = rankedFromScoreMap(environmentScores);
+  const rankedEnvironments = rankedFromScoreMap(weightedEnvironmentScores);
+  const primary = rankedEnvironments[0] ?? Object.freeze({ code: "", score: 0 });
+  const secondary = rankedEnvironments[1] ?? Object.freeze({ code: "", score: 0 });
+  const totalEvidenceWeight = roundThree(
+    (Number(leftScore.totalEvidenceWeight) || 0) * normalizedLeftWeight
+    + (Number(rightScore.totalEvidenceWeight) || 0) * normalizedRightWeight,
+  );
+  const gap = primary.score - secondary.score;
+  const signalStrength = totalEvidenceWeight <= 0 || primary.score <= 0 || gap <= 1.5 ? "weak" : primary.score >= 4 ? "strong" : "confirmed";
+
+  return Object.freeze({
+    ...leftScore,
+    scoringMethod: options.scoringMethod ?? "weighted_score_merge",
+    valid: true,
+    environmentScores,
+    weightedEnvironmentScores,
+    rankedEnvironments,
+    rawRankedEnvironments,
+    primaryEnvironmentCode: primary.code,
+    primarySignalEnvironmentCode: primary.code,
+    primarySignalScore: primary.score,
+    secondaryEnvironmentCode: secondary.code,
+    secondarySignalEnvironmentCode: secondary.code,
+    secondarySignalScore: secondary.score,
+    totalEvidenceWeight,
+    questionCount: (Number(leftScore.questionCount) || 0) + (Number(rightScore.questionCount) || 0),
+    answeredQuestionCount: (Number(leftScore.answeredQuestionCount) || 0) + (Number(rightScore.answeredQuestionCount) || 0),
+    effectiveAnswerCount: (Number(leftScore.effectiveAnswerCount) || 0) + (Number(rightScore.effectiveAnswerCount) || 0),
+    excludedAnswerCount: (Number(leftScore.excludedAnswerCount) || 0) + (Number(rightScore.excludedAnswerCount) || 0),
+    coPresence: leftScore.coPresence === true || rightScore.coPresence === true || gap <= 1.5,
+    signalStrength,
+    signalBadge: signalStrength.toUpperCase(),
+    mergeWeights: Object.freeze({
+      left: roundThree(normalizedLeftWeight),
+      right: roundThree(normalizedRightWeight),
+    }),
+  });
+}
+
+function combineTargetCanonicalScore(targetObservationScore = {}, targetDiagnosticScore = {}, targetSelfScore = {}) {
+  const observerTargetScore = mergeTwoScores(targetObservationScore, targetDiagnosticScore, {
+    scoringMethod: "target_observer_observation_diagnostic_weighted_merge",
+  });
+
+  if (observerTargetScore?.valid === true && targetSelfScore?.valid === true) {
+    return Object.freeze({
+      ...mergeTwoScores(observerTargetScore, targetSelfScore, {
+        leftWeight: TARGET_OBSERVER_EVIDENCE_WEIGHT,
+        rightWeight: TARGET_SELF_ASSESSMENT_WEIGHT,
+        scoringMethod: "target_canonical_observer_80_self_20_merge",
+      }),
+      targetCanonicalSource: "target_observation_and_diagnostic_80_target_self_20",
+      targetCanonicalWeights: Object.freeze({
+        observerSideTargetEvidence: TARGET_OBSERVER_EVIDENCE_WEIGHT,
+        targetSelfAssessment: TARGET_SELF_ASSESSMENT_WEIGHT,
+      }),
+      componentScores: Object.freeze({
+        targetObservation: targetObservationScore,
+        targetDiagnostic: targetDiagnosticScore,
+        targetSelfAssessment: targetSelfScore,
+      }),
+    });
+  }
+
+  if (observerTargetScore?.valid === true) {
+    return Object.freeze({
+      ...observerTargetScore,
+      targetCanonicalSource: "observer_side_target_evidence_only",
+      targetCanonicalWeights: Object.freeze({ observerSideTargetEvidence: 1, targetSelfAssessment: 0 }),
+    });
+  }
+
+  if (targetSelfScore?.valid === true) {
+    return Object.freeze({
+      ...targetSelfScore,
+      targetCanonicalSource: "target_self_assessment_only",
+      targetCanonicalWeights: Object.freeze({ observerSideTargetEvidence: 0, targetSelfAssessment: 1 }),
+    });
+  }
+
+  return observerTargetScore ?? targetSelfScore ?? {};
+}
+
 function hasCompletedTargetSelfAssessment(session) {
   if (session?.targetSelfAssessment?.completed !== true) return false;
   return session?.targetInvite?.completed === true || session?.targetSelfDirect?.completed === true;
@@ -625,9 +785,10 @@ export function buildFinalDeliverable(session) {
   }
 
   const acquirerScore = session?.acquirer2A?.score ?? {};
+  const targetObservationScore = session?.targetObservation?.score ?? {};
   const targetSelfScore = session?.targetSelfAssessment?.score ?? {};
   const targetDiagnosticScore = session?.target2B?.finalScore ?? {};
-  const targetScore = targetSelfScore.valid ? targetSelfScore : targetDiagnosticScore;
+  const targetScore = combineTargetCanonicalScore(targetObservationScore, targetDiagnosticScore, targetSelfScore);
 
   return buildPairDeliverable({
     acquirerEnvironmentCode: acquirerScore.primaryEnvironmentCode,
@@ -638,6 +799,8 @@ export function buildFinalDeliverable(session) {
     targetSecondaryEnvironmentCode: targetScore.secondaryEnvironmentCode,
     targetSignalStrength: targetScore.signalStrength,
     targetCoPresence: Boolean(targetScore.coPresence || targetDiagnosticScore.coPresence),
+    targetCanonicalSource: targetScore.targetCanonicalSource,
+    targetCanonicalWeights: targetScore.targetCanonicalWeights,
   });
 }
 
@@ -690,4 +853,3 @@ export function isFinalDeliverableSourceLoaded(data = FINAL_DELIVERABLE_DATA) {
       && data.clientJourney.outcomes.D,
   );
 }
-

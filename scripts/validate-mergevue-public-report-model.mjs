@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import assert from "node:assert/strict";
 import { buildMergevuePublicReportModel } from "../src/reporting/mergevuePublicReportModel.js";
+import { buildFinalDeliverable } from "../src/flow/finalDeliverableFlow.js";
 import { FINAL_DELIVERABLE_DATA } from "../src/data/finalDeliverableData.js";
 
 const TOP_LEVEL_KEYS = Object.freeze([
@@ -161,6 +162,33 @@ assert.equal(
   "Public compatibility band must be bound to final-deliverable source-row riskBand.",
 );
 
+const observerWinsSession = Object.freeze({
+  ...demoSession,
+  acquirer2A: Object.freeze({
+    completed: true,
+    score: score("NT/STJ"),
+  }),
+  targetObservation: Object.freeze({
+    completed: true,
+    score: score("NT/STP", { totalEvidenceWeight: 23, effectiveAnswerCount: 23 }),
+  }),
+  target2B: Object.freeze({
+    completed: true,
+    finalScore: score("NT/STP", { totalEvidenceWeight: 22, effectiveAnswerCount: 22 }),
+  }),
+  targetSelfAssessment: Object.freeze({
+    completed: true,
+    score: score("NF/SFJ", { totalEvidenceWeight: 11, effectiveAnswerCount: 11, confidence: "medium" }),
+  }),
+});
+
+const observerWinsDeliverable = buildFinalDeliverable(observerWinsSession);
+assert.equal(
+  observerWinsDeliverable.targetEnvironmentCode,
+  "NT/STP",
+  "Final deliverable target environment must use canonical target merge; target self-assessment must not override observer-side evidence.",
+);
+
 assert.deepEqual(Object.keys(model), TOP_LEVEL_KEYS);
 
 for (const [section, fields] of Object.entries(REQUIRED_FIELDS)) {
@@ -306,4 +334,3 @@ assert(
   "Environment core mismatch must render the pair-specific section.coreMismatch field."
 );
 console.log("Mergevue public report model validation passed");
-
