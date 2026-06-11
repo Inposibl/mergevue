@@ -350,7 +350,7 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
     {
       label: "Earn-out credibility",
       severity: "Medium",
-      meaning: "Risk that behavioural friction makes performance milestones harder to trust, govern, or deliver.",
+      meaning: "Risk that behavioural friction makes performance milestones harder to deliver, putting contingent value and seller-management incentives under pressure.",
       testFirst: "Compare earn-out milestones with the operating routines and decision rights needed to hit them.",
     },
     {
@@ -449,7 +449,7 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
       valuationDisclaimer: "Directional triage only. Not a valuation or loss estimate.",
       economicRiskPosture: economicTriagePosture,
       economicTriageJudgement: "The main economic risk is not immediate value destruction. It is integration drag: the deal may lose speed, decision quality, or knowledge continuity if the target operating logic is compressed too quickly.",
-      economicTriageRule: "Read the posture as a prioritisation signal: the strongest exposure channel sets the headline risk, and clustered Medium channels are treated as an attention area before they become value leakage.",
+      economicTriageRule: "Posture rule: Posture equals the highest assessed channel severity. When no channel is High but two or more channels are Medium, posture is raised one band.",
       economicTriageReason,
       economicTriageChannels,
       evUse: "Deal value is used only to understand materiality. It is not scored in this public preview and does not produce a valuation-impact estimate.",

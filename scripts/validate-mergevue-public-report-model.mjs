@@ -202,6 +202,17 @@ for (const forbidden of FORBIDDEN_OUTPUT_STRINGS) {
 assert.equal(serialized.includes("McDonald's"), true);
 assert.equal(JSON.parse(serialized).brand.name, "Mergevue");
 
+const CANONICAL_ECONOMIC_POSTURE_RULE = "Posture rule: Posture equals the highest assessed channel severity. When no channel is High but two or more channels are Medium, posture is raised one band.";
+const FORBIDDEN_ECONOMIC_POSTURE_RULE = "Read the posture as a prioritisation signal: the strongest exposure channel sets the headline risk, and clustered Medium channels are treated as an attention area before they become value leakage.";
+assert(
+  serialized.includes(CANONICAL_ECONOMIC_POSTURE_RULE),
+  "Economic exposure triage must include the approved auditable posture rule."
+);
+assert(
+  !serialized.includes(FORBIDDEN_ECONOMIC_POSTURE_RULE),
+  "Economic exposure triage must not replace the posture rule with the weakened how-to-read narrative."
+);
+
 const sourceNarratives = FINAL_DELIVERABLE_DATA.narratives || [];
 const narrativesMissingCoreMismatch = sourceNarratives.filter((narrative) => !String(narrative.coreMismatch || "").trim());
 assert.equal(sourceNarratives.length, 72, "Final deliverable source must export 72 narratives.");
