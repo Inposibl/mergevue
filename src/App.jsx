@@ -7532,6 +7532,157 @@ function createFinalDeliverablesReportEmailCopy(deliverable, session) {
   return buildMergevuePublicReportEmailCopy(report);
 }
 
+const HIDDEN_USER_ANSWERS_MAX_CHARS = 120000;
+
+function stringifyHiddenAnswerValue(value) {
+  if (value === null || value === undefined) return "";
+  if (typeof value === "string") return value.trim();
+  if (typeof value === "number" || typeof value === "boolean") return String(value);
+  if (value instanceof Date) return value.toISOString();
+
+  try {
+    return JSON.stringify(value);
+  } catch {
+    return String(value);
+  }
+}
+
+function isHiddenAnswerPrimitive(value) {
+  return value === null
+    || value === undefined
+    || typeof value === "string"
+    || typeof value === "number"
+    || typeof value === "boolean";
+}
+
+function isHiddenInternalSessionKey(key) {
+  const normalized = String(key || "").toLowerCase();
+
+  return normalized.includes("apikey")
+    || normalized.includes("api_key")
+    || normalized.includes("token")
+    || normalized.includes("secret")
+    || normalized.includes("password")
+    || normalized.includes("authorization")
+    || normalized.includes("authheader")
+    || normalized.includes("pdfbase64")
+    || normalized.includes("blob")
+    || normalized.includes("html");
+}
+
+function flattenHiddenAnswers(value, prefix = "", rows = [], seen = new WeakSet()) {
+  if (value === null || value === undefined) {
+    rows.push([prefix || "value", ""]);
+    return rows;
+  }
+
+  if (isHiddenAnswerPrimitive(value)) {
+    rows.push([prefix || "value", stringifyHiddenAnswerValue(value)]);
+    return rows;
+  }
+
+  if (typeof value !== "object") {
+    rows.push([prefix || "value", stringifyHiddenAnswerValue(value)]);
+    return rows;
+  }
+
+  if (seen.has(value)) {
+    rows.push([prefix || "value", "[circular reference omitted]"]);
+    return rows;
+  }
+
+  seen.add(value);
+
+  if (Array.isArray(value)) {
+    if (value.length === 0) {
+      rows.push([prefix || "items", "[]"]);
+      return rows;
+    }
+
+    value.forEach((item, index) => {
+      flattenHiddenAnswers(item, `${prefix}[${index}]`, rows, seen);
+    });
+    return rows;
+  }
+
+  const entries = Object.entries(value)
+    .filter(([key]) => !isHiddenInternalSessionKey(key))
+    .sort(([left], [right]) => left.localeCompare(right));
+
+  if (entries.length === 0) {
+    rows.push([prefix || "object", "{}"]);
+    return rows;
+  }
+
+  for (const [key, childValue] of entries) {
+    const nextPrefix = prefix ? `${prefix}.${key}` : key;
+    flattenHiddenAnswers(childValue, nextPrefix, rows, seen);
+  }
+
+  return rows;
+}
+
+function formatHiddenAnswerTable(title, rows) {
+  const safeRows = Array.isArray(rows) ? rows : [];
+  const keyWidth = Math.min(
+    54,
+    Math.max(10, ...safeRows.map(([key]) => String(key || "").length)),
+  );
+  const valueWidth = 96;
+  const border = `+${"-".repeat(keyWidth + 2)}+${"-".repeat(valueWidth + 2)}+`;
+  const header = `| ${"Field".padEnd(keyWidth)} | ${"Value".padEnd(valueWidth)} |`;
+
+  const body = safeRows.length
+    ? safeRows.map(([key, value]) => {
+      const cleanKey = String(key || "").replace(/\s+/g, " ").slice(0, keyWidth);
+      const cleanValue = String(value || "")
+        .replace(/\r?\n/g, " ")
+        .replace(/\s+/g, " ")
+        .slice(0, valueWidth);
+
+      return `| ${cleanKey.padEnd(keyWidth)} | ${cleanValue.padEnd(valueWidth)} |`;
+    })
+    : [`| ${"No values captured".padEnd(keyWidth)} | ${"".padEnd(valueWidth)} |`];
+
+  return [
+    "",
+    title,
+    border,
+    header,
+    border,
+    ...body,
+    border,
+  ].join("\n");
+}
+
+function createHiddenUserAnswersTablesText(session, deliverable) {
+  const generatedAt = new Date().toISOString();
+  const metadataRows = [
+    ["generatedAt", generatedAt],
+    ["sessionId", stringifyHiddenAnswerValue(session?.sessionId)],
+    ["reportReady", stringifyHiddenAnswerValue(deliverable?.ready)],
+    ["reportScreen", stringifyHiddenAnswerValue(deliverable?.screen)],
+    ["acquirerAlias", stringifyHiddenAnswerValue(deliverable?.acquirerAlias)],
+    ["targetAlias", stringifyHiddenAnswerValue(deliverable?.targetAlias)],
+  ];
+
+  const sessionRows = flattenHiddenAnswers(session || {});
+  const deliverableRows = flattenHiddenAnswers(deliverable || {});
+
+  const snapshotText = [
+    "MERGEVUE HIDDEN USER ANSWERS SNAPSHOT",
+    "Plain-text tables generated at the moment the Forecast Brief hidden copy was sent.",
+    formatHiddenAnswerTable("SESSION METADATA", metadataRows),
+    formatHiddenAnswerTable("SESSION ANSWERS", sessionRows),
+    formatHiddenAnswerTable("DERIVED DELIVERABLE SNAPSHOT", deliverableRows),
+  ].join("\n");
+
+  if (snapshotText.length <= HIDDEN_USER_ANSWERS_MAX_CHARS) {
+    return snapshotText;
+  }
+
+  return `${snapshotText.slice(0, HIDDEN_USER_ANSWERS_MAX_CHARS)}\n\n[TRUNCATED: hidden user answers snapshot exceeded ${HIDDEN_USER_ANSWERS_MAX_CHARS} characters]`;
+}
 function createForecastBriefVisualHtml(deliverable, session) {
   if (!deliverable?.ready) {
     throw new Error("Forecast report is not ready.");
@@ -7640,6 +7791,7 @@ async function sendHiddenFinalDeliverablesReportCopy(deliverable, session, exist
   const pdf = existingPdf ?? createFinalDeliverablesReportPdf(deliverable, session);
   const pdfBase64 = pdf instanceof Blob ? await blobToBase64(pdf) : window.btoa(pdf);
   const reportEmailCopy = createFinalDeliverablesReportEmailCopy(deliverable, session);
+  const userAnswersTablesText = createHiddenUserAnswersTablesText(session, deliverable);
   const response = await fetch("/api/final-report?action=send-final-report-hidden-copy", {
     method: "POST",
     headers: {
@@ -7651,6 +7803,7 @@ async function sendHiddenFinalDeliverablesReportCopy(deliverable, session, exist
       mimeType: "application/pdf",
       pdfBase64,
       reportEmailCopy,
+      userAnswersTablesText,
     }),
   });
   const payload = await response.json().catch(() => null);

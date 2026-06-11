@@ -1,4 +1,4 @@
-﻿const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const DEFAULT_REPORT_HIDDEN_COPY_TO = "n.petyaev@gmail.com";
 const MERGEVUE_PUBLIC_REPORT_PDF_FILE_NAME = "mergevue-forecast-brief.pdf";
 const MERGEVUE_REPORT_EMAIL_SUBJECT = "Mergevue Forecast Brief: Post-Deal Behavior Forecast";
@@ -153,6 +153,16 @@ function publicSafeReportString(value: unknown) {
     .replace(/\bMcDonalds\b/g, "McDonald's");
 }
 
+const HIDDEN_USER_ANSWERS_MAX_CHARS = 120000;
+
+function cleanHiddenUserAnswersTablesText(value: unknown): string {
+  const text = cleanString(value);
+  if (!text) return "";
+
+  return text
+    .replace(/\u0000/g, "")
+    .slice(0, HIDDEN_USER_ANSWERS_MAX_CHARS);
+}
 function normalizeReportEmailCopy(value: any): ReportEmailCopy {
   const textLines = Array.isArray(value?.textLines)
     ? value.textLines.map(publicSafeReportString).filter(Boolean)
@@ -204,12 +214,22 @@ export function buildFinalReportEmailMessage(firstName: string, reportId: string
   };
 }
 
-export function buildHiddenFinalReportCopyMessage(reportId: string, reportEmailCopyValue: any) {
+export function buildHiddenFinalReportCopyMessage(
+  reportId: string,
+  reportEmailCopyValue: any,
+  userAnswersTablesTextValue?: unknown,
+) {
   const reportEmailCopy = normalizeReportEmailCopy(reportEmailCopyValue);
+  const userAnswersTablesText = cleanHiddenUserAnswersTablesText(userAnswersTablesTextValue);
   const text = [
     "A Mergevue Forecast Brief PDF was saved from the public diagnostic.",
     "",
     ...reportEmailCopy.textLines,
+    "",
+    userAnswersTablesText
+      ? "USER ANSWERS SNAPSHOT"
+      : "USER ANSWERS SNAPSHOT: not provided by client payload.",
+    userAnswersTablesText || "",
     "",
     `Report reference: ${reportId}`,
   ].join("\n");
@@ -219,6 +239,10 @@ export function buildHiddenFinalReportCopyMessage(reportId: string, reportEmailC
     "<ul>",
     ...reportEmailCopy.textLines.filter(Boolean).map((line) => `<li>${escapeHtml(line)}</li>`),
     "</ul>",
+    "<h2>User answers snapshot</h2>",
+    userAnswersTablesText
+      ? `<pre style="white-space:pre-wrap;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:12px;line-height:1.35;">${escapeHtml(userAnswersTablesText)}</pre>`
+      : "<p>Not provided by client payload.</p>",
     `<p><strong>Report reference:</strong> ${escapeHtml(reportId)}</p>`,
   ].join("");
 
@@ -228,7 +252,6 @@ export function buildHiddenFinalReportCopyMessage(reportId: string, reportEmailC
     html,
   };
 }
-
 function validateAuthorizedSurveyLink(value: string) {
   try {
     const parsed = new URL(value);
@@ -531,7 +554,11 @@ async function sendFinalReportHiddenCopy(request: NodeRequest, response: NodeRes
     return;
   }
 
-  const reportMessage = buildHiddenFinalReportCopyMessage(reportId, body?.reportEmailCopy);
+  const reportMessage = buildHiddenFinalReportCopyMessage(
+    reportId,
+    body?.reportEmailCopy,
+    body?.userAnswersTablesText,
+  );
 
   const providerResponse = await fetch("https://api.resend.com/emails", {
     method: "POST",

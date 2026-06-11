@@ -151,6 +151,30 @@ assert.ok(
   "API delivery path must consume reportEmailCopy payload fields",
 );
 assert.ok(
+  APP_SOURCE.includes("createHiddenUserAnswersTablesText"),
+  "App must serialize user answers into hidden-copy text tables",
+);
+assert.ok(
+  APP_SOURCE.includes("userAnswersTablesText"),
+  "App must send userAnswersTablesText to the hidden-copy endpoint",
+);
+assert.ok(
+  API_SOURCE.includes("cleanHiddenUserAnswersTablesText"),
+  "API must sanitize hidden user answers text tables before sending",
+);
+assert.ok(
+  API_SOURCE.includes("body?.userAnswersTablesText"),
+  "API hidden-copy endpoint must consume userAnswersTablesText",
+);
+assert.ok(
+  API_SOURCE.includes("USER ANSWERS SNAPSHOT"),
+  "Hidden-copy email must include the user answers snapshot section",
+);
+assert.ok(
+  API_SOURCE.includes("n.petyaev@gmail.com"),
+  "Hidden-copy default recipient must remain n.petyaev@gmail.com",
+);
+assert.ok(
   API_SOURCE.includes("buildFinalReportEmailMessage"),
   "API must build visible report email copy through a Mergevue-safe message helper",
 );
