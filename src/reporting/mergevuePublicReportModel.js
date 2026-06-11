@@ -430,6 +430,7 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
     },
     collisionThesis: {
       collisionHeadline: cleanString(narrative.headline ?? "Operating systems may collide after close"),
+      coreMismatch: cleanString(narrative.coreMismatch ?? "The core mismatch depends on the current environment-pair result."),
       collisionSummary: cleanString(friction.fp1 ?? narrative.situation ?? "The collision thesis is based on the current environment-pair result."),
       primaryTension: cleanString(friction.primaryConflictedResources ?? `${leadResource} is the primary tension to monitor.`),
       whyItMatters: cleanString(narrative.implication ?? "The risk matters because early operating assumptions can become permanent integration defaults."),

@@ -1,5 +1,7 @@
+import fs from "node:fs";
 import assert from "node:assert/strict";
 import { buildMergevuePublicReportModel } from "../src/reporting/mergevuePublicReportModel.js";
+import { FINAL_DELIVERABLE_DATA } from "../src/data/finalDeliverableData.js";
 
 const TOP_LEVEL_KEYS = Object.freeze([
   "brand",
@@ -200,4 +202,22 @@ for (const forbidden of FORBIDDEN_OUTPUT_STRINGS) {
 assert.equal(serialized.includes("McDonald's"), true);
 assert.equal(JSON.parse(serialized).brand.name, "Mergevue");
 
+const sourceNarratives = FINAL_DELIVERABLE_DATA.narratives || [];
+const narrativesMissingCoreMismatch = sourceNarratives.filter((narrative) => !String(narrative.coreMismatch || "").trim());
+assert.equal(sourceNarratives.length, 72, "Final deliverable source must export 72 narratives.");
+assert.deepEqual(
+  narrativesMissingCoreMismatch.map((narrative) => `${narrative.acquirerEnvironmentCode || "?"}->${narrative.targetEnvironmentCode || "?"}`),
+  [],
+  "Every final-deliverable narrative must export a non-empty coreMismatch field."
+);
+
+const rendererSource = fs.readFileSync(new URL("../src/reporting/mergevueForecastBriefDesignRenderer.js", import.meta.url), "utf8");
+assert(
+  !rendererSource.includes("The core mismatch is between evidence-based authority and mission-based legitimacy."),
+  "Environment core mismatch must not use the old hardcoded authority/legitimacy placeholder."
+);
+assert(
+  rendererSource.includes("section.coreMismatch"),
+  "Environment core mismatch must render the pair-specific section.coreMismatch field."
+);
 console.log("Mergevue public report model validation passed");

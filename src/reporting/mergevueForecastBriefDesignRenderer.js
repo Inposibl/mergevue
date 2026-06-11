@@ -598,6 +598,7 @@ export function buildMergevueForecastBriefDesignModel(report, options = {}) {
         resourceTarget: environments.targetResourceTarget,
         systemicRole: environments.targetSystemicRole,
       },
+      coreMismatch: cleanText(collision.coreMismatch),
     },
     {
       id: SECTION_IDS[4],
@@ -1536,7 +1537,7 @@ function renderHtmlSection(section, number, context = {}) {
       const rows = [["Definition", env.oneLineDefinition || env.description], ["Authority", env.authorityStructure], ["Decision logic", env.behaviorPattern], ["Innovation stance", env.innovationStance], ["Economic function", env.economicFunction], ["Resource focus", env.resourceTarget], ["Systemic role", env.systemicRole]].filter(([, value]) => cleanText(value));
       return `<article class="env env-rich"><div class="role">${escapeHtml(role)}</div><div class="co">${escapeHtml(env.name)}</div><div class="arc">${escapeHtml(env.environment)}</div><p>${escapeHtml(env.description)}</p><div class="env-facts">${rows.map(([label, value]) => `<div class="env-fact"><span>${escapeHtml(label)}</span><p>${escapeHtml(value)}</p></div>`).join("")}</div></article>`;
     };
-    return `<section class="sec" id="environments" data-screen-label="Identified Environment Types">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.environments)}<div class="envs">${renderEnvironmentCard("Acquirer", section.acquirer)}${renderEnvironmentCard("Target", section.target)}</div><div class="panel env-bridge"><strong>Core mismatch.</strong> The core mismatch is between evidence-based authority and mission-based legitimacy.</div></section>`;
+    return `<section class="sec" id="environments" data-screen-label="Identified Environment Types">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.environments)}<div class="envs">${renderEnvironmentCard("Acquirer", section.acquirer)}${renderEnvironmentCard("Target", section.target)}</div><div class="panel env-bridge"><strong>Core mismatch.</strong> ${escapeHtml(section.coreMismatch || "The core mismatch depends on the two identified operating environments.")}</div></section>`;
   }
   if (section.id === "collision") {
     const humanFinding = collisionFindingHumanText(section);

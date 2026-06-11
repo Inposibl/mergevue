@@ -125,6 +125,7 @@ def build_narratives():
                 "ecs": number_or_none(values.get(3)),
                 "riskBand": public_text(values.get(4, "")),
                 "headline": public_text(values.get(5, "")),
+                "coreMismatch": public_text(values.get(10, "")),
                 "situation": public_text(values.get(6, "")),
                 "prediction": public_text(values.get(7, "")),
                 "implication": public_text(values.get(8, "")),
@@ -343,5 +344,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
