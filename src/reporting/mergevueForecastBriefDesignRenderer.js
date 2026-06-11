@@ -1486,13 +1486,13 @@ function renderResourceConflictSummary(section) {
 
 function explainEconomicLine(line) {
   const text = cleanText(line);
-  if (/Average annual compensation/i.test(text)) return ["Compensation assumption", text, "This is the annual cost assumption used to estimate how expensive key-person departure could become. It is not a salary audit; it is an input for exposure sizing."];
-  if (/Key personnel at risk/i.test(text)) { const count = Number(String(text).replace(/[^0-9.]/g, "")); const isLargePool = Number.isFinite(count) && count > 100; const formattedCount = Number.isFinite(count) ? count.toLocaleString("en-US") : String(text).replace(/^Key personnel at risk:\s*/i, "").replace(/\.$/, ""); return [isLargePool ? "Continuity exposure pool" : "Key people at risk", isLargePool ? `Continuity exposure pool: ${formattedCount} affected employees / roles.` : text.replace(/^Key personnel at risk:/i, "Key personnel at risk:"), isLargePool ? "This is the affected population used for continuity-cost sizing, not a list of individually critical people. It is an exposure input, not a prediction that all named people will leave." : "This is the provided or estimated count of people whose departure, disengagement, or defensive behaviour could materially affect integration quality. It is an exposure input, not a prediction that all named people will leave."]; }
-  if (/ECS valuation band/i.test(text)) return ["ECS economic risk band", text.replace(/^ECS valuation band:/i, "ECS economic risk band:"), "This translates structural compatibility into a financial-risk posture for pricing and integration planning. It is separate from the cover compatibility label: high structural compatibility can still carry material exposure when deal value, contingent value, or continuity exposure is large."];
-  if (/EV Discount/i.test(text)) return ["Potential EV discount pressure", text, "This indicates the range of valuation pressure that may appear if the market, investment committee, or buyer prices the integration risk into the transaction."];
-  if (/Earn-Out Exposure/i.test(text)) return ["Earn-out exposure", text, "This estimates how much contingent value may become harder to realise if post-close behaviour friction disrupts performance milestones."];
-  if (/Talent Cost/i.test(text)) return ["Talent-loss exposure", text, "This estimates the replacement, retention, disruption, and productivity cost attached to key people leaving or becoming ineffective after close."];
-  if (/Economic risk posture/i.test(text)) return ["Total economic exposure range", text, "This is an order-of-magnitude decision-risk envelope across valuation pressure, earn-out risk, and key-person cost. Components may overlap and should not be read as a formal additive loss estimate. It is a planning range, not a formal valuation."];
+  if (/Average annual compensation/i.test(text)) return ["Compensation assumption", text, "Annual cost input for continuity sizing, not a salary audit."];
+  if (/Key personnel at risk/i.test(text)) { const count = Number(String(text).replace(/[^0-9.]/g, "")); const isLargePool = Number.isFinite(count) && count > 100; const formattedCount = Number.isFinite(count) ? count.toLocaleString("en-US") : String(text).replace(/^Key personnel at risk:\s*/i, "").replace(/\.$/, ""); return [isLargePool ? "Continuity exposure pool" : "Key people at risk", isLargePool ? `Continuity exposure pool: ${formattedCount} affected employees / roles.` : text.replace(/^Key personnel at risk:/i, "Key personnel at risk:"), isLargePool ? "Affected population for continuity-cost sizing; not a prediction that all will leave." : "This is the provided or estimated count of people whose departure, disengagement, or defensive behaviour could materially affect integration quality. It is an exposure input, not a prediction that all named people will leave."]; }
+  if (/ECS valuation band/i.test(text)) return ["ECS economic risk band", text.replace(/^ECS valuation band:/i, "ECS economic risk band:"), "Translates ECS into financial-risk posture. Separate from the cover label: large deal value, contingent value, or continuity exposure can still create material risk."];
+  if (/EV Discount/i.test(text)) return ["Potential EV discount pressure", text, "Potential valuation pressure if integration risk is priced into the transaction."];
+  if (/Earn-Out Exposure/i.test(text)) return ["Earn-out exposure", text, "Contingent value that may be harder to realise if friction disrupts milestones."];
+  if (/Talent Cost/i.test(text)) return ["Talent-loss exposure", text, "Replacement, retention, disruption, and productivity cost tied to key-person continuity."];
+  if (/Economic risk posture/i.test(text)) return ["Total economic exposure range", text, "Order-of-magnitude decision-risk envelope across EV pressure, earn-out, and key-person cost. Components may overlap; planning range, not formal valuation."];
   if (/Order-of-magnitude/i.test(text)) return ["Method limit", text, "The numbers are intended for decision posture and integration planning, not as a forecast of realised loss. Formal financial treatment requires engagement-tier modelling and analyst review."];
   return ["Economic input", text, "This line is part of the deal economics input used to translate operating friction into a practical financial exposure range."];
 }
@@ -1508,16 +1508,16 @@ function explainEconomicCategory(label) {
 function explainEconomicScore(label, value) {
   const score = Math.max(0, Math.min(100, Number(value) || 0));
   const text = cleanText(label).toLowerCase();
-  if (text.includes("operating drift")) return `${score} on this scale = current drift exposure; 100 = maximum operating drift exposure.`;
-  if (text.includes("knowledge leakage")) return `${score} on this scale = current leakage exposure; 100 = maximum knowledge leakage exposure.`;
-  if (text.includes("decision delay")) return `${score} on this scale = current delay exposure; 100 = maximum decision-delay exposure.`;
-  return `${score} on this scale = current exposure; 100 = maximum exposure.`;
+  if (text.includes("operating drift")) return "";
+  if (text.includes("knowledge leakage")) return "";
+  if (text.includes("decision delay")) return "";
+  return "";
 }
 
 function renderEconomicLineItems(lines) {
   const items = Array.isArray(lines) ? lines.filter((line) => cleanText(line)).map(explainEconomicLine) : [];
   if (!items.length) return "";
-  return `<div class="econ-lines">${items.map(([label, value, explanation]) => `<div class="econ-line"><div class="econ-line-head"><span>${escapeHtml(label)}</span><b>${escapeHtml(value)}</b></div><p>${escapeHtml(explanation)}</p></div>`).join("")}</div>`;
+  return `<div class="econ-lines">${items.map(([label, value, explanation]) => `<div class="econ-line"><div class="econ-line-head"><span>${escapeHtml(label)}</span><b>${escapeHtml(value)}</b></div>${cleanText(explanation) ? `<p>${escapeHtml(explanation)}</p>` : ""}</div>`).join("")}</div>`;
 }
 
 function renderEngagementBenefit(benefit) {
@@ -1587,8 +1587,8 @@ function renderHtmlSection(section, number, context = {}) {
   if (section.id === "economics") {
     const economicLines = Array.isArray(section.economicRiskLines) ? section.economicRiskLines : [];
     const economicLineItems = renderEconomicLineItems(economicLines);
-    const categories = section.categories.map((category) => `<div class="cat"><div class="cat-top"><span class="cn">${escapeHtml(category.label)}</span><span class="cr tnum">${category.value} / 100</span></div><p>${escapeHtml(explainEconomicCategory(category.label))}</p><div class="cat-scale-note">${escapeHtml(explainEconomicScore(category.label, category.value))}</div><div class="cat-bar"><span style="width:${category.value}%"></span></div></div>`).join("");
-    return `<section class="sec" id="economic" data-screen-label="Economic Translation">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.economics)}<div class="env-total"><div class="et-l"><div class="lab">Economic exposure</div><div class="economic-label">${escapeHtml(section.enterpriseValueBand)}</div></div><div class="et-r">${escapeHtml(section.valuationDisclaimer)}<br>${escapeHtml(section.engagementTierRequirement)}</div></div><div class="panel economic-message"><strong>Main economic message.</strong> ${escapeHtml(section.economicRiskPosture)}</div>${economicLineItems}<div class="cats">${categories}</div></section>`;
+    const categories = section.categories.map((category) => { const scaleNote = explainEconomicScore(category.label, category.value); return `<div class="cat"><div class="cat-top"><span class="cn">${escapeHtml(category.label)}</span><span class="cr tnum">${category.value} / 100</span></div><p>${escapeHtml(explainEconomicCategory(category.label))}</p>${cleanText(scaleNote) ? `<div class="cat-scale-note">${escapeHtml(scaleNote)}</div>` : ""}<div class="cat-bar"><span style="width:${category.value}%"></span></div></div>`; }).join("");
+    return `<section class="sec" id="economic" data-screen-label="Economic Translation">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.economics)}<div class="env-total"><div class="et-l"><div class="lab">Economic exposure</div><div class="economic-label">${escapeHtml(section.enterpriseValueBand)}</div></div><div class="et-r">${escapeHtml(section.valuationDisclaimer)}<br>${escapeHtml(section.engagementTierRequirement)}</div></div><div class="panel economic-message"><strong>Main economic message.</strong> ${escapeHtml(section.economicRiskPosture).replace(/^Main economic message:\s*/i, "")}</div>${economicLineItems}<div class="cats">${categories}</div></section>`;
   }
   if (section.id === "actions") {
     return `<section class="sec" id="actions" data-screen-label="Recommended Actions">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.actions)}<div class="acts">${renderActionPanel("Before close", section.beforeClose)}${renderActionPanel("After close", section.afterClose)}</div><div class="cta"><div><div class="cl">Recommended next action</div><div class="ct">${escapeHtml(section.beforeClose[0]?.actionTitle || section.afterClose[0]?.actionTitle)}</div></div><div class="cbtn">Book practitioner session</div></div></section>`;
@@ -1609,6 +1609,10 @@ function renderHtmlSection(section, number, context = {}) {
   }
   return `<section class="sec">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES[section.id] ?? "")}</section>`;
 }
+
+
+
+
 
 
 
