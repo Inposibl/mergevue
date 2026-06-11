@@ -1,4 +1,4 @@
-﻿import assert from "node:assert/strict";
+import assert from "node:assert/strict";
 import { buildMergevuePublicReportModel } from "../src/reporting/mergevuePublicReportModel.js";
 
 const TOP_LEVEL_KEYS = Object.freeze([
@@ -134,7 +134,7 @@ assert.equal(model.brand.contactEmail, "report@mergevue.com");
 assert.equal(model.auditFooter.brand, "Mergevue");
 assert.equal(model.auditFooter.contactEmail, "report@mergevue.com");
 
-assert.equal(model.sealedPredictions.statusTitle, "Sealed Prediction Preview");
+assert.equal(model.sealedPredictions.statusTitle, "Forecast Preview");
 assert.equal(model.sealedPredictions.statusDescription, "Display-only preview; not ledger-recorded.");
 assert.ok(Array.isArray(model.sealedPredictions.predictions));
 assert.ok(model.sealedPredictions.predictions.length >= 1);
@@ -201,4 +201,3 @@ assert.equal(serialized.includes("McDonald's"), true);
 assert.equal(JSON.parse(serialized).brand.name, "Mergevue");
 
 console.log("Mergevue public report model validation passed");
-

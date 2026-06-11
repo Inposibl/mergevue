@@ -1,4 +1,4 @@
-﻿import assert from "node:assert/strict";
+import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import {
   MERGEVUE_PUBLIC_REPORT_BLOCKS,
@@ -19,8 +19,8 @@ const REQUIRED_PDF_STRINGS = Object.freeze([
   "Post-Deal Behavior Forecast",
   "Forecast Brief",
   "report@mergevue.com",
-  "Sealed Predictions & Action Timeline",
-  "Sealed Prediction Preview",
+  "Forecast Preview & Action Timeline",
+  "Forecast Preview",
   "Display-only preview; not ledger-recorded.",
   "Economic exposure",
   "USD 500 million",
@@ -126,7 +126,7 @@ assert.equal(pdfModel.fileName, MERGEVUE_PUBLIC_REPORT_PDF_FILE_NAME);
 assert.equal(pdfModel.fileName, "mergevue-forecast-brief.pdf");
 assert.equal(pdfModel.fileName.includes("structural-typology-final-deliverables-report"), false);
 const expectedDesignSectionTitles = MERGEVUE_PUBLIC_REPORT_BLOCKS.map((title, index) => (
-  index === 1 ? "Sealed Predictions & Action Timeline" : title
+  index === 1 ? "Forecast Preview & Action Timeline" : title
 ));
 assert.deepEqual(pdfModel.sections.map((section) => section.title), expectedDesignSectionTitles);
 
@@ -293,9 +293,9 @@ assert.ok(pdfHtml.includes("ECS"), "PDF renderer must include ECS number.");
 assert.ok(pdfHtml.includes("0-100 scale"), "PDF renderer must include 0-100 scale marker.");
 assert.ok(pdfHtml.includes("pips"), "PDF renderer must include confidence pips.");
 assert.ok(pdfHtml.includes("deal-grid"), "PDF renderer must include a deal grid.");
-assert.ok(pdfHtml.includes("sealed-preview-1"), "PDF renderer must include sealed prediction lock id.");
-assert.ok(pdfHtml.includes("Verify by"), "PDF renderer must include sealed prediction verification labels.");
-assert.ok(pdfHtml.includes("Evidence required"), "PDF renderer must include sealed prediction evidence labels.");
+assert.ok(pdfHtml.includes("forecast-preview-1"), "PDF renderer must include forecast preview lock id.");
+assert.ok(pdfHtml.includes("Verify by"), "PDF renderer must include forecast preview verification labels.");
+assert.ok(pdfHtml.includes("Evidence required"), "PDF renderer must include forecast preview evidence labels.");
 assert.equal(pdfHtml.includes("Falsification condition"), false, "PDF renderer must not include the old falsification condition label.");
 assert.equal(pdfHtml.includes("Window Days"), false, "PDF renderer must not include the old window-days label.");
 assert.equal(pdfHtml.includes("Window |"), false, "PDF renderer must not include visible prediction window labels.");

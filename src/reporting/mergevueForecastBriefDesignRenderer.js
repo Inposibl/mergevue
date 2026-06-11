@@ -1,4 +1,4 @@
-﻿import {
+import {
   MERGEVUE_PUBLIC_REPORT_BLOCKS,
   MERGEVUE_PUBLIC_REPORT_PDF_FILE_NAME,
 } from "./mergevuePublicReportModel.js";
@@ -25,7 +25,7 @@ const ALLOWED_DUPLICATE_TEXT = new Set([
   "Day 60",
 ]);
 
-const COMBINED_PREDICTION_TITLE = "Sealed Predictions & Action Timeline";
+const COMBINED_PREDICTION_TITLE = "Forecast Preview & Action Timeline";
 const COMBINED_PREDICTION_NOTE = "DISPLAY-ONLY PREVIEW; NOT LEDGER-RECORDED.";
 
 const COMBINED_PREDICTION_LABELS = Object.freeze([
@@ -40,7 +40,7 @@ const ARCHIVE_SECTION_NOTES = Object.freeze({
   environments: "Two distinctive operating models",
   collision: "Collision thesis",
   resources: "Resource map",
-  timeline: "Derived from sealed prediction windows",
+  timeline: "Derived from forecast preview windows",
   economics: "Decision posture, not valuation",
   actions: "Before and after close",
   evidence: "What this preview cannot decide for you",
@@ -430,7 +430,7 @@ function predictionCard(prediction, index, actions = {}) {
     verifyByDisplay: cleanText(prediction.predictionWindow),
     window: cleanText(prediction.predictionWindow),
     falsificationCondition: verification,
-    lockId: `sealed-preview-${index + 1}`,
+    lockId: `forecast-preview-${index + 1}`,
     sealed: true,
   });
 }
@@ -1363,7 +1363,7 @@ function renderPredictionCards(section) {
     const no = String(prediction.index).padStart(2, "0");
     const actionTitle = cleanText(prediction.actionTitle || prediction.recommendedAction);
     return `<article class="pred"><div class="pred-top">
-      <div class="pred-id"><span class="pno">PREDICTION ${no}</span><span class="seal">Sealed</span><span class="lock">lock: ${escapeHtml(prediction.lockId)}</span></div>
+      <div class="pred-id"><span class="pno">PREDICTION ${no}</span><span class="seal">Preview</span><span class="lock">ref: ${escapeHtml(prediction.lockId)}</span></div>
       <div class="pred-main"><div class="window-label">${escapeHtml(prediction.windowLabel || prediction.oneLine)}</div><p class="pred-claim">${escapeHtml(prediction.statement)}</p></div>
       <div class="pred-verify"><span class="vl">Verify by</span><span class="vd tnum">${escapeHtml(prediction.verifyByDisplay)}</span></div>
     </div><div class="prediction-bottom">
@@ -1539,7 +1539,7 @@ function renderEngagementBenefit(benefit) {
 
 function renderHtmlSection(section, number, context = {}) {
   if (section.id === "predictions") {
-    return `<section class="sec" id="predictions" data-screen-label="${escapeHtml(COMBINED_PREDICTION_TITLE)}">${sectionHead(number, section.title, COMBINED_PREDICTION_NOTE)}<div class="panel prediction-banner"><h4>SEALED PREDICTION PREVIEW</h4><p>Display-only preview; not ledger-recorded. Each sealed prediction is paired with its verification window and model-recommended action.</p></div><div class="preds-wrap prediction-stack">${renderPredictionCards(section)}</div></section>`;
+    return `<section class="sec" id="predictions" data-screen-label="${escapeHtml(COMBINED_PREDICTION_TITLE)}">${sectionHead(number, section.title, COMBINED_PREDICTION_NOTE)}<div class="panel prediction-banner"><h4>FORECAST PREVIEW</h4><p>Display-only preview; not ledger-recorded. Each forecast preview is paired with its verification window and model-recommended action.</p></div><div class="preds-wrap prediction-stack">${renderPredictionCards(section)}</div></section>`;
   }
   if (section.id === "environments") {
     const renderEnvironmentCard = (role, env) => {

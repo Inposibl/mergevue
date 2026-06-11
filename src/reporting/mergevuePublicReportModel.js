@@ -1,4 +1,4 @@
-﻿import { ENVIRONMENTS } from "../data/environments.js";
+import { ENVIRONMENTS } from "../data/environments.js";
 import {
   buildFinalDeliverable,
   publicText,
@@ -16,7 +16,7 @@ export const MERGEVUE_PUBLIC_REPORT_PDF_FILE_NAME = "mergevue-forecast-brief.pdf
 export const MERGEVUE_PUBLIC_REPORT_EMAIL_SUBJECT = "Mergevue Forecast Brief: Post-Deal Behavior Forecast";
 export const MERGEVUE_PUBLIC_REPORT_BLOCKS = Object.freeze([
   "Executive Decision Summary",
-  "Sealed Predictions",
+  "Forecast Preview",
   "Compatibility Score & Deal Scenario",
   "Identified Environment Types",
   "Collision Thesis",
@@ -232,7 +232,7 @@ function timelinePhases(deliverable) {
       timeWindow: TIMING_LOGIC.verificationDeadline,
       expectedFriction: cleanString("The Month 12 preview claim should be escalated, revised, or lowered at the Day 60 early checkpoint."),
       observableSignal: cleanString(anchors[2]?.text ?? "A clear enough signal to decide whether deeper engagement is needed."),
-      recommendedCheck: "Run a Day 60 early-checkpoint review against the sealed preview claim.",
+      recommendedCheck: "Run a Day 60 early-checkpoint review against the forecast preview claim.",
     },
   ];
 }
@@ -355,7 +355,7 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
       recommendedAction: firstIntegrationControlMove(deliverable),
     },
     sealedPredictions: {
-      statusTitle: "Sealed Prediction Preview",
+      statusTitle: "Forecast Preview",
       statusDescription: "Display-only preview; not ledger-recorded.",
       predictions: buildPredictions(deliverable),
     },
@@ -654,14 +654,3 @@ export function buildMergevuePublicReportEmailCopy(report) {
 }
 
 export default buildMergevuePublicReportModel;
-
-
-
-
-
-
-
-
-
-
-
