@@ -1,4 +1,4 @@
-import fs from "node:fs";
+﻿import fs from "node:fs";
 import assert from "node:assert/strict";
 import { buildMergevuePublicReportModel } from "../src/reporting/mergevuePublicReportModel.js";
 import { FINAL_DELIVERABLE_DATA } from "../src/data/finalDeliverableData.js";
@@ -213,6 +213,39 @@ assert(
   "Economic exposure triage must not replace the posture rule with the weakened how-to-read narrative."
 );
 
+const EXPECTED_ECONOMIC_TRIAGE_CHANNELS = Object.freeze([
+  {
+    label: "Talent continuity",
+    severity: "High",
+    meaning: "Risk that deal-critical people disengage, slow down, or leave before the integration model stabilises.",
+    testFirst: "Map named critical roles, retention exposure, and the first 90-day decision points that depend on them.",
+  },
+  {
+    label: "Earn-out credibility",
+    severity: "Medium",
+    meaning: "Risk that behavioural friction makes performance milestones harder to deliver, putting contingent value and seller-management incentives under pressure.",
+    testFirst: "Compare earn-out milestones with the operating routines and decision rights needed to hit them.",
+  },
+  {
+    label: "Decision delay",
+    severity: "Medium",
+    meaning: "Risk that approvals, escalation paths, and authority conflicts slow value capture after close.",
+    testFirst: "Identify decisions that must not wait for a full integration redesign.",
+  },
+  {
+    label: "Knowledge continuity",
+    severity: "Medium",
+    meaning: "Risk that informal know-how, customer context, or execution memory stops moving through the combined organisation.",
+    testFirst: "Name the knowledge holders, handover routines, and early warning signs of information blockage.",
+  },
+]);
+
+assert.deepEqual(
+  model.economicRiskTranslation.economicTriageChannels,
+  EXPECTED_ECONOMIC_TRIAGE_CHANNELS,
+  "Economic exposure channel glosses and Test first lines are a static authored baseline and must not drift without sign-off."
+);
+
 const sourceNarratives = FINAL_DELIVERABLE_DATA.narratives || [];
 const narrativesMissingCoreMismatch = sourceNarratives.filter((narrative) => !String(narrative.coreMismatch || "").trim());
 assert.equal(sourceNarratives.length, 72, "Final deliverable source must export 72 narratives.");
@@ -232,3 +265,4 @@ assert(
   "Environment core mismatch must render the pair-specific section.coreMismatch field."
 );
 console.log("Mergevue public report model validation passed");
+
