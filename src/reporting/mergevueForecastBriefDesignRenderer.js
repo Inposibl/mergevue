@@ -72,16 +72,6 @@ function stripLabel(value, label) {
   return text.replace(pattern, "").trim();
 }
 
-function formatValuationRiskBasis(value) {
-  const text = stripLabel(value, "Enterprise value band");
-  if (!text) return "";
-  const provided = text.match(/Enterprise value \/ deal value provided:\s*(.+?)\s*\(estimated\)\.?$/i);
-  if (provided) return `Valuation risk basis: ${provided[1]} estimated deal value.`;
-  const band = text.match(/Enterprise value band:\s*(.+)$/i);
-  if (band) return `Valuation risk basis: ${band[1]}.`;
-  return `Valuation risk basis: ${text}`;
-}
-
 function formatForecastDate(value) {
   const text = cleanText(value);
   const match = text.match(/^(\d{4})-(\d{2})-(\d{2})/);
@@ -644,9 +634,17 @@ export function buildMergevueForecastBriefDesignModel(report, options = {}) {
     {
       id: SECTION_IDS[7],
       title: MERGEVUE_PUBLIC_REPORT_BLOCKS[7],
-      enterpriseValueBand: formatValuationRiskBasis(economics.enterpriseValueBand),
+      enterpriseValueBand: cleanText(economics.enterpriseValueBand).replace(/^Enterprise value \/ deal value provided:/, "Deal value context:"),
       valuationDisclaimer: economics.valuationDisclaimer,
       economicRiskPosture: economics.economicRiskPosture,
+      economicTriageJudgement: economics.economicTriageJudgement,
+      economicTriageRule: economics.economicTriageRule,
+      economicTriageReason: economics.economicTriageReason,
+      economicTriageChannels: Array.isArray(economics.economicTriageChannels) ? economics.economicTriageChannels : [],
+      evUse: economics.evUse,
+      whatThisPreviewCanSay: economics.whatThisPreviewCanSay,
+      whatThisPreviewCannotSay: economics.whatThisPreviewCannotSay,
+      requiredForQuantifiedModelling: economics.requiredForQuantifiedModelling,
       economicRiskLines: Array.isArray(economics.economicRiskLines) ? economics.economicRiskLines : [],
       engagementTierRequirement: economics.engagementTierRequirement,
       categories: economicCategories,
