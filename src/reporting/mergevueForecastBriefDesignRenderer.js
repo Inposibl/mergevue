@@ -29,9 +29,9 @@ const COMBINED_PREDICTION_TITLE = "Sealed Predictions & Action Timeline";
 const COMBINED_PREDICTION_NOTE = "DISPLAY-ONLY PREVIEW; NOT LEDGER-RECORDED.";
 
 const COMBINED_PREDICTION_LABELS = Object.freeze([
-  "FP1 | Evidence challenge test",
-  "FP2 | Authority displacement pattern",
-  "FP3 | Meaning-retention checkpoint",
+  "FP1 | Early evidence test",
+  "FP2 | Operating logic displacement",
+  "FP3 | Long-range risk checkpoint",
 ]);
 const ARCHIVE_SECTION_NOTES = Object.freeze({
   exec: "Executive Summary",
@@ -60,6 +60,9 @@ function cleanText(value) {
   return String(value)
     .replace(/\s+-\s+/g, " | ")
     .replace(/\s+/g, " ")
+    .replace(/\ban\s+The\s+/gi, "a ")
+    .replace(/\ba\s+The\s+/gi, "a ")
+    .replace(/\bthe\s+The\s+/gi, "the ")
     .trim();
 }
 
@@ -308,6 +311,79 @@ function actionForPrediction(actions, index) {
   return allActions[index];
 }
 
+function inferEvidenceFamily(...parts) {
+  const text = parts.map(cleanText).join(" ").toLowerCase();
+  if (/authority|accountability|consequence|senior|junior|permission|sanction|review process|exception/.test(text)) return "authority_accountability";
+  if (/resource|budget|headcount|incentive|approval|money|redistribution|earn-out|customer access/.test(text)) return "resource_control";
+  if (/knowledge|documentation|expert|know-how|handover|analyst|intellectual|systematised|planning artefacts/.test(text)) return "knowledge_transfer";
+  if (/trust|disclosure|credibility|psychological safety|loyalty|confidence/.test(text)) return "trust_disclosure";
+  if (/planning|cadence|forum|long-range|roadmap|operating meeting|strategic planning/.test(text)) return "planning_cadence";
+  if (/decision rights|handoff|escalation|governance|ownership|sign-off/.test(text)) return "decision_rights";
+  if (/retention|departure|exit|disengagement|leave|attrition/.test(text)) return "retention_disengagement";
+  if (/tempo|speed|rhythm|delay|execution|handoff/.test(text)) return "execution_rhythm";
+  return "governance_overwrite";
+}
+
+const EVIDENCE_REQUIRED_BY_FAMILY = Object.freeze({
+  authority_accountability: [
+    "Review Day 0-30 senior-versus-junior review records, exception approvals, consequence decisions, escalation notes, and leadership meeting minutes. Confirm whether standards are applied symmetrically across levels.",
+    "Review Days 30-60 decision-rights updates, escalation patterns, senior exceptions, consequence decisions, and governance changes that alter who is held accountable for performance.",
+    "By Day 60, review whether authority exceptions are becoming routine enough to affect trust, retention, execution quality, or willingness to escalate issues."
+  ],
+  resource_control: [
+    "Review Day 0-30 budget holds, approval changes, resource requests, headcount decisions, and early exceptions that redirect resources away from the target operating logic.",
+    "Review Days 30-60 budget reallocations, resource approvals, incentive-rule changes, new sign-off layers, exception decisions, and cases where resources, headcount, tools, or customer access are redirected despite performance evidence.",
+    "By Day 60, review whether resource-control changes are affecting delivery confidence, incentive credibility, retention risk, or the target's ability to execute."
+  ],
+  planning_cadence: [
+    "Review Day 0-30 changes to planning cadence: cancelled or shortened forums, revised governance notes, decision logs, planning-team role changes, and management comments that deprioritise long-range planning.",
+    "Review Days 30-60 operating meeting notes, planning-cycle changes, handoff documents, decision logs, and examples where planning work is bypassed, compressed, or replaced by immediate execution requests.",
+    "By Day 60, review whether planning cadence, documentation ownership, and decision rhythm are stable enough to protect longer-range execution."
+  ],
+  knowledge_transfer: [
+    "Review Day 0-30 access to critical know-how: documentation ownership, named expert availability, handover records, knowledge-transfer plans, and early dependency on individual knowledge holders.",
+    "Review Days 30-60 knowledge-transfer logs, documentation maintenance, expert access, analyst participation, handoff quality, and signs that critical know-how is becoming harder to locate or transfer.",
+    "By Day 60, review retention signals among top analytical and technical contributors, changes in expert decision access, knowledge-transfer logs, exit or disengagement signals, and cases where systematised knowledge is being replaced by informal memory."
+  ],
+  trust_disclosure: [
+    "Review Day 0-30 disclosure quality: issue escalation, meeting candour, risk reporting, leadership follow-through, and whether target teams still surface bad news early.",
+    "Review Days 30-60 trust signals in operating meetings, escalation behaviour, issue logs, decision transparency, and whether teams begin withholding risks, context, or dissent.",
+    "By Day 60, review whether disclosure quality, credibility, psychological safety, and informal escalation channels are strong enough to support the longer integration plan."
+  ],
+  decision_rights: [
+    "Review Day 0-30 decision-rights changes, approval paths, escalation notes, sign-off layers, and cases where ownership moves before the target's operating logic is understood.",
+    "Review Days 30-60 handoff documents, governance changes, approval delays, escalation records, and examples where decision ownership becomes unclear or contested.",
+    "By Day 60, review whether decision rights, escalation paths, and ownership boundaries are stable enough to avoid delayed execution or silent overwrite."
+  ],
+  retention_disengagement: [
+    "Review Day 0-30 retention signals among exposed roles: meeting participation, escalation behaviour, workload changes, informal withdrawal, and early concerns raised by key contributors.",
+    "Review Days 30-60 departures, disengagement signals, declined participation, retention requests, manager notes, and role-level signs that exposed contributors are reducing commitment.",
+    "By Day 60, review whether disengagement signals are strong enough to escalate, revise, or lower the longer retention-risk concern."
+  ],
+  execution_rhythm: [
+    "Review Day 0-30 execution rhythm: delivery cadence, handoff timing, meeting tempo, decision latency, and early friction around speed or sequencing.",
+    "Review Days 30-60 operating cadence, delivery slippage, decision delays, escalation timing, handoff quality, and whether one side's rhythm is silently overriding the other.",
+    "By Day 60, review whether execution rhythm is stable enough to support the next integration phase without avoidable delay or burnout."
+  ],
+  governance_overwrite: [
+    "Review Day 0-30 governance changes, operating-model edits, integration meeting notes, decision logs, and early signs that target routines are being overwritten before they are understood.",
+    "Review Days 30-60 governance updates, operating-model changes, handoff documents, escalation records, and examples where preservation, simplification, and integration are not clearly separated.",
+    "By Day 60, review whether governance overwrite risk is visible enough to escalate, revise, or lower the longer integration concern."
+  ]
+});
+
+function dynamicEvidenceRequired(prediction, actionTitle, rationale, index, fallback) {
+  const family = inferEvidenceFamily(
+    prediction.predictionClaim,
+    prediction.observableSignal,
+    prediction.verificationMethod,
+    prediction.recommendedAction,
+    actionTitle,
+    rationale
+  );
+  return EVIDENCE_REQUIRED_BY_FAMILY[family]?.[index] || cleanText(fallback);
+}
+
 function predictionCard(prediction, index, actions = {}) {
   const statement = cleanText(prediction.predictionClaim);
   const observableSignal = distinctText(prediction.observableSignal, statement);
@@ -344,7 +420,7 @@ function predictionCard(prediction, index, actions = {}) {
     oneLine: cleanText(prediction.predictionTitle).replace(/\.$/, ""),
     windowLabel: COMBINED_PREDICTION_LABELS[index] ?? cleanText(prediction.predictionTitle),
     statement: cleanText(displayStatement),
-    evidenceRequired: cleanText(displayEvidence),
+    evidenceRequired: cleanText(dynamicEvidenceRequired(prediction, actionTitle, rationale, index, displayEvidence)),
     recommendedAction,
     actionTitle,
     actionMeta,
@@ -1412,7 +1488,7 @@ function explainEconomicLine(line) {
   const text = cleanText(line);
   if (/Average annual compensation/i.test(text)) return ["Compensation assumption", text, "This is the annual cost assumption used to estimate how expensive key-person departure could become. It is not a salary audit; it is an input for exposure sizing."];
   if (/Key personnel at risk/i.test(text)) { const count = Number(String(text).replace(/[^0-9.]/g, "")); const isLargePool = Number.isFinite(count) && count > 100; const formattedCount = Number.isFinite(count) ? count.toLocaleString("en-US") : String(text).replace(/^Key personnel at risk:\s*/i, "").replace(/\.$/, ""); return [isLargePool ? "Continuity exposure pool" : "Key people at risk", isLargePool ? `Continuity exposure pool: ${formattedCount} affected employees / roles.` : text.replace(/^Key personnel at risk:/i, "Key personnel at risk:"), isLargePool ? "This is the affected population used for continuity-cost sizing, not a list of individually critical people. It is an exposure input, not a prediction that all named people will leave." : "This is the provided or estimated count of people whose departure, disengagement, or defensive behaviour could materially affect integration quality. It is an exposure input, not a prediction that all named people will leave."]; }
-  if (/ECS valuation band/i.test(text)) return ["ECS risk band", text, "This translates the environment compatibility score into a financial-risk band. It tells the deal team how severe the operating mismatch is for pricing and integration planning."];
+  if (/ECS valuation band/i.test(text)) return ["ECS economic risk band", text.replace(/^ECS valuation band:/i, "ECS economic risk band:"), "This translates structural compatibility into a financial-risk posture for pricing and integration planning. It is separate from the cover compatibility label: high structural compatibility can still carry material exposure when deal value, contingent value, or continuity exposure is large."];
   if (/EV Discount/i.test(text)) return ["Potential EV discount pressure", text, "This indicates the range of valuation pressure that may appear if the market, investment committee, or buyer prices the integration risk into the transaction."];
   if (/Earn-Out Exposure/i.test(text)) return ["Earn-out exposure", text, "This estimates how much contingent value may become harder to realise if post-close behaviour friction disrupts performance milestones."];
   if (/Talent Cost/i.test(text)) return ["Talent-loss exposure", text, "This estimates the replacement, retention, disruption, and productivity cost attached to key people leaving or becoming ineffective after close."];
@@ -1533,6 +1609,11 @@ function renderHtmlSection(section, number, context = {}) {
   }
   return `<section class="sec">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES[section.id] ?? "")}</section>`;
 }
+
+
+
+
+
 
 
 
