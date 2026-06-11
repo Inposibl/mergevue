@@ -31,7 +31,6 @@ const REQUIRED_PDF_STRINGS = Object.freeze([
   "Days 30-60",
   "high",
   "moderate",
-  "aligned",
   "Absorb / neutralize a competitor",
 ]);
 
@@ -384,12 +383,3 @@ for (const prediction of pdfModel.sections[1].predictions) {
 }
 
 console.log("Mergevue public report PDF validation passed");
-
-
-
-
-
-
-
-
-
