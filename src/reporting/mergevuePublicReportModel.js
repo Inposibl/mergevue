@@ -196,7 +196,11 @@ function buildPredictions(deliverable) {
 }
 function resourceRows(deliverable) {
   const profile = deliverable?.resourceConflictProfile;
-  const rows = (profile?.highProbabilityConflicts?.length ? profile.highProbabilityConflicts : profile?.allResources)?.slice(0, 5) ?? [];
+  const candidateRows = profile?.highProbabilityConflicts?.length ? profile.highProbabilityConflicts : profile?.allResources ?? [];
+  const rows = [
+    ...candidateRows.filter((row) => String(row.sourceSignal ?? "").trim()),
+    ...candidateRows.filter((row) => !String(row.sourceSignal ?? "").trim()),
+  ].slice(0, 5);
 
   return rows.map((row) => ({
     resourceName: cleanString(row.resource),
