@@ -262,7 +262,7 @@ function recommendedActions(deliverable) {
       actionTiming: TIMING_LOGIC.verificationDeadline,
       actionOwner: "Deal sponsor",
       actionReason: "The preview claim should not drift into an untested integration assumption.",
-      actionExpectedEffect: "Creates a clear decision point for escalation, revision, or dismissal.",
+      actionExpectedEffect: "Creates a clear decision point for escalation, revision, or closure.",
     },
     {
       actionTitle: "Separate preservation from simplification",
@@ -437,7 +437,7 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
     evidenceBasisAndLimits: {
       dataQualityLevel: scoreQualityLabel(session),
       inputCompleteness: inputCompleteness(session),
-      knownLimits: "Public preview output uses environment-level signals and does not verify individual role fit, leadership hierarchy, or documentary evidence depth.",
+      knownLimits: "Public preview output uses environment-level signals and does not verify person-specific role fit, leadership hierarchy, or documentary evidence depth.",
       methodLimitations: "This brief can identify likely behavior friction and observation windows; it cannot replace engagement-tier diligence or analyst review.",
       whatThisReportCanSay: "It can state the most likely post-close friction thesis, preview signals, and verification timing from the current inputs.",
       whatThisReportCannotSay: "It cannot state a valuation, a quantified loss estimate, a final integration plan, or a verified role-level exposure conclusion.",
@@ -446,7 +446,7 @@ whatTheFullEngagementAdds: {
   benefits: [
     "This preview flags where your post-close fault lines sit. The full engagement removes the guesswork: it translates that exposure into financial ranges, names who carries the risk, and hands you an executable integration-control framework.",
     "1. Audit-Grade Confirmation. Beyond survey noise. The buyer's risk: a pre-close read may be just self-reported survey data - easy to posture for and gone the day the deal closes. What you get: an evidence-reviewed environment coding process run by M&A analysts, cross-referenced against the target's operational artefacts, structure charts, and documentary evidence, then signed off by an analyst. You build integration strategy on durable operating routines, not temporary pre-close posturing.",
-    "2. Role-Level Exposure Mapping. Roles, dependencies, and vulnerability windows. The buyer's risk: scepticism that an external model can identify where exposure is actually carried. What you get: a role-level assessment of where integration pressure may affect continuity, decision rights, or knowledge transfer; which roles, operating dependencies, or knowledge-transfer points require review, protection, or evidence-based follow-up; and where management cadence may fracture under your standard integration logic. This is decision-support output. It does not make employment, retention, promotion, dismissal, compensation, or disciplinary decisions. Role-level findings require analyst review and client evidence before action.",
+    "2. Role-Level Exposure Mapping. Roles, dependencies, and vulnerability windows. The buyer's risk: scepticism that an external model can identify where exposure is actually carried. What you get: a role-level assessment of where integration pressure may affect continuity, decision rights, or knowledge transfer; which roles, operating dependencies, or knowledge-transfer points require review, protection, or evidence-based follow-up; and where management cadence may fracture under your standard integration logic. This is decision-support output. It does not make workforce or legal decisions. Role-level findings require analyst review, client evidence, and appropriate internal review before action.",
     "3. Quantified Exposure & Playbook. The number and the Day 30 / 60 / 90 governance. The buyer's risk: paying for an abstract risk index that will not survive an investment-committee meeting. What you get: engagement-tier economic modelling that translates this deal's risk band into exposure ranges, including value-protection, earn-out, and talent-continuity envelopes. These are structuring-grade ranges rather than a valuation, paired with a ready-to-execute integration-control design: owner-level actions and a Day 30 / 60 / 90 governance cadence.",
     "De-risked next step. Before any full commitment, your deal team can scope this against your live transaction - and, if useful, start with a single-deal pilot rather than the full engagement.",
   ],
