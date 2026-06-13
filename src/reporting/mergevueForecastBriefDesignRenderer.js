@@ -1129,6 +1129,28 @@ export function renderMergevueForecastBriefHtml(model) {
   .predictions-page .pred-meta .pmv{ font-size:9px; line-height:1.24; }
   .predictions-page .tracker{ display:none; }
 
+  /* Keep P01 + P02 together without dropping below the 9pt print floor. */
+  .predictions-page #predictions .sec-head{ gap:8px; }
+  .predictions-page #predictions .sec-note{ display:none; }
+  .predictions-page #predictions .prediction-banner{ padding:5px 8px; margin-bottom:4px; }
+  .predictions-page #predictions .prediction-banner p{ margin:1px 0 0; line-height:1.08; }
+  .predictions-page #predictions .preds-wrap{ gap:4px!important; }
+  .predictions-page #predictions .pred{ margin:0!important; box-shadow:none; }
+  .predictions-page #predictions .pred-top{ grid-template-columns:112px minmax(0,1fr) 92px; }
+  .predictions-page #predictions .pred-id,
+  .predictions-page #predictions .pred-main,
+  .predictions-page #predictions .pred-verify{ padding:4px 7px!important; }
+  .predictions-page #predictions .window-label{ margin-bottom:3px; }
+  .predictions-page #predictions .pred-claim{ margin:0; line-height:1.08!important; }
+  .predictions-page #predictions .prediction-bottom{ grid-template-columns:.95fr 1.1fr .95fr; }
+  .predictions-page #predictions .evidence-block,
+  .predictions-page #predictions .action-block,
+  .predictions-page #predictions .decision-output{ padding:4px 7px!important; }
+  .predictions-page #predictions .prediction-bottom .pml{ margin-bottom:1px!important; }
+  .predictions-page #predictions .prediction-bottom :is(.pmv,.act-meta,.act-reason){ line-height:1.08!important; }
+  .predictions-page #predictions .action-block .act-meta,
+  .predictions-page #predictions .action-block .act-reason{ margin-top:1px; }
+
   .timeline-page #timeline{ min-height:244mm; display:flex; flex-direction:column; }
   .timeline-page #timeline .legend{ margin-bottom:12px; }
   .timeline-page .tl{ flex:1; min-height:96mm; }
@@ -1194,6 +1216,28 @@ export function renderMergevueForecastBriefHtml(model) {
   .prediction-collision-page .pred-id,
   .prediction-collision-page .pred-verify{ width:auto; }
   .prediction-collision-page .pred-main{ min-width:0; }
+  .prediction-collision-page{ padding:8mm 12mm; }
+  .prediction-collision-page .predictions-continuation{ padding-top:8px; }
+  .prediction-collision-page .predictions-continuation .sec-head{ margin-bottom:5px; padding-bottom:5px; }
+  .prediction-collision-page .predictions-continuation .sec-note{ display:none; }
+  .prediction-collision-page .predictions-continuation .pred{ margin:0; box-shadow:none; }
+  .prediction-collision-page .predictions-continuation .pred-id,
+  .prediction-collision-page .predictions-continuation .pred-main,
+  .prediction-collision-page .predictions-continuation .pred-verify{ padding:5px 8px; }
+  .prediction-collision-page .predictions-continuation .window-label{ margin-bottom:3px; }
+  .prediction-collision-page .predictions-continuation .pred-claim{ margin:0; line-height:1.1; }
+  .prediction-collision-page .predictions-continuation .evidence-block,
+  .prediction-collision-page .predictions-continuation .action-block,
+  .prediction-collision-page .predictions-continuation .decision-output{ padding:5px 8px; }
+  .prediction-collision-page .predictions-continuation .prediction-bottom .pml{ margin-bottom:2px; }
+  .prediction-collision-page .predictions-continuation .prediction-bottom :is(.pmv,.act-meta,.act-reason){ line-height:1.1; }
+  .prediction-collision-page #collision{ padding-top:12px; }
+  .prediction-collision-page #collision .sec-head{ margin-bottom:6px; padding-bottom:6px; }
+  .prediction-collision-page #collision .collide{ margin-top:6px; }
+  .prediction-collision-page #collision .collide-row{ grid-template-columns:148px 1fr; }
+  .prediction-collision-page #collision .collide-row .cl,
+  .prediction-collision-page #collision .collide-row .cr{ padding:6px 9px; line-height:1.16; }
+  .prediction-collision-page #collision .finding-rule{ margin:5px 0; }
   .collide-row{ break-inside:avoid; page-break-inside:avoid; }
 
   .audit{ margin-top:28px; }
