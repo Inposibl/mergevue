@@ -70,7 +70,7 @@ const PUBLIC_COPY_TEMPLATES = Object.freeze({
   coreMismatch: "The core mismatch is between {acquirer_authority_phrase}, and {target_authority_phrase}. The sharpest contested resource is {top_conflict_resource}: {conflict_direction_phrase}.",
   fp2Rationale: "Treat {resource} as a protected integration resource during {window}: it is {conflict_direction_phrase}{conflict_causal_clause} Separating preservation from simplification gives the integration team time to identify which {target_env}-linked routines protect cohesion, where {acquirer_env} accountability should apply, and which changes should wait until the Day 60 review.",
   conflictSummary: "The sharpest contested resource is {resource}: {conflict_direction_phrase}.",
-  resourceExplanation: "Contested resource: {resource} вЂ” {conflict_direction_phrase}.",
+  resourceExplanation: "Contested resource: {resource} — {conflict_direction_phrase}.",
 });
 export const PUBLIC_CONFLICT_DIRECTION_COPY = Object.freeze({
   "+|-": Object.freeze({
@@ -184,9 +184,9 @@ function conflictCausalClause(rawPattern) {
     return ", which makes it the most likely early contestation zone.";
   }
   if (normalizedConflictSign(rawPattern.match(/\(([+~\-\u2212])/u)?.[1]) === "+") {
-    return " вЂ” both organisations actively rely on it, which makes ownership of it the most likely early contestation point.";
+    return " — both organisations actively rely on it, which makes ownership of it the most likely early contestation point.";
   }
-  return " вЂ” neither organisation actively manages it, which makes it the most likely blind spot once integration load arrives.";
+  return " — neither organisation actively manages it, which makes it the most likely blind spot once integration load arrives.";
 }
 
 function canonicalConflictRows(deliverable) {
@@ -443,7 +443,7 @@ function publicFrictionText(text) {
     [/\bcollapse\b/gi, "breakdown"],
     [/\beliminated\b/gi, "removed"],
     [/\beliminates\b/gi, "removes"],
-    [/\btarget[вЂ™']s narrative leaders\b/gi, "mission-linked leadership roles"],
+    [/\btarget[’']s narrative leaders\b/gi, "mission-linked leadership roles"],
     [/\bnamed trust owner\b/gi, "designated trust owner"],
     [/\bnamed leaders\b/gi, "leadership functions"],
     [/\bnamed critical roles\b/gi, "critical role categories"],
@@ -476,17 +476,17 @@ function buildPredictions(deliverable, doctrineClass) {
     {
       predictionTitle: "Signal setup",
       predictionWindow: TIMING_LOGIC.signalSetup,
-      predictionClaim: clientFacingPredictionText("Within Day 0вЂ“30: review whether mission-linked communication forums, decision meetings, or governance routines begin using acquirer-side authority signals, or whether acquirer-side management forums adopt target-side mission language. The direction of language adoption indicates which integration mechanism is becoming dominant.", 0),
+      predictionClaim: clientFacingPredictionText("Within Day 0–30: review whether mission-linked communication forums, decision meetings, or governance routines begin using acquirer-side authority signals, or whether acquirer-side management forums adopt target-side mission language. The direction of language adoption indicates which integration mechanism is becoming dominant.", 0),
       observableSignal: clientFacingPredictionText(anchors[0]?.text ?? fallbackPredictionText(deliverable), 0),
-      verificationMethod: "Review Day 0вЂ“30 communication-forum notes, decision-meeting records, governance routines, management forum language, decision logs, and examples of acquirer-side authority signals or target-side mission language moving across the integration boundary.",
+      verificationMethod: "Review Day 0–30 communication-forum notes, decision-meeting records, governance routines, management forum language, decision logs, and examples of acquirer-side authority signals or target-side mission language moving across the integration boundary.",
       recommendedAction: actionCopy(0, "Protect the highest-risk operating resource before irreversible integration changes begin."),
     },
     {
       predictionTitle: "Observation window",
       predictionWindow: TIMING_LOGIC.observationWindow,
-      predictionClaim: clientFacingPredictionText("During Days 30вЂ“60: review whether mission-linked authority loses decision visibility, or whether decision rights move into acquirer-controlled enforcement routines before the targetвЂ™s trust-preserving routines are understood.", 1),
+      predictionClaim: clientFacingPredictionText("During Days 30–60: review whether mission-linked authority loses decision visibility, or whether decision rights move into acquirer-controlled enforcement routines before the target’s trust-preserving routines are understood.", 1),
       observableSignal: clientFacingPredictionText(anchors[1]?.text ?? "Repeated friction in planning, authority, information flow, or resource allocation.", 1),
-      verificationMethod: "Review Days 30вЂ“60 operating meeting notes, escalation records, handoff documents, decision-rights updates, planning-cycle changes, and examples where trust-preserving routines are bypassed before their value is understood.",
+      verificationMethod: "Review Days 30–60 operating meeting notes, escalation records, handoff documents, decision-rights updates, planning-cycle changes, and examples where trust-preserving routines are bypassed before their value is understood.",
       recommendedAction: actionCopy(2, "Separate preservation from simplification while the repeated friction pattern is tested."),
     },
     {
