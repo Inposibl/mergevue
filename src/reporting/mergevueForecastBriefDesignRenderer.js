@@ -1118,24 +1118,24 @@ export function renderMergevueForecastBriefHtml(model) {
   .predictions-page #predictions .prediction-banner{ padding:8px 11px; margin-bottom:10px; }
   .predictions-page #predictions .prediction-banner h4{ margin-bottom:3px; }
   .predictions-page #predictions .prediction-banner p{ margin:2px 0 0; line-height:1.24; }
-  .predictions-page #predictions .preds-wrap{ flex:1; display:flex; flex-direction:column; justify-content:space-between!important; gap:14px!important; }
-  .predictions-page #predictions .pred{ flex:1 1 0; min-height:104mm; margin:0!important; box-shadow:none; display:flex; flex-direction:column; }
-  .predictions-page #predictions .pred-top{ display:grid; grid-template-columns:118px minmax(0,1fr) 98px; min-height:34mm!important; }
-  .predictions-page #predictions .pred-id{ width:auto!important; padding:9px 10px!important; gap:5px; }
-  .predictions-page #predictions .pred-main{ padding:9px 12px!important; }
-  .predictions-page #predictions .pred-verify{ width:auto!important; padding:9px 10px!important; }
-  .predictions-page #predictions .window-label{ margin-bottom:5px; }
-  .predictions-page #predictions .pred-claim{ margin:0; line-height:1.22!important; }
+  .predictions-page #predictions .preds-wrap{ flex:1; display:flex; flex-direction:column; justify-content:space-evenly!important; gap:12px!important; }
+  .predictions-page #predictions .pred{ flex:0 1 auto; margin:0!important; box-shadow:none; display:flex; flex-direction:column; break-inside:avoid; page-break-inside:avoid; overflow:visible; }
+  .predictions-page #predictions .pred-top{ display:grid; grid-template-columns:118px minmax(0,1fr) 98px; min-height:30mm!important; }
+  .predictions-page #predictions .pred-id{ width:auto!important; padding:8px 10px!important; gap:5px; }
+  .predictions-page #predictions .pred-main{ padding:8px 11px!important; }
+  .predictions-page #predictions .pred-verify{ width:auto!important; padding:8px 10px!important; }
+  .predictions-page #predictions .window-label{ margin-bottom:4px; }
+  .predictions-page #predictions .pred-claim{ margin:0; line-height:1.19!important; }
   .predictions-page #predictions .pred-verify .vd{ margin-top:3px; }
   .predictions-page #predictions .pred-verify .vw{ margin-top:3px; }
-  .predictions-page #predictions .prediction-bottom{ flex:1; display:grid; grid-template-columns:.95fr 1.1fr .95fr; align-items:stretch; }
+  .predictions-page #predictions .prediction-bottom{ flex:0 0 auto; display:grid; grid-template-columns:.9fr 1.14fr .96fr; align-items:start; overflow:visible; }
   .predictions-page #predictions .evidence-block,
   .predictions-page #predictions .action-block,
-  .predictions-page #predictions .decision-output{ padding:9px 11px!important; }
-  .predictions-page #predictions .prediction-bottom .pml{ margin-bottom:4px!important; }
-  .predictions-page #predictions .prediction-bottom :is(.pmv,.act-meta,.act-reason){ line-height:1.22!important; }
+  .predictions-page #predictions .decision-output{ padding:8px 10px!important; overflow:visible; }
+  .predictions-page #predictions .prediction-bottom .pml{ margin-bottom:3px!important; }
+  .predictions-page #predictions .prediction-bottom :is(.pmv,.act-meta,.act-reason){ line-height:1.18!important; }
   .predictions-page #predictions .action-block .act-meta,
-  .predictions-page #predictions .action-block .act-reason{ margin-top:3px; }
+  .predictions-page #predictions .action-block .act-reason{ margin-top:2px; }
   .predictions-page #predictions .tracker{ display:none!important; }
 
   .timeline-page #timeline{ min-height:244mm; display:flex; flex-direction:column; }

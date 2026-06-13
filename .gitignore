@@ -13,3 +13,7 @@ __pycache__/
 .env.*
 
 .vercel
+
+# Local Mergevue report fixtures and generated previews
+fixtures/mergevue-public-report/
+tmp/mergevue-public-report-fixture/
