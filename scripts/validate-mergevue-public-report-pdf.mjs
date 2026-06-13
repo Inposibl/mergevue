@@ -6,6 +6,7 @@ import {
   PUBLIC_ANALYTICAL_FIELD_PATHS,
   authorityPhrases,
   buildMergevuePublicReportModel,
+  publicCompatibilityBand,
 } from "../src/reporting/mergevuePublicReportModel.js";
 import {
   buildMergevueForecastBriefDesignModel,
@@ -44,12 +45,18 @@ function verticalShredRuns(text) {
 
 const REQUIRED_PDF_STRINGS = Object.freeze([
   "Mergevue",
-  "Post-Deal Behavior Forecast",
+  "Post-Deal Friction Preview",
+  "Structural Read",
   "Forecast Brief",
   "report@mergevue.com",
-  "Forecast Preview & Action Timeline",
-  "Forecast Preview",
-  "Display-only preview; not ledger-recorded.",
+  "Watch & Control Timeline",
+  "Structural Watchpoints",
+  "Display-only structural preview",
+  "WATCHPOINT 01",
+  "WATCHPOINT 02",
+  "WATCHPOINT 03",
+  "Review window",
+  "Suggested control action",
   "Economic exposure",
   "USD 500 million",
   "Directional triage only. Not a valuation or loss estimate.",
@@ -87,6 +94,19 @@ const FORBIDDEN_PDF_STRINGS = Object.freeze([
   "structural-typology-final-deliverables-report",
   "depends on the current environment-pair result",
   "Economic exposure: qualitative only",
+  "FORECAST BRIEF | POST-DEAL BEHAVIOR FORECAST",
+  "Tier Public Forecast Brief",
+  "Display-only forecast preview",
+  "Forecast Preview & Action Timeline",
+  "FORECAST PREVIEW",
+  "PREDICTION 01",
+  "PREDICTION 02",
+  "PREDICTION 03",
+  "VERIFY BY",
+  "MODEL-RECOMMENDED ACTION",
+  "ref: forecast-pr",
+  "ref: forecast-prev",
+  "Force providing enforcement for sacred narrative",
 ]);
 
 // Deliberately catches leaked sign algebra with or without parentheses.
@@ -282,22 +302,19 @@ console.log(`All-pairs non-prediction second-person fields pending owner review:
 const boundaryRawScore = 79.4;
 assert.equal(Math.ceil(boundaryRawScore) >= 80, true, "Boundary fixture proves upward rounding crosses the doctrine threshold.");
 assert.equal(Math.round(boundaryRawScore) >= 80, false, "Nearest-integer display rounding must not cross the doctrine threshold.");
-assert.equal(forecastBriefScoreBand(Math.round(boundaryRawScore)), forecastBriefScoreBand(boundaryRawScore));
+assert.equal(forecastBriefScoreBand(boundaryRawScore), "moderateHigh");
+assert.equal(forecastBriefScoreBand(80), "high");
 for (const friction of FINAL_DELIVERABLE_DATA.frictionPoints) {
   const raw = Number(friction.ecs);
   if (!Number.isFinite(raw)) continue;
-  assert.equal(
-    forecastBriefScoreBand(Math.round(raw)),
-    forecastBriefScoreBand(raw),
-    `Displayed score must preserve the raw compatibility band for ${friction.acquirerEnvironmentCode}->${friction.targetEnvironmentCode}.`,
-  );
+  assert.notEqual(forecastBriefScoreBand(raw), "pending", `Canonical ECS must resolve a public band for ${friction.acquirerEnvironmentCode}->${friction.targetEnvironmentCode}.`);
 }
 
 assert.equal(pdfModel.fileName, MERGEVUE_PUBLIC_REPORT_PDF_FILE_NAME);
 assert.equal(pdfModel.fileName, "mergevue-forecast-brief.pdf");
 assert.equal(pdfModel.fileName.includes("structural-typology-final-deliverables-report"), false);
 const expectedDesignSectionTitles = MERGEVUE_PUBLIC_REPORT_BLOCKS.map((title, index) => (
-  index === 1 ? "Forecast Preview & Action Timeline" : title
+  index === 1 ? "Watch & Control Timeline" : title
 ));
 assert.deepEqual(pdfModel.sections.map((section) => section.title), expectedDesignSectionTitles);
 
@@ -313,7 +330,7 @@ const renderedPageCount = (pdfHtml.match(/<div class="page\b/g) ?? []).length;
 assert.equal(renderedPageCount, EXPECTED_LAYOUT_PAGE_COUNT, "Forecast Brief HTML must preserve the approved seven-page layout contract.");
 assert.match(renderedTextForExtraction, /\b(?:100|[1-9]?\d)\s+of 100\b/, "ECS text must extract as '{N} of 100' with whitespace.");
 assert.equal(pdfHtml.includes("word-break:break-all"), false, "Prediction references must not use character-by-character wrapping.");
-assert.ok(pdfHtml.includes("text-overflow:ellipsis"), "Prediction references must truncate safely when the sidebar is narrow.");
+assert.equal(/ref:\s*forecast-(?:pr|prev)/i.test(pdfHtml), false, "Public prediction cards must not render internal forecast references.");
 
 const layoutAuditArgument = process.argv.find((argument) => argument.startsWith("--layout-audit="));
 const layoutAuditPath = process.env.MERGEVUE_PDF_LAYOUT_AUDIT || layoutAuditArgument?.slice("--layout-audit=".length);
@@ -500,14 +517,14 @@ assert.ok(pdfHtml.includes("ECS"), "PDF renderer must include ECS number.");
 assert.ok(pdfHtml.includes("0-100 scale"), "PDF renderer must include 0-100 scale marker.");
 assert.ok(pdfHtml.includes("pips"), "PDF renderer must include confidence pips.");
 assert.ok(pdfHtml.includes("deal-grid"), "PDF renderer must include a deal grid.");
-assert.ok(pdfHtml.includes("forecast-preview-1"), "PDF renderer must include forecast preview lock id.");
-assert.ok(pdfHtml.includes("Verify by"), "PDF renderer must include forecast preview verification labels.");
+assert.equal(pdfHtml.includes("forecast-preview-1"), false, "PDF renderer must not expose forecast preview lock ids.");
+assert.ok(pdfHtml.includes("Review window"), "PDF renderer must include watchpoint review-window labels.");
 assert.ok(pdfHtml.includes("Evidence required"), "PDF renderer must include forecast preview evidence labels.");
 assert.equal(pdfHtml.includes("Falsification condition"), false, "PDF renderer must not include the old falsification condition label.");
 assert.equal(pdfHtml.includes("Window Days"), false, "PDF renderer must not include the old window-days label.");
 assert.equal(pdfHtml.includes("Window |"), false, "PDF renderer must not include visible prediction window labels.");
 assert.ok(pdfHtml.includes("Legend"), "PDF renderer must include resource-map legend.");
-assert.ok(pdfHtml.includes("Model-recommended action") && pdfHtml.includes("Decision focus"), "PDF renderer must combine prediction action and decision-focus content.");
+assert.ok(pdfHtml.includes("Suggested control action") && pdfHtml.includes("Decision focus"), "PDF renderer must combine watchpoint action and decision-focus content.");
 assert.ok(pdfHtml.includes("Decision Gap") && pdfHtml.includes("What this preview cannot decide for you"), "PDF renderer must include the decision-gap evidence panel.");
 assert.ok(pdfHtml.includes("qr"), "PDF renderer must include audit QR treatment.");
 
@@ -572,8 +589,8 @@ for (const block of pdfModel.renderedTextBlocks) {
   seen.set(block.text, block.sectionId);
 }
 
-assert.equal(forecastBriefScoreBand(38.2), "mod", "Score 38.2 should map to canonical mod band.");
-assert.equal(pdfText.includes("MODERATE-LOW"), false, "PDF output must not use old MODERATE-LOW band copy.");
+assert.equal(forecastBriefScoreBand(38.2), "moderateLow", "Score 38.2 must map to the locked MODERATE-LOW band.");
+assert.equal(publicCompatibilityBand(38), "MODERATE-LOW", "Public model must render the locked MODERATE-LOW band for ECS 38.");
 assert.equal(pdfText.includes(" - "), false, "PDF text must use em dash semantics instead of ASCII dash separators.");
 assert.ok(pdfModel.humanSignOffNote.includes("human sign-off"), "Section appendix toggles must carry human sign-off note.");
 

@@ -11,10 +11,11 @@ const BLOCK_LABELS = MERGEVUE_PUBLIC_REPORT_BLOCKS;
 
 const REQUIRED_OUTPUT_STRINGS = Object.freeze([
   "Mergevue",
-  "Post-Deal Behavior Forecast",
+  "Post-Deal Friction Preview",
+  "Structural Read",
   "report@mergevue.com",
-  "Forecast Preview",
-  "Display-only preview; not ledger-recorded.",
+  "Structural Watchpoints",
+  "This public preview is not a scored forecast ledger.",
   "Directional triage only. Not a valuation or loss estimate.",
   "The main risk is translation failure: the acquirer may impose its standard integration logic before it understands which target routines preserve loyalty, trust, knowledge flow, execution quality, or deal-critical continuity after close.",
   "before Day 30",
@@ -40,6 +41,14 @@ const FORBIDDEN_SCREEN_STRINGS = Object.freeze([
   "absolute loss range",
   "Kill a Competitor",
   "McDonalds",
+  "Post-Deal Behavior Forecast",
+  "Tier Public Forecast Brief",
+  "Display-only forecast preview",
+  "Forecast Preview & Action Timeline",
+  "PREDICTION 01",
+  "VERIFY BY",
+  "MODEL-RECOMMENDED ACTION",
+  "Force providing enforcement for sacred narrative",
 ]);
 
 function score(primaryEnvironmentCode) {

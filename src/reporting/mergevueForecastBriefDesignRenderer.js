@@ -25,8 +25,8 @@ const ALLOWED_DUPLICATE_TEXT = new Set([
   "Day 60",
 ]);
 
-const COMBINED_PREDICTION_TITLE = "Forecast Preview & Action Timeline";
-const COMBINED_PREDICTION_NOTE = "DISPLAY-ONLY PREVIEW; NOT LEDGER-RECORDED.";
+const COMBINED_PREDICTION_TITLE = "Watch & Control Timeline";
+const COMBINED_PREDICTION_NOTE = "STRUCTURAL WATCHPOINTS | PUBLIC PREVIEW";
 
 const COMBINED_PREDICTION_LABELS = Object.freeze([
   "FP1 | Early evidence test",
@@ -40,7 +40,7 @@ const ARCHIVE_SECTION_NOTES = Object.freeze({
   environments: "Two distinctive operating models",
   collision: "Collision thesis",
   resources: "Resource map",
-  timeline: "Derived from forecast preview windows",
+  timeline: "Derived from structural watchpoint windows",
   economics: "Decision posture, not valuation",
   actions: "Before and after close",
   evidence: "What this preview cannot decide for you",
@@ -49,9 +49,11 @@ const ARCHIVE_SECTION_NOTES = Object.freeze({
 });
 
 const SCORE_BAND_LABEL = Object.freeze({
-  high: "High Compatibility",
-  mod: "Moderate Compatibility",
-  risk: "High Friction Risk",
+  high: "HIGH",
+  moderateHigh: "MODERATE-HIGH",
+  moderate: "MODERATE",
+  moderateLow: "MODERATE-LOW",
+  risk: "HIGH RISK",
   pending: "Pending",
 });
 
@@ -108,8 +110,10 @@ function timelineBodyText(value) {
 
 export function forecastBriefScoreBand(score) {
   if (!Number.isFinite(score)) return "pending";
-  if (score >= 67) return "high";
-  if (score >= 34) return "mod";
+  if (score >= 80) return "high";
+  if (score >= 65) return "moderateHigh";
+  if (score >= 50) return "moderate";
+  if (score >= 35) return "moderateLow";
   return "risk";
 }
 
@@ -551,7 +555,7 @@ export function buildMergevueForecastBriefDesignModel(report, options = {}) {
       statusTitle: sealed.statusTitle,
       statusDescription: sealed.statusDescription,
       previewOneLiners: predictions.map((prediction) => prediction.oneLine),
-      trackerStatement: "Display-only preview; not ledger-recorded. Verification outcomes require the engagement workflow before any public record treatment.",
+      trackerStatement: "This public preview is not a scored forecast ledger. Scored role-level forecasts require the paid workflow and sealed pre-outcome logging.",
       trackerUrl: audit.publicUrlPattern,
       predictions,
     },
@@ -694,13 +698,13 @@ export function buildMergevueForecastBriefDesignModel(report, options = {}) {
     masthead: Object.freeze({
       diagnosticId: audit.reportId,
       issuedAt,
-      tierLabel: "Public Forecast Brief",
+      tierLabel: "Public Structural Preview",
       confidential: false,
     }),
     header: Object.freeze({
       eyebrow: `${report.brand.reportType.toUpperCase()} | ${report.brand.product.toUpperCase()}`,
       title: `${scenario.acquirerName} x ${scenario.targetName}`,
-      subtitle: "Display-only forecast preview. This is a specification of expected post-deal behaviour, not a verdict on the deal.",
+      subtitle: "Display-only structural preview. This report identifies likely post-close friction zones, watchpoints, and integration-control implications. It is not a scored forecast ledger, valuation opinion, or deal verdict.",
     }),
     compatibility: Object.freeze({
       score,
@@ -752,7 +756,7 @@ export function buildMergevueForecastBriefDesignModel(report, options = {}) {
     }),
     sealedPredictions: predictions,
     trackRecord: Object.freeze({
-      statement: "Display-only preview; not ledger-recorded. Engagement verification can convert these claims into a controlled audit workflow.",
+      statement: "This public preview is not a scored forecast ledger. The paid workflow can convert watchpoints into controlled, pre-outcome claims where inputs are sufficient.",
       ledgerUrl: audit.publicUrlPattern,
     }),
     sections: Object.freeze(sections.map(Object.freeze)),
@@ -825,7 +829,7 @@ export function renderMergevueForecastBriefHtml(model) {
   .sec{ padding-top:40px; break-inside: avoid; } .sec-head{ display:flex; align-items:baseline; gap:14px; padding-bottom:14px; margin-bottom:22px; border-bottom:var(--hair) solid var(--line-strong); } .sec-num{ font-family:var(--mono); font-size:12px; color:var(--accent); font-weight:500; } .sec-title{ font-size:19px; font-weight:600; } .sec-note{ margin-left:auto; font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3); }
   .mast,.masthead{ padding:44px 0 0; } .mast-row{ display:flex; justify-content:space-between; align-items:flex-start; gap:24px; } .brand{ display:flex; align-items:center; gap:14px; } .mark{ width:38px; height:38px; border-radius:12px; background:linear-gradient(135deg,var(--accent),#17324d); } .brand-name{ font-size:13px; font-weight:650; letter-spacing:.02em; } .brand-sub{ font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-2); margin-top:3px; } .mast-meta{ text-align:right; font-family:var(--mono); font-size:10.5px; line-height:1.7; color:var(--ink-2); } .mast-meta b{ color:var(--ink); font-weight:600; } .classif{ display:inline-flex; margin-top:6px; padding:3px 9px; border:var(--hair) solid var(--line-strong); border-radius:100px; font-size:9.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-2); background:var(--surface-2); }
   .doc-title-wrap{ padding:34px 0 30px; border-bottom:var(--hair) solid var(--line-strong); } .doc-type{ font-family:var(--mono); font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--accent); } .doc-title{ font-size:44px; font-weight:var(--display-weight); line-height:1.02; margin:12px 0 0; } .doc-title .x{ color:var(--ink-3); font-weight:300; } .doc-sub{ margin-top:14px; font-size:14px; color:var(--ink-2); max-width:62ch; line-height:1.55; }
-  .exec{ margin-top:30px; display:grid; grid-template-columns:300px 1fr; border:var(--card-border); border-radius:var(--r); background:var(--surface); box-shadow:var(--card-shadow); overflow:hidden; } .exec-score{ padding:30px 28px; border-right:var(--card-border); display:flex; flex-direction:column; } .score-readout{ display:flex; align-items:baseline; gap:8px; } .score-num{ font-size:118px; font-weight:var(--display-weight); line-height:.86; letter-spacing:-.04em; } .score-of{ font-family:var(--mono); font-size:12px; color:var(--ink-3); } .score-expl{ margin-top:10px; font-size:11.5px; line-height:1.45; color:var(--ink-2); } .band-pill{ align-self:flex-start; margin-top:16px; padding:5px 12px; border-radius:100px; font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; font-weight:500; } .band-high{ background:color-mix(in oklab,var(--sig-high) 16%,var(--surface)); color:var(--sig-high); } .band-mod{ background:color-mix(in oklab,var(--sig-mod) 18%,var(--surface)); color:var(--sig-mod); } .band-risk{ background:color-mix(in oklab,var(--sig-risk) 16%,var(--surface)); color:var(--sig-risk); }
+  .exec{ margin-top:30px; display:grid; grid-template-columns:300px 1fr; border:var(--card-border); border-radius:var(--r); background:var(--surface); box-shadow:var(--card-shadow); overflow:hidden; } .exec-score{ padding:30px 28px; border-right:var(--card-border); display:flex; flex-direction:column; } .score-readout{ display:flex; align-items:baseline; gap:8px; } .score-num{ font-size:118px; font-weight:var(--display-weight); line-height:.86; letter-spacing:-.04em; } .score-of{ font-family:var(--mono); font-size:12px; color:var(--ink-3); } .score-expl{ margin-top:10px; font-size:11.5px; line-height:1.45; color:var(--ink-2); } .band-pill{ align-self:flex-start; margin-top:16px; padding:5px 12px; border-radius:100px; font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; font-weight:500; } .band-high{ background:color-mix(in oklab,var(--sig-high) 16%,var(--surface)); color:var(--sig-high); } .band-moderateHigh,.band-moderate{ background:color-mix(in oklab,var(--sig-mod) 18%,var(--surface)); color:var(--sig-mod); } .band-moderateLow,.band-risk{ background:color-mix(in oklab,var(--sig-risk) 16%,var(--surface)); color:var(--sig-risk); }
   .score-scale{ margin-top:18px; } .scale-track{ height:5px; border-radius:3px; background:linear-gradient(90deg,var(--sig-risk),var(--sig-mod) 55%,var(--sig-high)); position:relative; } .scale-mark{ position:absolute; top:-4px; width:2px; height:13px; background:var(--ink); border-radius:2px; } .scale-ends{ display:flex; justify-content:space-between; font-family:var(--mono); font-size:9px; color:var(--ink-2); margin-top:6px; } .gate{ margin-top:auto; padding-top:20px; } .gate-row{ display:flex; align-items:center; gap:8px; } .gate-label{ font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-2); } .pips{ display:flex; gap:4px; } .pip{ width:14px; height:6px; border-radius:2px; background:var(--line-strong); } .pip.on{ background:var(--accent); } .gate-verdict{ font-family:var(--mono); font-size:10.5px; color:var(--ink); margin-top:8px; line-height:1.5; } .evidence-gate-head{ display:flex; align-items:center; justify-content:space-between; gap:10px; } .evidence-gate-title{ font-family:var(--mono); font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-2); font-weight:600; } .evidence-gate-row{ padding:7px 0 0; margin-top:7px; border-top:var(--hair) solid var(--line); } .evidence-gate-label{ font-size:11.5px; font-weight:600; color:var(--ink); } .evidence-gate-copy{ font-size:10.5px; color:var(--ink-2); line-height:1.35; margin-top:2px; }
   .exec-body{ padding:26px 28px; display:flex; flex-direction:column; gap:18px; } .exec-thesis{ font-size:20px; font-weight:500; line-height:1.32; color:var(--ink); } .exec-deal{ display:flex; flex-wrap:wrap; gap:10px 26px; padding:14px 0; border-top:var(--card-border); border-bottom:var(--card-border); } .deal-cell{ display:flex; flex-direction:column; gap:3px; } .deal-cell .k{ font-family:var(--mono); font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-2); } .deal-cell .v{ font-size:13.5px; font-weight:600; color:var(--ink); } .deal-cell small{ color:var(--ink-2); font-weight:500; } .exec-preds{ display:flex; flex-direction:column; gap:9px; } .exec-preds .epl{ font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-2); } .epred{ display:grid; grid-template-columns:92px 1fr; gap:12px; align-items:baseline; } .epred .when{ font-family:var(--mono); font-size:11px; color:#1f5f95; font-weight:700; } .epred .what{ font-size:13px; line-height:1.4; color:var(--ink); } .exec-action{ display:block; padding:12px 14px; background:var(--accent-soft); border:var(--hair) solid #bfd8ec; border-radius:var(--r); } .exec-action .lab{ display:block; font-family:var(--mono); font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:#1f5f95; font-weight:700; } .exec-action .txt{ display:block; margin-top:5px; font-size:12.2px; line-height:1.32; font-weight:600; color:var(--ink); }
   .preds-wrap{ display:flex; flex-direction:column; gap:16px; } .pred{ border:var(--card-border); border-radius:var(--r); background:var(--surface); box-shadow:var(--card-shadow); overflow:hidden; break-inside: avoid; } .pred-top{ display:flex; align-items:stretch; } .pred-id{ flex:none; width:150px; padding:20px; border-right:var(--card-border); background:var(--surface-2); display:flex; flex-direction:column; align-items:flex-start; gap:8px; min-width:0; } .pred-id .pno{ display:block; flex:none; width:100%; font-family:var(--mono); font-size:11px; color:var(--ink-3); letter-spacing:.1em; } .pred-id .seal{ display:flex; flex:none; width:100%; align-items:center; align-self:flex-start; gap:6px; font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--sig-high); font-weight:500; } .pred-id .seal:before{ content:""; flex:none; width:7px; height:7px; border-radius:50%; background:var(--sig-high); } .pred-id .lock{ display:block; flex:none; width:100%; max-width:100%; font-family:var(--mono); font-size:9px; color:var(--ink-3); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; word-break:normal; line-height:1.4; margin-top:auto; } .pred-main{ flex:1; min-width:0; padding:20px 24px; } .pred-claim{ font-size:16px; font-weight:500; line-height:1.42; } .pred-verify{ flex:none; width:170px; min-width:0; padding:20px; border-left:var(--card-border); text-align:right; display:flex; flex-direction:column; } .pred-verify .vl{ font-family:var(--mono); font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); } .pred-verify .vd{ font-family:var(--mono); font-size:21px; font-weight:600; margin-top:5px; } .pred-verify .vw{ font-family:var(--mono); font-size:10.5px; color:var(--accent); margin-top:6px; } .pred-meta{ display:grid; grid-template-columns:1fr; border-top:var(--card-border); } .pred-meta .pm{ padding:13px 24px; } .pred-meta .pm+.pm{ border-left:var(--card-border); } .pred-meta .pml{ font-family:var(--mono); font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); margin-bottom:5px; } .pred-meta .pmv{ font-size:12.5px; color:var(--ink-2); line-height:1.45; }
@@ -1326,7 +1330,7 @@ function renderArchiveMasthead(model) {
   return `<header class="mast">
     <div class="masthead mast-row">
       <div class="brand"><div class="mark" aria-hidden="true"></div><div><div class="brand-name">MERGEVUE</div><div class="brand-sub">View into the merge</div></div></div>
-      <div class="mast-meta">Diagnostic <b>${escapeHtml(model.masthead.diagnosticId)}</b><br>Issued <b>${escapeHtml(formatForecastDate(model.masthead.issuedAt))}</b><br>Tier <b>${escapeHtml(model.masthead.tierLabel)}</b><br><div class="classif">DISPLAY-ONLY PREVIEW</div></div>
+      <div class="mast-meta">Diagnostic <b>${escapeHtml(model.masthead.diagnosticId)}</b><br>Issued <b>${escapeHtml(formatForecastDate(model.masthead.issuedAt))}</b><br>Tier <b>${escapeHtml(model.masthead.tierLabel)}</b><br><div class="classif">DISPLAY-ONLY STRUCTURAL PREVIEW</div></div>
     </div>
     <div class="doc-title-wrap">
       <div class="doc-type">${escapeHtml(model.header.eyebrow)}</div>
@@ -1351,14 +1355,15 @@ function renderFirstPageEvidenceGate(model) {
 }
 
 function renderCoverHeadline(model) {
-  const headline = String(model?.forecast?.headline ?? "").trim();
+  const acquirerCompany = cleanText(model?.forecast?.acquirer?.company || "The acquirer");
+  const targetCompany = cleanText(model?.forecast?.target?.company || "the target");
   const acquirerPattern = String(model?.forecast?.acquirer?.pattern ?? "").trim();
   const targetPattern = String(model?.forecast?.target?.pattern ?? "").trim();
-  const baseHeadline = headline || "The survey results identify the operating environments used for this forecast.";
-  const surveySentence = acquirerPattern && targetPattern && acquirerPattern === targetPattern
-    ? "The survey results indicate a shared operating logic, so the main integration risk is less about open cultural collision and more about hidden differences in authority, routines, and control expectations."
-    : "The survey results indicate different operating logics, so the main integration risk is likely to appear where decision authority, trust, and execution rhythm are translated into daily integration practice.";
-  return `${baseHeadline} ${surveySentence}`;
+  const possessive = (value) => /s$/i.test(value) ? `${value}'` : `${value}'s`;
+  if (acquirerPattern && targetPattern && acquirerPattern === targetPattern) {
+    return `${possessive(acquirerCompany)} ${acquirerPattern} operating logic is being combined with the same operating logic at ${targetCompany}. The risk may appear stable at first but can compound as integration pressure exposes hidden differences in authority, routines, and control expectations.`;
+  }
+  return `${possessive(acquirerCompany)} ${acquirerPattern || "identified"} operating logic is being combined with ${possessive(targetCompany)} ${targetPattern || "identified"} operating logic. The risk may appear stable at first but can compound as integration pressure increases.`;
 }
 
 function renderCoverEconomicExposure(model) {
@@ -1431,12 +1436,12 @@ function renderPredictionCards(section) {
     const no = String(prediction.index).padStart(2, "0");
     const actionTitle = cleanText(prediction.actionTitle || prediction.recommendedAction);
     return `<article class="pred"><div class="pred-top">
-      <div class="pred-id"><span class="pno">PREDICTION ${no}</span><span class="seal">Preview</span><span class="lock">ref: ${escapeHtml(prediction.lockId)}</span></div>
+      <div class="pred-id"><span class="pno">WATCHPOINT ${no}</span><span class="seal">Structural preview</span></div>
       <div class="pred-main"><div class="window-label">${escapeHtml(prediction.windowLabel || prediction.oneLine)}</div><p class="pred-claim">${escapeHtml(prediction.statement)}</p></div>
-      <div class="pred-verify"><span class="vl">Verify by</span><span class="vd tnum">${escapeHtml(prediction.verifyByDisplay)}</span></div>
+      <div class="pred-verify"><span class="vl">Review window</span><span class="vd tnum">${escapeHtml(prediction.verifyByDisplay)}</span></div>
     </div><div class="prediction-bottom">
       <div class="evidence-block"><div class="pml">Evidence required</div><div class="pmv">${escapeHtml(prediction.evidenceRequired)}</div></div>
-      <div class="action-block"><div class="pml">Model-recommended action</div><div class="act-title">${escapeHtml(actionTitle)}</div><div class="act-meta">${escapeHtml(prediction.actionMeta)}</div><div class="act-reason">${escapeHtml(prediction.rationale)}</div></div>
+      <div class="action-block"><div class="pml">Suggested control action</div><div class="act-title">${escapeHtml(actionTitle)}</div><div class="act-meta">${escapeHtml(prediction.actionMeta)}</div><div class="act-reason">${escapeHtml(prediction.rationale)}</div></div>
       <div class="decision-output"><div class="pml">Decision focus</div><div class="pmv">${escapeHtml(prediction.decisionFocus)}</div></div>
     </div></article>`;
   }).join("");
@@ -1589,7 +1594,7 @@ function renderEngagementBenefit(benefit) {
 
 function renderHtmlSection(section, number, context = {}) {
   if (section.id === "predictions") {
-    return `<section class="sec" id="predictions" data-screen-label="${escapeHtml(COMBINED_PREDICTION_TITLE)}">${sectionHead(number, section.title, COMBINED_PREDICTION_NOTE)}<div class="panel prediction-banner"><h4>FORECAST PREVIEW</h4><p>Display-only preview; not ledger-recorded. Each forecast preview is paired with its verification window and model-recommended action.</p></div><div class="preds-wrap prediction-stack">${renderPredictionCards(section)}</div></section>`;
+    return `<section class="sec" id="predictions" data-screen-label="${escapeHtml(COMBINED_PREDICTION_TITLE)}">${sectionHead(number, section.title, COMBINED_PREDICTION_NOTE)}<div class="panel prediction-banner"><h4>STRUCTURAL WATCHPOINTS</h4><p>This public preview is not a scored forecast ledger. Each watchpoint is paired with a review window, evidence to inspect, and a suggested control action. Scored role-level forecasts require the paid workflow and sealed pre-outcome logging.</p></div><div class="preds-wrap prediction-stack">${renderPredictionCards(section)}</div></section>`;
   }
   if (section.id === "environments") {
     const renderEnvironmentCard = (role, env) => {

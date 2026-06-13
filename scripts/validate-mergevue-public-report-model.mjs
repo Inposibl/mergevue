@@ -5,6 +5,7 @@ import {
   PUBLIC_ANALYTICAL_FIELD_PATHS,
   authorityPhrases,
   buildMergevuePublicReportModel,
+  publicCompatibilityBand,
 } from "../src/reporting/mergevuePublicReportModel.js";
 import {
   FINAL_ENVIRONMENT_CODES,
@@ -72,6 +73,14 @@ const FORBIDDEN_OUTPUT_STRINGS = Object.freeze([
   "Core thesis Core thesis",
   "Enterprise value band: Enterprise value band:",
   "Economic exposure: qualitative only",
+  "Post-Deal Behavior Forecast",
+  "Tier Public Forecast Brief",
+  "Display-only forecast preview",
+  "Forecast Preview & Action Timeline",
+  "PREDICTION 01",
+  "VERIFY BY",
+  "MODEL-RECOMMENDED ACTION",
+  "Force providing enforcement for sacred narrative",
 ]);
 
 const HOMOGENEOUS_FORBIDDEN_STRINGS = Object.freeze([
@@ -365,8 +374,8 @@ assert.equal(
 );
 assert.equal(
   model.compatibilityScoreAndDealScenario.compatibilityBand,
-  demoFrictionSource.riskBand,
-  "Public compatibility band must be bound to final-deliverable source-row riskBand.",
+  publicCompatibilityBand(demoFrictionSource.ecs),
+  "Public compatibility band must use the locked universal thresholds for the final-deliverable ECS.",
 );
 
 const observerWinsSession = Object.freeze({
@@ -406,14 +415,18 @@ for (const [section, fields] of Object.entries(REQUIRED_FIELDS)) {
 }
 
 assert.equal(model.brand.name, "Mergevue");
-assert.equal(model.brand.product, "Post-Deal Behavior Forecast");
-assert.equal(model.brand.reportType, "Forecast Brief");
+assert.equal(model.brand.product, "Post-Deal Friction Preview");
+assert.equal(model.brand.reportType, "Structural Read");
 assert.equal(model.brand.contactEmail, "report@mergevue.com");
 assert.equal(model.auditFooter.brand, "Mergevue");
 assert.equal(model.auditFooter.contactEmail, "report@mergevue.com");
 
-assert.equal(model.sealedPredictions.statusTitle, "Forecast Preview");
-assert.equal(model.sealedPredictions.statusDescription, "Display-only preview; not ledger-recorded.");
+assert.equal(model.sealedPredictions.statusTitle, "Structural Watchpoints");
+assert.equal(model.sealedPredictions.statusDescription, "This public preview is not a scored forecast ledger.");
+assert.equal(publicCompatibilityBand(38), "MODERATE-LOW");
+assert.equal(publicCompatibilityBand(64), "MODERATE");
+assert.equal(publicCompatibilityBand(79), "MODERATE-HIGH");
+assert.equal(publicCompatibilityBand(80), "HIGH");
 assert.ok(Array.isArray(model.sealedPredictions.predictions));
 assert.ok(model.sealedPredictions.predictions.length >= 1);
 

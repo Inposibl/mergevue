@@ -7,8 +7,8 @@ import { buildDealEconomicsReport } from "../flow/finalReportEngine.js";
 
 const BRAND = Object.freeze({
   name: "Mergevue",
-  product: "Post-Deal Behavior Forecast",
-  reportType: "Forecast Brief",
+  product: "Post-Deal Friction Preview",
+  reportType: "Structural Read",
   contactEmail: "report@mergevue.com",
 });
 
@@ -45,7 +45,7 @@ export const authorityPhrases = Object.freeze({
 });
 export const MERGEVUE_PUBLIC_REPORT_BLOCKS = Object.freeze([
   "Executive Decision Summary",
-  "Forecast Preview",
+  "Structural Watchpoints",
   "Compatibility Score & Deal Scenario",
   "Identified Environment Types",
   "Collision Thesis",
@@ -533,7 +533,7 @@ function timelinePhases(deliverable) {
       timeWindow: TIMING_LOGIC.verificationDeadline,
       expectedFriction: cleanString("The Day 60 preview checkpoint should decide whether the concern is escalated into full engagement monitoring, revised, or lowered."),
       observableSignal: publicFrictionText(anchors[2]?.text ?? "A clear enough signal to decide whether deeper engagement is needed."),
-      recommendedCheck: "Run a Day 60 early-checkpoint review against the forecast preview claim.",
+      recommendedCheck: "Run a Day 60 early-checkpoint review against the structural watchpoint.",
     },
   ];
 }
@@ -605,6 +605,16 @@ function generatedAtValue(session, options) {
     ?? new Date().toISOString();
 }
 
+export function publicCompatibilityBand(score) {
+  const value = Number(score);
+  if (!Number.isFinite(value)) return "Preview band not available";
+  if (value >= 80) return "HIGH";
+  if (value >= 65) return "MODERATE-HIGH";
+  if (value >= 50) return "MODERATE";
+  if (value >= 35) return "MODERATE-LOW";
+  return "HIGH RISK";
+}
+
 export function buildMergevuePublicReportModel(session = {}, options = {}) {
   const deliverable = options.deliverable ?? buildFinalDeliverable(session);
   const dealContext = session?.dealContext?.data ?? {};
@@ -619,7 +629,7 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
   const compatibilityScore = Number.isFinite(deliverable?.compatibilityScore)
     ? Number(deliverable.compatibilityScore)
     : null;
-  const compatibilityBand = cleanString(deliverable?.riskBand ?? "Preview band not available");
+  const compatibilityBand = publicCompatibilityBand(compatibilityScore);
   const narrative = deliverable?.narrative ?? {};
   const friction = deliverable?.friction ?? {};
   const resources = resourceRows(deliverable);
@@ -741,8 +751,8 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
       recommendedAction: firstIntegrationControlMove(deliverable),
     },
     sealedPredictions: {
-      statusTitle: "Forecast Preview",
-      statusDescription: "Display-only preview; not ledger-recorded.",
+      statusTitle: "Structural Watchpoints",
+      statusDescription: "This public preview is not a scored forecast ledger.",
       predictions: buildPredictions(deliverable, copyDoctrineClass),
     },
     compatibilityScoreAndDealScenario: {
@@ -753,7 +763,7 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
       dataQuality: scoreQualityLabel(session),
       compatibilityScore,
       compatibilityBand,
-      compatibilityExplanation: cleanString(narrative.headline ?? `${compatibilityBand} based on the current environment-pair result.`),
+      compatibilityExplanation: `${compatibilityBand} compatibility based on the current environment-pair score.`,
     },
     theTwoEnvironments: {
       acquirerEnvironmentName: cleanString(deliverable?.acquirerAlias ?? acquirerEnvironment?.alias),
@@ -816,7 +826,7 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
       inputCompleteness: inputCompleteness(session, deliverable),
       knownLimits: "Public preview output uses environment-level signals and does not verify person-specific role fit, leadership hierarchy, or documentary evidence depth.",
       methodLimitations: "This brief can identify likely behavior friction and observation windows; it cannot replace engagement-tier diligence or analyst review.",
-      whatThisReportCanSay: "It can state the most likely post-close friction thesis, preview signals, and verification timing from the current inputs.",
+      whatThisReportCanSay: "It can state the most likely post-close friction thesis, preview watchpoints, review windows, and control implications from the current inputs.",
       whatThisReportCannotSay: "It cannot state a valuation, a quantified loss estimate, a final integration plan, or a verified role-level exposure conclusion.",
     },
 whatTheFullEngagementAdds: {
