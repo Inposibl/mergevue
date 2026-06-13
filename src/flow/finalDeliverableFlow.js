@@ -546,6 +546,7 @@ export function buildPairDeliverable(input = {}) {
       compatibilityScore: 88,
       compatibilityRange: compatibilityRangeValue,
       riskBand: "HIGH COMPATIBILITY",
+      targetResolutionSource: input.targetResolutionSource,
       resourceConflictProfile: buildResourceConflictProfile(acquirerEnvironmentCode, targetEnvironmentCode, {
         ecsRange: compatibilityRangeValue,
         riskBand: "HIGH COMPATIBILITY",
@@ -598,6 +599,7 @@ export function buildPairDeliverable(input = {}) {
     riskBand,
     targetCanonicalSource: input.targetCanonicalSource,
     targetCanonicalWeights: input.targetCanonicalWeights,
+    targetResolutionSource: input.targetResolutionSource,
     resourceConflictProfile,
     isEcsIssued: outcomeLetter !== "D",
     candidateRanges: Object.freeze(buildCandidateRanges(outcomeLetter, acquirerScore, targetScore, targetEnvironmentCode)),
@@ -732,6 +734,10 @@ function combineTargetCanonicalScore(targetObservationScore = {}, targetDiagnost
   const observerTargetScore = mergeTwoScores(targetObservationScore, targetDiagnosticScore, {
     scoringMethod: "target_observer_observation_diagnostic_weighted_merge",
   });
+  const observerContributors = [
+    targetObservationScore?.valid === true ? "targetObservation" : null,
+    targetDiagnosticScore?.valid === true ? "targetDiagnostic" : null,
+  ].filter(Boolean);
 
   if (observerTargetScore?.valid === true && targetSelfScore?.valid === true) {
     return Object.freeze({
@@ -744,6 +750,15 @@ function combineTargetCanonicalScore(targetObservationScore = {}, targetDiagnost
       targetCanonicalWeights: Object.freeze({
         observerSideTargetEvidence: TARGET_OBSERVER_EVIDENCE_WEIGHT,
         targetSelfAssessment: TARGET_SELF_ASSESSMENT_WEIGHT,
+      }),
+      targetResolutionSource: Object.freeze({
+        rule: "target_canonical_observer_80_self_20_merge",
+        label: "combined target evidence",
+        contributors: Object.freeze([...observerContributors, "targetSelfAssessment"]),
+        weights: Object.freeze({
+          observerSideTargetEvidence: TARGET_OBSERVER_EVIDENCE_WEIGHT,
+          targetSelfAssessment: TARGET_SELF_ASSESSMENT_WEIGHT,
+        }),
       }),
       componentScores: Object.freeze({
         targetObservation: targetObservationScore,
@@ -758,6 +773,12 @@ function combineTargetCanonicalScore(targetObservationScore = {}, targetDiagnost
       ...observerTargetScore,
       targetCanonicalSource: "observer_side_target_evidence_only",
       targetCanonicalWeights: Object.freeze({ observerSideTargetEvidence: 1, targetSelfAssessment: 0 }),
+      targetResolutionSource: Object.freeze({
+        rule: "observer_side_target_evidence_only",
+        label: "observer-side target evidence",
+        contributors: Object.freeze(observerContributors),
+        weights: Object.freeze({ observerSideTargetEvidence: 1, targetSelfAssessment: 0 }),
+      }),
     });
   }
 
@@ -766,6 +787,12 @@ function combineTargetCanonicalScore(targetObservationScore = {}, targetDiagnost
       ...targetSelfScore,
       targetCanonicalSource: "target_self_assessment_only",
       targetCanonicalWeights: Object.freeze({ observerSideTargetEvidence: 0, targetSelfAssessment: 1 }),
+      targetResolutionSource: Object.freeze({
+        rule: "target_self_assessment_only",
+        label: "target self-assessment",
+        contributors: Object.freeze(["targetSelfAssessment"]),
+        weights: Object.freeze({ observerSideTargetEvidence: 0, targetSelfAssessment: 1 }),
+      }),
     });
   }
 
@@ -802,6 +829,7 @@ export function buildFinalDeliverable(session) {
     targetCoPresence: Boolean(targetScore.coPresence || targetDiagnosticScore.coPresence),
     targetCanonicalSource: targetScore.targetCanonicalSource,
     targetCanonicalWeights: targetScore.targetCanonicalWeights,
+    targetResolutionSource: targetScore.targetResolutionSource,
   });
 }
 

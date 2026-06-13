@@ -153,15 +153,10 @@ function publicSafeReportString(value: unknown) {
     .replace(/\bMcDonalds\b/g, "McDonald's");
 }
 
-const HIDDEN_USER_ANSWERS_MAX_CHARS = 120000;
-
-function cleanHiddenUserAnswersTablesText(value: unknown): string {
+function cleanHiddenAuditArtifact(value: unknown): string {
   const text = cleanString(value);
   if (!text) return "";
-
-  return text
-    .replace(/\u0000/g, "")
-    .slice(0, HIDDEN_USER_ANSWERS_MAX_CHARS);
+  return text.replace(/\u0000/g, "");
 }
 function normalizeReportEmailCopy(value: any): ReportEmailCopy {
   const textLines = Array.isArray(value?.textLines)
@@ -217,19 +212,19 @@ export function buildFinalReportEmailMessage(firstName: string, reportId: string
 export function buildHiddenFinalReportCopyMessage(
   reportId: string,
   reportEmailCopyValue: any,
-  userAnswersTablesTextValue?: unknown,
+  hiddenAuditSummaryValue?: unknown,
 ) {
   const reportEmailCopy = normalizeReportEmailCopy(reportEmailCopyValue);
-  const userAnswersTablesText = cleanHiddenUserAnswersTablesText(userAnswersTablesTextValue);
+  const hiddenAuditSummary = cleanHiddenAuditArtifact(hiddenAuditSummaryValue);
   const text = [
     "A Mergevue Forecast Brief PDF was saved from the public diagnostic.",
     "",
     ...reportEmailCopy.textLines,
     "",
-    userAnswersTablesText
-      ? "USER ANSWERS SNAPSHOT"
-      : "USER ANSWERS SNAPSHOT: not provided by client payload.",
-    userAnswersTablesText || "",
+    hiddenAuditSummary
+      ? "INTERNAL USER-ANSWERS AUDIT SUMMARY"
+      : "INTERNAL USER-ANSWERS AUDIT SUMMARY: not provided by client payload.",
+    hiddenAuditSummary || "",
     "",
     `Report reference: ${reportId}`,
   ].join("\n");
@@ -239,9 +234,9 @@ export function buildHiddenFinalReportCopyMessage(
     "<ul>",
     ...reportEmailCopy.textLines.filter(Boolean).map((line) => `<li>${escapeHtml(line)}</li>`),
     "</ul>",
-    "<h2>User answers snapshot</h2>",
-    userAnswersTablesText
-      ? `<pre style="white-space:pre-wrap;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:12px;line-height:1.35;">${escapeHtml(userAnswersTablesText)}</pre>`
+    "<h2>Internal user-answers audit summary</h2>",
+    hiddenAuditSummary
+      ? `<pre style="white-space:pre-wrap;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:12px;line-height:1.35;">${escapeHtml(hiddenAuditSummary)}</pre>`
       : "<p>Not provided by client payload.</p>",
     `<p><strong>Report reference:</strong> ${escapeHtml(reportId)}</p>`,
   ].join("");
@@ -557,8 +552,19 @@ async function sendFinalReportHiddenCopy(request: NodeRequest, response: NodeRes
   const reportMessage = buildHiddenFinalReportCopyMessage(
     reportId,
     body?.reportEmailCopy,
-    body?.userAnswersTablesText,
+    body?.hiddenAuditSummary,
   );
+  const hiddenAuditJson = cleanHiddenAuditArtifact(body?.hiddenAuditJson);
+  const hiddenAuditSummary = cleanHiddenAuditArtifact(body?.hiddenAuditSummary);
+
+  if (!hiddenAuditJson || !hiddenAuditSummary) {
+    sendJson(response, 400, {
+      endpoint: "/api/final-report?action=send-final-report-hidden-copy",
+      status: "invalid-hidden-audit",
+      error: "Both hidden audit artifacts are required",
+    });
+    return;
+  }
 
   const providerResponse = await fetch("https://api.resend.com/emails", {
     method: "POST",
@@ -576,6 +582,14 @@ async function sendFinalReportHiddenCopy(request: NodeRequest, response: NodeRes
         {
           filename: fileName,
           content: pdfBase64,
+        },
+        {
+          filename: "mergevue-hidden-user-answers.json",
+          content: Buffer.from(hiddenAuditJson, "utf8").toString("base64"),
+        },
+        {
+          filename: "mergevue-hidden-user-answers.txt",
+          content: Buffer.from(hiddenAuditSummary, "utf8").toString("base64"),
         },
       ],
     }),
