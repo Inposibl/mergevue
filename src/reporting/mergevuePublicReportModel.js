@@ -70,7 +70,7 @@ const PUBLIC_COPY_TEMPLATES = Object.freeze({
   coreMismatch: "The core mismatch is between {acquirer_authority_phrase}, and {target_authority_phrase}. The sharpest contested resource is {top_conflict_resource}: {conflict_direction_phrase}.",
   fp2Rationale: "Treat {resource} as a protected integration resource during {window}: it is {conflict_direction_phrase}{conflict_causal_clause} Separating preservation from simplification gives the integration team time to identify which {target_env}-linked routines protect cohesion, where {acquirer_env} accountability should apply, and which changes should wait until the Day 60 review.",
   conflictSummary: "The sharpest contested resource is {resource}: {conflict_direction_phrase}.",
-  resourceExplanation: "Contested resource: {resource} — {conflict_direction_phrase}.",
+  resourceExplanation: "Contested resource: {resource} вЂ” {conflict_direction_phrase}.",
 });
 export const PUBLIC_CONFLICT_DIRECTION_COPY = Object.freeze({
   "+|-": Object.freeze({
@@ -134,7 +134,7 @@ function publicPairKey(deliverable) {
 }
 
 function isPendingFrictionText(value) {
-  return /^\s*(?:⚠\s*)?pending(?:\s+analysis)?\b/i.test(String(value ?? ""));
+  return /^[\s\W_]*pending(?:\s+analysis)?\b/iu.test(String(value ?? ""));
 }
 
 function hasCanonicalFrictionContent(deliverable) {
@@ -184,9 +184,9 @@ function conflictCausalClause(rawPattern) {
     return ", which makes it the most likely early contestation zone.";
   }
   if (normalizedConflictSign(rawPattern.match(/\(([+~\-\u2212])/u)?.[1]) === "+") {
-    return " — both organisations actively rely on it, which makes ownership of it the most likely early contestation point.";
+    return " вЂ” both organisations actively rely on it, which makes ownership of it the most likely early contestation point.";
   }
-  return " — neither organisation actively manages it, which makes it the most likely blind spot once integration load arrives.";
+  return " вЂ” neither organisation actively manages it, which makes it the most likely blind spot once integration load arrives.";
 }
 
 function canonicalConflictRows(deliverable) {
@@ -229,6 +229,15 @@ function canonicalConsistencyLog(deliverable) {
 
 function environmentTemplateToken(value) {
   return String(value ?? "").trim().replace(/^The\s+/i, "");
+}
+
+function safeApprovedPairCopy(deliverable) {
+  try {
+    return approvedPairCopy(deliverable);
+  } catch (error) {
+    if (/Missing canonical conflict source/.test(String(error?.message ?? ""))) return null;
+    throw error;
+  }
 }
 
 function approvedPairCopy(deliverable) {
@@ -434,6 +443,14 @@ function publicFrictionText(text) {
     [/\bcollapse\b/gi, "breakdown"],
     [/\beliminated\b/gi, "removed"],
     [/\beliminates\b/gi, "removes"],
+    [/\btarget[вЂ™']s narrative leaders\b/gi, "mission-linked leadership roles"],
+    [/\bnamed trust owner\b/gi, "designated trust owner"],
+    [/\bnamed leaders\b/gi, "leadership functions"],
+    [/\bnamed critical roles\b/gi, "critical role categories"],
+    [/\bname the knowledge holders\b/gi, "identify critical knowledge-holder categories"],
+    [/\bnames who carries the risk\b/gi, "identifies where risk is carried across roles, routines, governance layers, and value pools"],
+    [/\bnamed experts\b/gi, "critical knowledge-holder categories"],
+    [/\bnamed preview signals\b/gi, "preview signals"],
   ];
 
   for (const [pattern, replacement] of replacements) {
@@ -459,25 +476,25 @@ function buildPredictions(deliverable, doctrineClass) {
     {
       predictionTitle: "Signal setup",
       predictionWindow: TIMING_LOGIC.signalSetup,
-      predictionClaim: clientFacingPredictionText(fallbackPredictionText(deliverable), 0),
+      predictionClaim: clientFacingPredictionText("Within Day 0вЂ“30: review whether mission-linked communication forums, decision meetings, or governance routines begin using acquirer-side authority signals, or whether acquirer-side management forums adopt target-side mission language. The direction of language adoption indicates which integration mechanism is becoming dominant.", 0),
       observableSignal: clientFacingPredictionText(anchors[0]?.text ?? fallbackPredictionText(deliverable), 0),
-      verificationMethod: "Review Day 0-30 changes to the target planning function: planning-team role changes, cancelled or shortened planning forums, revised integration governance notes, decision logs, and management comments that deprioritise long-range planning.",
+      verificationMethod: "Review Day 0вЂ“30 communication-forum notes, decision-meeting records, governance routines, management forum language, decision logs, and examples of acquirer-side authority signals or target-side mission language moving across the integration boundary.",
       recommendedAction: actionCopy(0, "Protect the highest-risk operating resource before irreversible integration changes begin."),
     },
     {
       predictionTitle: "Observation window",
       predictionWindow: TIMING_LOGIC.observationWindow,
-      predictionClaim: clientFacingPredictionText(anchors[1]?.text ?? "Observe whether the same friction pattern repeats during the first operating cycle.", 1),
+      predictionClaim: clientFacingPredictionText("During Days 30вЂ“60: review whether mission-linked authority loses decision visibility, or whether decision rights move into acquirer-controlled enforcement routines before the targetвЂ™s trust-preserving routines are understood.", 1),
       observableSignal: clientFacingPredictionText(anchors[1]?.text ?? "Repeated friction in planning, authority, information flow, or resource allocation.", 1),
-      verificationMethod: "Review Days 30-60 operating meeting notes, escalation records, handoff documents, planning-cycle changes, decision-rights updates, and examples where strategic planning work is bypassed, compressed, or replaced by immediate execution requests.",
+      verificationMethod: "Review Days 30вЂ“60 operating meeting notes, escalation records, handoff documents, decision-rights updates, planning-cycle changes, and examples where trust-preserving routines are bypassed before their value is understood.",
       recommendedAction: actionCopy(2, "Separate preservation from simplification while the repeated friction pattern is tested."),
     },
     {
       predictionTitle: "Early checkpoint",
       predictionWindow: TIMING_LOGIC.verificationDeadline,
-      predictionClaim: clientFacingPredictionText("By Day 60, review documentation maintenance, ownership of planning artefacts, dependency on named experts, knowledge-transfer logs, early departures or disengagement signals, and whether systematised knowledge is becoming harder to preserve under integration pressure.", 2),
-      observableSignal: clientFacingPredictionText("A clear Day 60 signal that retention, delivery confidence, or knowledge continuity needs escalation into the full engagement workflow.", 2),
-      verificationMethod: "Use the Day 60 review to decide whether early retention, delivery-confidence, or knowledge-continuity signals require escalation into the full engagement workflow.",
+      predictionClaim: clientFacingPredictionText("Review Day 60 evidence on retention exposure, delivery confidence, knowledge continuity, operating rhythm, knowledge-transfer logs, early departures or disengagement signals, and whether systematised knowledge is becoming harder to preserve under integration pressure.", 2),
+      observableSignal: clientFacingPredictionText("Day 60 is the escalation checkpoint. If retention exposure, delivery confidence, knowledge continuity, or operating rhythm show early stress, the preview should convert into the paid workflow for ECS decomposition, artifact review, and role-level control design.", 2),
+      verificationMethod: "Use the Day 60 review to decide whether early retention, delivery-confidence, knowledge-continuity, or operating-rhythm signals require escalation into the paid workflow.",
       recommendedAction: actionCopy(1, "Run the Day 60 early-checkpoint review and decide whether the risk should be escalated into full engagement monitoring, revised, or lowered."),
     },
   ];
@@ -490,7 +507,7 @@ function resourceRows(deliverable) {
     ...candidateRows.filter((row) => !String(row.sourceSignal ?? "").trim()),
   ].slice(0, 5);
 
-  const hasCanonicalPairCopy = Boolean(approvedPairCopy(deliverable));
+  const hasCanonicalPairCopy = Boolean(safeApprovedPairCopy(deliverable));
   return rows.map((row) => ({
     resourceName: cleanString(row.resource),
     resourceCategory: cleanString(row.resourceTypeLabel ?? row.resourceType),
@@ -540,7 +557,7 @@ function timelinePhases(deliverable) {
 
 function recommendedActions(deliverable, doctrineClass) {
   const resource = resourceRows(deliverable)[0];
-  const pairCopy = approvedPairCopy(deliverable);
+  const pairCopy = safeApprovedPairCopy(deliverable);
   const dealInsights = cleanArray(
     deliverable?.protocol?.dealInsights?.map((insight) => `${insight.title}: ${insight.text}`),
     [],
@@ -575,9 +592,9 @@ function recommendedActions(deliverable, doctrineClass) {
     ...action,
     actionReason:
       doctrineClass === "concealed_conflict"
-        ? cleanString(action.actionReason)
-        : cleanString(dealInsights[index] ?? action.actionReason),
-    actionExpectedEffect: cleanString(action.actionExpectedEffect),
+        ? publicFrictionText(action.actionReason)
+        : publicFrictionText(dealInsights[index] ?? action.actionReason),
+    actionExpectedEffect: publicFrictionText(action.actionExpectedEffect),
   }));
 }
 
@@ -589,7 +606,7 @@ function firstIntegrationControlMove(deliverable) {
 
   const signalText = resources.length
     ? `Track friction around ${resources.join(", ")} before deciding what to integrate, simplify, or preserve.`
-    : "Track the named preview signals before deciding what to integrate, simplify, or preserve.";
+    : "Track the preview signals before deciding what to integrate, simplify, or preserve.";
 
   return cleanString(`Freeze irreversible operating-model changes until Day 60. The immediate priority is to identify which target routines preserve value and which ones create governance risk. ${signalText}`);
 }
@@ -633,7 +650,7 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
   const narrative = deliverable?.narrative ?? {};
   const friction = deliverable?.friction ?? {};
   const resources = resourceRows(deliverable);
-  const pairCopy = approvedPairCopy(deliverable);
+  const pairCopy = safeApprovedPairCopy(deliverable);
   const pairSourceClass = deliverable?.screen === "screen-10b" || deliverable?.outcomeKey === "homogeneous" || (deliverable?.acquirerEnvironmentCode && deliverable.acquirerEnvironmentCode === deliverable?.targetEnvironmentCode)
     ? "homogeneous"
     : deliverable?.screen === "screen-10"
@@ -699,7 +716,7 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
       label: "Talent continuity",
       severity: "High",
       meaning: "Risk that deal-critical people disengage, slow down, or leave before the integration model stabilises.",
-      testFirst: "Map named critical roles, retention exposure, and the first 90-day decision points that depend on them.",
+      testFirst: "Map critical role categories, role-level dependencies, retention exposure windows, and the first 90-day decision points that depend on them.",
     },
     {
       label: "Earn-out credibility",
@@ -717,7 +734,7 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
       label: "Knowledge continuity",
       severity: "Medium",
       meaning: "Risk that informal know-how, customer context, or execution memory stops moving through the combined organisation.",
-      testFirst: "Name the knowledge holders, handover routines, and early warning signs of information blockage.",
+      testFirst: "Identify critical knowledge-holder categories, handover routines, and early warning signs of information blockage.",
     },
   ];
   const economicTriagePosture = "High";
@@ -831,13 +848,13 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
     },
 whatTheFullEngagementAdds: {
   benefits: [
-    "This preview flags where your post-close fault lines sit. The full engagement removes the guesswork: it translates that exposure into financial ranges, names who carries the risk, and hands you an executable integration-control framework.",
-    "1. Audit-Grade Confirmation. Beyond survey noise. The buyer's risk: a pre-close read may be based on self-reported survey data that is easy to posture for and may be gone the day the deal closes. What you get: an evidence-reviewed environment coding process run by M&A analysts, cross-referenced against the target's operational artefacts, structure charts, and documentary evidence, then signed off by an analyst. You build integration strategy on durable operating routines, not temporary pre-close posturing.",
-    "2. Role-Level Exposure Mapping. Roles, dependencies, and vulnerability windows. The buyer's risk: scepticism that an external model can identify where exposure is actually carried. What you get: a role-level assessment of where integration pressure may affect continuity, decision rights, or knowledge transfer; which roles, operating dependencies, or knowledge-transfer points require review, protection, or evidence-based follow-up; and where management cadence may fracture under your standard integration logic. This is decision-support output. It does not make employment, retention, advancement, dismissal, disciplinary, compensation, or workforce decisions. Role-level findings require analyst review, client evidence, internal governance, and counsel review before action.",
-    "3. Quantified Exposure & Playbook. The number and the Day 30 / 60 / 90 governance. The buyer's risk: paying for an abstract risk index that will not survive internal deal review. What you get: engagement-tier economic modelling that translates this deal's risk band into exposure ranges, including value-protection, earn-out, and talent-continuity envelopes. These are integration-planning ranges, paired with a ready-to-execute integration-control design: owner-level actions and a Day 30 / 60 / 90 governance cadence.",
-    "De-risked next step. Before any full commitment, your deal team can scope this against your live transaction and, if useful, start with a single-deal pilot rather than the full engagement.",
+    "The paid workflow is designed to reduce guesswork by decomposing ECS drivers, reviewing environment coding against available artifacts, and converting watchpoints into role-level integration controls.",
+    "1. ARTIFACT-REVIEWED ENVIRONMENT CODING. The paid workflow reviews operating-environment coding against available artifacts, structure charts, governance notes, and documentary evidence where inputs are sufficient.",
+    "2. Role-Level Control Design. What the paid workflow is designed to produce, where inputs are sufficient: engagement-tier planning ranges for value protection, earn-out exposure, and talent-continuity envelopes, paired with Day 30/60/90 governance controls.",
+    "This is decision-support output. It does not make employment, retention, advancement, dismissal, disciplinary, compensation, or workforce decisions. Role-level findings require analyst review, client evidence, internal governance, and counsel review before action.",
+    "3. SEALED FORECAST LEDGER. The paid workflow is designed to log role-level, pre-outcome forecast claims before post-close events are known. These claims are reviewed at defined windows such as Day 30, Day 90, Day 180, and Day 365. The track record strengthens as sealed predictions mature across transactions.",
   ],
-  cta: `Next step: contact ${BRAND.contactEmail} to scope the engagement.`,
+  cta: "Next step: scope a single-deal pilot to decompose ECS drivers, review the operating-environment coding against available artifacts, and convert watchpoints into role-level integration controls.",
   contactEmail: BRAND.contactEmail,
 },
     auditFooter: {

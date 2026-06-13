@@ -78,8 +78,23 @@ const FORBIDDEN_OUTPUT_STRINGS = Object.freeze([
   "Display-only forecast preview",
   "Forecast Preview & Action Timeline",
   "PREDICTION 01",
+  "PREDICTION 02",
+  "PREDICTION 03",
   "VERIFY BY",
   "MODEL-RECOMMENDED ACTION",
+  "ref: forecast-pr",
+  "ref: forecast-prev",
+  "named leaders",
+  "named critical roles",
+  "Name the knowledge holders",
+  "names who carries the risk",
+  "named trust owner",
+  "AUDIT-GRADE CONFIRMATION",
+  "removes the guesswork",
+  "validated 28/28",
+  "validated without deviation",
+  "proven hit-rate",
+  "5 RESOURCES SCANNED",
   "Force providing enforcement for sacred narrative",
 ]);
 
@@ -482,6 +497,26 @@ for (const action of model.recommendedActions) {
 assert.ok(Array.isArray(model.whatTheFullEngagementAdds.benefits));
 assert.ok(model.whatTheFullEngagementAdds.benefits.length >= 3);
 assert.equal(model.whatTheFullEngagementAdds.contactEmail, "report@mergevue.com");
+assert.equal(
+  model.whatTheFullEngagementAdds.cta,
+  "Next step: scope a single-deal pilot to decompose ECS drivers, review the operating-environment coding against available artifacts, and convert watchpoints into role-level integration controls.",
+);
+assert.ok(
+  model.whatTheFullEngagementAdds.benefits.some((benefit) => benefit.includes("paid workflow is designed to")),
+  "Paid-tier copy must frame the workflow as designed output, not mature validation.",
+);
+assert.ok(
+  model.whatTheFullEngagementAdds.benefits.some((benefit) => benefit.includes("where inputs are sufficient")),
+  "Paid-tier copy must qualify outputs by input sufficiency.",
+);
+assert.ok(
+  model.whatTheFullEngagementAdds.benefits.some((benefit) => benefit.includes("track record strengthens as sealed predictions mature")),
+  "Paid-tier copy must describe the forecast ledger as maturing over time.",
+);
+assert.ok(
+  model.whatTheFullEngagementAdds.benefits.some((benefit) => benefit.includes("ARTIFACT-REVIEWED ENVIRONMENT CODING")),
+  "Paid-tier copy must use artifact-reviewed environment-coding label.",
+);
 
 const serialized = JSON.stringify(model);
 for (const forbidden of FORBIDDEN_OUTPUT_STRINGS) {
@@ -507,7 +542,7 @@ const EXPECTED_ECONOMIC_TRIAGE_CHANNELS = Object.freeze([
     label: "Talent continuity",
     severity: "High",
     meaning: "Risk that deal-critical people disengage, slow down, or leave before the integration model stabilises.",
-    testFirst: "Map named critical roles, retention exposure, and the first 90-day decision points that depend on them.",
+    testFirst: "Map critical role categories, role-level dependencies, retention exposure windows, and the first 90-day decision points that depend on them.",
   },
   {
     label: "Earn-out credibility",
@@ -525,7 +560,7 @@ const EXPECTED_ECONOMIC_TRIAGE_CHANNELS = Object.freeze([
     label: "Knowledge continuity",
     severity: "Medium",
     meaning: "Risk that informal know-how, customer context, or execution memory stops moving through the combined organisation.",
-    testFirst: "Name the knowledge holders, handover routines, and early warning signs of information blockage.",
+    testFirst: "Identify critical knowledge-holder categories, handover routines, and early warning signs of information blockage.",
   },
 ]);
 

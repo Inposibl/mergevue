@@ -22,6 +22,10 @@ const REQUIRED_OUTPUT_STRINGS = Object.freeze([
   "Days 30-60",
   "Day 60",
   "Competitive consolidation",
+  "designated trust owner",
+  "paid workflow is designed to",
+  "where inputs are sufficient",
+  "track record strengthens as sealed predictions mature",
 ]);
 
 const FORBIDDEN_SCREEN_STRINGS = Object.freeze([
@@ -46,8 +50,23 @@ const FORBIDDEN_SCREEN_STRINGS = Object.freeze([
   "Display-only forecast preview",
   "Forecast Preview & Action Timeline",
   "PREDICTION 01",
+  "PREDICTION 02",
+  "PREDICTION 03",
   "VERIFY BY",
   "MODEL-RECOMMENDED ACTION",
+  "ref: forecast-pr",
+  "ref: forecast-prev",
+  "named leaders",
+  "named critical roles",
+  "Name the knowledge holders",
+  "names who carries the risk",
+  "named trust owner",
+  "AUDIT-GRADE CONFIRMATION",
+  "removes the guesswork",
+  "validated 28/28",
+  "validated without deviation",
+  "proven hit-rate",
+  "5 RESOURCES SCANNED",
   "Force providing enforcement for sacred narrative",
 ]);
 

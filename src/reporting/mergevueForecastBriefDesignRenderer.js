@@ -619,6 +619,7 @@ export function buildMergevueForecastBriefDesignModel(report, options = {}) {
       explanation: resources.overwriteRiskExplanation,
       legend: ["High-risk | 70-100", "Moderate | 40-69", "Aligned | 0-39"],
       scanned: resources.resources.length,
+      scannedLabel: `${resources.resources.length} DISPLAYED EXPOSED RESOURCES`,
       groups: resourceGroups,
       zones: resources.resources.map((resource, index) => Object.freeze({
         id: `R${index + 1}`,
@@ -752,6 +753,7 @@ export function buildMergevueForecastBriefDesignModel(report, options = {}) {
     resourceConflictMap: Object.freeze({
       legend: "Score = structural contestation intensity | 0 aligned -> 100 maximal conflict",
       scanned: resources.resources.length,
+      scannedLabel: `${resources.resources.length} DISPLAYED EXPOSED RESOURCES`,
       groups: resourceGroups,
     }),
     sealedPredictions: predictions,
@@ -1450,7 +1452,7 @@ function renderPredictionCards(section) {
 function renderResourceZones(section) {
   return section.groups.filter((group) => group.count > 0).map((group) => {
     const rows = group.rows.map((row) => `<div class="rbar"><span><span class="rn">${escapeHtml(row.label)}</span><div class="rd">${escapeHtml(row.category)} | ${escapeHtml(row.direction)}</div></span><span class="rt"><span class="rf" style="width:${row.intensity}%; background-color:${bandColor(row.band)} !important; background:${bandColor(row.band)} !important;"></span></span><span class="rv tnum">${escapeHtml(row.intensity)}</span></div>`).join("");
-    return `<div class="zone"><div class="zone-head"><span class="zone-dot" style="background:${bandColor(group.band)} !important"></span><span class="zone-name" style="color:${bandColor(group.band)} !important">${escapeHtml(group.label)}</span><span class="zone-count">${group.count} of ${section.scanned}</span></div><div class="rbars">${rows}</div></div>`;
+    return `<div class="zone"><div class="zone-head"><span class="zone-dot" style="background:${bandColor(group.band)} !important"></span><span class="zone-name" style="color:${bandColor(group.band)} !important">${escapeHtml(group.label)}</span><span class="zone-count">${group.count} of ${escapeHtml(section.scannedLabel || `${section.scanned} DISPLAYED EXPOSED RESOURCES`)}</span></div><div class="rbars">${rows}</div></div>`;
   }).join("");
 }
 
@@ -1554,7 +1556,7 @@ function renderResourceConflictSummary(section) {
     return `<div class="resource-summary-row"><span>${escapeHtml(resource.name)}</span><p>${escapeHtml(explanation)}</p></div>`;
   }).join("");
 
-  const ecsClarifier = "ECS is not an average of the displayed resources. It reflects structural compatibility between the two operating environments; the resource map shows where integration pressure is most likely to damage or preserve value."; return `<div class="resource-summary"><h4>What this means in practice</h4><p>${escapeHtml(intro)} ${escapeHtml(ecsClarifier)}</p><div class="resource-summary-grid">${rows}</div></div>`;
+  const ecsClarifier = "ECS is a compatibility score: higher means stronger alignment. Resource scores are contestation-intensity scores: higher means greater integration pressure. The two scales are related but intentionally read in opposite directions. ECS is not an average of the displayed resources. It reflects compatibility across the full 17-resource model; this page displays selected resources where integration pressure is most likely to damage or preserve value. Public preview displays selected exposed resources. ECS is derived from the full 17-resource model."; return `<div class="resource-summary"><h4>What this means in practice</h4><p>${escapeHtml(intro)} ${escapeHtml(ecsClarifier)}</p><div class="resource-summary-grid">${rows}</div></div>`;
 }
 
 function explainEconomicCategory(label) {
@@ -1582,7 +1584,7 @@ function renderEngagementBenefit(benefit) {
     return `<p><strong class="eng-next-step">De-risked next step.</strong> ${escapeHtml(rest)}</p>`;
   }
 
-  const match = text.match(/^(\d+\.\s*)(Audit-Grade Confirmation|Role-Level Exposure Mapping|Quantified Exposure & Playbook)\s*\.\s*(.*)$/i) || text.match(/^(\d+\.)(Audit-Grade Confirmation|Role-Level Exposure Mapping|Quantified Exposure & Playbook)\s*\.\s*(.*)$/i);
+  const match = text.match(/^(\d+\.\s*)(ARTIFACT-REVIEWED ENVIRONMENT CODING|Role-Level Control Design|SEALED FORECAST LEDGER)\s*\.\s*(.*)$/i) || text.match(/^(\d+\.)(ARTIFACT-REVIEWED ENVIRONMENT CODING|Role-Level Control Design|SEALED FORECAST LEDGER)\s*\.\s*(.*)$/i);
   if (!match) return `<p>${escapeHtml(text)}</p>`;
 
   const prefix = match[1].trimEnd() + " ";
@@ -1652,14 +1654,14 @@ function renderHtmlSection(section, number, context = {}) {
   }
   if (section.id === "evidence") {
     const gaps = [
-      ["Who carries the risk", "Which named leaders, roles, or teams are most exposed to disengagement, resistance, or knowledge loss."],
+      ["Who carries the risk", "Which role categories, leadership functions, operating dependencies, or teams are most exposed to disengagement, resistance, or knowledge loss."],
       ["What must be protected", "Which decision rights, knowledge flows, routines, or trust mechanisms should be preserved before integration changes begin."],
       ["Which value pools are actually exposed", "The preview provides a directional economic triage posture; the full engagement allocates exposure to actual value pools, owners, time windows, and mitigation levers."],
     ];
-    return `<section class="sec" id="evidence" data-screen-label="Decision Gap">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.evidence)}<div class="panel decision-gap"><h4>What this preview cannot decide for you</h4><p>This brief identifies the likely post-close fault lines and gives a directional economic triage posture, but it does not yet allocate risk to named leaders, protected routines, value pools, owners, or mitigation levers.</p><div class="decision-gap-grid">${gaps.map(([label, value]) => `<div class="evrow"><span class="ek">${escapeHtml(label)}</span><span class="ev">${escapeHtml(value)}</span></div>`).join("")}</div><p><strong>The full engagement converts this preview into an executable integration-control plan.</strong></p></div></section>`;
+    return `<section class="sec" id="evidence" data-screen-label="Decision Gap">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.evidence)}<div class="panel decision-gap"><h4>What this preview cannot decide for you</h4><p>This brief identifies the likely post-close fault lines and gives a directional economic triage posture, but it does not yet allocate risk across role categories, protected routines, governance layers, value pools, or mitigation levers.</p><div class="decision-gap-grid">${gaps.map(([label, value]) => `<div class="evrow"><span class="ek">${escapeHtml(label)}</span><span class="ev">${escapeHtml(value)}</span></div>`).join("")}</div><p><strong>The full engagement converts this preview into an executable integration-control plan.</strong></p></div></section>`;
   }
   if (section.id === "engagement") {
-    return `<section class="sec" id="engagement" data-screen-label="Full Engagement Adds">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.engagement)}<div class="panel">${section.benefits.map(renderEngagementBenefit).join("")}</div><div class="cta"><div><div class="cl">Engagement contact</div><div class="ct">Next step: scope a single-deal pilot against your live transaction</div></div><a class="cbtn" href="mailto:${escapeHtml(section.contactEmail)}">${escapeHtml(section.contactEmail)}</a></div></section>`;
+    return `<section class="sec" id="engagement" data-screen-label="Full Engagement Adds">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.engagement)}<div class="panel">${section.benefits.map(renderEngagementBenefit).join("")}</div><div class="cta"><div><div class="cl">Engagement contact</div><div class="ct">${escapeHtml(section.cta)}</div></div><a class="cbtn" href="mailto:${escapeHtml(section.contactEmail)}">${escapeHtml(section.contactEmail)}</a></div></section>`;
   }
   if (section.id === "audit") {
     return `<footer class="audit" id="audit">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.audit)}<div class="audit-grid"><div class="audit-col"><div class="acl">Methodology</div><div class="acv"><b>Mergevue Forecast Method</b><br>${escapeHtml(section.reportVersion)}<br>${escapeHtml(section.contactEmail)}<div class="audit-tracker"><b>Preview verification tracker</b><br>Display-only preview; not ledger-recorded. Verification outcomes require the engagement workflow before any public record treatment.</div></div></div><div class="audit-col"><div class="acl">Audit trail</div><div class="acv">Report | <b>${escapeHtml(section.reportId)}</b><br>Generated | ${escapeHtml(section.generatedAt)}<br>Scenario | ${escapeHtml(section.scenarioId)}<br>Tracker | ${escapeHtml(section.trackRecordUrl)}</div></div><div class="audit-qr"><div class="qr" aria-label="QR ${escapeHtml(section.qrLabel)}"></div><div class="ql">Preview audit<br>reference</div></div></div><div class="audit-foot"><span>(c) 2026 Mergevue</span><span>Display-only preview; not ledger-recorded.</span></div></footer>`;
