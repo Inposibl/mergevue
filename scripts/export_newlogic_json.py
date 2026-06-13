@@ -9,6 +9,7 @@ from pathlib import Path
 APP_ROOT = Path.cwd() if Path.cwd().name == "framer-vercel-public" else Path(__file__).resolve().parents[1]
 SOURCE_DIR = APP_ROOT / "NewLogic 03.05.2026"
 OUTPUT_DIR = APP_ROOT / "src" / "generated" / "newlogic"
+ECS_FILE = SOURCE_DIR / "ST_ECS_v1_canonical.xlsx"
 
 NS = {
     "a": "http://schemas.openxmlformats.org/spreadsheetml/2006/main",
@@ -422,24 +423,29 @@ def parse_target_observed_questionnaire(workbook):
 
 
 def parse_ecs_matrix(workbook):
-    rows = workbook.read_rows("ECS_Matrix")
+    rows = workbook.read_rows("Compatibility Matrix")
     header = None
     for _, values in rows:
-        if clean_text(values.get(1, "")).startswith("Acq"):
+        if any(clean_text(value).startswith("Acquirer") for value in values.values()):
             header = values
             break
     if not header:
         return []
 
-    target_codes = {column: normalize_env_code(value) for column, value in header.items() if column > 1 and clean_text(value)}
+    label_column = next(column for column, value in header.items() if clean_text(value).startswith("Acquirer"))
+    target_codes = {
+        column: normalize_env_code(value)
+        for column, value in header.items()
+        if column > label_column and clean_text(value)
+    }
     matrix = []
     for row_number, values in rows:
-        acquirer_code = normalize_env_code(values.get(1, ""))
+        acquirer_code = normalize_env_code(values.get(label_column, ""))
         if acquirer_code not in ENV_ALIASES:
             continue
         scores = {}
         for column, target_code in target_codes.items():
-            value = clean_text(values.get(column, ""))
+            value = re.sub(r"[^0-9.\-]", "", clean_text(values.get(column, "")))
             if value:
                 scores[target_code] = number_or_text(value)
         matrix.append(
@@ -619,10 +625,13 @@ def parse_narratives_and_friction():
         friction_artifact = {
             "sourceWorkbook": "ST_Friction_Point_Lookup_updated.xlsx",
             "frictionLookup": friction_rows,
-            "ecsMatrix": parse_ecs_matrix(friction),
             "derivationMethod": table_records(friction, "Derivation_Method", "Primary source"),
             "riskCategoryTagging": compact_rows(friction, "Risk_Category_Tagging"),
         }
+
+    with Workbook(ECS_FILE) as ecs:
+        friction_artifact["ecsMatrix"] = parse_ecs_matrix(ecs)
+        friction_artifact["ecsSourceWorkbook"] = ECS_FILE.name
 
     with Workbook(SOURCE_DIR / "ST_Prediction_Ledger_v1.xlsx") as prediction:
         prediction_artifact = {
@@ -728,7 +737,11 @@ def main():
     for filename, payload in artifacts.items():
         written.append(write_json(filename, payload))
 
-    print(f"Wrote {len(written)} NewLogic JSON artifacts to {OUTPUT_DIR.relative_to(APP_ROOT)}")
+    try:
+        output_label = OUTPUT_DIR.relative_to(APP_ROOT)
+    except ValueError:
+        output_label = OUTPUT_DIR
+    print(f"Wrote {len(written)} NewLogic JSON artifacts to {output_label}")
     print(
         "Question modules:",
         ", ".join(

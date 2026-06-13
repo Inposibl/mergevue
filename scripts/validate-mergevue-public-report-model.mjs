@@ -1,6 +1,11 @@
 import fs from "node:fs";
 import assert from "node:assert/strict";
-import { buildMergevuePublicReportModel } from "../src/reporting/mergevuePublicReportModel.js";
+import {
+  PUBLIC_CONFLICT_DIRECTION_COPY,
+  PUBLIC_ANALYTICAL_FIELD_PATHS,
+  authorityPhrases,
+  buildMergevuePublicReportModel,
+} from "../src/reporting/mergevuePublicReportModel.js";
 import {
   FINAL_ENVIRONMENT_CODES,
   buildFinalDeliverable,
@@ -66,6 +71,7 @@ const FORBIDDEN_OUTPUT_STRINGS = Object.freeze([
   "Preview judgement Preview judgement",
   "Core thesis Core thesis",
   "Enterprise value band: Enterprise value band:",
+  "Economic exposure: qualitative only",
 ]);
 
 const HOMOGENEOUS_FORBIDDEN_STRINGS = Object.freeze([
@@ -90,6 +96,36 @@ const MODEL_VALUE_FORBIDDEN_LABEL_PREFIXES = Object.freeze([
   "Economic posture:",
 ]);
 
+// Deliberately catches leaked sign algebra with or without parentheses.
+const RAW_RESOURCE_NOTATION = /[+~\-\u2212][^()]{1,100}\s+vs\s+[+~\-\u2212][^()]{1,100}/iu;
+const SECOND_PERSON = /\b(?:you|your|yours|yourself|yourselves)\b/iu;
+const DUPLICATE_ADJACENT_LABEL = /\b(Posture rule|Core mismatch|Rationale|Deal value context|Preview judgement)\b[:\s]*\b\1\b/iu;
+const DUPLICATE_ID_PREFIX = /\bmergevue-mergevue-/iu;
+const APPROVED_AUTHORITY_PHRASES = Object.freeze({
+  "NT/STJ": "authority earned through measurable results and symmetric accountability",
+  "NT/STP": "authority belonging to whoever can demonstrably make the thing work",
+  "NF/NT": "authority granted to the strongest argument, regardless of title or tenure",
+  "NF/SFJ": "authority held through proximity to the founding mission and collective purpose",
+  "NF/SFP": "authority carried by the most genuine creative voice, with little weight on credentials",
+  "SFJ/SFP": "authority accumulated through seniority, tenure, and standing within the community",
+  "STJ/STP": "authority held by those able to take and defend a position of strength",
+  "STP/STJ": "authority derived from a sanctioned position in the hierarchy, accountable upward and contingent on delivery",
+  "SFP/SFJ": "authority embedded in the standardised system itself, with compliance secured through engineered incentives",
+});
+const APPROVED_CONFLICT_DIRECTIONS = Object.freeze({
+  "+|-": Object.freeze({ class: "direct", acquirer: "amplified on the acquirer side", target: "suppressed on the target side", connector: "and" }),
+  "-|+": Object.freeze({ class: "direct", acquirer: "suppressed on the acquirer side", target: "amplified on the target side", connector: "and" }),
+  "~|-": Object.freeze({ class: "partial", acquirer: "treated as background on the acquirer side", target: "actively suppressed on the target side", connector: "while" }),
+  "+|~": Object.freeze({ class: "partial", acquirer: "actively amplified on the acquirer side", target: "treated as background on the target side", connector: "while" }),
+  "-|~": Object.freeze({ class: "partial", acquirer: "actively suppressed on the acquirer side", target: "treated as background on the target side", connector: "while" }),
+  "~|+": Object.freeze({ class: "partial", acquirer: "treated as background on the acquirer side", target: "actively amplified on the target side", connector: "while" }),
+  "+|+": Object.freeze({ class: "convergent", acquirer: "actively amplified on both sides", target: "", connector: "" }),
+  "~|~": Object.freeze({ class: "convergent", acquirer: "treated as background on both sides", target: "", connector: "" }),
+  "-|-": Object.freeze({ class: "convergent", acquirer: "suppressed on both sides", target: "", connector: "" }),
+});
+const EXPECTED_PAIR_CORE_MISMATCH = "The core mismatch is between authority earned through measurable results and symmetric accountability, and authority held through proximity to the founding mission and collective purpose. The sharpest contested resource is Energy: amplified on the acquirer side, suppressed on the target side.";
+const EXPECTED_PAIR_FP2_RATIONALE = "Treat Energy as a protected integration resource during Days 30–60: it is amplified on the acquirer side and suppressed on the target side, which makes it the most likely early contestation zone. Separating preservation from simplification gives the integration team time to identify which Mission Field-linked routines protect cohesion, where Performance Arena accountability should apply, and which changes should wait until the Day 60 review.";
+
 
 
 function collectStringValues(value, out = []) {
@@ -97,6 +133,36 @@ function collectStringValues(value, out = []) {
   else if (Array.isArray(value)) value.forEach((item) => collectStringValues(item, out));
   else if (value && typeof value === "object") Object.values(value).forEach((item) => collectStringValues(item, out));
   return out;
+}
+
+function registeredModelValues(report) {
+  const sources = {
+    executiveDecisionSummary: [report.executiveDecisionSummary],
+    sealedPrediction: report.sealedPredictions?.predictions ?? [],
+    compatibilityScoreAndDealScenario: [report.compatibilityScoreAndDealScenario],
+    collisionThesis: [report.collisionThesis],
+    resourceConflictMap: [report.resourceConflictMap],
+    timelinePhase: report.timelineOfExpectedFriction?.phases ?? [],
+    recommendedAction: report.recommendedActions ?? [],
+  };
+  return Object.entries(PUBLIC_ANALYTICAL_FIELD_PATHS.model).flatMap(([group, fields]) => (
+    (sources[group] ?? []).flatMap((item) => fields.map((field) => ({
+      path: `${group}.${field}`,
+      value: item?.[field],
+    })))
+  )).filter(({ value }) => typeof value === "string" && value.trim());
+}
+
+function roundOne(value) {
+  return Math.round(Number(value) * 10) / 10;
+}
+
+function isCanonicalEcsScore(value) {
+  if (value === null || value === undefined || !Number.isFinite(Number(value))) return false;
+  const score = roundOne(value);
+  return Array.from({ length: 35 }, (_unused, conflictSum) => (
+    roundOne(100 * (1 - conflictSum / 34))
+  )).includes(score);
 }
 
 function score(primaryEnvironmentCode, overrides = {}) {
@@ -164,9 +230,107 @@ const model = buildMergevuePublicReportModel(demoSession, {
   generatedAt: "2026-05-30T00:00:00.000Z",
 });
 
+const approvedPairSession = Object.freeze({
+  ...demoSession,
+  sessionId: "mergevue-approved-public-copy-package",
+  dealContext: Object.freeze({
+    ...demoSession.dealContext,
+    data: Object.freeze({
+      ...demoSession.dealContext.data,
+      acquirerName: "Apple",
+      targetName: "N-Video",
+    }),
+  }),
+  acquirer2A: Object.freeze({ completed: true, score: score("NT/STJ") }),
+  target2B: Object.freeze({ completed: true, finalScore: score("NF/SFJ") }),
+  targetSelfAssessment: Object.freeze({ completed: true, score: score("NF/SFJ", { confidence: "medium" }) }),
+  targetObservation: Object.freeze({ completed: true, score: score("NF/SFJ", { directObservationCount: 6 }) }),
+});
+const approvedPairModel = buildMergevuePublicReportModel(approvedPairSession, {
+  generatedAt: "2026-06-12T00:00:00.000Z",
+});
+
+assert.deepEqual(authorityPhrases, APPROVED_AUTHORITY_PHRASES, "Authority phrases must match the owner-approved dictionary verbatim.");
+assert.deepEqual(PUBLIC_CONFLICT_DIRECTION_COPY, APPROVED_CONFLICT_DIRECTIONS, "Conflict direction copy must match the owner-approved 3x3 dictionary verbatim.");
+assert.equal(isCanonicalEcsScore(88.2), true, "Canonical ECS 88.2 must be on the equal-weight lattice.");
+assert.equal(isCanonicalEcsScore(88.1), false, "Synthetic off-lattice ECS must fail provenance validation.");
+assert.equal(approvedPairModel.collisionThesis.coreMismatch, EXPECTED_PAIR_CORE_MISMATCH);
+assert.equal(approvedPairModel.recommendedActions[2].actionReason, EXPECTED_PAIR_FP2_RATIONALE);
+assert.ok(approvedPairModel.recommendedActions[2].actionReason.length >= 160);
+assert.ok(approvedPairModel.recommendedActions[2].actionReason.trim().split(/\s+/).length >= 25);
+assert.ok(approvedPairModel.recommendedActions[2].actionReason.includes("Performance Arena"));
+assert.ok(approvedPairModel.recommendedActions[2].actionReason.includes("Mission Field"));
+assert.ok(approvedPairModel.recommendedActions[2].actionReason.split(/[.!?]+/).filter((sentence) => sentence.trim()).length >= 2);
+assert.equal(RAW_RESOURCE_NOTATION.test(JSON.stringify(approvedPairModel)), false, "Approved pair public model must not expose raw resource notation.");
+assert.equal(DUPLICATE_ADJACENT_LABEL.test(JSON.stringify(approvedPairModel)), false, "Approved pair public model must not contain adjacent duplicate labels.");
+assert.equal(DUPLICATE_ID_PREFIX.test(JSON.stringify(approvedPairModel)), false, "Approved pair public model must not duplicate the Mergevue ID prefix.");
+assert.equal(approvedPairModel.economicRiskTranslation.economicTriageRule.startsWith("Posture rule:"), false);
+const approvedPairModelAnalyticalValues = registeredModelValues(approvedPairModel);
+for (const { value } of approvedPairModelAnalyticalValues) {
+  assert.equal(RAW_RESOURCE_NOTATION.test(value), false, `Raw resource notation found in analytical copy: ${value}`);
+}
+const approvedPairSecondPersonFields = approvedPairModelAnalyticalValues
+  .filter(({ value }) => SECOND_PERSON.test(value))
+  .map(({ path }) => path);
+console.log(`Second-person narrative-layer fields pending owner review: ${[...new Set(approvedPairSecondPersonFields)].join(", ") || "none"}`);
+
+for (const friction of FINAL_DELIVERABLE_DATA.frictionPoints) {
+  const deliverable = buildPairDeliverable({
+    acquirerEnvironmentCode: friction.acquirerEnvironmentCode,
+    targetEnvironmentCode: friction.targetEnvironmentCode,
+  });
+  const pairModel = buildMergevuePublicReportModel(demoSession, { deliverable, generatedAt: "2026-06-12T00:00:00.000Z" });
+  const pairKey = `${friction.acquirerEnvironmentCode}->${friction.targetEnvironmentCode}`;
+  assert.equal(isCanonicalEcsScore(friction.ecs), true, `Off-lattice ECS provenance failure for ${pairKey}: ${friction.ecs}`);
+  assert.equal(RAW_RESOURCE_NOTATION.test(JSON.stringify(pairModel)), false, `Raw resource notation found in public model for ${pairKey}.`);
+  assert.equal(DUPLICATE_ADJACENT_LABEL.test(JSON.stringify(pairModel)), false, `Duplicate analytical label found for ${pairKey}.`);
+  assert.equal(DUPLICATE_ID_PREFIX.test(JSON.stringify(pairModel)), false, `Duplicate Mergevue ID prefix found for ${pairKey}.`);
+  assert.equal(pairModel.collisionThesis.coreMismatch.includes("depends on the current environment-pair result"), false, `Placeholder mismatch copy found for ${pairKey}.`);
+}
+
+const precedenceDeliverable = buildPairDeliverable({
+  acquirerEnvironmentCode: "NF/NT",
+  targetEnvironmentCode: "NT/STP",
+});
+const precedenceModel = buildMergevuePublicReportModel(demoSession, {
+  deliverable: precedenceDeliverable,
+  generatedAt: "2026-06-12T00:00:00.000Z",
+});
+assert.equal(precedenceModel.compatibilityScoreAndDealScenario.compatibilityScore, 88.2);
+assert.equal(precedenceModel.metadata.doctrineClass, "concealed_conflict");
+assert.equal(precedenceModel.metadata.doctrineCopyReview.required, true);
+assert.deepEqual(precedenceModel.metadata.sourceBinding.consistencyLog[0], {
+  pair: "NF/NT->NT/STP",
+  resource: "Organisation / system",
+  frictionReading: "~|~",
+  profileReading: "-|~",
+  frictionSource: "NewLogic 03.05.2026/ST_Friction_Point_Lookup_updated.xlsx",
+  profileSource: "src/data/environments.js resource impact matrices",
+  resolution: "friction row takes precedence for pair-level public copy",
+});
+assert.ok(precedenceModel.recommendedActions[2].actionReason.includes("neither organisation actively manages it"));
+
+const recoveredStpDeliverable = buildPairDeliverable({
+  acquirerEnvironmentCode: "NF/NT",
+  targetEnvironmentCode: "STP/STJ",
+});
+const recoveredStpModel = buildMergevuePublicReportModel(demoSession, {
+  deliverable: recoveredStpDeliverable,
+  generatedAt: "2026-06-12T00:00:00.000Z",
+});
+assert.equal(recoveredStpModel.compatibilityScoreAndDealScenario.compatibilityScore, 64.7);
+assert.equal(recoveredStpModel.metadata.frictionContentStatus.available, false);
+assert.deepEqual(recoveredStpModel.metadata.frictionContentStatus.degradedSurfaces, [
+  "collisionThesis",
+  "sealedPredictions",
+  "timelineOfExpectedFriction",
+]);
+assert.equal(/pending analysis/i.test(JSON.stringify(recoveredStpModel)), false, "PENDING friction content must not enter the public model.");
+
 const FINAL_DELIVERABLE_COMPATIBILITY_SOURCES = Object.freeze([
   "ST_Free_Tier_Output_Narratives_updated.xlsx",
   "ST_Friction_Point_Lookup_updated.xlsx",
+  "ST_ECS_v1_canonical.xlsx",
 ]);
 
 for (const sourceName of FINAL_DELIVERABLE_COMPATIBILITY_SOURCES) {
@@ -314,7 +478,7 @@ for (const forbidden of FORBIDDEN_OUTPUT_STRINGS) {
 assert.equal(serialized.includes("McDonald's"), true);
 assert.equal(JSON.parse(serialized).brand.name, "Mergevue");
 
-const CANONICAL_ECONOMIC_POSTURE_RULE = "Posture rule: Posture equals the highest assessed channel severity. When no channel is High but two or more channels are Medium, posture is raised one band.";
+const CANONICAL_ECONOMIC_POSTURE_RULE = "Posture equals the highest assessed channel severity. When no channel is High but two or more channels are Medium, posture is raised one band.";
 const FORBIDDEN_ECONOMIC_POSTURE_RULE = "Read the posture as a prioritisation signal: the strongest exposure channel sets the headline risk, and clustered Medium channels are treated as an attention area before they become value leakage.";
 assert(
   serialized.includes(CANONICAL_ECONOMIC_POSTURE_RULE),
@@ -359,12 +523,17 @@ assert.deepEqual(
 );
 
 const sourceNarratives = FINAL_DELIVERABLE_DATA.narratives || [];
-const narrativesMissingCoreMismatch = sourceNarratives.filter((narrative) => !String(narrative.coreMismatch || "").trim());
+const narrativesWithCoreMismatch = sourceNarratives.filter((narrative) => String(narrative.coreMismatch || "").trim());
 assert.equal(sourceNarratives.length, 72, "Final deliverable source must export 72 narratives.");
 assert.deepEqual(
-  narrativesMissingCoreMismatch.map((narrative) => `${narrative.acquirerEnvironmentCode || "?"}->${narrative.targetEnvironmentCode || "?"}`),
+  narrativesWithCoreMismatch.map((narrative) => `${narrative.acquirerEnvironmentCode || "?"}->${narrative.targetEnvironmentCode || "?"}`),
   [],
-  "Every final-deliverable narrative must export a non-empty coreMismatch field."
+  "Retired narrative.coreMismatch values must not be exported into final-deliverable data."
+);
+assert.equal(
+  FINAL_DELIVERABLE_DATA.sources.some((sourceName) => sourceName === "ST_ECS_v1.xlsx" || sourceName === "ST_ECS_v1_9x9_canonical_source.xlsx"),
+  false,
+  "Superseded ECS workbook names must not remain in final-deliverable provenance.",
 );
 
 const rendererSource = fs.readFileSync(new URL("../src/reporting/mergevueForecastBriefDesignRenderer.js", import.meta.url), "utf8");

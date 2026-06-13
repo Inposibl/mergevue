@@ -3,6 +3,7 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
   "sources": [
     "ST_Free_Tier_Output_Narratives_updated.xlsx",
     "ST_Friction_Point_Lookup_updated.xlsx",
+    "ST_ECS_v1_canonical.xlsx",
     "ST_UI_Track_Coder_Agent_Specification_v1.xlsx",
     "ST_Client_Journey_v5.xlsx",
     "ST_B_Single_Output_Template_v1.xlsx",
@@ -16,9 +17,8 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 88.2,
       "riskBand": "HIGH COMPATIBILITY",
       "headline": "Natural knowledge-application pipeline \u2014 but pace mismatch is the primary risk.",
-      "coreMismatch": "Your target is the natural implementation layer for the knowledge your environment generates.",
       "situation": "Your target is the natural implementation layer for the knowledge your environment generates. The structural alignment is real. The friction is temporal: your target resolves questions by running live tests immediately; your environment resolves them by continuing the argument until the most coherent position emerges. The pace difference is not a cultural issue \u2014 it is a structural incompatibility between two legitimate and internally coherent operating modes.",
-      "prediction": "Within 30 days: observe whether your management introduces any theoretical elaboration requirement before your target's experiments can proceed. Any epistemic gate between idea and test signals that your timelines are suppressing your target's core operational tempo.",
+      "prediction": "Within 30 days: observe whether the acquirer's management introduces any theoretical elaboration requirement before the target's experiments can proceed. Any epistemic gate between idea and test signals that the acquirer's timelines are suppressing the target's core operational tempo.",
       "implication": "The practitioners who joined your target because they get to test things will find the pace intolerably slow by Month 9. They are typically the people with the most options.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
@@ -29,10 +29,9 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 85.3,
       "riskBand": "HIGH COMPATIBILITY",
       "headline": "High compatibility \u2014 but knowledge sharing runs in opposite directions.",
-      "coreMismatch": "Your environment generates and shares knowledge as a moral imperative.",
       "situation": "Your environment generates and shares knowledge as a moral imperative. Your target manages knowledge as a competitive asset \u2014 selectively shared, strategically deployed. That difference is invisible in the first 60 days and becomes a cultural conflict in months 3 through 6 as your target's information governance resists the openness your environment requires to function.",
-      "prediction": "Within 30 days: observe whether your target's leadership continues competitive knowledge management practices under your governance \u2014 or begins redirecting toward the open exchange you reward. Continuation signals that NT/STJ information logic is still operative.",
-      "implication": "The dialectical convergence that produces NF/NT's highest-quality output requires the free exchange of knowledge. Restricting that exchange does not slow the process \u2014 it stops it.",
+      "prediction": "Within 30 days: observe whether the target's leadership continues competitive knowledge management practices under the acquirer's governance \u2014 or begins redirecting toward the open exchange the acquirer rewards. Continuation signals that Meritocratic-Competitive information logic is still operative.",
+      "implication": "The dialectical convergence that produces the Academic-Research environment's highest-quality output requires the free exchange of knowledge. Restricting that exchange does not slow the process \u2014 it stops it.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
     {
@@ -42,9 +41,8 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 82.4,
       "riskBand": "HIGH COMPATIBILITY",
       "headline": "Argument-quality authority entering a space where resonance is the only currency.",
-      "coreMismatch": "Your environment's decisions converge through the most precise argument.",
       "situation": "Your environment's decisions converge through the most precise argument. Your target's decisions emerge from collective sensing of what feels right. These are not merely different decision styles \u2014 they are incommensurable. When your analytical framework and your target's resonance signal produce different answers, neither side has a mechanism to resolve the disagreement that the other side recognises as legitimate.",
-      "prediction": "Within 30 days: introduce a rigorous analytical critique of one of your target's creative outputs \u2014 precise, not hostile. If the response is emotional withdrawal rather than intellectual engagement, resonance-authority is confirmed as the operative mechanism.",
+      "prediction": "Within 30 days: introduce a rigorous analytical critique of one of the target's creative outputs \u2014 precise, not hostile. If the response is emotional withdrawal rather than intellectual engagement, authority based on creative resonance is confirmed as the operative mechanism.",
       "implication": "Your resource allocation logic cannot function without an authority mechanism. Your target's creative output requires an accountability-free environment. These constraints are incompatible.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
@@ -55,9 +53,8 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 67.6,
       "riskBand": "MODERATE-HIGH",
       "headline": "Knowledge generation meeting knowledge conservation \u2014 same asset, opposite flow logic.",
-      "coreMismatch": "Your environment generates and shares knowledge freely.",
       "situation": "Your environment generates and shares knowledge freely. Your target conserves knowledge within trusted relational networks \u2014 it is held by tenured insiders and not shared outside. The asset both environments value is knowledge. The difference is that your environment creates it universally and your target holds it selectively. That difference progressively reduces the knowledge flow your environment depends on.",
-      "prediction": "Within 30 days: introduce an NF/NT participant \u2014 someone outside the target's relational network \u2014 into a key knowledge exchange. Observe whether your target shares freely or selectively. Selective sharing with long-tenure insiders is the direct incompatibility signal.",
+      "prediction": "Within 30 days: introduce a participant from the acquirer's environment \u2014 someone outside the target's relational network \u2014 into a key knowledge exchange. Observe whether the target shares freely or selectively. Selective sharing limited to long-tenure insiders is the direct incompatibility signal.",
       "implication": "The institutional knowledge that made the target worth acquiring is held inside a relational network. The network fragments under environmental pressure. The knowledge leaves with the people who held it.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
@@ -68,10 +65,9 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 61.8,
       "riskBand": "MODERATE",
       "headline": "Argument-quality authority meeting force-based authority \u2014 complete legitimacy mismatch.",
-      "coreMismatch": "Your environment grants authority to the most precise argument, regardless of seniority.",
-      "situation": "Your environment grants authority to the most precise argument, regardless of seniority. Your target grants authority to whoever can enforce compliance through demonstrated strength. Your governance is experienced by your target's participants as a display of weakness \u2014 intellectual precision is not the authority signal that STJ/STP environments recognise. Your target's senior figures will not update their operating logic because you have made a better analytical case.",
-      "prediction": "Within 30 days: observe whether your target's managers continue using information asymmetry \u2014 selectively sharing or withholding knowledge \u2014 as a management tool. If they do, the STJ/STP power mechanism is still operative regardless of your formal governance.",
-      "implication": "Installing NF/NT ethical governance in an STJ/STP environment without a structural power mechanism to enforce it produces the worst outcome: the appearance of ethical compliance with the continued operation of coercive redistribution underneath.",
+      "situation": "Your environment grants authority to the most precise argument, regardless of seniority. Your target grants authority to whoever can enforce compliance through demonstrated strength. Your governance is experienced by your target's participants as a display of weakness \u2014 intellectual precision is not the authority signal that Dominance-Control environments recognise. Your target's senior figures will not update their operating logic because you have made a better analytical case.",
+      "prediction": "Within 30 days: observe whether the target's managers continue using information asymmetry \u2014 selectively sharing or withholding knowledge \u2014 as a management tool. If they do, the Dominance-Control power mechanism is still operative regardless of the acquirer's formal governance.",
+      "implication": "Installing Academic-Research ethical governance in a Dominance-Control environment without a structural power mechanism to enforce it produces the worst outcome: the appearance of ethical compliance with the continued operation of coercive redistribution underneath.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
     {
@@ -81,9 +77,8 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 64.7,
       "riskBand": "MODERATE",
       "headline": "Research governance meets a recruitment system \u2014 the mission frame dissolves complicity.",
-      "coreMismatch": "Your target is not an innovation environment \u2014 it is an intermediary layer built to recruit adaptive people into a coercive redistribution structure.",
       "situation": "Your target is not an innovation environment \u2014 it is an intermediary layer built to recruit adaptive people into a coercive redistribution structure. What your diagnostic identified as talent development is structural complicity management. Your governance will dismantle the protection premium that holds your target's operational layer together, without installing a replacement retention mechanism that your target's participants \u2014 selected for adaptive pragmatism, not ideological commitment \u2014 will accept.",
-      "prediction": "Within 30 days: observe whether your target's middle-management layer exits disproportionately relative to senior and junior levels. Middle-layer attrition in the first 60 days signals the STP/STJ protection premium has collapsed under your governance.",
+      "prediction": "Within 30 days: observe whether your target's middle-management layer exits disproportionately relative to senior and junior levels. Middle-layer attrition in the first 60 days signals the Tactical-Control protection premium has collapsed under your governance.",
       "implication": "Your target's operational continuity depends on a complicity calculus that your environment structurally prevents. Once the calculus fails, the intermediary layer dissolves faster than your relational infrastructure can absorb it.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
@@ -94,10 +89,9 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 17.6,
       "riskBand": "HIGH RISK",
       "headline": "Evidence revision meeting evidence suppression \u2014 the highest-risk pair in the matrix.",
-      "coreMismatch": "Your environment's primary mechanism is the revision of beliefs based on better evidence.",
       "situation": "Your environment's primary mechanism is the revision of beliefs based on better evidence. Your target's primary mechanism is the protection of beliefs through authority and the heresy response. You are not acquiring a different version of your own environment \u2014 you are acquiring the single environment most structurally designed to prevent your environment from operating. The ECS score of 17.6 reflects this.",
-      "prediction": "Within 30 days: observe whether your target's management frames the acquisition in terms of shared mission rather than shared methodology. Mission-framing of an evidence-based research environment is the NF/SFJ capture mechanism activating.",
-      "implication": "The most intellectually capable people in your target \u2014 those who joined because argument quality determines outcomes \u2014 will identify the suppression mechanism within 9 months and exit. You will retain the form of an NF/NT environment while losing its substance.",
+      "prediction": "Within 30 days: observe whether the target's management frames the acquisition in terms of shared mission rather than shared methodology. Mission-framing of an evidence-based research environment is the Religious-Ideological capture mechanism activating.",
+      "implication": "The most intellectually capable people in your target \u2014 those who joined because argument quality determines outcomes \u2014 will identify the suppression mechanism within 9 months and exit. You will retain the form of an Academic-Research environment while losing its substance.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
     {
@@ -107,9 +101,8 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 17.6,
       "riskBand": "HIGH RISK",
       "headline": "Truth as the only currency entering a system built on engineered belief.",
-      "coreMismatch": "Your environment treats accurate, transparent knowledge as a moral imperative.",
       "situation": "Your environment treats accurate, transparent knowledge as a moral imperative. Your target operates by managing what participants believe \u2014 the system works precisely because participants hold beliefs that are constructed rather than evidentially true. Your transparency dismantles the belief architecture your target requires to function, and your target's information management violates the foundational operating principle of your environment.",
-      "prediction": "Within 30 days: share a piece of accurate operational information with SFP/SFJ employees that the previous management would have filtered or managed. The response \u2014 confusion, disorientation, or unusual openness \u2014 signals whether the engineered belief system is intact or has begun to dissolve.",
+      "prediction": "Within 30 days: share a piece of accurate operational information with Consumer-Capitalist employees that the previous management would have filtered or managed. The response \u2014 confusion, disorientation, or unusual openness \u2014 signals whether the engineered belief system is intact or has begun to dissolve.",
       "implication": "The talent your target currently holds has been selected for compliance with manufactured information. Your environment requires genuine intellectual engagement. These are different people, and the transition between them does not happen at scale within 12 months.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
@@ -120,9 +113,8 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 88.2,
       "riskBand": "HIGH COMPATIBILITY",
       "headline": "High compatibility \u2014 two extraction environments, same flow direction, different belief objects.",
-      "coreMismatch": "Both your environment and your target extract resources upward through belief management.",
-      "situation": "Both your environment and your target extract resources upward through belief management. SFP/SFJ uses engineered commercial desire; you use sacred mission. The ECS score of 88.2 reflects real structural alignment. The friction emerges when the objects of belief come into tension \u2014 when your mission narrative and your target's consumption narrative must coexist in the same communication. Participants asked to hold both simultaneously will eventually choose one.",
-      "prediction": "Within 30 days: observe whether your mission language is integrated with your target's commercial messaging in a single coherent narrative \u2014 or kept separate. Integration is the signal that both extraction mechanisms are being combined into a single layered system.",
+      "situation": "Both your environment and your target extract resources upward through belief management. The Consumer-Capitalist environment uses engineered commercial desire; you use sacred mission. The ECS score of 88.2 reflects real structural alignment. The friction emerges when the objects of belief come into tension \u2014 when your mission narrative and your target's consumption narrative must coexist in the same communication. Participants asked to hold both simultaneously will eventually choose one.",
+      "prediction": "Within 30 days: observe whether the acquirer's mission language is integrated with the target's commercial messaging in a single coherent narrative \u2014 or kept separate. Integration is the signal that both loyalty systems are being combined into a single layered system.",
       "implication": "Participants at lower levels experience a doubling of extraction pressure that overcomes even strong belief-retention. The combined mechanism is more powerful and shorter-lived than either source.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
@@ -133,9 +125,8 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 38.2,
       "riskBand": "MODERATE-LOW",
       "headline": "Conditional belonging meeting unconditional community \u2014 the same warmth, different wiring.",
-      "coreMismatch": "Both environments signal warmth, care, and belonging.",
-      "situation": "Both environments signal warmth, care, and belonging. The difference is structural: your warmth is conditional on mission alignment; your target's warmth is unconditional and relational. SFJ/SFP participants who test the conditionality \u2014 by questioning the mission while remaining fully committed to the community \u2014 will discover that the condition exists. That discovery is the moment the integration trajectory becomes visible.",
-      "prediction": "Within 30 days: observe whether your management maintains SFJ/SFP's unconditional care language while simultaneously introducing any mission-compliance requirement. Language continuity masking structural change is the NF/SFJ integration pattern \u2014 the gap between them is the diagnostic signal.",
+      "situation": "Both environments signal warmth, care, and belonging. The difference is structural: your warmth is conditional on mission alignment; your target's warmth is unconditional and relational. Family-Traditional participants who test the conditionality \u2014 by questioning the mission while remaining fully committed to the community \u2014 will discover that the condition exists. That discovery is the moment the integration trajectory becomes visible.",
+      "prediction": "Within 30 days: observe whether the acquirer's management keeps the target's unconditional-care language while introducing any requirement that care now depends on mission alignment. Care language continuing unchanged while its conditions quietly narrow is the diagnostic signal \u2014 the gap between the words and the new condition is where the strain shows.",
       "implication": "The community your target built over years \u2014 which is the mechanism that retains its people \u2014 is converted into an ideological compliance community. The people who joined for belonging stay until the conversion is visible. Then they leave together.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
@@ -146,9 +137,8 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 38.2,
       "riskBand": "MODERATE-LOW",
       "headline": "Sacred narrative providing legitimacy for coercive extraction \u2014 a stable but compounding combination.",
-      "coreMismatch": "Both your environment and your target extract resources upward through the hierarchy \u2014 your target through force, your environment through belief.",
       "situation": "Both your environment and your target extract resources upward through the hierarchy \u2014 your target through force, your environment through belief. The ECS score of 38.2 reflects genuine extraction-mechanism alignment. The risk is not incompatibility \u2014 it is amplification: your mission narrative provides legitimacy for your target's force mechanism, converting naked coercion into sanctified redistribution. The combination is more stable and more exploitative than either environment alone.",
-      "prediction": "Within 30 days: observe whether your target's operational managers adopt your mission language in their compliance management \u2014 or continue using force-based authority language without the narrative wrapper. Adoption of mission language signals that NF/SFJ legitimation is being installed over STJ/STP coercion.",
+      "prediction": "Within 30 days: observe whether the target's operational managers adopt the acquirer's mission language in how they manage compliance, or continue using direct authority language without the narrative wrapper. Adoption of mission language signals that mission-based legitimation is being layered over the target's existing control mechanism.",
       "implication": "The integrated entity oscillates between periods of genuine ideological coherence and periods of naked coercion as competitive pressure cycles. The belief mechanism erodes under sustained pressure, leaving the force mechanism exposed.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
@@ -159,9 +149,8 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 35.3,
       "riskBand": "MODERATE-LOW",
       "headline": "Sacred narrative governance meeting a complicity recruitment system \u2014 doctrine provides the offer.",
-      "coreMismatch": "Your target recruits adaptive people into coercive redistribution by making participation appear rational.",
       "situation": "Your target recruits adaptive people into coercive redistribution by making participation appear rational. Your governance provides exactly the narrative resource your target's recruitment mechanism needs: a mission frame that makes joining appear not merely pragmatic but meaningful. Your doctrine and your target's recruitment logic combine into a system that is both more effective at recruiting and more resistant to exit than either source environment alone.",
-      "prediction": "Within 30 days: observe whether your target's recruitment language begins incorporating your mission terminology. Mission-wrapped recruitment offers are the STP/STJ mechanism operating through your NF/SFJ infrastructure.",
+      "prediction": "Within 30 days: observe whether your target's recruitment language begins incorporating your mission terminology. Mission-wrapped recruitment offers are the Tactical-Control mechanism operating through your Religious-Ideological infrastructure.",
       "implication": "The combined entity becomes the most effective complicity recruitment system in the framework: your meaning narrative supplies the initial hook, your target's protection premium supplies the structural trap. Participants recruited through meaning who later discover the extraction logic experience a particularly acute betrayal response.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
@@ -172,9 +161,8 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 29.4,
       "riskBand": "HIGH RISK",
       "headline": "Controlled doctrine meeting authentic creative expression \u2014 the same vocabulary, opposite meanings.",
-      "coreMismatch": "Your environment and your target both speak the language of meaning, authenticity, and creative community.",
       "situation": "Your environment and your target both speak the language of meaning, authenticity, and creative community. The surface compatibility is real. The structural incompatibility is at the authority level: your environment manages meaning through controlled narrative; your target generates meaning through uncontrolled authentic expression. When your mission narrative is applied to your target's creative output \u2014 assigning meaning from outside rather than letting it emerge from inside \u2014 your target's core participants will experience this as the corruption of the only thing their environment values.",
-      "prediction": "Within 30 days: observe whether your management attempts to frame your target's creative output within your mission narrative \u2014 attributing significance to work your target did not intend to carry that significance.",
+      "prediction": "Within 30 days: observe whether the acquirer's management frames the target's creative output within its own mission narrative \u2014 attributing a significance to the work that its creators did not intend it to carry. That reframing is the earliest signal that creative output is being absorbed into a meaning system it was not made for.",
       "implication": "Your target's creative community converts into a content production engine for your narrative. Authentic creative production stops. The community dissolves within 12 to 18 months.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
@@ -184,10 +172,9 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "targetEnvironmentCode": "NT/STP",
       "ecs": 23.5,
       "riskBand": "HIGH RISK",
-      "headline": "Every NT/STP experiment is a potential heresy under your governance.",
-      "coreMismatch": "Your target exists specifically to generate and test innovative solutions.",
+      "headline": "Every Applied Innovation experiment is a potential heresy under your governance.",
       "situation": "Your target exists specifically to generate and test innovative solutions. Its core operating mode is: form a hypothesis, run the test now, update based on the result. Your governance structure cannot permit tests that might produce results contradicting the mission. The incompatibility is total: your target's core function is the exact cognitive operation your environment is structurally designed to prevent.",
-      "prediction": "Within 30 days: observe whether experiment proposals require mission-alignment review before execution. Any narrative gate between idea and test signals that your governance is suppressing your target's primary operational mechanism.",
+      "prediction": "Within 30 days: observe whether experiment proposals require mission-alignment review before execution. Any narrative gate placed between idea and test signals that the acquirer's governance is suppressing the target's primary operational mechanism.",
       "implication": "Innovation capacity in your target reaches zero within 12 months \u2014 not because people stop trying, but because nothing interesting can be tested in an environment where everything interesting challenges the narrative.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
@@ -198,10 +185,9 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 17.6,
       "riskBand": "HIGH RISK",
       "headline": "Doctrine acquisition targeting the environment that produces the knowledge it wants to control.",
-      "coreMismatch": "Your economic function is to capture intellectual products and reframe them as sacred doctrine.",
       "situation": "Your economic function is to capture intellectual products and reframe them as sacred doctrine. Your target is the only environment that generates genuinely new conceptual resources. The acquisition is structurally coherent from your perspective \u2014 you are acquiring the source. The incompatibility is that your target cannot function under governance that prevents it from revising beliefs based on evidence, which is the exact operation your environment is designed to prevent.",
-      "prediction": "Within 30 days: observe whether your management frames the acquisition in terms of shared mission rather than shared methodology. Mission-framing of a research environment is the capture mechanism activating.",
-      "implication": "The most intellectually capable NF/NT participants \u2014 those who joined because argument quality determines outcomes \u2014 will exit within 9 months. You will have the form of an NF/NT environment without the people who made it one.",
+      "prediction": "Within 30 days: observe whether the acquirer's management frames the acquisition in terms of shared mission rather than shared methodology. Mission-framing of a research environment is the earliest signal that the target is being drawn into a belief system rather than a working partnership.",
+      "implication": "The most intellectually capable Academic-Research participants \u2014 those who joined because argument quality determines outcomes \u2014 will exit within 9 months. You will have the form of an Academic-Research environment without the people who made it one.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
     {
@@ -211,10 +197,9 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 14.7,
       "riskBand": "HIGH RISK",
       "headline": "Sacred narrative governance meeting a performance culture that cannot accept narrative authority.",
-      "coreMismatch": "Your target's authority belongs to those with the strongest measurable results in the relevant domain.",
       "situation": "Your target's authority belongs to those with the strongest measurable results in the relevant domain. Your organisation's authority belongs to those most closely associated with the founding mission. Your first senior appointment or promotion based on mission alignment rather than performance data will be immediately recognised by your target's meritocratic talent as a signal that the operating environment has changed at its most fundamental level.",
-      "prediction": "Within 30 days: observe how your management responds to the first analytical challenge to a core organisational belief from a target employee. 'That misunderstands what we are about' as a response to an analytically sound challenge confirms the heresy mechanism is active.",
-      "implication": "NT/STJ selects for people who value performance-based advancement above ideological alignment. Those people \u2014 your target's most capable operators \u2014 will exit within 9 to 15 months.",
+      "prediction": "Within 30 days: observe how the acquirer's management responds to the first analytical challenge to a core organisational belief raised by a target employee. Treating an analytically sound challenge as a failure of allegiance \u2014 rather than engaging its substance \u2014 confirms that belief is being protected from evidence.",
+      "implication": "The Meritocratic-Competitive environment selects for people who value performance-based advancement above ideological alignment. Those people \u2014 your target's most capable operators \u2014 will exit within 9 to 15 months.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
     {
@@ -224,10 +209,9 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 82.4,
       "riskBand": "HIGH COMPATIBILITY",
       "headline": "Resonance governance of a precision-demanding environment \u2014 absent authority, not wrong authority.",
-      "coreMismatch": "Your target requires the highest epistemic standard of all environments.",
       "situation": "Your target requires the highest epistemic standard of all environments. Your governance operates through collective feeling about what resonates. Your target's participants will not reject your governance as illegitimate \u2014 they will experience it as absent. In a precision-demanding environment, governance absence creates a vacuum that the environment's own self-selecting quality standard fills. That standard holds \u2014 until someone who cannot meet it recognises the absence of enforcement.",
-      "prediction": "Within 30 days: observe whether your management evaluates NF/NT outputs by emotional resonance or by analytical precision. Resonance-based evaluation of research quality is the clearest governance mismatch signal.",
-      "implication": "Your resource allocation \u2014 spending outward into what feels right \u2014 is aesthetically directed, not epistemically directed. NF/NT's knowledge generation requires sustained investment in research infrastructure that aesthetic allocation logic does not naturally produce.",
+      "prediction": "Within 30 days: observe whether the acquirer's management evaluates the target's research outputs by emotional resonance or by analytical precision. Resonance-based evaluation of research quality is the clearest governance-mismatch signal.",
+      "implication": "Your resource allocation \u2014 spending outward into what feels right \u2014 is aesthetically directed, not epistemically directed. The Academic-Research environment's knowledge generation requires sustained investment in research infrastructure that aesthetic allocation logic does not naturally produce.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
     {
@@ -237,9 +221,8 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 79.4,
       "riskBand": "MODERATE-HIGH",
       "headline": "Creative disruption entering a community built on the preservation of tradition.",
-      "coreMismatch": "Your environment requires continuous creative novelty \u2014 repetition is structurally intolerable, and creative disruption is the mechanism of value creation.",
-      "situation": "Your environment requires continuous creative novelty \u2014 repetition is structurally intolerable, and creative disruption is the mechanism of value creation. Your target accepts change only when framed as an extension of tradition. The phrase 'we have always done it this way' functions as a terminal argument in SFJ/SFP environments. Every creative initiative you introduce will activate your target's tradition-protection mechanism \u2014 not because they are resistant to creativity, but because they are structurally built to protect community continuity.",
-      "prediction": "Within 30 days: introduce one creative change to an established SFJ/SFP routine \u2014 even a minor one. Measure the intensity of community resistance. Strong resistance to minor creative change from an acquirer whose core mechanism is creative disruption is the incompatibility signal.",
+      "situation": "Your environment requires continuous creative novelty \u2014 repetition is structurally intolerable, and creative disruption is the mechanism of value creation. Your target accepts change only when framed as an extension of tradition. The phrase 'we have always done it this way' functions as a terminal argument in Family-Traditional environments. Every creative initiative you introduce will activate your target's tradition-protection mechanism \u2014 not because they are resistant to creativity, but because they are structurally built to protect community continuity.",
+      "prediction": "Within 30 days: introduce one creative change to an established Family-Traditional routine \u2014 even a minor one. Measure the intensity of community resistance. Strong resistance to minor creative change from an acquirer whose core mechanism is creative disruption is the incompatibility signal.",
       "implication": "Your resource-spending logic drains the reserves your target has built through conservation. Without a corrective accountability mechanism \u2014 which neither environment has \u2014 the combined entity depletes its financial resources without a structural trigger for correction.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
@@ -250,9 +233,8 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 76.5,
       "riskBand": "MODERATE-HIGH",
       "headline": "Resonance-based decisions meeting empirical test authority \u2014 neither mechanism accepts the other.",
-      "coreMismatch": "Your target resolves disagreements by running live tests in real conditions \u2014 the result has authority regardless of who proposed the winning approach.",
       "situation": "Your target resolves disagreements by running live tests in real conditions \u2014 the result has authority regardless of who proposed the winning approach. Your environment resolves disagreements through collective sensing of what feels right \u2014 resonance has authority regardless of what the test showed. These are not merely different preferences. They are incompatible decision mechanisms that produce different outcomes from identical inputs.",
-      "prediction": "Within 30 days: observe whether your management evaluates NT/STP experiment proposals on the basis of how they feel to your community or on their empirical design quality. Aesthetically framed evaluation of technical experiments is the governance mismatch in its clearest form.",
+      "prediction": "Within 30 days: observe whether the acquirer's management evaluates the target's experiment proposals by how they feel to the creative community or by their empirical design quality. Aesthetically framed evaluation of technical experiments is the governance mismatch in its clearest form.",
       "implication": "Your target's empirical authority mechanism cannot function when its outputs are subject to resonance review. Technical talent that joined to build and test things leaves when building and testing is no longer what determines outcomes.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
@@ -263,10 +245,9 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 67.6,
       "riskBand": "MODERATE-HIGH",
       "headline": "Accountability-free governance entering a performance culture that depends on it.",
-      "coreMismatch": "Your operating environment has no formal accountability mechanism.",
-      "situation": "Your operating environment has no formal accountability mechanism. Your target's performance culture is built on symmetric accountability as its defining structural feature \u2014 it is the property that distinguishes it from every adjacent environment. When your governance removes formal accountability without replacing it, you do not neutralise your target's performance culture. You introduce accountability asymmetry into a previously symmetric system, which is the one signal that NT/STJ talent uses to determine whether an environment is worth staying in.",
-      "prediction": "Within 30 days: observe whether your management allows formal performance review processes to lapse in favour of informal relational assessment. The first performance cycle conducted without the formal structure signals the meritocratic mechanism is being dismantled.",
-      "implication": "NT/STJ environments select for people who value performance-based advancement. They exit within 12 months when advancement becomes relational rather than meritocratic.",
+      "situation": "Your operating environment has no formal accountability mechanism. Your target's performance culture is built on symmetric accountability as its defining structural feature \u2014 it is the property that distinguishes it from every adjacent environment. When your governance removes formal accountability without replacing it, you do not neutralise your target's performance culture. You introduce accountability asymmetry into a previously symmetric system, which is the one signal that Meritocratic-Competitive talent uses to determine whether an environment is worth staying in.",
+      "prediction": "Within 30 days: observe whether formal performance-review processes are allowed to lapse in favour of informal relational assessment. The first performance cycle conducted without the formal structure signals that the merit-based mechanism is being dismantled.",
+      "implication": "Meritocratic-Competitive environments select for people who value performance-based advancement. They exit within 12 months when advancement becomes relational rather than meritocratic.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
     {
@@ -276,9 +257,8 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 64.7,
       "riskBand": "MODERATE",
       "headline": "Authentic expression governance meeting a complicity system \u2014 the gap between them is immediately felt.",
-      "coreMismatch": "Your target is an intermediary recruitment layer built to make coercive redistribution participation appear rational and rewarding.",
       "situation": "Your target is an intermediary recruitment layer built to make coercive redistribution participation appear rational and rewarding. Your governance \u2014 built on authentic emotional expression and the absence of enforcement \u2014 provides no structural mechanism to retain people whose operational logic is the protection premium, not creative freedom. Your target's participants did not join for creative expression. They joined because participation was the most pragmatic available option.",
-      "prediction": "Within 30 days: observe whether your target's operational layer responds to your authentic communication style with genuine engagement \u2014 or with the social performance of engagement. NF/SFP governance cannot penetrate STP/STJ complicity through resonance alone; the response reveals which environment's logic is still operative.",
+      "prediction": "Within 30 days: observe whether your target's operational layer responds to your authentic communication style with genuine engagement \u2014 or with the social performance of engagement. Expressive-Aesthetic governance cannot penetrate Tactical-Control complicity through resonance alone; the response reveals which environment's logic is still operative.",
       "implication": "Your aesthetic authority dissolves the protection logic without installing a replacement. Your target's operational layer disperses to environments where the protection calculus still functions.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
@@ -289,9 +269,8 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 61.8,
       "riskBand": "MODERATE",
       "headline": "Psychological safety required meeting coercive authority \u2014 the first visible consequence ends creative expression.",
-      "coreMismatch": "Your target's creative output depends on psychological safety \u2014 the freedom to fail authentically, to express without consequence, to challenge without punishment.",
       "situation": "Your target's creative output depends on psychological safety \u2014 the freedom to fail authentically, to express without consequence, to challenge without punishment. Your target operates through demonstrated force and visible consequences for weakness. The first public penalisation event in your target environment \u2014 for any behaviour \u2014 eliminates the psychological safety condition that all authentic creative work requires. It is not reversible by subsequent warmth signals.",
-      "prediction": "Within 30 days: observe the first visible consequence event by your target's management. Your creative community's response to that single event reveals whether psychological safety has already been eliminated.",
+      "prediction": "Within 30 days: observe the first visible consequence event imposed by the target's management. The creative community's response to that single event reveals whether psychological safety has already been eliminated.",
       "implication": "By Month 9, your target retains the vocabulary of creative community while operating through coercive hierarchy. The creative output that justified the acquisition is gone.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
@@ -302,9 +281,8 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 29.4,
       "riskBand": "HIGH RISK",
       "headline": "Authentic feeling meeting controlled doctrine \u2014 the same language, opposite mechanisms.",
-      "coreMismatch": "Both environments speak the language of meaning and authentic expression.",
       "situation": "Both environments speak the language of meaning and authentic expression. Your warmth is structurally genuine and unconditional. Your target's warmth is conditional on mission compliance \u2014 participants who question the narrative, however communally committed, lose standing. Your governance cannot activate the heresy suppression mechanism your target's authority structure depends on. When you allow authentic dissent that your target's authority structure would suppress, you undermine the belief mechanism that holds your target together \u2014 without installing a replacement.",
-      "prediction": "Within 30 days: observe whether your target's narrative authority figures continue using mission-compliance language under your governance \u2014 and whether your management accepts it. Continued mission-compliance enforcement with your acceptance signals the NF/SFJ structure is self-sustaining and independent of your governance.",
+      "prediction": "Within 30 days: observe whether the target's narrative authority figures continue using mission-compliance language under the acquirer's governance, and whether the acquirer's management accepts it. Continued mission-compliance enforcement with that acceptance signals the mission structure is self-sustaining and independent of the acquirer's governance.",
       "implication": "Your creative community governance cannot replace your target's belief-extraction mechanism. You will fund the target indefinitely without installing a viable alternative retention structure.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
@@ -315,9 +293,8 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 23.5,
       "riskBand": "HIGH RISK",
       "headline": "Authentic expression meeting engineered desire \u2014 you can see the mechanism, and seeing it breaks it.",
-      "coreMismatch": "Your environment's only currency is authentic emotional truth.",
       "situation": "Your environment's only currency is authentic emotional truth. Your target operates by manufacturing the desire for consumption \u2014 the system works precisely because participants believe things that are constructed rather than true. Your transparency about how things actually work is not merely uncomfortable for your target. It structurally dismantles the belief architecture the target depends on for compliance and retention.",
-      "prediction": "Within 30 days: observe whether your authentic communication style is introduced into your target's employee-facing channels. If it is, the engineered belief system begins to dissolve \u2014 not gradually, but as participants compare the authentic communication with the manufactured version they have been receiving.",
+      "prediction": "Within 30 days: observe whether the acquirer's authentic communication style is introduced into the target's employee-facing channels. If it is, the engineered belief system begins to dissolve \u2014 not gradually, but as participants compare the authentic communication with the manufactured version they have been receiving.",
       "implication": "Your target's retention depends on participants believing in things that are not true. Your environment requires authentic expression. You cannot maintain both simultaneously.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
@@ -328,9 +305,8 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 91.2,
       "riskBand": "HIGH COMPATIBILITY",
       "headline": "Two high-performance environments \u2014 one structural tension to watch.",
-      "coreMismatch": "Your organisation and your target both run on evidence and results.",
       "situation": "Your organisation and your target both run on evidence and results. That alignment is real. But your firm resolves disagreements through structured analytical process and formal approval cycles. Your target resolves them by running a live test immediately. In months 1 through 3 post-close, your governance layer will feel like bureaucratic interference to their best operators \u2014 not because they're wrong, but because they've never needed it before.",
-      "prediction": "Within 30 days of close: count how many experiments or unilateral tests your target's managers attempt without prior approval. If the number is high, the incompatibility is active.",
+      "prediction": "Within 30 days of close: count how many experiments or unilateral tests the target's managers attempt without prior approval. If the number is high, the incompatibility is active.",
       "implication": "Left unaddressed, the people who built your target's innovation capability \u2014 and who are most capable of joining a competitor \u2014 will have enough evidence by Month 9 that the operating environment has permanently changed.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
@@ -341,9 +317,8 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 85.3,
       "riskBand": "HIGH COMPATIBILITY",
       "headline": "High compatibility \u2014 but the knowledge-sharing logic runs in opposite directions.",
-      "coreMismatch": "Your target treats knowledge as a shared good \u2014 researchers communicate discoveries broadly because truth-sharing is a moral imperative.",
       "situation": "Your target treats knowledge as a shared good \u2014 researchers communicate discoveries broadly because truth-sharing is a moral imperative. Your organisation treats knowledge as a competitive asset managed strategically. That difference is invisible in the first 60 days and becomes a cultural conflict in months 3 through 6 as you install information governance that your target experiences as an ethical violation rather than a commercial policy.",
-      "prediction": "Within 30 days: observe whether your target's first major cross-functional meeting produces open knowledge exchange, or whether your governance layer produces any filtering of what is shared and with whom.",
+      "prediction": "Within 30 days: observe whether the target's first major cross-functional meeting produces open knowledge exchange, or whether the acquirer's governance layer introduces any filtering of what is shared and with whom.",
       "implication": "The most analytically capable people in your target \u2014 precisely those who joined because argument quality determines outcomes \u2014 will identify the incompatibility first and exit earliest.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
@@ -354,9 +329,8 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 73.5,
       "riskBand": "MODERATE-HIGH",
       "headline": "Meritocratic governance installing accountability in a complicity-managed intermediary layer.",
-      "coreMismatch": "Your target is not an operational business \u2014 it is an intermediary recruitment layer whose participants have accepted a complicity arrangement: operational autonomy and protection in exchange for delivering results upward.",
       "situation": "Your target is not an operational business \u2014 it is an intermediary recruitment layer whose participants have accepted a complicity arrangement: operational autonomy and protection in exchange for delivering results upward. Your governance installs symmetric accountability into a structure where the protection premium is the only real retention mechanism. When you make complicity-participants accountable to the same standards as merit-performers, you remove the one thing that made their participation rational.",
-      "prediction": "Within 30 days: observe whether your target's operational layer requests formal clarification of reporting lines and accountability structures within the first month \u2014 or whether they continue operating on informal authority. Formal clarification requests signal the protection premium has dissolved and replacements are being sought.",
+      "prediction": "Within 30 days: observe whether the target's operating teams request formal clarification of reporting lines and accountability structures within the first month \u2014 or continue operating through informal authority. Formal clarification requests signal that the prior protection arrangement has dissolved and replacements are being sought.",
       "implication": "Your meritocratic governance retains merit-performers and loses complicity-participants. The operational continuity your target provided \u2014 whatever its ethical character \u2014 degrades until you have replaced the complicity layer with a merit layer, which takes 12 to 18 months.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
@@ -367,9 +341,8 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 76.5,
       "riskBand": "MODERATE-HIGH",
       "headline": "Meritocratic governance meeting an environment where authority is enforced through dominance.",
-      "coreMismatch": "Your target operates through demonstrated strength and capacity for punishment.",
       "situation": "Your target operates through demonstrated strength and capacity for punishment. Your organisation operates through measurable intellectual performance and symmetric accountability. These are related environments \u2014 but structurally distinct in the single dimension that matters most: your target's senior figures have never been held to the same standards as their subordinates, and the compliance mechanism that holds them in place is fear, not results.",
-      "prediction": "Within 30 days: observe whether target managers continue making unilateral decisions within their domains without the documentation your governance requires. The rate of undocumented decisions directly measures whether your governance layer is penetrating or being performed.",
+      "prediction": "Within 30 days: observe whether target managers continue making unilateral decisions within their domains without the documentation the acquirer's governance requires. The rate of undocumented decisions directly measures whether the governance layer is penetrating or merely being performed.",
       "implication": "The integration risk here runs in both directions: left unmanaged, the combined entity may slide toward your target's operating norms rather than your own \u2014 a documented degradation pathway in the framework.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
@@ -380,9 +353,8 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 67.6,
       "riskBand": "MODERATE-HIGH",
       "headline": "Structured accountability entering a space that has never had any.",
-      "coreMismatch": "Your target is the only natural environment in the framework with no internal accountability mechanism.",
       "situation": "Your target is the only natural environment in the framework with no internal accountability mechanism. Authority belongs to whoever creates the most emotionally resonant work \u2014 not to the most senior, not to the best performer, not to the longest-tenured. Your first performance review framework, however minimal, will be experienced as a category error by your target's core creative personnel.",
-      "prediction": "Within 30 days: introduce one formal reporting requirement \u2014 even a weekly summary \u2014 and measure the emotional response. NF/SFP environments experience formal reporting as an attack on the nature of creative work, not as a management improvement.",
+      "prediction": "Within 30 days: introduce one formal reporting requirement \u2014 even a weekly summary \u2014 and observe the organisational response. Creative-led environments of this kind characteristically experience formal reporting as an intrusion on the nature of creative work, not as a management improvement.",
       "implication": "By Month 9, the creative output that justified the acquisition premium will have degraded \u2014 not because of poor performance, but because the environment that produced it no longer exists.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
@@ -393,9 +365,8 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 58.8,
       "riskBand": "MODERATE",
       "headline": "Performance accountability meeting a community built on loyalty.",
-      "coreMismatch": "Your target protects established figures regardless of performance \u2014 loyalty and tenure provide genuine shelter, not just informal cover.",
       "situation": "Your target protects established figures regardless of performance \u2014 loyalty and tenure provide genuine shelter, not just informal cover. Your governance structure applies the same performance standards to senior figures as to junior staff. The first time you hold a long-tenured target leader formally accountable will trigger a community-wide response that looks disproportionate to a performance conversation.",
-      "prediction": "Within 30 days: observe what happens when you redefine a role or reassign a person who has been in the same position for more than three years. The community's response to that single decision tells you whether relational bonds are strong enough to create integration resistance.",
+      "prediction": "Within 30 days: observe what happens when a role is redefined or a person who has held the same position for more than three years is reassigned. The community's response to that single decision reveals whether relational bonds are strong enough to create integration resistance.",
       "implication": "By Month 12, the relational network that held the target together \u2014 and carried its tacit knowledge \u2014 will have been partially dismantled. The knowledge leaves with the people who held it.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
@@ -406,8 +377,7 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 14.7,
       "riskBand": "HIGH RISK",
       "headline": "Evidence-based governance meeting an organisation that cannot accept evidence as a challenge mechanism.",
-      "coreMismatch": "Your target's authority structure treats its founding thesis as a sacred narrative.",
-      "situation": "Your target's authority structure treats its founding thesis as a sacred narrative. Challenges to core assumptions are not evaluated analytically \u2014 they are deflected through loyalty framing and mission language. The first time your management team applies its analytical framework to a core NF/SFJ belief, the response will not be intellectual disagreement. It will be institutional rejection of the evaluative method itself.",
+      "situation": "Your target's authority structure treats its founding thesis as a sacred narrative. Challenges to core assumptions are not evaluated analytically \u2014 they are deflected through loyalty framing and mission language. The first time your management team applies its analytical framework to a core Religious-Ideological belief, the response will not be intellectual disagreement. It will be institutional rejection of the evaluative method itself.",
       "prediction": "Within 30 days: ask 'what is the evidence for this?' about one established organisational practice. If the response is reframing rather than engagement \u2014 'that misunderstands what we are about' \u2014 the structural incompatibility is confirmed.",
       "implication": "The competence-driven talent that your thesis depends on retaining will exit within 9 to 15 months. The people who remain will have adapted to doctrinal compliance rather than analytical performance.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
@@ -419,7 +389,6 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 14.7,
       "riskBand": "HIGH RISK",
       "headline": "Symmetric accountability entering a system built to exempt leadership from it.",
-      "coreMismatch": "Your target applies performance standards downward and protects leadership unconditionally.",
       "situation": "Your target applies performance standards downward and protects leadership unconditionally. Your governance structure requires the same formal review process at every level, including CEO. The collision is immediate: your first formal review of a target executive who has never previously been held accountable at their level will activate a defensive response the target system has never needed to manage.",
       "prediction": "Within 30 days: examine whether target senior managers apply performance standards to their peers and superiors as readily as to their subordinates. Asymmetric treatment of the first significant senior-level performance issue is the fastest confirmation that the incompatibility is active.",
       "implication": "By Month 12, the high-performing middle layer that built the target's operational value will have identified the accountability structure and concluded the environment has not changed at the level that matters.",
@@ -432,9 +401,8 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 91.2,
       "riskBand": "HIGH COMPATIBILITY",
       "headline": "High compatibility \u2014 but you are acquiring a more structured environment than you run.",
-      "coreMismatch": "Your target has more procedural governance than you do.",
       "situation": "Your target has more procedural governance than you do. Your acquirer organisation resolves questions by running live tests; your target resolves them through structured analytical process with formal documentation and milestone tracking. Your governance will feel like a reduction in rigour to your target's leadership team, not an improvement in agility.",
-      "prediction": "Within 30 days: observe whether your management team deprioritises or restructures the target's strategic planning function. If it does, you are dismantling the systematic knowledge infrastructure that NT/STJ environments build over years.",
+      "prediction": "Within 30 days: observe whether the management team deprioritises or restructures the target's strategic planning function. If it does, the acquirer is dismantling the systematic knowledge infrastructure that Meritocratic-Competitive environments build over years.",
       "implication": "Your target's highest-value capability \u2014 systematised institutional knowledge \u2014 atrophies when the documentation culture that maintains it is treated as overhead rather than infrastructure.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
@@ -445,9 +413,8 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 88.2,
       "riskBand": "HIGH COMPATIBILITY",
       "headline": "Natural alliance \u2014 but application pressure on pure research has a known failure mode.",
-      "coreMismatch": "Your target generates theoretical knowledge for its intrinsic value.",
-      "situation": "Your target generates theoretical knowledge for its intrinsic value. You apply knowledge in physical reality and iterate empirically. The partnership is structurally coherent \u2014 NF/NT is the idea-generation layer for NT/STP application. The risk is specific: your application pressure accelerates NF/NT's most significant vulnerability, pulling ideas into deployment before their theoretical development is complete.",
-      "prediction": "Within 30 days: observe whether your management asks NF/NT researchers to demonstrate proof-of-concept within an accelerated timeline. The researchers' response reveals whether the environment has the structural confidence to resist application pressure or will comply at the cost of discovery quality.",
+      "situation": "Your target generates theoretical knowledge for its intrinsic value. You apply knowledge in physical reality and iterate empirically. The partnership is structurally coherent \u2014 the Academic-Research environment is the idea-generation layer and the Applied Innovation environment is the application layer. The risk is specific: your application pressure accelerates the Academic-Research environment's most significant vulnerability, pulling ideas into deployment before their theoretical development is complete.",
+      "prediction": "Within 30 days: observe whether the acquirer's management asks Academic-Research researchers to demonstrate proof-of-concept within an accelerated timeline. The researchers' response reveals whether the environment has the structural confidence to resist application pressure or will comply at the cost of discovery quality.",
       "implication": "The fundamental discoveries that made the target worth acquiring require conditions \u2014 slow convergence, epistemic freedom, no application deadline \u2014 that accelerated deployment cycles actively prevent.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
@@ -458,7 +425,6 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 70.6,
       "riskBand": "MODERATE-HIGH",
       "headline": "Empirical authority entering a complicity network \u2014 testing the compliance logic dissolves the structure.",
-      "coreMismatch": "Your target is a recruitment-and-management layer built on the complicity calculus: participation is rational as long as the protection premium exceeds the exit cost.",
       "situation": "Your target is a recruitment-and-management layer built on the complicity calculus: participation is rational as long as the protection premium exceeds the exit cost. Your empirical authority mechanism \u2014 whose solution works in a live test \u2014 is structurally incompatible with the protection logic that holds your target together. When your governance makes the complicity calculus visible and testable, the rationalisation structure that sustains participation collapses.",
       "prediction": "Within 30 days: observe whether your target's operational layer requests clarification of accountability structures in the first month. Formal accountability requests signal the protection premium has dissolved under empirical scrutiny.",
       "implication": "Your empirical governance retains people motivated by results and loses people motivated by protection. The operational continuity degrades in the transition period before merit-performers can be recruited into the vacated positions.",
@@ -471,9 +437,8 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 73.5,
       "riskBand": "MODERATE-HIGH",
       "headline": "Empirical authority meeting force-based authority \u2014 neither recognises the other as legitimate.",
-      "coreMismatch": "Your target's authority structure is built on demonstrated strength and capacity for punishment.",
       "situation": "Your target's authority structure is built on demonstrated strength and capacity for punishment. Your authority structure is built on whose solution works in a live test. These mechanisms do not translate into each other. Your target's senior managers experience your empirical test requests as a weakness signal \u2014 in their operating logic, revealing your process is revealing your vulnerability.",
-      "prediction": "Within 30 days: observe whether target managers comply with requests to document experimental results. Refusal to document, or documentation that is deliberately incomplete, signals that the STJ/STP information-asymmetry advantage logic is still operative.",
+      "prediction": "Within 30 days: observe whether target managers comply with requests to document experimental results. Refusal to document, or documentation that is deliberately incomplete, signals that the Dominance-Control information-asymmetry advantage logic is still operative.",
       "implication": "Without explicit ethical governance installed simultaneously with your empirical framework, your target's coercive redistribution logic continues operating underneath your methodology \u2014 producing regulatory and reputational risk within 12 to 24 months.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
@@ -484,9 +449,8 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 76.5,
       "riskBand": "MODERATE-HIGH",
       "headline": "Accountability installation in the only natural environment with none.",
-      "coreMismatch": "Your target has no internal accountability mechanism of any kind \u2014 authority belongs to whoever creates the most emotionally resonant work.",
       "situation": "Your target has no internal accountability mechanism of any kind \u2014 authority belongs to whoever creates the most emotionally resonant work. Your empirical framework introduces the concept of 'results' into a creative environment where results are not the currency. The incompatibility is not about performance standards \u2014 it is about whether external criteria can be applied to work your target defines as inherently un-measurable.",
-      "prediction": "Within 30 days: observe how your target responds when asked to demonstrate 'proof of concept' for creative output. Whether they engage with the requirement, reframe it, or refuse reveals whether the environment can accommodate empirical accountability at all.",
+      "prediction": "Within 30 days: observe how the target responds when asked to demonstrate 'proof of concept' for creative output. Whether they engage with the requirement, reframe it, or refuse reveals whether the environment can accommodate empirical accountability at all.",
       "implication": "Your resource allocation logic \u2014 follow the best-supported hypothesis \u2014 cannot operate in an environment where resonance, not evidence, is the only recognised authority.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
@@ -497,9 +461,8 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 55.9,
       "riskBand": "MODERATE",
       "headline": "Empirical testing culture entering a community where failure carries social stigma.",
-      "coreMismatch": "Your operating culture explicitly penalises not testing \u2014 intelligent failure is valued information, and standing still is the only real failure.",
       "situation": "Your operating culture explicitly penalises not testing \u2014 intelligent failure is valued information, and standing still is the only real failure. Your target assigns quiet social stigma to any failure: the person who fails loses relational standing regardless of whether the experiment was well-designed. Your failure-tolerance culture directly violates the social preservation mechanism your target requires to function.",
-      "prediction": "Within 30 days: observe what happens to the first experiment that produces an intelligent failure. If your target responds with social distancing from the person who ran it rather than analytical engagement with the result, the incompatibility is active.",
+      "prediction": "Within 30 days: observe what happens to the first experiment that produces an intelligent failure. If the target responds with social distancing from the person who ran it rather than analytical engagement with the result, the incompatibility is active.",
       "implication": "The experimentation that makes your model work requires psychological safety your target's culture systematically eliminates. The operators who run experiments will stop running them.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
@@ -510,9 +473,8 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 23.5,
       "riskBand": "HIGH RISK",
       "headline": "Empirical methodology meeting an organisation where every experiment is a potential heresy.",
-      "coreMismatch": "Your target treats its founding thesis as a sacred narrative.",
-      "situation": "Your target treats its founding thesis as a sacred narrative. Every NT/STP experiment that could produce a result contradicting the mission is structurally prohibited \u2014 not by policy, but by the social consequences of questioning the narrative. Your core operating mode \u2014 test the assumption, update based on evidence \u2014 is incompatible with the mechanism your target uses to maintain internal coherence.",
-      "prediction": "Within 30 days: observe whether experiment proposals in the target require mission-alignment approval before execution. Any gate between idea and test that is narrative-based rather than resource-based signals that your empirical mechanism is being suppressed.",
+      "situation": "Your target treats its founding thesis as a sacred narrative. Every Applied Innovation experiment that could produce a result contradicting the mission is structurally prohibited \u2014 not by policy, but by the social consequences of questioning the narrative. Your core operating mode \u2014 test the assumption, update based on evidence \u2014 is incompatible with the mechanism your target uses to maintain internal coherence.",
+      "prediction": "Within 30 days: observe whether experiment proposals in the target require mission-alignment approval before execution. Any gate between idea and test that is narrative-based rather than resource-based signals that the acquirer's empirical mechanism is being suppressed.",
       "implication": "Nothing interesting can be tested in an environment where everything interesting challenges the narrative. Your innovation capacity in this target reaches zero by Month 12.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
@@ -523,10 +485,9 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 23.5,
       "riskBand": "HIGH RISK",
       "headline": "Empirical accountability entering a system where accountability has never reached upward.",
-      "coreMismatch": "Your target optimises for throughput and treats high turnover as a design feature.",
       "situation": "Your target optimises for throughput and treats high turnover as a design feature. Your model treats not-testing as the primary failure and invests in experimental capacity. These are opposite resource logics: your investment in experimental capacity is a direct cost to your target's throughput model, and your target's asymmetric accountability structure prevents the empirical authority mechanism you depend on from functioning.",
-      "prediction": "Within 30 days: examine whether any cost optimisation exercise reduces your target's experimental budget. Any reduction in experiment resources \u2014 even framed as eliminating 'unproductive spend' \u2014 signals that your target's throughput logic is consuming your innovation infrastructure.",
-      "implication": "NT/STP's technical talent \u2014 those who joined because experiments matter \u2014 will exit within 9 months once they recognise that the empirical mechanism no longer operates.",
+      "prediction": "Within 30 days: examine whether any cost optimisation exercise reduces the target's experimental budget. Any reduction in experiment resources \u2014 even framed as eliminating 'unproductive spend' \u2014 signals that the target's throughput logic is consuming the acquirer's innovation infrastructure.",
+      "implication": "The Applied Innovation environment's technical talent \u2014 those who joined because experiments matter \u2014 will exit within 9 months once they recognise that the empirical mechanism no longer operates.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
     {
@@ -536,9 +497,8 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 79.4,
       "riskBand": "MODERATE-HIGH",
       "headline": "Tradition anchoring the creative novelty your target requires to function.",
-      "coreMismatch": "Your environment accepts innovation when framed as extension of tradition \u2014 the phrase 'we have always done it this way' functions as a terminal argument.",
       "situation": "Your environment accepts innovation when framed as extension of tradition \u2014 the phrase 'we have always done it this way' functions as a terminal argument. Your target requires continuous creative novelty and cannot tolerate repetition. Every stability-creating initiative you introduce suppresses the generative restlessness that produces your target's value. The more successfully you integrate your target into your community, the less it functions as a creative environment.",
-      "prediction": "Within 30 days: observe whether your management attempts to slow, structure, or apply tradition-framing to your target's creative production \u2014 timelines, approvals, 'this aligns with our values' framing. Any structuring of creative output is the conservation mechanism being applied to an unconstrained-expression environment.",
+      "prediction": "Within 30 days: observe whether the acquirer's management attempts to slow, structure, or apply tradition-framing to the target's creative production \u2014 timelines, approvals, 'this aligns with our values' framing. Any structuring of creative output is the conservation mechanism being applied to an unconstrained-expression environment.",
       "implication": "Your resource-spending logic and your target's resource-spending logic are both outward-flowing \u2014 the combination depletes financial reserves without a corrective accountability mechanism in either environment.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
@@ -549,10 +509,9 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 67.6,
       "riskBand": "MODERATE-HIGH",
       "headline": "Relational tenure authority entering the environment where only argument quality counts.",
-      "coreMismatch": "Your environment grants authority to the person most trusted through longest relationship.",
       "situation": "Your environment grants authority to the person most trusted through longest relationship. Your target grants authority to whoever presents the most precise, best-supported argument \u2014 regardless of title, tenure, or relationship. These are not merely different preferences about what counts as good governance. They are incommensurable authority mechanisms: your target's participants do not update their positions based on relational authority, and your governance cannot function without it.",
-      "prediction": "Within 30 days: observe whether your management's first personnel or resourcing decision in the target is based on analytical contribution or on relationship. Any relational consideration in a decision that your target would make analytically signals that SFJ/SFP authority is being installed.",
-      "implication": "The cognitive entry criterion that attracted NF/NT talent \u2014 argument quality determines outcomes \u2014 is replaced by relational fit within 12 to 18 months. The people who remain are not the people who built the value.",
+      "prediction": "Within 30 days: observe whether the acquirer's first personnel or resourcing decision in the target is based on analytical contribution or on relationship. Any relational consideration in a decision that the target would make analytically signals that Family-Traditional authority is being installed.",
+      "implication": "The cognitive entry criterion that attracted Academic-Research talent \u2014 argument quality determines outcomes \u2014 is replaced by relational fit within 12 to 18 months. The people who remain are not the people who built the value.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
     {
@@ -562,7 +521,6 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 61.8,
       "riskBand": "MODERATE",
       "headline": "Community belonging meeting a complicity network \u2014 warmth cannot dissolve the protection calculus.",
-      "coreMismatch": "Your target's operational layer participates because of a rational protection premium, not because of belonging.",
       "situation": "Your target's operational layer participates because of a rational protection premium, not because of belonging. Your governance offers genuine community as a replacement for the protection structure your governance dismantles. Your target's participants are adaptive pragmatists \u2014 selected precisely for their ability to operate across ethical frameworks. When you remove the protection premium and offer community instead, they evaluate the trade on its merits. For most, it does not compute.",
       "prediction": "Within 30 days: observe whether your target's operational layer engages with your community-building initiatives or treats them as social performance requirements. Performative engagement \u2014 attending without belonging \u2014 is the signal that the complicity calculus has not been replaced.",
       "implication": "Your community retention mechanism takes years to build at scale. Your target's protection retention mechanism is removed immediately by your governance. The transition window produces attrition faster than relational bonds can be formed.",
@@ -574,10 +532,9 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "targetEnvironmentCode": "NT/STJ",
       "ecs": 58.8,
       "riskBand": "MODERATE",
-      "headline": "Relational authority displacing meritocratic authority \u2014 a signal that NT/STJ talent reads immediately.",
-      "coreMismatch": "Your target's operating principle is results or exit.",
+      "headline": "Relational authority displacing meritocratic authority \u2014 a signal that Meritocratic-Competitive talent reads immediately.",
       "situation": "Your target's operating principle is results or exit. Authority belongs to those who generate the best measurable results, and advancement is earned through demonstrated performance rather than accumulated tenure. Your governance installs relational-tenure authority \u2014 the person most trusted by longest relationship carries the most weight. Your target's highest performers will recognise this pattern in your first senior appointment and update their assessment of whether the environment is still worth competing in.",
-      "prediction": "Within 30 days: observe whether your first senior hire, promotion, or significant appointment in the target is based on measurable performance data or on relationship with your leadership. Relationship-based selection in a previously meritocratic environment is the clearest possible signal.",
+      "prediction": "Within 30 days: observe whether the acquirer's first senior hire, promotion, or significant appointment in the target is based on measurable performance data or on relationship with the acquirer's leadership. Relationship-based selection in a previously meritocratic environment is the clearest possible signal.",
       "implication": "Meritocratic talent \u2014 those most capable of joining a competitor \u2014 exits within 12 months. The people who remain are those with fewer options or those who adapt to relational advancement. Both outcomes reduce the target's capability.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
@@ -588,9 +545,8 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 58.8,
       "riskBand": "MODERATE",
       "headline": "Warmth entering a force-based hierarchy \u2014 your care signals weakness to an environment that only recognises strength.",
-      "coreMismatch": "Your operating culture provides unconditional relational care and genuine belonging.",
       "situation": "Your operating culture provides unconditional relational care and genuine belonging. Your target operates through demonstrated force and public penalisation of weakness. Your warmth signals \u2014 care, belonging, safety \u2014 are read by your target's participants through a force-recognition framework as a display of weakness and an absence of enforcement capacity. Your target's authority figures will not adapt to your governance because it does not speak the authority language they are calibrated to.",
-      "prediction": "Within 30 days: observe whether your target's senior figures soften their authority posture in response to your relational warmth \u2014 or continue operating through force-based management regardless. Continued force-based management despite your relational signals confirms your governance is not penetrating.",
+      "prediction": "Within 30 days: observe whether the target's senior figures soften their authority posture in response to the acquirer's relational warmth \u2014 or continue operating through force-based management regardless. Continued force-based management despite the acquirer's relational signals confirms the acquirer's governance is not penetrating.",
       "implication": "Your warmth becomes exploitable: your target's tactical operators recognise the absence of enforcement and continue coercive behaviour underneath your relational facade. The combination is more harmful than either environment alone.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
@@ -601,9 +557,8 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 55.9,
       "riskBand": "MODERATE",
       "headline": "Failure stigma entering a culture where not-testing is the only real failure.",
-      "coreMismatch": "Your operating culture treats any failure as a loss of relational standing \u2014 a quiet but real social consequence that follows people across the community.",
       "situation": "Your operating culture treats any failure as a loss of relational standing \u2014 a quiet but real social consequence that follows people across the community. Your target's culture penalises not testing and treats intelligent failure as valuable information. You are installing a social stigma mechanism in an environment that specifically requires the absence of stigma to function. Your target's most valuable practitioners \u2014 the empirical risk-takers \u2014 will stop taking risks.",
-      "prediction": "Within 30 days: observe what happens to the first experiment that produces an intelligent failure. If the community response is social distancing rather than analytical engagement with the result, the SFJ/SFP stigma mechanism has penetrated the NT/STP environment.",
+      "prediction": "Within 30 days: observe what happens to the first experiment that produces an intelligent failure. If the community response is social distancing rather than analytical engagement with the result, the Family-Traditional stigma mechanism has penetrated the Applied Innovation environment.",
       "implication": "Experimentation stops. Your target's innovation capacity \u2014 the asset you acquired \u2014 degrades to zero as risk-taking becomes personally costly.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
@@ -614,10 +569,9 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 38.2,
       "riskBand": "MODERATE-LOW",
       "headline": "Unconditional belonging meeting conditional belief-based community \u2014 compatible until tested.",
-      "coreMismatch": "Your warmth is structurally unconditional.",
       "situation": "Your warmth is structurally unconditional. Your target's warmth is conditional on mission alignment \u2014 participants who question the narrative, however communally committed, lose standing. Your governance cannot activate the heresy suppression mechanism your target depends on. When you allow authentic dissent that your target's authority structure would suppress, you undermine the belief mechanism that holds your target together \u2014 without installing a replacement.",
-      "prediction": "Within 30 days: observe whether your target's narrative authority figures continue using mission-compliance language under your governance \u2014 and whether your management accepts it. Continued mission-compliance enforcement with your acceptance signals the NF/SFJ structure is self-sustaining.",
-      "implication": "Your target's belief-retention mechanism collapses without the enforcement structure it requires. SFJ/SFP relational bonds take years to build at scale \u2014 you cannot build them in the window created by belief collapse.",
+      "prediction": "Within 30 days: observe whether the target's narrative authority figures continue using mission-compliance language under the acquirer's governance \u2014 and whether the acquirer's management accepts it. Continued mission-compliance enforcement with the acquirer's acceptance signals the Religious-Ideological structure is self-sustaining.",
+      "implication": "Your target's belief-retention mechanism collapses without the enforcement structure it requires. Family-Traditional relational bonds take years to build at scale \u2014 you cannot build them in the window created by belief collapse.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
     {
@@ -627,9 +581,8 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 32.4,
       "riskBand": "HIGH RISK",
       "headline": "Genuine community entering a system built on manufactured belonging.",
-      "coreMismatch": "Your warmth is structurally unconditional and relational \u2014 it is not a product of commercial strategy.",
       "situation": "Your warmth is structurally unconditional and relational \u2014 it is not a product of commercial strategy. Your target's warmth is manufactured to produce compliance and consumption. Your attempt to replace your target's engineered engagement mechanisms with genuine relational care requires dismantling the commercial infrastructure before the relational infrastructure exists. The transition window \u2014 when dependency is removed but bonds are not yet formed \u2014 produces rapid attrition.",
-      "prediction": "Within 30 days: observe whether your management maintains or removes your target's financial product and dependency structures for employees. Removal signals the transition has begun. Measure whether attrition accelerates in the 60 days that follow.",
+      "prediction": "Within 30 days: observe whether the acquirer's management maintains or removes the target's financial product and dependency structures for employees. Removal signals the transition has begun. Measure whether attrition accelerates in the 60 days that follow.",
       "implication": "Structural dependency retains people your authentic care cannot \u2014 not because they prefer dependency, but because the relational bonds your environment depends on take years to build and cannot be accelerated.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
@@ -640,9 +593,8 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 88.2,
       "riskBand": "HIGH COMPATIBILITY",
       "headline": "High compatibility \u2014 two belief-management systems, same flow direction, different objects of belief.",
-      "coreMismatch": "Both your environment and your target manage belief to retain compliance.",
-      "situation": "Both your environment and your target manage belief to retain compliance. SFP/SFJ manages belief in commercial consumption; NF/SFJ manages belief in sacred mission. The ECS score of 88.2 reflects real structural alignment at the mechanism level. The friction is at the belief-object level: when commercial desire and sacred mission must compete for the same psychological space in the same participant, one must be subordinated. Which one becomes subordinate determines the long-term trajectory.",
-      "prediction": "Within 30 days: observe whether your mission language is integrated with your commercial messaging or kept separate. Integration means both extraction mechanisms are operating simultaneously \u2014 more powerful in the short term, and shorter-lived as participants experience compounding extraction pressure.",
+      "situation": "Both your environment and your target manage belief to retain compliance. The Consumer-Capitalist environment manages belief in commercial consumption; the Religious-Ideological environment manages belief in sacred mission. The ECS score of 88.2 reflects real structural alignment at the mechanism level. The friction is at the belief-object level: when commercial desire and sacred mission must compete for the same psychological space in the same participant, one must be subordinated. Which one becomes subordinate determines the long-term trajectory.",
+      "prediction": "Within 30 days: observe whether the acquirer's mission language is integrated with its commercial messaging, or kept separate. Integration means two loyalty systems are operating at once \u2014 more powerful in the short term, and shorter-lived, as participants begin to feel the combined pressure.",
       "implication": "Both mechanisms extract upward. The combined pressure eventually overcomes even strong belief-based retention. The timeline to retention failure shortens by approximately half compared to either source environment operating alone.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
@@ -653,7 +605,6 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 35.3,
       "riskBand": "MODERATE-LOW",
       "headline": "Desire engineering meeting a complicity recruitment layer \u2014 incompatible participant profiles.",
-      "coreMismatch": "Your compliance mechanism works on people selected for desire-responsiveness \u2014 those who respond to manufactured belonging, commercial aspiration, and engineered consumption signals.",
       "situation": "Your compliance mechanism works on people selected for desire-responsiveness \u2014 those who respond to manufactured belonging, commercial aspiration, and engineered consumption signals. Your target's compliance mechanism works on people selected for adaptive pragmatism \u2014 those who evaluate the protection-premium calculus and act on its logic. These selection criteria produce different people. Your engineered desire mechanism does not retain your target's pragmatic participants; your target's protection logic cannot be executed by your desire-responsive operators.",
       "prediction": "Within 30 days: observe whether your target's operational layer responds to your commercial benefit programmes and aspiration signals with genuine engagement \u2014 or evaluates them as inferior to the protection structure your governance is dismantling. Calculated indifference to your commercial retention offers is the incompatibility signal.",
       "implication": "Neither mechanism functions optimally in the combined entity. Your commercial system is disrupted before the complicity layer can be replaced, and the complicity layer's adaptive participants find more rational protection arrangements elsewhere.",
@@ -666,9 +617,8 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 38.2,
       "riskBand": "MODERATE-LOW",
       "headline": "Desire engineering meeting force compliance \u2014 incompatible mechanisms, incompatible people.",
-      "coreMismatch": "Your compliance mechanism works on people selected for desire-responsiveness \u2014 those who respond to manufactured belonging, commercial aspiration, and engineered want.",
       "situation": "Your compliance mechanism works on people selected for desire-responsiveness \u2014 those who respond to manufactured belonging, commercial aspiration, and engineered want. Your target's compliance mechanism works on people selected for force-tolerance \u2014 those who respond to demonstrated strength and fear of consequences. These selection criteria produce different people. Your mechanism does not hold your target's people; your target's mechanism cannot be executed by your operators.",
-      "prediction": "Within 30 days: observe whether your target's internal compliance mechanism \u2014 visible consequence for weakness \u2014 continues operating under your governance, or whether your management intervenes. Continued force-based management without intervention signals that your governance is nominal.",
+      "prediction": "Within 30 days: observe whether the target's internal compliance mechanism \u2014 visible consequence for weakness \u2014 continues operating under the acquirer's governance, or whether the acquirer's management intervenes. Continued force-based management without intervention signals that the acquirer's governance is nominal.",
       "implication": "Neither extraction mechanism functions optimally in the combined entity. The commercial system that generated your target's value is disrupted before an alternative generates equivalent returns.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
@@ -679,10 +629,9 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 32.4,
       "riskBand": "HIGH RISK",
       "headline": "Manufactured warmth meeting genuine community \u2014 the difference becomes visible under commercial pressure.",
-      "coreMismatch": "Your warmth is commercially engineered \u2014 it is deployed because warm is profitable, maintained when the commercial case supports it, and reduced when it does not.",
       "situation": "Your warmth is commercially engineered \u2014 it is deployed because warm is profitable, maintained when the commercial case supports it, and reduced when it does not. Your target's warmth is structurally unconditional \u2014 care expressed regardless of commercial cycles or business performance. The incompatibility is invisible until the first commercial pressure that causes you to reduce any people investment. That single moment is when your target community identifies the conditionality \u2014 and the community response is disproportionate to the reduction.",
-      "prediction": "Within 30 days: observe whether your management maintains unconditional investment in your target's community wellbeing when commercial pressure arises. The first cost-reduction decision targeting benefits or relational investment is the moment the SFP/SFJ conditional logic becomes visible to SFJ/SFP participants.",
-      "implication": "SFJ/SFP communities experience commercial conditionality as a fundamental betrayal of belonging. The community response is collective \u2014 not individual \u2014 and the retention collapse is correspondingly rapid.",
+      "prediction": "Within 30 days: observe whether the acquirer's management maintains unconditional investment in the target's community wellbeing when commercial pressure arises. The first cost-reduction decision targeting benefits or relational investment is the moment the Consumer-Capitalist conditional logic becomes visible to Family-Traditional participants.",
+      "implication": "Family-Traditional communities experience commercial conditionality as a fundamental betrayal of belonging. The community response is collective \u2014 not individual \u2014 and the retention collapse is correspondingly rapid.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
     {
@@ -692,9 +641,8 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 23.5,
       "riskBand": "HIGH RISK",
       "headline": "Commercial conditioning of authentic creative expression \u2014 the fundamental dishonesty is immediately felt.",
-      "coreMismatch": "Your target's only legitimate authority is authentic emotional truth.",
       "situation": "Your target's only legitimate authority is authentic emotional truth. Your operating system manufactures the experience of authenticity to produce commercial outcomes. Your target's creative participants are selected for sensitivity to emotional authenticity \u2014 they are the people most calibrated to detect manufactured experience. Your commercial conditioning of their creative output is not experienced as misaligned strategy. It is experienced as an attack on the only thing their environment values.",
-      "prediction": "Within 30 days: observe whether you attempt to monetise your target's creative output through commercial channels that it did not previously use. Forced commercial application of creative work is the SFP/SFJ extraction mechanism operating on NF/SFP's primary resource.",
+      "prediction": "Within 30 days: observe whether the acquirer attempts to monetise the target's creative output through commercial channels that it did not previously use. Forced commercial application of creative work is the Consumer-Capitalist extraction mechanism operating on the Expressive-Aesthetic environment's primary resource.",
       "implication": "Your target's resource-spending flow \u2014 outward into authentic expression \u2014 is opposite to your extraction flow \u2014 upward through engineered consumption. You cannot operate both simultaneously.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
@@ -704,11 +652,10 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "targetEnvironmentCode": "NT/STP",
       "ecs": 23.5,
       "riskBand": "HIGH RISK",
-      "headline": "Throughput optimisation consuming the experimental capacity that NT/STP requires.",
-      "coreMismatch": "Your operating model treats high turnover as efficient and optimises for cost-per-unit throughput.",
+      "headline": "Throughput optimisation consuming the experimental capacity that the Applied Innovation environment requires.",
       "situation": "Your operating model treats high turnover as efficient and optimises for cost-per-unit throughput. Your target requires sustained investment in experimental capacity \u2014 experiments that fail are valuable information and must be resourced. Every cost optimisation initiative you apply to your target's experimental budget is an investment in throughput efficiency that directly destroys the innovation mechanism you acquired.",
-      "prediction": "Within 30 days: examine whether any cost optimisation exercise reduces your target's experimental budget. Any reduction \u2014 even framed as eliminating 'unproductive spend' \u2014 signals that your throughput logic is consuming your target's innovation infrastructure.",
-      "implication": "NT/STP's technical talent \u2014 those who joined because experiments matter \u2014 will exit within 9 months once they recognise that the empirical mechanism no longer functions.",
+      "prediction": "Within 30 days: examine whether any cost optimisation exercise reduces the target's experimental budget. Any reduction \u2014 even framed as eliminating 'unproductive spend' \u2014 signals that the acquirer's throughput logic is consuming the target's innovation infrastructure.",
+      "implication": "The Applied Innovation environment's technical talent \u2014 those who joined because experiments matter \u2014 will exit within 9 months once they recognise that the empirical mechanism no longer functions.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
     {
@@ -718,10 +665,9 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 17.6,
       "riskBand": "HIGH RISK",
       "headline": "The mechanism that produces truth meets the mechanism that manages belief \u2014 truth wins, at the cost of the system.",
-      "coreMismatch": "Your operating system manufactures belief to produce compliance and consumption.",
-      "situation": "Your operating system manufactures belief to produce compliance and consumption. Your target's operating system generates and shares truth as a moral imperative. NF/NT participants will identify your information management mechanism faster than any other talent pool \u2014 they are cognitively calibrated to detect intellectual dishonesty. Identification of the mechanism does not produce resentment. It produces exit.",
-      "prediction": "Within 30 days: observe whether you introduce any information management or messaging controls over your target's researchers' communications. Any filtering of knowledge output signals the SFP/SFJ suppression mechanism being installed in an environment where knowledge suppression is an existential threat.",
-      "implication": "NF/NT talent \u2014 those with the deepest understanding of how information works \u2014 exits first, exits quickly, and is the most difficult to replace. You retain the form of an NF/NT environment without the people who made it one.",
+      "situation": "Your operating system manufactures belief to produce compliance and consumption. Your target's operating system generates and shares truth as a moral imperative. Academic-Research participants will identify your information management mechanism faster than any other talent pool \u2014 they are cognitively calibrated to detect intellectual dishonesty. Identification of the mechanism does not produce resentment. It produces exit.",
+      "prediction": "Within 30 days: observe whether the acquirer introduces any information management or messaging controls over the target's researchers' communications. Any filtering of knowledge output signals the Consumer-Capitalist suppression mechanism being installed in an environment where knowledge suppression is an existential threat.",
+      "implication": "Academic-Research talent \u2014 those with the deepest understanding of how information works \u2014 exits first, exits quickly, and is the most difficult to replace. You retain the form of an Academic-Research environment without the people who made it one.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
     {
@@ -731,10 +677,9 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 14.7,
       "riskBand": "HIGH RISK",
       "headline": "Engineered desire entering a performance environment \u2014 the mechanism is immediately visible to the people who built it.",
-      "coreMismatch": "Your operating system manages what participants believe about their prospects and value through carefully constructed information.",
       "situation": "Your operating system manages what participants believe about their prospects and value through carefully constructed information. Your target's operating system is built on transparent performance data and symmetric accountability. Your target's leaders \u2014 those who advanced through demonstrated results in a transparent environment \u2014 will recognise your information management as manipulation rather than governance. They are precisely calibrated to identify it.",
-      "prediction": "Within 30 days: examine whether you introduce any financial product, benefits scheme, or compensation structure that creates structural dependency for your target's employees. Debt-based retention or complex vesting schemes applied to a previously merit-retained workforce are the SFP/SFJ extraction mechanism being installed.",
-      "implication": "NT/STJ's highest performers \u2014 those with the clearest understanding of the accountability structure and the most options elsewhere \u2014 exit within 12 months.",
+      "prediction": "Within 30 days: examine whether the acquirer introduces any financial product, benefits scheme, or compensation structure that creates structural dependency for the target's employees. Debt-based retention or complex vesting schemes applied to a previously merit-retained workforce are the Consumer-Capitalist extraction mechanism being installed.",
+      "implication": "The Meritocratic-Competitive environment's highest performers \u2014 those with the clearest understanding of the accountability structure and the most options elsewhere \u2014 exit within 12 months.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
     {
@@ -743,11 +688,10 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "targetEnvironmentCode": "NT/STJ",
       "ecs": 76.5,
       "riskBand": "MODERATE-HIGH",
-      "headline": "Accountability asymmetry reimposed \u2014 the signal NT/STJ talent reads within 30 days.",
-      "coreMismatch": "Your target's defining structural feature is symmetric accountability \u2014 the same performance standards apply at every level, including the most senior.",
-      "situation": "Your target's defining structural feature is symmetric accountability \u2014 the same performance standards apply at every level, including the most senior. That symmetry is what makes NT/STJ environments genuinely meritocratic. Your governance installs asymmetric accountability \u2014 standards enforced downward, leadership protected. Your target's performers \u2014 those who joined because competence determines outcomes \u2014 will read the first instance of senior exemption as a fundamental environmental shift.",
-      "prediction": "Within 30 days: observe whether you apply the same review and consequence process to a senior target figure as you would to a junior one. Asymmetric treatment of the first significant senior performance issue is the clearest confirmation that STJ/STP accountability logic is replacing NT/STJ's symmetric structure.",
-      "implication": "NT/STJ's highest-performing intellectual contributors \u2014 those least suited to demonstrating dominance and most suited to demonstrating competence \u2014 exit within 12 months.",
+      "headline": "Accountability asymmetry reimposed \u2014 the signal Meritocratic-Competitive talent reads within 30 days.",
+      "situation": "Your target's defining structural feature is symmetric accountability \u2014 the same performance standards apply at every level, including the most senior. That symmetry is what makes Meritocratic-Competitive environments genuinely meritocratic. Your governance installs asymmetric accountability \u2014 standards enforced downward, leadership protected. Your target's performers \u2014 those who joined because competence determines outcomes \u2014 will read the first instance of senior exemption as a fundamental environmental shift.",
+      "prediction": "Within 30 days: observe whether the acquirer applies the same review and consequence process to a senior target figure as it would to a junior one. Asymmetric treatment of the first significant senior performance issue is the clearest confirmation that Dominance-Control accountability logic is replacing the Meritocratic-Competitive environment's symmetric structure.",
+      "implication": "The Meritocratic-Competitive environment's highest-performing intellectual contributors \u2014 those least suited to demonstrating dominance and most suited to demonstrating competence \u2014 exit within 12 months.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
     {
@@ -756,11 +700,10 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "targetEnvironmentCode": "NT/STP",
       "ecs": 73.5,
       "riskBand": "MODERATE-HIGH",
-      "headline": "Force authority eliminating the empirical test authority that makes NT/STP work.",
-      "coreMismatch": "Your target's authority belongs to whoever's solution works in a live test \u2014 a fundamentally symmetric mechanism where the data decides.",
+      "headline": "Force authority eliminating the empirical test authority that makes Applied Innovation work.",
       "situation": "Your target's authority belongs to whoever's solution works in a live test \u2014 a fundamentally symmetric mechanism where the data decides. Your authority belongs to whoever can enforce compliance through demonstrated strength. When these meet, your target's test-result authority is subordinated to your force authority. Results that challenge your position are overridden. The empirical mechanism stops functioning \u2014 not because people stop running experiments, but because experiments stop mattering.",
-      "prediction": "Within 30 days: observe how you respond to the first empirical test result that contradicts a position held by a senior figure in your governance structure. If the test result is overridden by authority assertion rather than counter-evidence, the empirical mechanism has been eliminated.",
-      "implication": "NT/STP's highest-value practitioners \u2014 those who joined specifically because the data decides \u2014 will exit within 9 months of the first overridden result.",
+      "prediction": "Within 30 days: observe how the acquirer responds to the first empirical test result that contradicts a position held by a senior figure in the acquirer's governance structure. If the test result is overridden by authority assertion rather than counter-evidence, the empirical mechanism has been eliminated.",
+      "implication": "The Applied Innovation environment's highest-value practitioners \u2014 those who joined specifically because the data decides \u2014 will exit within 9 months of the first overridden result.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
     {
@@ -770,9 +713,8 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 91.2,
       "riskBand": "HIGH COMPATIBILITY",
       "headline": "High compatibility \u2014 you are acquiring your own operational infrastructure.",
-      "coreMismatch": "Your target is the intermediary layer that makes your operating model scalable.",
-      "situation": "Your target is the intermediary layer that makes your operating model scalable. STJ/STP provides the coercive apex; STP/STJ recruits and manages the operational layer below. The structural alignment at 91.2 reflects a near-identical resource logic \u2014 both environments operate within the same extraction architecture. The integration risk is not incompatibility but consolidation: your target's intermediary authority depends on a degree of operational autonomy that direct acquisition threatens.",
-      "prediction": "Within 30 days: observe whether your target's management layer requests formal preservation of their operational decision rights within the acquisition structure. Requests for explicit autonomy preservation are the STP/STJ protection-calculus activating \u2014 your target's managers are evaluating whether the acquisition improves or degrades their position in the coercive hierarchy.",
+      "situation": "Your target is the intermediary layer that makes your operating model scalable. The Dominance-Control environment provides the coercive apex; the Tactical-Control environment recruits and manages the operational layer below. The structural alignment at 91.2 reflects a near-identical resource logic \u2014 both environments operate within the same extraction architecture. The integration risk is not incompatibility but consolidation: your target's intermediary authority depends on a degree of operational autonomy that direct acquisition threatens.",
+      "prediction": "Within 30 days: observe whether your target's management layer requests formal preservation of their operational decision rights within the acquisition structure. Requests for explicit autonomy preservation are the Tactical-Control environment's protection-calculus activating \u2014 your target's managers are evaluating whether the acquisition improves or degrades their position in the coercive hierarchy.",
       "implication": "The intermediary layer that makes your redistribution scalable requires operational autonomy and a credible protection premium. Direct ownership threatens both. Without structural preservation of both conditions, your target's operational layer disperses to competing redistribution structures.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
@@ -783,10 +725,9 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 61.8,
       "riskBand": "MODERATE",
       "headline": "Force authority in the environment where only argument quality counts \u2014 total legitimacy collapse.",
-      "coreMismatch": "Your target's governance principle is that the most precisely true position wins, regardless of who holds it.",
-      "situation": "Your target's governance principle is that the most precisely true position wins, regardless of who holds it. Your governance principle is that whoever can enforce compliance wins. These are not merely different \u2014 they are structurally antagonistic. NF/NT participants do not update their intellectual positions based on force signals. They recognise demonstrated authority as illegitimate by definition. Your governance has no purchase in this environment.",
-      "prediction": "Within 30 days: observe whether your management's first personnel decision in the target is based on intellectual contribution or compliance with your authority. Any compliance-based decision signals that STJ/STP logic is being installed in an environment that cannot survive it.",
-      "implication": "The cognitive talent that constitutes NF/NT's value exits within 9 months. You retain the form of an NF/NT environment while operating through STJ/STP logic. The combination is the most harmful transformation in the matrix.",
+      "situation": "Your target's governance principle is that the most precisely true position wins, regardless of who holds it. Your governance principle is that whoever can enforce compliance wins. These are not merely different \u2014 they are structurally antagonistic. Academic-Research participants do not update their intellectual positions based on force signals. They recognise demonstrated authority as illegitimate by definition. Your governance has no purchase in this environment.",
+      "prediction": "Within 30 days: observe whether the acquirer's first personnel decision in the target is based on intellectual contribution or compliance with the acquirer's authority. Any compliance-based decision signals that Dominance-Control logic is being installed in an environment that cannot survive it.",
+      "implication": "The cognitive talent that constitutes the Academic-Research environment's value exits within 9 months. You retain the form of an Academic-Research environment while operating through Dominance-Control logic. The combination is the most harmful transformation in the matrix.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
     {
@@ -796,9 +737,8 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 61.8,
       "riskBand": "MODERATE",
       "headline": "The first visible consequence ends psychological safety \u2014 and with it, all authentic creative output.",
-      "coreMismatch": "Your target's creative output requires psychological safety as a structural condition \u2014 the freedom to fail authentically, to express without consequence, to challenge without punishment.",
       "situation": "Your target's creative output requires psychological safety as a structural condition \u2014 the freedom to fail authentically, to express without consequence, to challenge without punishment. Your operating mechanism uses visible consequences for weakness as the primary compliance and selection tool. These are structurally irreconcilable: your operating mode eliminates the condition your target requires to function, in a single incident, irreversibly.",
-      "prediction": "Within 30 days: observe the first public penalisation event \u2014 for any behaviour, however minor. Your target community's response to that single event reveals whether psychological safety has already been eliminated.",
+      "prediction": "Within 30 days: observe the first public penalisation event \u2014 for any behaviour, however minor. The target community's response to that single event reveals whether psychological safety has already been eliminated.",
       "implication": "By Month 9, the creative output that justified the acquisition has degraded completely. The organisation retains the vocabulary of creative community while operating through coercive hierarchy.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
@@ -809,10 +749,9 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 58.8,
       "riskBand": "MODERATE",
       "headline": "Force entering a community held together by genuine relational bonds \u2014 the bonds dissolve faster than force retains.",
-      "coreMismatch": "Your target retains people through relational loyalty \u2014 leaving feels like betraying colleagues who matter, not just changing jobs.",
-      "situation": "Your target retains people through relational loyalty \u2014 leaving feels like betraying colleagues who matter, not just changing jobs. Your retention mechanism is demonstrated force and fear of defection consequences. You cannot replicate SFJ/SFP relational retention, and your force retention attempt destroys the relational bonds that are retaining people. The community dissolves. The coercive replacement is recognised as alien. The talent that built the community leaves together.",
-      "prediction": "Within 30 days: observe whether SFJ/SFP's long-tenure insiders begin meeting informally without your management present. Informal community assembly outside formal structure is the relational network attempting to preserve itself against coercive intrusion.",
-      "implication": "The institutional knowledge that SFJ/SFP conserves within its relational network leaves with the network. Once the community has dissolved, it cannot be reconstructed by governance intervention.",
+      "situation": "Your target retains people through relational loyalty \u2014 leaving feels like betraying colleagues who matter, not just changing jobs. Your retention mechanism is demonstrated force and fear of defection consequences. You cannot replicate Family-Traditional relational retention, and your force retention attempt destroys the relational bonds that are retaining people. The community dissolves. The coercive replacement is recognised as alien. The talent that built the community leaves together.",
+      "prediction": "Within 30 days: observe whether the Family-Traditional environment's long-tenure insiders begin meeting informally without the acquirer's management present. Informal community assembly outside formal structure is the relational network attempting to preserve itself against coercive intrusion.",
+      "implication": "The institutional knowledge that the Family-Traditional environment conserves within its relational network leaves with the network. Once the community has dissolved, it cannot be reconstructed by governance intervention.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
     {
@@ -822,9 +761,8 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 38.2,
       "riskBand": "MODERATE-LOW",
       "headline": "Force providing enforcement for sacred narrative \u2014 stable in the short term, compounding over time.",
-      "coreMismatch": "Your coercive mechanism and your target's belief mechanism can coexist: your force enforces what your target's narrative justifies.",
       "situation": "Your coercive mechanism and your target's belief mechanism can coexist: your force enforces what your target's narrative justifies. The combination is stable and common. The risk is not immediate incompatibility but progressive amplification: your force mechanism becomes more effective when wrapped in sacred narrative legitimacy, and your target's extraction mechanism becomes more powerful when backed by force enforcement. The combined entity extracts more than either source environment \u2014 and participants experience a doubling of pressure that belief retention eventually cannot contain.",
-      "prediction": "Within 30 days: observe whether your target's narrative leaders adopt your authority signals in their communications \u2014 or whether your management adopts your target's mission language. Either direction of cultural adoption signals the combination is integrating. The integration direction determines which mechanism becomes primary.",
+      "prediction": "Within 30 days: observe whether the target's narrative leaders adopt the acquirer's authority signals in their communications \u2014 or whether the acquirer's management adopts the target's mission language. Either direction of cultural adoption signals the combination is integrating. The integration direction determines which mechanism becomes primary.",
       "implication": "The belief mechanism erodes under sustained pressure. When it does, the force mechanism is exposed without narrative legitimacy \u2014 the most unstable configuration in the framework.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
@@ -835,9 +773,8 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 38.2,
       "riskBand": "MODERATE-LOW",
       "headline": "Two extraction environments \u2014 incompatible mechanisms, incompatible participant profiles.",
-      "coreMismatch": "Both your environment and your target extract resources upward.",
       "situation": "Both your environment and your target extract resources upward. Your mechanism is force \u2014 taking from those who cannot defend themselves. Your target's mechanism is engineered desire \u2014 manufacturing the want for consumption and extracting through that want. The participant profiles selected by these mechanisms do not overlap. Your target's compliance workforce \u2014 selected for desire-responsiveness \u2014 is not selected for force-tolerance. Your enforcement mechanism does not hold the people your target has.",
-      "prediction": "Within 30 days: observe whether you maintain or eliminate your target's employee-facing desire-engineering mechanisms. Elimination signals your force logic is replacing the engineered desire architecture. Your target's workforce begins to thin within 60 days.",
+      "prediction": "Within 30 days: observe whether the acquirer maintains or eliminates the target's employee-facing desire-engineering mechanisms. Elimination signals the acquirer's force logic is replacing the engineered desire architecture. The target's workforce begins to thin within 60 days.",
       "implication": "You destroy the commercial system that generated your target's value before your coercive system can generate equivalent returns. Neither extraction mechanism functions optimally in the combined entity.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
@@ -848,8 +785,7 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 91.2,
       "riskBand": "HIGH COMPATIBILITY",
       "headline": "High compatibility \u2014 you are integrating into the apex structure you already serve.",
-      "coreMismatch": "Your operational layer and your target share the same extraction architecture.",
-      "situation": "Your operational layer and your target share the same extraction architecture. STJ/STP is the apex you operate within; acquiring a target with the same apex logic consolidates that structure rather than creating integration friction. The risk is not incompatibility \u2014 it is over-consolidation: merging two intermediary layers under a single governance removes the competitive tension between them that each uses to demonstrate its value to the hierarchy above.",
+      "situation": "Your operational layer and your target share the same extraction architecture. The Dominance-Control environment is the apex you operate within; acquiring a target with the same apex logic consolidates that structure rather than creating integration friction. The risk is not incompatibility \u2014 it is over-consolidation: merging two intermediary layers under a single governance removes the competitive tension between them that each uses to demonstrate its value to the hierarchy above.",
       "prediction": "Within 30 days: observe whether your combined operational layer produces differentiated value signals to the governance structures above them \u2014 or begins to blend into a single undifferentiated mass that is harder to justify as two separate entities. Differentiation collapse is the primary consolidation risk.",
       "implication": "Consolidated intermediary layers are more vulnerable to apex restructuring than differentiated ones. The protection premium that sustains both layers depends on demonstrated operational distinctiveness.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
@@ -861,7 +797,6 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 73.5,
       "riskBand": "MODERATE-HIGH",
       "headline": "Complicity management layer acquiring a meritocratic structure \u2014 the protection offer has no takers.",
-      "coreMismatch": "Your governance operates through protection premium and complicity calculus.",
       "situation": "Your governance operates through protection premium and complicity calculus. Your target operates through symmetric performance accountability. The people your target has attracted and retained \u2014 selected specifically for valuing merit-based advancement over protection arrangements \u2014 are the least responsive talent pool to your retention mechanism. Your protection offer is not merely unattractive to them; it is structurally illegible. They do not recognise the logic you are operating through.",
       "prediction": "Within 30 days: observe whether your target's high performers begin documenting their performance metrics and establishing external market visibility in the first 30 days post-close. External positioning by high performers immediately post-close is the clearest signal that your operating logic has been read and rejected.",
       "implication": "Your governance retains the people who value protection arrangements and loses the people who drove the performance metrics that justified the acquisition price. The capability degradation is fastest in the first 18 months.",
@@ -874,10 +809,9 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 70.6,
       "riskBand": "MODERATE-HIGH",
       "headline": "Complicity governance meets empirical authority \u2014 the test result overrides the protection offer.",
-      "coreMismatch": "Your target's authority structure is built on empirical test results \u2014 the data decides, regardless of who holds the hierarchy.",
       "situation": "Your target's authority structure is built on empirical test results \u2014 the data decides, regardless of who holds the hierarchy. Your governance operates through the protection calculus \u2014 the hierarchy decides, regardless of what the data shows. These mechanisms are directly antagonistic. Your target's practitioners have been specifically selected and self-selected for the capacity to override social authority with empirical evidence. They are the talent pool least amenable to complicity recruitment.",
       "prediction": "Within 30 days: observe whether your target's practitioners continue running experiments and publishing results without internal approval \u2014 or whether experiment frequency drops in the first 30 days. An immediate drop in experimentation signals your governance has suppressed the empirical mechanism on contact.",
-      "implication": "NT/STP talent exits when experiments stop mattering. Your complicity governance makes experiments stop mattering within the first governance cycle.",
+      "implication": "Applied Innovation talent exits when experiments stop mattering. Your complicity governance makes experiments stop mattering within the first governance cycle.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
     {
@@ -887,10 +821,9 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 64.7,
       "riskBand": "MODERATE",
       "headline": "Complicity recruitment logic entering the environment where intellectual honesty is the only currency.",
-      "coreMismatch": "Your governance operates through the protection-and-complicity offer: participation in the hierarchy is made rational through protection and reward.",
-      "situation": "Your governance operates through the protection-and-complicity offer: participation in the hierarchy is made rational through protection and reward. Your target's participants have a structural incompatibility with this logic \u2014 NF/NT selects for people who cannot compartmentalise the ethical structure of what they participate in. When your complicity logic becomes visible to NF/NT participants \u2014 and it will, because they are cognitively calibrated to identify structural dishonesty \u2014 the exit is immediate and total.",
-      "prediction": "Within 30 days: observe whether any NF/NT participant raises explicit questions about the governance logic of the acquisition \u2014 its purpose, its structural implications, its ethical architecture. Public questioning of governance logic within 30 days is NF/NT's diagnostic response to detected complicity architecture.",
-      "implication": "NF/NT talent does not rationalise complicity \u2014 it exits. The exit is permanent and the participants are the highest-value people in the target. You retain the infrastructure without the intellectual output.",
+      "situation": "Your governance operates through the protection-and-complicity offer: participation in the hierarchy is made rational through protection and reward. Your target's participants have a structural incompatibility with this logic \u2014 the Academic-Research environment selects for people who cannot compartmentalise the ethical structure of what they participate in. When your complicity logic becomes visible to Academic-Research participants \u2014 and it will, because they are cognitively calibrated to identify structural dishonesty \u2014 the exit is immediate and total.",
+      "prediction": "Within 30 days: observe whether any Academic-Research participant raises explicit questions about the governance logic of the acquisition \u2014 its purpose, its structural implications, its ethical architecture. Public questioning of governance logic within 30 days is the Academic-Research environment's diagnostic response to detected complicity architecture.",
+      "implication": "Academic-Research talent does not rationalise complicity \u2014 it exits. The exit is permanent and the participants are the highest-value people in the target. You retain the infrastructure without the intellectual output.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
     {
@@ -900,9 +833,8 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 64.7,
       "riskBand": "MODERATE",
       "headline": "Complicity management entering a creative environment \u2014 the protection offer corrupts the only currency.",
-      "coreMismatch": "Your governance creates rational participation through protection and reward.",
       "situation": "Your governance creates rational participation through protection and reward. Your target's participants create value through authentic emotional expression \u2014 a mechanism that structurally requires the absence of external incentive logic. When your protection offer enters your target's creative environment, it corrupts the authenticity condition: participants who accept the protection premium begin producing work that serves the protection calculus rather than authentic expression. The creative output that justified the acquisition begins degrading immediately.",
-      "prediction": "Within 30 days: observe whether your target's creative output begins referencing or incorporating the themes of your operational environment \u2014 power, hierarchy, compliance \u2014 in ways that were absent before acquisition. Creative content drift toward complicity themes is the earliest signal of authentic expression collapse.",
+      "prediction": "Within 30 days: observe whether the target's creative output begins referencing or incorporating themes associated with the acquirer's operational environment \u2014 power, hierarchy, compliance \u2014 in ways that were absent before acquisition. Creative content drift toward these themes is the earliest signal that authentic expression is coming under pressure.",
       "implication": "The creative output degrades before the participants exit. By the time you recognise the pattern, the work that justified the acquisition price no longer exists.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
@@ -913,9 +845,8 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 61.8,
       "riskBand": "MODERATE",
       "headline": "Protection premium governance meeting genuine relational community \u2014 the calculus and the belonging cannot coexist.",
-      "coreMismatch": "Your governance retains people through the protection calculus: participation is rational as long as protection exceeds exit cost.",
       "situation": "Your governance retains people through the protection calculus: participation is rational as long as protection exceeds exit cost. Your target retains people through genuine relational bonds: leaving means betraying people who matter. These are structurally incompatible retention mechanisms when applied to the same population. Your protection offer does not augment your target's relational retention \u2014 it replaces it. And your target's participants, selected for relational sensitivity, cannot maintain genuine bonds within a complicity framework.",
-      "prediction": "Within 30 days: observe whether your target's long-tenure insiders \u2014 the relational anchors of the community \u2014 respond to your operational integration with warmth or with careful distance. Careful distance from relational anchors signals the community has identified the incompatibility and is beginning to withdraw.",
+      "prediction": "Within 30 days: observe whether the target's long-tenure insiders \u2014 the relational anchors of the community \u2014 respond to operational integration with warmth or with careful distance. Careful distance from relational anchors signals the community has identified the incompatibility and is beginning to withdraw.",
       "implication": "Relational communities dissolve rapidly under complicity pressure. The institutional knowledge held within the community network exits with the network. Reconstruction takes years.",
       "cta": "This is the current evidence pattern from your Layer 1 questionnaires \u2014 a preliminary signal at confidence-limit level, not a confirmed risk assessment. The full analysis \u2014 confirmed environment codes via Layer 2 documentary evidence and Layer 3 analyst review, individual type profiles for your target's leadership team, and a precise integration protocol calibrated to the deal's risk profile \u2014 is available through the engagement-priced diagnostic."
     },
@@ -926,7 +857,6 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 35.3,
       "riskBand": "MODERATE-LOW",
       "headline": "Complicity infrastructure acquiring a belief-management system \u2014 extraction without meaning, belief without protection.",
-      "coreMismatch": "Your governance provides protection and operational autonomy in exchange for compliance with extraction logic.",
       "situation": "Your governance provides protection and operational autonomy in exchange for compliance with extraction logic. Your target provides meaning and belonging in exchange for compliance with doctrinal logic. These are both retention-through-compliance mechanisms \u2014 but the compliance objects are structurally different. Your target's participants accepted mission compliance; they have not accepted complicity compliance. The distinction matters: mission compliance rationalises participation as virtuous; complicity compliance rationalises it as pragmatic. Your target's participants cannot make the transition between these rationalisations.",
       "prediction": "Within 30 days: observe whether your target's mission-committed participants \u2014 those most embedded in the belief community \u2014 begin exiting faster than the periphery. Core community exit before peripheral exit is the signal that mission compliance is collapsing under complicity pressure.",
       "implication": "The belief community that sustained your target dissolves when the mission logic is replaced by the protection logic. The extraction mechanism persists but loses the narrative legitimacy that made it stable.",
@@ -939,7 +869,6 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 35.3,
       "riskBand": "MODERATE-LOW",
       "headline": "Complicity recruitment meeting engineered desire \u2014 neither mechanism holds the other's people.",
-      "coreMismatch": "Your compliance mechanism retains people through the rational protection premium \u2014 adaptive individuals who calculate that participation is the most pragmatic available option.",
       "situation": "Your compliance mechanism retains people through the rational protection premium \u2014 adaptive individuals who calculate that participation is the most pragmatic available option. Your target's compliance mechanism retains people through engineered desire \u2014 participants who have been conditioned to want what the system provides. The participant profiles selected by these mechanisms are meaningfully different. Your protection logic does not hold desire-conditioned participants; your target's commercial desire engineering cannot provide the protection premium your operational participants require.",
       "prediction": "Within 30 days: observe whether your target's commercial-facing workforce responds to your operational integration with the same compliance they showed to the commercial incentive structure \u2014 or whether your protection logic produces confusion rather than engagement. Confusion signals the desire-conditioning is still operative and your protection logic has no translation.",
       "implication": "Neither retention mechanism operates effectively on the other's population. The combined entity loses participants from both pools faster than a single-mechanism environment would.",
@@ -978,7 +907,7 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 82.4,
       "riskBand": "HIGH COMPATIBILITY",
       "fp1": "Rigour versus resonance decision authority. NF/NT decisions converge through the best argument. NF/SFP decisions emerge through collective feeling-resonance. NF/NT management attempting to introduce analytical rigour into NF/SFP decision processes finds that the argument quality mechanism is simply not accepted as legitimate. NF/SFP participants do not reject the analysis \u2014 they find it irrelevant to how they actually decide.",
-      "fp2": "Accountability introduction. NF/SFP has no accountability mechanism. NF/NT introduces argument quality as an accountability criterion \u2014 if your position cannot withstand rigorous challenge, it loses authority. NF/SFP creative personnel experience this as a suppression of authentic creative expression in favour of intellectual performance.",
+      "fp2": "Accountability introduction. NF/SFP has no accountability mechanism. NF/NT introduces argument quality as an accountability criterion \u2014 a creative position that cannot withstand rigorous analytical challenge loses standing. NF/SFP creative personnel experience this as a suppression of authentic creative expression in favour of intellectual performance.",
       "fp3": "Knowledge depth versus aesthetic expression. NF/NT's primary resource is theoretical knowledge with genuine explanatory power. NF/SFP's primary resource is authentic creative expression. These can coexist in individuals \u2014 many NF/SFP participants have NF/NT potential. But as institutional logics, they compete for the same cognitive and temporal resources. Under prolonged NF/NT governance, NF/SFP's aesthetic output progressively substitutes intellectual content for visceral authenticity.",
       "earlyWarningSignal": "Within 30 days: introduce a rigorous analytical critique of an NF/SFP creative output \u2014 not hostile, but precise. Observe whether the response is intellectual engagement or emotional withdrawal. Emotional withdrawal (experienced as analytical critique being 'not the point') confirms that NF/SFP resonance-authority is still the operative mechanism.",
       "primaryConflictedResources": "Organisation/System (~NF/NT vs \u2212NF/SFP), Money (~NF/NT vs ~NF/SFP), Decisiveness (~NF/NT vs ~NF/SFP)"
@@ -990,7 +919,7 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 67.6,
       "riskBand": "MODERATE-HIGH",
       "fp1": "Innovation framing conflict. SFJ/SFP accepts change only when framed as an extension of tradition. NF/NT introduces change through rigorous argument that tradition is factually incorrect. NF/NT acquirers find that their analytical case for change is structurally irrelevant to SFJ/SFP participants, who evaluate proposals not by their evidential quality but by their continuity with established relational norms.",
-      "fp2": "Cognitive entry requirement versus relational inclusion. NF/NT requires formal operations stage II cognitive development as a practical prerequisite for participation. SFJ/SFP's inclusion criterion is relational fit \u2014 have you been here long enough to be trusted? These selection mechanisms produce fundamentally different talent pools, and NF/NT's cognitive standards are experienced by SFJ/SFP participants as exclusion rather than quality control.",
+      "fp2": "Cognitive entry requirement versus relational inclusion. NF/NT requires formal operations stage II cognitive development as a practical prerequisite for participation. SFJ/SFP's inclusion criterion is relational fit \u2014 participation depends on having been present long enough to earn trust. These selection mechanisms produce fundamentally different talent pools, and NF/NT's cognitive standards are experienced by SFJ/SFP participants as exclusion rather than quality control.",
       "fp3": "Knowledge conservation versus generation. SFJ/SFP conserves accumulated resources within its relational network \u2014 knowledge is held by tenured insiders and not freely shared outside. NF/NT requires free knowledge exchange as its core operating mechanism. The tension between SFJ/SFP's conservation instinct and NF/NT's generation-and-sharing ethic progressively reduces knowledge flow, which is the resource NF/NT depends on.",
       "earlyWarningSignal": "Within 30 days: introduce an NF/NT participant \u2014 someone outside the relational network \u2014 into a key knowledge exchange. Observe whether SFJ/SFP participants share freely or selectively. Selective sharing with long-tenure insiders but opacity with outsiders (including NF/NT management) is the direct signal.",
       "primaryConflictedResources": "Knowledge (+NF/NT vs \u2212SFJ/SFP), Information (+NF/NT vs ~SFJ/SFP), Creativity (+NF/NT vs \u2212SFJ/SFP)"
@@ -1038,9 +967,9 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 88.2,
       "riskBand": "HIGH COMPATIBILITY",
       "fp1": "Sacred narrative aligning with commercial extraction. NF/SFJ and SFP/SFJ both extract resources through belief management \u2014 NF/SFJ through sacred meaning, SFP/SFJ through engineered desire. The ECS score of 88.2 reflects this structural alignment. The integration friction is minimal at the level of mechanism, but significant at the level of narrative: NF/SFJ requires participants to believe in something transcendent; SFP/SFJ requires them to desire something commercial.",
-      "fp2": "Mission versus consumption as the belief object. The compatibility between NF/SFJ and SFP/SFJ is highest of any pair in the matrix precisely because both manipulate belief. The friction appears when the objects of belief come into conflict \u2014 when participants are asked to simultaneously hold the SFP/SFJ consumption belief ('you deserve this now') and the NF/SFJ mission belief ('we are building something sacred'). These are not inherently incompatible but become so when resources are scarce.",
+      "fp2": "Mission versus consumption as the belief object. The compatibility between NF/SFJ and SFP/SFJ is highest of any pair in the matrix precisely because both manipulate belief. The friction appears when the objects of belief come into conflict \u2014 when a belief that immediate reward is already deserved meets a belief that the organisation is building something sacred \u2014 two value systems that do not share a common standard of legitimacy. These are not inherently incompatible but become so when resources are scarce.",
       "fp3": "Elite extraction alignment. Both NF/SFJ and SFP/SFJ extract resources upward through the hierarchy. The integration produces an environment where the extraction mechanism operates at two levels: ideological extraction (NF/SFJ) and commercial extraction (SFP/SFJ). Participants at lower levels experience a doubling of extraction pressure that eventually overcomes even strong belief-retention.",
-      "earlyWarningSignal": "Within 30 days: observe whether SFP/SFJ's commercial consumption messaging is integrated with NF/SFJ's mission narrative or kept separate. Integration of the two belief systems into a single narrative is the signal that both extraction mechanisms are being combined.",
+      "earlyWarningSignal": "Within 30 days: observe whether the target's commercial consumption messaging is integrated with the acquirer's mission narrative, or kept separate. Integration of the two belief systems into a single narrative is the signal that two loyalty systems are being combined into one layered structure.",
       "primaryConflictedResources": "Trust (\u2212NF/SFJ vs \u2212SFP/SFJ \u2014 both suppress)"
     },
     {
@@ -1244,7 +1173,7 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "fp1": "Accountability structure shock. NF/SFP has no internal performance accountability mechanism \u2014 the only authority is aesthetic credibility, which cannot be formally measured. NT/STJ introduces symmetric performance accountability with defined metrics and formal review. Target creative personnel experience this as an attack on the nature of creative work itself, not as a management improvement.",
       "fp2": "Resource allocation logic inversion. NF/SFP spends resources into creative expression \u2014 the flow direction is outward and downward. NT/STJ allocates resources to competitive performance \u2014 the flow is upward through the hierarchy based on results. The financial and operational disciplines NT/STJ introduces directly suppress the resource-spending logic that NF/SFP requires to function.",
       "fp3": "Creative output collapse. By Month 9, the individuals who generated the target's creative value have been exposed to long enough tenure under NT/STJ governance to show measurable output degradation. The work that appears is technically competent but lacks the quality that justified the acquisition premium. This is not performance failure \u2014 it is the predictable result of a creative environment operating under a structure that suppresses its primary resource: unconstrained creative expression.",
-      "earlyWarningSignal": "Within 30 days: introduce one formal reporting requirement for creative output (even a minimal one \u2014 a weekly summary, a project status template). Measure the emotional response, not the compliance rate. NF/SFP cultures experience formal reporting as a category error \u2014 'you can't report on feeling.' If the response is disproportionate to the reporting burden, the incompatibility is active.",
+      "earlyWarningSignal": "Within 30 days: introduce one formal reporting requirement for creative output (even a minimal one \u2014 a weekly summary, a project status template). Observe the organisational response, not the compliance rate. NF/SFP cultures experience formal reporting as a category error \u2014 creative feeling cannot be reduced to a formal report, and the demand to do so reads as a challenge to the work itself. If the response is disproportionate to the reporting burden, the incompatibility is active.",
       "primaryConflictedResources": "Organisation/System (+NT/STJ vs \u2212NF/SFP), Money (+NT/STJ vs ~NF/SFP), Will/Discipline (+NT/STJ vs ~NF/SFP), Decisiveness (+NT/STJ vs ~NF/SFP)"
     },
     {
@@ -1625,11 +1554,11 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "targetEnvironmentCode": "STJ/STP",
       "ecs": 91.2,
       "riskBand": "HIGH COMPATIBILITY",
-      "fp1": "Mandate inversion. STP/STJ runs on authority sanctioned from above; acquiring the apex that issues sanction inverts the structure. The recruiter layer now owns the enforcement core, but its operating habits still assume a principal overhead. In the first 30-60 days, top-level decision rights are contested because neither side's logic provides for an STP/STJ principal.",
-      "fp2": "Force versus recruitment as enforcement default. STJ/STP units escalate to direct coercion when resisted; STP/STJ management governs through incentive-laden recruitment. The acquirer's softer enforcement reads as weakness inside the target, and STJ/STP middle ranks begin testing boundaries \u2014 probing whether the new owner will actually punish.",
-      "fp3": "Regression pull. Canon identifies STP/STJ \u2192 STJ/STP regression when the intermediary position is consolidated through force rather than recruitment skill. Holding an acquired force structure tempts the acquirer to govern by force; the management layer collapses into the coercive core, trading scalability for control. The combined entity drifts to the more primitive operating logic.",
-      "earlyWarningSignal": "Within 30 days: watch whether acquirer managers begin issuing direct punitive sanctions instead of restructured incentive deals. The first punitive bypass of the recruitment mechanism signals regression onset.",
-      "primaryConflictedResources": "Attention (+STP/STJ vs ~STJ/STP), Connections (+STP/STJ vs ~STJ/STP), Health (\u2212STP/STJ vs ~STJ/STP). No direct oppositions: the 91.2 score reflects aligned extraction logic, not organisational health (see aligned-suppression caveat, ST_ECS_Derivation_Method_v1)."
+      "fp1": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "fp2": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "fp3": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "earlyWarningSignal": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "primaryConflictedResources": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored."
     },
     {
       "sourceRow": 73,
@@ -1637,11 +1566,11 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "targetEnvironmentCode": "NT/STJ",
       "ecs": 73.5,
       "riskBand": "MODERATE-HIGH",
-      "fp1": "Merit illegible to protection logic. NT/STJ standing is earned through measurable results; the acquirer reads standing as positional loyalty. In the first organisational review the acquirer attempts to map performers into a protection hierarchy \u2014 offering cover and a cut where performers expect metrics and expanded mandate.",
-      "fp2": "Knowledge suppression meets knowledge currency. NT/STJ invests in knowledge as its primary competitive resource; the acquirer treats strategic questioning as insubordination. Top performers discover that asking why a mandate exists is career-negative \u2014 the environment's core incentive loop (competence \u2192 influence) is cut at the source.",
-      "fp3": "Talent flight of the meritocratic core. NT/STJ performers hold maximum external options; once influence decouples from competence, the highest performers exit first. Canon places NT/STJ on the upward path out of STP/STJ \u2014 acquiring a merit environment and degrading it removes the very retention engine that made it valuable.",
-      "earlyWarningSignal": "Within 30 days: watch whether acquirer managers respond to high performance with protection offers (\u2018stay close to me\u2019) rather than expanded mandate. Substitution of patronage for promotion signals the conversion attempt.",
-      "primaryConflictedResources": "Knowledge (\u2212STP/STJ vs +NT/STJ), Trust (\u2212STP/STJ vs ~NT/STJ), Information (~STP/STJ vs +NT/STJ)"
+      "fp1": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "fp2": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "fp3": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "earlyWarningSignal": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "primaryConflictedResources": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored."
     },
     {
       "sourceRow": 74,
@@ -1649,11 +1578,11 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "targetEnvironmentCode": "NT/STP",
       "ecs": 70.6,
       "riskBand": "MODERATE-HIGH",
-      "fp1": "Test authority versus mandate authority. NT/STP grants authority to whatever the live test demonstrates; the acquirer grants it to sanctioned position. The first time a test result contradicts a sanctioned decision, the acquirer overrides empirics with hierarchy \u2014 and the target reads this as the system declaring facts negotiable.",
-      "fp2": "Tactical freedom without strategic freedom. Both environments share tactical ingenuity, which masks the divide initially. NT/STP iterates toward whatever works, including revising the goal itself; STP/STJ prohibits questioning the mandate. Experiments that threaten the redistribution logic are quietly defunded, and engineers learn which questions are unaskable.",
-      "fp3": "The lab hollows out. NT/STP retention runs on unconstrained testing; constrained to sanctioned directions, the environment becomes ordinary operations. Builders leave for unconstrained labs. What remains is a tooling shop serving extraction \u2014 the capability premium paid at close evaporates.",
-      "earlyWarningSignal": "Within 30 days: track whether any experiment is stopped for a non-resource reason \u2014 not budget, not safety, but mandate. One non-resource kill order is the signal.",
-      "primaryConflictedResources": "Knowledge (\u2212STP/STJ vs +NT/STP), Information (~STP/STJ vs +NT/STP), Creativity (~STP/STJ vs +NT/STP)"
+      "fp1": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "fp2": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "fp3": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "earlyWarningSignal": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "primaryConflictedResources": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored."
     },
     {
       "sourceRow": 75,
@@ -1661,11 +1590,11 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "targetEnvironmentCode": "SFP/SFJ",
       "ecs": 35.3,
       "riskBand": "MODERATE-LOW",
-      "fp1": "Activation versus sedation. The acquirer needs recruits \u2014 people with will, skills and decisiveness convertible into intermediaries. The target population is structurally sedated: compliance through comfort, not participation. Recruitment pitches meet inertia; the acquirer reads the workforce as raw material that fails intake.",
-      "fp2": "Incentive grammar mismatch. STP/STJ offers protection-plus-cut for active complicity; the SFP/SFJ population expects protection-for-passivity. Raising activity requirements breaks the sedation contract: anxiety rises, the comfort wrap tears, and compliance degrades without converting into participation.",
-      "fp3": "System legibility. SFP/SFJ depends on participants not thinking about the system; STP/STJ requires informed complicity \u2014 participants must see the deal. Making extraction legible to a sedated population triggers exit among those who can leave and unrest among those who cannot, destroying the asset that was purchased: a quiet, compliant base.",
-      "earlyWarningSignal": "Within 30 days: monitor uptake of the first activity-linked incentive scheme. Near-zero uptake combined with rising anxiety indicators (absence, complaints) means the sedation contract is breaking without conversion.",
-      "primaryConflictedResources": "Will/discipline (+STP/STJ vs \u2212SFP/SFJ), Decisiveness (+STP/STJ vs \u2212SFP/SFJ), Skills (+STP/STJ vs \u2212SFP/SFJ) \u2014 three of eight direct oppositions"
+      "fp1": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "fp2": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "fp3": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "earlyWarningSignal": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "primaryConflictedResources": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored."
     },
     {
       "sourceRow": 76,
@@ -1673,11 +1602,11 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "targetEnvironmentCode": "SFJ/SFP",
       "ecs": 61.8,
       "riskBand": "MODERATE",
-      "fp1": "Trust as glue versus trust as surface. The target runs on personal trust; the acquirer's logic treats trust as an exploitable interface. Early relationship-building by acquirer managers is instrumental recruitment, and the target initially cannot tell the difference \u2014 the network's openness is the attack surface.",
-      "fp2": "Conversion of belonging into obligation. Favours granted by new management begin carrying repayment expectations; the family idiom is reused as leverage (\u2018after everything we have done for you\u2019). Members feel the shift before they can name it, and trust degrades network-wide rather than person-by-person.",
-      "fp3": "Network exodus or capture. Hometown Networks retain through belonging; once belonging is monetised into obligation, the network either exits collectively \u2014 anchored by its most connected members, so key-person risk is collective \u2014 or is captured into a local protection structure. Either outcome destroys the retention asset.",
-      "earlyWarningSignal": "Within 30 days: listen for reciprocity language attached to routine support (\u2018remember who approved this\u2019). Obligation framing on ordinary favours is the conversion signal.",
-      "primaryConflictedResources": "Trust (\u2212STP/STJ vs +SFJ/SFP), Will/discipline (+STP/STJ vs \u2212SFJ/SFP), Organisation/System (+STP/STJ vs \u2212SFJ/SFP)"
+      "fp1": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "fp2": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "fp3": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "earlyWarningSignal": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "primaryConflictedResources": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored."
     },
     {
       "sourceRow": 77,
@@ -1685,11 +1614,11 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "targetEnvironmentCode": "NF/SFJ",
       "ecs": 35.3,
       "riskBand": "MODERATE-LOW",
-      "fp1": "Mission vocabulary capture. The acquirer immediately recognises the target's strongest asset \u2014 a population trained not to question \u2014 and pitches participation in mission terms. It works at first. FP1 here is the absence of visible friction: compliance is inherited, not earned, and the integration dashboard shows green.",
-      "fp2": "Values discovery. Mission-driven members discover the extraction logic behind the new mandates. The canonical misalignment pathway activates: recruited through values, retained through complicity. NF-profile members experience rapid neurosis; the devotional frame curdles into cynicism or breakdown.",
-      "fp3": "Moral collapse cascade. Mission Field retention is purpose; once purpose is exposed as cover, departure is not gradual \u2014 it cascades through the belief network. Those who remain are those who convert to informed complicity, which changes the asset's identity: the acquirer keeps the shell and loses the engine.",
-      "earlyWarningSignal": "Within 30 days: friction will NOT be visible \u2014 that is itself the signal. Audit whether new directives are justified to staff in mission language that the directives' content contradicts. The width of that gap predicts FP2 severity.",
-      "primaryConflictedResources": "Will/discipline (+STP/STJ vs \u2212NF/SFJ), Influence (+STP/STJ vs \u2212NF/SFJ), Energy (+STP/STJ vs \u2212NF/SFJ) \u2014 three of eight direct oppositions"
+      "fp1": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "fp2": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "fp3": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "earlyWarningSignal": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "primaryConflictedResources": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored."
     },
     {
       "sourceRow": 78,
@@ -1697,11 +1626,11 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "targetEnvironmentCode": "NF/SFP",
       "ecs": 64.7,
       "riskBand": "MODERATE",
-      "fp1": "Structure imposed on an expressive community. The acquirer installs hierarchical accountability on an environment whose output depends on unstructured trust and emotional safety. Creative production drops under monitored conditions \u2014 visible within the first 30-60 days as missed output, not protest.",
-      "fp2": "Trust extraction. Creators' personal openness becomes management information; vulnerability shared in community settings resurfaces in performance conversations. Self-censorship spreads, and the commons' core mechanism \u2014 authentic expression among people who understand you \u2014 stops functioning while attendance figures still look normal.",
-      "fp3": "Slow-burn depletion. Canon calibrates NF/SFP degradation as invisible in months 1-12 and visible in 12-18. The most authentic creators \u2014 whose presence anchored others' sense of safety \u2014 leave first, and each anchor departure accelerates the next. By the time output metrics register the loss, the community is unrecoverable.",
-      "earlyWarningSignal": "Within 30 days: watch whether informal creative sessions migrate off official channels and spaces. Channel migration is the community's first self-protection move.",
-      "primaryConflictedResources": "Trust (\u2212STP/STJ vs +NF/SFP), Health (\u2212STP/STJ vs +NF/SFP), Organisation/System (+STP/STJ vs \u2212NF/SFP)"
+      "fp1": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "fp2": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "fp3": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "earlyWarningSignal": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "primaryConflictedResources": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored."
     },
     {
       "sourceRow": 79,
@@ -1709,11 +1638,11 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "targetEnvironmentCode": "NF/NT",
       "ecs": 64.7,
       "riskBand": "MODERATE",
-      "fp1": "Argument authority versus positional authority. NF/NT grants standing to the most precise argument; the acquirer grants it to sanctioned position. At the first contested decision where a junior researcher's argument defeats a manager's mandate, the acquirer enforces position \u2014 and the academy registers epistemic vandalism.",
-      "fp2": "Knowledge as threat. The acquirer structurally suppresses strategic questioning; the academy's entire output is questioning. Research agendas are redirected to sanctioned topics; peer review survives in form and dies in function \u2014 review that cannot reject the mandate is theatre, and everyone inside knows it.",
-      "fp3": "Portable currency exits. The academy's assets \u2014 reputation and knowledge \u2014 travel with the individual. Researchers exit to environments where argument still wins; the remainder converts to credentialed legitimation of the acquirer's claims. The academy becomes a certification function for conclusions reached elsewhere.",
-      "earlyWarningSignal": "Within 30 days: track the first instance of a research conclusion edited for mandate compatibility before internal circulation. Pre-circulation editing is the capture signal.",
-      "primaryConflictedResources": "Knowledge (\u2212STP/STJ vs +NF/NT), Trust (\u2212STP/STJ vs +NF/NT), Information (~STP/STJ vs +NF/NT)"
+      "fp1": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "fp2": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "fp3": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "earlyWarningSignal": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "primaryConflictedResources": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored."
     },
     {
       "sourceRow": 81,
@@ -1721,11 +1650,11 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "targetEnvironmentCode": "STP/STJ",
       "ecs": 64.7,
       "riskBand": "MODERATE",
-      "fp1": "Transparency demand meets tribute reporting. NF/NT expects open argumentation and complete information; the target's information moves upward as filtered tribute, curated at every layer. The first post-close internal review returns polished narratives; the academy reads bad faith, the target reads standard practice.",
-      "fp2": "Legitimacy interrogation. NF/NT cannot refrain from questioning the mandate \u2014 interrogating premises is its operating system. The acquirer's questions dissolve the target's load-bearing ambiguity: everyone knows, nobody says. Middle managers face a choice between articulating the extraction logic aloud (impossible) and stonewalling (career-ending under the new owner).",
-      "fp3": "Structure dissolves without replacement. The protection-for-complicity deal is voided by owners who govern through argument, not protection; intermediaries lose both function and cover. The adaptively capable take the canonical upward exit; the rest are an enforcement layer with nothing to enforce. Performance collapses precisely in the layer the org chart labels management.",
-      "earlyWarningSignal": "Within 30 days: count direct answers to direct questions in management meetings. A persistent deflection pattern concentrated at one hierarchy layer maps the complicity structure exactly.",
-      "primaryConflictedResources": "Knowledge (+NF/NT vs \u2212STP/STJ), Trust (+NF/NT vs \u2212STP/STJ), Information (+NF/NT vs ~STP/STJ)"
+      "fp1": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "fp2": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "fp3": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "earlyWarningSignal": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "primaryConflictedResources": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored."
     },
     {
       "sourceRow": 82,
@@ -1733,11 +1662,11 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "targetEnvironmentCode": "STP/STJ",
       "ecs": 35.3,
       "riskBand": "MODERATE-LOW",
-      "fp1": "Mutual misrecognition. The mission acquirer reads the target's loyalty structures as shared devotion; the target reads mission language as a new protection brand. Both sides believe integration is going well. It is not \u2014 and the MODERATE-LOW score with an invisible honeymoon is the most dangerous configuration in the matrix.",
-      "fp2": "Sanctification of extraction. Target intermediaries adopt mission vocabulary fluently \u2014 adaptive capacity is their core skill \u2014 and continue extraction under sacred cover. The acquirer's question-nothing norm disables its own audit capacity: this is the worst possible control environment for this target.",
-      "fp3": "Discovery event. Extraction under mission cover eventually surfaces \u2014 whistleblower, audit, external scandal. A mission environment cannot metabolise informed complicity: revelation triggers an institutional crisis of faith, a leadership purge, and reputational damage that attaches to the mission brand itself, not just the acquired unit.",
-      "earlyWarningSignal": "Within 30 days: test whether target managers can describe their operations without mission vocabulary. Fluent re-skinning of unchanged practices is the capture signal.",
-      "primaryConflictedResources": "Will/discipline (\u2212NF/SFJ vs +STP/STJ), Influence (\u2212NF/SFJ vs +STP/STJ), Money (\u2212NF/SFJ vs +STP/STJ)"
+      "fp1": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "fp2": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "fp3": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "earlyWarningSignal": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "primaryConflictedResources": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored."
     },
     {
       "sourceRow": 83,
@@ -1745,11 +1674,11 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "targetEnvironmentCode": "STP/STJ",
       "ecs": 64.7,
       "riskBand": "MODERATE",
-      "fp1": "Authenticity meets the performance of authenticity. The creative acquirer manages through trust and emotional openness; target managers perform openness expertly. The acquirer's people-reading is calibrated to authentic signals and systematically misfires against professionals of adaptation.",
-      "fp2": "Soft governance exploited. The commons' weak formal controls leave the target's internal protection economy intact and unmonitored. Target intermediaries expand it into the acquirer's own structure, recruiting ambitious staff from the creative side with offers belonging cannot match.",
-      "fp3": "Reverse colonisation. By months 6-18 the harder structure wins by default: protection deals outcompete belonging in retaining ambitious people, and the acquirer discovers parts of its own organisation now answer to informal patrons. The acquisition has run backwards.",
-      "earlyWarningSignal": "Within 30 days: map who newly sponsors cross-organisational requests. Informal gatekeepers appearing on the acquirer's side of the boundary is the first colonisation marker.",
-      "primaryConflictedResources": "Trust (+NF/SFP vs \u2212STP/STJ), Health (+NF/SFP vs \u2212STP/STJ), Organisation/System (\u2212NF/SFP vs +STP/STJ)"
+      "fp1": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "fp2": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "fp3": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "earlyWarningSignal": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "primaryConflictedResources": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored."
     },
     {
       "sourceRow": 84,
@@ -1757,11 +1686,11 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "targetEnvironmentCode": "STP/STJ",
       "ecs": 73.5,
       "riskBand": "MODERATE-HIGH",
-      "fp1": "Performance transparency versus derived authority. NT/STJ installs measurable individual performance as the basis of standing. STP/STJ middle-layer authority is sanctioned from above, not earned through output \u2014 its real function is recruitment and extraction throughput, which the acquirer's metrics do not register. The first performance review makes this layer's contribution illegible, and illegibility reads as threat.",
-      "fp2": "Knowledge opposition. NT/STJ amplifies knowledge as a competitive resource and expects transparent information flow. STP/STJ suppresses strategic knowledge structurally \u2014 questioning the mandate is prohibited, and information moves upward as tribute, filtered at each layer. Target managers deliver reporting that is formally compliant and substantively empty; the acquirer reads concealment, the target reads survival.",
-      "fp3": "Intermediary entrenchment versus adaptive exit. The target's actual resource \u2014 adaptive individuals \u2014 is exactly the population NT/STJ promotes on merit. Once protection no longer outvalues exit, complicity dissolves: the most capable leave the intermediary structure first (some upward into the acquirer's logic, some out), while entrenched managers defend extraction positions or regress to direct coercion. The acquirer inherits the layer it least wanted.",
-      "earlyWarningSignal": "Within 30 days: observe whether target middle managers translate the acquirer's performance criteria into protection terms when communicating downward \u2014 \u2018deliver these numbers and I will cover you.\u2019 Reframing merit as a new protection deal signals the complicity structure is absorbing the performance logic rather than adopting it.",
-      "primaryConflictedResources": "Knowledge (+NT/STJ vs \u2212STP/STJ), Trust (~NT/STJ vs \u2212STP/STJ), Information (+NT/STJ vs ~STP/STJ)"
+      "fp1": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "fp2": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "fp3": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "earlyWarningSignal": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "primaryConflictedResources": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored."
     },
     {
       "sourceRow": 85,
@@ -1769,11 +1698,11 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "targetEnvironmentCode": "STP/STJ",
       "ecs": 70.6,
       "riskBand": "MODERATE-HIGH",
-      "fp1": "Empirical audit shock. NT/STP tests everything immediately \u2014 including the target's claimed performance. The first live tests of target operations expose the gap between reported and actual throughput; tribute-shaped reporting fails its first contact with measurement.",
-      "fp2": "Discard logic versus protection logic. NT/STP discards what fails the test; target staff are embedded in protection deals where discarding a person breaks a web of obligations. Every termination triggers a disproportionate political response from the protection network \u2014 the acquirer reads sabotage, the target reads contract enforcement.",
-      "fp3": "Selective conversion. Adaptive individuals \u2014 the target's real asset \u2014 thrive once moved into honest test environments: the capacity was real, the complicity was contextual. But intermediaries whose only function was managing protection fail every empirical measure. Months 6-18 produce a hard split: converted talent versus an unemployable management layer fighting for survival through politics.",
-      "earlyWarningSignal": "Within 30 days: compare the first independent measurement of any target unit against its last internal report. The gap size predicts FP2 intensity and maps which managers were tribute-reporting.",
-      "primaryConflictedResources": "Knowledge (+NT/STP vs \u2212STP/STJ), Information (+NT/STP vs ~STP/STJ), Psychological resilience (+NT/STP vs ~STP/STJ)"
+      "fp1": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "fp2": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "fp3": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "earlyWarningSignal": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "primaryConflictedResources": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored."
     },
     {
       "sourceRow": 86,
@@ -1781,11 +1710,11 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "targetEnvironmentCode": "STP/STJ",
       "ecs": 61.8,
       "riskBand": "MODERATE",
-      "fp1": "Family idiom asymmetry. The acquirer extends belonging genuinely; target managers parse it as a protection offer and reciprocate in patronage currency. Early warmth is mutual and means different things on each side \u2014 the friction is real and invisible.",
-      "fp2": "Network infiltration. Target intermediaries map the acquirer's informal trust network \u2014 who vouches for whom \u2014 and convert vouching into brokerage. The family network's absence of formal controls provides no immune response: there is no rule the infiltration breaks.",
-      "fp3": "Trust economy capture. The network's retention mechanism \u2014 mutual belonging \u2014 is gradually re-priced into favours-for-loyalty. Long-tenured members feel the change, disengage or leave, and the acquirer's environment degrades toward the target's logic. The softer structure loses by default.",
-      "earlyWarningSignal": "Within 30 days: watch for brokered introductions replacing open ones (\u2018talk to him through me\u2019). Brokerage inserted into a previously open network is the first capture move.",
-      "primaryConflictedResources": "Trust (+SFJ/SFP vs \u2212STP/STJ), Health (+SFJ/SFP vs \u2212STP/STJ), Will/discipline (\u2212SFJ/SFP vs +STP/STJ)"
+      "fp1": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "fp2": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "fp3": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "earlyWarningSignal": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "primaryConflictedResources": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored."
     },
     {
       "sourceRow": 87,
@@ -1793,11 +1722,11 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "targetEnvironmentCode": "STP/STJ",
       "ecs": 35.3,
       "riskBand": "MODERATE-LOW",
-      "fp1": "Tempo collision. The acquirer's machinery runs on passive, slow, comfort-mediated compliance; the target runs on fast tactical activity and explicit deals. Target operators find acquirer processes intolerably inert; the acquirer finds the target's operators destabilising.",
-      "fp2": "Comfort wrap versus the visible deal. The acquirer attempts to wrap target operations in its standard comfort-and-compliance idiom. The target's informed-complicity culture treats euphemism as an insult to intelligence \u2014 its people know what the system is and prefer the honest version of the deal. Discipline drops when the deal is disguised.",
-      "fp3": "Activity drain. The target's operators \u2014 selected for decisiveness, skills and will \u2014 are exactly the capacities the acquirer's environment suppresses. Over months 6-18 the active layer exits to environments that pay for activity; the remainder assimilates into sedation. The acquirer keeps the infrastructure and loses the operating capability it paid for.",
-      "earlyWarningSignal": "Within 30 days: measure decision latency on target-side requests routed through acquirer process. Latency doubling plus the first voluntary exits among top tactical operators marks drain onset.",
-      "primaryConflictedResources": "Decisiveness (\u2212SFP/SFJ vs +STP/STJ), Skills (\u2212SFP/SFJ vs +STP/STJ), Will/discipline (\u2212SFP/SFJ vs +STP/STJ) \u2014 three of eight direct oppositions"
+      "fp1": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "fp2": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "fp3": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "earlyWarningSignal": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "primaryConflictedResources": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored."
     },
     {
       "sourceRow": 88,
@@ -1805,11 +1734,11 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "targetEnvironmentCode": "STP/STJ",
       "ecs": 91.2,
       "riskBand": "HIGH COMPATIBILITY",
-      "fp1": "Apex absorbs its own management layer \u2014 the most structurally natural acquisition in the matrix, and near-zero resource conflict. FP1 is enforcement overreach: the apex applies direct-force habits to a layer that runs on incentive recruitment, and early heavy-handed directives prompt intermediaries to assert their value: \u2018we deliver compliance you cannot force.\u2019",
-      "fp2": "Margin compression on the cut. Intermediary loyalty is a protection calculation: cut plus protection must exceed outside options. Acquirer pressure to raise upward tribute compresses the cut; for the most capable recruiters the calculation flips, and they quietly shop for new patrons or build parallel books.",
-      "fp3": "Defection or regression. Months 6-18 resolve one of two ways: key intermediaries defect with their networks \u2014 the books are theirs, not the firm's, so key-person risk is the network itself \u2014 or the apex replaces recruitment with force (canonical regression), trading scalability for control and shrinking the system back to STJ/STP scale.",
-      "earlyWarningSignal": "Within 30 days: track retention of the target's top decile of recruiters and any change in the granularity of their upward reporting. Coarsening reports precede defection.",
-      "primaryConflictedResources": "Attention (~STJ/STP vs +STP/STJ), Connections (~STJ/STP vs +STP/STJ), Health (~STJ/STP vs \u2212STP/STJ). No direct oppositions: 91.2 reflects aligned extraction logic, not organisational health (see aligned-suppression caveat, ST_ECS_Derivation_Method_v1)."
+      "fp1": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "fp2": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "fp3": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "earlyWarningSignal": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
+      "primaryConflictedResources": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored."
     }
   ],
   "screenCopy": {

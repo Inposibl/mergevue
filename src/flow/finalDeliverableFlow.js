@@ -562,7 +562,8 @@ export function buildPairDeliverable(input = {}) {
   const friction = findFrictionPoint(acquirerEnvironmentCode, targetEnvironmentCode);
   const outcomeLetter = determineOutcome(acquirerScore, targetScore, narrative, input.mixedSignal === true);
   const score = friction?.ecs ?? narrative?.ecs ?? null;
-  const riskBand = friction?.riskBand ?? narrative?.riskBand ?? PENDING;
+  const frictionRiskBand = /pending/i.test(String(friction?.riskBand ?? "")) ? "" : friction?.riskBand;
+  const riskBand = frictionRiskBand || narrative?.riskBand || PENDING;
   const anchors = buildAnchors(friction);
   const protocolName = protocolForRiskBand(riskBand);
   const resourceConflictProfile = buildResourceConflictProfile(acquirerEnvironmentCode, targetEnvironmentCode, {

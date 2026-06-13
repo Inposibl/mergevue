@@ -1,4 +1,5 @@
 import json
+import os
 import re
 import zipfile
 import xml.etree.ElementTree as ET
@@ -7,10 +8,12 @@ from pathlib import Path
 
 APP_ROOT = Path.cwd() if Path.cwd().name == "framer-vercel-public" else Path(__file__).resolve().parents[1]
 WORKSPACE_ROOT = APP_ROOT.parent
-OUTPUT_FILE = APP_ROOT / "src" / "data" / "finalDeliverableData.js"
+CANON_SOURCE_DIR = APP_ROOT / "NewLogic 03.05.2026"
+OUTPUT_FILE = Path(os.environ.get("FINAL_DELIVERABLE_OUTPUT", APP_ROOT / "src" / "data" / "finalDeliverableData.js"))
 
-NARRATIVES_FILE = WORKSPACE_ROOT / "ST_Free_Tier_Output_Narratives_updated.xlsx"
-FRICTION_FILE = WORKSPACE_ROOT / "ST_Friction_Point_Lookup_updated.xlsx"
+NARRATIVES_FILE = CANON_SOURCE_DIR / "ST_Free_Tier_Output_Narratives_updated.xlsx"
+FRICTION_FILE = CANON_SOURCE_DIR / "ST_Friction_Point_Lookup_updated.xlsx"
+ECS_FILE = CANON_SOURCE_DIR / "ST_ECS_v1_canonical.xlsx"
 SPEC_FILE = WORKSPACE_ROOT / "ST_UI_Track_Coder_Agent_Specification_v1.xlsx"
 CLIENT_JOURNEY_FILE = WORKSPACE_ROOT / "ST_Client_Journey_v5.xlsx"
 BSINGLE_FILE = WORKSPACE_ROOT / "ST_B_Single_Output_Template_v1.xlsx"
@@ -98,9 +101,52 @@ def is_env_pair(values):
 
 def number_or_none(value):
     try:
-        return float(value)
+        match = re.search(r"-?\d+(?:\.\d+)?", str(value or ""))
+        return float(match.group(0)) if match else None
     except (TypeError, ValueError):
         return None
+
+
+def risk_band_for_ecs(value):
+    score = number_or_none(value)
+    if score is None:
+        return ""
+    if score >= 80:
+        return "HIGH COMPATIBILITY"
+    if score >= 65:
+        return "MODERATE-HIGH"
+    if score >= 50:
+        return "MODERATE"
+    if score >= 35:
+        return "MODERATE-LOW"
+    return "HIGH RISK"
+
+
+def build_ecs_lookup():
+    rows = read_rows(ECS_FILE, "Compatibility Matrix")
+    header = next(
+        (values for _, values in rows if any(str(value).strip().startswith("Acquirer") for value in values.values())),
+        None,
+    )
+    if not header:
+        raise ValueError("Compatibility Matrix header not found in canonical ECS workbook")
+
+    label_column = next(column for column, value in header.items() if str(value).strip().startswith("Acquirer"))
+    target_codes = {
+        column: normalize_env_code(value)
+        for column, value in header.items()
+        if column > label_column and normalize_env_code(value)
+    }
+    lookup = {}
+    for _, values in rows:
+        acquirer_code = normalize_env_code(values.get(label_column, ""))
+        if not re.fullmatch(r"[A-Z]{2,3}/[A-Z]{2,3}", acquirer_code):
+            continue
+        for column, target_code in target_codes.items():
+            score = number_or_none(values.get(column))
+            if score is not None:
+                lookup[(acquirer_code, target_code)] = score
+    return lookup
 
 
 def public_text(value):
@@ -111,21 +157,22 @@ def public_text(value):
     )
 
 
-def build_narratives():
+def build_narratives(ecs_lookup):
     rows = read_rows(NARRATIVES_FILE, "All_72_Narratives")
     records = []
     for row_number, values in rows:
         if not is_env_pair(values):
             continue
+        pair = (normalize_env_code(values[1]), normalize_env_code(values[2]))
+        ecs = ecs_lookup.get(pair)
         records.append(
             {
                 "sourceRow": row_number,
                 "acquirerEnvironmentCode": normalize_env_code(values[1]),
                 "targetEnvironmentCode": normalize_env_code(values[2]),
-                "ecs": number_or_none(values.get(3)),
-                "riskBand": public_text(values.get(4, "")),
+                "ecs": ecs,
+                "riskBand": risk_band_for_ecs(ecs),
                 "headline": public_text(values.get(5, "")),
-                "coreMismatch": public_text(values.get(10, "")),
                 "situation": public_text(values.get(6, "")),
                 "prediction": public_text(values.get(7, "")),
                 "implication": public_text(values.get(8, "")),
@@ -135,19 +182,21 @@ def build_narratives():
     return records
 
 
-def build_friction_points():
+def build_friction_points(ecs_lookup):
     rows = read_rows(FRICTION_FILE, "Friction_Lookup")
     records = []
     for row_number, values in rows:
         if not is_env_pair(values):
             continue
+        pair = (normalize_env_code(values[1]), normalize_env_code(values[2]))
+        ecs = ecs_lookup.get(pair)
         records.append(
             {
                 "sourceRow": row_number,
                 "acquirerEnvironmentCode": normalize_env_code(values[1]),
                 "targetEnvironmentCode": normalize_env_code(values[2]),
-                "ecs": number_or_none(values.get(3)),
-                "riskBand": public_text(values.get(4, "")),
+                "ecs": ecs,
+                "riskBand": risk_band_for_ecs(ecs),
                 "fp1": public_text(values.get(5, "")),
                 "fp2": public_text(values.get(6, "")),
                 "fp3": public_text(values.get(7, "")),
@@ -306,21 +355,23 @@ def build_bsingle_copy():
 
 
 def build_artifact():
-    for source in [NARRATIVES_FILE, FRICTION_FILE, SPEC_FILE, CLIENT_JOURNEY_FILE, BSINGLE_FILE, INVESTMENT_MEMO_FILE]:
+    for source in [NARRATIVES_FILE, FRICTION_FILE, ECS_FILE, SPEC_FILE, CLIENT_JOURNEY_FILE, BSINGLE_FILE, INVESTMENT_MEMO_FILE]:
         if not source.exists():
             raise FileNotFoundError(source)
 
+    ecs_lookup = build_ecs_lookup()
     return {
         "sources": [
             NARRATIVES_FILE.name,
             FRICTION_FILE.name,
+            ECS_FILE.name,
             SPEC_FILE.name,
             CLIENT_JOURNEY_FILE.name,
             BSINGLE_FILE.name,
             INVESTMENT_MEMO_FILE.name,
         ],
-        "narratives": build_narratives(),
-        "frictionPoints": build_friction_points(),
+        "narratives": build_narratives(ecs_lookup),
+        "frictionPoints": build_friction_points(ecs_lookup),
         "screenCopy": build_screen_copy(),
         "clientJourney": build_client_journey_copy(),
         "bSingleCopyTemplates": build_bsingle_copy(),
@@ -336,10 +387,11 @@ def main():
         f"export const FINAL_DELIVERABLE_DATA = Object.freeze({payload});\n",
         encoding="utf-8",
     )
-    print(
-        f"Wrote {OUTPUT_FILE.relative_to(WORKSPACE_ROOT)} "
-        f"with {len(artifact['narratives'])} narratives and {len(artifact['frictionPoints'])} friction rows"
-    )
+    try:
+        output_label = OUTPUT_FILE.relative_to(WORKSPACE_ROOT)
+    except ValueError:
+        output_label = OUTPUT_FILE
+    print(f"Wrote {output_label} with {len(artifact['narratives'])} narratives and {len(artifact['frictionPoints'])} friction rows")
 
 
 if __name__ == "__main__":

@@ -3,6 +3,8 @@ import { readFileSync } from "node:fs";
 import {
   MERGEVUE_PUBLIC_REPORT_BLOCKS,
   MERGEVUE_PUBLIC_REPORT_PDF_FILE_NAME,
+  PUBLIC_ANALYTICAL_FIELD_PATHS,
+  authorityPhrases,
   buildMergevuePublicReportModel,
 } from "../src/reporting/mergevuePublicReportModel.js";
 import {
@@ -11,8 +13,34 @@ import {
   forecastBriefScoreBand,
   renderMergevueForecastBriefHtml,
 } from "../src/reporting/mergevueForecastBriefDesignRenderer.js";
+import { buildPairDeliverable } from "../src/flow/finalDeliverableFlow.js";
+import { FINAL_DELIVERABLE_DATA } from "../src/data/finalDeliverableData.js";
 
 const APP_SOURCE = readFileSync(new URL("../src/App.jsx", import.meta.url), "utf8");
+const EXPECTED_LAYOUT_PAGE_COUNT = 7;
+const FRICTION_PUBLIC_COPY_FIELDS = Object.freeze([
+  "fp1",
+  "fp2",
+  "fp3",
+  "earlyWarningSignal",
+  "primaryConflictedResources",
+]);
+
+function verticalShredRuns(text) {
+  const runs = [];
+  let current = [];
+  for (const rawLine of String(text ?? "").split(/\r?\n/)) {
+    const line = rawLine.trim();
+    if (line && line.length <= 2) {
+      current.push(line);
+      continue;
+    }
+    if (current.length >= 3) runs.push([...current]);
+    current = [];
+  }
+  if (current.length >= 3) runs.push(current);
+  return runs;
+}
 
 const REQUIRED_PDF_STRINGS = Object.freeze([
   "Mergevue",
@@ -57,7 +85,30 @@ const FORBIDDEN_PDF_STRINGS = Object.freeze([
   "Kill a Competitor",
   "McDonalds",
   "structural-typology-final-deliverables-report",
+  "depends on the current environment-pair result",
+  "Economic exposure: qualitative only",
 ]);
+
+// Deliberately catches leaked sign algebra with or without parentheses.
+const RAW_RESOURCE_NOTATION = /[+~\-\u2212][^()]{1,100}\s+vs\s+[+~\-\u2212][^()]{1,100}/iu;
+const SECOND_PERSON = /\b(?:you|your|yours|yourself|yourselves)\b/iu;
+const DUPLICATE_ADJACENT_LABEL = /\b(Posture rule|Core mismatch|Rationale|Deal value context|Preview judgement)\b[:\s]*\b\1\b/iu;
+const DUPLICATE_ID_PREFIX = /\bmergevue-mergevue-/iu;
+const INTERNAL_ENVIRONMENT_CODE = /\b(?:NF\/NT|NF\/SFJ|NF\/SFP|NT\/STJ|NT\/STP|SFJ\/SFP|SFP\/SFJ|STJ\/STP|STP\/STJ)\b/u;
+const INTERNAL_LAYER_A_TERM = /\b(?:extraction mechanisms?|protection premium|complicity)\b/iu;
+const APPROVED_AUTHORITY_PHRASES = Object.freeze({
+  "NT/STJ": "authority earned through measurable results and symmetric accountability",
+  "NT/STP": "authority belonging to whoever can demonstrably make the thing work",
+  "NF/NT": "authority granted to the strongest argument, regardless of title or tenure",
+  "NF/SFJ": "authority held through proximity to the founding mission and collective purpose",
+  "NF/SFP": "authority carried by the most genuine creative voice, with little weight on credentials",
+  "SFJ/SFP": "authority accumulated through seniority, tenure, and standing within the community",
+  "STJ/STP": "authority held by those able to take and defend a position of strength",
+  "STP/STJ": "authority derived from a sanctioned position in the hierarchy, accountable upward and contingent on delivery",
+  "SFP/SFJ": "authority embedded in the standardised system itself, with compliance secured through engineered incentives",
+});
+const EXPECTED_PAIR_CORE_MISMATCH = "The core mismatch is between authority earned through measurable results and symmetric accountability, and authority held through proximity to the founding mission and collective purpose. The sharpest contested resource is Energy: amplified on the acquirer side, suppressed on the target side.";
+const EXPECTED_PAIR_FP2_RATIONALE = "Treat Energy as a protected integration resource during Days 30–60: it is amplified on the acquirer side and suppressed on the target side, which makes it the most likely early contestation zone. Separating preservation from simplification gives the integration team time to identify which Mission Field-linked routines protect cohesion, where Performance Arena accountability should apply, and which changes should wait until the Day 60 review.";
 
 function score(primaryEnvironmentCode, overrides = {}) {
   return Object.freeze({
@@ -79,6 +130,22 @@ function score(primaryEnvironmentCode, overrides = {}) {
     }),
     questionResponses: Object.freeze([]),
   });
+}
+
+function registeredDesignValues(designModel) {
+  const sources = {
+    executive: [designModel.sections[0]?.hero],
+    prediction: designModel.sections[1]?.predictions ?? [],
+    environment: [designModel.sections[3]],
+    collisionThesis: [designModel.sections[4]],
+    timelinePhase: designModel.sections[6]?.phases ?? [],
+  };
+  return Object.entries(PUBLIC_ANALYTICAL_FIELD_PATHS.design).flatMap(([group, fields]) => (
+    (sources[group] ?? []).flatMap((item) => fields.map((field) => ({
+      path: `${group}.${field}`,
+      value: item?.[field],
+    })))
+  )).filter(({ value }) => typeof value === "string" && value.trim());
 }
 
 const demoSession = Object.freeze({
@@ -126,6 +193,106 @@ const model = buildMergevuePublicReportModel(demoSession, {
 const pdfModel = buildMergevueForecastBriefDesignModel(model);
 const pdfHtml = renderMergevueForecastBriefHtml(pdfModel);
 
+const approvedPairSession = Object.freeze({
+  ...demoSession,
+  sessionId: "mergevue-approved-public-copy-package",
+  dealContext: Object.freeze({
+    ...demoSession.dealContext,
+    data: Object.freeze({
+      ...demoSession.dealContext.data,
+      acquirerName: "Apple",
+      targetName: "N-Video",
+    }),
+  }),
+  acquirer2A: Object.freeze({ completed: true, score: score("NT/STJ") }),
+  target2B: Object.freeze({ completed: true, finalScore: score("NF/SFJ") }),
+  targetSelfAssessment: Object.freeze({ completed: true, score: score("NF/SFJ", { confidence: "medium" }) }),
+  targetObservation: Object.freeze({ completed: true, score: score("NF/SFJ", { directObservationCount: 6 }) }),
+});
+const approvedPairModel = buildMergevuePublicReportModel(approvedPairSession, {
+  generatedAt: "2026-06-12T00:00:00.000Z",
+});
+const approvedPairDesignModel = buildMergevueForecastBriefDesignModel(approvedPairModel);
+const approvedPairHtml = renderMergevueForecastBriefHtml(approvedPairDesignModel);
+const approvedPairPredictions = approvedPairDesignModel.sections[1].predictions;
+const approvedPairAnalyticalValues = registeredDesignValues(approvedPairDesignModel);
+
+assert.deepEqual(authorityPhrases, APPROVED_AUTHORITY_PHRASES, "Authority phrases must match the owner-approved dictionary verbatim.");
+assert.equal(approvedPairModel.collisionThesis.coreMismatch, EXPECTED_PAIR_CORE_MISMATCH);
+assert.equal(approvedPairPredictions[1].rationale, EXPECTED_PAIR_FP2_RATIONALE);
+assert.ok(approvedPairPredictions[1].rationale.length >= 160);
+assert.ok(approvedPairPredictions[1].rationale.trim().split(/\s+/).length >= 25);
+assert.ok(approvedPairPredictions[1].rationale.includes("Performance Arena"));
+assert.ok(approvedPairPredictions[1].rationale.includes("Mission Field"));
+assert.notEqual(approvedPairPredictions[1].rationale, approvedPairPredictions[1].statement);
+assert.ok(approvedPairPredictions[1].rationale.split(/[.!?]+/).filter((sentence) => sentence.trim()).length >= 2);
+for (const { value } of approvedPairAnalyticalValues) {
+  assert.equal(RAW_RESOURCE_NOTATION.test(value), false, `Raw resource notation found in analytical copy: ${value}`);
+}
+const approvedPairSecondPersonFields = approvedPairAnalyticalValues
+  .filter(({ value }) => SECOND_PERSON.test(value))
+  .map(({ path }) => path);
+console.log(`Second-person design/PDF fields pending owner review: ${[...new Set(approvedPairSecondPersonFields)].join(", ") || "none"}`);
+assert.equal(RAW_RESOURCE_NOTATION.test(approvedPairHtml), false, "Approved pair printable HTML must not expose raw resource notation.");
+assert.equal(DUPLICATE_ADJACENT_LABEL.test(approvedPairHtml.replace(/<[^>]*>/g, " ")), false, "Approved pair printable HTML must not contain adjacent duplicate labels.");
+assert.equal(DUPLICATE_ID_PREFIX.test(approvedPairHtml.replace(/<[^>]*>/g, " ")), false, "Approved pair printable HTML must not duplicate the Mergevue ID prefix.");
+assert.ok(approvedPairHtml.includes(EXPECTED_PAIR_CORE_MISMATCH));
+assert.ok(approvedPairHtml.includes(EXPECTED_PAIR_FP2_RATIONALE));
+
+const allPairSecondPersonReview = new Set();
+const allPairPredictionVoiceViolations = [];
+const frictionLayerSecondPersonViolations = [];
+for (const friction of FINAL_DELIVERABLE_DATA.frictionPoints) {
+  const pairKey = `${friction.acquirerEnvironmentCode}->${friction.targetEnvironmentCode}`;
+  for (const field of FRICTION_PUBLIC_COPY_FIELDS) {
+    const value = String(friction[field] ?? "").trim();
+    if (value && SECOND_PERSON.test(value)) {
+      frictionLayerSecondPersonViolations.push(`${pairKey} friction.${field}: ${value}`);
+    }
+  }
+  const deliverable = buildPairDeliverable({
+    acquirerEnvironmentCode: friction.acquirerEnvironmentCode,
+    targetEnvironmentCode: friction.targetEnvironmentCode,
+  });
+  const pairModel = buildMergevuePublicReportModel(demoSession, {
+    deliverable,
+    generatedAt: "2026-06-12T00:00:00.000Z",
+  });
+  const pairDesignModel = buildMergevueForecastBriefDesignModel(pairModel);
+  const pairValues = registeredDesignValues(pairDesignModel);
+  for (const { path, value } of pairValues) {
+    assert.equal(RAW_RESOURCE_NOTATION.test(value), false, `Raw resource notation found in design field ${path} for ${pairKey}.`);
+    if (path.startsWith("prediction.")) {
+      const violations = [
+        SECOND_PERSON.test(value) ? "second person" : "",
+        INTERNAL_ENVIRONMENT_CODE.test(value) ? "internal environment code" : "",
+        INTERNAL_LAYER_A_TERM.test(value) ? "internal Layer A term" : "",
+      ].filter(Boolean);
+      if (violations.length) {
+        allPairPredictionVoiceViolations.push(`${pairKey} ${path} [${violations.join(", ")}]: ${value}`);
+      }
+    } else if (SECOND_PERSON.test(value)) {
+      allPairSecondPersonReview.add(path);
+    }
+  }
+}
+console.log(`Friction-layer second-person fields pending owner review:\n${frictionLayerSecondPersonViolations.join("\n") || "none"}`);
+console.log(`All-pairs non-prediction second-person fields pending owner review: ${[...allPairSecondPersonReview].join(", ") || "none"}`);
+
+const boundaryRawScore = 79.4;
+assert.equal(Math.ceil(boundaryRawScore) >= 80, true, "Boundary fixture proves upward rounding crosses the doctrine threshold.");
+assert.equal(Math.round(boundaryRawScore) >= 80, false, "Nearest-integer display rounding must not cross the doctrine threshold.");
+assert.equal(forecastBriefScoreBand(Math.round(boundaryRawScore)), forecastBriefScoreBand(boundaryRawScore));
+for (const friction of FINAL_DELIVERABLE_DATA.frictionPoints) {
+  const raw = Number(friction.ecs);
+  if (!Number.isFinite(raw)) continue;
+  assert.equal(
+    forecastBriefScoreBand(Math.round(raw)),
+    forecastBriefScoreBand(raw),
+    `Displayed score must preserve the raw compatibility band for ${friction.acquirerEnvironmentCode}->${friction.targetEnvironmentCode}.`,
+  );
+}
+
 assert.equal(pdfModel.fileName, MERGEVUE_PUBLIC_REPORT_PDF_FILE_NAME);
 assert.equal(pdfModel.fileName, "mergevue-forecast-brief.pdf");
 assert.equal(pdfModel.fileName.includes("structural-typology-final-deliverables-report"), false);
@@ -140,6 +307,42 @@ const pdfText = [
   ...pdfModel.renderedTextBlocks.map((block) => block.text),
 ].join("\n");
 const renderedPlainText = pdfHtml.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+const renderedTextForExtraction = renderedPlainText.replace(/&nbsp;/g, " ");
+const renderedPageCount = (pdfHtml.match(/<div class="page\b/g) ?? []).length;
+
+assert.equal(renderedPageCount, EXPECTED_LAYOUT_PAGE_COUNT, "Forecast Brief HTML must preserve the approved seven-page layout contract.");
+assert.match(renderedTextForExtraction, /\b(?:100|[1-9]?\d)\s+of 100\b/, "ECS text must extract as '{N} of 100' with whitespace.");
+assert.equal(pdfHtml.includes("word-break:break-all"), false, "Prediction references must not use character-by-character wrapping.");
+assert.ok(pdfHtml.includes("text-overflow:ellipsis"), "Prediction references must truncate safely when the sidebar is narrow.");
+
+const layoutAuditArgument = process.argv.find((argument) => argument.startsWith("--layout-audit="));
+const layoutAuditPath = process.env.MERGEVUE_PDF_LAYOUT_AUDIT || layoutAuditArgument?.slice("--layout-audit=".length);
+if (layoutAuditPath) {
+  const layoutAudit = JSON.parse(readFileSync(layoutAuditPath, "utf8"));
+  const extractedPages = Array.isArray(layoutAudit.pages) ? layoutAudit.pages : [];
+  assert.equal(extractedPages.length, EXPECTED_LAYOUT_PAGE_COUNT, "Extracted fixture PDF must contain exactly seven pages.");
+  const extractedText = extractedPages.map((page) => String(page.text ?? "")).join("\n");
+  assert.match(extractedText, /\b(?:100|[1-9]?\d)\s+of 100\b/, "Extracted ECS score must contain whitespace before 'of 100'.");
+  for (const page of extractedPages) {
+    assert.deepEqual(verticalShredRuns(page.text), [], `Vertical text shredding found on extracted PDF page ${page.page}.`);
+  }
+}
+
+if (process.argv.includes("--layout-only")) {
+  console.log("Mergevue public Forecast Brief PDF layout validation passed.");
+  process.exit(0);
+}
+
+assert.deepEqual(
+  frictionLayerSecondPersonViolations,
+  [],
+  `Second-person friction-layer copy found:\n${frictionLayerSecondPersonViolations.join("\n")}`,
+);
+assert.deepEqual(
+  allPairPredictionVoiceViolations,
+  [],
+  `Second-person prediction copy found:\n${allPairPredictionVoiceViolations.join("\n")}`,
+);
 
 const FORBIDDEN_RENDERED_DUMP_MARKERS = Object.freeze([
   "ECS 91.2 0-100 scale marker",

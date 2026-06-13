@@ -14,6 +14,35 @@ const BRAND = Object.freeze({
 
 export const MERGEVUE_PUBLIC_REPORT_PDF_FILE_NAME = "mergevue-forecast-brief.pdf";
 export const MERGEVUE_PUBLIC_REPORT_EMAIL_SUBJECT = "Mergevue Forecast Brief: Post-Deal Behavior Forecast";
+export const PUBLIC_ANALYTICAL_FIELD_PATHS = Object.freeze({
+  model: Object.freeze({
+    executiveDecisionSummary: Object.freeze(["headline", "oneParagraphSummary", "decisionImplication", "mainRisk", "recommendedAction"]),
+    sealedPrediction: Object.freeze(["predictionClaim", "observableSignal", "verificationMethod", "recommendedAction"]),
+    compatibilityScoreAndDealScenario: Object.freeze(["compatibilityExplanation"]),
+    collisionThesis: Object.freeze(["collisionHeadline", "coreMismatch", "collisionSummary", "primaryTension", "whyItMatters", "postCloseFailureMode"]),
+    resourceConflictMap: Object.freeze(["overwriteRiskExplanation"]),
+    timelinePhase: Object.freeze(["expectedFriction", "observableSignal", "recommendedCheck"]),
+    recommendedAction: Object.freeze(["actionReason", "actionExpectedEffect"]),
+  }),
+  design: Object.freeze({
+    executive: Object.freeze(["headline", "thesis", "decisionImplication", "mainRisk", "recommendedAction"]),
+    prediction: Object.freeze(["statement", "rationale", "evidenceRequired", "decisionFocus"]),
+    environment: Object.freeze(["coreMismatch"]),
+    collisionThesis: Object.freeze(["headline", "summary", "primaryTension", "whyItMatters", "postCloseFailureMode"]),
+    timelinePhase: Object.freeze(["body", "watchFor"]),
+  }),
+});
+export const authorityPhrases = Object.freeze({
+  "NT/STJ": "authority earned through measurable results and symmetric accountability",
+  "NT/STP": "authority belonging to whoever can demonstrably make the thing work",
+  "NF/NT": "authority granted to the strongest argument, regardless of title or tenure",
+  "NF/SFJ": "authority held through proximity to the founding mission and collective purpose",
+  "NF/SFP": "authority carried by the most genuine creative voice, with little weight on credentials",
+  "SFJ/SFP": "authority accumulated through seniority, tenure, and standing within the community",
+  "STJ/STP": "authority held by those able to take and defend a position of strength",
+  "STP/STJ": "authority derived from a sanctioned position in the hierarchy, accountable upward and contingent on delivery",
+  "SFP/SFJ": "authority embedded in the standardised system itself, with compliance secured through engineered incentives",
+});
 export const MERGEVUE_PUBLIC_REPORT_BLOCKS = Object.freeze([
   "Executive Decision Summary",
   "Forecast Preview",
@@ -37,6 +66,202 @@ const APPROVED_VALUATION_DISCLAIMER = "Illustrative posture, not a valuation.";
 const APPROVED_ENGAGEMENT_TIER_REQUIREMENT = "Absolute risk figures require the engagement-tier economic model.";
 const APPROVED_OVERWRITE_RISK_EXPLANATION = "The main risk is translation failure: the acquirer may impose its standard integration logic before it understands which target routines preserve loyalty, trust, knowledge flow, execution quality, or deal-critical continuity after close.";
 const APPROVED_CONCEALED_CONFLICT_RISK_EXPLANATION = "The main risk is false alignment: the shared operating environment can make integration look settled while duplicated authority, routine overwrite, or control expectations become visible only after close.";
+const PUBLIC_COPY_TEMPLATES = Object.freeze({
+  coreMismatch: "The core mismatch is between {acquirer_authority_phrase}, and {target_authority_phrase}. The sharpest contested resource is {top_conflict_resource}: {conflict_direction_phrase}.",
+  fp2Rationale: "Treat {resource} as a protected integration resource during {window}: it is {conflict_direction_phrase}{conflict_causal_clause} Separating preservation from simplification gives the integration team time to identify which {target_env}-linked routines protect cohesion, where {acquirer_env} accountability should apply, and which changes should wait until the Day 60 review.",
+  conflictSummary: "The sharpest contested resource is {resource}: {conflict_direction_phrase}.",
+  resourceExplanation: "Contested resource: {resource} — {conflict_direction_phrase}.",
+});
+export const PUBLIC_CONFLICT_DIRECTION_COPY = Object.freeze({
+  "+|-": Object.freeze({
+    class: "direct",
+    acquirer: "amplified on the acquirer side",
+    target: "suppressed on the target side",
+    connector: "and",
+  }),
+  "~|-": Object.freeze({
+    class: "partial",
+    acquirer: "treated as background on the acquirer side",
+    target: "actively suppressed on the target side",
+    connector: "while",
+  }),
+  "+|~": Object.freeze({
+    class: "partial",
+    acquirer: "actively amplified on the acquirer side",
+    target: "treated as background on the target side",
+    connector: "while",
+  }),
+  "-|+": Object.freeze({
+    class: "direct",
+    acquirer: "suppressed on the acquirer side",
+    target: "amplified on the target side",
+    connector: "and",
+  }),
+  "-|-": Object.freeze({
+    class: "convergent",
+    acquirer: "suppressed on both sides",
+    target: "",
+    connector: "",
+  }),
+  "+|+": Object.freeze({
+    class: "convergent",
+    acquirer: "actively amplified on both sides",
+    target: "",
+    connector: "",
+  }),
+  "~|+": Object.freeze({
+    class: "partial",
+    acquirer: "treated as background on the acquirer side",
+    target: "actively amplified on the target side",
+    connector: "while",
+  }),
+  "~|~": Object.freeze({
+    class: "convergent",
+    acquirer: "treated as background on both sides",
+    target: "",
+    connector: "",
+  }),
+  "-|~": Object.freeze({
+    class: "partial",
+    acquirer: "actively suppressed on the acquirer side",
+    target: "treated as background on the target side",
+    connector: "while",
+  }),
+});
+
+function publicPairKey(deliverable) {
+  return `${deliverable?.acquirerEnvironmentCode ?? ""}->${deliverable?.targetEnvironmentCode ?? ""}`;
+}
+
+function isPendingFrictionText(value) {
+  return /^\s*(?:⚠\s*)?pending(?:\s+analysis)?\b/i.test(String(value ?? ""));
+}
+
+function hasCanonicalFrictionContent(deliverable) {
+  const friction = deliverable?.friction;
+  return Boolean(friction)
+    && ![friction.fp1, friction.fp2, friction.fp3, friction.earlyWarningSignal, friction.primaryConflictedResources]
+      .some(isPendingFrictionText);
+}
+
+function renderPublicTemplate(template, tokens) {
+  const missing = [...template.matchAll(/\{([a-z_]+)\}/g)]
+    .map((match) => match[1])
+    .filter((token) => !String(tokens[token] ?? "").trim());
+  if (missing.length) {
+    throw new Error(`Missing canonical public-copy token(s): ${missing.join(", ")}`);
+  }
+  return template.replace(/\{([a-z_]+)\}/g, (_match, token) => {
+    const value = String(tokens[token]);
+    return token === "conflict_causal_clause" ? value.trimEnd() : value.trim();
+  });
+}
+
+function normalizedConflictSign(value) {
+  return value === "\u2212" ? "-" : value;
+}
+
+function conflictDirectionParts(rawPattern) {
+  const value = String(rawPattern ?? "").trim();
+  const match = value.match(/\(([+~\-\u2212])[^()]{0,100}\s+vs\s+([+~\-\u2212])/iu);
+  if (!match) throw new Error(`Unknown public conflict direction pattern: ${value || "<empty>"}`);
+  const key = `${normalizedConflictSign(match[1])}|${normalizedConflictSign(match[2])}`;
+  const direction = PUBLIC_CONFLICT_DIRECTION_COPY[key];
+  if (!direction) throw new Error(`Unknown public conflict direction pattern: ${match[0]}`);
+  return Object.freeze({ ...direction, key });
+}
+
+function conflictDirectionPhrase(rawPattern, format = "long") {
+  const direction = conflictDirectionParts(rawPattern);
+  if (!direction.target) return direction.acquirer;
+  if (format === "short") return `${direction.acquirer}, ${direction.target}`;
+  return `${direction.acquirer} ${direction.connector} ${direction.target}`;
+}
+
+function conflictCausalClause(rawPattern) {
+  const direction = conflictDirectionParts(rawPattern);
+  if (direction.class === "direct" || direction.class === "partial") {
+    return ", which makes it the most likely early contestation zone.";
+  }
+  if (normalizedConflictSign(rawPattern.match(/\(([+~\-\u2212])/u)?.[1]) === "+") {
+    return " — both organisations actively rely on it, which makes ownership of it the most likely early contestation point.";
+  }
+  return " — neither organisation actively manages it, which makes it the most likely blind spot once integration load arrives.";
+}
+
+function canonicalConflictRows(deliverable) {
+  const profile = deliverable?.resourceConflictProfile;
+  const rows = profile?.highProbabilityConflicts?.length ? profile.highProbabilityConflicts : profile?.allResources ?? [];
+  return [
+    ...rows.filter((row) => String(row.sourceSignal ?? "").trim()),
+    ...rows.filter((row) => !String(row.sourceSignal ?? "").trim()),
+  ];
+}
+
+function topCanonicalConflict(deliverable) {
+  const row = canonicalConflictRows(deliverable)[0];
+  if (!row?.resource || !String(row.sourceSignal ?? "").trim()) {
+    throw new Error(`Missing canonical conflict source for public pair ${publicPairKey(deliverable)}`);
+  }
+  return Object.freeze({
+    resource: String(row.resource).trim(),
+    sourceSignal: String(row.sourceSignal).trim(),
+  });
+}
+
+function canonicalConsistencyLog(deliverable) {
+  return canonicalConflictRows(deliverable).flatMap((row) => {
+    if (!String(row.sourceSignal ?? "").trim() || isPendingFrictionText(row.sourceSignal)) return [];
+    const frictionReading = conflictDirectionParts(row.sourceSignal).key;
+    const profileReading = `${normalizedConflictSign(row.acquirerImpact?.effect)}|${normalizedConflictSign(row.targetImpact?.effect)}`;
+    if (frictionReading === profileReading) return [];
+    return [Object.freeze({
+      pair: publicPairKey(deliverable),
+      resource: String(row.resource ?? "").trim(),
+      frictionReading,
+      profileReading,
+      frictionSource: "NewLogic 03.05.2026/ST_Friction_Point_Lookup_updated.xlsx",
+      profileSource: "src/data/environments.js resource impact matrices",
+      resolution: "friction row takes precedence for pair-level public copy",
+    })];
+  });
+}
+
+function environmentTemplateToken(value) {
+  return String(value ?? "").trim().replace(/^The\s+/i, "");
+}
+
+function approvedPairCopy(deliverable) {
+  if (!hasCanonicalFrictionContent(deliverable)) return null;
+  const acquirerAuthorityPhrase = authorityPhrases[deliverable?.acquirerEnvironmentCode];
+  const targetAuthorityPhrase = authorityPhrases[deliverable?.targetEnvironmentCode];
+  if (!acquirerAuthorityPhrase || !targetAuthorityPhrase) {
+    throw new Error(`Missing authority phrase for public pair ${publicPairKey(deliverable)}`);
+  }
+  const conflict = topCanonicalConflict(deliverable);
+  const commonTokens = {
+    resource: conflict.resource,
+    top_conflict_resource: conflict.resource,
+    conflict_direction_phrase: conflictDirectionPhrase(conflict.sourceSignal),
+  };
+  return Object.freeze({
+    coreMismatch: renderPublicTemplate(PUBLIC_COPY_TEMPLATES.coreMismatch, {
+      ...commonTokens,
+      acquirer_authority_phrase: acquirerAuthorityPhrase,
+      target_authority_phrase: targetAuthorityPhrase,
+      conflict_direction_phrase: conflictDirectionPhrase(conflict.sourceSignal, "short"),
+    }),
+    conflictSummary: renderPublicTemplate(PUBLIC_COPY_TEMPLATES.conflictSummary, commonTokens),
+    fp2Rationale: renderPublicTemplate(PUBLIC_COPY_TEMPLATES.fp2Rationale, {
+      ...commonTokens,
+      conflict_causal_clause: conflictCausalClause(conflict.sourceSignal),
+      window: TIMING_LOGIC.observationWindow.replace("-", "\u2013"),
+      acquirer_env: environmentTemplateToken(deliverable?.acquirerAlias),
+      target_env: environmentTemplateToken(deliverable?.targetAlias),
+    }),
+  });
+}
+
 function branchAwareOverwriteRiskExplanation(doctrineClass, resource) {
   if (doctrineClass === "concealed_conflict") {
     return APPROVED_CONCEALED_CONFLICT_RISK_EXPLANATION;
@@ -140,11 +365,11 @@ function scoreQualityLabel(session) {
     : `Preview quality: ${completedSources.join(", ") || "limited inputs"} present.`;
 }
 
-function inputCompleteness(session) {
+function inputCompleteness(session, deliverable) {
   const checks = [
     ["deal context", session?.dealContext?.completed],
-    ["acquirer environment", session?.acquirer2A?.score?.primaryEnvironmentCode],
-    ["target environment", session?.targetSelfAssessment?.score?.primaryEnvironmentCode || session?.target2B?.finalScore?.primaryEnvironmentCode],
+    ["acquirer environment", session?.acquirer2A?.score?.primaryEnvironmentCode || deliverable?.acquirerEnvironmentCode],
+    ["target environment", session?.targetSelfAssessment?.score?.primaryEnvironmentCode || session?.target2B?.finalScore?.primaryEnvironmentCode || deliverable?.targetEnvironmentCode],
   ];
   const present = checks.filter(([, value]) => Boolean(value)).map(([label]) => label);
   const missing = checks.filter(([, value]) => !value).map(([label]) => label);
@@ -162,7 +387,9 @@ function dealTypeLabel(value) {
 
 function fallbackPredictionText(deliverable) {
   if (deliverable?.narrative?.prediction) return deliverable.narrative.prediction;
-  return deliverable?.anchors?.[0]?.text ?? "Monitor whether the expected integration friction appears during the preview window.";
+  if (deliverable?.friction?.earlyWarningSignal && !isPendingFrictionText(deliverable.friction.earlyWarningSignal)) return deliverable.friction.earlyWarningSignal;
+  if (deliverable?.anchors?.[0]?.text && !isPendingFrictionText(deliverable.anchors[0].text)) return deliverable.anchors[0].text;
+  return "Monitor whether the expected integration friction appears during the preview window.";
 }
 
 function clientFacingPredictionText(text, index) {
@@ -217,7 +444,10 @@ function publicFrictionText(text) {
 }
 
 function buildPredictions(deliverable, doctrineClass) {
-  const anchors = deliverable?.anchors ?? [];
+  if (!hasCanonicalFrictionContent(deliverable)) return [];
+  const anchors = (deliverable?.anchors ?? []).map((anchor) => (
+    isPendingFrictionText(anchor?.text) ? null : anchor
+  ));
   const actions = recommendedActions(deliverable, doctrineClass);
   const actionCopy = (index, fallback) => {
     const action = actions[index];
@@ -260,6 +490,7 @@ function resourceRows(deliverable) {
     ...candidateRows.filter((row) => !String(row.sourceSignal ?? "").trim()),
   ].slice(0, 5);
 
+  const hasCanonicalPairCopy = Boolean(approvedPairCopy(deliverable));
   return rows.map((row) => ({
     resourceName: cleanString(row.resource),
     resourceCategory: cleanString(row.resourceTypeLabel ?? row.resourceType),
@@ -268,12 +499,20 @@ function resourceRows(deliverable) {
       : null,
     conflictBand: cleanString(row.probability ?? "Monitor"),
     direction: cleanString(`${row.acquirerImpact?.label ?? "Acquirer"} / ${row.targetImpact?.label ?? "Target"}`),
-    explanation: cleanString(row.sourceSignal || row.potentialRisk || "Monitor this resource for overwrite or underuse after close."),
+    explanation: hasCanonicalPairCopy && String(row.sourceSignal ?? "").trim() && !isPendingFrictionText(row.sourceSignal)
+      ? renderPublicTemplate(PUBLIC_COPY_TEMPLATES.resourceExplanation, {
+        resource: cleanString(row.resource),
+        conflict_direction_phrase: conflictDirectionPhrase(row.sourceSignal),
+      })
+      : cleanString((!isPendingFrictionText(row.sourceSignal) && row.sourceSignal) || row.potentialRisk || "Monitor this resource for overwrite or underuse after close."),
   }));
 }
 
 function timelinePhases(deliverable) {
-  const anchors = deliverable?.anchors ?? [];
+  if (!hasCanonicalFrictionContent(deliverable)) return [];
+  const anchors = (deliverable?.anchors ?? []).map((anchor) => (
+    isPendingFrictionText(anchor?.text) ? null : anchor
+  ));
   return [
     {
       phaseName: "Signal setup",
@@ -301,6 +540,7 @@ function timelinePhases(deliverable) {
 
 function recommendedActions(deliverable, doctrineClass) {
   const resource = resourceRows(deliverable)[0];
+  const pairCopy = approvedPairCopy(deliverable);
   const dealInsights = cleanArray(
     deliverable?.protocol?.dealInsights?.map((insight) => `${insight.title}: ${insight.text}`),
     [],
@@ -326,7 +566,7 @@ function recommendedActions(deliverable, doctrineClass) {
       actionTitle: "Separate preservation from simplification",
       actionTiming: TIMING_LOGIC.observationWindow,
       actionOwner: "Operating integration owner",
-      actionReason: branchAwareOverwriteRiskExplanation(doctrineClass, resource),
+      actionReason: pairCopy?.fp2Rationale ?? branchAwareOverwriteRiskExplanation(doctrineClass, resource),
       actionExpectedEffect: "Reduces overwrite risk while preserving deal-control options.",
     },
   ];
@@ -370,7 +610,8 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
   const dealContext = session?.dealContext?.data ?? {};
   const scenarioId = buildScenarioId(session, dealContext);
   const generatedAt = generatedAtValue(session, options);
-  const reportId = compactId(`mergevue-${scenarioId}-${generatedAt.slice(0, 10)}`);
+  const reportIdPrefix = scenarioId.startsWith("mergevue-") ? "" : "mergevue-";
+  const reportId = compactId(`${reportIdPrefix}${scenarioId}-${generatedAt.slice(0, 10)}`);
   const acquirerEnvironment = environmentByCode(deliverable?.acquirerEnvironmentCode);
   const targetEnvironment = environmentByCode(deliverable?.targetEnvironmentCode);
   const acquirerName = cleanCompanyName(dealContext.acquirerName, "Acquirer");
@@ -382,6 +623,7 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
   const narrative = deliverable?.narrative ?? {};
   const friction = deliverable?.friction ?? {};
   const resources = resourceRows(deliverable);
+  const pairCopy = approvedPairCopy(deliverable);
   const pairSourceClass = deliverable?.screen === "screen-10b" || deliverable?.outcomeKey === "homogeneous" || (deliverable?.acquirerEnvironmentCode && deliverable.acquirerEnvironmentCode === deliverable?.targetEnvironmentCode)
     ? "homogeneous"
     : deliverable?.screen === "screen-10"
@@ -389,9 +631,28 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
       : "incomplete";
   const doctrineClass = pairSourceClass === "homogeneous"
     ? "concealed_conflict"
+    : pairSourceClass === "heterogeneous" && Number.isFinite(compatibilityScore)
+      ? (compatibilityScore >= 80 ? "concealed_conflict" : "collision")
+      : "low_information";
+  const copyDoctrineClass = pairSourceClass === "homogeneous"
+    ? "concealed_conflict"
     : pairSourceClass === "heterogeneous"
       ? "collision"
       : "low_information";
+  const doctrineCopyReview = doctrineClass === "concealed_conflict" && copyDoctrineClass !== doctrineClass
+    ? Object.freeze({
+      required: true,
+      reason: "Owner-approved concealed-conflict copy for heterogeneous high-ECS pairs is pending.",
+      surfaces: Object.freeze(["executiveDecisionSummary", "collisionThesis", "sealedPredictions", "economicRiskTranslation"]),
+    })
+    : Object.freeze({ required: false, reason: "", surfaces: Object.freeze([]) });
+  const consistencyLog = Object.freeze(canonicalConsistencyLog(deliverable));
+  const frictionContentStatus = hasCanonicalFrictionContent(deliverable)
+    ? Object.freeze({ available: true, degradedSurfaces: Object.freeze([]) })
+    : Object.freeze({
+      available: false,
+      degradedSurfaces: Object.freeze(["collisionThesis", "sealedPredictions", "timelineOfExpectedFriction"]),
+    });
   const sourceBinding = Object.freeze({
     finalDeliverableScreen: cleanString(deliverable?.screen),
     finalDeliverableRoute: cleanString(deliverable?.route),
@@ -406,7 +667,8 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
     resourceProfileSource: Object.freeze({
       source: "deliverable.resourceConflictProfile",
       resourcesScanned: Number(deliverable?.resourceConflictProfile?.resourcesScanned) || resources.length,
-    }),
+      }),
+      consistencyLog,
   });
   const leadResource = resources[0]?.resourceName ?? "operating system";
   const dealEconomicsReport = buildDealEconomicsReport(session, {
@@ -420,8 +682,8 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
       .map((line) => line.replace(/Total Risk Envelope/g, "Economic risk posture"))
     : [];
   const publicEnterpriseValueLabel = hasDealEconomicsInputs
-    ? (dealEconomicsReport?.enterpriseValue?.line || "Economic exposure: qualitative only")
-    : "Economic exposure: qualitative only";
+    ? (dealEconomicsReport?.enterpriseValue?.line || "")
+    : "";
   const economicTriageChannels = [
     {
       label: "Talent continuity",
@@ -460,6 +722,8 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
       scenarioId,
       pairSourceClass,
       doctrineClass,
+      doctrineCopyReview,
+      frictionContentStatus,
       sourceBinding,
       source: {
         dealContext: "session.dealContext.data",
@@ -473,13 +737,13 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
       headline: cleanString(narrative.headline ?? deliverable?.headline ?? "Post-close behavior risk preview"),
       oneParagraphSummary: cleanString(narrative.situation ?? deliverable?.body ?? "This brief summarizes the most likely post-close behavior friction visible from the current diagnostic inputs."),
       decisionImplication: publicFrictionText(narrative.implication ?? "Use this brief to decide what must be observed before the integration plan hardens."),
-      mainRisk: publicFrictionText(friction.fp1 ?? `${leadResource} may become the first visible post-close friction point.`),
+      mainRisk: publicFrictionText(!isPendingFrictionText(friction.fp1) ? friction.fp1 : `${leadResource} may become the first visible post-close friction point.`),
       recommendedAction: firstIntegrationControlMove(deliverable),
     },
     sealedPredictions: {
       statusTitle: "Forecast Preview",
       statusDescription: "Display-only preview; not ledger-recorded.",
-      predictions: buildPredictions(deliverable, doctrineClass),
+      predictions: buildPredictions(deliverable, copyDoctrineClass),
     },
     compatibilityScoreAndDealScenario: {
       acquirerName,
@@ -515,14 +779,14 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
     },
     collisionThesis: {
       collisionHeadline: cleanString(narrative.headline ?? "Operating systems may collide after close"),
-      coreMismatch: cleanString(narrative.coreMismatch ?? "The core mismatch depends on the current environment-pair result."),
-      collisionSummary: publicFrictionText(friction.fp1 ?? narrative.situation ?? "The collision thesis is based on the current environment-pair result."),
-      primaryTension: cleanString(friction.primaryConflictedResources ?? `${leadResource} is the primary tension to monitor.`),
+      coreMismatch: pairCopy?.coreMismatch ?? "",
+      collisionSummary: publicFrictionText(!isPendingFrictionText(friction.fp1) ? (friction.fp1 ?? narrative.situation) : (narrative.situation ?? "The collision thesis is based on the current environment-pair result.")),
+      primaryTension: pairCopy?.conflictSummary ?? cleanString(!isPendingFrictionText(friction.primaryConflictedResources) ? (friction.primaryConflictedResources ?? `${leadResource} is the primary tension to monitor.`) : `${leadResource} is the primary tension to monitor.`),
       whyItMatters: publicFrictionText(narrative.implication ?? "The risk matters because early operating assumptions can become permanent integration defaults."), 
-      postCloseFailureMode: branchAwarePostCloseFailureMode(doctrineClass, narrative),
+      postCloseFailureMode: branchAwarePostCloseFailureMode(copyDoctrineClass, narrative),
     },
     resourceConflictMap: {
-      overwriteRiskExplanation: branchAwareOverwriteRiskExplanation(doctrineClass),
+      overwriteRiskExplanation: branchAwareOverwriteRiskExplanation(copyDoctrineClass),
       resources,
     },
     timelineOfExpectedFriction: {
@@ -536,9 +800,7 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
       economicTriageJudgement: pairSourceClass === "homogeneous" 
       ? "Directional triage only. The main risk is integration drag. Observe speed, decision quality, and knowledge continuity without asserting target logic compression." 
       : "The main economic risk is not immediate value destruction. It is integration drag: the deal may lose speed, decision quality, or knowledge continuity if the target operating logic is compressed too quickly.",      
-      economicTriageRule: pairSourceClass === "homogeneous"
-      ? "Directional triage only. Posture is assessed from the highest-severity channel without asserting explicit label prefix."
-      : "Posture rule: Posture equals the highest assessed channel severity. When no channel is High but two or more channels are Medium, posture is raised one band.",
+      economicTriageRule: "Posture equals the highest assessed channel severity. When no channel is High but two or more channels are Medium, posture is raised one band.",
       economicTriageReason,
       economicTriageChannels,
       evUse: "Deal value is used only to understand materiality. It is not scored in this public preview and does not produce a valuation-impact estimate.",
@@ -548,10 +810,10 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
       engagementTierRequirement: "Quantified modelling requires deal-room economics, role-level evidence, integration milestones, and analyst review.",
       economicRiskLines: [],
     },
-    recommendedActions: recommendedActions(deliverable, doctrineClass),
+    recommendedActions: recommendedActions(deliverable, copyDoctrineClass),
     evidenceBasisAndLimits: {
       dataQualityLevel: scoreQualityLabel(session),
-      inputCompleteness: inputCompleteness(session),
+      inputCompleteness: inputCompleteness(session, deliverable),
       knownLimits: "Public preview output uses environment-level signals and does not verify person-specific role fit, leadership hierarchy, or documentary evidence depth.",
       methodLimitations: "This brief can identify likely behavior friction and observation windows; it cannot replace engagement-tier diligence or analyst review.",
       whatThisReportCanSay: "It can state the most likely post-close friction thesis, preview signals, and verification timing from the current inputs.",
