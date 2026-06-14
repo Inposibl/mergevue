@@ -85,7 +85,7 @@ export const ENVIRONMENTS = Object.freeze([
     id: "franchise-machine",
     code: environmentCode("SFP", "SFJ"),
     alias: "The Franchise Machine",
-    shortDescription: "Engineered desire is the control mechanism. A pleasure-and-belonging facade masks scripted compliance, surveillance, wage suppression, and replaceability.",
+    shortDescription: "Standardised experience is the control mechanism. Coordination runs through repeatable delivery, consistent service patterns, and brand recognition rather than individual discretion.",
     oneLineDefinition: "A commercially patterned environment that turns recognisable experience into repeatable consumption.",
     authorityStructure: "Authority sits with those who control the customer ritual, the brand promise, and repeatable delivery. Authority is concentrated in system-design roles; operational roles execute to a defined standard.",
     decisionMechanism: "Decisions follow demand signals, customer response, and protection of the repeatable experience.",
