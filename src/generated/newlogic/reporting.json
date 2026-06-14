@@ -339,7 +339,7 @@
             "cells": {
               "1": "8",
               "2": "Methodology summary line",
-              "3": "One sentence: \"This report was produced under Structural Typology methodology v3.1, three-layer architecture (Layer 1 questionnaires + Layer 2 evidence + Layer 3 analyst). [n] respondents \u00b7 [m] evidence items \u00b7 senior analyst approval [date].\"",
+              "3": "One sentence: \"This report was produced under Mergevue methodology v3.1, three-layer architecture (Layer 1 questionnaires + Layer 2 evidence + Layer 3 analyst). [n] respondents \u00b7 [m] evidence items \u00b7 senior analyst approval [date].\"",
               "4": "1 sentence"
             }
           }
@@ -483,7 +483,7 @@
           {
             "sourceRow": 5,
             "cells": {
-              "1": "The Structural Typology M&A integration-risk diagnostic does not treat respondent answers as factual truth. It treats them as structured behavioural evidence: what the respondent can acknowledge, what they rationalise, what they cannot describe, and where their account diverges from other respondents or from documentary evidence. Lying, evasion, rationalisation, and cross-respondent contradiction are not failure modes of the instrument \u2014 they are part of the diagnostic material. The instrument is designed to make these patterns visible before they become integration failures."
+              "1": "The Mergevue M&A integration-risk diagnostic does not treat respondent answers as factual truth. It treats them as structured behavioural evidence: what the respondent can acknowledge, what they rationalise, what they cannot describe, and where their account diverges from other respondents or from documentary evidence. Lying, evasion, rationalisation, and cross-respondent contradiction are not failure modes of the instrument \u2014 they are part of the diagnostic material. The instrument is designed to make these patterns visible before they become integration failures."
             }
           },
           {
@@ -2972,7 +2972,7 @@
           {
             "sourceRow": 5,
             "cells": {
-              "1": "Composite forward-looking failure indicator for the integration's second half-year through 18-month window. Aggregates the FP3 (departure-trigger) signals from the other nine risk categories. This is the single forward-verifiable output that anchors sealed predictions (e.g. Eli Lilly / Ventyx)."
+              "1": "Composite forward-looking failure indicator for the integration's second half-year through 18-month window. Aggregates the FP3 (departure-trigger) signals from the other nine risk categories. This is a forward-verifiable output for sealed predictions."
             }
           },
           {
@@ -3499,7 +3499,7 @@
             "sourceRow": 28,
             "cells": {
               "1": "Predicted ECS delta over verification window",
-              "2": "+___ / -___ ECS points (e.g. base 38 \u2192 delta to 57)"
+              "2": "+___ / -___ ECS points"
             }
           },
           {
@@ -5494,7 +5494,7 @@
         "sourceRow": 21,
         "phase": "PAID +",
         "step": "\u2605 SEALED PREDICTION LOCK (NEW v3.1, conditional)",
-        "description": "Conditional step: only for sealed-prediction engagements (per ST_Analyst_Methodology.xlsx \u00a79). Senior partner reviews entire chain (respondent answers, documentary evidence, contradiction resolutions, Analyst Assessments, Risk Output records, ECS computation). Senior partner sign-off statement signed and timestamped. Prediction sealed: ECS value locked, delta locked, supporting Risk Output IDs locked. Recorded in ST_Prediction_Ledger_v1.xlsx. Forward-verification clock starts. Reference: Eli Lilly / Ventyx sealed prediction (base ECS 38 \u2192 delta to 57) is the canonical example.",
+        "description": "Conditional step: only for sealed-prediction engagements (per ST_Analyst_Methodology.xlsx \u00a79). Senior partner reviews entire chain (respondent answers, documentary evidence, contradiction resolutions, Analyst Assessments, Risk Output records, ECS computation). Senior partner sign-off statement signed and timestamped. Prediction sealed: ECS value locked, delta locked, supporting Risk Output IDs locked. Recorded in ST_Prediction_Ledger_v1.xlsx. Forward-verification clock starts.",
         "projectFilesUsed": "ST_Analyst_Methodology.xlsx \u00a79 (Senior_Sign_Off) + ST_Prediction_Ledger_v1.xlsx (Phase 3 File 5)",
         "threeLayerPosition": "Layer 3 \u2014 sealed-prediction senior sign-off",
         "costTime": "Premium engagement tier \u00b7 Senior partner availability required"
@@ -5601,7 +5601,7 @@
           "1": "5. Sealed Prediction Lock step (Step 7.5)",
           "2": "NEW in v3.1",
           "3": "Step 7.5 \u2014 entirely new step (conditional)",
-          "4": "Per ST_Analyst_Methodology.xlsx \u00a79 (Senior_Sign_Off): sealed-prediction protocol requires senior partner sign-off, ECS lock, delta lock, supporting Risk Output IDs lock, registration in ST_Prediction_Ledger_v1.xlsx. Source v5.0 had no sealed-prediction protocol \u2014 Eli Lilly / Ventyx sealed prediction was outside the journey."
+          "4": "Per ST_Analyst_Methodology.xlsx \u00a79 (Senior_Sign_Off): sealed-prediction protocol requires senior partner sign-off, ECS lock, delta lock, supporting Risk Output IDs lock, registration in ST_Prediction_Ledger_v1.xlsx. Source v5.0 had no sealed-prediction protocol."
         }
       },
       {

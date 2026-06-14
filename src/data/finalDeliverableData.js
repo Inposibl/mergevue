@@ -4590,7 +4590,7 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
           {
             "row": 5,
             "cells": [
-              "Composite forward-looking failure indicator for the integration's second half-year through 18-month window. Aggregates the FP3 (departure-trigger) signals from the other nine risk categories. This is the single forward-verifiable output that anchors sealed predictions (e.g. Eli Lilly / Ventyx)."
+              "Composite forward-looking failure indicator for the integration's second half-year through 18-month window. Aggregates the FP3 (departure-trigger) signals from the other nine risk categories. This is a forward-verifiable output for sealed predictions."
             ]
           },
           {
@@ -5119,7 +5119,7 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
             "row": 28,
             "cells": [
               "Predicted ECS delta over verification window",
-              "+___ / -___ ECS points (e.g. base 38 \u2192 delta to 57)"
+              "+___ / -___ ECS points"
             ]
           },
           {

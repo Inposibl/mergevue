@@ -741,7 +741,7 @@ const section8BannedLanguage = [
   "triage",
   "RHQA",
   "Ring-Fence",
-  "Ventyx",
+  "retrospective anchor case",
   "anchor case",
   "PostSurvey",
   "Block 1 output",

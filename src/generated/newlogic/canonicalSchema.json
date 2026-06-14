@@ -1313,7 +1313,7 @@
     },
     {
       "sourceRow": 6,
-      "outputType": "Sealed prediction (e.g. Eli Lilly / Ventyx forward-verification)",
+      "outputType": "Sealed prediction",
       "analystReviewRequirement": "Analyst review MANDATORY. Senior analyst sign-off required.",
       "permittedOutputLanguage": "Sealed ECS prediction with locked timestamp and sign-off audit trail."
     },

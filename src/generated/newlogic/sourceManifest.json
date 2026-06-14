@@ -3,7 +3,7 @@
     "id": "newlogic-2026-05-03",
     "name": "NewLogic 03.05.2026",
     "path": "NewLogic 03.05.2026",
-    "exportedAt": "2026-06-10T20:40:23.939987+00:00"
+    "exportedAt": "2026-06-14T18:21:10.501040+00:00"
   },
   "environmentAliases": {
     "NF/NT": "The Idea Lab",
@@ -35,8 +35,8 @@
     },
     {
       "file": "ST_Analyst_Methodology.xlsx",
-      "sizeBytes": 42611,
-      "lastModified": "2026-06-01T19:11:51.390241+00:00",
+      "sizeBytes": 40692,
+      "lastModified": "2026-06-14T18:06:35.557699+00:00",
       "sheets": [
         "0_Index",
         "1_Three_Layer_Architecture",
@@ -55,8 +55,8 @@
     },
     {
       "file": "ST_B_Single_Output_Template_v1.xlsx",
-      "sizeBytes": 63692,
-      "lastModified": "2026-06-01T19:11:51.391241+00:00",
+      "sizeBytes": 68205,
+      "lastModified": "2026-06-14T18:10:30.978928+00:00",
       "sheets": [
         "0_Index",
         "1_Executive_Summary",
@@ -84,8 +84,8 @@
     },
     {
       "file": "ST_Canonical_Schema.xlsx",
-      "sizeBytes": 49008,
-      "lastModified": "2026-06-01T19:11:51.392236+00:00",
+      "sizeBytes": 44634,
+      "lastModified": "2026-06-14T18:11:02.017907+00:00",
       "sheets": [
         "0_Index",
         "1_Sides",
@@ -111,8 +111,8 @@
     },
     {
       "file": "ST_Client_Journey_v5.xlsx",
-      "sizeBytes": 21070,
-      "lastModified": "2026-06-01T19:11:51.393237+00:00",
+      "sizeBytes": 19984,
+      "lastModified": "2026-06-14T18:11:34.228089+00:00",
       "sheets": [
         "Client Journey",
         "v3_1_Build_Notes",
@@ -139,8 +139,8 @@
     },
     {
       "file": "ST_ECS_Derivation_Method_v1.xlsx",
-      "sizeBytes": 25562,
-      "lastModified": "2026-06-10T20:01:44.457693+00:00",
+      "sizeBytes": 15856,
+      "lastModified": "2026-06-12T18:52:46.116115+00:00",
       "sheets": [
         "Method",
         "Net_Effect_Vectors",
@@ -151,12 +151,23 @@
     },
     {
       "file": "ST_ECS_to_Valuation_Bridge_v1_1.xlsx",
-      "sizeBytes": 25216,
-      "lastModified": "2026-06-01T19:11:51.395477+00:00",
+      "sizeBytes": 21759,
+      "lastModified": "2026-06-14T18:12:07.463653+00:00",
       "sheets": [
         "ECS_Valuation_Bridge",
         "Benchmark_Library",
         "Deal_Pricing_Calculator"
+      ]
+    },
+    {
+      "file": "ST_ECS_v1_canonical.xlsx",
+      "sizeBytes": 16916,
+      "lastModified": "2026-06-11T16:32:04.093521+00:00",
+      "sheets": [
+        "ECS Calculator",
+        "Compatibility Matrix",
+        "Resource Impact Matrix",
+        "Deal Type Weights"
       ]
     },
     {
@@ -194,8 +205,8 @@
     },
     {
       "file": "ST_Free_Tier_Output_Narratives_updated.xlsx",
-      "sizeBytes": 49155,
-      "lastModified": "2026-06-01T19:11:51.398477+00:00",
+      "sizeBytes": 48644,
+      "lastModified": "2026-06-14T15:28:01.017246+00:00",
       "sheets": [
         "Implementation_Guide",
         "All_72_Narratives",
@@ -207,8 +218,8 @@
     },
     {
       "file": "ST_Friction_Point_Lookup_updated.xlsx",
-      "sizeBytes": 57002,
-      "lastModified": "2026-06-10T19:49:05.872067+00:00",
+      "sizeBytes": 56866,
+      "lastModified": "2026-06-14T15:09:22.748169+00:00",
       "sheets": [
         "Friction_Lookup",
         "ECS_Matrix",
@@ -219,8 +230,8 @@
     },
     {
       "file": "ST_Prediction_Ledger_v1.xlsx",
-      "sizeBytes": 33512,
-      "lastModified": "2026-06-01T19:11:51.400475+00:00",
+      "sizeBytes": 28174,
+      "lastModified": "2026-06-14T18:16:25.096584+00:00",
       "sheets": [
         "PROVENANCE",
         "SEALED_PREDICTIONS",
@@ -228,7 +239,6 @@
         "CALIBRATION_LOG",
         "ACCURACY_DASHBOARD",
         "AGENT_READ_INSTRUCTIONS",
-        "Eli_Lilly_Ventyx_Canonical",
         "Schema_Methodology_Dependencies",
         "v3_1_Build_Notes"
       ]
@@ -300,8 +310,8 @@
     },
     {
       "file": "ST_UI_Track_Coder_Agent_Specification_v1.xlsx",
-      "sizeBytes": 41715,
-      "lastModified": "2026-06-10T20:25:59.954973+00:00",
+      "sizeBytes": 41626,
+      "lastModified": "2026-06-11T16:44:16.617759+00:00",
       "sheets": [
         "B-01 PROVENANCE",
         "B-02 FILE_REGISTER",

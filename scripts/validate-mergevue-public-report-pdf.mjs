@@ -644,7 +644,7 @@ for (const block of pdfModel.renderedTextBlocks) {
 }
 
 assert.equal(forecastBriefScoreBand(38.2), "moderateLow", "Score 38.2 must map to the locked MODERATE-LOW band.");
-assert.equal(publicCompatibilityBand(38), "MODERATE-LOW", "Public model must render the locked MODERATE-LOW band for ECS 38.");
+assert.equal(publicCompatibilityBand(38.2), "MODERATE-LOW", "Public model must render the locked MODERATE-LOW band for moderate-low scores.");
 assert.equal(pdfText.includes(" - "), false, "PDF text must use em dash semantics instead of ASCII dash separators.");
 assert.ok(pdfModel.humanSignOffNote.includes("human sign-off"), "Section appendix toggles must carry human sign-off note.");
 
