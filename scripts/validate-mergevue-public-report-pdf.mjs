@@ -27,6 +27,17 @@ const FRICTION_PUBLIC_COPY_FIELDS = Object.freeze([
   "primaryConflictedResources",
 ]);
 
+const FORBIDDEN_FRICTION_VERDICT_STRINGS = Object.freeze([
+  "will be reframing",
+  "the response will be",
+  "incompatibility is confirmed",
+  "the structural incompatibility is confirmed",
+  "typically respond by building internal opposition",
+  "These are structurally incompatible",
+  "Both mechanisms are internally coherent; they are structurally incompatible",
+  "These are structurally incompatible:",
+]);
+
 function verticalShredRuns(text) {
   const runs = [];
   let current = [];
@@ -332,6 +343,19 @@ for (const friction of FINAL_DELIVERABLE_DATA.frictionPoints) {
   if (!Number.isFinite(raw)) continue;
   assert.notEqual(forecastBriefScoreBand(raw), "pending", `Canonical ECS must resolve a public band for ${friction.acquirerEnvironmentCode}->${friction.targetEnvironmentCode}.`);
 }
+
+const frictionVerdictViolations = [];
+for (const friction of FINAL_DELIVERABLE_DATA.frictionPoints || []) {
+  for (const field of FRICTION_PUBLIC_COPY_FIELDS) {
+    const value = String(friction[field] || "");
+    for (const forbidden of FORBIDDEN_FRICTION_VERDICT_STRINGS) {
+      if (value.includes(forbidden)) {
+        frictionVerdictViolations.push(`${friction.acquirerEnvironmentCode}->${friction.targetEnvironmentCode} ${field}: ${forbidden}`);
+      }
+    }
+  }
+}
+assert.deepEqual(frictionVerdictViolations, [], "Public friction copy must not contain owner-retired verdict language.");
 
 assert.equal(pdfModel.fileName, MERGEVUE_PUBLIC_REPORT_PDF_FILE_NAME);
 assert.equal(pdfModel.fileName, "mergevue-forecast-brief.pdf");
