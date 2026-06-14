@@ -374,6 +374,13 @@ const renderedPlainText = pdfHtml.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").
 const renderedTextForExtraction = renderedPlainText.replace(/&nbsp;/g, " ");
 const renderedPageCount = (pdfHtml.match(/<div class="page\b/g) ?? []).length;
 
+const renderedVerdictViolations = [];
+for (const forbidden of FORBIDDEN_FRICTION_VERDICT_STRINGS) {
+  if (pdfText.includes(forbidden)) {
+    renderedVerdictViolations.push(forbidden);
+  }
+}
+assert.deepEqual(renderedVerdictViolations, [], "Rendered buyer-facing PDF/HTML text must not contain owner-retired verdict language.");
 assert.equal(renderedPageCount, EXPECTED_LAYOUT_PAGE_COUNT, "Forecast Brief HTML must preserve the approved seven-page layout contract.");
 assert.match(renderedTextForExtraction, /\b(?:100|[1-9]?\d)\s+of 100\b/, "ECS text must extract as '{N} of 100' with whitespace.");
 assert.equal(pdfHtml.includes("word-break:break-all"), false, "Prediction references must not use character-by-character wrapping.");
