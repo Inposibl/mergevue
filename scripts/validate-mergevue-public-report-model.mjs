@@ -274,6 +274,84 @@ const approvedPairModel = buildMergevuePublicReportModel(approvedPairSession, {
   generatedAt: "2026-06-12T00:00:00.000Z",
 });
 
+const calibrationDeliverable = buildPairDeliverable({
+  acquirerEnvironmentCode: "NT/STJ",
+  targetEnvironmentCode: "NF/SFJ",
+  targetSecondaryEnvironmentCode: "SFJ/SFP",
+  targetSignalStrength: "weak",
+  targetCoPresence: true,
+});
+const calibrationSession = Object.freeze({
+  ...approvedPairSession,
+  preliminaryAssessment: Object.freeze({
+    triageReport: Object.freeze({
+      completed: true,
+      effectiveTier: "HIGH",
+      routing: Object.freeze({
+        route: "senior_analyst_review",
+        label: "Senior analyst review required",
+        gate: "paid_output_conditional",
+        gateLabel: "Paid output requires senior review",
+        confidenceCap: "low",
+        action: "Route to analyst workspace with senior review; do not treat raw answers as final evidence.",
+      }),
+      triggerCount: 2,
+      reliabilitySummary: Object.freeze({ flagCount: 4 }),
+      contradictionSummary: Object.freeze({ contradictionCount: 4, highSeverityCount: 0, criticalSeverityCount: 0 }),
+      sourceSummaries: Object.freeze([
+        Object.freeze({ id: "acquirer", label: "Acquirer self-observation", signalStrength: "strong", confidence: "high" }),
+        Object.freeze({ id: "targetDiagnostic", label: "Target current diagnostic", signalStrength: "weak", confidence: "low" }),
+        Object.freeze({ id: "targetSelfAssessment", label: "Formal target self-description", signalStrength: "weak", confidence: "low" }),
+        Object.freeze({ id: "targetObservation", label: "Target observed by acquirer", signalStrength: "weak", confidence: "low" }),
+      ]),
+    }),
+    contradictionReport: Object.freeze({
+      completed: true,
+      summary: Object.freeze({
+        findingCount: 11,
+        highSeverityCount: 4,
+        mediumSeverityCount: 7,
+        contradictionCount: 4,
+        reliabilityRiskCount: 7,
+        missingEvidenceCount: 0,
+        analystReviewRequired: true,
+      }),
+      findings: Object.freeze([
+        Object.freeze({
+          severity: "medium",
+          type: "target_diagnostic_self_divergence",
+          leftSource: "Target current diagnostic",
+          rightSource: "Formal target self-description",
+          leftSignalCode: "SFJ/SFP",
+          rightSignalCode: "NF/SFJ",
+        }),
+      ]),
+    }),
+  }),
+});
+const calibrationModel = buildMergevuePublicReportModel(calibrationSession, {
+  deliverable: calibrationDeliverable,
+  generatedAt: "2026-06-14T00:00:00.000Z",
+});
+assert.equal(calibrationModel.compatibilityScoreAndDealScenario.compatibilityScore, 14.7);
+assert.equal(calibrationModel.compatibilityScoreAndDealScenario.compatibilityBand, "HIGH RISK");
+assert.equal(calibrationModel.evidenceBasisAndLimits.calibration?.triggered, true, "Target-partial / paid-output-conditional runs must expose a public calibration object.");
+assert.equal(calibrationModel.evidenceBasisAndLimits.calibration?.routing?.label, "Senior analyst review required");
+assert.equal(calibrationModel.evidenceBasisAndLimits.calibration?.routing?.confidenceCap, "low");
+assert.equal(calibrationModel.evidenceBasisAndLimits.calibration?.contradictionSummary?.contradictionCount, 4);
+assert.equal(calibrationModel.evidenceBasisAndLimits.calibration?.reliabilitySummary?.flagCount, 4);
+assert.equal(calibrationModel.evidenceBasisAndLimits.calibration?.currentRange?.targetEnvironmentCode, "NF/SFJ");
+assert.equal(calibrationModel.evidenceBasisAndLimits.calibration?.currentRange?.score, 14.7);
+assert.equal(calibrationModel.evidenceBasisAndLimits.calibration?.alternativeRanges?.[0]?.targetEnvironmentCode, "SFJ/SFP");
+assert.equal(calibrationModel.evidenceBasisAndLimits.calibration?.alternativeRanges?.[0]?.score, 58.8);
+assert.equal(calibrationModel.evidenceBasisAndLimits.calibration?.alternativeRanges?.[0]?.range, "54–64");
+assert.equal(calibrationModel.evidenceBasisAndLimits.calibration?.alternativeRanges?.[0]?.riskBand, "MODERATE");
+assert.ok(calibrationModel.evidenceBasisAndLimits.dataQualityLevel.includes("signal agreement unresolved (4 contradictions, 4 reliability flags)"));
+assert.ok(calibrationModel.evidenceBasisAndLimits.inputCompleteness.includes("target-side confidence limited across 3 weak/low-confidence target sources"));
+assert.ok(calibrationModel.evidenceBasisAndLimits.whatThisReportCanSay.includes("ECS is provisional: The Mission Field 14.7 (10–20, HIGH RISK)."));
+assert.ok(calibrationModel.evidenceBasisAndLimits.whatThisReportCanSay.includes("Senior analyst review required before treating as settled."));
+assert.ok(calibrationModel.evidenceBasisAndLimits.whatThisReportCanSay.includes("Alternative read: The Hometown Network 58.8 (54–64, MODERATE)."));
+
 assert.deepEqual(authorityPhrases, APPROVED_AUTHORITY_PHRASES, "Authority phrases must match the owner-approved dictionary verbatim.");
 assert.deepEqual(PUBLIC_CONFLICT_DIRECTION_COPY, APPROVED_CONFLICT_DIRECTIONS, "Conflict direction copy must match the owner-approved 3x3 dictionary verbatim.");
 assert.equal(isCanonicalEcsScore(88.2), true, "Canonical ECS 88.2 must be on the equal-weight lattice.");

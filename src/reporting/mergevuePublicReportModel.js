@@ -387,6 +387,73 @@ function inputCompleteness(session, deliverable) {
     : `Incomplete for public preview; missing ${missing.join(", ")}.`;
 }
 
+function freezePlainObject(value) {
+  return value && typeof value === "object" ? Object.freeze({ ...value }) : null;
+}
+
+function buildEvidenceCalibration(session, deliverable) {
+  const triageReport = session?.preliminaryAssessment?.triageReport ?? null;
+  const contradictionReport = session?.preliminaryAssessment?.contradictionReport ?? null;
+  const routing = triageReport?.routing ?? null;
+  const candidateRanges = Array.isArray(deliverable?.candidateRanges) ? deliverable.candidateRanges : [];
+  const currentRange = candidateRanges.find((row) =>
+    row?.acquirerEnvironmentCode === deliverable?.acquirerEnvironmentCode
+    && row?.targetEnvironmentCode === deliverable?.targetEnvironmentCode
+  ) ?? null;
+  const alternativeRanges = candidateRanges.filter((row) => row !== currentRange);
+  const triggered = Boolean(
+    deliverable?.outcomeKey === "target-partial"
+    || routing?.gate === "paid_output_conditional"
+    || contradictionReport?.summary?.analystReviewRequired === true
+  );
+
+  if (!triggered && candidateRanges.length === 0) return null;
+
+  return Object.freeze({
+    triggered,
+    outcomeKey: deliverable?.outcomeKey ?? "",
+    routing: freezePlainObject(routing),
+    reliabilitySummary: freezePlainObject(triageReport?.reliabilitySummary),
+    contradictionSummary: freezePlainObject(triageReport?.contradictionSummary ?? contradictionReport?.summary),
+    currentRange: freezePlainObject(currentRange),
+    alternativeRanges: Object.freeze(alternativeRanges.map((row) => freezePlainObject(row)).filter(Boolean)),
+    sourceSummaries: Object.freeze((triageReport?.sourceSummaries ?? []).map((row) => freezePlainObject(row)).filter(Boolean)),
+  });
+}
+
+function countLabel(count, singular, plural = null) {
+  const pluralLabel = plural ?? singular + "s";
+  return String(count) + " " + (count === 1 ? singular : pluralLabel);
+}
+
+function calibratedDataQualityLabel(session, calibration) {
+  const base = scoreQualityLabel(session);
+  const contradictions = Number(calibration?.contradictionSummary?.contradictionCount) || 0;
+  const flags = Number(calibration?.reliabilitySummary?.flagCount) || 0;
+  if (!calibration?.triggered) return base;
+  return `${base.replace("Preview quality:", "Preview quality:").replace(" present.", " present;")} signal agreement unresolved (${countLabel(contradictions, "contradiction")}, ${countLabel(flags, "reliability flag")}).`;
+}
+
+function calibratedInputCompletenessLabel(session, deliverable, calibration) {
+  const base = inputCompleteness(session, deliverable);
+  const targetSources = (calibration?.sourceSummaries ?? []).filter((row) => String(row?.id ?? "").startsWith("target"));
+  const weakTargets = targetSources.filter((row) => row?.signalStrength === "weak" || row?.confidence === "low");
+  if (!calibration?.triggered || weakTargets.length === 0) return base;
+  return `${base.replace("Complete for public preview: deal context, acquirer environment, target environment.", "Complete for public preview;")} target-side confidence limited across ${countLabel(weakTargets.length, "weak/low-confidence target source")}.`;
+}
+
+function calibratedCanSayLabel(calibration) {
+  const current = calibration?.currentRange;
+  const alternative = calibration?.alternativeRanges?.[0];
+  if (!calibration?.triggered || !current) {
+    return "It can state the most likely post-close friction thesis, preview watchpoints, review windows, and control implications from the current inputs.";
+  }
+  const routeLabel = cleanString(calibration?.routing?.label, "Analyst review required").replace(/\s+required$/i, " required");
+  const alternativeText = alternative
+    ? ` Alternative read: ${cleanString(alternative.targetAlias, alternative.targetEnvironmentCode)} ${alternative.score} (${alternative.range}, ${alternative.riskBand}).`
+    : "";
+  return `ECS is provisional: ${cleanString(current.targetAlias, current.targetEnvironmentCode)} ${current.score} (${current.range}, ${current.riskBand}). ${routeLabel} before treating as settled.${alternativeText}`;
+}
 function dealTypeLabel(value) {
   if (value === "competitor_absorption" || value === "platform_acquisition" || value === "other_integration_sensitive") {
     return APPROVED_DEAL_TYPE;
@@ -680,6 +747,7 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
       available: false,
       degradedSurfaces: Object.freeze(["collisionThesis", "sealedPredictions", "timelineOfExpectedFriction"]),
     });
+  const evidenceCalibration = buildEvidenceCalibration(session, deliverable);
   const sourceBinding = Object.freeze({
     finalDeliverableScreen: cleanString(deliverable?.screen),
     finalDeliverableRoute: cleanString(deliverable?.route),
@@ -839,12 +907,13 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
     },
     recommendedActions: recommendedActions(deliverable, copyDoctrineClass),
     evidenceBasisAndLimits: {
-      dataQualityLevel: scoreQualityLabel(session),
-      inputCompleteness: inputCompleteness(session, deliverable),
+      dataQualityLevel: calibratedDataQualityLabel(session, evidenceCalibration),
+      inputCompleteness: calibratedInputCompletenessLabel(session, deliverable, evidenceCalibration),
       knownLimits: "Public preview output uses environment-level signals and does not verify person-specific role fit, leadership hierarchy, or documentary evidence depth.",
       methodLimitations: "This brief can identify likely behavior friction and observation windows; it cannot replace engagement-tier diligence or analyst review.",
-      whatThisReportCanSay: "It can state the most likely post-close friction thesis, preview watchpoints, review windows, and control implications from the current inputs.",
+      whatThisReportCanSay: calibratedCanSayLabel(evidenceCalibration),
       whatThisReportCannotSay: "It cannot state a valuation, a quantified loss estimate, a final integration plan, or a verified role-level exposure conclusion.",
+      calibration: evidenceCalibration,
     },
 whatTheFullEngagementAdds: {
   benefits: [
