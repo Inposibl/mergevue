@@ -853,15 +853,15 @@ export function renderMergevueForecastBriefHtml(model) {
   .page{ width:210mm; min-height:297mm; margin:0 auto; padding:13mm 16mm 12mm; page-break-after:always; break-after:page; background:var(--bg); overflow:hidden; }
   .page:last-child{ page-break-after:auto; break-after:auto; }
   .page>.sheet{ width:100%!important; max-width:100%!important; margin:0!important; padding:0!important; }
-  .cover-page{ padding:8mm 13mm 8mm; }
+  .cover-page{ padding:5mm 13mm 5mm; }
   .cover-page .mast,.cover-page .masthead{ padding-top:18px; }
   .cover-page .mast-row{ gap:12px; }
-  .cover-page .doc-title-wrap{ padding:18px 0 16px; }
+  .cover-page .doc-title-wrap{ padding:12px 0 10px; }
   .cover-page .doc-title{ font-size:38px; line-height:.98; margin-top:8px; }
   .cover-page .doc-sub{ margin-top:8px; font-size:12.5px; line-height:1.32; max-width:70ch; }
-  .cover-page .exec{ margin-top:14px; grid-template-columns:250px 1fr; }
-  .cover-page .exec-score{ padding:18px 20px; }
-  .cover-page .score-num{ font-size:96px; line-height:.82; }
+  .cover-page .exec{ margin-top:8px; grid-template-columns:250px 1fr; }
+  .cover-page .exec-score{ padding:12px 16px; }
+  .cover-page .score-num{ font-size:72px; line-height:.82; }
   .cover-page .score-expl{ margin-top:6px; line-height:1.28; }
   .cover-page .score-scale{ margin-top:10px; }
   .cover-page .band-pill{ margin-top:9px; padding:4px 10px; }
