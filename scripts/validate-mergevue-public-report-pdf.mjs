@@ -92,6 +92,8 @@ const REQUIRED_PDF_STRINGS = Object.freeze([
   "High",
   "moderate",
   "Competitive consolidation",
+  "standalone integration-priority view",
+  "not yet reconciled against a single canonical source",
 ]);
 
 const FORBIDDEN_PDF_STRINGS = Object.freeze([
@@ -119,6 +121,8 @@ const FORBIDDEN_PDF_STRINGS = Object.freeze([
   "Tier Public Forecast Brief",
   "Display-only forecast preview",
   "Forecast Preview & Action Timeline",
+  "not an average of the displayed resources",
+  "reflects compatibility across the full 17-resource model",
   "FORECAST PREVIEW",
   "PREDICTION 01",
   "PREDICTION 02",
