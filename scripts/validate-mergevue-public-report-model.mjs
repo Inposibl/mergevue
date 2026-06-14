@@ -343,12 +343,8 @@ const recoveredStpModel = buildMergevuePublicReportModel(demoSession, {
   generatedAt: "2026-06-12T00:00:00.000Z",
 });
 assert.equal(recoveredStpModel.compatibilityScoreAndDealScenario.compatibilityScore, 64.7);
-assert.equal(recoveredStpModel.metadata.frictionContentStatus.available, false);
-assert.deepEqual(recoveredStpModel.metadata.frictionContentStatus.degradedSurfaces, [
-  "collisionThesis",
-  "sealedPredictions",
-  "timelineOfExpectedFriction",
-]);
+assert.equal(recoveredStpModel.metadata.frictionContentStatus.available, true);
+assert.deepEqual(recoveredStpModel.metadata.frictionContentStatus.degradedSurfaces, []);
 assert.equal(/pending analysis/i.test(JSON.stringify(recoveredStpModel)), false, "PENDING friction content must not enter the public model.");
 
 const FINAL_DELIVERABLE_COMPATIBILITY_SOURCES = Object.freeze([

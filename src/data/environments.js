@@ -87,7 +87,7 @@ export const ENVIRONMENTS = Object.freeze([
     alias: "The Franchise Machine",
     shortDescription: "Engineered desire is the control mechanism. A pleasure-and-belonging facade masks scripted compliance, surveillance, wage suppression, and replaceability.",
     oneLineDefinition: "A commercially patterned environment that turns recognisable experience into repeatable consumption.",
-    authorityStructure: "Authority sits with those who control the customer ritual, the brand promise, and repeatable delivery.",
+    authorityStructure: "Authority sits with those who control the customer ritual, the brand promise, and repeatable delivery. Authority is concentrated in system-design roles; operational roles execute to a defined standard.",
     decisionMechanism: "Decisions follow demand signals, customer response, and protection of the repeatable experience.",
     innovationStance: "Innovation is useful when it improves adoption without breaking recognition or service consistency.",
     economicFunction: "Creates value through standardised experience, repeat purchase, brand familiarity, and service rhythm.",

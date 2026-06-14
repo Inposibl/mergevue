@@ -7154,7 +7154,7 @@ const PDF_ENVIRONMENT_DESCRIPTION_FALLBACKS = Object.freeze({
   "NT/STJ": "The Performance Arena converts goals into plans, metrics, accountability, and execution. Authority follows proven competence, measurable results, and reliable judgement.",
   "NT/STP": "The Disruption Lab breaks constraints through rapid experiments, tools, and technical moves. Authority belongs to the person whose working solution survives contact with reality.",
   "SFJ/SFP": "The Hometown Network coordinates people through reciprocity, memory, loyalty, and social continuity. Authority belongs to those who are known, trusted, and protective of the group.",
-  "SFP/SFJ": "The Franchise Machine turns recognisable experience into repeatable consumption. Authority sits with those who control the customer ritual, brand promise, and delivery pattern.",
+  "SFP/SFJ": "The Franchise Machine turns recognisable experience into repeatable consumption. Authority sits with those who control the customer ritual, brand promise, and delivery pattern. Authority is concentrated in system-design roles; operational roles execute to a defined standard.",
   "STJ/STP": "The Power Racket protects power through rules, enforcement, and resource capture. Authority belongs to those who control access, sanctions, territory, and permissions.",
   "STP/STJ": "The Enforcer Network resolves uncertainty through decisive action and hard accountability. Authority belongs to those who can act under pressure and enforce consequences.",
 });

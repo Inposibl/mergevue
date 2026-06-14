@@ -907,7 +907,7 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 82.4,
       "riskBand": "HIGH COMPATIBILITY",
       "fp1": "Rigour versus resonance decision authority. NF/NT decisions converge through the best argument. NF/SFP decisions emerge through collective feeling-resonance. NF/NT management attempting to introduce analytical rigour into NF/SFP decision processes finds that the argument quality mechanism is simply not accepted as legitimate. NF/SFP participants do not reject the analysis \u2014 they find it irrelevant to how they actually decide.",
-      "fp2": "Accountability introduction. NF/SFP has no accountability mechanism. NF/NT introduces argument quality as an accountability criterion \u2014 a creative position that cannot withstand rigorous analytical challenge loses standing. NF/SFP creative personnel experience this as a suppression of authentic creative expression in favour of intellectual performance.",
+      "fp2": "Accountability introduction. NF/SFP has no formal accountability mechanism. NF/NT introduces argument quality as an accountability criterion: positions that cannot withstand rigorous challenge lose authority. NF/SFP creative personnel experience this as suppression of authentic creative expression in favour of intellectual performance.",
       "fp3": "Knowledge depth versus aesthetic expression. NF/NT's primary resource is theoretical knowledge with genuine explanatory power. NF/SFP's primary resource is authentic creative expression. These can coexist in individuals \u2014 many NF/SFP participants have NF/NT potential. But as institutional logics, they compete for the same cognitive and temporal resources. Under prolonged NF/NT governance, NF/SFP's aesthetic output progressively substitutes intellectual content for visceral authenticity.",
       "earlyWarningSignal": "Within 30 days: introduce a rigorous analytical critique of an NF/SFP creative output \u2014 not hostile, but precise. Observe whether the response is intellectual engagement or emotional withdrawal. Emotional withdrawal (experienced as analytical critique being 'not the point') confirms that NF/SFP resonance-authority is still the operative mechanism.",
       "primaryConflictedResources": "Organisation/System (~NF/NT vs \u2212NF/SFP), Money (~NF/NT vs ~NF/SFP), Decisiveness (~NF/NT vs ~NF/SFP)"
@@ -919,7 +919,7 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 67.6,
       "riskBand": "MODERATE-HIGH",
       "fp1": "Innovation framing conflict. SFJ/SFP accepts change only when framed as an extension of tradition. NF/NT introduces change through rigorous argument that tradition is factually incorrect. NF/NT acquirers find that their analytical case for change is structurally irrelevant to SFJ/SFP participants, who evaluate proposals not by their evidential quality but by their continuity with established relational norms.",
-      "fp2": "Cognitive entry requirement versus relational inclusion. NF/NT requires formal operations stage II cognitive development as a practical prerequisite for participation. SFJ/SFP's inclusion criterion is relational fit \u2014 participation depends on having been present long enough to earn trust. These selection mechanisms produce fundamentally different talent pools, and NF/NT's cognitive standards are experienced by SFJ/SFP participants as exclusion rather than quality control.",
+      "fp2": "Cognitive entry requirement versus relational inclusion. NF/NT requires formal operations stage II cognitive development as a practical prerequisite for participation. SFJ/SFP's inclusion criterion is relational fit \u2014 tenure, embeddedness, and trust within the community. These selection mechanisms produce fundamentally different talent pools, and NF/NT's cognitive standards are experienced by SFJ/SFP participants as exclusion rather than quality control.",
       "fp3": "Knowledge conservation versus generation. SFJ/SFP conserves accumulated resources within its relational network \u2014 knowledge is held by tenured insiders and not freely shared outside. NF/NT requires free knowledge exchange as its core operating mechanism. The tension between SFJ/SFP's conservation instinct and NF/NT's generation-and-sharing ethic progressively reduces knowledge flow, which is the resource NF/NT depends on.",
       "earlyWarningSignal": "Within 30 days: introduce an NF/NT participant \u2014 someone outside the relational network \u2014 into a key knowledge exchange. Observe whether SFJ/SFP participants share freely or selectively. Selective sharing with long-tenure insiders but opacity with outsiders (including NF/NT management) is the direct signal.",
       "primaryConflictedResources": "Knowledge (+NF/NT vs \u2212SFJ/SFP), Information (+NF/NT vs ~SFJ/SFP), Creativity (+NF/NT vs \u2212SFJ/SFP)"
@@ -945,7 +945,7 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "fp1": "Evidence challenge of sacred doctrine. NF/NT's primary mechanism is the revision of beliefs based on better evidence. NF/SFJ's primary mechanism is the protection of beliefs through authority and heresy suppression. When NF/NT acquirers attempt to apply evidence-based evaluation to NF/SFJ target beliefs, the response is institutional \u2014 the evaluation method itself is rejected as incompatible with the sacred framework.",
       "fp2": "Argument quality versus narrative authority. NF/NT: best argument wins. NF/SFJ: most mission-aligned voice wins. NF/NT management cannot establish legitimate authority in NF/SFJ terms \u2014 analytic precision is not the currency NF/SFJ recognises. NF/SFJ target leadership retains real authority because they control the narrative, while NF/NT acquirer management holds only formal authority.",
       "fp3": "Meaning generation versus meaning extraction. NF/NT generates meaning through rigorous inquiry and genuine discovery. NF/SFJ extracts meaning from participants by converting it into a controlled resource. The integration of these two mechanisms produces one of the most destructive environment combinations in the matrix \u2014 NF/NT's generative capacity is gradually captured by NF/SFJ's extraction mechanism, converting knowledge creation into doctrine.",
-      "earlyWarningSignal": "Within 30 days: introduce a substantive analytical challenge to one NF/SFJ belief. Measure whether the response is 'let us examine the evidence' or 'that misunderstands what we are doing here.' The latter response, especially if delivered by someone with narrative authority rather than analytical authority, confirms the NF/SFJ structure is intact.",
+      "earlyWarningSignal": "Within 30 days: introduce a substantive analytical challenge to one NF/SFJ belief. Measure whether the response is evidence examination or a claim that the challenge misunderstands the organisation's purpose. The latter response, especially if delivered by someone with narrative authority rather than analytical authority, confirms the NF/SFJ structure is intact.",
       "primaryConflictedResources": "Energy (+NF/NT vs \u2212NF/SFJ), Attention (+NF/NT vs \u2212NF/SFJ), Information (+NF/NT vs \u2212NF/SFJ), Trust (+NF/NT vs \u2212NF/SFJ)"
     },
     {
@@ -967,9 +967,9 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "ecs": 88.2,
       "riskBand": "HIGH COMPATIBILITY",
       "fp1": "Sacred narrative aligning with commercial extraction. NF/SFJ and SFP/SFJ both extract resources through belief management \u2014 NF/SFJ through sacred meaning, SFP/SFJ through engineered desire. The ECS score of 88.2 reflects this structural alignment. The integration friction is minimal at the level of mechanism, but significant at the level of narrative: NF/SFJ requires participants to believe in something transcendent; SFP/SFJ requires them to desire something commercial.",
-      "fp2": "Mission versus consumption as the belief object. The compatibility between NF/SFJ and SFP/SFJ is highest of any pair in the matrix precisely because both manipulate belief. The friction appears when the objects of belief come into conflict \u2014 when a belief that immediate reward is already deserved meets a belief that the organisation is building something sacred \u2014 two value systems that do not share a common standard of legitimacy. These are not inherently incompatible but become so when resources are scarce.",
+      "fp2": "Mission versus consumption as the belief object. The compatibility between NF/SFJ and SFP/SFJ is highest of any pair in the matrix precisely because both manipulate belief. The friction appears when the objects of belief come into conflict \u2014 when participants are asked to simultaneously hold SFP/SFJ consumption belief around immediate deserved access and NF/SFJ mission belief around sacred collective purpose. These are not inherently incompatible but become so when resources are scarce.",
       "fp3": "Elite extraction alignment. Both NF/SFJ and SFP/SFJ extract resources upward through the hierarchy. The integration produces an environment where the extraction mechanism operates at two levels: ideological extraction (NF/SFJ) and commercial extraction (SFP/SFJ). Participants at lower levels experience a doubling of extraction pressure that eventually overcomes even strong belief-retention.",
-      "earlyWarningSignal": "Within 30 days: observe whether the target's commercial consumption messaging is integrated with the acquirer's mission narrative, or kept separate. Integration of the two belief systems into a single narrative is the signal that two loyalty systems are being combined into one layered structure.",
+      "earlyWarningSignal": "Within 30 days: observe whether SFP/SFJ's commercial consumption messaging is integrated with NF/SFJ's mission narrative or kept separate. Integration of the two belief systems into a single narrative is the signal that both belief-management mechanisms are being combined.",
       "primaryConflictedResources": "Trust (\u2212NF/SFJ vs \u2212SFP/SFJ \u2014 both suppress)"
     },
     {
@@ -1041,7 +1041,7 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "fp1": "Sacred narrative versus evidence-based authority. NF/SFJ's authority belongs to those most associated with the founding mission. NT/STJ's authority belongs to those with the strongest performance track record. NF/SFJ acquirers installing narrative-based authority displace NT/STJ's meritocratic structure immediately \u2014 the first promotion or appointment based on mission alignment rather than performance data signals the change.",
       "fp2": "Heresy mechanism suppressing analytical dissent. NF/SFJ's dissent management works by repositioning challengers as lacking commitment to the mission. NT/STJ's highest-performing analysts are precisely the people most likely to challenge assumptions with new evidence. NF/SFJ's heresy mechanism systematically suppresses NT/STJ's analytical culture.",
       "fp3": "Competence exit under ideological management. NT/STJ selects for intellectual performance and competitive excellence. NF/SFJ selects for mission alignment and doctrinal compliance. These selection criteria do not overlap. NT/STJ's best performers \u2014 those least interested in ideological compliance and most interested in competitive results \u2014 exit within 9\u201315 months.",
-      "earlyWarningSignal": "Within 30 days: observe how NF/SFJ acquirer management responds to the first analytical challenge to a core belief from an NT/STJ target employee. 'That misunderstands what we are about' as a response to an analytically sound challenge confirms the heresy mechanism is active.",
+      "earlyWarningSignal": "Within 30 days: observe how NF/SFJ acquirer management responds to the first analytical challenge to a core belief from an NT/STJ target employee. A purpose-defence response to an analytically sound challenge confirms the heresy mechanism is active.",
       "primaryConflictedResources": "Information (\u2212NF/SFJ vs +NT/STJ), Energy (\u2212NF/SFJ vs +NT/STJ), Knowledge (\u2212NF/SFJ vs +NT/STJ)"
     },
     {
@@ -1134,7 +1134,7 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "targetEnvironmentCode": "NT/STP",
       "ecs": 91.2,
       "riskBand": "HIGH COMPATIBILITY",
-      "fp1": "Decision-cycle friction. NT/STP target leaders expect to resolve disagreements by running a live test immediately. NT/STJ governance requires structured modelling, stakeholder input, and formal recommendation before action. Target managers interpret the approval cycle as bureaucratic interference; Days 30\u201360 friction is around 'why can't we just try it?'",
+      "fp1": "Decision-cycle friction. NT/STP target leaders expect to resolve disagreements by running a live test immediately. NT/STJ governance requires structured modelling, stakeholder input, and formal recommendation before action. Target managers interpret the approval cycle as bureaucratic interference; Days 30\u201360 friction centres on the blocked impulse to test immediately.",
       "fp2": "Documentation and process compliance burden. NT/STJ systems require formal documentation of experiments, structured milestone reporting, and version-controlled decisions. NT/STP culture produces documentation after the test, not before. The compliance cost falls on the people who generated the target's value, suppressing their output.",
       "fp3": "Talent departure among the target's highest-performing technical operators. NT/STP environments select for individuals with high tolerance for ambiguity and low tolerance for procedural constraint. By Month 9\u201312, those individuals have received enough evidence that the operating environment has permanently changed. Departure probability is highest among the people NT/STJ acquirers most need to retain.",
       "earlyWarningSignal": "Within 30 days: count the number of informal experiments or unilateral tests that target managers attempt without prior approval. A high count indicates active NT/STP culture still operating. Watch for the first incident where an experiment is stopped mid-execution by the acquirer's governance layer \u2014 target team reaction to that incident is the most reliable signal of integration trajectory.",
@@ -1173,7 +1173,7 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "fp1": "Accountability structure shock. NF/SFP has no internal performance accountability mechanism \u2014 the only authority is aesthetic credibility, which cannot be formally measured. NT/STJ introduces symmetric performance accountability with defined metrics and formal review. Target creative personnel experience this as an attack on the nature of creative work itself, not as a management improvement.",
       "fp2": "Resource allocation logic inversion. NF/SFP spends resources into creative expression \u2014 the flow direction is outward and downward. NT/STJ allocates resources to competitive performance \u2014 the flow is upward through the hierarchy based on results. The financial and operational disciplines NT/STJ introduces directly suppress the resource-spending logic that NF/SFP requires to function.",
       "fp3": "Creative output collapse. By Month 9, the individuals who generated the target's creative value have been exposed to long enough tenure under NT/STJ governance to show measurable output degradation. The work that appears is technically competent but lacks the quality that justified the acquisition premium. This is not performance failure \u2014 it is the predictable result of a creative environment operating under a structure that suppresses its primary resource: unconstrained creative expression.",
-      "earlyWarningSignal": "Within 30 days: introduce one formal reporting requirement for creative output (even a minimal one \u2014 a weekly summary, a project status template). Observe the organisational response, not the compliance rate. NF/SFP cultures experience formal reporting as a category error \u2014 creative feeling cannot be reduced to a formal report, and the demand to do so reads as a challenge to the work itself. If the response is disproportionate to the reporting burden, the incompatibility is active.",
+      "earlyWarningSignal": "Within 30 days: introduce one formal reporting requirement for creative output \u2014 even a minimal one, such as a weekly summary or project status template. Measure the emotional response, not the compliance rate. NF/SFP cultures experience formal reporting as a category error: formal reporting cannot capture feeling. If the response is disproportionate to the reporting burden, the incompatibility is active.",
       "primaryConflictedResources": "Organisation/System (+NT/STJ vs \u2212NF/SFP), Money (+NT/STJ vs ~NF/SFP), Will/Discipline (+NT/STJ vs ~NF/SFP), Decisiveness (+NT/STJ vs ~NF/SFP)"
     },
     {
@@ -1209,7 +1209,7 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "fp1": "Accountability structure incompatibility. SFP/SFJ enforces metrics downward and protects leadership unconditionally. NT/STJ requires symmetric accountability at all levels. The collision is immediate: NT/STJ's first performance review of SFP/SFJ leadership activates a defensive response that the SFP/SFJ system has never needed to manage, because accountability never previously reached upward.",
       "fp2": "Resource flow logic inversion. SFP/SFJ extracts value upward through engineered desire and throughput optimisation. NT/STJ invests resources in competitive capability development \u2014 flowing resources to high performers regardless of level. The NT/STJ reinvestment logic directly undermines the SFP/SFJ extraction model that generated the target's financial returns.",
       "fp3": "Talent retention mechanism failure. SFP/SFJ retains people through structural lock-in (debt, schedule dependency, high replacement cost). NT/STJ retains people through work quality. Under NT/STJ governance, SFP/SFJ's structural retention mechanisms are removed or weakened \u2014 but NT/STJ's work-quality retention requires an environment that SFP/SFJ has not been building. The result is rapid talent exit from lower and middle levels within 12\u201318 months.",
-      "earlyWarningSignal": "Within 30 days: examine whether middle-level SFP/SFJ managers apply performance standards to their peers and superiors as readily as to their subordinates. Asymmetric accountability is the fastest indicator of SFP/SFJ structural logic still operating. If senior figures are exempt from the same reviews applied downward, the SFP/SFJ core is intact and NT/STJ governance is surface-only.",
+      "earlyWarningSignal": "Within 30 days: compare how the same performance standard is applied upward and downward inside the target. If system-design roles receive exceptions that are not applied to operational roles, the target's prior authority pattern is still operating. If standards are applied symmetrically across levels, the acquirer's Performance Arena governance is beginning to take hold.",
       "primaryConflictedResources": "Trust (~NT/STJ vs \u2212SFP/SFJ), Knowledge (+NT/STJ vs \u2212SFP/SFJ), Attention (+NT/STJ vs \u2212SFP/SFJ), Connections (~NT/STJ vs \u2212SFP/SFJ)"
     },
     {
@@ -1266,10 +1266,10 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "targetEnvironmentCode": "SFJ/SFP",
       "ecs": 55.9,
       "riskBand": "MODERATE",
-      "fp1": "Empirical test versus relational authority conflict. SFJ/SFP decisions are made by the most trusted person \u2014 trust defined by relationship tenure. NT/STP resolves disagreements through empirical testing. The first major decision where NT/STP proposes 'let's test it' and SFJ/SFP resists because 'that's not how we do things here' defines the integration trajectory. Both mechanisms are internally coherent; they are structurally incompatible.",
+      "fp1": "Empirical test versus relational authority conflict. SFJ/SFP decisions are made by the most trusted person \u2014 trust defined by relationship tenure. NT/STP resolves disagreements through empirical testing. The first major decision where NT/STP proposes a live test and SFJ/SFP resists because the process violates established custom defines the integration trajectory. Both mechanisms are internally coherent; they are structurally incompatible.",
       "fp2": "Failure tolerance inversion. NT/STP treats intelligent failure as information and explicitly penalises not testing. SFJ/SFP assigns social stigma to failure \u2014 even intelligent failure results in quiet loss of relational standing. NT/STP's failure tolerance culture directly violates SFJ/SFP's social preservation mechanism, disrupting the relational fabric that SFJ/SFP requires to function.",
       "fp3": "Community versus performance retention divergence. SFJ/SFP retains people through relational bonds \u2014 leaving feels like betraying colleagues. NT/STP retains through work quality and interesting problems. These mechanisms require different operating conditions. NT/STP's performance culture disrupts the relational conditions that SFJ/SFP retention depends on, but NT/STP's work-quality retention requires a different talent profile than SFJ/SFP has been selecting for.",
-      "earlyWarningSignal": "Within 30 days: propose a rapid experiment that would change an established SFJ/SFP process. Measure not whether the experiment is approved, but how it is refused. 'We've always done it this way' as the primary objection is the direct signal of SFJ/SFP innovation resistance. If the refusal is relational rather than analytical, SFJ/SFP logic is active.",
+      "earlyWarningSignal": "Within 30 days: propose a rapid experiment that would change an established SFJ/SFP process. Measure not whether the experiment is approved, but how it is refused. Refusal based on established custom rather than analytical objection is the direct signal of SFJ/SFP innovation resistance. If the refusal is relational rather than analytical, SFJ/SFP logic is active.",
       "primaryConflictedResources": "Organisation/System (~NT/STP vs \u2212SFJ/SFP), Knowledge (+NT/STP vs \u2212SFJ/SFP), Decisiveness (+NT/STP vs \u2212SFJ/SFP), Creativity (+NT/STP vs \u2212SFJ/SFP)"
     },
     {
@@ -1470,7 +1470,7 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "targetEnvironmentCode": "NT/STJ",
       "ecs": 76.5,
       "riskBand": "MODERATE-HIGH",
-      "fp1": "Accountability asymmetry reimposition. NT/STJ's symmetric accountability is its primary differentiator from STJ/STP. STJ/STP acquirers installing asymmetric accountability \u2014 standards downward but exemption upward \u2014 immediately undermine the meritocratic authority that NT/STJ talent joined the environment for. The signal is received within 30 days: if senior figures are exempt from the performance standards applied to subordinates, NT/STJ culture is being replaced.",
+      "fp1": "Accountability asymmetry reimposition. NT/STJ's symmetric accountability is its primary differentiator from STJ/STP. If STJ/STP acquirer governance applies standards downward while allowing senior-level exceptions, it weakens the meritocratic authority that NT/STJ talent joined the environment for. The 30-day signal is whether the same performance standard is applied across hierarchy levels. Symmetric application means NT/STJ accountability is still operating; senior-level exceptions mean STJ/STP accountability logic is replacing it.",
       "fp2": "Coercive redistribution versus competitive performance. STJ/STP takes resources from those without the power to defend them and transfers them upward. NT/STJ distributes resources based on performance outcomes. STJ/STP governance of an NT/STJ organisation redirects resource flows upward through the hierarchy \u2014 the NT/STJ performance incentive structure degrades as the coercive extraction structure is installed.",
       "fp3": "Intellectual versus physical authority. NT/STJ's authority is earned through intellectual performance and measurable results. STJ/STP's authority is held through demonstrated physical or social dominance. NT/STJ's highest-performing intellectual contributors are not selected by STJ/STP's authority logic \u2014 they are typically the people least able to project dominance. They exit within 12 months.",
       "earlyWarningSignal": "Within 30 days: observe whether STJ/STP acquirer leadership applies the same review and consequence process to a senior NT/STJ target figure as they would to a junior one. Asymmetric treatment of the first significant performance issue at senior level is the clearest and fastest confirmation that STJ/STP accountability logic is replacing NT/STJ's symmetric structure.",
@@ -1554,11 +1554,11 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "targetEnvironmentCode": "STJ/STP",
       "ecs": 91.2,
       "riskBand": "HIGH COMPATIBILITY",
-      "fp1": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "fp2": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "fp3": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "earlyWarningSignal": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "primaryConflictedResources": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored."
+      "fp1": "Mandate inversion. STP/STJ runs on authority sanctioned from above; acquiring the apex that issues sanction inverts the structure. The recruiter layer now owns the enforcement core, but its operating habits still assume a principal overhead. In the first 30-60 days, top-level decision rights are contested because neither side's logic provides for an STP/STJ principal.",
+      "fp2": "Force versus recruitment as enforcement default. STJ/STP units escalate to direct coercion when resisted; STP/STJ management governs through incentive-laden recruitment. The acquirer's softer enforcement reads as weakness inside the target, and STJ/STP middle ranks begin testing boundaries \u2014 probing whether the new owner will actually punish.",
+      "fp3": "Regression pull. Canon identifies STP/STJ \u2192 STJ/STP regression when the intermediary position is consolidated through force rather than recruitment skill. Holding an acquired force structure tempts the acquirer to govern by force; the management layer collapses into the coercive core, trading scalability for control. The combined entity drifts to the more primitive operating logic.",
+      "earlyWarningSignal": "Within 30 days: watch whether acquirer managers begin issuing direct punitive sanctions instead of restructured incentive deals. The first punitive bypass of the recruitment mechanism signals regression onset.",
+      "primaryConflictedResources": "Attention (+STP/STJ vs ~STJ/STP), Connections (+STP/STJ vs ~STJ/STP), Health (\u2212STP/STJ vs ~STJ/STP). No direct oppositions: the 91.2 score reflects aligned extraction logic, not organisational health (see aligned-suppression caveat, ST_ECS_Derivation_Method_v1)."
     },
     {
       "sourceRow": 73,
@@ -1566,11 +1566,11 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "targetEnvironmentCode": "NT/STJ",
       "ecs": 73.5,
       "riskBand": "MODERATE-HIGH",
-      "fp1": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "fp2": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "fp3": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "earlyWarningSignal": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "primaryConflictedResources": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored."
+      "fp1": "Merit illegible to protection logic. NT/STJ standing is earned through measurable results; the acquirer reads standing as positional loyalty. In the first organisational review the acquirer attempts to map performers into a protection hierarchy \u2014 offering cover and a cut where performers expect metrics and expanded mandate.",
+      "fp2": "Knowledge suppression meets knowledge currency. NT/STJ invests in knowledge as its primary competitive resource; the acquirer treats strategic questioning as insubordination. Top performers discover that asking why a mandate exists is career-negative \u2014 the environment's core incentive loop (competence \u2192 influence) is cut at the source.",
+      "fp3": "Talent flight of the meritocratic core. NT/STJ performers hold maximum external options; once influence decouples from competence, the highest performers exit first. Canon places NT/STJ on the upward path out of STP/STJ \u2014 acquiring a merit environment and degrading it removes the very retention engine that made it valuable.",
+      "earlyWarningSignal": "Within 30 days: watch whether acquirer managers respond to high performance with protection offers (\u2018stay close to me\u2019) rather than expanded mandate. Substitution of patronage for promotion signals the conversion attempt.",
+      "primaryConflictedResources": "Knowledge (\u2212STP/STJ vs +NT/STJ), Trust (\u2212STP/STJ vs ~NT/STJ), Information (~STP/STJ vs +NT/STJ)"
     },
     {
       "sourceRow": 74,
@@ -1578,11 +1578,11 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "targetEnvironmentCode": "NT/STP",
       "ecs": 70.6,
       "riskBand": "MODERATE-HIGH",
-      "fp1": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "fp2": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "fp3": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "earlyWarningSignal": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "primaryConflictedResources": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored."
+      "fp1": "Test authority versus mandate authority. NT/STP grants authority to whatever the live test demonstrates; the acquirer grants it to sanctioned position. The first time a test result contradicts a sanctioned decision, the acquirer overrides empirics with hierarchy \u2014 and the target reads this as the system declaring facts negotiable.",
+      "fp2": "Tactical freedom without strategic freedom. Both environments share tactical ingenuity, which masks the divide initially. NT/STP iterates toward whatever works, including revising the goal itself; STP/STJ prohibits questioning the mandate. Experiments that threaten the redistribution logic are quietly defunded, and engineers learn which questions are unaskable.",
+      "fp3": "The lab hollows out. NT/STP retention runs on unconstrained testing; constrained to sanctioned directions, the environment becomes ordinary operations. Builders leave for unconstrained labs. What remains is a tooling shop serving extraction \u2014 the capability premium paid at close evaporates.",
+      "earlyWarningSignal": "Within 30 days: track whether any experiment is stopped for a non-resource reason \u2014 not budget, not safety, but mandate. One non-resource kill order is the signal.",
+      "primaryConflictedResources": "Knowledge (\u2212STP/STJ vs +NT/STP), Information (~STP/STJ vs +NT/STP), Creativity (~STP/STJ vs +NT/STP)"
     },
     {
       "sourceRow": 75,
@@ -1590,11 +1590,11 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "targetEnvironmentCode": "SFP/SFJ",
       "ecs": 35.3,
       "riskBand": "MODERATE-LOW",
-      "fp1": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "fp2": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "fp3": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "earlyWarningSignal": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "primaryConflictedResources": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored."
+      "fp1": "Activation versus sedation. The acquirer needs recruits \u2014 people with will, skills and decisiveness convertible into intermediaries. The target population is structurally sedated: compliance through comfort, not participation. Recruitment pitches meet inertia; the acquirer reads the workforce as raw material that fails intake.",
+      "fp2": "Incentive grammar mismatch. STP/STJ offers protection-plus-cut for active participation in a protected deal; the SFP/SFJ population expects protection-for-passivity. Raising activity requirements breaks the sedation contract: anxiety rises, the comfort wrap tears, and compliance degrades without converting into participation.",
+      "fp3": "System legibility. SFP/SFJ depends on participants not thinking about the system; STP/STJ requires informed complicity \u2014 participants must see the deal. Making extraction legible to a sedated population triggers exit among those who can leave and unrest among those who cannot, destroying the asset that was purchased: a quiet, compliant base.",
+      "earlyWarningSignal": "Within 30 days: monitor uptake of the first activity-linked incentive scheme. Near-zero uptake combined with rising anxiety indicators (absence, complaints) means the sedation contract is breaking without conversion.",
+      "primaryConflictedResources": "Will/discipline (+STP/STJ vs \u2212SFP/SFJ), Decisiveness (+STP/STJ vs \u2212SFP/SFJ), Skills (+STP/STJ vs \u2212SFP/SFJ) \u2014 three of eight direct oppositions"
     },
     {
       "sourceRow": 76,
@@ -1602,11 +1602,11 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "targetEnvironmentCode": "SFJ/SFP",
       "ecs": 61.8,
       "riskBand": "MODERATE",
-      "fp1": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "fp2": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "fp3": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "earlyWarningSignal": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "primaryConflictedResources": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored."
+      "fp1": "Trust as glue versus trust as surface. The target runs on personal trust; the acquirer's logic treats trust as an exploitable interface. Early relationship-building by acquirer managers is instrumental recruitment, and the target initially cannot tell the difference \u2014 the network's openness is the attack surface.",
+      "fp2": "Conversion of belonging into obligation. Favours granted by new management begin carrying repayment expectations; the family idiom is reused as leverage through obligation-framing. Members feel the shift before they can name it, and trust degrades network-wide rather than person-by-person.",
+      "fp3": "Network exodus or capture. Hometown Networks retain through belonging; once belonging is monetised into obligation, the network either exits collectively \u2014 anchored by its most connected members, so key-person risk is collective \u2014 or is captured into a local protection structure. Either outcome destroys the retention asset.",
+      "earlyWarningSignal": "Within 30 days: listen for reciprocity language attached to routine support (\u2018remember who approved this\u2019). Obligation framing on ordinary favours is the conversion signal.",
+      "primaryConflictedResources": "Trust (\u2212STP/STJ vs +SFJ/SFP), Will/discipline (+STP/STJ vs \u2212SFJ/SFP), Organisation/System (+STP/STJ vs \u2212SFJ/SFP)"
     },
     {
       "sourceRow": 77,
@@ -1614,11 +1614,11 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "targetEnvironmentCode": "NF/SFJ",
       "ecs": 35.3,
       "riskBand": "MODERATE-LOW",
-      "fp1": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "fp2": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "fp3": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "earlyWarningSignal": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "primaryConflictedResources": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored."
+      "fp1": "Mission vocabulary capture. The acquirer immediately recognises the target's strongest asset \u2014 a population trained not to question \u2014 and pitches participation in mission terms. It works at first. FP1 here is the absence of visible friction: compliance is inherited, not earned, and the integration dashboard shows green.",
+      "fp2": "Values discovery. Mission-driven members discover the conditional compliance logic behind the new mandates. The canonical misalignment pathway activates: recruited through values, retained through conditional participation. NF-profile members experience rapid neurosis; the devotional frame curdles into cynicism or breakdown.",
+      "fp3": "Moral collapse cascade. Mission Field retention is purpose; once purpose is exposed as cover, departure is not gradual \u2014 it cascades through the belief network. Those who remain are those who convert to informed complicity, which changes the asset's identity: the acquirer keeps the shell and loses the engine.",
+      "earlyWarningSignal": "Within 30 days: friction will NOT be visible \u2014 that is itself the signal. Audit whether new directives are justified to staff in mission language that the directives' content contradicts. The width of that gap predicts FP2 severity.",
+      "primaryConflictedResources": "Will/discipline (+STP/STJ vs \u2212NF/SFJ), Influence (+STP/STJ vs \u2212NF/SFJ), Energy (+STP/STJ vs \u2212NF/SFJ) \u2014 three of eight direct oppositions"
     },
     {
       "sourceRow": 78,
@@ -1626,11 +1626,11 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "targetEnvironmentCode": "NF/SFP",
       "ecs": 64.7,
       "riskBand": "MODERATE",
-      "fp1": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "fp2": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "fp3": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "earlyWarningSignal": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "primaryConflictedResources": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored."
+      "fp1": "Structure imposed on an expressive community. The acquirer installs hierarchical accountability on an environment whose output depends on unstructured trust and emotional safety. Creative production drops under monitored conditions \u2014 visible within the first 30-60 days as missed output, not protest.",
+      "fp2": "Trust extraction. Creators' personal openness becomes management information; vulnerability shared in community settings resurfaces in performance conversations. Self-censorship spreads, and the commons' core mechanism \u2014 authentic expression among people who understand them \u2014 stops functioning while attendance figures still look normal.",
+      "fp3": "Slow-burn depletion. Canon calibrates NF/SFP degradation as invisible in months 1-12 and visible in 12-18. The most authentic creators \u2014 whose presence anchored others' sense of safety \u2014 leave first, and each anchor departure accelerates the next. By the time output metrics register the loss, the community is unrecoverable.",
+      "earlyWarningSignal": "Within 30 days: watch whether informal creative sessions migrate off official channels and spaces. Channel migration is the community's first self-protection move.",
+      "primaryConflictedResources": "Trust (\u2212STP/STJ vs +NF/SFP), Health (\u2212STP/STJ vs +NF/SFP), Organisation/System (+STP/STJ vs \u2212NF/SFP)"
     },
     {
       "sourceRow": 79,
@@ -1638,11 +1638,11 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "targetEnvironmentCode": "NF/NT",
       "ecs": 64.7,
       "riskBand": "MODERATE",
-      "fp1": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "fp2": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "fp3": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "earlyWarningSignal": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "primaryConflictedResources": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored."
+      "fp1": "Argument authority versus positional authority. NF/NT grants standing to the most precise argument; the acquirer grants it to sanctioned position. At the first contested decision where a junior researcher's argument defeats a manager's mandate, the acquirer enforces position \u2014 and the academy registers epistemic vandalism.",
+      "fp2": "Knowledge as threat. The acquirer structurally suppresses strategic questioning; the academy's entire output is questioning. Research agendas are redirected to sanctioned topics; peer review survives in form and dies in function \u2014 review that cannot reject the mandate is theatre, and everyone inside knows it.",
+      "fp3": "Portable currency exits. The academy's assets \u2014 reputation and knowledge \u2014 travel with the individual. Researchers exit to environments where argument still wins; the remainder converts to credentialed legitimation of the acquirer's claims. The academy becomes a certification function for conclusions reached elsewhere.",
+      "earlyWarningSignal": "Within 30 days: track the first instance of a research conclusion edited for mandate compatibility before internal circulation. Pre-circulation editing is the capture signal.",
+      "primaryConflictedResources": "Knowledge (\u2212STP/STJ vs +NF/NT), Trust (\u2212STP/STJ vs +NF/NT), Information (~STP/STJ vs +NF/NT)"
     },
     {
       "sourceRow": 81,
@@ -1650,11 +1650,11 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "targetEnvironmentCode": "STP/STJ",
       "ecs": 64.7,
       "riskBand": "MODERATE",
-      "fp1": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "fp2": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "fp3": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "earlyWarningSignal": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "primaryConflictedResources": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored."
+      "fp1": "Transparency demand meets tribute reporting. NF/NT expects open argumentation and complete information; the target's information moves upward as filtered tribute, curated at every layer. The first post-close internal review returns polished narratives; the academy reads bad faith, the target reads standard practice.",
+      "fp2": "Legitimacy interrogation. NF/NT cannot refrain from questioning the mandate \u2014 interrogating premises is its operating system. The acquirer's questions dissolve the target's load-bearing ambiguity: everyone knows, nobody says. Middle managers face a choice between articulating the extraction logic aloud (impossible) and stonewalling (career-ending under the new owner).",
+      "fp3": "Structure dissolves without replacement. The protection-for-complicity deal is voided by owners who govern through argument, not protection; intermediaries lose both function and cover. The adaptively capable take the canonical upward exit; the rest are an enforcement layer with nothing to enforce. Performance collapses precisely in the layer the org chart labels management.",
+      "earlyWarningSignal": "Within 30 days: count direct answers to direct questions in management meetings. A persistent deflection pattern concentrated at one hierarchy layer maps the intermediary protection structure exactly.",
+      "primaryConflictedResources": "Knowledge (+NF/NT vs \u2212STP/STJ), Trust (+NF/NT vs \u2212STP/STJ), Information (+NF/NT vs ~STP/STJ)"
     },
     {
       "sourceRow": 82,
@@ -1662,11 +1662,11 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "targetEnvironmentCode": "STP/STJ",
       "ecs": 35.3,
       "riskBand": "MODERATE-LOW",
-      "fp1": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "fp2": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "fp3": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "earlyWarningSignal": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "primaryConflictedResources": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored."
+      "fp1": "Mutual misrecognition. The mission acquirer reads the target's loyalty structures as shared devotion; the target reads mission language as a new protection brand. Both sides believe integration is going well. It is not \u2014 and the MODERATE-LOW score with an invisible honeymoon is the most dangerous configuration in the matrix.",
+      "fp2": "Sanctification of extraction. Target intermediaries adopt mission vocabulary fluently \u2014 adaptive capacity is their core skill \u2014 and continue extraction under sacred cover. The acquirer's question-nothing norm disables its own audit capacity: this is the worst possible control environment for this target.",
+      "fp3": "Discovery event. Extraction under mission cover eventually surfaces \u2014 whistleblower, audit, external scandal. A mission environment cannot metabolise informed complicity: revelation triggers an institutional crisis of faith, a leadership purge, and reputational damage that attaches to the mission brand itself, not just the acquired unit.",
+      "earlyWarningSignal": "Within 30 days: test whether target managers can describe their operations without mission vocabulary. Fluent re-skinning of unchanged practices is the capture signal.",
+      "primaryConflictedResources": "Will/discipline (\u2212NF/SFJ vs +STP/STJ), Influence (\u2212NF/SFJ vs +STP/STJ), Money (\u2212NF/SFJ vs +STP/STJ)"
     },
     {
       "sourceRow": 83,
@@ -1674,11 +1674,11 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "targetEnvironmentCode": "STP/STJ",
       "ecs": 64.7,
       "riskBand": "MODERATE",
-      "fp1": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "fp2": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "fp3": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "earlyWarningSignal": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "primaryConflictedResources": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored."
+      "fp1": "Authenticity meets the performance of authenticity. The creative acquirer manages through trust and emotional openness; target managers perform openness expertly. The acquirer's people-reading is calibrated to authentic signals and systematically misfires against professionals of adaptation.",
+      "fp2": "Soft governance exploited. The commons' weak formal controls leave the target's internal protection economy intact and unmonitored. Target intermediaries expand it into the acquirer's own structure, recruiting ambitious staff from the creative side with offers belonging cannot match.",
+      "fp3": "Reverse colonisation. By months 6-18 the harder structure wins by default: protection deals outcompete belonging in retaining ambitious people, and the acquirer discovers parts of its own organisation now answer to informal patrons. The acquisition has run backwards.",
+      "earlyWarningSignal": "Within 30 days: map who newly sponsors cross-organisational requests. Informal gatekeepers appearing on the acquirer's side of the boundary is the first colonisation marker.",
+      "primaryConflictedResources": "Trust (+NF/SFP vs \u2212STP/STJ), Health (+NF/SFP vs \u2212STP/STJ), Organisation/System (\u2212NF/SFP vs +STP/STJ)"
     },
     {
       "sourceRow": 84,
@@ -1686,11 +1686,11 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "targetEnvironmentCode": "STP/STJ",
       "ecs": 73.5,
       "riskBand": "MODERATE-HIGH",
-      "fp1": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "fp2": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "fp3": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "earlyWarningSignal": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "primaryConflictedResources": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored."
+      "fp1": "Performance transparency versus derived authority. NT/STJ installs measurable individual performance as the basis of standing. STP/STJ middle-layer authority is sanctioned from above, not earned through output \u2014 its real function is recruitment and extraction throughput, which the acquirer's metrics do not register. The first performance review makes this layer's contribution illegible, and illegibility reads as threat.",
+      "fp2": "Knowledge opposition. NT/STJ amplifies knowledge as a competitive resource and expects transparent information flow. STP/STJ suppresses strategic knowledge structurally \u2014 questioning the mandate is prohibited, and information moves upward as tribute, filtered at each layer. Target managers deliver reporting that is formally compliant and substantively empty; the acquirer reads concealment, the target reads survival.",
+      "fp3": "Intermediary entrenchment versus adaptive exit. The target's actual resource \u2014 adaptive individuals \u2014 is exactly the population NT/STJ promotes on merit. Once protection no longer outvalues exit, complicity dissolves: the most capable leave the intermediary structure first (some upward into the acquirer's logic, some out), while entrenched managers defend extraction positions or regress to direct coercion. The acquirer inherits the layer it least wanted.",
+      "earlyWarningSignal": "Within 30 days: observe whether target middle managers translate the acquirer's performance criteria into protection terms when communicating downward \u2014 deliver the numbers and receive protection. Reframing merit as a new protection deal signals the intermediary protection structure is absorbing the performance logic rather than adopting it.",
+      "primaryConflictedResources": "Knowledge (+NT/STJ vs \u2212STP/STJ), Trust (~NT/STJ vs \u2212STP/STJ), Information (+NT/STJ vs ~STP/STJ)"
     },
     {
       "sourceRow": 85,
@@ -1698,11 +1698,11 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "targetEnvironmentCode": "STP/STJ",
       "ecs": 70.6,
       "riskBand": "MODERATE-HIGH",
-      "fp1": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "fp2": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "fp3": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "earlyWarningSignal": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "primaryConflictedResources": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored."
+      "fp1": "Empirical audit shock. NT/STP tests everything immediately \u2014 including the target's claimed performance. The first live tests of target operations expose the gap between reported and actual throughput; tribute-shaped reporting fails its first contact with measurement.",
+      "fp2": "Discard logic versus protection logic. NT/STP discards what fails the test; target staff are embedded in protection deals where discarding a person breaks a web of obligations. Every termination triggers a disproportionate political response from the protection network \u2014 the acquirer reads sabotage, the target reads contract enforcement.",
+      "fp3": "Selective conversion. Adaptive individuals \u2014 the target's real asset \u2014 thrive once moved into honest test environments: the capacity was real, the complicity was contextual. But intermediaries whose only function was managing protection fail every empirical measure. Months 6-18 produce a hard split: converted talent versus an unemployable management layer fighting for survival through politics.",
+      "earlyWarningSignal": "Within 30 days: compare the first independent measurement of any target unit against its last internal report. The gap size predicts FP2 intensity and maps which managers were tribute-reporting.",
+      "primaryConflictedResources": "Knowledge (+NT/STP vs \u2212STP/STJ), Information (+NT/STP vs ~STP/STJ), Psychological resilience (+NT/STP vs ~STP/STJ)"
     },
     {
       "sourceRow": 86,
@@ -1710,11 +1710,11 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "targetEnvironmentCode": "STP/STJ",
       "ecs": 61.8,
       "riskBand": "MODERATE",
-      "fp1": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "fp2": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "fp3": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "earlyWarningSignal": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "primaryConflictedResources": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored."
+      "fp1": "Family idiom asymmetry. The acquirer extends belonging genuinely; target managers parse it as a protection offer and reciprocate in patronage currency. Early warmth is mutual and means different things on each side \u2014 the friction is real and invisible.",
+      "fp2": "Network infiltration. Target intermediaries map the acquirer's informal trust network \u2014 who vouches for whom \u2014 and convert vouching into brokerage. The family network's absence of formal controls provides no immune response: there is no rule the infiltration breaks.",
+      "fp3": "Trust economy capture. The network's retention mechanism \u2014 mutual belonging \u2014 is gradually re-priced into favours-for-loyalty. Long-tenured members feel the change, disengage or leave, and the acquirer's environment degrades toward the target's logic. The softer structure loses by default.",
+      "earlyWarningSignal": "Within 30 days: watch for brokered introductions replacing open ones (\u2018talk to him through me\u2019). Brokerage inserted into a previously open network is the first capture move.",
+      "primaryConflictedResources": "Trust (+SFJ/SFP vs \u2212STP/STJ), Health (+SFJ/SFP vs \u2212STP/STJ), Will/discipline (\u2212SFJ/SFP vs +STP/STJ)"
     },
     {
       "sourceRow": 87,
@@ -1722,11 +1722,11 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "targetEnvironmentCode": "STP/STJ",
       "ecs": 35.3,
       "riskBand": "MODERATE-LOW",
-      "fp1": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "fp2": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "fp3": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "earlyWarningSignal": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "primaryConflictedResources": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored."
+      "fp1": "Tempo collision. The acquirer's machinery runs on passive, slow, comfort-mediated compliance; the target runs on fast tactical activity and explicit deals. Target operators find acquirer processes intolerably inert; the acquirer finds the target's operators destabilising.",
+      "fp2": "Comfort wrap versus the visible deal. The acquirer attempts to wrap target operations in its standard comfort-and-compliance idiom. The target's explicit-deal culture treats euphemism as an insult to intelligence \u2014 its people know what the system is and prefer the honest version of the deal. Discipline drops when the deal is disguised.",
+      "fp3": "Activity drain. The target's operators \u2014 selected for decisiveness, skills and will \u2014 are exactly the capacities the acquirer's environment suppresses. Over months 6-18 the active layer exits to environments that pay for activity; the remainder assimilates into sedation. The acquirer keeps the infrastructure and loses the operating capability it paid for.",
+      "earlyWarningSignal": "Within 30 days: measure decision latency on target-side requests routed through acquirer process. Latency doubling plus the first voluntary exits among top tactical operators marks drain onset.",
+      "primaryConflictedResources": "Decisiveness (\u2212SFP/SFJ vs +STP/STJ), Skills (\u2212SFP/SFJ vs +STP/STJ), Will/discipline (\u2212SFP/SFJ vs +STP/STJ) \u2014 three of eight direct oppositions"
     },
     {
       "sourceRow": 88,
@@ -1734,11 +1734,11 @@ export const FINAL_DELIVERABLE_DATA = Object.freeze({
       "targetEnvironmentCode": "STP/STJ",
       "ecs": 91.2,
       "riskBand": "HIGH COMPATIBILITY",
-      "fp1": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "fp2": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "fp3": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "earlyWarningSignal": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored.",
-      "primaryConflictedResources": "\u26a0 PENDING ANALYSIS \u2014 friction-point content not yet authored."
+      "fp1": "Apex absorbs its own management layer \u2014 the most structurally natural acquisition in the matrix, and near-zero resource conflict. FP1 is enforcement overreach: the apex applies direct-force habits to a layer that runs on incentive recruitment, and early heavy-handed directives prompt intermediaries to assert their value through compliance delivery that direct force cannot produce.",
+      "fp2": "Margin compression on the cut. Intermediary loyalty is a protection calculation: cut plus protection must exceed outside options. Acquirer pressure to raise upward tribute compresses the cut; for the most capable recruiters the calculation flips, and they quietly shop for new patrons or build parallel books.",
+      "fp3": "Defection or regression. Months 6-18 resolve one of two ways: key intermediaries defect with their networks \u2014 the books are theirs, not the firm's, so key-person risk is the network itself \u2014 or the apex replaces recruitment with force (canonical regression), trading scalability for control and shrinking the system back to STJ/STP scale.",
+      "earlyWarningSignal": "Within 30 days: track retention of the target's top decile of recruiters and any change in the granularity of their upward reporting. Coarsening reports precede defection.",
+      "primaryConflictedResources": "Attention (~STJ/STP vs +STP/STJ), Connections (~STJ/STP vs +STP/STJ), Health (~STJ/STP vs \u2212STP/STJ). No direct oppositions: 91.2 reflects aligned extraction logic, not organisational health (see aligned-suppression caveat, ST_ECS_Derivation_Method_v1)."
     }
   ],
   "screenCopy": {
