@@ -1374,11 +1374,14 @@ function renderCoverControlMove(model) {
   const groups = Array.isArray(model?.resourceConflictMap?.groups) ? model.resourceConflictMap.groups : [];
   const items = resourceSummaryItems({ groups });
   const watch = items.filter((resource) => resource.band === "high" || resource.band === "moderate").map((resource) => resource.name);
-  const aligned = items.filter((resource) => resource.band === "aligned").map((resource) => resource.name);
+  const alignedAll = items.filter((resource) => resource.band === "aligned");
+  const aligned = alignedAll.filter((resource) => alignedResourceKind(resource.direction) === "asset").map((resource) => resource.name);
+  const blindSpots = alignedAll.filter((resource) => alignedResourceKind(resource.direction) !== "asset").map((resource) => resource.name);
   const listText = (items) => items.length <= 1 ? (items[0] || "") : `${items.slice(0, -1).join(", ")} and ${items[items.length - 1]}`;
   const watchText = watch.length ? `Track friction around ${listText(watch)}.` : "No primary low-match resource zone is visible in this preview.";
   const alignedText = aligned.length ? `Protect ${listText(aligned)} as alignment assets.` : "";
-  return `${watchText} ${alignedText} Freeze irreversible operating-model changes until Day 60 before deciding what to integrate, simplify, or preserve.`.replace(/\s+/g, " ").trim();
+  const blindSpotText = blindSpots.length ? `Treat ${listText(blindSpots)} as shared blind spots, not assets.` : "";
+  return `${watchText} ${alignedText} ${blindSpotText} Freeze irreversible operating-model changes until Day 60 before deciding what to integrate, simplify, or preserve.`.replace(/\s+/g, " ").trim();
 }
 function renderArchiveExecutive(model) {
   const score = model.compatibility.score;
@@ -1465,6 +1468,14 @@ function isTechnicalResourceDirection(text) {
   return /[+~-].+\bvs\b/i.test(value) || /\(.+\bvs\b.+\)/i.test(value);
 }
 
+function alignedResourceKind(direction) {
+  const parts = cleanText(direction).split("/").map((s) => s.trim().split(/\s+/)[0].toLowerCase());
+  const verbs = parts.filter((v) => v === "suppresses" || v === "amplifies" || v === "neutral");
+  if (verbs.includes("suppresses")) return "suppression";
+  if (verbs.includes("amplifies")) return "asset";
+  return "neutral";
+}
+
 function explainResourceInPractice(resource, band = "moderate") {
   const name = cleanText(resource.name || resource.label);
   const key = name.toLowerCase();
@@ -1475,6 +1486,9 @@ function explainResourceInPractice(resource, band = "moderate") {
       : "an alignment asset";
 
   if (band === "aligned") {
+    const alignedKind = alignedResourceKind(resource.direction);
+    if (alignedKind === "suppression") return `${name} reads as aligned only because both sides suppress it the same way. This is a shared blind spot, not a protected asset — low contestation here means neither side is investing in it. Watch for it to surface as a gap once integration begins.`;
+    if (alignedKind === "neutral") return `${name} shows low current salience for both sides. It is neither a contested zone nor an active strength — monitor it rather than treating it as an alignment asset.`;
     if (key.includes("health")) return "Health is currently an alignment asset. Protect sustainable pace and avoid integration pressure that turns endurance into burnout.";
     if (key.includes("connections")) return "Connections are currently an alignment asset. Preserve informal coordination and key relationship holders while formal governance is redesigned.";
     if (key.includes("trust")) return "Trust is currently an alignment asset. Protect disclosure quality, credibility, and psychological safety during integration decisions.";
