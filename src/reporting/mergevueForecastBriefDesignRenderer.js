@@ -145,7 +145,7 @@ function resourceBandLookup(groups = []) {
     const rows = Array.isArray(group?.rows) ? group.rows : [];
     for (const row of rows) {
       const name = cleanText(row?.label || row?.name);
-      if (name && band) lookup.set(name.toLowerCase(), band);
+      if (name && band) lookup.set(name.toLowerCase(), { band, direction: cleanText(row?.direction) });
     }
   }
   return lookup;
@@ -162,8 +162,10 @@ function alignedActionRationale(actionTitle, rationale, resourceGroups) {
   if (!resourceName) return rationale;
   const lookup = resourceBandLookup(resourceGroups);
   const normalizedName = resourceName.toLowerCase();
-  const band = lookup.get(normalizedName) || (normalizedName.includes("organization") ? lookup.get("organisation / system") : "");
+  const entry = lookup.get(normalizedName) || (normalizedName.includes("organization") ? lookup.get("organisation / system") : null);
+  const band = entry?.band || "";
   if (band !== "aligned") return rationale;
+  if (alignedResourceKind(entry?.direction) !== "asset") return rationale;
   const key = resourceName.toLowerCase();
 
   if (key.includes("health")) return "Health is an alignment asset. The risk is not current health conflict; the risk is damaging sustainable pace if integration pressure turns endurance into burnout.";
