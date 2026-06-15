@@ -1539,12 +1539,20 @@ function renderResourceConflictSummary(section) {
     : alignedItems.slice(0, 3);
 
   const watchNames = watchItems.map((resource) => resource.name).join(", ");
-  const alignedNames = alignedItems.map((resource) => resource.name).join(", ");
+  const assetItems = alignedItems.filter((resource) => alignedResourceKind(resource.direction) === "asset");
+  const blindItems = alignedItems.filter((resource) => alignedResourceKind(resource.direction) !== "asset");
+  const assetNames = assetItems.map((resource) => resource.name).join(", ");
+  const blindNames = blindItems.map((resource) => resource.name).join(", ");
+  const alignedSentence = assetItems.length && blindItems.length
+    ? `${assetNames} are genuine alignment assets to protect; ${blindNames} read as aligned only because both sides suppress or under-invest in them the same way, so treat them as shared blind spots rather than strengths.`
+    : assetItems.length
+      ? `${assetNames} are genuine alignment assets: they should be protected during integration, not treated as current conflict zones.`
+      : `${blindNames} read as aligned only because both sides suppress or under-invest in them the same way. That low contestation is a shared blind spot, not a strength: protect against silent gaps rather than assuming these resources are safe.`;
   const intro = watchItems.length && alignedItems.length
-    ? `The map does not say that the deal will fail. It separates current watch areas from alignment assets. In this case, the main watch areas are ${watchNames}. ${alignedNames} are alignment assets: they should be protected during integration, not treated as current conflict zones.`
+    ? `The map does not say that the deal will fail. It separates current watch areas from alignment signals. In this case, the main watch areas are ${watchNames}. ${alignedSentence}`
     : watchItems.length
       ? `The map does not say that the deal will fail. It shows where the two operating environments have low or partial structural match. In this case, the main watch areas are ${watchNames}. These are the places where integration decisions need the most control.`
-      : `The map does not say that the deal will fail. It shows that the listed resources are currently alignment assets. The main task is to protect ${alignedNames} during integration so that existing strengths are not damaged by careless operating-model changes.`;
+      : `The map does not say that the deal will fail. ${alignedSentence}`;
 
   const rows = displayItems.map((resource) => {
     const explanation = explainResourceInPractice(resource, resource.band);
