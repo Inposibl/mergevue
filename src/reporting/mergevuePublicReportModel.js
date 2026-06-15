@@ -527,8 +527,22 @@ function publicFrictionText(text) {
   return cleanString(value);
 }
 
+function hasUsableAnchors(deliverable) {
+  const anchors = deliverable?.anchors ?? [];
+  return anchors.length >= 3 && anchors.slice(0, 3).every((a) => a?.text && !isPendingFrictionText(a.text));
+}
+function homogeneousClaim(anchor, window) {
+  const text = cleanString(anchor?.text);
+  const firstSentence = text.split(/(?<=\.)\s/)[0] || text;
+  const clause = firstSentence.replace(/\.$/, "");
+  const phase = window === TIMING_LOGIC.signalSetup ? "In the first 30 days"
+    : window === TIMING_LOGIC.observationWindow ? "During Days 30-60"
+    : "By Day 60";
+  return `${phase}: ${clause}.`;
+}
 function buildPredictions(deliverable, doctrineClass) {
-  if (!hasCanonicalFrictionContent(deliverable)) return [];
+  if (!hasCanonicalFrictionContent(deliverable) && !hasUsableAnchors(deliverable)) return [];
+  const isHomogeneous = cleanString(deliverable?.acquirerAlias) === cleanString(deliverable?.targetAlias) && Boolean(cleanString(deliverable?.acquirerAlias));
   const anchors = (deliverable?.anchors ?? []).map((anchor) => (
     isPendingFrictionText(anchor?.text) ? null : anchor
   ));
@@ -543,15 +557,15 @@ function buildPredictions(deliverable, doctrineClass) {
     {
       predictionTitle: "Signal setup",
       predictionWindow: TIMING_LOGIC.signalSetup,
-      predictionClaim: clientFacingPredictionText("Within Day 0–30: review whether mission-linked communication forums, decision meetings, or governance routines begin using acquirer-side authority signals, or whether acquirer-side management forums adopt target-side mission language. The direction of language adoption indicates which integration mechanism is becoming dominant.", 0),
+      predictionClaim: isHomogeneous ? homogeneousClaim(anchors[0], TIMING_LOGIC.signalSetup) : clientFacingPredictionText("Within Day 0–30: review whether mission-linked communication forums, decision meetings, or governance routines begin using acquirer-side authority signals, or whether acquirer-side management forums adopt target-side mission language. The direction of language adoption indicates which integration mechanism is becoming dominant.", 0),
       observableSignal: clientFacingPredictionText(anchors[0]?.text ?? fallbackPredictionText(deliverable), 0),
-      verificationMethod: "Review Day 0–30 communication-forum notes, decision-meeting records, governance routines, management forum language, decision logs, and examples of acquirer-side authority signals or target-side mission language moving across the integration boundary.",
+      verificationMethod: isHomogeneous ? "Review Day 0–30 communication-forum notes, decision-meeting records, governance routines, and decision logs for early signs that the two same-environment leadership groups are competing for the same decision authority." : "Review Day 0–30 communication-forum notes, decision-meeting records, governance routines, management forum language, decision logs, and examples of acquirer-side authority signals or target-side mission language moving across the integration boundary.",
       recommendedAction: actionCopy(0, "Protect the highest-risk operating resource before irreversible integration changes begin."),
     },
     {
       predictionTitle: "Observation window",
       predictionWindow: TIMING_LOGIC.observationWindow,
-      predictionClaim: clientFacingPredictionText("During Days 30–60: review whether mission-linked authority loses decision visibility, or whether decision rights move into acquirer-controlled enforcement routines before the target’s trust-preserving routines are understood.", 1),
+      predictionClaim: isHomogeneous ? homogeneousClaim(anchors[1], TIMING_LOGIC.observationWindow) : clientFacingPredictionText("During Days 30–60: review whether mission-linked authority loses decision visibility, or whether decision rights move into acquirer-controlled enforcement routines before the target’s trust-preserving routines are understood.", 1),
       observableSignal: clientFacingPredictionText(anchors[1]?.text ?? "Repeated friction in planning, authority, information flow, or resource allocation.", 1),
       verificationMethod: "Review Days 30–60 operating meeting notes, escalation records, handoff documents, decision-rights updates, planning-cycle changes, and examples where trust-preserving routines are bypassed before their value is understood.",
       recommendedAction: actionCopy(2, "Separate preservation from simplification while the repeated friction pattern is tested."),
@@ -559,7 +573,7 @@ function buildPredictions(deliverable, doctrineClass) {
     {
       predictionTitle: "Early checkpoint",
       predictionWindow: TIMING_LOGIC.verificationDeadline,
-      predictionClaim: clientFacingPredictionText("Review Day 60 evidence on retention exposure, delivery confidence, knowledge continuity, operating rhythm, knowledge-transfer logs, early departures or disengagement signals, and whether systematised knowledge is becoming harder to preserve under integration pressure.", 2),
+      predictionClaim: isHomogeneous ? homogeneousClaim(anchors[2], TIMING_LOGIC.verificationDeadline) : clientFacingPredictionText("Review Day 60 evidence on retention exposure, delivery confidence, knowledge continuity, operating rhythm, knowledge-transfer logs, early departures or disengagement signals, and whether systematised knowledge is becoming harder to preserve under integration pressure.", 2),
       observableSignal: clientFacingPredictionText("Day 60 is the escalation checkpoint. If retention exposure, delivery confidence, knowledge continuity, or operating rhythm show early stress, the preview should convert into the paid workflow for ECS decomposition, artifact review, and role-level control design.", 2),
       verificationMethod: "Use the Day 60 review to decide whether early retention, delivery-confidence, knowledge-continuity, or operating-rhythm signals require escalation into the paid workflow.",
       recommendedAction: actionCopy(1, "Run the Day 60 early-checkpoint review and decide whether the risk should be escalated into full engagement monitoring, revised, or lowered."),
