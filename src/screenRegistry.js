@@ -1,4 +1,5 @@
 export const SCREEN_REGISTRY = Object.freeze([
+  { id: "diagnostic-before-you-begin", title: "Before You Begin", route: "/start-diagnostic/before-you-begin" },
   { id: "deal-context-acquisition-motive", title: "Deal Context / Acquisition Motive", route: "/start-diagnostic/deal-context" },
   { id: "deal-context-refine-evidence-quality", title: "Refine evidence quality (optional)", route: "/start-diagnostic/deal-context/refine-evidence-quality" },
   { id: "deal-context-transaction-details", title: "Acquirer Transaction Context", route: "/start-diagnostic/deal-context/details" },
@@ -45,7 +46,7 @@ export function screenByRoute(route) {
     return { id: "interaction-environments", title: "The 9 Interaction Environments", route, environmentId };
   }
   if (route === "/start-diagnostic" || route === "/screen-2-role") {
-    return { id: "deal-context-acquisition-motive", title: "Deal Context / Acquisition Motive", route: "/start-diagnostic/deal-context" };
+    return { id: "diagnostic-before-you-begin", title: "Before You Begin", route: "/start-diagnostic/before-you-begin" };
   }
   return SCREEN_REGISTRY.find((screen) => screen.route === route) ?? SCREEN_REGISTRY[0];
 }

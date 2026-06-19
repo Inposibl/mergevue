@@ -531,7 +531,74 @@ const SIDEBAR_NAV_ITEMS = Object.freeze([
   Object.freeze({ label: "About Methodology", route: "/about-methodology", section: "methodology" }),
   Object.freeze({ label: "The 9 Interaction Environments", route: "/environments", section: "environments" }),
   Object.freeze({ label: "Case Studies", route: "/case-studies", section: "case-studies" }),
-  Object.freeze({ label: "Start Diagnostic", route: "/start-diagnostic/deal-context", section: "diagnostic" }),
+  Object.freeze({ label: "Start Diagnostic", route: "/start-diagnostic/before-you-begin", section: "diagnostic" }),
+]);
+
+const DIAGNOSTIC_GATE_RECEIVE_ITEMS = Object.freeze([
+  Object.freeze({
+    title: "1. A structural compatibility read",
+    paragraphs: Object.freeze([
+      "You will receive an Environment Compatibility Score (ECS) — an estimate of structural compatibility between the two identified operating environments and where friction risk may still appear.",
+      "A lower ECS points to more visible structural friction. A higher ECS points to stronger surface alignment — but a high score is not automatic reassurance. Sometimes two environments look compatible because they under-protect, suppress, or weaken the same capabilities in the same way. The preview flags where a high score still needs scrutiny.",
+    ]),
+  }),
+  Object.freeze({
+    title: "2. A post-close friction preview",
+    paragraphs: Object.freeze([
+      "The report identifies likely post-close friction zones, watchpoints, and control implications based on your current inputs.",
+      "It helps answer:",
+      "Where could integration start to break down after close?",
+    ]),
+  }),
+  Object.freeze({
+    title: "3. A watch-and-control timeline",
+    paragraphs: Object.freeze([
+      "The free preview gives review windows for early integration risk:",
+      "Before Day 30\nDays 30-60\nDay 60 checkpoint",
+      "Each watchpoint is paired with evidence to inspect and a suggested control action.",
+    ]),
+  }),
+  Object.freeze({
+    title: "4. A selected integration-priority view",
+    paragraphs: Object.freeze([
+      "The preview shows selected exposed resources where integration pressure may concentrate.",
+      "This is not a full decomposition of the ECS calculation. It is a directional integration-priority view.",
+    ]),
+  }),
+  Object.freeze({
+    title: "5. Directional economic exposure triage",
+    paragraphs: Object.freeze([
+      "The report provides a directional view of where economic leakage is most likely to appear first — for example through talent continuity, decision delay, earn-out credibility, or knowledge continuity.",
+      "This is a decision posture, not a valuation.",
+    ]),
+  }),
+]);
+
+const DIAGNOSTIC_GATE_LIMIT_ITEMS = Object.freeze([
+  Object.freeze({
+    title: "A scored forecast ledger",
+    body: "The free preview does not create sealed, role-level forecast claims. Scored forecasts require the paid workflow and pre-outcome logging.",
+  }),
+  Object.freeze({
+    title: "A valuation or loss estimate",
+    body: "It is not a valuation opinion, impairment analysis, damages calculation, loss estimate, or investment-committee financial model.",
+  }),
+  Object.freeze({
+    title: "A final deal verdict",
+    body: "The preview does not say whether you should proceed, stop, renegotiate, retain, dismiss, or restructure.",
+  }),
+  Object.freeze({
+    title: "Role-level risk allocation",
+    body: "It does not yet identify exactly which role categories, leadership functions, teams, or operating dependencies carry the risk.",
+  }),
+  Object.freeze({
+    title: "A full mitigation plan",
+    body: "It does not yet allocate risk to protected routines, governance layers, value pools, owners, time windows, or mitigation levers.",
+  }),
+  Object.freeze({
+    title: "Employment or workforce decisions",
+    body: "This output does not make employment, retention, promotion, dismissal, disciplinary, compensation, or workforce decisions.",
+  }),
 ]);
 
 const HOME_COPY = Object.freeze({
@@ -662,9 +729,114 @@ function HomeScreen() {
             <h2 id="home-start-title">Begin the integration-risk diagnostic</h2>
             <p>Answer the deal-context questions first, then complete the environment modules required for the ECS read.</p>
           </div>
-          <a href="/start-diagnostic/deal-context" onClick={handleRouteClick("/start-diagnostic/deal-context")}>Start Diagnostic</a>
+          <a href="/start-diagnostic/before-you-begin" onClick={handleRouteClick("/start-diagnostic/before-you-begin")}>Start Diagnostic</a>
         </section>
       </section>
+    </main>
+  );
+}
+
+function DiagnosticGatePage() {
+  return (
+    <main className="screen-shell flow-screen compact-flow deal-context-screen diagnostic-gate-page">
+      <div className="diagnostic-gate-inner">
+        <header className="deal-context-intro diagnostic-gate-header">
+          <p className="eyebrow">START DIAGNOSTIC</p>
+          <h1>Before you begin.</h1>
+          <p className="lead">What the free diagnostic can and cannot tell you.</p>
+        </header>
+
+        <section className="diagnostic-gate-opening" aria-label="Public Structural Preview introduction">
+          <p>The free diagnostic produces a Public Structural Preview of post-close integration risk.</p>
+          <p>
+            It is designed to show where the two operating environments are most likely to create friction after close,
+            which early signals should be watched, and which integration-control questions should be tested first.
+          </p>
+          <p><strong>It is not a full paid engagement, a valuation model, or a final deal verdict.</strong></p>
+        </section>
+
+        <section className="diagnostic-gate-section" aria-labelledby="diagnostic-gate-receive">
+          <div className="diagnostic-gate-section-heading">
+            <p className="section-label" id="diagnostic-gate-receive">WHAT YOU WILL RECEIVE</p>
+          </div>
+          <div className="diagnostic-gate-card-grid">
+            {DIAGNOSTIC_GATE_RECEIVE_ITEMS.map((item) => (
+              <article className="diagnostic-gate-card" key={item.title}>
+                <h2>{item.title}</h2>
+                {item.paragraphs.map((paragraph) => (
+                  <p className={paragraph.includes("\n") ? "diagnostic-gate-lines" : ""} key={paragraph}>{paragraph}</p>
+                ))}
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="diagnostic-gate-section" aria-labelledby="diagnostic-gate-limits">
+          <div className="diagnostic-gate-section-heading">
+            <p className="section-label" id="diagnostic-gate-limits">WHAT THE FREE PREVIEW CANNOT DO</p>
+            <p>The free diagnostic does not produce:</p>
+          </div>
+          <div className="diagnostic-gate-card-grid">
+            {DIAGNOSTIC_GATE_LIMIT_ITEMS.map((item) => (
+              <article className="diagnostic-gate-card diagnostic-gate-limit-card" key={item.title}>
+                <h2>{item.title}</h2>
+                <p>{item.body}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="diagnostic-gate-context-grid">
+          <article className="diagnostic-gate-context-card">
+            <p className="section-label">WHY THESE LIMITS EXIST</p>
+            <p>The free preview is based on diagnostic inputs, not a full artifact review.</p>
+            <p>
+              The paid workflow is required when you need MergeVue to review operating artifacts, decompose ECS drivers,
+              test environment coding against evidence, design role-level integration controls, and log sealed forecasts
+              for later verification, where inputs are sufficient.
+            </p>
+          </article>
+          <article className="diagnostic-gate-context-card">
+            <p className="section-label">WHEN TO USE THE FREE PREVIEW</p>
+            <p>Use the free diagnostic when you want an early read on:</p>
+            <ul>
+              <li>whether the integration may fracture after close;</li>
+              <li>where the first control risks may appear;</li>
+              <li>what to inspect during the first 30-60 days;</li>
+              <li>whether the deal needs a deeper paid integration-risk review.</li>
+            </ul>
+          </article>
+          <article className="diagnostic-gate-context-card">
+            <p className="section-label">WHEN TO ESCALATE TO THE PAID WORKFLOW</p>
+            <p>Escalate when the deal requires:</p>
+            <ul>
+              <li>role-level risk allocation;</li>
+              <li>artifact-reviewed environment coding;</li>
+              <li>governance-control design;</li>
+              <li>value-pool exposure mapping;</li>
+              <li>Day 30 / 60 / 90 control planning;</li>
+              <li>sealed forecasts that can be checked against post-close outcomes.</li>
+            </ul>
+          </article>
+        </section>
+
+        <section className="diagnostic-gate-confirmation" aria-labelledby="diagnostic-gate-confirmation-title">
+          <div>
+            <p className="section-label" id="diagnostic-gate-confirmation-title">CONFIRMATION</p>
+            <p>
+              By continuing, I understand that the free diagnostic produces a Public Structural Preview. It is not a
+              scored forecast ledger, valuation opinion, loss estimate, employment or workforce decision tool, or final
+              deal verdict.
+            </p>
+          </div>
+          <div className="diagnostic-gate-action">
+            <button className="primary-flow-action" type="button" onClick={() => navigate("/start-diagnostic/deal-context")}>
+              Continue to Free Diagnostic
+            </button>
+            <p>No account. No card. Takes less than one hour.</p>
+          </div>
+        </section>
+      </div>
     </main>
   );
 }
@@ -8010,6 +8182,7 @@ export default function App() {
     if (screen.id === "interaction-environments") {
       return <EnvironmentsScreen environmentId={screen.environmentId} />;
     }
+    if (screen.id === "diagnostic-before-you-begin") return <DiagnosticGatePage />;
     if (screen.id === "deal-context-acquisition-motive") {
       return <AcquisitionMotiveScreen session={session} setSession={setSession} />;
     }

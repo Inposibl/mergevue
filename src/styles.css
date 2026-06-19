@@ -1244,6 +1244,143 @@ h1 {
   align-content: start;
 }
 
+.diagnostic-gate-page {
+  padding-bottom: 72px;
+  padding-top: 48px;
+}
+
+.diagnostic-gate-inner {
+  display: grid;
+  gap: 24px;
+  margin: 0 auto;
+  max-width: 980px;
+  width: min(980px, 100%);
+}
+
+.diagnostic-gate-header {
+  gap: 8px;
+}
+
+.diagnostic-gate-opening,
+.diagnostic-gate-card,
+.diagnostic-gate-context-card,
+.diagnostic-gate-confirmation {
+  background: #ffffff;
+  border: 1px solid #d9dee8;
+  border-radius: 8px;
+}
+
+.diagnostic-gate-opening {
+  display: grid;
+  gap: 10px;
+  padding: 20px;
+}
+
+.diagnostic-gate-opening p,
+.diagnostic-gate-card p,
+.diagnostic-gate-context-card p,
+.diagnostic-gate-confirmation p {
+  margin: 0;
+}
+
+.diagnostic-gate-section {
+  display: grid;
+  gap: 12px;
+}
+
+.diagnostic-gate-section-heading {
+  display: grid;
+  gap: 6px;
+}
+
+.diagnostic-gate-section-heading p {
+  margin: 0;
+}
+
+.diagnostic-gate-card-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.diagnostic-gate-card {
+  display: grid;
+  gap: 9px;
+  padding: 18px;
+}
+
+.diagnostic-gate-card h2 {
+  color: #0f172a;
+  font-size: 1rem;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.diagnostic-gate-card p,
+.diagnostic-gate-context-card p,
+.diagnostic-gate-context-card li {
+  color: #334155;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.diagnostic-gate-lines {
+  white-space: pre-line;
+}
+
+.diagnostic-gate-context-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.diagnostic-gate-context-card {
+  display: grid;
+  gap: 10px;
+  padding: 18px;
+}
+
+.diagnostic-gate-context-card ul {
+  display: grid;
+  gap: 5px;
+  margin: 0;
+  padding-left: 20px;
+}
+
+.diagnostic-gate-confirmation {
+  align-items: center;
+  display: grid;
+  gap: 24px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  padding: 20px;
+}
+
+.diagnostic-gate-confirmation > div:first-child {
+  display: grid;
+  gap: 8px;
+}
+
+.diagnostic-gate-action {
+  align-items: stretch;
+  display: grid;
+  gap: 8px;
+  justify-items: stretch;
+  min-width: 230px;
+}
+
+.diagnostic-gate-action button {
+  background: #183a63;
+  border-color: #183a63;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+.diagnostic-gate-action p {
+  color: #64748b;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
 .deal-context-form {
   display: grid;
   gap: 18px;
@@ -3464,9 +3601,21 @@ textarea {
   .motive-grid,
   .deal-identity-grid,
   .deal-economics-blocks,
+  .diagnostic-gate-card-grid,
+  .diagnostic-gate-context-grid,
+  .diagnostic-gate-confirmation,
   .preservation-grid,
   .transaction-option-grid {
     grid-template-columns: 1fr;
+  }
+
+  .diagnostic-gate-action {
+    justify-items: start;
+    min-width: 0;
+  }
+
+  .diagnostic-gate-action p {
+    text-align: left;
   }
 
   .landing-inner h1,
