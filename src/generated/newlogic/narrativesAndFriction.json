@@ -2962,198 +2962,6 @@
     ],
     "calibrationLogSchema": [
       {
-        "sourceRow": 4,
-        "domFunction": "CALIBRATION STATUS TABLE | N counter per function x transition | Update N after each CONFIRMED verification",
-        "transitionCategory": "",
-        "dealId": "",
-        "predictedTr": "",
-        "actualTr": "",
-        "error": "",
-        "nConfirmed": "",
-        "runningAvg": "",
-        "updateAppliedToBaseRates": ""
-      },
-      {
-        "sourceRow": 5,
-        "domFunction": "Dom. Function",
-        "transitionCategory": "NAT->FUNC\nN confirmed",
-        "dealId": "NAT->FUNC\nCurrent avg",
-        "predictedTr": "FUNC->STRESS\nN confirmed",
-        "actualTr": "FUNC->STRESS\nCurrent avg",
-        "error": "STRESS->RISK\nN confirmed",
-        "nConfirmed": "STRESS->RISK\nCurrent avg",
-        "runningAvg": "RISK->TOXIC\nN confirmed",
-        "updateAppliedToBaseRates": "RISK->TOXIC\nCurrent avg"
-      },
-      {
-        "sourceRow": 6,
-        "domFunction": "Ni1",
-        "transitionCategory": "0",
-        "dealId": "\u2014",
-        "predictedTr": "0",
-        "actualTr": "\u2014",
-        "error": "0",
-        "nConfirmed": "\u2014",
-        "runningAvg": "0",
-        "updateAppliedToBaseRates": "\u2014"
-      },
-      {
-        "sourceRow": 7,
-        "domFunction": "Te1",
-        "transitionCategory": "0",
-        "dealId": "\u2014",
-        "predictedTr": "0",
-        "actualTr": "\u2014",
-        "error": "0",
-        "nConfirmed": "\u2014",
-        "runningAvg": "0",
-        "updateAppliedToBaseRates": "\u2014"
-      },
-      {
-        "sourceRow": 8,
-        "domFunction": "Ti1",
-        "transitionCategory": "0",
-        "dealId": "\u2014",
-        "predictedTr": "0",
-        "actualTr": "\u2014",
-        "error": "0",
-        "nConfirmed": "\u2014",
-        "runningAvg": "0",
-        "updateAppliedToBaseRates": "\u2014"
-      },
-      {
-        "sourceRow": 9,
-        "domFunction": "Ne1",
-        "transitionCategory": "0",
-        "dealId": "\u2014",
-        "predictedTr": "0",
-        "actualTr": "\u2014",
-        "error": "0",
-        "nConfirmed": "\u2014",
-        "runningAvg": "0",
-        "updateAppliedToBaseRates": "\u2014"
-      },
-      {
-        "sourceRow": 10,
-        "domFunction": "Fe1",
-        "transitionCategory": "0",
-        "dealId": "\u2014",
-        "predictedTr": "0",
-        "actualTr": "\u2014",
-        "error": "0",
-        "nConfirmed": "\u2014",
-        "runningAvg": "0",
-        "updateAppliedToBaseRates": "\u2014"
-      },
-      {
-        "sourceRow": 11,
-        "domFunction": "Se1",
-        "transitionCategory": "0",
-        "dealId": "\u2014",
-        "predictedTr": "0",
-        "actualTr": "\u2014",
-        "error": "0",
-        "nConfirmed": "\u2014",
-        "runningAvg": "0",
-        "updateAppliedToBaseRates": "\u2014"
-      },
-      {
-        "sourceRow": 12,
-        "domFunction": "Si1",
-        "transitionCategory": "0",
-        "dealId": "\u2014",
-        "predictedTr": "0",
-        "actualTr": "\u2014",
-        "error": "0",
-        "nConfirmed": "\u2014",
-        "runningAvg": "0",
-        "updateAppliedToBaseRates": "\u2014"
-      },
-      {
-        "sourceRow": 13,
-        "domFunction": "Fi1",
-        "transitionCategory": "0",
-        "dealId": "\u2014",
-        "predictedTr": "0",
-        "actualTr": "\u2014",
-        "error": "0",
-        "nConfirmed": "\u2014",
-        "runningAvg": "0",
-        "updateAppliedToBaseRates": "\u2014"
-      },
-      {
-        "sourceRow": 14,
-        "domFunction": "CALIBRATION ACTIONS | Triggered by N counter in status table",
-        "transitionCategory": "",
-        "dealId": "",
-        "predictedTr": "",
-        "actualTr": "",
-        "error": "",
-        "nConfirmed": "",
-        "runningAvg": "",
-        "updateAppliedToBaseRates": ""
-      },
-      {
-        "sourceRow": 15,
-        "domFunction": "When N=5 for any cell",
-        "transitionCategory": "1. Filter CALIBRATION_LOG for that function + transition combination. 2. Compute average of Actual TR column. 3. Open ST_Transition_Rate_Engine_v1.xlsx BASE_RATES. 4. Replace the yellow prior value with the computed average. Change cell background to green. 5. Enter YES in Update_Applied column of this log for all contributing rows. 6. Update N counter in STATUS TABLE above.",
-        "dealId": "",
-        "predictedTr": "",
-        "actualTr": "",
-        "error": "",
-        "nConfirmed": "",
-        "runningAvg": "",
-        "updateAppliedToBaseRates": ""
-      },
-      {
-        "sourceRow": 16,
-        "domFunction": "When N=10 for any cell",
-        "transitionCategory": "All N=5 actions apply, plus: open ST_Transition_Rate_Engine_v1.xlsx CALC_OUTPUT. For each actor row where Dom.Function matches: update CB Lower formula from x0.75 to x0.85 and CB Upper from x1.25 to x1.15. Document the update here with date and deal IDs used.",
-        "dealId": "",
-        "predictedTr": "",
-        "actualTr": "",
-        "error": "",
-        "nConfirmed": "",
-        "runningAvg": "",
-        "updateAppliedToBaseRates": ""
-      },
-      {
-        "sourceRow": 17,
-        "domFunction": "When N=3 with all FALSIFIED outcomes",
-        "transitionCategory": "Methodology review required before further use of that function-transition pair. Flag in ACCURACY_DASHBOARD. Do not update BASE_RATES until falsification pattern is diagnosed. Common cause: baseline pressure assumption [2,2,2,2,2] may be miscalibrated for this environment class.",
-        "dealId": "",
-        "predictedTr": "",
-        "actualTr": "",
-        "error": "",
-        "nConfirmed": "",
-        "runningAvg": "",
-        "updateAppliedToBaseRates": ""
-      },
-      {
-        "sourceRow": 18,
-        "domFunction": "CALIBRATION ENTRIES | One row per CONFIRMED or PARTIAL Prediction 2 outcome",
-        "transitionCategory": "",
-        "dealId": "",
-        "predictedTr": "",
-        "actualTr": "",
-        "error": "",
-        "nConfirmed": "",
-        "runningAvg": "",
-        "updateAppliedToBaseRates": ""
-      },
-      {
-        "sourceRow": 19,
-        "domFunction": "Dom.\nFunction",
-        "transitionCategory": "Transition\nCategory",
-        "dealId": "Deal ID",
-        "predictedTr": "Predicted TR\n(months)",
-        "actualTr": "Actual TR\n(months)",
-        "error": "Error\n(actual-predicted)",
-        "nConfirmed": "N\n(running)",
-        "runningAvg": "Running avg\n(actual TR)",
-        "updateAppliedToBaseRates": "Update applied?"
-      },
-      {
         "sourceRow": 20,
         "domFunction": "Ni1",
         "transitionCategory": "NATURAL->FUNCTIONAL",
@@ -3161,9 +2969,9 @@
         "predictedTr": "18",
         "actualTr": "\u2014",
         "error": "\u2014",
-        "nConfirmed": "1",
+        "n": "1",
         "runningAvg": "\u2014",
-        "updateAppliedToBaseRates": "NO"
+        "updateApplied": "NO"
       },
       {
         "sourceRow": 21,
@@ -3173,9 +2981,9 @@
         "predictedTr": "",
         "actualTr": "",
         "error": "",
-        "nConfirmed": "",
+        "n": "",
         "runningAvg": "",
-        "updateAppliedToBaseRates": ""
+        "updateApplied": ""
       }
     ],
     "accuracyDashboardRows": [

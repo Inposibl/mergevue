@@ -11600,69 +11600,6 @@
           "evidenceLevel": "",
           "scoreRange": "",
           "interpretation": ""
-        },
-        {
-          "sourceRow": 10,
-          "evidenceQuestion": "CONFIDENCE BAND DEFINITIONS",
-          "selectedAnswer": "",
-          "evidenceScore": "",
-          "evidenceLevel": "",
-          "scoreRange": "",
-          "interpretation": ""
-        },
-        {
-          "sourceRow": 11,
-          "evidenceQuestion": "Score_Range",
-          "selectedAnswer": "Confidence_Level",
-          "evidenceScore": "Color_Code",
-          "evidenceLevel": "Interpretation",
-          "scoreRange": "Recommended_Action",
-          "interpretation": "Apply_To_Output"
-        },
-        {
-          "sourceRow": 12,
-          "evidenceQuestion": "10\u201312",
-          "selectedAnswer": "High confidence",
-          "evidenceScore": "Green",
-          "evidenceLevel": "Respondent had deep, multi-modal evidence exposure. Environment diagnosis can be treated as reliable.",
-          "scoreRange": "Proceed with full ECS calculation. Flag if primary score gap < 2.",
-          "interpretation": "High confidence \u2014 environment name and integration risk note both output."
-        },
-        {
-          "sourceRow": 13,
-          "evidenceQuestion": "7\u20139",
-          "selectedAnswer": "Moderate confidence",
-          "evidenceScore": "Amber",
-          "evidenceLevel": "Respondent had meaningful but not comprehensive exposure. Some evidence domains may be unobserved.",
-          "scoreRange": "Use environment diagnosis as working hypothesis. Recommend supplemental data collection if feasible.",
-          "interpretation": "Moderate confidence \u2014 output with qualification note."
-        },
-        {
-          "sourceRow": 14,
-          "evidenceQuestion": "4\u20136",
-          "selectedAnswer": "Weak signal",
-          "evidenceScore": "Orange",
-          "evidenceLevel": "Respondent had limited direct exposure. Diagnosis is based primarily on secondary or scripted materials.",
-          "scoreRange": "Flag environment diagnosis as preliminary. Do not use as primary ECS input without corroboration.",
-          "interpretation": "Weak signal \u2014 output with strong qualification; recommend target self-assessment instrument."
-        },
-        {
-          "sourceRow": 15,
-          "evidenceQuestion": "0\u20133",
-          "selectedAnswer": "Irresolvable",
-          "evidenceScore": "Red",
-          "evidenceLevel": "Insufficient evidence to produce a reliable environment diagnosis. Results are not actionable.",
-          "scoreRange": "Do not produce environment diagnosis. Recommend full diligence extension before ECS calculation.",
-          "interpretation": "Irresolvable \u2014 environment diagnosis suppressed; alert practitioner."
-        },
-        {
-          "sourceRow": 17,
-          "evidenceQuestion": "CURRENT CONFIDENCE LEVEL",
-          "selectedAnswer": "Irresolvable",
-          "evidenceScore": "",
-          "evidenceLevel": "",
-          "scoreRange": "",
-          "interpretation": ""
         }
       ]
     }

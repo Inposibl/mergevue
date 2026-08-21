@@ -188,17 +188,29 @@ class Workbook:
         return rows
 
 
-def table_records(workbook, sheet_name, required_header, *, allow_empty=False, block=None):
+def table_records(
+    workbook,
+    sheet_name,
+    required_header,
+    *,
+    allow_empty=False,
+    block=None,
+    stop_on_row_discontinuity=False,
+    header_source_row=None,
+):
     require_sheet(workbook, sheet_name, required_header, block=block)
     rows = workbook.read_rows(sheet_name)
     header_index = None
     header_values = None
     required = comparable_header(required_header)
-    for index, (_, values) in enumerate(rows):
-        if required in {comparable_header(value) for value in values.values()}:
-            header_index = index
-            header_values = values
-            break
+    for index, (row_number, values) in enumerate(rows):
+        if required not in {comparable_header(value) for value in values.values()}:
+            continue
+        if header_source_row is not None and row_number != header_source_row:
+            continue
+        header_index = index
+        header_values = values
+        break
 
     if header_index is None:
         raise extraction_error(workbook, sheet_name, required_header, "header_not_found", block=block)
@@ -208,7 +220,11 @@ def table_records(workbook, sheet_name, required_header, *, allow_empty=False, b
         raise extraction_error(workbook, sheet_name, required_header, "malformed_header", block=block)
 
     records = []
+    previous_row_number = rows[header_index][0]
     for row_number, values in rows[header_index + 1 :]:
+        if stop_on_row_discontinuity and row_number != previous_row_number + 1:
+            break
+        previous_row_number = row_number
         if not any(clean_text(value) for value in values.values()):
             continue
         record = {"sourceRow": row_number}
@@ -660,7 +676,13 @@ def parse_questionnaires():
                 "questions": parse_target_observed_questionnaire(workbook),
                 "answerKey": table_records(workbook, "Answer_Key", "Question_ID"),
                 "scoringModel": table_records(workbook, "Scoring_Model", "Environment_Code"),
-                "evidenceConfidence": table_records(workbook, "Evidence_Confidence", "Evidence_Question"),
+                "evidenceConfidence": table_records(
+                    workbook,
+                    "Evidence_Confidence",
+                    "Evidence_Question",
+                    block="evidenceConfidence",
+                    stop_on_row_discontinuity=True,
+                ),
             }
         )
 
@@ -692,8 +714,20 @@ def parse_scoring_and_triage():
             "pairSpecificWeights": table_records(dual, "2_Pair_Specific_Weights", "Candidate Pair", block="pairSpecificWeights"),
             "comparisonEngine": table_records(dual, "3_Comparison_Engine", "Q#", block="comparisonEngine"),
             "evidenceQualityLayer": table_records(dual, "4_Evidence_Quality_Layer", "Dimension", block="evidenceQualityLayer"),
-            "divergenceClassification": table_records(dual, "5_Divergence_Classification", "State"),
-            "contradictionOutput": table_records(dual, "6_Contradiction_Output", "Divergence State"),
+            "divergenceClassification": table_records(
+                dual,
+                "5_Divergence_Classification",
+                "State",
+                block="divergenceClassification",
+                stop_on_row_discontinuity=True,
+            ),
+            "contradictionOutput": table_records(
+                dual,
+                "6_Contradiction_Output",
+                "Divergence State",
+                block="contradictionOutput",
+                stop_on_row_discontinuity=True,
+            ),
             "edgeCases": table_records(dual, "7_Edge_Cases", "Edge Case", block="edgeCases"),
         }
 
@@ -703,9 +737,21 @@ def parse_scoring_and_triage():
             "triggerConditions": table_records(triage, "1_Trigger_Conditions", "Trigger"),
             "accuracyChecks": table_records(triage, "2_Accuracy_Check", "Check"),
             "reliabilityFlagTiers": table_records(triage, "3_Reliability_Flag_Count", "Tier"),
-            "reliabilityFlagRules": table_records(triage, "3_Reliability_Flag_Count", "Flag"),
+            "reliabilityFlagRules": table_records(
+                triage,
+                "3_Reliability_Flag_Count",
+                "Flag",
+                block="reliabilityFlagRules",
+                stop_on_row_discontinuity=True,
+            ),
             "contradictionTiers": table_records(triage, "4_Contradiction_Count", "Tier"),
-            "instrumentSelection": table_records(triage, "5_Instrument_Selection", "Trigger"),
+            "instrumentSelection": table_records(
+                triage,
+                "5_Instrument_Selection",
+                "Trigger",
+                block="instrumentSelection",
+                stop_on_row_discontinuity=True,
+            ),
             "verificationOutput": compact_rows(triage, "6_Verification_Output"),
             "practitionerEscalation": compact_rows(triage, "7_Practitioner_Escalation"),
             "decisionTree": table_records(triage, "8_Decision_Tree", "Step"),
@@ -759,7 +805,13 @@ def parse_narratives_and_friction():
             "sourceWorkbook": "ST_Prediction_Ledger_v1.xlsx",
             "sealedPredictionSchema": table_records(prediction, "SEALED_PREDICTIONS", "Deal ID"),
             "verificationLogSchema": table_records(prediction, "VERIFICATION_LOG", "Deal ID"),
-            "calibrationLogSchema": table_records(prediction, "CALIBRATION_LOG", "Dom. Function"),
+            "calibrationLogSchema": table_records(
+                prediction,
+                "CALIBRATION_LOG",
+                "Dom. Function",
+                block="calibrationLogSchema",
+                header_source_row=19,
+            ),
             "accuracyDashboardRows": compact_rows(prediction, "ACCURACY_DASHBOARD"),
             "agentReadInstructions": compact_rows(prediction, "AGENT_READ_INSTRUCTIONS"),
         }
