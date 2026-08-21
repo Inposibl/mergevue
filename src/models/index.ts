@@ -1,5 +1,6 @@
 export type {
   AccessLevel,
+  AcquisitionAwareness,
   AnalystAssessment,
   Answer,
   ApprovalStatus,
@@ -41,6 +42,8 @@ export type {
 } from './canonicalDataModel'
 
 export {
+  ACQUISITION_AWARENESS_OPTIONS,
+  ACQUISITION_AWARENESS_VALUES,
   CONFIDENCE_LEVEL_OPTIONS,
   CONFIDENCE_LEVELS,
   DEAL_SIDE_OPTIONS,
@@ -55,6 +58,7 @@ export {
   RESPONDENT_ROLE_OPTIONS,
   RISK_CATEGORIES,
   RISK_CATEGORY_OPTIONS,
+  isAcquisitionAwareness,
   isConfidenceLevel,
   isDealSide,
   isEvidenceType,

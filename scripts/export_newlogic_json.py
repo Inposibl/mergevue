@@ -459,9 +459,47 @@ def parse_ecs_matrix(workbook):
     return matrix
 
 
+def normalize_schema_version(value):
+    text = clean_text(value)
+    matches = re.findall(r"v?(\d+(?:\.\d+)?)", text, flags=re.IGNORECASE)
+    if not matches:
+        return None
+    token = matches[-1]
+    if re.fullmatch(r"\d+", token):
+        token = f"{token}.0"
+    parts = token.split(".")
+    if len(parts) != 2 or not all(part.isdigit() for part in parts):
+        return None
+    return f"v{int(parts[0])}.{int(parts[1])}"
+
+
+def parse_schema_version(workbook):
+    index_raw = ""
+    for row_number, values in workbook.read_rows("0_Index"):
+        if row_number == 1:
+            index_raw = values.get(1, "")
+            break
+    changelog_records = table_records(workbook, "19_ChangeLog", "Version")
+    changelog_raw = changelog_records[-1].get("version", "") if changelog_records else ""
+    index_version = normalize_schema_version(index_raw)
+    changelog_version = normalize_schema_version(changelog_raw)
+    if not index_version or not changelog_version:
+        raise ValueError(
+            "Canonical schema version missing or invalid: "
+            f"0_Index={index_raw!r} 19_ChangeLog={changelog_raw!r}"
+        )
+    if index_version != changelog_version:
+        raise ValueError(
+            "Canonical schema version mismatch: "
+            f"0_Index={index_version} 19_ChangeLog={changelog_version}"
+        )
+    return index_version
+
+
 def parse_canonical_schema():
     with Workbook(SOURCE_DIR / "ST_Canonical_Schema.xlsx") as workbook:
         return {
+            "schemaVersion": parse_schema_version(workbook),
             "sourceWorkbook": "ST_Canonical_Schema.xlsx",
             "sides": table_records(workbook, "1_Sides", "Code"),
             "roles": table_records(workbook, "2_Roles", "Role Code"),

@@ -4,7 +4,18 @@ import {
   scoreTargetDiagnosticQuestions,
 } from "../src/flow/targetDiagnosticFlow.js";
 import { TARGET_DIAGNOSTIC_DATA } from "../src/data/targetDiagnosticData.js";
-import { methodNotAllowed, parseJsonBody, jsonResponse } from "../src/server/_response.js";
+import { methodNotAllowed, parseJsonBody, jsonResponse, unrecognizedReliabilityFlagResponse, illegalReliabilityFlagForSideResponse } from "../src/server/_response.js";
+import { isIllegalReliabilityFlagForSideError, isUnrecognizedReliabilityFlagError } from "../src/flow/layeredEvidenceScoring.js";
+
+function scoringValidationResponse(error: unknown) {
+  if (isUnrecognizedReliabilityFlagError(error)) {
+    return unrecognizedReliabilityFlagResponse("/api/score-2b", error);
+  }
+  if (isIllegalReliabilityFlagForSideError(error)) {
+    return illegalReliabilityFlagForSideResponse("/api/score-2b", error);
+  }
+  return null;
+}
 
 export default async function handler(request: Request) {
   if (request.method !== "POST") {
@@ -14,7 +25,14 @@ export default async function handler(request: Request) {
   const body = await parseJsonBody(request);
   const level1Answers = typeof body?.level1Answers === "object" && body.level1Answers ? body.level1Answers : {};
   const level2Answers = typeof body?.level2Answers === "object" && body.level2Answers ? body.level2Answers : {};
-  const level1Score = scoreTargetDiagnosticLevel1(level1Answers);
+  let level1Score;
+  try {
+    level1Score = scoreTargetDiagnosticLevel1(level1Answers);
+  } catch (error) {
+    const invalid = scoringValidationResponse(error);
+    if (invalid) return invalid;
+    throw error;
+  }
 
   if (!level1Score.valid) {
     return jsonResponse(400, {
@@ -33,7 +51,14 @@ export default async function handler(request: Request) {
     });
   }
 
-  const level2Score = scoreTargetDiagnosticQuestions([...TARGET_DIAGNOSTIC_DATA.level2.questions], level2Answers);
+  let level2Score;
+  try {
+    level2Score = scoreTargetDiagnosticQuestions([...TARGET_DIAGNOSTIC_DATA.level2.questions], level2Answers);
+  } catch (error) {
+    const invalid = scoringValidationResponse(error);
+    if (invalid) return invalid;
+    throw error;
+  }
   if (!level2Score.valid) {
     return jsonResponse(400, {
       endpoint: "/api/score-2b",
@@ -44,13 +69,22 @@ export default async function handler(request: Request) {
     });
   }
 
+  let finalScore;
+  try {
+    finalScore = scoreTargetDiagnosticCombined(level1Answers, level2Answers);
+  } catch (error) {
+    const invalid = scoringValidationResponse(error);
+    if (invalid) return invalid;
+    throw error;
+  }
+
   return jsonResponse(200, {
     endpoint: "/api/score-2b",
     status: "combined-final",
     requiresLevel2: true,
     level1Score,
     level2Score,
-    finalScore: scoreTargetDiagnosticCombined(level1Answers, level2Answers),
+    finalScore,
   });
 }
 

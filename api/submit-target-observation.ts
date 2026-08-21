@@ -1,4 +1,5 @@
 import { isSessionLedgerStorageError, saveTargetObservationCompletion } from "../src/server/_sessionLedger.js";
+import { isIllegalReliabilityFlagForSideError, isUnrecognizedReliabilityFlagError } from "../src/flow/layeredEvidenceScoring.js";
 
 type NodeApiRequest = {
   method: string;
@@ -62,6 +63,28 @@ export default async function handler(req: NodeApiRequest, res: NodeApiResponse)
       targetDiagnostic,
     });
   } catch (error) {
+    if (isUnrecognizedReliabilityFlagError(error)) {
+      const flag = typeof error === "object" && error && "flag" in error ? error.flag : undefined;
+      return res.status(400).json({
+        endpoint: "/api/submit-target-observation",
+        status: "unrecognized_reliability_flag",
+        name: "UnrecognizedReliabilityFlagError",
+        flag,
+      });
+    }
+
+    if (isIllegalReliabilityFlagForSideError(error)) {
+      const flag = typeof error === "object" && error && "flag" in error ? error.flag : undefined;
+      const side = typeof error === "object" && error && "side" in error ? error.side : null;
+      return res.status(400).json({
+        endpoint: "/api/submit-target-observation",
+        status: "illegal_reliability_flag_for_side",
+        name: "IllegalReliabilityFlagForSideError",
+        flag,
+        side,
+      });
+    }
+
     if (isSessionLedgerStorageError(error)) {
       return res.status(503).json({
         endpoint: "/api/submit-target-observation",

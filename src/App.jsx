@@ -75,6 +75,7 @@ import {
 } from "./flow/analystWorkflow.js";
 import { buildRiskOutputReport } from "./flow/riskOutputEngine.js";
 import {
+  ACQUISITION_AWARENESS_FIELD,
   buildTargetSelfAssessmentRecord,
   isTargetSelfAssessmentSourceLoaded,
   targetSelfOtherSpecifyFieldId,
@@ -2071,7 +2072,47 @@ function EvidenceSegmentedField({ fieldId, label, options, value, onChange }) {
   );
 }
 
-function EvidenceClassificationPanel({ answer, onChange, showDirectObservation = true }) {
+const TARGET_CONTAMINATION_SELF_DECLARATION_FLAG = "acquisition_framing_contamination";
+const TARGET_CONTAMINATION_SELF_DECLARATION_LABEL = "The pending acquisition may be influencing this answer.";
+const TARGET_CONTAMINATION_SELF_DECLARATION_HELPER = "Use this if you think the deal context may be colouring your perception.";
+const NON_TARGET_EXCLUDED_RELIABILITY_FLAGS = Object.freeze([TARGET_CONTAMINATION_SELF_DECLARATION_FLAG]);
+
+function applyTargetContaminationSelfDeclaration(answer, enabled) {
+  const current = normalizeEvidenceAnswer(answer);
+  const nextFlags = current.reliabilityFlags.filter((flag) => flag !== TARGET_CONTAMINATION_SELF_DECLARATION_FLAG);
+  if (enabled) nextFlags.push(TARGET_CONTAMINATION_SELF_DECLARATION_FLAG);
+  return updateEvidenceAnswer(current, {
+    reliabilityFlags: nextFlags,
+    reliabilityFlagsAcknowledged: nextFlags.length > 0 ? true : current.reliabilityFlagsAcknowledged,
+  });
+}
+
+function TargetContaminationSelfDeclarationControl({ answer, onChange }) {
+  const normalized = normalizeEvidenceAnswer(answer);
+  const checked = normalized.reliabilityFlags.includes(TARGET_CONTAMINATION_SELF_DECLARATION_FLAG);
+
+  return (
+    <fieldset className="reliability-flag-fieldset" aria-label={TARGET_CONTAMINATION_SELF_DECLARATION_LABEL}>
+      <legend>{TARGET_CONTAMINATION_SELF_DECLARATION_LABEL}</legend>
+      <p>{TARGET_CONTAMINATION_SELF_DECLARATION_HELPER}</p>
+      <label className="reliability-flag-option">
+        <input
+          checked={checked}
+          onChange={(event) => onChange(applyTargetContaminationSelfDeclaration(normalized, event.target.checked))}
+          type="checkbox"
+        />
+        <span>{TARGET_CONTAMINATION_SELF_DECLARATION_LABEL}</span>
+      </label>
+    </fieldset>
+  );
+}
+
+function EvidenceClassificationPanel({
+  answer,
+  onChange,
+  showDirectObservation = true,
+  excludeReliabilityFlags = NON_TARGET_EXCLUDED_RELIABILITY_FLAGS,
+}) {
   const normalized = normalizeEvidenceAnswer(answer);
 
   function updateField(fieldId, value) {
@@ -2097,6 +2138,8 @@ function EvidenceClassificationPanel({ answer, onChange, showDirectObservation =
   const knowledgeLevelOptions = knowledgeLevelOptionsForGate(normalized.directObservationGate);
   const confidenceOptions = confidenceOptionsForClassification(normalized.directObservationGate, normalized.evidenceType);
   const showReliabilityFlags = showReliabilityFlagsForGate(normalized.directObservationGate);
+  const excludedReliabilityFlags = new Set(excludeReliabilityFlags);
+  const visibleReliabilityFlagOptions = RELIABILITY_FLAG_OPTIONS.filter((flag) => !excludedReliabilityFlags.has(flag.value));
 
   if (unknownAnswer) {
     return (
@@ -2164,7 +2207,7 @@ function EvidenceClassificationPanel({ answer, onChange, showDirectObservation =
               />
               <span>No reliability flags apply</span>
             </label>
-            {RELIABILITY_FLAG_OPTIONS.map((flag) => (
+            {visibleReliabilityFlagOptions.map((flag) => (
               <label key={flag.value} className="reliability-flag-option">
                 <input
                   checked={normalized.reliabilityFlags.includes(flag.value)}
@@ -3908,6 +3951,10 @@ function Step2BLevel2Screen({ session, setSession }) {
 }
 
 function targetSelfFieldLabel(fieldId) {
+  if (fieldId === ACQUISITION_AWARENESS_FIELD.id) {
+    return ACQUISITION_AWARENESS_FIELD.label;
+  }
+
   if (fieldId.endsWith("OtherSpecify")) {
     const baseFieldId = fieldId.replace(/OtherSpecify$/, "");
     const baseField = TARGET_SELF_ASSESSMENT_DATA.positioningFields.find((field) => field.id === baseFieldId);
@@ -3915,6 +3962,17 @@ function targetSelfFieldLabel(fieldId) {
   }
 
   return TARGET_SELF_ASSESSMENT_DATA.positioningFields.find((field) => field.id === fieldId)?.label ?? fieldId;
+}
+
+function targetSelfPositioningRequirementError({ missing = [], invalid = [] } = {}) {
+  const parts = [];
+  if (missing.length > 0) {
+    parts.push(`Required: ${missing.map(targetSelfFieldLabel).join(", ")}`);
+  }
+  if (invalid.length > 0) {
+    parts.push(`Invalid: ${invalid.map(targetSelfFieldLabel).join(", ")}`);
+  }
+  return parts.join(". ");
 }
 
 function targetSelfPositioningOptionText(option) {
@@ -3978,6 +4036,11 @@ function TargetSelfAssessmentSurvey({ session, setSession, invite = null }) {
     setError("");
   }
 
+  function updateAcquisitionAwareness(value) {
+    setPositioning((current) => ({ ...current, [ACQUISITION_AWARENESS_FIELD.id]: value }));
+    setError("");
+  }
+
   function updateAnswer(value) {
     setAnswers((current) => updateQuestionnaireSelectedAnswer(current, question, value));
     setError("");
@@ -4008,7 +4071,7 @@ function TargetSelfAssessmentSurvey({ session, setSession, invite = null }) {
     if (activeIndex === 0) {
       const positioningValidation = validateTargetSelfPositioning(positioning);
       if (!positioningValidation.valid) {
-        setError(`Required: ${positioningValidation.missing.map(targetSelfFieldLabel).join(", ")}`);
+        setError(targetSelfPositioningRequirementError(positioningValidation));
         return;
       }
     }
@@ -4022,8 +4085,11 @@ function TargetSelfAssessmentSurvey({ session, setSession, invite = null }) {
     const completedAnswers = normalizedAnswers;
     const targetSelfAssessment = buildTargetSelfAssessmentRecord(positioning, completedAnswers);
     if (!targetSelfAssessment.completed) {
-      if (targetSelfAssessment.missingPositioning.length > 0) {
-        setError(`Required: ${targetSelfAssessment.missingPositioning.map(targetSelfFieldLabel).join(", ")}`);
+      if (targetSelfAssessment.missingPositioning.length > 0 || targetSelfAssessment.invalidPositioning?.length > 0) {
+        setError(targetSelfPositioningRequirementError({
+          missing: targetSelfAssessment.missingPositioning,
+          invalid: targetSelfAssessment.invalidPositioning,
+        }));
         return;
       }
       if (targetSelfAssessment.invalidClassification?.length > 0) {
@@ -4105,6 +4171,15 @@ function TargetSelfAssessmentSurvey({ session, setSession, invite = null }) {
                 ) : null}
               </section>
             ))}
+            <section className="target-positioning-choice-field">
+              <DealContextButtonGroup
+                label={ACQUISITION_AWARENESS_FIELD.label}
+                options={ACQUISITION_AWARENESS_FIELD.options}
+                value={positioning[ACQUISITION_AWARENESS_FIELD.id] ?? ""}
+                onChange={updateAcquisitionAwareness}
+                className="target-positioning-choice-group"
+              />
+            </section>
           </section>
         ) : null}
         <form className="question-form" onSubmit={submit}>
@@ -4128,11 +4203,18 @@ function TargetSelfAssessmentSurvey({ session, setSession, invite = null }) {
             ))}
           </div>
           {selectedAnswer ? (
-            <EvidenceClassificationPanel
-              answer={answers[question.id]}
-              onChange={updateCurrentEvidenceAnswer}
-              showDirectObservation={!question.directObservationGate}
-            />
+            <>
+              <EvidenceClassificationPanel
+                answer={answers[question.id]}
+                onChange={updateCurrentEvidenceAnswer}
+                showDirectObservation={!question.directObservationGate}
+                excludeReliabilityFlags={[TARGET_CONTAMINATION_SELF_DECLARATION_FLAG]}
+              />
+              <TargetContaminationSelfDeclarationControl
+                answer={answers[question.id]}
+                onChange={updateCurrentEvidenceAnswer}
+              />
+            </>
           ) : null}
           {error ? <p className="form-error">{error}</p> : null}
           <QuestionnaireBlockingMessage validation={currentAnswerValidation} />

@@ -30,34 +30,35 @@ const KNOWLEDGE_WEIGHTS = Object.freeze({
   not_known: 0,
 });
 
-const CONFIDENCE_WEIGHTS = Object.freeze({
-  high: 1,
-  medium: 0.75,
-  low: 0.55,
-  cannot_determine: 0,
+const CONFIDENCE_EVIDENCE_COMPATIBILITY = Object.freeze({
+  high: Object.freeze(["direct_observation", "document_supported"]),
+  medium: Object.freeze(["direct_observation", "document_supported", "reported_by_others", "inference"]),
+  low: Object.freeze(["reported_by_others", "inference", "hypothetical"]),
+  cannot_determine: Object.freeze(["unknown"]),
 });
 
-export const ACCESS_LEVEL_CONFIDENCE_DEFAULT = 0.55;
-
-export const ACCESS_LEVEL_CONFIDENCE = Object.freeze({
-  full_deal_room_leadership_access: 1,
-  functional_evidence_access: 0.85,
-  interview_meeting_access: 0.75,
-  limited_partial_access: 0.55,
-  external_advisor_access: 0.55,
-});
-
-const RELIABILITY_FLAG_MULTIPLIERS = Object.freeze({
+const NUMERIC_RELIABILITY_MULTIPLIERS = Object.freeze({
   contradicted_by_respondent: 0.5,
   contradicted_by_document: 0.2,
   socially_desirable: 0.7,
-  evasive: 0,
   overgeneralized: 0.5,
-  speaks_for_group_without_access: 0.35,
-  hypothetical: 0,
-  structurally_unlikely: 0.5,
-  no_direct_knowledge: 0.65,
 });
+
+const PROCEDURAL_RELIABILITY_EFFECTS = Object.freeze({
+  speaks_for_group_without_access: "evidence_type_cap",
+  no_direct_knowledge: "exclude_from_primary_score",
+  hypothetical: "exclude_from_primary_score",
+  evasive: "treat_as_unknown",
+  structurally_unlikely: "analyst_review",
+  acquisition_framing_contamination: "exclude_from_primary_score",
+});
+
+export const ACQUISITION_FRAMING_CONTAMINATION_FLAG = "acquisition_framing_contamination";
+const TARGET_ONLY_RELIABILITY_FLAGS = Object.freeze([ACQUISITION_FRAMING_CONTAMINATION_FLAG]);
+
+const INFERENCE_EVIDENCE_TYPE = "inference";
+const HYPOTHETICAL_EVIDENCE_TYPE = "hypothetical";
+const UNKNOWN_EVIDENCE_TYPE = "unknown";
 
 const LEGACY_OPTION_ONLY_CLASSIFICATION = Object.freeze({
   directObservationGate: "no",
@@ -150,47 +151,196 @@ function isExcludedOption(option, signalCodes) {
   );
 }
 
-function reliabilityMultiplier(flags) {
-  if (!flags.length) return 1;
-  return flags.reduce((multiplier, flag) => {
-    const next = RELIABILITY_FLAG_MULTIPLIERS[flag];
-    return multiplier * (Number.isFinite(next) ? next : 0.85);
-  }, 1);
+function isNoSuchEventOption(question, option) {
+  if (!option) return false;
+  const scoringNote = normalizeString(option.scoringNote).toLowerCase();
+  if (scoringNote.includes("no_such_event_observed") || scoringNote.includes("no_such_period_observed")) {
+    return true;
+  }
+
+  const source = normalizeString(question?.sourceWorkbook);
+  const questionId = normalizeString(question?.workbookQuestionId ?? question?.id);
+  const value = optionValue(option);
+  return source.includes("ST_Target_Self_Assessment_Module.xlsx")
+    && questionId === "Q10"
+    && value === "E";
 }
 
-function accessLevelConfidence(input) {
-  const value = normalizeString(input);
-  if (Object.hasOwn(ACCESS_LEVEL_CONFIDENCE, value)) {
+function unrecognizedReliabilityFlagError(flag) {
+  const error = new Error(`Unrecognized reliability flag: ${flag}`);
+  error.name = "UnrecognizedReliabilityFlagError";
+  error.flag = flag;
+  error.status = "unrecognized_reliability_flag";
+  return error;
+}
+
+export function isUnrecognizedReliabilityFlagError(error) {
+  return Boolean(
+    error
+    && typeof error === "object"
+    && error.name === "UnrecognizedReliabilityFlagError"
+    && error.status === "unrecognized_reliability_flag"
+    && typeof error.flag === "string"
+  );
+}
+
+export function unrecognizedReliabilityFlagValidation(error) {
+  return Object.freeze({
+    status: "unrecognized_reliability_flag",
+    name: "UnrecognizedReliabilityFlagError",
+    flag: error.flag,
+  });
+}
+
+function illegalReliabilityFlagForSideError(flag, side) {
+  const error = new Error(`Reliability flag ${flag} is not legal for respondent side ${side ?? "unspecified"}`);
+  error.name = "IllegalReliabilityFlagForSideError";
+  error.status = "illegal_reliability_flag_for_side";
+  error.flag = flag;
+  error.side = side ?? null;
+  return error;
+}
+
+export function isIllegalReliabilityFlagForSideError(error) {
+  return Boolean(
+    error
+    && typeof error === "object"
+    && error.name === "IllegalReliabilityFlagForSideError"
+    && error.status === "illegal_reliability_flag_for_side"
+    && typeof error.flag === "string"
+  );
+}
+
+function inferredRespondentSide(options = {}) {
+  const explicit = normalizeString(options.respondentSide);
+  if (explicit) return explicit;
+  const moduleId = normalizeString(options.moduleId);
+  if (moduleId === "target_self_assessment") return "target";
+  if (moduleId.startsWith("acquirer_")) return "acquirer";
+  return null;
+}
+
+function assertTargetOnlyFlagsLegal(flags, respondentSide) {
+  for (const flag of flags) {
+    if (TARGET_ONLY_RELIABILITY_FLAGS.includes(flag) && respondentSide !== "target") {
+      throw illegalReliabilityFlagForSideError(flag, respondentSide);
+    }
+  }
+}
+
+function isKnownReliabilityFlag(flag) {
+  return Object.hasOwn(NUMERIC_RELIABILITY_MULTIPLIERS, flag)
+    || Object.hasOwn(PROCEDURAL_RELIABILITY_EFFECTS, flag);
+}
+
+function emptyReliabilityEffects() {
+  return Object.freeze({
+    evidenceTypeCap: null,
+    excludeFromPrimaryScoring: false,
+    treatAsUnknown: false,
+    analystReviewOnly: false,
+    numericMultiplier: 1,
+  });
+}
+
+function deriveReliabilityEffects(flags) {
+  for (const flag of flags) {
+    if (!isKnownReliabilityFlag(flag)) {
+      throw unrecognizedReliabilityFlagError(flag);
+    }
+  }
+
+  let numericMultiplier = 1;
+  for (const flag of flags) {
+    if (Object.hasOwn(NUMERIC_RELIABILITY_MULTIPLIERS, flag)) {
+      numericMultiplier *= NUMERIC_RELIABILITY_MULTIPLIERS[flag];
+    }
+  }
+
+  return Object.freeze({
+    evidenceTypeCap: flags.includes("speaks_for_group_without_access") ? INFERENCE_EVIDENCE_TYPE : null,
+    excludeFromPrimaryScoring: flags.includes("no_direct_knowledge")
+      || flags.includes("hypothetical")
+      || flags.includes(ACQUISITION_FRAMING_CONTAMINATION_FLAG),
+    treatAsUnknown: flags.includes("evasive"),
+    analystReviewOnly: flags.includes("structurally_unlikely"),
+    numericMultiplier,
+  });
+}
+
+function evidenceTypeAuthority(evidenceType) {
+  if (Object.hasOwn(EVIDENCE_WEIGHTS, evidenceType)) return EVIDENCE_WEIGHTS[evidenceType];
+  return EVIDENCE_WEIGHTS[INFERENCE_EVIDENCE_TYPE];
+}
+
+function cappedEvidenceType(originalEvidenceType, capType) {
+  if (!capType) return originalEvidenceType;
+  return evidenceTypeAuthority(originalEvidenceType) > evidenceTypeAuthority(capType)
+    ? capType
+    : originalEvidenceType;
+}
+
+function scoringEvidenceType(originalEvidenceType, effects) {
+  if (effects.treatAsUnknown) return UNKNOWN_EVIDENCE_TYPE;
+  return cappedEvidenceType(originalEvidenceType, effects.evidenceTypeCap);
+}
+
+function isNonPrimaryEvidenceType(evidenceType) {
+  return evidenceType === HYPOTHETICAL_EVIDENCE_TYPE || evidenceType === UNKNOWN_EVIDENCE_TYPE;
+}
+
+function derivePrimaryExclusionReasons({
+  optionExcluded,
+  noSuchEvent,
+  flags,
+  originalEvidenceType,
+  effectiveEvidenceType,
+}) {
+  const reasons = [];
+  if (optionExcluded) reasons.push("option_excluded");
+  if (noSuchEvent) reasons.push("no_such_event");
+  if (flags.includes("no_direct_knowledge")) reasons.push("no_direct_knowledge");
+  if (flags.includes("hypothetical")) reasons.push("reliability_flag_hypothetical");
+  if (flags.includes(ACQUISITION_FRAMING_CONTAMINATION_FLAG)) reasons.push("contamination_flagged");
+  if (originalEvidenceType === HYPOTHETICAL_EVIDENCE_TYPE || effectiveEvidenceType === HYPOTHETICAL_EVIDENCE_TYPE) {
+    reasons.push("evidence_type_hypothetical");
+  }
+  if (originalEvidenceType === UNKNOWN_EVIDENCE_TYPE || effectiveEvidenceType === UNKNOWN_EVIDENCE_TYPE) {
+    reasons.push("evidence_type_unknown");
+  }
+  return Object.freeze(reasons);
+}
+
+function emptyConfidenceEvidenceConsistency() {
+  return Object.freeze({
+    status: "not_applicable",
+    confidence: null,
+    evidenceType: null,
+  });
+}
+
+function deriveConfidenceEvidenceConsistency(confidence, evidenceType) {
+  const allowed = CONFIDENCE_EVIDENCE_COMPATIBILITY[confidence];
+  if (!allowed) {
     return Object.freeze({
-      coefficient: ACCESS_LEVEL_CONFIDENCE[value],
-      source: "respondent_access_level",
-      value,
-      note: "Confidence is adjusted by the respondent's stated proximity to the deal room.",
+      status: "incompatible",
+      confidence,
+      evidenceType,
     });
   }
 
   return Object.freeze({
-    coefficient: ACCESS_LEVEL_CONFIDENCE_DEFAULT,
-    source: "missing",
-    value: value || null,
-    note: "Confidence is reduced because deal-room access was not specified or was not recognised.",
+    status: allowed.includes(evidenceType) ? "compatible" : "incompatible",
+    confidence,
+    evidenceType,
   });
 }
 
-function accessAdjustedConfidence(baseConfidence, coefficient) {
-  if (baseConfidence === "cannot_determine") return baseConfidence;
-  if (coefficient >= 1) return baseConfidence;
-  if (coefficient <= 0.55) return "low";
-  if (baseConfidence === "high") return "medium";
-  return baseConfidence;
-}
-
-function answerWeight(answer, excluded, accessLevelConfidenceCoefficient = ACCESS_LEVEL_CONFIDENCE_DEFAULT) {
-  if (excluded) return 0;
-  const evidenceWeight = EVIDENCE_WEIGHTS[answer.evidenceType] ?? EVIDENCE_WEIGHTS.inference;
+function answerWeight(answer, excludedFromPrimaryScoring, effects) {
+  if (excludedFromPrimaryScoring) return 0;
+  const evidenceWeight = evidenceTypeAuthority(scoringEvidenceType(answer.evidenceType, effects));
   const knowledgeWeight = KNOWLEDGE_WEIGHTS[answer.knowledgeLevel] ?? KNOWLEDGE_WEIGHTS.pattern_based;
-  const confidenceWeight = CONFIDENCE_WEIGHTS[answer.confidence] ?? CONFIDENCE_WEIGHTS.low;
-  return roundScore(evidenceWeight * knowledgeWeight * (confidenceWeight * accessLevelConfidenceCoefficient) * reliabilityMultiplier(answer.reliabilityFlags));
+  return roundScore(evidenceWeight * knowledgeWeight * effects.numericMultiplier);
 }
 
 function freezeRanked(scores) {
@@ -226,7 +376,7 @@ function signalBadge(strength) {
   return "* weak signal pattern";
 }
 
-function responseSetEntries(questionSet, environmentCodes, accessLevelConfidenceCoefficient) {
+function responseSetEntries(questionSet, environmentCodes, respondentSide) {
   const questions = Array.isArray(questionSet.questions) ? questionSet.questions : [];
   const answers = questionSet.answers ?? {};
   const setId = normalizeString(questionSet.respondentId ?? questionSet.id);
@@ -243,26 +393,55 @@ function responseSetEntries(questionSet, environmentCodes, accessLevelConfidence
         signalCodes: Object.freeze([]),
         weight: 0,
         reliabilityFlags: Object.freeze([]),
+        effectiveEvidenceType: null,
+        reliabilityEffects: emptyReliabilityEffects(),
+        confidenceEvidenceConsistency: emptyConfidenceEvidenceConsistency(),
+        primaryExclusionReasons: Object.freeze([]),
       });
     }
 
     const option = selectedOption(question, answer.selectedOption);
     const signalCodes = optionSignalCodes(option, environmentCodes);
-    const excluded = isExcludedOption(option, signalCodes);
-    const weight = answerWeight(answer, excluded, accessLevelConfidenceCoefficient);
+    const optionExcluded = isExcludedOption(option, signalCodes);
+    const noSuchEvent = isNoSuchEventOption(question, option);
+    assertTargetOnlyFlagsLegal(answer.reliabilityFlags, respondentSide);
+    const reliabilityEffects = deriveReliabilityEffects(answer.reliabilityFlags);
+    const effectiveType = scoringEvidenceType(answer.evidenceType, reliabilityEffects);
+    const evidenceTypeExcludedFromPrimary = isNonPrimaryEvidenceType(answer.evidenceType)
+      || isNonPrimaryEvidenceType(effectiveType);
+    const excludedFromPrimaryScoring = optionExcluded
+      || noSuchEvent
+      || reliabilityEffects.excludeFromPrimaryScoring
+      || evidenceTypeExcludedFromPrimary;
+    const primaryExclusionReasons = derivePrimaryExclusionReasons({
+      optionExcluded,
+      noSuchEvent,
+      flags: answer.reliabilityFlags,
+      originalEvidenceType: answer.evidenceType,
+      effectiveEvidenceType: effectiveType,
+    });
+    const weight = answerWeight(answer, excludedFromPrimaryScoring, reliabilityEffects);
+    const confidenceEvidenceConsistency = deriveConfidenceEvidenceConsistency(
+      answer.confidence,
+      answer.evidenceType,
+    );
 
     return Object.freeze({
       questionId: question.id,
       respondentId: setId || null,
       selectedOption: answer.selectedOption,
       evidenceType: answer.evidenceType,
+      effectiveEvidenceType: effectiveType,
       knowledgeLevel: answer.knowledgeLevel,
       confidence: answer.confidence,
+      confidenceEvidenceConsistency,
       directObservationGate: answer.directObservationGate,
       reliabilityFlags: answer.reliabilityFlags,
+      reliabilityEffects,
       classificationSource: answer.source,
       missing: false,
-      excludedFromPrimaryScoring: excluded,
+      excludedFromPrimaryScoring,
+      primaryExclusionReasons,
       signalCodes,
       weight,
     });
@@ -271,14 +450,14 @@ function responseSetEntries(questionSet, environmentCodes, accessLevelConfidence
 
 export function scoreLayeredEvidenceQuestionSets(questionSets = [], options = {}) {
   const environmentCodes = Object.freeze(options.environmentCodes ?? DEFAULT_ENVIRONMENT_CODES);
-  const accessLevel = accessLevelConfidence(options.respondentAccessLevel ?? options.accessLevel);
+  const respondentSide = inferredRespondentSide(options);
   const rawScores = emptyScoreMap(environmentCodes);
   const weightedScores = emptyScoreMap(environmentCodes);
   const missingQuestionIds = [];
   const questionResponses = [];
 
   for (const questionSet of questionSets) {
-    const setEntries = responseSetEntries(questionSet, environmentCodes, accessLevel.coefficient);
+    const setEntries = responseSetEntries(questionSet, environmentCodes, respondentSide);
     for (const entry of setEntries) {
       questionResponses.push(entry);
       if (entry.missing) {
@@ -314,7 +493,7 @@ export function scoreLayeredEvidenceQuestionSets(questionSets = [], options = {}
     legacyCount,
     totalWeight,
   });
-  const confidence = accessAdjustedConfidence(baseConfidence, accessLevel.coefficient);
+  const confidence = baseConfidence;
   const rankedEnvironments = freezeRanked(weightedScores);
   const rawRankedEnvironments = freezeRanked(rawScores);
   const primary = rankedEnvironments[0] ?? { code: null, score: 0 };
@@ -359,19 +538,13 @@ export function scoreLayeredEvidenceQuestionSets(questionSets = [], options = {}
     evidenceQuality: Object.freeze({
       confidence,
       baseConfidence,
-      accessLevelConfidenceCoefficient: accessLevel.coefficient,
-      accessLevelConfidenceSource: accessLevel.source,
-      accessLevelConfidenceValue: accessLevel.value,
-      accessLevelConfidenceNote: accessLevel.note,
       directObservationCount: directCount,
       documentSupportedCount: documentCount,
       evidenceSupportedShare: answeredResponses.length ? roundScore((directCount + documentCount) / answeredResponses.length) : 0,
       reliabilityFlagCount: flaggedCount,
       reliabilityFlagRate: answeredResponses.length ? roundScore(flaggedCount / answeredResponses.length) : 0,
       legacyOptionOnlyCount: legacyCount,
-      confidenceCapReason: accessLevel.source === "missing"
-        ? accessLevel.note
-        : legacyCount > 0
+      confidenceCapReason: legacyCount > 0
         ? "Legacy option-only answers do not include evidence classification; confidence is capped low until the respondent questionnaire captures evidence fields."
         : "Confidence reflects evidence type, knowledge level, reliability flags, and direct/document-supported answer share.",
     }),

@@ -22,3 +22,22 @@ export function methodNotAllowed(method: string, allowed: string[]) {
     allowed,
   });
 }
+
+export function unrecognizedReliabilityFlagResponse(endpoint: string, error: { flag?: unknown }) {
+  return jsonResponse(400, {
+    endpoint,
+    status: "unrecognized_reliability_flag",
+    name: "UnrecognizedReliabilityFlagError",
+    flag: error.flag,
+  });
+}
+
+export function illegalReliabilityFlagForSideResponse(endpoint: string, error: { flag?: unknown; side?: unknown }) {
+  return jsonResponse(400, {
+    endpoint,
+    status: "illegal_reliability_flag_for_side",
+    name: "IllegalReliabilityFlagForSideError",
+    flag: error.flag,
+    side: error.side ?? null,
+  });
+}

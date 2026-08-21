@@ -56,6 +56,9 @@ export type ReliabilityFlag =
   | 'hypothetical'
   | 'structurally_unlikely'
   | 'no_direct_knowledge'
+  | 'acquisition_framing_contamination'
+
+export type AcquisitionAwareness = 'yes' | 'no' | 'partial'
 
 export type DirectObservationGate = 'yes' | 'no' | 'document_supported'
 
@@ -197,6 +200,7 @@ export interface Respondent {
   organization?: string | null
   accessLevel: AccessLevel
   observationTenureMonths: number
+  acquisitionAwareness?: AcquisitionAwareness | null
   engagementDepth: EngagementDepth
   priorRelationshipToOtherSide: RelationshipToOtherSide
   createdAt: ISODateTime

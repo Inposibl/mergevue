@@ -1,4 +1,5 @@
 import type {
+  AcquisitionAwareness,
   ConfidenceLevel,
   DealSide,
   EvidenceType,
@@ -297,7 +298,31 @@ export const RELIABILITY_FLAG_OPTIONS = [
     value: 'no_direct_knowledge',
     label: 'No direct knowledge',
   },
+  {
+    value: 'acquisition_framing_contamination',
+    label: 'Acquisition-framing contamination',
+    description:
+      'Target-side respondent is aware of the pending acquisition; the deal context may be colouring the answer toward acceptability or self-protection.',
+  },
 ] as const satisfies readonly EnumOption<ReliabilityFlag>[]
+
+export const ACQUISITION_AWARENESS_OPTIONS = [
+  {
+    value: 'yes',
+    label: 'Yes',
+    description: 'Creates a respondent-level contamination signal. Does not automatically flag every answer.',
+  },
+  {
+    value: 'no',
+    label: 'No',
+    description: 'Does not trigger the respondent-level contamination signal.',
+  },
+  {
+    value: 'partial',
+    label: 'Partial',
+    description: 'Stored. Does not trigger the respondent-level contamination signal.',
+  },
+] as const satisfies readonly EnumOption<AcquisitionAwareness>[]
 
 export const RISK_CATEGORY_OPTIONS = [
   {
@@ -358,6 +383,9 @@ export const CONFIDENCE_LEVELS = CONFIDENCE_LEVEL_OPTIONS.map(
 export const RELIABILITY_FLAGS = RELIABILITY_FLAG_OPTIONS.map(
   (option) => option.value,
 )
+export const ACQUISITION_AWARENESS_VALUES = ACQUISITION_AWARENESS_OPTIONS.map(
+  (option) => option.value,
+)
 export const RISK_CATEGORIES = RISK_CATEGORY_OPTIONS.map(
   (option) => option.value,
 )
@@ -386,6 +414,10 @@ export function isConfidenceLevel(value: string): value is ConfidenceLevel {
 
 export function isReliabilityFlag(value: string): value is ReliabilityFlag {
   return RELIABILITY_FLAGS.includes(value as ReliabilityFlag)
+}
+
+export function isAcquisitionAwareness(value: string): value is AcquisitionAwareness {
+  return ACQUISITION_AWARENESS_VALUES.includes(value as AcquisitionAwareness)
 }
 
 export function isRiskCategory(value: string): value is RiskCategory {

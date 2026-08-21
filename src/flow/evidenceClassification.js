@@ -70,6 +70,11 @@ export const RELIABILITY_FLAG_OPTIONS = Object.freeze([
   Object.freeze({ value: "hypothetical", title: "Hypothetical answer" }),
   Object.freeze({ value: "structurally_unlikely", title: "Structurally unlikely event" }),
   Object.freeze({ value: "no_direct_knowledge", title: "No direct knowledge" }),
+  Object.freeze({
+    value: "acquisition_framing_contamination",
+    title: "Acquisition-framing contamination",
+    description: "Target-side only. Deal context may be colouring the answer toward acceptability or self-protection.",
+  }),
 ]);
 
 const DIRECT_OBSERVATION_EVIDENCE_TYPES = Object.freeze(["direct_observation", "document_supported"]);
@@ -187,6 +192,16 @@ function withoutFlag(flags, flag) {
   return Object.freeze(flags.filter((item) => item !== flag));
 }
 
+const DIRECT_OBSERVATION_ALLOWED_RELIABILITY_FLAGS = Object.freeze(["acquisition_framing_contamination"]);
+
+function retainedDirectObservationReliabilityFlags(flags) {
+  return Object.freeze(flags.filter((flag) => flag === "acquisition_framing_contamination"));
+}
+
+function hasDisallowedDirectObservationReliabilityFlags(flags) {
+  return flags.some((flag) => !DIRECT_OBSERVATION_ALLOWED_RELIABILITY_FLAGS.includes(flag));
+}
+
 function clearUnknownEvidenceState(answer, keepEvidenceType = false) {
   const reliabilityFlags = withoutFlag(answer.reliabilityFlags, "no_direct_knowledge");
   return {
@@ -251,11 +266,12 @@ export function updateEvidenceAnswer(answer, patch = {}) {
   const shouldValidateConfidence = gateChanged || evidenceTypeChanged;
 
   if (gateChanged && next.directObservationGate === "yes") {
+    const retainedFlags = retainedDirectObservationReliabilityFlags(next.reliabilityFlags);
     next = {
       ...next,
       evidenceType: DIRECT_OBSERVATION_EVIDENCE_TYPE_VALUES.has(next.evidenceType) ? next.evidenceType : "",
       knowledgeLevel: DIRECT_OBSERVATION_KNOWLEDGE_LEVEL_VALUES.has(next.knowledgeLevel) ? next.knowledgeLevel : "",
-      reliabilityFlags: Object.freeze([]),
+      reliabilityFlags: retainedFlags,
       reliabilityFlagsAcknowledged: true,
     };
   } else if (gateChanged && next.directObservationGate === "no") {
@@ -268,9 +284,10 @@ export function updateEvidenceAnswer(answer, patch = {}) {
       reliabilityFlagsAcknowledged: nextFlags.length > 0 ? true : false,
     };
   } else if (next.directObservationGate === "yes") {
+    const retainedFlags = retainedDirectObservationReliabilityFlags(next.reliabilityFlags);
     next = {
       ...next,
-      reliabilityFlags: Object.freeze([]),
+      reliabilityFlags: retainedFlags,
       reliabilityFlagsAcknowledged: true,
     };
   }
@@ -331,10 +348,10 @@ export function validateEvidenceClassifiedAnswer(answer) {
     && (
       (normalized.evidenceType && !DIRECT_OBSERVATION_EVIDENCE_TYPE_VALUES.has(normalized.evidenceType))
       || (normalized.knowledgeLevel && !DIRECT_OBSERVATION_KNOWLEDGE_LEVEL_VALUES.has(normalized.knowledgeLevel))
-      || normalized.reliabilityFlags.length > 0
+      || hasDisallowedDirectObservationReliabilityFlags(normalized.reliabilityFlags)
     );
   if (directObservationModeIssue) {
-    consistencyIssues.push("Direct observation answers can only use Direct Observation or Document-Supported evidence, with First-Hand or Document-Based knowledge. Reliability flags are not used in direct-observation mode.");
+    consistencyIssues.push("Direct observation answers can only use Direct Observation or Document-Supported evidence, with First-Hand or Document-Based knowledge. Reliability flags are not used in direct-observation mode, except acquisition_framing_contamination.");
   }
   if (
     normalized.directObservationGate === "no"

@@ -58,32 +58,59 @@ const TIER_RANK = Object.freeze({
   BLOCKING: 6,
 });
 
-const CRITICAL_RELIABILITY_FLAGS = new Set([
-  "acquisition_framing_contamination",
+// Schema-6 AnswerReliabilityFlags only. Active SET A → tier mapping is implementation-invented method debt, not newly validated methodology.
+export const CANONICAL_ANSWER_RELIABILITY_FLAGS = Object.freeze([
+  "contradicted_by_respondent",
   "contradicted_by_document",
-  "contradiction_with_self",
+  "socially_desirable",
+  "evasive",
+  "overgeneralized",
+  "speaks_for_group_without_access",
+  "hypothetical",
+  "structurally_unlikely",
+  "no_direct_knowledge",
+  "acquisition_framing_contamination",
 ]);
 
-const HIGH_RELIABILITY_FLAGS = new Set([
+// Unresolved source-derived codes. Not authorized AnswerReliabilityFlags. Not used in active tier computation.
+export const UNRESOLVED_SOURCE_RELIABILITY_CODES = Object.freeze([
   "status_protection",
   "narrative_interest",
   "compensation_exposure",
+  "observation_gap",
+  "memory_distance",
+  "peer_consistency_bias",
+  "role_inappropriateness",
+  "contradiction_with_self",
+]);
+
+const CANONICAL_ANSWER_RELIABILITY_FLAG_SET = new Set(CANONICAL_ANSWER_RELIABILITY_FLAGS);
+const UNRESOLVED_SOURCE_RELIABILITY_CODE_SET = new Set(UNRESOLVED_SOURCE_RELIABILITY_CODES);
+
+const CRITICAL_RELIABILITY_FLAGS = new Set([
+  "contradicted_by_document",
+  "acquisition_framing_contamination",
+]);
+
+const HIGH_RELIABILITY_FLAGS = new Set([
   "evasive",
   "structurally_unlikely",
   "speaks_for_group_without_access",
 ]);
 
 const MODERATE_RELIABILITY_FLAGS = new Set([
-  "observation_gap",
-  "role_inappropriateness",
-  "peer_consistency_bias",
-  "memory_distance",
   "contradicted_by_respondent",
   "hypothetical",
   "no_direct_knowledge",
   "overgeneralized",
   "socially_desirable",
 ]);
+
+for (const flag of [...CRITICAL_RELIABILITY_FLAGS, ...HIGH_RELIABILITY_FLAGS, ...MODERATE_RELIABILITY_FLAGS]) {
+  if (!CANONICAL_ANSWER_RELIABILITY_FLAG_SET.has(flag) || UNRESOLVED_SOURCE_RELIABILITY_CODE_SET.has(flag)) {
+    throw new Error(`Noncanonical reliability code in active triage tier set: ${flag}`);
+  }
+}
 
 const INDIRECT_EVIDENCE_TYPES = new Set(["reported_by_others", "inference", "hypothetical", "unknown"]);
 const INDIRECT_KNOWLEDGE_LEVELS = new Set(["second_hand", "pattern_based", "speculative", "not_known"]);
@@ -187,13 +214,17 @@ function allSourceMetrics(session) {
   ]);
 }
 
+function activeReliabilityFlags(flags) {
+  return flags.filter((flag) => CANONICAL_ANSWER_RELIABILITY_FLAG_SET.has(flag));
+}
+
 function reliabilityCounts(sources) {
   const flags = [];
   let answeredCount = 0;
   for (const source of sources) {
     answeredCount += source.answeredCount;
     for (const response of source.responses) {
-      flags.push(...responseFlags(response));
+      flags.push(...activeReliabilityFlags(responseFlags(response)));
     }
   }
 

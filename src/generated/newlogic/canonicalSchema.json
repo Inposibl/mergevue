@@ -1,4 +1,5 @@
 {
+  "schemaVersion": "v1.1",
   "sourceWorkbook": "ST_Canonical_Schema.xlsx",
   "sides": [
     {
@@ -417,6 +418,13 @@
       "label": "No direct knowledge",
       "triggerCondition": "Respondent explicitly declared no direct observation or document basis.",
       "effectOnScoring": "Answer excluded from primary score; preserved for coverage map."
+    },
+    {
+      "sourceRow": 13,
+      "code": "acquisition_framing_contamination",
+      "label": "Acquisition-framing contamination",
+      "triggerCondition": "Target-side respondent (Respondent.side = target) is aware of the pending acquisition (acquisitionAwareness = yes); the deal context may be colouring the answer toward acceptability or self-protection. Self-declarable by the respondent on any answer; mandatory on every answer when observationTenureMonths < 18 or the respondent is in active acquisition discussions.",
+      "effectOnScoring": "Answer excluded from primary score; retained as a divergence record against acquirer-observer evidence and surfaced for mandatory analyst review."
     }
   ],
   "recordSchemas": {
@@ -657,6 +665,14 @@
       },
       {
         "sourceRow": 14,
+        "field": "acquisitionAwareness",
+        "type": "enum: yes / no / partial",
+        "required": "Conditional \u2014 required when side = target; null otherwise",
+        "description": "Awareness of the pending acquisition. yes \u2192 engine sets respondent-level contamination signal and publishes it as a contamination indicator (TSAM 6 r7). partial \u2192 stored, does not trigger the signal. Domain alias: \"deal awareness\" (Triage 3 r6).",
+        "referencesSheet": "\u2014"
+      },
+      {
+        "sourceRow": 15,
         "field": "createdAt",
         "type": "ISO 8601 datetime",
         "required": "Required",
@@ -664,7 +680,7 @@
         "referencesSheet": "\u2014"
       },
       {
-        "sourceRow": 15,
+        "sourceRow": 16,
         "field": "analystVerified",
         "type": "boolean",
         "required": "Required",
