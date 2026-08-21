@@ -735,6 +735,20 @@ def parse_scoring_and_triage():
                 stop_on_row_discontinuity=True,
             ),
             "edgeCases": table_records(dual, "7_Edge_Cases", "Edge Case", block="edgeCases"),
+            "seniorityTierMapping": table_records(
+                dual,
+                "11_Role_Question_Scope",
+                "Seniority Tier",
+                block="seniorityTierMapping",
+                stop_on_row_discontinuity=True,
+            ),
+            "classificationPrecedence": table_records(
+                dual,
+                "12_Classification_Precedence",
+                "Priority",
+                block="classificationPrecedence",
+                stop_on_row_discontinuity=True,
+            ),
         }
 
     with Workbook(SOURCE_DIR / "ST_Triage_Framework.xlsx") as triage:

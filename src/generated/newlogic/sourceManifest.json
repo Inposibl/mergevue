@@ -3,7 +3,7 @@
     "id": "newlogic-2026-05-03",
     "name": "NewLogic 03.05.2026",
     "path": "NewLogic 03.05.2026",
-    "exportedAt": "2026-08-21T13:00:07.720084+00:00"
+    "exportedAt": "2026-08-21T14:44:13.603985+00:00"
   },
   "environmentAliases": {
     "NF/NT": "The Idea Lab",
@@ -121,8 +121,8 @@
     },
     {
       "file": "ST_Dual_Respondent_Axis_Comparison_v1.xlsx",
-      "sizeBytes": 40817,
-      "lastModified": "2026-08-19T21:19:02.507867+00:00",
+      "sizeBytes": 47709,
+      "lastModified": "2026-08-21T14:44:10.733112+00:00",
       "sheets": [
         "0_Index",
         "1_Answer_Env_Map",
@@ -134,7 +134,9 @@
         "7_Edge_Cases",
         "8_Audit_Trail",
         "9_Methodology_Audit",
-        "10_v3_1_Build_Notes"
+        "10_v3_1_Build_Notes",
+        "11_Role_Question_Scope",
+        "12_Classification_Precedence"
       ]
     },
     {

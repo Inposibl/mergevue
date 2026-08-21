@@ -658,11 +658,11 @@
         "candidatePair": "NT/STJ vs NT/STP",
         "q": "Q4",
         "axisPairTier": "Axis 4 \u2014 Innovation",
-        "r1AnswerEnvA": "A \u2192 NT/STJ",
-        "r2AnswerEnvB": "B \u2192 NT/STP",
+        "optionEnvA": "A \u2192 NT/STJ",
+        "optionEnvB": "B \u2192 NT/STP",
         "weightTier": "HIGH \u2014 PRIMARY",
         "agreeCondition": "Both answer A or both B",
-        "divergeCondition": "R1=A, R2=B (or reverse)",
+        "divergeCondition": "{A,B} split across the two respondents (unordered)",
         "sourceBasis": "AEM Q4 note: A vs B is critical pair discriminator"
       },
       {
@@ -670,8 +670,8 @@
         "candidatePair": "NT/STJ vs NT/STP",
         "q": "Q7",
         "axisPairTier": "Confirmatory",
-        "r1AnswerEnvA": "A \u2192 NT/STJ",
-        "r2AnswerEnvB": "B \u2192 NT/STP",
+        "optionEnvA": "A \u2192 NT/STJ",
+        "optionEnvB": "B \u2192 NT/STP",
         "weightTier": "HIGH \u2014 PRIMARY",
         "agreeCondition": "Same option",
         "divergeCondition": "Different options",
@@ -682,11 +682,11 @@
         "candidatePair": "NT/STJ vs NT/STP",
         "q": "Q5",
         "axisPairTier": "Axis 5 \u2014 Resource Flow",
-        "r1AnswerEnvA": "A \u2192 NT/STJ",
-        "r2AnswerEnvB": "B \u2192 NT/STP\u00b7STJ/STP",
+        "optionEnvA": "A \u2192 NT/STJ",
+        "optionEnvB": "B \u2192 NT/STP\u00b7STJ/STP",
         "weightTier": "STANDARD",
         "agreeCondition": "Both A",
-        "divergeCondition": "R1=A, R2=B",
+        "divergeCondition": "{A,B} split across the two respondents (unordered)",
         "sourceBasis": "Q5-A single NT/STJ; Q5-B shared"
       },
       {
@@ -694,11 +694,11 @@
         "candidatePair": "NT/STJ vs NT/STP",
         "q": "Q9",
         "axisPairTier": "Confirmatory",
-        "r1AnswerEnvA": "A \u2192 NT/STJ",
-        "r2AnswerEnvB": "C \u2192 NT/STP",
+        "optionEnvA": "A \u2192 NT/STJ",
+        "optionEnvB": "C \u2192 NT/STP",
         "weightTier": "STANDARD",
         "agreeCondition": "Both A or both C",
-        "divergeCondition": "R1=A, R2=C",
+        "divergeCondition": "{A,C} split across the two respondents (unordered)",
         "sourceBasis": "Q9-C single NT/STP"
       },
       {
@@ -706,11 +706,11 @@
         "candidatePair": "SFJ/SFP vs SFP/SFJ",
         "q": "Q8",
         "axisPairTier": "Confirmatory",
-        "r1AnswerEnvA": "A \u2192 SFJ/SFP",
-        "r2AnswerEnvB": "B or C \u2192 SFP/SFJ",
+        "optionEnvA": "A \u2192 SFJ/SFP",
+        "optionEnvB": "B or C \u2192 SFP/SFJ",
         "weightTier": "HIGH \u2014 PRIMARY",
         "agreeCondition": "Both A",
-        "divergeCondition": "R1=A, R2=B or C",
+        "divergeCondition": "{A} vs {B or C} split across the two respondents (unordered)",
         "sourceBasis": "AEM Q8 note: primary confirmatory after rewrite"
       },
       {
@@ -718,11 +718,11 @@
         "candidatePair": "SFJ/SFP vs SFP/SFJ",
         "q": "Q6",
         "axisPairTier": "Axis 6 \u2014 Retention",
-        "r1AnswerEnvA": "C \u2192 SFJ/SFP",
-        "r2AnswerEnvB": "B \u2192 SFP/SFJ",
+        "optionEnvA": "C \u2192 SFJ/SFP",
+        "optionEnvB": "B \u2192 SFP/SFJ",
         "weightTier": "HIGH \u2014 PRIMARY",
         "agreeCondition": "Both C",
-        "divergeCondition": "R1=C, R2=B",
+        "divergeCondition": "{C,B} split across the two respondents (unordered)",
         "sourceBasis": "Q6-C only single-env SFJ/SFP signal in instrument"
       },
       {
@@ -730,8 +730,8 @@
         "candidatePair": "SFJ/SFP vs SFP/SFJ",
         "q": "Q5",
         "axisPairTier": "Axis 5 \u2014 Resource Flow",
-        "r1AnswerEnvA": "C \u2192 SFJ/SFP\u00b7SFP/SFJ",
-        "r2AnswerEnvB": "C \u2192 SFP/SFJ",
+        "optionEnvA": "C \u2192 SFJ/SFP\u00b7SFP/SFJ",
+        "optionEnvB": "C \u2192 SFP/SFJ",
         "weightTier": "STANDARD \u2014 shared",
         "agreeCondition": "Both C",
         "divergeCondition": "Neither points exclusively",
@@ -742,11 +742,11 @@
         "candidatePair": "SFJ/SFP vs SFP/SFJ",
         "q": "Q1",
         "axisPairTier": "Axis 1 \u2014 Authority",
-        "r1AnswerEnvA": "B \u2192 SFJ/SFP\u00b7NF/SFJ",
-        "r2AnswerEnvB": "D \u2192 SFP/SFJ\u00b7STP/STJ",
+        "optionEnvA": "B \u2192 SFJ/SFP\u00b7NF/SFJ",
+        "optionEnvB": "D \u2192 SFP/SFJ\u00b7STP/STJ",
         "weightTier": "STANDARD",
         "agreeCondition": "Both B",
-        "divergeCondition": "R1=B, R2=D",
+        "divergeCondition": "{B,D} split across the two respondents (unordered)",
         "sourceBasis": "Distinguishes relational vs compliance authority"
       },
       {
@@ -754,11 +754,11 @@
         "candidatePair": "STJ/STP vs NT/STJ",
         "q": "Q2",
         "axisPairTier": "Axis 2 \u2014 Accountability",
-        "r1AnswerEnvA": "A \u2192 NT/STJ",
-        "r2AnswerEnvB": "C \u2192 STJ/STP",
+        "optionEnvA": "A \u2192 NT/STJ",
+        "optionEnvB": "C \u2192 STJ/STP",
         "weightTier": "HIGH \u2014 PRIMARY",
         "agreeCondition": "Both A or both C",
-        "divergeCondition": "R1=A, R2=C (or reverse)",
+        "divergeCondition": "{A,C} split across the two respondents (unordered)",
         "sourceBasis": "AEM Q2 note: single most reliable acquirer environment discriminator"
       },
       {
@@ -766,11 +766,11 @@
         "candidatePair": "STJ/STP vs NT/STJ",
         "q": "Q9",
         "axisPairTier": "Confirmatory",
-        "r1AnswerEnvA": "A \u2192 NT/STJ",
-        "r2AnswerEnvB": "B \u2192 STJ/STP",
+        "optionEnvA": "A \u2192 NT/STJ",
+        "optionEnvB": "B \u2192 STJ/STP",
         "weightTier": "HIGH \u2014 PRIMARY",
         "agreeCondition": "Both A or both B",
-        "divergeCondition": "R1=A, R2=B",
+        "divergeCondition": "{A,B} split across the two respondents (unordered)",
         "sourceBasis": "Most important post-close leadership treatment predictor"
       },
       {
@@ -778,11 +778,11 @@
         "candidatePair": "STJ/STP vs NT/STJ",
         "q": "Q6",
         "axisPairTier": "Axis 6 \u2014 Retention",
-        "r1AnswerEnvA": "A \u2192 NT/STJ\u00b7NF/NT",
-        "r2AnswerEnvB": "D \u2192 STJ/STP\u00b7NF/SFJ",
+        "optionEnvA": "A \u2192 NT/STJ\u00b7NF/NT",
+        "optionEnvB": "D \u2192 STJ/STP\u00b7NF/SFJ",
         "weightTier": "STANDARD",
         "agreeCondition": "Both A",
-        "divergeCondition": "R1=A, R2=D",
+        "divergeCondition": "{A,D} split across the two respondents (unordered)",
         "sourceBasis": "Q6-A confirms NT/STJ; Q6-D confirms STJ/STP combined with Q2-C"
       },
       {
@@ -790,11 +790,11 @@
         "candidatePair": "STJ/STP vs NT/STJ",
         "q": "Q1",
         "axisPairTier": "Axis 1 \u2014 Authority",
-        "r1AnswerEnvA": "A \u2192 NT/STJ\u00b7NF/NT",
-        "r2AnswerEnvB": "C \u2192 STJ/STP",
+        "optionEnvA": "A \u2192 NT/STJ\u00b7NF/NT",
+        "optionEnvB": "C \u2192 STJ/STP",
         "weightTier": "STANDARD",
         "agreeCondition": "Both A",
-        "divergeCondition": "R1=A, R2=C",
+        "divergeCondition": "{A,C} split across the two respondents (unordered)",
         "sourceBasis": "Q1-C single STJ/STP; Q1-A shared"
       },
       {
@@ -802,11 +802,11 @@
         "candidatePair": "NF/SFJ vs NF/NT",
         "q": "Q10",
         "axisPairTier": "Confirmatory",
-        "r1AnswerEnvA": "A \u2192 NF/NT\u00b7NT/STJ",
-        "r2AnswerEnvB": "C or D \u2192 NF/SFJ",
+        "optionEnvA": "A \u2192 NF/NT\u00b7NT/STJ",
+        "optionEnvB": "C or D \u2192 NF/SFJ",
         "weightTier": "HIGH \u2014 PRIMARY",
         "agreeCondition": "Both A",
-        "divergeCondition": "R1=A, R2=C or D",
+        "divergeCondition": "{A} vs {C or D} split across the two respondents (unordered)",
         "sourceBasis": "AEM Q10 note: most cognitively demanding; primary discriminator"
       },
       {
@@ -814,11 +814,11 @@
         "candidatePair": "NF/SFJ vs NF/NT",
         "q": "Q8",
         "axisPairTier": "Confirmatory",
-        "r1AnswerEnvA": "\u2014 (NF/NT not signalled)",
-        "r2AnswerEnvB": "D \u2192 NF/SFJ",
+        "optionEnvA": "\u2014 (NF/NT not signalled)",
+        "optionEnvB": "D \u2192 NF/SFJ",
         "weightTier": "HIGH \u2014 NF/SFJ only",
         "agreeCondition": "Neither D",
-        "divergeCondition": "R1 or R2 = D",
+        "divergeCondition": "{D} present on either respondent (unordered)",
         "sourceBasis": "Q8-D single NF/SFJ signal"
       },
       {
@@ -826,11 +826,11 @@
         "candidatePair": "NF/SFJ vs NF/NT",
         "q": "Q3",
         "axisPairTier": "Axis 3 \u2014 Dissent",
-        "r1AnswerEnvA": "A \u2192 NT/STJ\u00b7NF/NT",
-        "r2AnswerEnvB": "C \u2192 STJ/STP\u00b7NF/SFJ",
+        "optionEnvA": "A \u2192 NT/STJ\u00b7NF/NT",
+        "optionEnvB": "C \u2192 STJ/STP\u00b7NF/SFJ",
         "weightTier": "STANDARD",
         "agreeCondition": "Both A",
-        "divergeCondition": "R1=A, R2=C",
+        "divergeCondition": "{A,C} split across the two respondents (unordered)",
         "sourceBasis": "Q3-C high-risk; confirm with Q2 to distinguish"
       },
       {
@@ -838,44 +838,32 @@
         "candidatePair": "NF/SFJ vs NF/NT",
         "q": "Q7",
         "axisPairTier": "Confirmatory",
-        "r1AnswerEnvA": "C \u2192 NF/NT",
-        "r2AnswerEnvB": "D \u2192 SFJ/SFP\u00b7STJ/STP",
+        "optionEnvA": "C \u2192 NF/NT",
+        "optionEnvB": "D \u2192 SFJ/SFP\u00b7STJ/STP",
         "weightTier": "STANDARD",
         "agreeCondition": "Both C",
-        "divergeCondition": "R1=C, R2=D",
+        "divergeCondition": "{C,D} split across the two respondents (unordered)",
         "sourceBasis": "Q7-C single NF/NT signal"
       },
       {
         "sourceRow": 21,
-        "candidatePair": "NF/SFP vs other (v3.1)",
-        "q": "Q11",
-        "axisPairTier": "v3.1 NF/SFP discriminator",
-        "r1AnswerEnvA": "C \u2192 NF/SFP",
-        "r2AnswerEnvB": "A/B/D \u2192 other env",
-        "weightTier": "HIGH \u2014 PRIMARY (v3.1 NEW)",
-        "agreeCondition": "Both C",
-        "divergeCondition": "R1=C, R2\u2260C",
-        "sourceBasis": "v3.1: sole NF/SFP discriminator. NF/SFP has thin coverage elsewhere \u2014 Q11-C is the resolver."
-      },
-      {
-        "sourceRow": 22,
         "candidatePair": "NF/SFP vs NF/SFJ",
         "q": "Q11",
         "axisPairTier": "v3.1 NF/SFP discriminator",
-        "r1AnswerEnvA": "C \u2192 NF/SFP",
-        "r2AnswerEnvB": "D \u2192 NF/SFJ",
+        "optionEnvA": "C \u2192 NF/SFP",
+        "optionEnvB": "D \u2192 NF/SFJ",
         "weightTier": "HIGH \u2014 PRIMARY (v3.1)",
         "agreeCondition": "Same option",
         "divergeCondition": "C vs D divergence",
         "sourceBasis": "v3.1: critical NF cluster pair test"
       },
       {
-        "sourceRow": 23,
+        "sourceRow": 22,
         "candidatePair": "NF/SFP vs NF/SFJ",
         "q": "Q10",
         "axisPairTier": "Confirmatory",
-        "r1AnswerEnvA": "\u2014 (NF/SFP not directly signalled)",
-        "r2AnswerEnvB": "C or D \u2192 NF/SFJ",
+        "optionEnvA": "\u2014 (NF/SFP not directly signalled)",
+        "optionEnvB": "C or D \u2192 NF/SFJ",
         "weightTier": "STANDARD",
         "agreeCondition": "Q11 dominates",
         "divergeCondition": "Q10 absence of C/D suggests not NF/SFJ",
@@ -903,7 +891,7 @@
         "r1OrR2E": "Mixed-E: substantive answer contributes; E recorded as gap",
         "bothEOrF": "Both-E: excluded",
         "weight": "HIGH PRIMARY (STJ/STP vs NT/STJ)",
-        "divergeMeaning": "R1=A R2=C is canonical STJ/STP vs NT/STJ diverge pattern. Most reliable single discriminator."
+        "divergeMeaning": "{A,C} split across the two respondents (unordered) is the canonical STJ/STP vs NT/STJ diverge pattern. Most reliable single discriminator."
       },
       {
         "sourceRow": 7,
@@ -914,7 +902,7 @@
         "r1OrR2E": "Mixed-E: substantive answer contributes",
         "bothEOrF": "Both-E: excluded",
         "weight": "HIGH (NF/SFJ vs NF/NT)",
-        "divergeMeaning": "R1=A R2=C diverge = HIGH RISK signal: NF/NT vs NF/SFJ split on epistemic openness."
+        "divergeMeaning": "{A,C} split across the two respondents (unordered) = HIGH RISK signal: NF/NT vs NF/SFJ split on epistemic openness."
       },
       {
         "sourceRow": 8,
@@ -925,7 +913,7 @@
         "r1OrR2E": "Mixed-E: substantive answer contributes",
         "bothEOrF": "Both-E: excluded \u2014 NT/STJ vs NT/STP pair determination compromised; route to Q7",
         "weight": "HIGH PRIMARY (NT/STJ vs NT/STP)",
-        "divergeMeaning": "R1=A R2=B = primary NT/STJ vs NT/STP diverge. Governance layer (CFO) may answer A while operational layer (Deal Lead) answers B \u2192 ROLE-LEVEL SPLIT indicator (sheet 5 \u2462)."
+        "divergeMeaning": "{A,B} split across the two respondents (unordered) is the primary NT/STJ vs NT/STP diverge. Governance layer (CFO) may answer A while operational layer (Deal Lead) answers B \u2192 ROLE-LEVEL SPLIT indicator (sheet 5 \u2462)."
       },
       {
         "sourceRow": 9,
@@ -933,10 +921,10 @@
         "axisPair": "Axis 5 \u2014 Resource Flow",
         "bothR1R2Same": "AGREE \u2014 full credit",
         "r1R2Different": "DIVERGE \u2014 HIGH for NT and SFJ/SP pairs",
-        "r1OrR2E": "Mixed-E: common \u2014 line-level respondents may not see resource allocation. E expected.",
+        "r1OrR2E": "Mixed-E: common \u2014 line-level-tier respondent (sheet 11 Seniority Tier Mapping) may not see resource allocation. E expected.",
         "bothEOrF": "Both-E: excluded; flag both respondents as below-tier-coverage for this dimension",
         "weight": "HIGH (NT/STJ vs NT/STP and SFJ/SFP vs SFP/SFJ)",
-        "divergeMeaning": "R1=A R2=B diverge = NT/STJ vs NT/STP resource logic split. R1=A R2=C common CFO vs CHRO split."
+        "divergeMeaning": "{A,B} split across the two respondents (unordered) = NT/STJ vs NT/STP resource logic split. {A,C} split is a common CFO vs CHRO split."
       },
       {
         "sourceRow": 10,
@@ -947,7 +935,7 @@
         "r1OrR2E": "Mixed-E: option E captures external personal factors \u2014 RECORDED as a non-environment signal but NOT excluded from divergence map. v3.1 distinct semantics.",
         "bothEOrF": "Both-E: divergence pattern uninformative \u2014 both respondents see external-factor explanation; flag for analyst review",
         "weight": "HIGH PRIMARY (SFJ/SFP vs SFP/SFJ)",
-        "divergeMeaning": "Q6-C is single SFJ/SFP signal \u2014 only exclusivity in instrument. R1=C R2=B is canonical SFJ/SFP vs SFP/SFJ split. v3.1: option F = \"cannot answer\" (treated as standard E)."
+        "divergeMeaning": "Q6-C is single SFJ/SFP signal \u2014 only exclusivity in instrument. {C,B} split across the two respondents (unordered) is the canonical SFJ/SFP vs SFP/SFJ split. v3.1: option F = \"cannot answer\" (treated as standard E)."
       },
       {
         "sourceRow": 11,
@@ -958,7 +946,7 @@
         "r1OrR2E": "Mixed-E: substantive answer contributes",
         "bothEOrF": "Both-E: NT/STJ vs NT/STP pair COMPROMISED if Q4 also Both-E",
         "weight": "HIGH PRIMARY (NT/STJ vs NT/STP)",
-        "divergeMeaning": "R1=A R2=B is definitive NT/STJ vs NT/STP pair diverge. If Q4 and Q7 both diverge A/B \u2192 \u2463-A IRRESOLVABLE (within-pair divergence \u2014 practitioner only)."
+        "divergeMeaning": "{A,B} split across the two respondents (unordered) is the definitive NT/STJ vs NT/STP pair diverge. If Q4 and Q7 both diverge A/B \u2192 \u2463-A IRRESOLVABLE (within-pair divergence \u2014 BOTH HIGH-weight pair resolvers DIVERGE)."
       },
       {
         "sourceRow": 12,
@@ -969,7 +957,7 @@
         "r1OrR2E": "Mixed-E (option E = observation gap): substantive answer contributes",
         "bothEOrF": "Both-E or Both-F: SFJ/SFP vs SFP/SFJ pair COMPROMISED. Option F (no-such-period) is structurally meaningful \u2014 both-F indicates both respondents observed no commercial-pressure period; pair determination requires alternative evidence.",
         "weight": "HIGH PRIMARY (SFJ/SFP vs SFP/SFJ)",
-        "divergeMeaning": "R1=A R2=B/C is definitive SFJ/SFP vs SFP/SFJ diverge. R1 or R2 = D flags NF/SFJ contamination \u2014 escalate to \u2463-B (pair-identification failure)."
+        "divergeMeaning": "{A} vs {B/C} split across the two respondents (unordered) is the definitive SFJ/SFP vs SFP/SFJ diverge. {D} on either respondent flags NF/SFJ contamination \u2014 candidate \u2463-B (pair-identification failure); practitioner confirmation required."
       },
       {
         "sourceRow": 13,
@@ -980,7 +968,7 @@
         "r1OrR2E": "Mixed-E (E = no-such-event, F = mechanism-unknown): substantive answer contributes; E and F have distinct semantics",
         "bothEOrF": "Both-E: both respondents observed no senior departures \u2014 diagnostic in deflection-heavy environments. Both-F: mechanism unknown to both \u2014 coverage gap.",
         "weight": "HIGH PRIMARY (STJ/STP vs NT/STJ)",
-        "divergeMeaning": "R1=A R2=B is definitive NT/STJ vs STJ/STP diverge \u2014 most important post-close leadership treatment predictor. Both-E in this pair is itself a STJ/STP indicator (departures structurally suppressed)."
+        "divergeMeaning": "{A,B} split across the two respondents (unordered) is the definitive NT/STJ vs STJ/STP diverge \u2014 most important post-close leadership treatment predictor. Both-E in this pair is itself a STJ/STP indicator (departures structurally suppressed)."
       },
       {
         "sourceRow": 14,
@@ -991,18 +979,18 @@
         "r1OrR2E": "Mixed-E: substantive answer contributes",
         "bothEOrF": "Both-E: NF/SFJ vs NF/NT pair COMPROMISED",
         "weight": "HIGH PRIMARY (NF/SFJ vs NF/NT)",
-        "divergeMeaning": "R1=A R2=C/D = definitive NF/NT vs NF/SFJ diverge. C and D indicate ideological orthodoxy."
+        "divergeMeaning": "{A} vs {C/D} split across the two respondents (unordered) is the definitive NF/NT vs NF/SFJ diverge. C and D indicate ideological orthodoxy."
       },
       {
         "sourceRow": 15,
         "q": "Q11",
         "axisPair": "v3.1 NEW \u2014 NF/SFP discriminator",
         "bothR1R2Same": "AGREE \u2014 full credit",
-        "r1R2Different": "DIVERGE \u2014 HIGH PRIMARY for NF/SFP vs other",
+        "r1R2Different": "DIVERGE \u2014 HIGH PRIMARY within the Q11 NF/SFP discriminator family (NOT a candidate pair).",
         "r1OrR2E": "Mixed-E (E = STJ/STP\u00b7SFP/SFJ shared signal): substantive answer contributes; E itself is a non-NF/SFP signal",
         "bothEOrF": "Both-F: NF/SFP determination COMPROMISED \u2014 Q11 is the sole NF/SFP discriminator",
         "weight": "HIGH PRIMARY (v3.1 NEW)",
-        "divergeMeaning": "R1=C R2=A/B/D is definitive NF/SFP vs other-environment diverge. v3.1 NEW: Q11 is the sole NF/SFP discriminator \u2014 both-F here means NF/SFP determination is impossible."
+        "divergeMeaning": "Q11 discriminator family: option C = NF/SFP signal branch; options A/B/D/E = non-NF/SFP signal branch. \"other\" is a signal branch, NEVER a canonical Environment and NEVER a candidate pair. For the concrete pair NF/SFP vs NF/SFJ, the specific pair rows on sheet 2 take precedence over this complement-family rule. Both-F on Q11 \u2192 precondition outcome \"NF/SFP determination impossible\", practitioner review."
       }
     ],
     "evidenceQualityLayer": [
@@ -1041,10 +1029,10 @@
       {
         "sourceRow": 10,
         "dimension": "Role-coverage match",
-        "highQualityCondition": "BOTH respondents are in roles that have legitimate observation scope for this question (per ST_Canonical_Schema sheet 14)",
+        "highQualityCondition": "Both respondents are within legitimate observation scope for this question per sheet 11_Role_Question_Scope of this workbook. ST_Canonical_Schema.xlsx v1.1 sheet 14_RoleCoverageMatrix is a deal-size respondent-coverage tier rule and is NOT a role \u00d7 question observation-scope matrix.",
         "multiplier": "1.0",
-        "lowQualityCondition": "Either respondent is below-tier for this question scope (e.g. line-level respondent answering Axis 1 questions)",
-        "action": "Apply 0.5 multiplier; route to ROLE-LEVEL SPLIT classification (sheet 5 state \u2462) if pattern is systematic"
+        "lowQualityCondition": "Either respondent is below-tier for this question scope (e.g. line-level-tier respondent answering Axis 1 questions)",
+        "action": "Apply 0.5 multiplier; route to ROLE-LEVEL SPLIT classification (sheet 5 state \u2462) if pattern is systematic. Dimension 5 is NOT production-ready until sheet 11_Role_Question_Scope is authored and accepted. No default, fallback, or 1.0 substitution for a missing roleCoverageMultiplier is permitted. Until then the five-factor combined-quality model is INCOMPLETE."
       },
       {
         "sourceRow": 11,
@@ -1077,16 +1065,16 @@
       {
         "sourceRow": 8,
         "state": "\u2462 ROLE-LEVEL SPLIT",
-        "triggerCondition": "AGREE on \u22655 non-governance axes AND DIVERGE on Axis 1 (Q1) and/or Axis 5 (Q5) AND R1 senior, R2 line-level",
+        "triggerCondition": "AGREE on \u22655 non-governance axes AND DIVERGE on Q1 and/or Q5 AND one respondent is senior-tier and the other line-level tier (per sheet 11 Seniority Tier Mapping).",
         "highWeightCondition": "HIGH-weight pair-resolvers may agree or diverge \u2014 not determinative for this state",
         "qualityThreshold": "Quality multiplier \u2265 0.5 (role mismatch reduces it but does not invalidate)",
-        "resolutionPath": "Senior respondent (R1) signal pattern is primary; junior respondent observation noted as operational layer",
+        "resolutionPath": "The senior-tier respondent's signal pattern is primary; the line-level respondent's observation is recorded as the operational layer.",
         "output": "\u2605 WEAK signal pattern + SPLIT annotation + 1 medium-severity Contradiction record (cross_respondent_same_side)"
       },
       {
         "sourceRow": 9,
         "state": "\u2463-A IRRESOLVABLE \u2014 within-pair divergence",
-        "triggerCondition": "BOTH HIGH-weight pair-resolvers DIVERGE (e.g. R1=Q4-A R2=Q4-B AND R1=Q7-A R2=Q7-B for NT/STJ vs NT/STP pair)",
+        "triggerCondition": "BOTH HIGH-weight pair-resolvers DIVERGE (e.g. {Q4-A, Q4-B} split AND {Q7-A, Q7-B} split for NT/STJ vs NT/STP pair)",
         "highWeightCondition": "Both pair-resolvers fail",
         "qualityThreshold": "Quality multiplier \u2265 0.5 on the failing questions (genuine divergence, not low-quality artifact)",
         "resolutionPath": "PRACTITIONER ESCALATION REQUIRED \u2014 within-pair distinction compromised",
@@ -1095,11 +1083,11 @@
       {
         "sourceRow": 10,
         "state": "\u2463-B IRRESOLVABLE \u2014 pair-identification failure",
-        "triggerCondition": "R2 produces a third environment OUTSIDE the candidate pair (e.g. R1 \u2192 NT/STJ pair indicators; R2 \u2192 SFJ/SFP indicators)",
+        "triggerCondition": "One respondent's signals concentrate on an environment OUTSIDE the candidate pair (unordered \u2014 either respondent).",
         "highWeightCondition": "Pair identification itself fails \u2014 pair-resolver weights inapplicable",
         "qualityThreshold": "Quality multiplier \u2265 0.5 (genuine divergence)",
-        "resolutionPath": "PRACTITIONER ESCALATION ONLY \u2014 adding R3 does NOT resolve. Per project rule: \u2463-B is irresolvable by additional respondents.",
-        "output": "BLOCKED \u2014 no signal pattern issued + 1 critical-severity Contradiction record (cross_respondent_same_side, escalated_to_finding)"
+        "resolutionPath": "Engine flags candidate \u2463-B (evidence outside candidate pair detected). PRACTITIONER CONFIRMATION REQUIRED before final \u2463-B. Adding R3 does NOT resolve \u2463-B.",
+        "output": "BLOCKED \u2014 no signal pattern issued + 1 critical-severity Contradiction record (contradictionType = cross_respondent_same_side)"
       }
     ],
     "contradictionOutput": [
@@ -1108,7 +1096,7 @@
         "divergenceState": "\u2460 CONVERGENT",
         "contradictiontype": "No contradiction (default)",
         "defaultSeverity": "N/A",
-        "recordsIssued": "0 records",
+        "recordsIssued": "0 records. No Contradiction records.",
         "routing": "No analyst routing required from this comparator"
       },
       {
@@ -1116,7 +1104,7 @@
         "divergenceState": "\u2461 PARTIAL CONVERGENCE",
         "contradictiontype": "cross_respondent_same_side",
         "defaultSeverity": "low to medium (per question)",
-        "recordsIssued": "0 to 3 records \u2014 one per materially-divergent question with quality multiplier \u2265 0.5",
+        "recordsIssued": "0 to 3 records \u2014 one per materially-divergent question with quality multiplier \u2265 0.5. Each record includes both respondents' Answer IDs. Maximum 3 records.",
         "routing": "Standard analyst review queue"
       },
       {
@@ -1124,33 +1112,33 @@
         "divergenceState": "\u2462 ROLE-LEVEL SPLIT",
         "contradictiontype": "cross_respondent_same_side",
         "defaultSeverity": "medium",
-        "recordsIssued": "1 record covering Axis 1 / Axis 5 split, observedRoles populated with both R1 and R2 roles",
-        "routing": "Standard analyst review queue; analyst applies methodology \u00a73 Gate 4 override-permitted analysis"
+        "recordsIssued": "observedRoles is an Answer Record field (ST_Canonical_Schema.xlsx v1.1, 7_Answer_Record), NOT a Contradiction Record field. Role provenance is carried on the referenced Answer records via answerIds \u2192 Answer.respondentId \u2192 Respondent.roleCode / seniorityLevel.",
+        "routing": "Standard analyst review queue. Triaged per ST_Analyst_Methodology.xlsx \u00a75, contradictionType row cross_respondent_same_side. NO Gate 4 dependency \u2014 methodology \u00a73 Gate 4 governs cross-side and answer-vs-document override precedence only and has no same-side scope."
       },
       {
         "sourceRow": 9,
         "divergenceState": "\u2463-A IRRESOLVABLE \u2014 within-pair divergence",
         "contradictiontype": "cross_respondent_same_side",
         "defaultSeverity": "high",
-        "recordsIssued": "1 record covering pair-resolver questions; analystResolution = \"practitioner_escalation_required\"",
-        "routing": "PRACTITIONER ESCALATION queue. Optionally: third respondent may be requested via methodology \u00a75 escalation flow."
+        "recordsIssued": "1 record covering both HIGH-weight pair-resolver questions. Both respondents' Answer IDs recorded. analystResolution = null at emission.",
+        "routing": "PRACTITIONER ESCALATION queue. Optionally: third respondent may be requested via methodology \u00a75 escalation flow. Engine MUST NOT pre-populate analystResolution; practitioner instruction lives in Routing only."
       },
       {
         "sourceRow": 10,
         "divergenceState": "\u2463-B IRRESOLVABLE \u2014 pair-identification failure",
-        "contradictiontype": "cross_respondent_same_side, escalated_to_finding",
+        "contradictiontype": "cross_respondent_same_side",
         "defaultSeverity": "critical",
-        "recordsIssued": "1 record with escalatedToAssessmentId pre-populated; analystResolution = \"practitioner_redo_pair_hypothesis\"",
-        "routing": "PRACTITIONER ESCALATION queue. Adding a third respondent does NOT resolve. Per project rule: only practitioner can resolve."
+        "recordsIssued": "1 record covering questions carrying out-of-pair signal. Both respondents' Answer IDs recorded. analystResolution = null at emission. escalatedToAssessmentId = null at emission.",
+        "routing": "PRACTITIONER ESCALATION queue. Adding a third respondent does NOT resolve. Per project rule: only practitioner can resolve. Engine MUST NOT pre-populate analystResolution; practitioner instruction lives in Routing only."
       }
     ],
     "edgeCases": [
       {
         "sourceRow": 5,
-        "edgeCase": "Exact 5-way tie on agreements pointing to different envs",
-        "trigger": "R1 and R2 each agree on exactly 5 questions, but agreed questions point to different environments",
-        "classification": "\u2463-B IRRESOLVABLE \u2014 not PARTIAL CONVERGENCE",
-        "rationale": "Agreement count alone is insufficient \u2014 agreed questions must point to the same environment. Shared count on different environments = no consolidated signal. \u2463-B because it indicates pair-hypothesis failure."
+        "edgeCase": "Agreement-count criteria satisfied but environment coherence ambiguous",
+        "trigger": "Agreement-count criteria for \u2460/\u2461 satisfied, but agreed questions do not resolve to a coherent environment pattern",
+        "classification": "ANALYST / PRACTITIONER REVIEW \u2014 no automatic state assigned",
+        "rationale": "Agreement-count criteria for \u2460/\u2461 may be satisfied while the agreement environment coherence is ambiguous. There is NO canonical coherence rule in the corpus. The engine MUST NOT infer one and MUST NOT auto-classify this as \u2463-B. Route to analyst / practitioner review until an explicit canonical coherence rule is authored."
       },
       {
         "sourceRow": 6,
@@ -1163,43 +1151,43 @@
         "sourceRow": 7,
         "edgeCase": "One HIGH-weight agrees, one diverges",
         "trigger": "Q4 and Q7 disagree on direction for NT/STJ vs NT/STP pair",
-        "classification": "Downgrade to PARTIAL CONVERGENCE if total \u2265 5; \u2463-A if total < 5",
-        "rationale": "Split pair-resolver result removes the ability to cleanly lock the pair. Treat as single-resolver confirmation with reduced confidence."
+        "classification": "PARTIAL CONVERGENCE with LOW CONFIDENCE flag if total \u2265 5; otherwise ANALYST REVIEW \u2014 no automatic state assigned",
+        "rationale": "Split pair-resolver result removes the ability to cleanly lock the pair. Treat as single-resolver confirmation with reduced confidence. \u2463-A is NOT reachable here: automatic \u2463-A requires divergence of BOTH HIGH-weight pair resolvers."
       },
       {
         "sourceRow": 8,
         "edgeCase": "R1 R2 same role level, systematic Q1/Q5 diverge",
         "trigger": "Both PARTNER_MD but disagree on Axis 1 and Axis 5",
-        "classification": "\u2463-A IRRESOLVABLE \u2014 not ROLE-LEVEL SPLIT",
-        "rationale": "ROLE-LEVEL SPLIT requires genuine role-level difference between R1 and R2 (per AEM Rule 5). Same-role divergence on governance axes indicates genuine disagreement, not observation-layer difference."
+        "classification": "EXCLUDED FROM \u2462 ROLE-LEVEL SPLIT. ANALYST REVIEW \u2014 no automatic state assigned.",
+        "rationale": "ROLE-LEVEL SPLIT requires a genuine seniority-tier difference between the two respondents per the state \u2462 definition on sheet 5 of this workbook. Same-tier divergence on governance axes indicates genuine disagreement, not an observation-layer difference. Same-tier divergence on Q1/Q5 is genuine disagreement, not an observation-layer split. Q1/Q5 alone do not satisfy the quantified \u2463-A trigger; automatic \u2463-A requires BOTH HIGH-weight pair resolvers to diverge."
       },
       {
         "sourceRow": 9,
         "edgeCase": "R2 produces third env outside candidate pair",
-        "trigger": "R1 \u2192 NT/STJ; R2 \u2192 SFJ/SFP (not in NT/STJ vs NT/STP pair)",
-        "classification": "\u2463-B IRRESOLVABLE \u2014 escalate with note",
-        "rationale": "Third environment signal outside candidate pair indicates pair-identification may be wrong. Do not force into pair classification. Practitioner escalation only \u2014 third respondent does NOT resolve."
+        "trigger": "One respondent's signals concentrate on an environment OUTSIDE the candidate pair (e.g. NT/STJ vs SFJ/SFP, unordered \u2014 either respondent).",
+        "classification": "CANDIDATE \u2463-B \u2014 practitioner confirmation required",
+        "rationale": "Engine may detect and flag the out-of-pair signal. It may NOT finalise \u2463-B. Practitioner confirms pair-identification failure. Third respondent does NOT resolve."
       },
       {
         "sourceRow": 10,
         "edgeCase": "Both-E systematically across pair-resolvers (v3.1 NEW)",
         "trigger": "BOTH respondents answered E to BOTH HIGH-weight pair-resolver questions",
-        "classification": "\u2463-A IRRESOLVABLE \u2014 coverage gap",
-        "rationale": "v3.1: pair-resolvers cannot be evaluated. This is NOT genuine divergence \u2014 it is an evidence-coverage gap. Practitioner should consider supplemental respondents or interview."
+        "classification": "PRECONDITION / COVERAGE OUTCOME: COVERAGE INSUFFICIENT",
+        "rationale": "Pair-resolvers cannot be evaluated. This is absence of evidence, not genuine divergence. Under the canonical \u2463-A rule, \u2463-A is reachable ONLY when both HIGH-weight pair resolvers DIVERGE at quality \u2265 0.5. No Contradiction record is emitted. Practitioner may consider supplemental respondents or interview."
       },
       {
         "sourceRow": 11,
         "edgeCase": "Mixed-E pattern correlated with role tier (v3.1 NEW)",
-        "trigger": "Junior respondent (R2) systematically answers E on Axis 1 and Axis 5; R1 answers substantively",
+        "trigger": "line-level-tier respondent systematically answers E on Axis 1 and Axis 5; senior-tier respondent answers substantively",
         "classification": "\u2462 ROLE-LEVEL SPLIT \u2014 not coverage gap",
-        "rationale": "v3.1: junior-respondent E pattern on governance/resource axes is the EXPECTED outcome of role-tier observation scope. Not a coverage failure \u2014 the structural reality."
+        "rationale": "v3.1: line-level-tier respondent E pattern on governance/resource axes is the EXPECTED outcome of role-tier observation scope. Not a coverage failure \u2014 the structural reality."
       },
       {
         "sourceRow": 12,
         "edgeCase": "Q11 both-F (v3.1 NEW)",
         "trigger": "BOTH respondents answered F (cannot answer) to Q11",
-        "classification": "NF/SFP determination IMPOSSIBLE \u2014 no other discriminator",
-        "rationale": "v3.1: Q11 is the sole NF/SFP discriminator in the AEM/TSAM. If both respondents cannot answer it, NF/SFP cannot be ruled in or out. Route to ST_Environment_Diagnostic_v2.xlsx (which has 5 NF/SFP signal paths) for cross-instrument verification."
+        "classification": "PRECONDITION / COVERAGE OUTCOME: NF/SFP determination impossible",
+        "rationale": "Scoped to the NF/SFP vs NF/SFJ pair and the Q11 discriminator family only. Q11 is not a resolver for the other four production pairs. NOT a divergence state. PRACTITIONER REVIEW. No automatic cross-instrument fallback. ST_Environment_Diagnostic_v2.xlsx is NOT a valid automatic fallback: its canonical scoring notes state that NF/SFP has direct-name coverage of only 3 questions and warn that an NF/SFP signal there may be an instrument artifact."
       },
       {
         "sourceRow": 13,
@@ -1212,8 +1200,143 @@
         "sourceRow": 14,
         "edgeCase": "Quality multiplier < 0.4 across all questions (v3.1 NEW)",
         "trigger": "Combined evidence-quality multiplier from sheet 4 is < 0.4 on \u2265 8 of 11 questions",
-        "classification": "COVERAGE INSUFFICIENT \u2014 comparator output suppressed",
+        "classification": "PRECONDITION / COVERAGE OUTCOME: COVERAGE INSUFFICIENT \u2014 comparator output suppressed. This is NOT a divergence state and does NOT enter the five-state enum.",
         "rationale": "v3.1: low-quality evidence on most questions means the divergence pattern is unreliable. Do NOT issue Contradiction records. Engagement requires additional respondents or evidence before this comparator yields useful output."
+      }
+    ],
+    "seniorityTierMapping": [
+      {
+        "sourceRow": 6,
+        "seniorityTier": "senior",
+        "respondentSenioritylevelValues": "c_suite, vp, director",
+        "definition": "Governance / decision-authority altitude. Legitimate observation scope for Axis 1 (Q1) and Axis 5 (Q5) governance and resource-flow questions.",
+        "source": "DR-B2; ST_Canonical_Schema.xlsx v1.1 8_Respondent_Record"
+      },
+      {
+        "sourceRow": 7,
+        "seniorityTier": "line_level",
+        "respondentSenioritylevelValues": "manager, ic",
+        "definition": "Operational altitude. Systematic Option-E on governance/resource axes is an expected structural outcome, not by itself a coverage failure.",
+        "source": "DR-B2; Dual Respondent canonical role-level split rules"
+      },
+      {
+        "sourceRow": 8,
+        "seniorityTier": "external",
+        "respondentSenioritylevelValues": "external",
+        "definition": "Neither senior nor line-level. Outside the internal seniority ladder.",
+        "source": "DR-B2"
+      }
+    ],
+    "classificationPrecedence": [
+      {
+        "sourceRow": 5,
+        "priority": "0a",
+        "condition": "candidatePair absent",
+        "outcomeClass": "input_precondition",
+        "classificationOutcome": "Comparator does not run",
+        "automated": "Yes \u2014 detect",
+        "humanGate": "",
+        "output": "No comparator output",
+        "source": "DR-A1"
+      },
+      {
+        "sourceRow": 6,
+        "priority": "0b",
+        "condition": "candidatePair not in the five canonical production pairs",
+        "outcomeClass": "input_precondition",
+        "classificationOutcome": "STOP \u2014 practitioner pair diagnosis required. NOT \u2463-B.",
+        "automated": "Yes \u2014 detect",
+        "humanGate": "Practitioner pair diagnosis",
+        "output": "No comparator output; no Contradiction record",
+        "source": "DR-A4"
+      },
+      {
+        "sourceRow": 7,
+        "priority": "1",
+        "condition": "Combined evidence-quality multiplier < 0.4 on \u2265 8 of 11 questions OR both respondents answered E to both HIGH-weight pair resolvers",
+        "outcomeClass": "coverage_outcome",
+        "classificationOutcome": "COVERAGE INSUFFICIENT \u2014 comparator output suppressed",
+        "automated": "Yes",
+        "humanGate": "",
+        "output": "No signal pattern; no Contradiction records",
+        "source": "DR-C2; DR-C6; C-21"
+      },
+      {
+        "sourceRow": 8,
+        "priority": "1b",
+        "condition": "Both respondents answered F to Q11",
+        "outcomeClass": "coverage_outcome",
+        "classificationOutcome": "NF/SFP determination impossible",
+        "automated": "Yes \u2014 detect",
+        "humanGate": "Practitioner review",
+        "output": "Pair evaluation suppressed for NF/SFP vs NF/SFJ / Q11 discriminator family; no automatic EDv2 fallback",
+        "source": "DR-A6; DR-C6"
+      },
+      {
+        "sourceRow": 9,
+        "priority": "2",
+        "condition": "Evidence concentrates on an environment OUTSIDE the candidate pair, at quality \u2265 0.5",
+        "outcomeClass": "divergence_state",
+        "classificationOutcome": "Candidate \u2463-B \u2014 pair-identification failure",
+        "automated": "Detect only",
+        "humanGate": "Practitioner confirmation required",
+        "output": "After confirmation: BLOCKED; 1 critical Contradiction record, contradictionType = cross_respondent_same_side",
+        "source": "DR-C2; DR-C4; DR-D5"
+      },
+      {
+        "sourceRow": 10,
+        "priority": "3",
+        "condition": "BOTH HIGH-weight pair resolvers DIVERGE at quality \u2265 0.5",
+        "outcomeClass": "divergence_state",
+        "classificationOutcome": "\u2463-A IRRESOLVABLE \u2014 within-pair divergence",
+        "automated": "Yes",
+        "humanGate": "",
+        "output": "BLOCKED; 1 high Contradiction record",
+        "source": "DR-C2; DR-C3"
+      },
+      {
+        "sourceRow": 11,
+        "priority": "4",
+        "condition": "AGREE on \u2265 5 non-governance axes AND DIVERGE on Q1 and/or Q5 AND one respondent is senior-tier and the other line-level tier; quality \u2265 0.5",
+        "outcomeClass": "divergence_state",
+        "classificationOutcome": "\u2462 ROLE-LEVEL SPLIT",
+        "automated": "Yes",
+        "humanGate": "",
+        "output": "\u2605 WEAK signal pattern + SPLIT annotation; 1 medium Contradiction record; standard analyst review queue; NO Gate 4",
+        "source": "DR-C2; DR-B4"
+      },
+      {
+        "sourceRow": 12,
+        "priority": "5X",
+        "condition": "\u2460/\u2461 agreement-count criteria satisfied but agreement environment coherence is ambiguous",
+        "outcomeClass": "routing_outcome",
+        "classificationOutcome": "ANALYST / PRACTITIONER REVIEW \u2014 no automatic state",
+        "automated": "Detect only",
+        "humanGate": "Analyst / practitioner review",
+        "output": "Held pending review; MUST NOT auto-classify as \u2463-B",
+        "source": "DR-C5"
+      },
+      {
+        "sourceRow": 13,
+        "priority": "5A",
+        "condition": "Effective AGREE \u2265 7 of 11; both HIGH-weight pair resolvers agree; quality \u2265 0.7",
+        "outcomeClass": "divergence_state",
+        "classificationOutcome": "\u2460 CONVERGENT",
+        "automated": "Yes",
+        "humanGate": "",
+        "output": "\u2605\u2605\u2605 STRONG signal pattern; 0 Contradiction records",
+        "source": "DR-C2"
+      },
+      {
+        "sourceRow": 14,
+        "priority": "5B",
+        "condition": "Effective AGREE 5\u20136 of 11; at least one HIGH-weight pair resolver agrees; quality \u2265 0.5",
+        "outcomeClass": "divergence_state",
+        "classificationOutcome": "\u2461 PARTIAL CONVERGENCE",
+        "automated": "Yes",
+        "humanGate": "",
+        "output": "\u2605\u2605 CONFIRMED signal pattern; 0\u20133 Contradiction records",
+        "source": "DR-C2"
       }
     ]
   },
