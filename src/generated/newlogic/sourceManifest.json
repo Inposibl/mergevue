@@ -3,7 +3,7 @@
     "id": "newlogic-2026-05-03",
     "name": "NewLogic 03.05.2026",
     "path": "NewLogic 03.05.2026",
-    "exportedAt": "2026-08-21T20:28:12.140124+00:00"
+    "exportedAt": "2026-08-21T21:40:42.764399+00:00"
   },
   "environmentAliases": {
     "NF/NT": "The Idea Lab",
@@ -84,8 +84,8 @@
     },
     {
       "file": "ST_Canonical_Schema.xlsx",
-      "sizeBytes": 45403,
-      "lastModified": "2026-08-21T00:54:14.141679+00:00",
+      "sizeBytes": 47745,
+      "lastModified": "2026-08-21T21:39:51.779682+00:00",
       "sheets": [
         "0_Index",
         "1_Sides",
@@ -121,8 +121,8 @@
     },
     {
       "file": "ST_Dual_Respondent_Axis_Comparison_v1.xlsx",
-      "sizeBytes": 54522,
-      "lastModified": "2026-08-21T20:27:50.159138+00:00",
+      "sizeBytes": 54567,
+      "lastModified": "2026-08-21T21:39:51.963400+00:00",
       "sheets": [
         "0_Index",
         "1_Answer_Env_Map",

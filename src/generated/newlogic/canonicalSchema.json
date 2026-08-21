@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "v1.1",
+  "schemaVersion": "v1.2",
   "sourceWorkbook": "ST_Canonical_Schema.xlsx",
   "sides": [
     {
@@ -211,7 +211,7 @@
       "side": "other",
       "roleCode": "unspecified",
       "roleLabel": "Other / Unspecified",
-      "legitimateAccessScope": "Requires free-text role description and analyst review for access scoping",
+      "legitimateAccessScope": "Requires free-text role description and analyst review for access scoping. Dual AEM/TSAM Q1\u2013Q11 compatibility: roleCode = unspecified \u2192 UNRESOLVED \u2192 practitioner access review. No fallback tier. No conversion to external. No conversion to line_level. No default PRIMARY. No default CONTEXTUAL. No multiplier substitution. The five-state comparator must not proceed until review.",
       "typicalSeniority": "Variable"
     }
   ],
@@ -388,15 +388,15 @@
       "sourceRow": 8,
       "code": "overgeneralized",
       "label": "Overgeneralised",
-      "triggerCondition": "Respondent answered for the entire organisation when their access scope is narrower.",
-      "effectOnScoring": "Answer downweighted by 0.5; flagged for role-mismatch review."
+      "triggerCondition": "Content-level extrapolation beyond actual evidence. Scope mismatch or observation-altitude mismatch alone is insufficient. Allowed only when there is independent evidence that the respondent extrapolates beyond observed events, observed roles, observed functions, observed time period, or an otherwise supported evidence base.",
+      "effectOnScoring": "Answer downweighted by 0.5; flagged for role-mismatch review. If the same underlying access/scope cause is already adjudicated through Observation Use Class or speaks_for_group_without_access, do not apply an additional overgeneralized penalty unless separate extrapolation evidence exists."
     },
     {
       "sourceRow": 9,
       "code": "speaks_for_group_without_access",
       "label": "Speaks for group without access",
-      "triggerCondition": "Respondent answered a question outside their legitimate access map (Sheet 2_Roles).",
-      "effectOnScoring": "Answer scored as inference at most, regardless of self-reported EvidenceType."
+      "triggerCondition": "Domain split. For AEM Q1\u2013Q11 and TSAM Q1\u2013Q11, legitimate observation access is determined by ST_Dual_Respondent_Axis_Comparison_v1.xlsx sheet 11_Role_Question_Scope using accepted Observation Scope logic. Bare local IDs such as Q1 must not be mapped to Dual from other instruments. For deal/workstream questions, sheet 2_Roles remains the authority for its original deal/workstream legitimate-access domain. For EDv2 or other instruments, Dual access logic must not be applied from bare Q1\u2026Qn; only instrument-specific authority may be used. Missing instrument-specific authority is not invented here.",
+      "effectOnScoring": "Audit/reliability marker. If the same access/scope cause has already changed Observation Use Class: do NOT force evidenceType = inference; do NOT apply an additional reliability downweight for that same cause; do NOT create another independent evidence-quality penalty. evidenceType = inference may be assigned only when independently supported by the answer's actual evidentiary basis; this flag does not automatically force evidenceType = inference. In legacy deal/workstream contexts without Observation Use Class, the existing access effect may remain the single applicable legacy effect, but the same flag must not be counted twice. Numeric evidence weights are unchanged."
     },
     {
       "sourceRow": 10,
@@ -450,8 +450,8 @@
         "field": "questionId",
         "type": "string",
         "required": "Required",
-        "description": "Stable identifier of the question, e.g. ACQ-Q1, TGT-OBS-Q5.",
-        "referencesSheet": "See per-questionnaire keys"
+        "description": "Persisted Answer.questionId must equal the globally namespaced stable Question.id. Bare local IDs such as Q1, Q2 must NOT be persisted as globally unique identifiers. Field name unchanged.",
+        "referencesSheet": "Question resolution is questionnaire/instrument namespaced. Safe logical key: (moduleId, workbookQuestionId). Physical source equivalent: (sourceWorkbook, sourceSheet, workbookQuestionId). Dual local questionRef may only be resolved after confirming the instrument/module. Authorized Dual mapping: (acquirerEnvironment, Q1\u2026Q11) \u2192 Dual Q1\u2026Q11; (targetSelfAssessment, Q1\u2026Q11) \u2192 Dual Q1\u2026Q11. Prohibited: bare Q1 \u2192 Dual Q1; environmentLevel1 Q1 \u2192 Dual Q1. Existing IDs are not renamed."
       },
       {
         "sourceRow": 7,
@@ -628,15 +628,15 @@
         "field": "seniorityLevel",
         "type": "enum: c_suite / vp / director / manager / ic / external",
         "required": "Required",
-        "description": "Decision authority and observation altitude.",
-        "referencesSheet": "\u2014"
+        "description": "Decision authority and observation altitude. For Dual AEM/TSAM Observation Scope, seniority tier mapping is owned by ST_Dual_Respondent_Axis_Comparison_v1.xlsx sheet 11_Role_Question_Scope. Canonical Schema does not duplicate that mapping and does not add a seniorityTier field.",
+        "referencesSheet": "ST_Dual_Respondent_Axis_Comparison_v1.xlsx \u00b7 11_Role_Question_Scope \u00b7 Seniority Tier Mapping"
       },
       {
         "sourceRow": 10,
         "field": "accessLevel",
         "type": "enum: full / functional / limited / external_only",
         "required": "Required",
-        "description": "Scope of legitimate organisational visibility.",
+        "description": "Respondent-wide visibility metadata for routing, practitioner review, and anomaly detection. Must NOT by itself determine question-level Observation Use Class, cap question-level Observation Use Class, modify Evidence Quality, or act as a multiplier. Question-level actual access is established through applicable Observation Scope rules, per-answer directObservationGate, and question-qualified option semantics where relevant. Enum remains full | functional | limited | external_only.",
         "referencesSheet": "\u2014"
       },
       {
@@ -1293,13 +1293,13 @@
       "sourceRow": 6,
       "scenario": "Target self-assessment diverges from documentary evidence",
       "defaultTreatment": "Documentary evidence governs. Self-assessment downweighted by socially_desirable flag.",
-      "notes": "Document trumps self-report."
+      "notes": "Within this inter-side target-self-vs-observer precedence domain only: documentary evidence governs over target self-report. Not a universal document>human rule. Same-side Dual corroboration is outside this sheet."
     },
     {
       "sourceRow": 7,
       "scenario": "Acquirer observer diverges from documentary evidence",
       "defaultTreatment": "Documentary evidence governs. Observer answer downweighted by contradicted_by_document flag.",
-      "notes": "Document trumps observer claim."
+      "notes": "Within this inter-side target-self-vs-observer precedence domain only: documentary evidence governs over the observer claim. Not a universal document>human rule. Same-side Dual corroboration is outside this sheet."
     },
     {
       "sourceRow": 8,
