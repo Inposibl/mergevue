@@ -1053,22 +1053,6 @@
         "multiplier": "Range: 0.027 to 1.0",
         "lowQualityCondition": "Below 0.4 = low-quality divergence; below 0.2 = excluded entirely",
         "action": "Multiplier \u2265 0.7: standard divergence weight applied. Multiplier 0.4-0.7: divergence flagged but reduced. Multiplier < 0.4: divergence noted, NO Contradiction record produced."
-      },
-      {
-        "sourceRow": 13,
-        "dimension": "INTEGRATION WITH SHEET 3",
-        "highQualityCondition": "",
-        "multiplier": "",
-        "lowQualityCondition": "",
-        "action": ""
-      },
-      {
-        "sourceRow": 14,
-        "dimension": "Each per-question divergence determination from sheet 3 is multiplied by the combined evidence-quality multiplier from this sheet. Effective divergence weight = base_weight \u00d7 combined_quality_multiplier. Sheet 5 (Divergence Classification) consumes the effective weights, NOT the base weights. This means a CONVERGENT classification requires both AGREE pattern AND high-quality evidence on enough questions; an IRRESOLVABLE classification can result from genuine cross-respondent divergence OR from systematically low-quality evidence.",
-        "highQualityCondition": "",
-        "multiplier": "",
-        "lowQualityCondition": "",
-        "action": ""
       }
     ],
     "divergenceClassification": [

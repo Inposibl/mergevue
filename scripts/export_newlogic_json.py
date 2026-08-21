@@ -713,7 +713,13 @@ def parse_scoring_and_triage():
             "answerEnvironmentMap": table_records(dual, "1_Answer_Env_Map", "Q#", block="answerEnvironmentMap"),
             "pairSpecificWeights": table_records(dual, "2_Pair_Specific_Weights", "Candidate Pair", block="pairSpecificWeights"),
             "comparisonEngine": table_records(dual, "3_Comparison_Engine", "Q#", block="comparisonEngine"),
-            "evidenceQualityLayer": table_records(dual, "4_Evidence_Quality_Layer", "Dimension", block="evidenceQualityLayer"),
+            "evidenceQualityLayer": table_records(
+                dual,
+                "4_Evidence_Quality_Layer",
+                "Dimension",
+                block="evidenceQualityLayer",
+                stop_on_row_discontinuity=True,
+            ),
             "divergenceClassification": table_records(
                 dual,
                 "5_Divergence_Classification",
