@@ -1156,7 +1156,36 @@
         "targetEnvironmentName": "The Franchise Machine"
       }
     ],
-    "confidenceGateMapping": [],
+    "confidenceGateMapping": [
+      {
+        "sourceRow": 6,
+        "confidenceGateVerdict": "high (5/5 conditions met)",
+        "layer1EvidenceQuality": "Direct-observation share \u226560%, triangulation present, documentary corroboration on critical categories, reliability flag rate <20%, full Tier role coverage",
+        "freeTierCtaToneModifier": "Confident \u2014 preliminary signal language stands as-is. Free-tier output explicitly notes evidence pattern is \"high-quality preliminary signal.\"",
+        "standardCtaSuffix": "Standard CTA + sentence: \"Your Layer 1 evidence pattern meets all five Confidence Gate conditions \u2014 the engagement-priced analysis is likely to confirm the directional pattern.\""
+      },
+      {
+        "sourceRow": 7,
+        "confidenceGateVerdict": "medium (3-4/5 conditions met)",
+        "layer1EvidenceQuality": "Most gate conditions met but role coverage or triangulation incomplete",
+        "freeTierCtaToneModifier": "Standard \u2014 preliminary signal language stands. Free-tier output notes evidence pattern is \"directional but coverage-limited.\"",
+        "standardCtaSuffix": "Standard CTA + sentence: \"Your Layer 1 evidence pattern meets most Confidence Gate conditions \u2014 the engagement-priced analysis will fill the coverage gaps and confirm or refine the directional pattern.\""
+      },
+      {
+        "sourceRow": 8,
+        "confidenceGateVerdict": "low (\u22642/5 conditions met)",
+        "layer1EvidenceQuality": "Limited evidence quality: low direct-observation share OR high reliability flag rate OR insufficient role coverage",
+        "freeTierCtaToneModifier": "Cautious \u2014 strengthen the preliminary signal framing. Free-tier output notes evidence pattern is \"directional pattern only \u2014 interpretation requires analyst review.\"",
+        "standardCtaSuffix": "Standard CTA + sentence: \"Your Layer 1 evidence pattern meets fewer than three Confidence Gate conditions \u2014 this is a directional pattern only. The engagement-priced analysis is essential for any commercial decision.\""
+      },
+      {
+        "sourceRow": 9,
+        "confidenceGateVerdict": "cannot_determine",
+        "layer1EvidenceQuality": "Insufficient evidence to assign confidence \u2014 coverage failure",
+        "freeTierCtaToneModifier": "BLOCKED \u2014 do not serve narrative as standard free-tier output. Route to triage framework instead.",
+        "standardCtaSuffix": "NO standard CTA. Output: \"Your Layer 1 evidence pattern is insufficient to produce a directional indicator. The triage framework recommends additional respondents OR practitioner consultation before any further analysis.\" Per ST_Triage_Framework.xlsx Trigger 5 / Trigger 6."
+      }
+    ],
     "schemaMethodologyDependencies": [
       {
         "sourceRow": 1,
@@ -2514,7 +2543,70 @@
         "targetEnvironmentName": "The Enforcer Network"
       }
     ],
-    "derivationMethod": [],
+    "derivationMethod": [
+      {
+        "sourceRow": 1,
+        "cells": {
+          "1": "FRICTION POINT DERIVATION METHOD \u00b7 Source Documentation"
+        }
+      },
+      {
+        "sourceRow": 2,
+        "cells": {
+          "2": "Primary source\nResource Impact Matrix (ST_ECS_v1.xlsx)",
+          "3": "For each acquirer-target pair, compared net resource effects (+/~/\u2212) across all 17 resources. Conflict identified where acquirer amplifies (+) what target suppresses (\u2212) or vice versa. Conflict score: 2 = direct (+/\u2212 or \u2212/+), 1 = partial (+/~ or ~/\u2212). Highest-conflict resources identified as FP1 candidates."
+        }
+      },
+      {
+        "sourceRow": 3,
+        "cells": {
+          "2": "Secondary source\nEnvironment Reference Files (9\u00d7 Overview sheets)",
+          "3": "Authority structure, decision mechanism, innovation stance, retention mechanism, resource flow direction, and transition/degradation paths extracted from all 9 environments. FP behavioral descriptions derived from structural language in these files. Timeline calibrated from NF/SFP depletion sequence (months 1-12 invisible, 12-18 visible) as the baseline; other environments adjusted by structural logic."
+        }
+      },
+      {
+        "sourceRow": 4,
+        "cells": {
+          "2": "Tertiary source\nECS Compatibility Matrix (ST_ECS_v1.xlsx)",
+          "3": "Overall score determines risk classification and calibrates how many friction points are simultaneously active. Score \u226580: friction points are minor and manageable. Score 50-79: friction points active but recoverable. Score \u226449: multiple friction points active simultaneously with compounding effects."
+        }
+      },
+      {
+        "sourceRow": 5,
+        "cells": {
+          "2": "Timeline derivation\nFP1 = Days 30-60",
+          "3": "Primary friction manifests when first governance mechanisms are applied \u2014 typically the first performance review, first structural decision, or first cross-organisational meeting. Observable and verifiable without additional instruments."
+        }
+      },
+      {
+        "sourceRow": 6,
+        "cells": {
+          "2": "Timeline derivation\nFP2 = Months 2-6",
+          "3": "Secondary friction manifests when target leaders have accumulated enough evidence about the new operating environment to update their behavioural models. Authority structure, resource allocation, and innovation mechanism changes become visible as patterns rather than isolated incidents."
+        }
+      },
+      {
+        "sourceRow": 7,
+        "cells": {
+          "2": "Timeline derivation\nFP3 = Months 6-18",
+          "3": "Tertiary friction manifests as talent departure or performance degradation. This is the window identified in project materials as the critical integration risk period. Departure typically begins with the highest-value individuals first \u2014 those with the most options and the clearest understanding of the structural mismatch."
+        }
+      },
+      {
+        "sourceRow": 8,
+        "cells": {
+          "2": "Early warning signal\nObservable within 30 days",
+          "3": "Each early warning is designed to be: (1) observable without additional instruments, (2) verifiable by the acquirer through direct observation, (3) specific enough to distinguish the predicted incompatibility from general integration noise. The signal is not a prediction of outcome \u2014 it is a confirmation that the structural incompatibility described in FP1 is active."
+        }
+      },
+      {
+        "sourceRow": 9,
+        "cells": {
+          "2": "Scope note\n36 directed pairs selected",
+          "3": "All pairs involving NT/STJ, NT/STP, or NF/NT as acquirer or target are included. Remaining commercially relevant pairs included based on M&A prevalence.\n\nNOTE (updated March 2026): STP/STJ is now included in ST_ECS_v1.xlsx (9\u00d79 matrix) and ST_ECS_v2_updated.xlsx. STP/STJ friction point narratives are not yet included in this lookup table (coverage remains the core 8-environment commercial set). For STP/STJ pair analysis: apply reverse-direction logic from adjacent STJ/STP and NF/SFJ pairs, or run the full 22Q diagnostic against STP_STJ_Environment_Reference.xlsx.\n\nUPDATE (June 2026): STP/STJ pair scores are now canonical in the ECS_Matrix sheet of this file. Derivation and reproduction proof: ST_ECS_Derivation_Method_v1.xlsx. Friction-point narratives for STP/STJ pairs remain pending."
+        }
+      }
+    ],
     "riskCategoryTagging": [
       {
         "sourceRow": 1,

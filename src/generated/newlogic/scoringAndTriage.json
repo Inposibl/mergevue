@@ -1,10 +1,1076 @@
 {
   "dualRespondentComparison": {
     "sourceWorkbook": "ST_Dual_Respondent_Axis_Comparison_v1.xlsx",
-    "answerEnvironmentMap": [],
-    "pairSpecificWeights": [],
-    "comparisonEngine": [],
-    "evidenceQualityLayer": [],
+    "answerEnvironmentMap": [
+      {
+        "sourceRow": 5,
+        "q": "Q1",
+        "axisPair": "Axis 1 \u2014 Authority Mechanism",
+        "option": "A",
+        "optionText": "Quality of argument overrides seniority",
+        "primaryEnvSignal": "NT/STJ",
+        "secondaryEnvSignal": "NF/NT",
+        "canonicalEnvName": "The Performance Arena \u00b7 The Idea Lab",
+        "signalType": "SHARED"
+      },
+      {
+        "sourceRow": 6,
+        "q": "Q1",
+        "axisPair": "Axis 1 \u2014 Authority Mechanism",
+        "option": "B",
+        "optionText": "Seniority decides \u2014 challenge heard but rank determines",
+        "primaryEnvSignal": "SFJ/SFP",
+        "secondaryEnvSignal": "NF/SFJ",
+        "canonicalEnvName": "The Hometown Network \u00b7 The Mission Field",
+        "signalType": "SHARED"
+      },
+      {
+        "sourceRow": 7,
+        "q": "Q1",
+        "axisPair": "Axis 1 \u2014 Authority Mechanism",
+        "option": "C",
+        "optionText": "Leverage and resource control \u2014 not rank, not argument",
+        "primaryEnvSignal": "STJ/STP",
+        "secondaryEnvSignal": "\u2014",
+        "canonicalEnvName": "The Power Racket",
+        "signalType": "SINGLE"
+      },
+      {
+        "sourceRow": 8,
+        "q": "Q1",
+        "axisPair": "Axis 1 \u2014 Authority Mechanism",
+        "option": "D",
+        "optionText": "Alignment with established thesis",
+        "primaryEnvSignal": "SFP/SFJ",
+        "secondaryEnvSignal": "STP/STJ",
+        "canonicalEnvName": "The Franchise Machine \u00b7 The Enforcer Network",
+        "signalType": "SHARED"
+      },
+      {
+        "sourceRow": 9,
+        "q": "Q1",
+        "axisPair": "Axis 1 \u2014 Authority Mechanism",
+        "option": "E",
+        "optionText": "Cannot answer from direct observation",
+        "primaryEnvSignal": "\u2014",
+        "secondaryEnvSignal": "\u2014",
+        "canonicalEnvName": "\u2014",
+        "signalType": "EXCLUDED"
+      },
+      {
+        "sourceRow": 10,
+        "q": "Q2",
+        "axisPair": "Axis 2 \u2014 Accountability Symmetry",
+        "option": "A",
+        "optionText": "Same formal process at senior level \u2014 no exception for rank",
+        "primaryEnvSignal": "NT/STJ",
+        "secondaryEnvSignal": "\u2014",
+        "canonicalEnvName": "The Performance Arena",
+        "signalType": "SINGLE \u2014 most reliable NT/STJ discriminator"
+      },
+      {
+        "sourceRow": 11,
+        "q": "Q2",
+        "axisPair": "Axis 2 \u2014 Accountability Symmetry",
+        "option": "B",
+        "optionText": "Handled privately \u2014 seniority provides shelter",
+        "primaryEnvSignal": "SFJ/SFP",
+        "secondaryEnvSignal": "NF/SFJ",
+        "canonicalEnvName": "The Hometown Network \u00b7 The Mission Field",
+        "signalType": "SHARED"
+      },
+      {
+        "sourceRow": 12,
+        "q": "Q2",
+        "axisPair": "Axis 2 \u2014 Accountability Symmetry",
+        "option": "C",
+        "optionText": "Outcome depends on projected strength",
+        "primaryEnvSignal": "STJ/STP",
+        "secondaryEnvSignal": "\u2014",
+        "canonicalEnvName": "The Power Racket",
+        "signalType": "SINGLE"
+      },
+      {
+        "sourceRow": 13,
+        "q": "Q2",
+        "axisPair": "Axis 2 \u2014 Accountability Symmetry",
+        "option": "D",
+        "optionText": "Senior accountability measured differently",
+        "primaryEnvSignal": "SFP/SFJ",
+        "secondaryEnvSignal": "STP/STJ",
+        "canonicalEnvName": "The Franchise Machine \u00b7 The Enforcer Network",
+        "signalType": "SHARED"
+      },
+      {
+        "sourceRow": 14,
+        "q": "Q2",
+        "axisPair": "Axis 2 \u2014 Accountability Symmetry",
+        "option": "E",
+        "optionText": "Cannot answer from direct observation",
+        "primaryEnvSignal": "\u2014",
+        "secondaryEnvSignal": "\u2014",
+        "canonicalEnvName": "\u2014",
+        "signalType": "EXCLUDED"
+      },
+      {
+        "sourceRow": 15,
+        "q": "Q3",
+        "axisPair": "Axis 3 \u2014 Response to Dissent",
+        "option": "A",
+        "optionText": "Objection on merits \u2014 analytically sound case changes outcome",
+        "primaryEnvSignal": "NT/STJ",
+        "secondaryEnvSignal": "NF/NT",
+        "canonicalEnvName": "The Performance Arena \u00b7 The Idea Lab",
+        "signalType": "SHARED"
+      },
+      {
+        "sourceRow": 16,
+        "q": "Q3",
+        "axisPair": "Axis 3 \u2014 Response to Dissent",
+        "option": "B",
+        "optionText": "Process momentum prevails \u2014 catastrophe bar required",
+        "primaryEnvSignal": "SFJ/SFP",
+        "secondaryEnvSignal": "SFP/SFJ",
+        "canonicalEnvName": "The Hometown Network \u00b7 The Franchise Machine",
+        "signalType": "SHARED"
+      },
+      {
+        "sourceRow": 17,
+        "q": "Q3",
+        "axisPair": "Axis 3 \u2014 Response to Dissent",
+        "option": "C",
+        "optionText": "Objector penalised \u2014 standing reduced",
+        "primaryEnvSignal": "STJ/STP",
+        "secondaryEnvSignal": "NF/SFJ",
+        "canonicalEnvName": "The Power Racket \u00b7 The Mission Field",
+        "signalType": "SHARED \u2014 HIGH RISK"
+      },
+      {
+        "sourceRow": 18,
+        "q": "Q3",
+        "axisPair": "Axis 3 \u2014 Response to Dissent",
+        "option": "D",
+        "optionText": "Objection reframed as risk to manage",
+        "primaryEnvSignal": "STP/STJ",
+        "secondaryEnvSignal": "SFP/SFJ",
+        "canonicalEnvName": "The Enforcer Network \u00b7 The Franchise Machine",
+        "signalType": "SHARED \u2014 HIGH RISK"
+      },
+      {
+        "sourceRow": 19,
+        "q": "Q3",
+        "axisPair": "Axis 3 \u2014 Response to Dissent",
+        "option": "E",
+        "optionText": "Cannot answer from direct observation",
+        "primaryEnvSignal": "\u2014",
+        "secondaryEnvSignal": "\u2014",
+        "canonicalEnvName": "\u2014",
+        "signalType": "EXCLUDED"
+      },
+      {
+        "sourceRow": 20,
+        "q": "Q4",
+        "axisPair": "Axis 4 \u2014 Relationship to Innovation",
+        "option": "A",
+        "optionText": "Structured pilot \u2014 evidence from pilot decides",
+        "primaryEnvSignal": "NT/STJ",
+        "secondaryEnvSignal": "\u2014",
+        "canonicalEnvName": "The Performance Arena",
+        "signalType": "SINGLE \u2014 KEY DISCRIMINATOR for NT/STJ vs NT/STP"
+      },
+      {
+        "sourceRow": 21,
+        "q": "Q4",
+        "axisPair": "Axis 4 \u2014 Relationship to Innovation",
+        "option": "B",
+        "optionText": "Immediate live test \u2014 empirical result authority",
+        "primaryEnvSignal": "NT/STP",
+        "secondaryEnvSignal": "\u2014",
+        "canonicalEnvName": "The Disruption Lab",
+        "signalType": "SINGLE \u2014 KEY DISCRIMINATOR"
+      },
+      {
+        "sourceRow": 22,
+        "q": "Q4",
+        "axisPair": "Axis 4 \u2014 Relationship to Innovation",
+        "option": "C",
+        "optionText": "Depends on proposer standing",
+        "primaryEnvSignal": "SFJ/SFP",
+        "secondaryEnvSignal": "NF/SFJ",
+        "canonicalEnvName": "The Hometown Network \u00b7 The Mission Field",
+        "signalType": "SHARED"
+      },
+      {
+        "sourceRow": 23,
+        "q": "Q4",
+        "axisPair": "Axis 4 \u2014 Relationship to Innovation",
+        "option": "D",
+        "optionText": "High bar for change \u2014 existing approach protected",
+        "primaryEnvSignal": "STJ/STP",
+        "secondaryEnvSignal": "SFP/SFJ",
+        "canonicalEnvName": "The Power Racket \u00b7 The Franchise Machine",
+        "signalType": "SHARED"
+      },
+      {
+        "sourceRow": 24,
+        "q": "Q4",
+        "axisPair": "Axis 4 \u2014 Relationship to Innovation",
+        "option": "E",
+        "optionText": "Cannot answer from direct observation",
+        "primaryEnvSignal": "\u2014",
+        "secondaryEnvSignal": "\u2014",
+        "canonicalEnvName": "\u2014",
+        "signalType": "EXCLUDED"
+      },
+      {
+        "sourceRow": 25,
+        "q": "Q5",
+        "axisPair": "Axis 5 \u2014 Resource Flow Direction",
+        "option": "A",
+        "optionText": "Performance data drives allocation",
+        "primaryEnvSignal": "NT/STJ",
+        "secondaryEnvSignal": "\u2014",
+        "canonicalEnvName": "The Performance Arena",
+        "signalType": "SINGLE \u2014 third NT/STJ confirmation"
+      },
+      {
+        "sourceRow": 26,
+        "q": "Q5",
+        "axisPair": "Axis 5 \u2014 Resource Flow Direction",
+        "option": "B",
+        "optionText": "Current momentum and deal flow visibility",
+        "primaryEnvSignal": "NT/STP",
+        "secondaryEnvSignal": "STJ/STP",
+        "canonicalEnvName": "The Disruption Lab \u00b7 The Power Racket",
+        "signalType": "SHARED"
+      },
+      {
+        "sourceRow": 27,
+        "q": "Q5",
+        "axisPair": "Axis 5 \u2014 Resource Flow Direction",
+        "option": "C",
+        "optionText": "Senior partners and established relationships",
+        "primaryEnvSignal": "SFJ/SFP",
+        "secondaryEnvSignal": "SFP/SFJ",
+        "canonicalEnvName": "The Hometown Network \u00b7 The Franchise Machine",
+        "signalType": "SHARED"
+      },
+      {
+        "sourceRow": 28,
+        "q": "Q5",
+        "axisPair": "Axis 5 \u2014 Resource Flow Direction",
+        "option": "D",
+        "optionText": "Strategic priorities of fund/thesis",
+        "primaryEnvSignal": "NF/SFJ",
+        "secondaryEnvSignal": "STP/STJ",
+        "canonicalEnvName": "The Mission Field \u00b7 The Enforcer Network",
+        "signalType": "SHARED"
+      },
+      {
+        "sourceRow": 29,
+        "q": "Q5",
+        "axisPair": "Axis 5 \u2014 Resource Flow Direction",
+        "option": "E",
+        "optionText": "Cannot answer from direct observation",
+        "primaryEnvSignal": "\u2014",
+        "secondaryEnvSignal": "\u2014",
+        "canonicalEnvName": "\u2014",
+        "signalType": "EXCLUDED"
+      },
+      {
+        "sourceRow": 30,
+        "q": "Q6",
+        "axisPair": "Axis 6 \u2014 Retention Mechanism",
+        "option": "A",
+        "optionText": "Quality of work and people \u2014 intellectual/relational",
+        "primaryEnvSignal": "NT/STJ",
+        "secondaryEnvSignal": "NF/NT",
+        "canonicalEnvName": "The Performance Arena \u00b7 The Idea Lab",
+        "signalType": "SHARED"
+      },
+      {
+        "sourceRow": 31,
+        "q": "Q6",
+        "axisPair": "Axis 6 \u2014 Retention Mechanism",
+        "option": "B",
+        "optionText": "Carry structure, vesting \u2014 financial lock-in",
+        "primaryEnvSignal": "STP/STJ",
+        "secondaryEnvSignal": "SFP/SFJ",
+        "canonicalEnvName": "The Enforcer Network \u00b7 The Franchise Machine",
+        "signalType": "SHARED"
+      },
+      {
+        "sourceRow": 32,
+        "q": "Q6",
+        "axisPair": "Axis 6 \u2014 Retention Mechanism",
+        "option": "C",
+        "optionText": "Relationships and loyalties \u2014 leaving feels like betrayal",
+        "primaryEnvSignal": "SFJ/SFP",
+        "secondaryEnvSignal": "\u2014",
+        "canonicalEnvName": "The Hometown Network",
+        "signalType": "SINGLE \u2014 only single-env SFJ/SFP signal"
+      },
+      {
+        "sourceRow": 33,
+        "q": "Q6",
+        "axisPair": "Axis 6 \u2014 Retention Mechanism",
+        "option": "D",
+        "optionText": "Reputational cost of leaving mid-cycle",
+        "primaryEnvSignal": "STJ/STP",
+        "secondaryEnvSignal": "NF/SFJ",
+        "canonicalEnvName": "The Power Racket \u00b7 The Mission Field",
+        "signalType": "SHARED"
+      },
+      {
+        "sourceRow": 34,
+        "q": "Q6",
+        "axisPair": "Axis 6 \u2014 Retention Mechanism",
+        "option": "E",
+        "optionText": "External/personal/risk-management factors",
+        "primaryEnvSignal": "\u2014",
+        "secondaryEnvSignal": "\u2014",
+        "canonicalEnvName": "\u2014",
+        "signalType": "EXCLUDED \u2014 non-organisational signal preserved for divergence"
+      },
+      {
+        "sourceRow": 35,
+        "q": "Q6",
+        "axisPair": "Axis 6 \u2014 Retention Mechanism",
+        "option": "F",
+        "optionText": "Cannot answer from direct observation",
+        "primaryEnvSignal": "\u2014",
+        "secondaryEnvSignal": "\u2014",
+        "canonicalEnvName": "\u2014",
+        "signalType": "EXCLUDED"
+      },
+      {
+        "sourceRow": 36,
+        "q": "Q7",
+        "axisPair": "Confirmatory \u2014 NT/STJ vs NT/STP",
+        "option": "A",
+        "optionText": "Structured analysis, formal recommendation",
+        "primaryEnvSignal": "NT/STJ",
+        "secondaryEnvSignal": "\u2014",
+        "canonicalEnvName": "The Performance Arena",
+        "signalType": "SINGLE \u2014 PRIMARY PAIR DISCRIMINATOR"
+      },
+      {
+        "sourceRow": 37,
+        "q": "Q7",
+        "axisPair": "Confirmatory \u2014 NT/STJ vs NT/STP",
+        "option": "B",
+        "optionText": "Fast empirical test in real conditions",
+        "primaryEnvSignal": "NT/STP",
+        "secondaryEnvSignal": "\u2014",
+        "canonicalEnvName": "The Disruption Lab",
+        "signalType": "SINGLE \u2014 PRIMARY PAIR DISCRIMINATOR"
+      },
+      {
+        "sourceRow": 38,
+        "q": "Q7",
+        "axisPair": "Confirmatory \u2014 NT/STJ vs NT/STP",
+        "option": "C",
+        "optionText": "Extended debate \u2014 speed subordinated to quality",
+        "primaryEnvSignal": "NF/NT",
+        "secondaryEnvSignal": "\u2014",
+        "canonicalEnvName": "The Idea Lab",
+        "signalType": "SINGLE"
+      },
+      {
+        "sourceRow": 39,
+        "q": "Q7",
+        "axisPair": "Confirmatory \u2014 NT/STJ vs NT/STP",
+        "option": "D",
+        "optionText": "Most senior credible voice resolves",
+        "primaryEnvSignal": "SFJ/SFP",
+        "secondaryEnvSignal": "STJ/STP",
+        "canonicalEnvName": "The Hometown Network \u00b7 The Power Racket",
+        "signalType": "SHARED"
+      },
+      {
+        "sourceRow": 40,
+        "q": "Q7",
+        "axisPair": "Confirmatory \u2014 NT/STJ vs NT/STP",
+        "option": "E",
+        "optionText": "Cannot answer from direct observation",
+        "primaryEnvSignal": "\u2014",
+        "secondaryEnvSignal": "\u2014",
+        "canonicalEnvName": "\u2014",
+        "signalType": "EXCLUDED"
+      },
+      {
+        "sourceRow": 41,
+        "q": "Q8",
+        "axisPair": "Confirmatory \u2014 SFJ/SFP vs SFP/SFJ",
+        "option": "A",
+        "optionText": "People investments protected unconditionally",
+        "primaryEnvSignal": "SFJ/SFP",
+        "secondaryEnvSignal": "\u2014",
+        "canonicalEnvName": "The Hometown Network",
+        "signalType": "SINGLE \u2014 PRIMARY PAIR DISCRIMINATOR"
+      },
+      {
+        "sourceRow": 42,
+        "q": "Q8",
+        "axisPair": "Confirmatory \u2014 SFJ/SFP vs SFP/SFJ",
+        "option": "B",
+        "optionText": "Disciplined \u2014 investments maintained where ROI clear",
+        "primaryEnvSignal": "SFP/SFJ",
+        "secondaryEnvSignal": "NT/STJ",
+        "canonicalEnvName": "The Franchise Machine \u00b7 The Performance Arena",
+        "signalType": "SHARED"
+      },
+      {
+        "sourceRow": 43,
+        "q": "Q8",
+        "axisPair": "Confirmatory \u2014 SFJ/SFP vs SFP/SFJ",
+        "option": "C",
+        "optionText": "Commercial logic drove people decisions",
+        "primaryEnvSignal": "SFP/SFJ",
+        "secondaryEnvSignal": "STJ/STP",
+        "canonicalEnvName": "The Franchise Machine \u00b7 The Power Racket",
+        "signalType": "SHARED"
+      },
+      {
+        "sourceRow": 44,
+        "q": "Q8",
+        "axisPair": "Confirmatory \u2014 SFJ/SFP vs SFP/SFJ",
+        "option": "D",
+        "optionText": "Crisis as alignment test",
+        "primaryEnvSignal": "NF/SFJ",
+        "secondaryEnvSignal": "\u2014",
+        "canonicalEnvName": "The Mission Field",
+        "signalType": "SINGLE \u2014 PRIMARY NF/SFJ signal"
+      },
+      {
+        "sourceRow": 45,
+        "q": "Q8",
+        "axisPair": "Confirmatory \u2014 SFJ/SFP vs SFP/SFJ",
+        "option": "E",
+        "optionText": "Observed period but cannot determine actions",
+        "primaryEnvSignal": "\u2014",
+        "secondaryEnvSignal": "\u2014",
+        "canonicalEnvName": "\u2014",
+        "signalType": "EXCLUDED \u2014 observation gap"
+      },
+      {
+        "sourceRow": 46,
+        "q": "Q8",
+        "axisPair": "Confirmatory \u2014 SFJ/SFP vs SFP/SFJ",
+        "option": "F",
+        "optionText": "No such commercial-pressure period in last 24 months",
+        "primaryEnvSignal": "\u2014",
+        "secondaryEnvSignal": "\u2014",
+        "canonicalEnvName": "\u2014",
+        "signalType": "EXCLUDED \u2014 flagged no_such_period_observed"
+      },
+      {
+        "sourceRow": 47,
+        "q": "Q9",
+        "axisPair": "Confirmatory \u2014 STJ/STP vs NT/STJ",
+        "option": "A",
+        "optionText": "Found better environment \u2014 departure as loss",
+        "primaryEnvSignal": "NT/STJ",
+        "secondaryEnvSignal": "NF/NT",
+        "canonicalEnvName": "The Performance Arena \u00b7 The Idea Lab",
+        "signalType": "SHARED"
+      },
+      {
+        "sourceRow": 48,
+        "q": "Q9",
+        "axisPair": "Confirmatory \u2014 STJ/STP vs NT/STJ",
+        "option": "B",
+        "optionText": "Became visible as not rising \u2014 natural selection",
+        "primaryEnvSignal": "STJ/STP",
+        "secondaryEnvSignal": "NT/STJ",
+        "canonicalEnvName": "The Power Racket \u00b7 The Performance Arena (competitive variant)",
+        "signalType": "SHARED \u2014 CRITICAL \u00b7 most important post-close treatment predictor"
+      },
+      {
+        "sourceRow": 49,
+        "q": "Q9",
+        "axisPair": "Confirmatory \u2014 STJ/STP vs NT/STJ",
+        "option": "C",
+        "optionText": "Pace and approval requirements incompatible",
+        "primaryEnvSignal": "NT/STP",
+        "secondaryEnvSignal": "\u2014",
+        "canonicalEnvName": "The Disruption Lab",
+        "signalType": "SINGLE"
+      },
+      {
+        "sourceRow": 50,
+        "q": "Q9",
+        "axisPair": "Confirmatory \u2014 STJ/STP vs NT/STJ",
+        "option": "D",
+        "optionText": "Relationship rupture",
+        "primaryEnvSignal": "SFJ/SFP",
+        "secondaryEnvSignal": "NF/SFJ",
+        "canonicalEnvName": "The Hometown Network \u00b7 The Mission Field",
+        "signalType": "SHARED"
+      },
+      {
+        "sourceRow": 51,
+        "q": "Q9",
+        "axisPair": "Confirmatory \u2014 STJ/STP vs NT/STJ",
+        "option": "E",
+        "optionText": "No such departure in observation",
+        "primaryEnvSignal": "\u2014",
+        "secondaryEnvSignal": "\u2014",
+        "canonicalEnvName": "\u2014",
+        "signalType": "EXCLUDED \u2014 flagged no_such_event_observed"
+      },
+      {
+        "sourceRow": 52,
+        "q": "Q9",
+        "axisPair": "Confirmatory \u2014 STJ/STP vs NT/STJ",
+        "option": "F",
+        "optionText": "Departure occurred but mechanism unknown",
+        "primaryEnvSignal": "\u2014",
+        "secondaryEnvSignal": "\u2014",
+        "canonicalEnvName": "\u2014",
+        "signalType": "EXCLUDED \u2014 flagged mechanism_unknown"
+      },
+      {
+        "sourceRow": 53,
+        "q": "Q10",
+        "axisPair": "Confirmatory \u2014 NF/SFJ vs NF/NT",
+        "option": "A",
+        "optionText": "Work evaluated on merits \u2014 thesis revised",
+        "primaryEnvSignal": "NF/NT",
+        "secondaryEnvSignal": "NT/STJ",
+        "canonicalEnvName": "The Idea Lab \u00b7 The Performance Arena",
+        "signalType": "SHARED \u2014 PRIMARY DISCRIMINATOR"
+      },
+      {
+        "sourceRow": 54,
+        "q": "Q10",
+        "axisPair": "Confirmatory \u2014 NF/SFJ vs NF/NT",
+        "option": "B",
+        "optionText": "Work taken seriously but thesis not challenged",
+        "primaryEnvSignal": "NT/STJ",
+        "secondaryEnvSignal": "SFJ/SFP",
+        "canonicalEnvName": "The Performance Arena \u00b7 The Hometown Network",
+        "signalType": "SHARED"
+      },
+      {
+        "sourceRow": 55,
+        "q": "Q10",
+        "axisPair": "Confirmatory \u2014 NF/SFJ vs NF/NT",
+        "option": "C",
+        "optionText": "Analyst repositioned as not understanding",
+        "primaryEnvSignal": "NF/SFJ",
+        "secondaryEnvSignal": "STP/STJ",
+        "canonicalEnvName": "The Mission Field \u00b7 The Enforcer Network",
+        "signalType": "SHARED \u2014 HIGH RISK"
+      },
+      {
+        "sourceRow": 56,
+        "q": "Q10",
+        "axisPair": "Confirmatory \u2014 NF/SFJ vs NF/NT",
+        "option": "D",
+        "optionText": "Thesis reflects values \u2014 analysis informs execution",
+        "primaryEnvSignal": "NF/SFJ",
+        "secondaryEnvSignal": "STJ/STP",
+        "canonicalEnvName": "The Mission Field \u00b7 The Power Racket",
+        "signalType": "SHARED \u2014 HIGH RISK"
+      },
+      {
+        "sourceRow": 57,
+        "q": "Q10",
+        "axisPair": "Confirmatory \u2014 NF/SFJ vs NF/NT",
+        "option": "E",
+        "optionText": "Cannot answer from direct observation",
+        "primaryEnvSignal": "\u2014",
+        "secondaryEnvSignal": "\u2014",
+        "canonicalEnvName": "\u2014",
+        "signalType": "EXCLUDED"
+      },
+      {
+        "sourceRow": 58,
+        "q": "Q11",
+        "axisPair": "v3.1 NEW \u2014 NF/SFP discriminator",
+        "option": "A",
+        "optionText": "Authentic creative expression protected",
+        "primaryEnvSignal": "NT/STJ",
+        "secondaryEnvSignal": "\u2014",
+        "canonicalEnvName": "The Performance Arena",
+        "signalType": "SINGLE"
+      },
+      {
+        "sourceRow": 59,
+        "q": "Q11",
+        "axisPair": "v3.1 NEW \u2014 NF/SFP discriminator",
+        "option": "B",
+        "optionText": "Creative work tested rapidly in market",
+        "primaryEnvSignal": "NT/STP",
+        "secondaryEnvSignal": "\u2014",
+        "canonicalEnvName": "The Disruption Lab",
+        "signalType": "SINGLE"
+      },
+      {
+        "sourceRow": 60,
+        "q": "Q11",
+        "axisPair": "v3.1 NEW \u2014 NF/SFP discriminator",
+        "option": "C",
+        "optionText": "Creative work protected as authentic",
+        "primaryEnvSignal": "NF/SFP",
+        "secondaryEnvSignal": "\u2014",
+        "canonicalEnvName": "The Creative Commons",
+        "signalType": "SINGLE \u2014 sole NF/SFP DISCRIMINATOR added v3.1"
+      },
+      {
+        "sourceRow": 61,
+        "q": "Q11",
+        "axisPair": "v3.1 NEW \u2014 NF/SFP discriminator",
+        "option": "D",
+        "optionText": "Creative work accepted only if mission-aligned",
+        "primaryEnvSignal": "NF/SFJ",
+        "secondaryEnvSignal": "\u2014",
+        "canonicalEnvName": "The Mission Field",
+        "signalType": "SINGLE"
+      },
+      {
+        "sourceRow": 62,
+        "q": "Q11",
+        "axisPair": "v3.1 NEW \u2014 NF/SFP discriminator",
+        "option": "E",
+        "optionText": "Mixed signal: STJ/STP \u00b7 SFP/SFJ",
+        "primaryEnvSignal": "STJ/STP",
+        "secondaryEnvSignal": "SFP/SFJ",
+        "canonicalEnvName": "The Power Racket \u00b7 The Franchise Machine",
+        "signalType": "SHARED"
+      },
+      {
+        "sourceRow": 63,
+        "q": "Q11",
+        "axisPair": "v3.1 NEW \u2014 NF/SFP discriminator",
+        "option": "F",
+        "optionText": "Cannot answer from direct observation",
+        "primaryEnvSignal": "\u2014",
+        "secondaryEnvSignal": "\u2014",
+        "canonicalEnvName": "\u2014",
+        "signalType": "EXCLUDED"
+      }
+    ],
+    "pairSpecificWeights": [
+      {
+        "sourceRow": 5,
+        "candidatePair": "NT/STJ vs NT/STP",
+        "q": "Q4",
+        "axisPairTier": "Axis 4 \u2014 Innovation",
+        "r1AnswerEnvA": "A \u2192 NT/STJ",
+        "r2AnswerEnvB": "B \u2192 NT/STP",
+        "weightTier": "HIGH \u2014 PRIMARY",
+        "agreeCondition": "Both answer A or both B",
+        "divergeCondition": "R1=A, R2=B (or reverse)",
+        "sourceBasis": "AEM Q4 note: A vs B is critical pair discriminator"
+      },
+      {
+        "sourceRow": 6,
+        "candidatePair": "NT/STJ vs NT/STP",
+        "q": "Q7",
+        "axisPairTier": "Confirmatory",
+        "r1AnswerEnvA": "A \u2192 NT/STJ",
+        "r2AnswerEnvB": "B \u2192 NT/STP",
+        "weightTier": "HIGH \u2014 PRIMARY",
+        "agreeCondition": "Same option",
+        "divergeCondition": "Different options",
+        "sourceBasis": "AEM Q7 note: primary confirmatory"
+      },
+      {
+        "sourceRow": 7,
+        "candidatePair": "NT/STJ vs NT/STP",
+        "q": "Q5",
+        "axisPairTier": "Axis 5 \u2014 Resource Flow",
+        "r1AnswerEnvA": "A \u2192 NT/STJ",
+        "r2AnswerEnvB": "B \u2192 NT/STP\u00b7STJ/STP",
+        "weightTier": "STANDARD",
+        "agreeCondition": "Both A",
+        "divergeCondition": "R1=A, R2=B",
+        "sourceBasis": "Q5-A single NT/STJ; Q5-B shared"
+      },
+      {
+        "sourceRow": 8,
+        "candidatePair": "NT/STJ vs NT/STP",
+        "q": "Q9",
+        "axisPairTier": "Confirmatory",
+        "r1AnswerEnvA": "A \u2192 NT/STJ",
+        "r2AnswerEnvB": "C \u2192 NT/STP",
+        "weightTier": "STANDARD",
+        "agreeCondition": "Both A or both C",
+        "divergeCondition": "R1=A, R2=C",
+        "sourceBasis": "Q9-C single NT/STP"
+      },
+      {
+        "sourceRow": 9,
+        "candidatePair": "SFJ/SFP vs SFP/SFJ",
+        "q": "Q8",
+        "axisPairTier": "Confirmatory",
+        "r1AnswerEnvA": "A \u2192 SFJ/SFP",
+        "r2AnswerEnvB": "B or C \u2192 SFP/SFJ",
+        "weightTier": "HIGH \u2014 PRIMARY",
+        "agreeCondition": "Both A",
+        "divergeCondition": "R1=A, R2=B or C",
+        "sourceBasis": "AEM Q8 note: primary confirmatory after rewrite"
+      },
+      {
+        "sourceRow": 10,
+        "candidatePair": "SFJ/SFP vs SFP/SFJ",
+        "q": "Q6",
+        "axisPairTier": "Axis 6 \u2014 Retention",
+        "r1AnswerEnvA": "C \u2192 SFJ/SFP",
+        "r2AnswerEnvB": "B \u2192 SFP/SFJ",
+        "weightTier": "HIGH \u2014 PRIMARY",
+        "agreeCondition": "Both C",
+        "divergeCondition": "R1=C, R2=B",
+        "sourceBasis": "Q6-C only single-env SFJ/SFP signal in instrument"
+      },
+      {
+        "sourceRow": 11,
+        "candidatePair": "SFJ/SFP vs SFP/SFJ",
+        "q": "Q5",
+        "axisPairTier": "Axis 5 \u2014 Resource Flow",
+        "r1AnswerEnvA": "C \u2192 SFJ/SFP\u00b7SFP/SFJ",
+        "r2AnswerEnvB": "C \u2192 SFP/SFJ",
+        "weightTier": "STANDARD \u2014 shared",
+        "agreeCondition": "Both C",
+        "divergeCondition": "Neither points exclusively",
+        "sourceBasis": "Q5-C is shared signal \u2014 discriminates from NT cluster but not within pair"
+      },
+      {
+        "sourceRow": 12,
+        "candidatePair": "SFJ/SFP vs SFP/SFJ",
+        "q": "Q1",
+        "axisPairTier": "Axis 1 \u2014 Authority",
+        "r1AnswerEnvA": "B \u2192 SFJ/SFP\u00b7NF/SFJ",
+        "r2AnswerEnvB": "D \u2192 SFP/SFJ\u00b7STP/STJ",
+        "weightTier": "STANDARD",
+        "agreeCondition": "Both B",
+        "divergeCondition": "R1=B, R2=D",
+        "sourceBasis": "Distinguishes relational vs compliance authority"
+      },
+      {
+        "sourceRow": 13,
+        "candidatePair": "STJ/STP vs NT/STJ",
+        "q": "Q2",
+        "axisPairTier": "Axis 2 \u2014 Accountability",
+        "r1AnswerEnvA": "A \u2192 NT/STJ",
+        "r2AnswerEnvB": "C \u2192 STJ/STP",
+        "weightTier": "HIGH \u2014 PRIMARY",
+        "agreeCondition": "Both A or both C",
+        "divergeCondition": "R1=A, R2=C (or reverse)",
+        "sourceBasis": "AEM Q2 note: single most reliable acquirer environment discriminator"
+      },
+      {
+        "sourceRow": 14,
+        "candidatePair": "STJ/STP vs NT/STJ",
+        "q": "Q9",
+        "axisPairTier": "Confirmatory",
+        "r1AnswerEnvA": "A \u2192 NT/STJ",
+        "r2AnswerEnvB": "B \u2192 STJ/STP",
+        "weightTier": "HIGH \u2014 PRIMARY",
+        "agreeCondition": "Both A or both B",
+        "divergeCondition": "R1=A, R2=B",
+        "sourceBasis": "Most important post-close leadership treatment predictor"
+      },
+      {
+        "sourceRow": 15,
+        "candidatePair": "STJ/STP vs NT/STJ",
+        "q": "Q6",
+        "axisPairTier": "Axis 6 \u2014 Retention",
+        "r1AnswerEnvA": "A \u2192 NT/STJ\u00b7NF/NT",
+        "r2AnswerEnvB": "D \u2192 STJ/STP\u00b7NF/SFJ",
+        "weightTier": "STANDARD",
+        "agreeCondition": "Both A",
+        "divergeCondition": "R1=A, R2=D",
+        "sourceBasis": "Q6-A confirms NT/STJ; Q6-D confirms STJ/STP combined with Q2-C"
+      },
+      {
+        "sourceRow": 16,
+        "candidatePair": "STJ/STP vs NT/STJ",
+        "q": "Q1",
+        "axisPairTier": "Axis 1 \u2014 Authority",
+        "r1AnswerEnvA": "A \u2192 NT/STJ\u00b7NF/NT",
+        "r2AnswerEnvB": "C \u2192 STJ/STP",
+        "weightTier": "STANDARD",
+        "agreeCondition": "Both A",
+        "divergeCondition": "R1=A, R2=C",
+        "sourceBasis": "Q1-C single STJ/STP; Q1-A shared"
+      },
+      {
+        "sourceRow": 17,
+        "candidatePair": "NF/SFJ vs NF/NT",
+        "q": "Q10",
+        "axisPairTier": "Confirmatory",
+        "r1AnswerEnvA": "A \u2192 NF/NT\u00b7NT/STJ",
+        "r2AnswerEnvB": "C or D \u2192 NF/SFJ",
+        "weightTier": "HIGH \u2014 PRIMARY",
+        "agreeCondition": "Both A",
+        "divergeCondition": "R1=A, R2=C or D",
+        "sourceBasis": "AEM Q10 note: most cognitively demanding; primary discriminator"
+      },
+      {
+        "sourceRow": 18,
+        "candidatePair": "NF/SFJ vs NF/NT",
+        "q": "Q8",
+        "axisPairTier": "Confirmatory",
+        "r1AnswerEnvA": "\u2014 (NF/NT not signalled)",
+        "r2AnswerEnvB": "D \u2192 NF/SFJ",
+        "weightTier": "HIGH \u2014 NF/SFJ only",
+        "agreeCondition": "Neither D",
+        "divergeCondition": "R1 or R2 = D",
+        "sourceBasis": "Q8-D single NF/SFJ signal"
+      },
+      {
+        "sourceRow": 19,
+        "candidatePair": "NF/SFJ vs NF/NT",
+        "q": "Q3",
+        "axisPairTier": "Axis 3 \u2014 Dissent",
+        "r1AnswerEnvA": "A \u2192 NT/STJ\u00b7NF/NT",
+        "r2AnswerEnvB": "C \u2192 STJ/STP\u00b7NF/SFJ",
+        "weightTier": "STANDARD",
+        "agreeCondition": "Both A",
+        "divergeCondition": "R1=A, R2=C",
+        "sourceBasis": "Q3-C high-risk; confirm with Q2 to distinguish"
+      },
+      {
+        "sourceRow": 20,
+        "candidatePair": "NF/SFJ vs NF/NT",
+        "q": "Q7",
+        "axisPairTier": "Confirmatory",
+        "r1AnswerEnvA": "C \u2192 NF/NT",
+        "r2AnswerEnvB": "D \u2192 SFJ/SFP\u00b7STJ/STP",
+        "weightTier": "STANDARD",
+        "agreeCondition": "Both C",
+        "divergeCondition": "R1=C, R2=D",
+        "sourceBasis": "Q7-C single NF/NT signal"
+      },
+      {
+        "sourceRow": 21,
+        "candidatePair": "NF/SFP vs other (v3.1)",
+        "q": "Q11",
+        "axisPairTier": "v3.1 NF/SFP discriminator",
+        "r1AnswerEnvA": "C \u2192 NF/SFP",
+        "r2AnswerEnvB": "A/B/D \u2192 other env",
+        "weightTier": "HIGH \u2014 PRIMARY (v3.1 NEW)",
+        "agreeCondition": "Both C",
+        "divergeCondition": "R1=C, R2\u2260C",
+        "sourceBasis": "v3.1: sole NF/SFP discriminator. NF/SFP has thin coverage elsewhere \u2014 Q11-C is the resolver."
+      },
+      {
+        "sourceRow": 22,
+        "candidatePair": "NF/SFP vs NF/SFJ",
+        "q": "Q11",
+        "axisPairTier": "v3.1 NF/SFP discriminator",
+        "r1AnswerEnvA": "C \u2192 NF/SFP",
+        "r2AnswerEnvB": "D \u2192 NF/SFJ",
+        "weightTier": "HIGH \u2014 PRIMARY (v3.1)",
+        "agreeCondition": "Same option",
+        "divergeCondition": "C vs D divergence",
+        "sourceBasis": "v3.1: critical NF cluster pair test"
+      },
+      {
+        "sourceRow": 23,
+        "candidatePair": "NF/SFP vs NF/SFJ",
+        "q": "Q10",
+        "axisPairTier": "Confirmatory",
+        "r1AnswerEnvA": "\u2014 (NF/SFP not directly signalled)",
+        "r2AnswerEnvB": "C or D \u2192 NF/SFJ",
+        "weightTier": "STANDARD",
+        "agreeCondition": "Q11 dominates",
+        "divergeCondition": "Q10 absence of C/D suggests not NF/SFJ",
+        "sourceBasis": "Q10 has no NF/SFP signal \u2014 Q11 is the only test"
+      }
+    ],
+    "comparisonEngine": [
+      {
+        "sourceRow": 5,
+        "q": "Q1",
+        "axisPair": "Axis 1 \u2014 Authority",
+        "bothR1R2Same": "AGREE \u2014 full credit",
+        "r1R2Different": "DIVERGE \u2014 pair-specific weight (Sheet 2)",
+        "r1OrR2E": "Mixed-E: respondent who answered substantively contributes; E respondent excluded from primary count, recorded as evidence-coverage gap",
+        "bothEOrF": "Both-E: question excluded from agreement count; coverage gap flagged",
+        "weight": "STANDARD (HIGH for STJ/STP vs NT/STJ pair when R1=A R2=C)",
+        "divergeMeaning": "A vs C diverge = governance split (NT/STJ vs STJ/STP). A vs B diverge = authority-logic split (evidence vs rank)."
+      },
+      {
+        "sourceRow": 6,
+        "q": "Q2",
+        "axisPair": "Axis 2 \u2014 Accountability",
+        "bothR1R2Same": "AGREE \u2014 full credit",
+        "r1R2Different": "DIVERGE \u2014 HIGH PRIMARY for STJ/STP vs NT/STJ",
+        "r1OrR2E": "Mixed-E: substantive answer contributes; E recorded as gap",
+        "bothEOrF": "Both-E: excluded",
+        "weight": "HIGH PRIMARY (STJ/STP vs NT/STJ)",
+        "divergeMeaning": "R1=A R2=C is canonical STJ/STP vs NT/STJ diverge pattern. Most reliable single discriminator."
+      },
+      {
+        "sourceRow": 7,
+        "q": "Q3",
+        "axisPair": "Axis 3 \u2014 Response to Dissent",
+        "bothR1R2Same": "AGREE \u2014 full credit",
+        "r1R2Different": "DIVERGE \u2014 HIGH for NF/SFJ vs NF/NT pair",
+        "r1OrR2E": "Mixed-E: substantive answer contributes",
+        "bothEOrF": "Both-E: excluded",
+        "weight": "HIGH (NF/SFJ vs NF/NT)",
+        "divergeMeaning": "R1=A R2=C diverge = HIGH RISK signal: NF/NT vs NF/SFJ split on epistemic openness."
+      },
+      {
+        "sourceRow": 8,
+        "q": "Q4",
+        "axisPair": "Axis 4 \u2014 Innovation",
+        "bothR1R2Same": "AGREE \u2014 full credit",
+        "r1R2Different": "DIVERGE \u2014 HIGH PRIMARY for NT/STJ vs NT/STP",
+        "r1OrR2E": "Mixed-E: substantive answer contributes",
+        "bothEOrF": "Both-E: excluded \u2014 NT/STJ vs NT/STP pair determination compromised; route to Q7",
+        "weight": "HIGH PRIMARY (NT/STJ vs NT/STP)",
+        "divergeMeaning": "R1=A R2=B = primary NT/STJ vs NT/STP diverge. Governance layer (CFO) may answer A while operational layer (Deal Lead) answers B \u2192 ROLE-LEVEL SPLIT indicator (sheet 5 \u2462)."
+      },
+      {
+        "sourceRow": 9,
+        "q": "Q5",
+        "axisPair": "Axis 5 \u2014 Resource Flow",
+        "bothR1R2Same": "AGREE \u2014 full credit",
+        "r1R2Different": "DIVERGE \u2014 HIGH for NT and SFJ/SP pairs",
+        "r1OrR2E": "Mixed-E: common \u2014 line-level respondents may not see resource allocation. E expected.",
+        "bothEOrF": "Both-E: excluded; flag both respondents as below-tier-coverage for this dimension",
+        "weight": "HIGH (NT/STJ vs NT/STP and SFJ/SFP vs SFP/SFJ)",
+        "divergeMeaning": "R1=A R2=B diverge = NT/STJ vs NT/STP resource logic split. R1=A R2=C common CFO vs CHRO split."
+      },
+      {
+        "sourceRow": 10,
+        "q": "Q6",
+        "axisPair": "Axis 6 \u2014 Retention",
+        "bothR1R2Same": "AGREE \u2014 full credit",
+        "r1R2Different": "DIVERGE \u2014 HIGH for SFJ/SFP vs SFP/SFJ",
+        "r1OrR2E": "Mixed-E: option E captures external personal factors \u2014 RECORDED as a non-environment signal but NOT excluded from divergence map. v3.1 distinct semantics.",
+        "bothEOrF": "Both-E: divergence pattern uninformative \u2014 both respondents see external-factor explanation; flag for analyst review",
+        "weight": "HIGH PRIMARY (SFJ/SFP vs SFP/SFJ)",
+        "divergeMeaning": "Q6-C is single SFJ/SFP signal \u2014 only exclusivity in instrument. R1=C R2=B is canonical SFJ/SFP vs SFP/SFJ split. v3.1: option F = \"cannot answer\" (treated as standard E)."
+      },
+      {
+        "sourceRow": 11,
+        "q": "Q7",
+        "axisPair": "Confirmatory \u2014 NT/STJ vs NT/STP",
+        "bothR1R2Same": "AGREE \u2014 full credit",
+        "r1R2Different": "DIVERGE \u2014 HIGH PRIMARY for NT/STJ vs NT/STP",
+        "r1OrR2E": "Mixed-E: substantive answer contributes",
+        "bothEOrF": "Both-E: NT/STJ vs NT/STP pair COMPROMISED if Q4 also Both-E",
+        "weight": "HIGH PRIMARY (NT/STJ vs NT/STP)",
+        "divergeMeaning": "R1=A R2=B is definitive NT/STJ vs NT/STP pair diverge. If Q4 and Q7 both diverge A/B \u2192 \u2463-A IRRESOLVABLE (within-pair divergence \u2014 practitioner only)."
+      },
+      {
+        "sourceRow": 12,
+        "q": "Q8",
+        "axisPair": "Confirmatory \u2014 SFJ/SFP vs SFP/SFJ",
+        "bothR1R2Same": "AGREE \u2014 full credit",
+        "r1R2Different": "DIVERGE \u2014 HIGH PRIMARY for SFJ/SFP vs SFP/SFJ",
+        "r1OrR2E": "Mixed-E (option E = observation gap): substantive answer contributes",
+        "bothEOrF": "Both-E or Both-F: SFJ/SFP vs SFP/SFJ pair COMPROMISED. Option F (no-such-period) is structurally meaningful \u2014 both-F indicates both respondents observed no commercial-pressure period; pair determination requires alternative evidence.",
+        "weight": "HIGH PRIMARY (SFJ/SFP vs SFP/SFJ)",
+        "divergeMeaning": "R1=A R2=B/C is definitive SFJ/SFP vs SFP/SFJ diverge. R1 or R2 = D flags NF/SFJ contamination \u2014 escalate to \u2463-B (pair-identification failure)."
+      },
+      {
+        "sourceRow": 13,
+        "q": "Q9",
+        "axisPair": "Confirmatory \u2014 STJ/STP vs NT/STJ",
+        "bothR1R2Same": "AGREE \u2014 full credit",
+        "r1R2Different": "DIVERGE \u2014 HIGH PRIMARY for STJ/STP vs NT/STJ",
+        "r1OrR2E": "Mixed-E (E = no-such-event, F = mechanism-unknown): substantive answer contributes; E and F have distinct semantics",
+        "bothEOrF": "Both-E: both respondents observed no senior departures \u2014 diagnostic in deflection-heavy environments. Both-F: mechanism unknown to both \u2014 coverage gap.",
+        "weight": "HIGH PRIMARY (STJ/STP vs NT/STJ)",
+        "divergeMeaning": "R1=A R2=B is definitive NT/STJ vs STJ/STP diverge \u2014 most important post-close leadership treatment predictor. Both-E in this pair is itself a STJ/STP indicator (departures structurally suppressed)."
+      },
+      {
+        "sourceRow": 14,
+        "q": "Q10",
+        "axisPair": "Confirmatory \u2014 NF/SFJ vs NF/NT",
+        "bothR1R2Same": "AGREE \u2014 full credit",
+        "r1R2Different": "DIVERGE \u2014 HIGH PRIMARY for NF/SFJ vs NF/NT",
+        "r1OrR2E": "Mixed-E: substantive answer contributes",
+        "bothEOrF": "Both-E: NF/SFJ vs NF/NT pair COMPROMISED",
+        "weight": "HIGH PRIMARY (NF/SFJ vs NF/NT)",
+        "divergeMeaning": "R1=A R2=C/D = definitive NF/NT vs NF/SFJ diverge. C and D indicate ideological orthodoxy."
+      },
+      {
+        "sourceRow": 15,
+        "q": "Q11",
+        "axisPair": "v3.1 NEW \u2014 NF/SFP discriminator",
+        "bothR1R2Same": "AGREE \u2014 full credit",
+        "r1R2Different": "DIVERGE \u2014 HIGH PRIMARY for NF/SFP vs other",
+        "r1OrR2E": "Mixed-E (E = STJ/STP\u00b7SFP/SFJ shared signal): substantive answer contributes; E itself is a non-NF/SFP signal",
+        "bothEOrF": "Both-F: NF/SFP determination COMPROMISED \u2014 Q11 is the sole NF/SFP discriminator",
+        "weight": "HIGH PRIMARY (v3.1 NEW)",
+        "divergeMeaning": "R1=C R2=A/B/D is definitive NF/SFP vs other-environment diverge. v3.1 NEW: Q11 is the sole NF/SFP discriminator \u2014 both-F here means NF/SFP determination is impossible."
+      }
+    ],
+    "evidenceQualityLayer": [
+      {
+        "sourceRow": 6,
+        "dimension": "Direct-observation triangulation",
+        "highQualityCondition": "BOTH respondents have evidenceType = direct_observation on this question",
+        "multiplier": "1.0 (full weight)",
+        "lowQualityCondition": "Either respondent has evidenceType = inference / hypothetical / unknown",
+        "action": "Apply 0.5 multiplier; flag answer with reduced reliability"
+      },
+      {
+        "sourceRow": 7,
+        "dimension": "Knowledge-level alignment",
+        "highQualityCondition": "BOTH respondents have knowledgeLevel = first_hand or document_based",
+        "multiplier": "1.0",
+        "lowQualityCondition": "Either has knowledgeLevel = speculative / not_known",
+        "action": "Apply 0.3 multiplier; question excluded from agreement count if both speculative"
+      },
+      {
+        "sourceRow": 8,
+        "dimension": "Confidence triangulation",
+        "highQualityCondition": "BOTH respondents declared confidence = high",
+        "multiplier": "1.0",
+        "lowQualityCondition": "Either declared confidence = low or cannot_determine",
+        "action": "Apply 0.7 multiplier; record in audit trail"
+      },
+      {
+        "sourceRow": 9,
+        "dimension": "Reliability-flag overlap",
+        "highQualityCondition": "NEITHER respondent has reliability flags raised on this question",
+        "multiplier": "1.0",
+        "lowQualityCondition": "Either has any reliability flag (acquisition_framing_contamination, narrative_interest, status_protection, etc.)",
+        "action": "Apply 0.6 multiplier per flag (max 0.6 reduction); flag combinations cap at 0.3 minimum"
+      },
+      {
+        "sourceRow": 10,
+        "dimension": "Role-coverage match",
+        "highQualityCondition": "BOTH respondents are in roles that have legitimate observation scope for this question (per ST_Canonical_Schema sheet 14)",
+        "multiplier": "1.0",
+        "lowQualityCondition": "Either respondent is below-tier for this question scope (e.g. line-level respondent answering Axis 1 questions)",
+        "action": "Apply 0.5 multiplier; route to ROLE-LEVEL SPLIT classification (sheet 5 state \u2462) if pattern is systematic"
+      },
+      {
+        "sourceRow": 11,
+        "dimension": "Combined quality multiplier",
+        "highQualityCondition": "Product of all 5 dimension multipliers",
+        "multiplier": "Range: 0.027 to 1.0",
+        "lowQualityCondition": "Below 0.4 = low-quality divergence; below 0.2 = excluded entirely",
+        "action": "Multiplier \u2265 0.7: standard divergence weight applied. Multiplier 0.4-0.7: divergence flagged but reduced. Multiplier < 0.4: divergence noted, NO Contradiction record produced."
+      },
+      {
+        "sourceRow": 13,
+        "dimension": "INTEGRATION WITH SHEET 3",
+        "highQualityCondition": "",
+        "multiplier": "",
+        "lowQualityCondition": "",
+        "action": ""
+      },
+      {
+        "sourceRow": 14,
+        "dimension": "Each per-question divergence determination from sheet 3 is multiplied by the combined evidence-quality multiplier from this sheet. Effective divergence weight = base_weight \u00d7 combined_quality_multiplier. Sheet 5 (Divergence Classification) consumes the effective weights, NOT the base weights. This means a CONVERGENT classification requires both AGREE pattern AND high-quality evidence on enough questions; an IRRESOLVABLE classification can result from genuine cross-respondent divergence OR from systematically low-quality evidence.",
+        "highQualityCondition": "",
+        "multiplier": "",
+        "lowQualityCondition": "",
+        "action": ""
+      }
+    ],
     "divergenceClassification": [
       {
         "sourceRow": 6,
@@ -224,7 +1290,78 @@
         "routing": "Required"
       }
     ],
-    "edgeCases": []
+    "edgeCases": [
+      {
+        "sourceRow": 5,
+        "edgeCase": "Exact 5-way tie on agreements pointing to different envs",
+        "trigger": "R1 and R2 each agree on exactly 5 questions, but agreed questions point to different environments",
+        "classification": "\u2463-B IRRESOLVABLE \u2014 not PARTIAL CONVERGENCE",
+        "rationale": "Agreement count alone is insufficient \u2014 agreed questions must point to the same environment. Shared count on different environments = no consolidated signal. \u2463-B because it indicates pair-hypothesis failure."
+      },
+      {
+        "sourceRow": 6,
+        "edgeCase": "Both HIGH-weight agree but total < 5",
+        "trigger": "Both pair-resolver questions agree, but only 3-4 of remaining 9 agree",
+        "classification": "PARTIAL CONVERGENCE \u2014 but flag LOW CONFIDENCE",
+        "rationale": "Pair-resolvers are authoritative for the specific pair. Agreement on both overrides the 5/11 total threshold for this pair. Append: \"High-weight pair confirmation with partial screening agreement\""
+      },
+      {
+        "sourceRow": 7,
+        "edgeCase": "One HIGH-weight agrees, one diverges",
+        "trigger": "Q4 and Q7 disagree on direction for NT/STJ vs NT/STP pair",
+        "classification": "Downgrade to PARTIAL CONVERGENCE if total \u2265 5; \u2463-A if total < 5",
+        "rationale": "Split pair-resolver result removes the ability to cleanly lock the pair. Treat as single-resolver confirmation with reduced confidence."
+      },
+      {
+        "sourceRow": 8,
+        "edgeCase": "R1 R2 same role level, systematic Q1/Q5 diverge",
+        "trigger": "Both PARTNER_MD but disagree on Axis 1 and Axis 5",
+        "classification": "\u2463-A IRRESOLVABLE \u2014 not ROLE-LEVEL SPLIT",
+        "rationale": "ROLE-LEVEL SPLIT requires genuine role-level difference between R1 and R2 (per AEM Rule 5). Same-role divergence on governance axes indicates genuine disagreement, not observation-layer difference."
+      },
+      {
+        "sourceRow": 9,
+        "edgeCase": "R2 produces third env outside candidate pair",
+        "trigger": "R1 \u2192 NT/STJ; R2 \u2192 SFJ/SFP (not in NT/STJ vs NT/STP pair)",
+        "classification": "\u2463-B IRRESOLVABLE \u2014 escalate with note",
+        "rationale": "Third environment signal outside candidate pair indicates pair-identification may be wrong. Do not force into pair classification. Practitioner escalation only \u2014 third respondent does NOT resolve."
+      },
+      {
+        "sourceRow": 10,
+        "edgeCase": "Both-E systematically across pair-resolvers (v3.1 NEW)",
+        "trigger": "BOTH respondents answered E to BOTH HIGH-weight pair-resolver questions",
+        "classification": "\u2463-A IRRESOLVABLE \u2014 coverage gap",
+        "rationale": "v3.1: pair-resolvers cannot be evaluated. This is NOT genuine divergence \u2014 it is an evidence-coverage gap. Practitioner should consider supplemental respondents or interview."
+      },
+      {
+        "sourceRow": 11,
+        "edgeCase": "Mixed-E pattern correlated with role tier (v3.1 NEW)",
+        "trigger": "Junior respondent (R2) systematically answers E on Axis 1 and Axis 5; R1 answers substantively",
+        "classification": "\u2462 ROLE-LEVEL SPLIT \u2014 not coverage gap",
+        "rationale": "v3.1: junior-respondent E pattern on governance/resource axes is the EXPECTED outcome of role-tier observation scope. Not a coverage failure \u2014 the structural reality."
+      },
+      {
+        "sourceRow": 12,
+        "edgeCase": "Q11 both-F (v3.1 NEW)",
+        "trigger": "BOTH respondents answered F (cannot answer) to Q11",
+        "classification": "NF/SFP determination IMPOSSIBLE \u2014 no other discriminator",
+        "rationale": "v3.1: Q11 is the sole NF/SFP discriminator in the AEM/TSAM. If both respondents cannot answer it, NF/SFP cannot be ruled in or out. Route to ST_Environment_Diagnostic_v2.xlsx (which has 5 NF/SFP signal paths) for cross-instrument verification."
+      },
+      {
+        "sourceRow": 13,
+        "edgeCase": "Reliability flags overlap (v3.1 NEW)",
+        "trigger": "Both respondents have acquisition_framing_contamination flag on the same questions",
+        "classification": "PARTIAL CONVERGENCE with FLAG annotation",
+        "rationale": "v3.1: shared reliability flags do NOT increase confidence \u2014 they indicate both respondents are subject to the same bias. The agreement is not independent triangulation."
+      },
+      {
+        "sourceRow": 14,
+        "edgeCase": "Quality multiplier < 0.4 across all questions (v3.1 NEW)",
+        "trigger": "Combined evidence-quality multiplier from sheet 4 is < 0.4 on \u2265 8 of 11 questions",
+        "classification": "COVERAGE INSUFFICIENT \u2014 comparator output suppressed",
+        "rationale": "v3.1: low-quality evidence on most questions means the divergence pattern is unreliable. Do NOT issue Contradiction records. Engagement requires additional respondents or evidence before this comparator yields useful output."
+      }
+    ]
   },
   "triage": {
     "sourceWorkbook": "ST_Triage_Framework.xlsx",

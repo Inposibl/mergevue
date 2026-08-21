@@ -3680,7 +3680,71 @@
         ]
       }
     ],
-    "buyerFacingAliases": []
+    "buyerFacingAliases": [
+      {
+        "sourceRow": 5,
+        "environmentPair": "STJ/STP",
+        "canonicalName": "The Power Racket",
+        "buyerFacingAlias": "Enforcement-Dominance Operating Pattern",
+        "whenToUseWhich": "Canonical: methodology + analyst workspaces. Alias: client deliverables, board materials, legal-sensitive contexts."
+      },
+      {
+        "sourceRow": 6,
+        "environmentPair": "STP/STJ",
+        "canonicalName": "The Enforcer Network",
+        "buyerFacingAlias": "Tactical-Control Operating Pattern",
+        "whenToUseWhich": "Canonical: methodology + analyst workspaces. Alias: client deliverables, board materials, legal-sensitive contexts."
+      },
+      {
+        "sourceRow": 7,
+        "environmentPair": "SFP/SFJ",
+        "canonicalName": "The Franchise Machine",
+        "buyerFacingAlias": "Replication-and-Loyalty Operating Pattern",
+        "whenToUseWhich": "Canonical: methodology + analyst workspaces. Alias: client deliverables, board materials, legal-sensitive contexts."
+      },
+      {
+        "sourceRow": 8,
+        "environmentPair": "NF/SFJ",
+        "canonicalName": "Mission Field",
+        "buyerFacingAlias": "Mission-Driven Operating Pattern",
+        "whenToUseWhich": "Canonical and buyer-facing both acceptable."
+      },
+      {
+        "sourceRow": 9,
+        "environmentPair": "NF/SFP",
+        "canonicalName": "Creative Commons / Studio",
+        "buyerFacingAlias": "Creative-Expressive Operating Pattern",
+        "whenToUseWhich": "Canonical and buyer-facing both acceptable."
+      },
+      {
+        "sourceRow": 10,
+        "environmentPair": "NF/NT",
+        "canonicalName": "Idea Lab / Research Academy",
+        "buyerFacingAlias": "Knowledge-Generation Operating Pattern",
+        "whenToUseWhich": "Canonical and buyer-facing both acceptable."
+      },
+      {
+        "sourceRow": 11,
+        "environmentPair": "NT/STJ",
+        "canonicalName": "Performance Arena",
+        "buyerFacingAlias": "Meritocratic-Performance Operating Pattern",
+        "whenToUseWhich": "Canonical and buyer-facing both acceptable."
+      },
+      {
+        "sourceRow": 12,
+        "environmentPair": "NT/STP",
+        "canonicalName": "Disruption Lab",
+        "buyerFacingAlias": "Empirical-Test Operating Pattern",
+        "whenToUseWhich": "Canonical and buyer-facing both acceptable."
+      },
+      {
+        "sourceRow": 13,
+        "environmentPair": "SFJ/SFP",
+        "canonicalName": "Hometown Network",
+        "buyerFacingAlias": "Community-Tradition Operating Pattern",
+        "whenToUseWhich": "Canonical and buyer-facing both acceptable."
+      }
+    ]
   },
   "step3Screens": {
     "sourceWorkbook": "ST_Step3_Output_Screens_Spec.xlsx",
@@ -5536,7 +5600,269 @@
         "costTime": ""
       }
     ],
-    "dependencyRegister": [],
+    "dependencyRegister": [
+      {
+        "sourceRow": 5,
+        "dependencyFile": "ST_Consulting_Pages_v2_final.xlsx",
+        "requiredForWhichStep": "Step 1 \u2014 Website landing",
+        "requiredOptional": "Required",
+        "status": "PRESENT",
+        "canonicalOwner": "Marketing/website team",
+        "notes": "Due Diligence tab is the entry point."
+      },
+      {
+        "sourceRow": 6,
+        "dependencyFile": "ST_Acquirer_Environment_Module.xlsx",
+        "requiredForWhichStep": "Step 2-A \u2014 Acquirer Layer 1",
+        "requiredOptional": "Required",
+        "status": "PRESENT",
+        "canonicalOwner": "Methodology team",
+        "notes": "11Q with Q11 NF/SFP discriminator."
+      },
+      {
+        "sourceRow": 7,
+        "dependencyFile": "ST_Environment_Diagnostic_v2.xlsx",
+        "requiredForWhichStep": "Step 2-B",
+        "requiredOptional": "Required",
+        "status": "PRESENT",
+        "canonicalOwner": "Methodology team",
+        "notes": "Two-level questionnaire, 22Q."
+      },
+      {
+        "sourceRow": 8,
+        "dependencyFile": "ST_Target_Self_Assessment_Module.xlsx",
+        "requiredForWhichStep": "Step 2-C (Track 2)",
+        "requiredOptional": "Required",
+        "status": "PRESENT",
+        "canonicalOwner": "Methodology team",
+        "notes": "Mirror to AEM. 11Q."
+      },
+      {
+        "sourceRow": 9,
+        "dependencyFile": "ST_Target_Observed_Environment_Diagnostic.xlsx",
+        "requiredForWhichStep": "Step 2-D",
+        "requiredOptional": "Required",
+        "status": "PRESENT",
+        "canonicalOwner": "Methodology team",
+        "notes": "23Q; EVID Q4 facade-vs-core gap."
+      },
+      {
+        "sourceRow": 10,
+        "dependencyFile": "ST_Form_Binding_Prompt.xlsx",
+        "requiredForWhichStep": "Step 2 routing",
+        "requiredOptional": "Required",
+        "status": "PRESENT",
+        "canonicalOwner": "Methodology team",
+        "notes": "Routing rules for Layer 1 instruments."
+      },
+      {
+        "sourceRow": 11,
+        "dependencyFile": "ST_Dual_Respondent_Axis_Comparison_v1.xlsx",
+        "requiredForWhichStep": "Step 3 reconciliation",
+        "requiredOptional": "Required",
+        "status": "PRESENT",
+        "canonicalOwner": "Methodology team",
+        "notes": "Four divergence states."
+      },
+      {
+        "sourceRow": 12,
+        "dependencyFile": "ST_Triage_Framework.xlsx",
+        "requiredForWhichStep": "Step 3 triage",
+        "requiredOptional": "Required",
+        "status": "PRESENT",
+        "canonicalOwner": "Methodology team",
+        "notes": "Triggers 1-6."
+      },
+      {
+        "sourceRow": 13,
+        "dependencyFile": "ST_Free_Tier_Output_Narratives_updated.xlsx",
+        "requiredForWhichStep": "Step 3 free-tier output",
+        "requiredOptional": "Required",
+        "status": "PRESENT",
+        "canonicalOwner": "Methodology team",
+        "notes": "72 narratives + Confidence Gate calibration."
+      },
+      {
+        "sourceRow": 14,
+        "dependencyFile": "ST_Step3_Output_Screens_Spec.xlsx",
+        "requiredForWhichStep": "Step 3 UI",
+        "requiredOptional": "Required",
+        "status": "PRESENT",
+        "canonicalOwner": "Product/Engineering",
+        "notes": "UI specification for Step 3 self-serve flow."
+      },
+      {
+        "sourceRow": 15,
+        "dependencyFile": "NF_NT_Diagnostic_Questionnaire.xlsx + 8 others (9 total)",
+        "requiredForWhichStep": "Step 4 verification",
+        "requiredOptional": "Required (conditional)",
+        "status": "PRESENT",
+        "canonicalOwner": "Methodology team",
+        "notes": "9 directed-pair questionnaires."
+      },
+      {
+        "sourceRow": 16,
+        "dependencyFile": "NF_NT_Branded_Questionnaire.xlsx + 8 others (9 total)",
+        "requiredForWhichStep": "Step 4 (certified)",
+        "requiredOptional": "Optional",
+        "status": "PRESENT",
+        "canonicalOwner": "Practitioner cert team",
+        "notes": "9 branded variants."
+      },
+      {
+        "sourceRow": 17,
+        "dependencyFile": "ST_Canonical_Schema.xlsx",
+        "requiredForWhichStep": "Step 4.5 + 4.7",
+        "requiredOptional": "Required",
+        "status": "PRESENT",
+        "canonicalOwner": "Methodology team",
+        "notes": "Sheet 9, 10, 16."
+      },
+      {
+        "sourceRow": 18,
+        "dependencyFile": "ST_Analyst_Methodology.xlsx",
+        "requiredForWhichStep": "Step 4.7",
+        "requiredOptional": "Required",
+        "status": "PRESENT",
+        "canonicalOwner": "Methodology team",
+        "notes": "\u00a73 Gate 3 + \u00a74 + \u00a75."
+      },
+      {
+        "sourceRow": 19,
+        "dependencyFile": "ST_ECS_v2_canonical.xlsx",
+        "requiredForWhichStep": "Step 5",
+        "requiredOptional": "Required",
+        "status": "PRESENT",
+        "canonicalOwner": "Methodology team",
+        "notes": "Canonical version per March 2026."
+      },
+      {
+        "sourceRow": 20,
+        "dependencyFile": "Most_important_file__MBTI_Dynamic_Hierarchy_v2.xlsx",
+        "requiredForWhichStep": "Step 6",
+        "requiredOptional": "Required",
+        "status": "PRESENT",
+        "canonicalOwner": "Methodology team",
+        "notes": "Authoritative hierarchy."
+      },
+      {
+        "sourceRow": 21,
+        "dependencyFile": "ST_General_Type_Screener_42Q_v2.xlsx",
+        "requiredForWhichStep": "Step 6",
+        "requiredOptional": "Required",
+        "status": "PRESENT",
+        "canonicalOwner": "Methodology team",
+        "notes": "42Q general screener."
+      },
+      {
+        "sourceRow": 22,
+        "dependencyFile": "16x [TYPE]_Type_Determination_Questionnaire.xlsx",
+        "requiredForWhichStep": "Step 6",
+        "requiredOptional": "Required (conditional)",
+        "status": "PRESENT",
+        "canonicalOwner": "Methodology team",
+        "notes": "16 type-specific."
+      },
+      {
+        "sourceRow": 23,
+        "dependencyFile": "ST_Type_Cards_All16.docx",
+        "requiredForWhichStep": "Step 6",
+        "requiredOptional": "Optional",
+        "status": "PRESENT",
+        "canonicalOwner": "Methodology team",
+        "notes": "Reference summary."
+      },
+      {
+        "sourceRow": 24,
+        "dependencyFile": "ST_Master_Resource_Database_v2.xlsx",
+        "requiredForWhichStep": "Step 6 + 8",
+        "requiredOptional": "Required",
+        "status": "PRESENT",
+        "canonicalOwner": "Methodology team",
+        "notes": "Resource state mappings; calibration target."
+      },
+      {
+        "sourceRow": 25,
+        "dependencyFile": "ST_B_Single_Output_Template_v1.xlsx",
+        "requiredForWhichStep": "Step 7",
+        "requiredOptional": "Required",
+        "status": "PRESENT",
+        "canonicalOwner": "Methodology team",
+        "notes": "19-section template."
+      },
+      {
+        "sourceRow": 26,
+        "dependencyFile": "ST_Friction_Point_Lookup_updated.xlsx",
+        "requiredForWhichStep": "Step 7",
+        "requiredOptional": "Required",
+        "status": "PRESENT",
+        "canonicalOwner": "Methodology team",
+        "notes": "72 pairs FP1/FP2/FP3 + risk-category tags."
+      },
+      {
+        "sourceRow": 27,
+        "dependencyFile": "ST_Prediction_Ledger_v1.xlsx",
+        "requiredForWhichStep": "Step 7.5",
+        "requiredOptional": "Required (conditional)",
+        "status": "PRESENT",
+        "canonicalOwner": "Senior partner",
+        "notes": "Append-only; evidence-confidence stamp."
+      },
+      {
+        "sourceRow": 28,
+        "dependencyFile": "ST_Transition_Rate_Engine_v1.xlsx",
+        "requiredForWhichStep": "Step 7.5",
+        "requiredOptional": "Required (conditional)",
+        "status": "PRESENT",
+        "canonicalOwner": "Methodology team",
+        "notes": "Predictions copied to ledger at seal."
+      },
+      {
+        "sourceRow": 29,
+        "dependencyFile": "ST_Step3_Enhanced_Output_v1.xlsx",
+        "requiredForWhichStep": "Step 7.5 (Step 15.5 trigger)",
+        "requiredOptional": "Required (conditional)",
+        "status": "PRESENT",
+        "canonicalOwner": "Methodology team",
+        "notes": "CLIENT_OUTPUT assembled before sealing."
+      },
+      {
+        "sourceRow": 30,
+        "dependencyFile": "ST_Investment_Memorandum.docx OR _v3.docx",
+        "requiredForWhichStep": "Step 8",
+        "requiredOptional": "Required",
+        "status": "PENDING (canonical version pending Phase 4 authorisation)",
+        "canonicalOwner": "Senior partner",
+        "notes": "Both files in /mnt/project/. Canonical designation deferred to Phase 4."
+      },
+      {
+        "sourceRow": 31,
+        "dependencyFile": "ST_Environment_Name_Guide_US.docx",
+        "requiredForWhichStep": "Cross-cutting",
+        "requiredOptional": "Required",
+        "status": "PRESENT",
+        "canonicalOwner": "Methodology team",
+        "notes": "Authoritative US environment names."
+      },
+      {
+        "sourceRow": 32,
+        "dependencyFile": "AAA_READ_FIRST_Agent_Operating_Protocol_v2_updated.xlsx",
+        "requiredForWhichStep": "Cross-cutting",
+        "requiredOptional": "Required",
+        "status": "PRESENT",
+        "canonicalOwner": "Methodology team",
+        "notes": "Read first in any new session."
+      },
+      {
+        "sourceRow": 33,
+        "dependencyFile": "ST_CoderAgent_Prompt_Block_Registry.xlsx",
+        "requiredForWhichStep": "Cross-cutting",
+        "requiredOptional": "Required",
+        "status": "PRESENT",
+        "canonicalOwner": "Methodology team",
+        "notes": "10 canonical blocks tracked."
+      }
+    ],
     "buildNotes": [
       {
         "sourceRow": 1,

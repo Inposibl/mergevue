@@ -92,6 +92,25 @@ def comparable_header(value):
     return re.sub(r"[^a-z0-9]+", "", clean_text(value).lower())
 
 
+class CanonicalExtractionError(Exception):
+    """Raised when an expected canonical table cannot be located or is malformed."""
+
+
+def extraction_error(workbook, sheet_name, expected_header, reason, block=None):
+    workbook_file = Path(getattr(workbook, "path", "")).name or "<unknown-workbook>"
+    block_name = block or expected_header or sheet_name
+    return CanonicalExtractionError(
+        "Canonical extraction failed: "
+        f"workbook={workbook_file} sheet={sheet_name!r} "
+        f"block={block_name!r} expected_header={expected_header!r} reason={reason}"
+    )
+
+
+def require_sheet(workbook, sheet_name, expected_header=None, block=None):
+    if sheet_name not in workbook.sheet_names:
+        raise extraction_error(workbook, sheet_name, expected_header, "missing_sheet", block=block)
+
+
 def number_or_text(value):
     text = clean_text(value)
     if text == "":
@@ -169,7 +188,8 @@ class Workbook:
         return rows
 
 
-def table_records(workbook, sheet_name, required_header):
+def table_records(workbook, sheet_name, required_header, *, allow_empty=False, block=None):
+    require_sheet(workbook, sheet_name, required_header, block=block)
     rows = workbook.read_rows(sheet_name)
     header_index = None
     header_values = None
@@ -181,7 +201,11 @@ def table_records(workbook, sheet_name, required_header):
             break
 
     if header_index is None:
-        return []
+        raise extraction_error(workbook, sheet_name, required_header, "header_not_found", block=block)
+
+    usable_headers = [header for header in header_values.values() if to_key(header)]
+    if not usable_headers:
+        raise extraction_error(workbook, sheet_name, required_header, "malformed_header", block=block)
 
     records = []
     for row_number, values in rows[header_index + 1 :]:
@@ -195,6 +219,65 @@ def table_records(workbook, sheet_name, required_header):
         non_source_values = [value for key, value in record.items() if key != "sourceRow"]
         if any(non_source_values):
             records.append(record)
+
+    if not records and not allow_empty:
+        raise extraction_error(workbook, sheet_name, required_header, "no_data_rows", block=block)
+    return records
+
+
+def parse_confidence_gate_mapping(workbook):
+    sheet_name = "Confidence_Gate_Mapping"
+    required_header = "Confidence Gate verdict"
+    block = "confidenceGateMapping"
+    require_sheet(workbook, sheet_name, required_header, block=block)
+    rows = workbook.read_rows(sheet_name)
+    header_index = None
+    header_values = None
+    required = comparable_header(required_header)
+    for index, (_, values) in enumerate(rows):
+        if required in {comparable_header(value) for value in values.values()}:
+            header_index = index
+            header_values = values
+            break
+    if header_index is None:
+        raise extraction_error(workbook, sheet_name, required_header, "header_not_found", block=block)
+    usable_headers = [header for header in header_values.values() if to_key(header)]
+    if not usable_headers:
+        raise extraction_error(workbook, sheet_name, required_header, "malformed_header", block=block)
+
+    records = []
+    previous_row_number = rows[header_index][0]
+    for row_number, values in rows[header_index + 1 :]:
+        if row_number != previous_row_number + 1:
+            break
+        previous_row_number = row_number
+        record = {"sourceRow": row_number}
+        for column, header in header_values.items():
+            key = to_key(header)
+            if key:
+                record[key] = clean_text(values.get(column, ""))
+        non_source_values = [value for key, value in record.items() if key != "sourceRow"]
+        if any(non_source_values):
+            records.append(record)
+    if not records:
+        raise extraction_error(workbook, sheet_name, required_header, "no_data_rows", block=block)
+    return records
+
+
+def parse_derivation_method(workbook):
+    sheet_name = "Derivation_Method"
+    require_sheet(workbook, sheet_name, expected_header=None, block="derivationMethod")
+    rows = workbook.read_rows(sheet_name)
+    if not rows:
+        raise extraction_error(workbook, sheet_name, None, "no_data_rows", block="derivationMethod")
+    records = []
+    for row_number, values in rows:
+        records.append(
+            {
+                "sourceRow": row_number,
+                "cells": {str(column): clean_text(value) for column, value in sorted(values.items())},
+            }
+        )
     return records
 
 
@@ -605,13 +688,13 @@ def parse_scoring_and_triage():
     with Workbook(SOURCE_DIR / "ST_Dual_Respondent_Axis_Comparison_v1.xlsx") as dual:
         dual_artifact = {
             "sourceWorkbook": "ST_Dual_Respondent_Axis_Comparison_v1.xlsx",
-            "answerEnvironmentMap": table_records(dual, "1_Answer_Env_Map", "Question"),
-            "pairSpecificWeights": table_records(dual, "2_Pair_Specific_Weights", "Pair"),
-            "comparisonEngine": table_records(dual, "3_Comparison_Engine", "Question"),
-            "evidenceQualityLayer": table_records(dual, "4_Evidence_Quality_Layer", "Evidence variable"),
+            "answerEnvironmentMap": table_records(dual, "1_Answer_Env_Map", "Q#", block="answerEnvironmentMap"),
+            "pairSpecificWeights": table_records(dual, "2_Pair_Specific_Weights", "Candidate Pair", block="pairSpecificWeights"),
+            "comparisonEngine": table_records(dual, "3_Comparison_Engine", "Q#", block="comparisonEngine"),
+            "evidenceQualityLayer": table_records(dual, "4_Evidence_Quality_Layer", "Dimension", block="evidenceQualityLayer"),
             "divergenceClassification": table_records(dual, "5_Divergence_Classification", "State"),
             "contradictionOutput": table_records(dual, "6_Contradiction_Output", "Divergence State"),
-            "edgeCases": table_records(dual, "7_Edge_Cases", "Case"),
+            "edgeCases": table_records(dual, "7_Edge_Cases", "Edge Case", block="edgeCases"),
         }
 
     with Workbook(SOURCE_DIR / "ST_Triage_Framework.xlsx") as triage:
@@ -646,7 +729,7 @@ def parse_narratives_and_friction():
             "sourceWorkbook": "ST_Free_Tier_Output_Narratives_updated.xlsx",
             "implementationGuideRows": compact_rows(narratives, "Implementation_Guide"),
             "freeTierNarratives": narrative_rows,
-            "confidenceGateMapping": table_records(narratives, "Confidence_Gate_Mapping", "CONFIDENCE GATE"),
+            "confidenceGateMapping": parse_confidence_gate_mapping(narratives),
             "schemaMethodologyDependencies": compact_rows(narratives, "Schema_Methodology_Dependencies"),
         }
 
@@ -663,7 +746,7 @@ def parse_narratives_and_friction():
         friction_artifact = {
             "sourceWorkbook": "ST_Friction_Point_Lookup_updated.xlsx",
             "frictionLookup": friction_rows,
-            "derivationMethod": table_records(friction, "Derivation_Method", "Primary source"),
+            "derivationMethod": parse_derivation_method(friction),
             "riskCategoryTagging": compact_rows(friction, "Risk_Category_Tagging"),
         }
 
@@ -703,7 +786,12 @@ def parse_reporting():
         report_artifact = {
             "sourceWorkbook": "ST_B_Single_Output_Template_v1.xlsx",
             "sectionSheets": section_sheets,
-            "buyerFacingAliases": table_records(report, "Buyer_Facing_Aliases", "Internal term"),
+            "buyerFacingAliases": table_records(
+                report,
+                "Buyer_Facing_Aliases",
+                "Environment Pair",
+                block="buyerFacingAliases",
+            ),
         }
 
     with Workbook(SOURCE_DIR / "ST_Step3_Output_Screens_Spec.xlsx") as screens:
@@ -719,7 +807,12 @@ def parse_reporting():
         journey_artifact = {
             "sourceWorkbook": "ST_Client_Journey_v5.xlsx",
             "clientJourney": table_records(journey, "Client Journey", "Step"),
-            "dependencyRegister": table_records(journey, "Dependency_Register", "Dependency"),
+            "dependencyRegister": table_records(
+                journey,
+                "Dependency_Register",
+                "Dependency file",
+                block="dependencyRegister",
+            ),
             "buildNotes": compact_rows(journey, "v3_1_Build_Notes"),
         }
 
