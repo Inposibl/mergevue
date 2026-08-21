@@ -879,7 +879,7 @@
         "r1R2Different": "DIVERGE \u2014 pair-specific weight (Sheet 2)",
         "r1OrR2E": "Mixed-E: respondent who answered substantively contributes; E respondent excluded from primary count, recorded as evidence-coverage gap",
         "bothEOrF": "Both-E: question excluded from agreement count; coverage gap flagged",
-        "weight": "STANDARD (HIGH for STJ/STP vs NT/STJ pair when R1=A R2=C)",
+        "weight": "STANDARD (sheet 2 controlling; Q1 is STANDARD for all listed pairs; not HIGH)",
         "divergeMeaning": "A vs C diverge = governance split (NT/STJ vs STJ/STP). A vs B diverge = authority-logic split (evidence vs rank)."
       },
       {
@@ -901,7 +901,7 @@
         "r1R2Different": "DIVERGE \u2014 HIGH for NF/SFJ vs NF/NT pair",
         "r1OrR2E": "Mixed-E: substantive answer contributes",
         "bothEOrF": "Both-E: excluded",
-        "weight": "HIGH (NF/SFJ vs NF/NT)",
+        "weight": "STANDARD (sheet 2 controlling; Q3 is STANDARD for NF/SFJ vs NF/NT; not HIGH)",
         "divergeMeaning": "{A,C} split across the two respondents (unordered) = HIGH RISK signal: NF/NT vs NF/SFJ split on epistemic openness."
       },
       {
@@ -923,7 +923,7 @@
         "r1R2Different": "DIVERGE \u2014 HIGH for NT and SFJ/SP pairs",
         "r1OrR2E": "Mixed-E: common \u2014 line-level-tier respondent (sheet 11 Seniority Tier Mapping) may not see resource allocation. E expected.",
         "bothEOrF": "Both-E: excluded; flag both respondents as below-tier-coverage for this dimension",
-        "weight": "HIGH (NT/STJ vs NT/STP and SFJ/SFP vs SFP/SFJ)",
+        "weight": "STANDARD (sheet 2 controlling; Q5 is STANDARD for listed pairs; not HIGH)",
         "divergeMeaning": "{A,B} split across the two respondents (unordered) = NT/STJ vs NT/STP resource logic split. {A,C} split is a common CFO vs CHRO split."
       },
       {
@@ -1028,62 +1028,62 @@
       },
       {
         "sourceRow": 10,
-        "dimension": "Role-coverage match",
-        "highQualityCondition": "Both respondents are within legitimate observation scope for this question per sheet 11_Role_Question_Scope of this workbook. ST_Canonical_Schema.xlsx v1.1 sheet 14_RoleCoverageMatrix is a deal-size respondent-coverage tier rule and is NOT a role \u00d7 question observation-scope matrix.",
-        "multiplier": "1.0",
-        "lowQualityCondition": "Either respondent is below-tier for this question scope (e.g. line-level-tier respondent answering Axis 1 questions)",
-        "action": "Apply 0.5 multiplier; route to ROLE-LEVEL SPLIT classification (sheet 5 state \u2462) if pattern is systematic. Dimension 5 is NOT production-ready until sheet 11_Role_Question_Scope is authored and accepted. No default, fallback, or 1.0 substitution for a missing roleCoverageMultiplier is permitted. Until then the five-factor combined-quality model is INCOMPLETE."
+        "dimension": "Role-coverage match \u2014 SUPERSEDED BY OBSERVATION SCOPE LAYER \u2014 DEC-1",
+        "highQualityCondition": "SUPERSEDED BY OBSERVATION SCOPE LAYER \u2014 DEC-1. Historical high-quality condition retained for audit: Both respondents are within legitimate observation scope for this question per sheet 11_Role_Question_Scope of this workbook. ST_Canonical_Schema.xlsx v1.1 sheet 14_RoleCoverageMatrix is a deal-size respondent-coverage tier rule and is NOT a role \u00d7 question observation-scope matrix.",
+        "multiplier": "SUPERSEDED \u2014 not a multiplicative factor. Historical cell: 1.0",
+        "lowQualityCondition": "SUPERSEDED. Historical low-quality condition retained for audit: Either respondent is below-tier for this question scope (e.g. line-level-tier respondent answering Axis 1 questions)",
+        "action": "SUPERSEDED BY OBSERVATION SCOPE LAYER \u2014 DEC-1. Not used in the provisional four-factor product. Historical action retained for audit: Apply 0.5 multiplier; route to ROLE-LEVEL SPLIT classification (sheet 5 state \u2462) if pattern is systematic. Dimension 5 is NOT production-ready until sheet 11_Role_Question_Scope is authored and accepted. No default, fallback, or 1.0 substitution for a missing roleCoverageMultiplier is permitted. Until then the five-factor combined-quality model is INCOMPLETE."
       },
       {
         "sourceRow": 11,
-        "dimension": "Combined quality multiplier",
-        "highQualityCondition": "Product of all 5 dimension multipliers",
-        "multiplier": "Range: 0.027 to 1.0",
-        "lowQualityCondition": "Below 0.4 = low-quality divergence; below 0.2 = excluded entirely",
-        "action": "Multiplier \u2265 0.7: standard divergence weight applied. Multiplier 0.4-0.7: divergence flagged but reduced. Multiplier < 0.4: divergence noted, NO Contradiction record produced."
+        "dimension": "Provisional four-factor product",
+        "highQualityCondition": "PROVISIONAL FOUR-FACTOR PRODUCT for ordinary structural comparison (PRIMARY \u00d7 PRIMARY): evidenceType \u00d7 knowledgeLevel \u00d7 confidence \u00d7 reliabilityFlags. Role-coverage is not a factor. PROVISIONAL \u2014 PENDING C-25/X-4.",
+        "multiplier": "SUPERSEDED / ANNULLED \u2014 NO REPLACEMENT RANGE PENDING C-25/X-4",
+        "lowQualityCondition": "Below 0.4 = low-quality divergence; below 0.2 = excluded entirely. Thresholds 0.7 / 0.5 / 0.4 / 0.2 retained; not recalibrated.",
+        "action": "Ordinary domain PRIMARY \u00d7 PRIMARY: multiplier \u2265 0.7 standard divergence weight; 0.4\u20130.7 flagged but reduced; < 0.4 noted, NO Contradiction record. DEC-8 domain PRIMARY \u00d7 CONTEXTUAL on triggering Q1/Q5 is a separate state-\u2462 quality-admissibility check only (\u2265 0.5), OWNER-ADOPTED CORRECTION \u2014 PROVISIONAL, PENDING C-25/X-4. DEC-8 is not a structural resolver score, not AGREE/DIVERGE tally, not HIGH-resolver logic, and not priority-1 coverage."
       }
     ],
     "divergenceClassification": [
       {
         "sourceRow": 6,
         "state": "\u2460 CONVERGENT",
-        "triggerCondition": "Effective AGREE on \u22657 of 11 questions (was 7 of 10 in source v1.0; v3.1 adjusts for Q11)",
-        "highWeightCondition": "BOTH HIGH-weight pair-resolvers AGREE",
-        "qualityThreshold": "Combined quality multiplier \u2265 0.7 on agreement-contributing questions",
+        "triggerCondition": "Effective AGREE \u2265 7 among PRIMARY \u00d7 PRIMARY comparable questions",
+        "highWeightCondition": "All HIGH resolvers defined for the active pair AGREE, and each is PRIMARY for both respondents (DEC-3)",
+        "qualityThreshold": "Provisional four-factor product \u2265 0.7 on agreement-contributing PRIMARY \u00d7 PRIMARY questions",
         "resolutionPath": "No analyst intervention required for this state alone; standard methodology proceeds",
         "output": "\u2605\u2605\u2605 STRONG signal pattern + 0 contradiction records (per schema sheet 11)"
       },
       {
         "sourceRow": 7,
         "state": "\u2461 PARTIAL CONVERGENCE",
-        "triggerCondition": "Effective AGREE on 5\u20136 of 11 questions",
-        "highWeightCondition": "AT LEAST ONE HIGH-weight pair-resolver AGREES",
-        "qualityThreshold": "Combined quality multiplier \u2265 0.5 on agreement-contributing questions",
+        "triggerCondition": "Effective AGREE 5\u20136 among PRIMARY \u00d7 PRIMARY comparable questions. DEC-7b: for NF/SFP vs NF/SFJ the ordinary 5\u20136 floor still applies; one agreeing Q11 HIGH does not replace it (sheet 7!D6 override does not apply to that pair).",
+        "highWeightCondition": "At least one HIGH resolver defined for the active pair AGREES, and that resolver is PRIMARY for both respondents (DEC-3)",
+        "qualityThreshold": "Provisional four-factor product \u2265 0.5 on agreement-contributing PRIMARY \u00d7 PRIMARY questions",
         "resolutionPath": "Co-presence note appended for diverging axes; one or more low-severity Contradiction records may issue",
         "output": "\u2605\u2605 CONFIRMED signal pattern + 0\u20133 contradiction records"
       },
       {
         "sourceRow": 8,
         "state": "\u2462 ROLE-LEVEL SPLIT",
-        "triggerCondition": "AGREE on \u22655 non-governance axes AND DIVERGE on Q1 and/or Q5 AND one respondent is senior-tier and the other line-level tier (per sheet 11 Seniority Tier Mapping).",
+        "triggerCondition": "Exactly one senior-tier and one line_level-tier respondent. Q1 and/or Q5 materially DIVERGE with senior side PRIMARY and line-level side CONTEXTUAL. Agreement foundation: \u2265 5 non-governance PRIMARY \u00d7 PRIMARY AGREE, each with provisional four-factor \u2265 0.5.",
         "highWeightCondition": "HIGH-weight pair-resolvers may agree or diverge \u2014 not determinative for this state",
-        "qualityThreshold": "Quality multiplier \u2265 0.5 (role mismatch reduces it but does not invalidate)",
+        "qualityThreshold": "DEC-8 OWNER-ADOPTED CORRECTION \u2014 PROVISIONAL, PENDING C-25/X-4: on each triggering Q1/Q5 (PRIMARY \u00d7 CONTEXTUAL) the provisional four-factor product must be \u2265 0.5 as a quality-admissibility check only. Not a structural resolver score; not AGREE/DIVERGE tally; not HIGH-resolver logic; not priority-1 coverage.",
         "resolutionPath": "The senior-tier respondent's signal pattern is primary; the line-level respondent's observation is recorded as the operational layer.",
         "output": "\u2605 WEAK signal pattern + SPLIT annotation + 1 medium-severity Contradiction record (cross_respondent_same_side)"
       },
       {
         "sourceRow": 9,
         "state": "\u2463-A IRRESOLVABLE \u2014 within-pair divergence",
-        "triggerCondition": "BOTH HIGH-weight pair-resolvers DIVERGE (e.g. {Q4-A, Q4-B} split AND {Q7-A, Q7-B} split for NT/STJ vs NT/STP pair)",
-        "highWeightCondition": "Both pair-resolvers fail",
-        "qualityThreshold": "Quality multiplier \u2265 0.5 on the failing questions (genuine divergence, not low-quality artifact)",
+        "triggerCondition": "All HIGH resolvers defined for the active pair DIVERGE, each PRIMARY for both respondents, provisional quality \u2265 0.5 (e.g. {Q4-A, Q4-B} split AND {Q7-A, Q7-B} split for NT/STJ vs NT/STP). Canonical one-HIGH pair NF/SFP vs NF/SFJ is intercepted by sheet 12 priority 3a (DEC-7) and is not auto-\u2463-A.",
+        "highWeightCondition": "All defined HIGH resolvers fail (PRIMARY \u00d7 PRIMARY DIVERGE)",
+        "qualityThreshold": "Provisional four-factor product \u2265 0.5 on the failing HIGH questions (genuine divergence, not low-quality artifact)",
         "resolutionPath": "PRACTITIONER ESCALATION REQUIRED \u2014 within-pair distinction compromised",
         "output": "BLOCKED \u2014 no signal pattern issued + 1 high-severity Contradiction record (cross_respondent_same_side)"
       },
       {
         "sourceRow": 10,
         "state": "\u2463-B IRRESOLVABLE \u2014 pair-identification failure",
-        "triggerCondition": "One respondent's signals concentrate on an environment OUTSIDE the candidate pair (unordered \u2014 either respondent).",
+        "triggerCondition": "One respondent's signals concentrate on an environment OUTSIDE the candidate pair (unordered \u2014 either respondent). INELIGIBLE and UNRESOLVED do not create pair-identification failure.",
         "highWeightCondition": "Pair identification itself fails \u2014 pair-resolver weights inapplicable",
         "qualityThreshold": "Quality multiplier \u2265 0.5 (genuine divergence)",
         "resolutionPath": "Engine flags candidate \u2463-B (evidence outside candidate pair detected). PRACTITIONER CONFIRMATION REQUIRED before final \u2463-B. Adding R3 does NOT resolve \u2463-B.",
@@ -1142,17 +1142,17 @@
       },
       {
         "sourceRow": 6,
-        "edgeCase": "Both HIGH-weight agree but total < 5",
-        "trigger": "Both pair-resolver questions agree, but only 3-4 of remaining 9 agree",
+        "edgeCase": "All defined HIGH resolvers agree but total PRIMARY \u00d7 PRIMARY AGREE < 5",
+        "trigger": "All HIGH resolvers defined for the active pair AGREE (PRIMARY both), but only 3\u20134 remaining PRIMARY \u00d7 PRIMARY questions agree",
         "classification": "PARTIAL CONVERGENCE \u2014 but flag LOW CONFIDENCE",
-        "rationale": "Pair-resolvers are authoritative for the specific pair. Agreement on both overrides the 5/11 total threshold for this pair. Append: \"High-weight pair confirmation with partial screening agreement\""
+        "rationale": "For multi-HIGH pairs: pair-resolvers are authoritative for the specific pair. Agreement on all defined HIGH resolvers overrides the 5/11 total threshold for this pair. Append: \"High-weight pair confirmation with partial screening agreement\". DEC-7b: this override does NOT apply to the canonical one-HIGH pair NF/SFP vs NF/SFJ. State \u2461 for that pair still requires the ordinary 5\u20136 PRIMARY \u00d7 PRIMARY agreements. A single agreeing Q11 HIGH does not replace the confirmation floor. Number 5\u20136 is unchanged."
       },
       {
         "sourceRow": 7,
         "edgeCase": "One HIGH-weight agrees, one diverges",
         "trigger": "Q4 and Q7 disagree on direction for NT/STJ vs NT/STP pair",
         "classification": "PARTIAL CONVERGENCE with LOW CONFIDENCE flag if total \u2265 5; otherwise ANALYST REVIEW \u2014 no automatic state assigned",
-        "rationale": "Split pair-resolver result removes the ability to cleanly lock the pair. Treat as single-resolver confirmation with reduced confidence. \u2463-A is NOT reachable here: automatic \u2463-A requires divergence of BOTH HIGH-weight pair resolvers."
+        "rationale": "Split pair-resolver result removes the ability to cleanly lock the pair. Treat as single-resolver confirmation with reduced confidence. \u2463-A is NOT reachable here: automatic \u2463-A requires divergence of all HIGH resolvers defined for the active pair (PRIMARY both). Canonical one-HIGH Q11 DIVERGE is intercepted by priority 3a (DEC-7), not \u2463-A."
       },
       {
         "sourceRow": 8,
@@ -1171,16 +1171,16 @@
       {
         "sourceRow": 10,
         "edgeCase": "Both-E systematically across pair-resolvers (v3.1 NEW)",
-        "trigger": "BOTH respondents answered E to BOTH HIGH-weight pair-resolver questions",
+        "trigger": "BOTH respondents answered E to all HIGH resolvers defined for the active pair",
         "classification": "PRECONDITION / COVERAGE OUTCOME: COVERAGE INSUFFICIENT",
-        "rationale": "Pair-resolvers cannot be evaluated. This is absence of evidence, not genuine divergence. Under the canonical \u2463-A rule, \u2463-A is reachable ONLY when both HIGH-weight pair resolvers DIVERGE at quality \u2265 0.5. No Contradiction record is emitted. Practitioner may consider supplemental respondents or interview."
+        "rationale": "Pair-resolvers cannot be evaluated. This is absence of evidence, not genuine divergence. HIGH cardinality is read per active pair from sheet 2. \u2463-A is reachable ONLY when all defined HIGH resolvers DIVERGE at PRIMARY \u00d7 PRIMARY with quality \u2265 0.5, except the one-HIGH pair which is intercepted by DEC-7. No Contradiction record is emitted from this coverage outcome."
       },
       {
         "sourceRow": 11,
         "edgeCase": "Mixed-E pattern correlated with role tier (v3.1 NEW)",
         "trigger": "line-level-tier respondent systematically answers E on Axis 1 and Axis 5; senior-tier respondent answers substantively",
         "classification": "\u2462 ROLE-LEVEL SPLIT \u2014 not coverage gap",
-        "rationale": "v3.1: line-level-tier respondent E pattern on governance/resource axes is the EXPECTED outcome of role-tier observation scope. Not a coverage failure \u2014 the structural reality."
+        "rationale": "Line-level \u00d7 Q1 / Q5 default UseClass is CONTEXTUAL (sheet 11). Systematic line-level E on Q1/Q5 is the expected structural outcome of operational altitude, not by itself a coverage failure, and is not a seniority-as-quality penalty."
       },
       {
         "sourceRow": 12,
@@ -1199,9 +1199,9 @@
       {
         "sourceRow": 14,
         "edgeCase": "Quality multiplier < 0.4 across all questions (v3.1 NEW)",
-        "trigger": "Combined evidence-quality multiplier from sheet 4 is < 0.4 on \u2265 8 of 11 questions",
+        "trigger": "\u2265 8 of 11 questions have PRIMARY \u00d7 PRIMARY comparable comparison unavailable OR provisional PRIMARY \u00d7 PRIMARY four-factor score < 0.4. Number 8/11 unchanged. DEC-8 PRIMARY \u00d7 CONTEXTUAL state-\u2462 check is not counted here.",
         "classification": "PRECONDITION / COVERAGE OUTCOME: COVERAGE INSUFFICIENT \u2014 comparator output suppressed. This is NOT a divergence state and does NOT enter the five-state enum.",
-        "rationale": "v3.1: low-quality evidence on most questions means the divergence pattern is unreliable. Do NOT issue Contradiction records. Engagement requires additional respondents or evidence before this comparator yields useful output."
+        "rationale": "Updated coverage predicate (number 8/11 retained): a question counts as insufficient if PRIMARY \u00d7 PRIMARY comparison is unavailable OR provisional PRIMARY \u00d7 PRIMARY score < 0.4. If \u2265 8 of 11: COVERAGE INSUFFICIENT. Do NOT issue Contradiction records. DEC-8 PRIMARY \u00d7 CONTEXTUAL quality-admissibility checks are excluded from this count."
       }
     ],
     "seniorityTierMapping": [
@@ -1225,6 +1225,470 @@
         "respondentSenioritylevelValues": "external",
         "definition": "Neither senior nor line-level. Outside the internal seniority ladder.",
         "source": "DR-B2"
+      }
+    ],
+    "questionTierVantage": [
+      {
+        "sourceRow": 12,
+        "questionref": "Q1",
+        "senioritytier": "senior",
+        "expectedvantage": "Governance / decision-authority altitude",
+        "defaultuseclass": "PRIMARY",
+        "sourcebasis": "Owner-accepted Dual evidence architecture D0_R1 controlling question rules"
+      },
+      {
+        "sourceRow": 13,
+        "questionref": "Q1",
+        "senioritytier": "line_level",
+        "expectedvantage": "Operational altitude",
+        "defaultuseclass": "CONTEXTUAL",
+        "sourcebasis": "Owner-accepted Dual evidence architecture D0_R1 controlling question rules"
+      },
+      {
+        "sourceRow": 14,
+        "questionref": "Q1",
+        "senioritytier": "external",
+        "expectedvantage": "Outside internal seniority ladder",
+        "defaultuseclass": "UNRESOLVED",
+        "sourcebasis": "Owner-accepted Dual evidence architecture D0_R1 controlling question rules"
+      },
+      {
+        "sourceRow": 15,
+        "questionref": "Q2",
+        "senioritytier": "senior",
+        "expectedvantage": "Governance / decision-authority altitude",
+        "defaultuseclass": "PRIMARY",
+        "sourcebasis": "Owner-accepted Dual evidence architecture D0_R1 controlling question rules"
+      },
+      {
+        "sourceRow": 16,
+        "questionref": "Q2",
+        "senioritytier": "line_level",
+        "expectedvantage": "Operational altitude",
+        "defaultuseclass": "INELIGIBLE",
+        "sourcebasis": "Owner-accepted Dual evidence architecture D0_R1 controlling question rules"
+      },
+      {
+        "sourceRow": 17,
+        "questionref": "Q2",
+        "senioritytier": "external",
+        "expectedvantage": "Outside internal seniority ladder",
+        "defaultuseclass": "UNRESOLVED",
+        "sourcebasis": "Owner-accepted Dual evidence architecture D0_R1 controlling question rules"
+      },
+      {
+        "sourceRow": 18,
+        "questionref": "Q3",
+        "senioritytier": "senior",
+        "expectedvantage": "Governance / decision-authority altitude",
+        "defaultuseclass": "PRIMARY",
+        "sourcebasis": "Owner-accepted Dual evidence architecture D0_R1 controlling question rules"
+      },
+      {
+        "sourceRow": 19,
+        "questionref": "Q3",
+        "senioritytier": "line_level",
+        "expectedvantage": "Operational altitude",
+        "defaultuseclass": "PRIMARY",
+        "sourcebasis": "Owner-accepted Dual evidence architecture D0_R1 controlling question rules"
+      },
+      {
+        "sourceRow": 20,
+        "questionref": "Q3",
+        "senioritytier": "external",
+        "expectedvantage": "Outside internal seniority ladder",
+        "defaultuseclass": "UNRESOLVED",
+        "sourcebasis": "Owner-accepted Dual evidence architecture D0_R1 controlling question rules"
+      },
+      {
+        "sourceRow": 21,
+        "questionref": "Q4",
+        "senioritytier": "senior",
+        "expectedvantage": "Governance / decision-authority altitude",
+        "defaultuseclass": "PRIMARY",
+        "sourcebasis": "Owner-accepted Dual evidence architecture D0_R1 controlling question rules"
+      },
+      {
+        "sourceRow": 22,
+        "questionref": "Q4",
+        "senioritytier": "line_level",
+        "expectedvantage": "Operational altitude",
+        "defaultuseclass": "PRIMARY",
+        "sourcebasis": "Owner-accepted Dual evidence architecture D0_R1 controlling question rules"
+      },
+      {
+        "sourceRow": 23,
+        "questionref": "Q4",
+        "senioritytier": "external",
+        "expectedvantage": "Outside internal seniority ladder",
+        "defaultuseclass": "UNRESOLVED",
+        "sourcebasis": "Owner-accepted Dual evidence architecture D0_R1 controlling question rules"
+      },
+      {
+        "sourceRow": 24,
+        "questionref": "Q5",
+        "senioritytier": "senior",
+        "expectedvantage": "Governance / decision-authority altitude",
+        "defaultuseclass": "PRIMARY",
+        "sourcebasis": "Owner-accepted Dual evidence architecture D0_R1 controlling question rules"
+      },
+      {
+        "sourceRow": 25,
+        "questionref": "Q5",
+        "senioritytier": "line_level",
+        "expectedvantage": "Operational altitude",
+        "defaultuseclass": "CONTEXTUAL",
+        "sourcebasis": "Owner-accepted Dual evidence architecture D0_R1 controlling question rules"
+      },
+      {
+        "sourceRow": 26,
+        "questionref": "Q5",
+        "senioritytier": "external",
+        "expectedvantage": "Outside internal seniority ladder",
+        "defaultuseclass": "UNRESOLVED",
+        "sourcebasis": "Owner-accepted Dual evidence architecture D0_R1 controlling question rules"
+      },
+      {
+        "sourceRow": 27,
+        "questionref": "Q6",
+        "senioritytier": "senior",
+        "expectedvantage": "Governance / decision-authority altitude",
+        "defaultuseclass": "PRIMARY",
+        "sourcebasis": "Owner-accepted Dual evidence architecture D0_R1 controlling question rules"
+      },
+      {
+        "sourceRow": 28,
+        "questionref": "Q6",
+        "senioritytier": "line_level",
+        "expectedvantage": "Operational altitude",
+        "defaultuseclass": "PRIMARY",
+        "sourcebasis": "Owner-accepted Dual evidence architecture D0_R1 controlling question rules"
+      },
+      {
+        "sourceRow": 29,
+        "questionref": "Q6",
+        "senioritytier": "external",
+        "expectedvantage": "Outside internal seniority ladder",
+        "defaultuseclass": "UNRESOLVED",
+        "sourcebasis": "Owner-accepted Dual evidence architecture D0_R1 controlling question rules"
+      },
+      {
+        "sourceRow": 30,
+        "questionref": "Q7",
+        "senioritytier": "senior",
+        "expectedvantage": "Governance / decision-authority altitude",
+        "defaultuseclass": "PRIMARY",
+        "sourcebasis": "Owner-accepted Dual evidence architecture D0_R1 controlling question rules"
+      },
+      {
+        "sourceRow": 31,
+        "questionref": "Q7",
+        "senioritytier": "line_level",
+        "expectedvantage": "Operational altitude",
+        "defaultuseclass": "PRIMARY",
+        "sourcebasis": "Owner-accepted Dual evidence architecture D0_R1 controlling question rules"
+      },
+      {
+        "sourceRow": 32,
+        "questionref": "Q7",
+        "senioritytier": "external",
+        "expectedvantage": "Outside internal seniority ladder",
+        "defaultuseclass": "UNRESOLVED",
+        "sourcebasis": "Owner-accepted Dual evidence architecture D0_R1 controlling question rules"
+      },
+      {
+        "sourceRow": 33,
+        "questionref": "Q8",
+        "senioritytier": "senior",
+        "expectedvantage": "Governance / decision-authority altitude",
+        "defaultuseclass": "PRIMARY",
+        "sourcebasis": "Owner-accepted Dual evidence architecture D0_R1 controlling question rules"
+      },
+      {
+        "sourceRow": 34,
+        "questionref": "Q8",
+        "senioritytier": "line_level",
+        "expectedvantage": "Operational altitude",
+        "defaultuseclass": "PRIMARY",
+        "sourcebasis": "Owner-accepted Dual evidence architecture D0_R1 controlling question rules"
+      },
+      {
+        "sourceRow": 35,
+        "questionref": "Q8",
+        "senioritytier": "external",
+        "expectedvantage": "Outside internal seniority ladder",
+        "defaultuseclass": "UNRESOLVED",
+        "sourcebasis": "Owner-accepted Dual evidence architecture D0_R1 controlling question rules"
+      },
+      {
+        "sourceRow": 36,
+        "questionref": "Q9",
+        "senioritytier": "senior",
+        "expectedvantage": "Governance / decision-authority altitude",
+        "defaultuseclass": "PRIMARY",
+        "sourcebasis": "Owner-accepted Dual evidence architecture D0_R1 controlling question rules"
+      },
+      {
+        "sourceRow": 37,
+        "questionref": "Q9",
+        "senioritytier": "line_level",
+        "expectedvantage": "Operational altitude",
+        "defaultuseclass": "PRIMARY",
+        "sourcebasis": "Owner-accepted Dual evidence architecture D0_R1 controlling question rules"
+      },
+      {
+        "sourceRow": 38,
+        "questionref": "Q9",
+        "senioritytier": "external",
+        "expectedvantage": "Outside internal seniority ladder",
+        "defaultuseclass": "UNRESOLVED",
+        "sourcebasis": "Owner-accepted Dual evidence architecture D0_R1 controlling question rules"
+      },
+      {
+        "sourceRow": 39,
+        "questionref": "Q10",
+        "senioritytier": "senior",
+        "expectedvantage": "Governance / decision-authority altitude",
+        "defaultuseclass": "PRIMARY",
+        "sourcebasis": "Owner-accepted Dual evidence architecture D0_R1 controlling question rules"
+      },
+      {
+        "sourceRow": 40,
+        "questionref": "Q10",
+        "senioritytier": "line_level",
+        "expectedvantage": "Operational altitude",
+        "defaultuseclass": "PRIMARY",
+        "sourcebasis": "Owner-accepted Dual evidence architecture D0_R1 controlling question rules"
+      },
+      {
+        "sourceRow": 41,
+        "questionref": "Q10",
+        "senioritytier": "external",
+        "expectedvantage": "Outside internal seniority ladder",
+        "defaultuseclass": "UNRESOLVED",
+        "sourcebasis": "Owner-accepted Dual evidence architecture D0_R1 controlling question rules"
+      },
+      {
+        "sourceRow": 42,
+        "questionref": "Q11",
+        "senioritytier": "senior",
+        "expectedvantage": "Governance / decision-authority altitude",
+        "defaultuseclass": "PRIMARY",
+        "sourcebasis": "Owner-accepted Dual evidence architecture D0_R1 controlling question rules"
+      },
+      {
+        "sourceRow": 43,
+        "questionref": "Q11",
+        "senioritytier": "line_level",
+        "expectedvantage": "Operational altitude",
+        "defaultuseclass": "PRIMARY",
+        "sourcebasis": "Owner-accepted Dual evidence architecture D0_R1 controlling question rules"
+      },
+      {
+        "sourceRow": 44,
+        "questionref": "Q11",
+        "senioritytier": "external",
+        "expectedvantage": "Outside internal seniority ladder",
+        "defaultuseclass": "UNRESOLVED",
+        "sourcebasis": "Owner-accepted Dual evidence architecture D0_R1 controlling question rules"
+      }
+    ],
+    "roleQuestionOverride": [],
+    "questionOptionSemantics": [
+      {
+        "sourceRow": 51,
+        "questionref": "Q1",
+        "optioncode": "E",
+        "semanticclass": "OBSERVATION_GAP",
+        "sourcebasis": "Owner-accepted question-qualified E/F table D0_R1"
+      },
+      {
+        "sourceRow": 52,
+        "questionref": "Q2",
+        "optioncode": "E",
+        "semanticclass": "OBSERVATION_GAP",
+        "sourcebasis": "Owner-accepted question-qualified E/F table D0_R1"
+      },
+      {
+        "sourceRow": 53,
+        "questionref": "Q3",
+        "optioncode": "E",
+        "semanticclass": "OBSERVATION_GAP",
+        "sourcebasis": "Owner-accepted question-qualified E/F table D0_R1"
+      },
+      {
+        "sourceRow": 54,
+        "questionref": "Q4",
+        "optioncode": "E",
+        "semanticclass": "OBSERVATION_GAP",
+        "sourcebasis": "Owner-accepted question-qualified E/F table D0_R1"
+      },
+      {
+        "sourceRow": 55,
+        "questionref": "Q5",
+        "optioncode": "E",
+        "semanticclass": "OBSERVATION_GAP",
+        "sourcebasis": "Owner-accepted question-qualified E/F table D0_R1"
+      },
+      {
+        "sourceRow": 56,
+        "questionref": "Q6",
+        "optioncode": "E",
+        "semanticclass": "EXTERNAL_OR_PERSONAL_CAUSE",
+        "sourcebasis": "Owner-accepted question-qualified E/F table D0_R1; Dual existing divergence-map semantics"
+      },
+      {
+        "sourceRow": 57,
+        "questionref": "Q6",
+        "optioncode": "F",
+        "semanticclass": "OBSERVATION_GAP",
+        "sourcebasis": "Owner-accepted question-qualified E/F table D0_R1"
+      },
+      {
+        "sourceRow": 58,
+        "questionref": "Q7",
+        "optioncode": "E",
+        "semanticclass": "OBSERVATION_GAP",
+        "sourcebasis": "Owner-accepted question-qualified E/F table D0_R1"
+      },
+      {
+        "sourceRow": 59,
+        "questionref": "Q8",
+        "optioncode": "E",
+        "semanticclass": "OBSERVATION_GAP",
+        "sourcebasis": "Owner-accepted question-qualified E/F table D0_R1"
+      },
+      {
+        "sourceRow": 60,
+        "questionref": "Q8",
+        "optioncode": "F",
+        "semanticclass": "STRUCTURAL_PRECONDITION_ABSENCE",
+        "sourcebasis": "Owner-accepted question-qualified E/F table D0_R1"
+      },
+      {
+        "sourceRow": 61,
+        "questionref": "Q9",
+        "optioncode": "E",
+        "semanticclass": "EVENT_ABSENCE",
+        "sourcebasis": "Owner-accepted question-qualified E/F table D0_R1"
+      },
+      {
+        "sourceRow": 62,
+        "questionref": "Q9",
+        "optioncode": "F",
+        "semanticclass": "OBSERVATION_GAP",
+        "sourcebasis": "Owner-accepted question-qualified E/F table D0_R1"
+      },
+      {
+        "sourceRow": 63,
+        "questionref": "Q10",
+        "optioncode": "E",
+        "semanticclass": "AMBIGUOUS_COLLAPSE",
+        "sourcebasis": "Owner-accepted question-qualified E/F table D0_R1; X-2 preserved, not repaired"
+      },
+      {
+        "sourceRow": 64,
+        "questionref": "Q11",
+        "optioncode": "E",
+        "semanticclass": "SUBSTANTIVE_SIGNAL",
+        "sourcebasis": "Owner-accepted question-qualified E/F table D0_R1; Dual 1 Q11-E is a substantive environment signal, not an abstention"
+      },
+      {
+        "sourceRow": 65,
+        "questionref": "Q11",
+        "optioncode": "F",
+        "semanticclass": "OBSERVATION_GAP",
+        "sourcebasis": "Owner-accepted question-qualified E/F table D0_R1"
+      }
+    ],
+    "semanticClassEffects": [
+      {
+        "sourceRow": 69,
+        "semanticclass": "OBSERVATION_GAP",
+        "useclasseffect": "comparable answer unavailable; excluded from ordinary comparison",
+        "signaleffect": "no comparable environment signal",
+        "coverageeffect": "coverage gap",
+        "rootcausefamily": "RC-B",
+        "sourcebasis": "Owner-accepted semantic class effects D0_R1"
+      },
+      {
+        "sourceRow": 70,
+        "semanticclass": "EVENT_ABSENCE",
+        "useclasseffect": "comparable substantive answer unavailable; excluded",
+        "signaleffect": "diagnostic finding; NOT an evidence penalty",
+        "coverageeffect": "excluded; not a quality penalty",
+        "rootcausefamily": "RC-C",
+        "sourcebasis": "Owner-accepted semantic class effects D0_R1"
+      },
+      {
+        "sourceRow": 71,
+        "semanticclass": "STRUCTURAL_PRECONDITION_ABSENCE",
+        "useclasseffect": "comparable substantive answer unavailable; excluded",
+        "signaleffect": "diagnostic finding; NOT an evidence penalty",
+        "coverageeffect": "excluded; not a quality penalty",
+        "rootcausefamily": "RC-C",
+        "sourcebasis": "Owner-accepted semantic class effects D0_R1"
+      },
+      {
+        "sourceRow": 72,
+        "semanticclass": "EXTERNAL_OR_PERSONAL_CAUSE",
+        "useclasseffect": "not globally treated as access gap",
+        "signaleffect": "no environment signal; preserve existing Dual divergence-map semantics",
+        "coverageeffect": "not a global coverage-gap class",
+        "rootcausefamily": "existing Dual Q6-E semantics",
+        "sourcebasis": "Owner-accepted semantic class effects D0_R1"
+      },
+      {
+        "sourceRow": 73,
+        "semanticclass": "AMBIGUOUS_COLLAPSE",
+        "useclasseffect": "comparable answer unavailable; preserve ambiguity",
+        "signaleffect": "do not resolve; reference X-2",
+        "coverageeffect": "do NOT resolve RC-B vs RC-C mechanically",
+        "rootcausefamily": "unresolved (X-2)",
+        "sourcebasis": "Owner-accepted semantic class effects D0_R1; X-2 preserved"
+      },
+      {
+        "sourceRow": 74,
+        "semanticclass": "SUBSTANTIVE_SIGNAL",
+        "useclasseffect": "normal UseClass determination",
+        "signaleffect": "normal environment signal mapping from Dual 1",
+        "coverageeffect": "not an abstention",
+        "rootcausefamily": "n/a",
+        "sourcebasis": "Owner-accepted semantic class effects D0_R1"
+      }
+    ],
+    "actualAccessCeiling": [
+      {
+        "sourceRow": 78,
+        "signal": "directObservationGate",
+        "value": "no + substantive option",
+        "useclassceiling": "CONTEXTUAL",
+        "rootcausefamily": "RC-B",
+        "sourcebasis": "Owner-accepted global actual access rules D0_R1; DEC-4 (per-answer factual signal, not accessLevel)"
+      },
+      {
+        "sourceRow": 79,
+        "signal": "evidenceType",
+        "value": "hypothetical",
+        "useclassceiling": "CONTEXTUAL",
+        "rootcausefamily": "RC-B",
+        "sourcebasis": "Owner-accepted global actual access rules D0_R1"
+      },
+      {
+        "sourceRow": 80,
+        "signal": "evidenceType",
+        "value": "unknown",
+        "useclassceiling": "n/a \u2014 comparable answer unavailable",
+        "rootcausefamily": "RC-B",
+        "sourcebasis": "Owner-accepted global actual access rules D0_R1"
+      },
+      {
+        "sourceRow": 81,
+        "signal": "roleCode",
+        "value": "unspecified",
+        "useclassceiling": "UNRESOLVED",
+        "rootcausefamily": "practitioner access review",
+        "sourcebasis": "Owner-accepted global actual access rules D0_R1; controlling question rules"
       }
     ],
     "classificationPrecedence": [
@@ -1252,8 +1716,19 @@
       },
       {
         "sourceRow": 7,
+        "priority": "0c",
+        "condition": "Required eligibility UNRESOLVED (including roleCode = unspecified, or external default UseClass UNRESOLVED)",
+        "outcomeClass": "routing_outcome",
+        "classificationOutcome": "Practitioner access review",
+        "automated": "Yes \u2014 detect",
+        "humanGate": "Practitioner access review",
+        "output": "No five-state classification; no Contradiction record from this comparator",
+        "source": "DEC-4; controlling question rules"
+      },
+      {
+        "sourceRow": 8,
         "priority": "1",
-        "condition": "Combined evidence-quality multiplier < 0.4 on \u2265 8 of 11 questions OR both respondents answered E to both HIGH-weight pair resolvers",
+        "condition": "Branch (i): \u2265 8 of 11 questions have PRIMARY \u00d7 PRIMARY comparable comparison unavailable OR provisional PRIMARY \u00d7 PRIMARY four-factor < 0.4 (number 8/11 unchanged; DEC-8 PRIMARY \u00d7 CONTEXTUAL state-\u2462 check is NOT counted). Branch (ii): both respondents lack a comparable PRIMARY answer on all HIGH resolvers defined for the active pair (HIGH cardinality from sheet 2). Branch (iii): a defined HIGH resolver is not PRIMARY for both respondents (DEC-3) \u2014 coverage/routing outcome, not \u2460/\u2463-A.",
         "outcomeClass": "coverage_outcome",
         "classificationOutcome": "COVERAGE INSUFFICIENT \u2014 comparator output suppressed",
         "automated": "Yes",
@@ -1262,9 +1737,9 @@
         "source": "DR-C2; DR-C6; C-21"
       },
       {
-        "sourceRow": 8,
+        "sourceRow": 9,
         "priority": "1b",
-        "condition": "Both respondents answered F to Q11",
+        "condition": "Both respondents Q11 = F (OBSERVATION_GAP) / NF/SFP determination impossible; or equivalent UseClass unavailability on Q11 for the NF/SFP vs NF/SFJ pair / Q11 discriminator family. Q11 E is SUBSTANTIVE_SIGNAL and is not an abstention.",
         "outcomeClass": "coverage_outcome",
         "classificationOutcome": "NF/SFP determination impossible",
         "automated": "Yes \u2014 detect",
@@ -1273,7 +1748,7 @@
         "source": "DR-A6; DR-C6"
       },
       {
-        "sourceRow": 9,
+        "sourceRow": 10,
         "priority": "2",
         "condition": "Evidence concentrates on an environment OUTSIDE the candidate pair, at quality \u2265 0.5",
         "outcomeClass": "divergence_state",
@@ -1284,9 +1759,20 @@
         "source": "DR-C2; DR-C4; DR-D5"
       },
       {
-        "sourceRow": 10,
+        "sourceRow": 11,
+        "priority": "3a",
+        "condition": "Active pair = NF/SFP vs NF/SFJ (canonical one-HIGH; sole HIGH = Q11); Q11 DIVERGE; Q11 PRIMARY \u00d7 PRIMARY; provisional four-factor \u2265 0.5",
+        "outcomeClass": "routing_outcome",
+        "classificationOutcome": "Practitioner review \u2014 one-HIGH coverage insufficient for automatic \u2463-A",
+        "automated": "Yes \u2014 detect",
+        "humanGate": "Practitioner review",
+        "output": "NOT \u2463-A. No automatic high-severity Contradiction Record. No new divergence state. No new contradictionType.",
+        "source": "DEC-7; X-9"
+      },
+      {
+        "sourceRow": 12,
         "priority": "3",
-        "condition": "BOTH HIGH-weight pair resolvers DIVERGE at quality \u2265 0.5",
+        "condition": "All HIGH resolvers defined for the active pair DIVERGE at PRIMARY \u00d7 PRIMARY with provisional four-factor \u2265 0.5 (after 3a has intercepted the canonical one-HIGH pair)",
         "outcomeClass": "divergence_state",
         "classificationOutcome": "\u2463-A IRRESOLVABLE \u2014 within-pair divergence",
         "automated": "Yes",
@@ -1295,9 +1781,9 @@
         "source": "DR-C2; DR-C3"
       },
       {
-        "sourceRow": 11,
+        "sourceRow": 13,
         "priority": "4",
-        "condition": "AGREE on \u2265 5 non-governance axes AND DIVERGE on Q1 and/or Q5 AND one respondent is senior-tier and the other line-level tier; quality \u2265 0.5",
+        "condition": "Exactly one senior-tier and one line_level-tier; Q1 and/or Q5 materially DIVERGE (senior PRIMARY \u00d7 line-level CONTEXTUAL); DEC-8 triggering four-factor \u2265 0.5 on those questions (quality-admissibility only); \u2265 5 non-governance PRIMARY \u00d7 PRIMARY AGREE each with provisional four-factor \u2265 0.5",
         "outcomeClass": "divergence_state",
         "classificationOutcome": "\u2462 ROLE-LEVEL SPLIT",
         "automated": "Yes",
@@ -1306,7 +1792,7 @@
         "source": "DR-C2; DR-B4"
       },
       {
-        "sourceRow": 12,
+        "sourceRow": 14,
         "priority": "5X",
         "condition": "\u2460/\u2461 agreement-count criteria satisfied but agreement environment coherence is ambiguous",
         "outcomeClass": "routing_outcome",
@@ -1317,9 +1803,9 @@
         "source": "DR-C5"
       },
       {
-        "sourceRow": 13,
+        "sourceRow": 15,
         "priority": "5A",
-        "condition": "Effective AGREE \u2265 7 of 11; both HIGH-weight pair resolvers agree; quality \u2265 0.7",
+        "condition": "Effective AGREE \u2265 7 PRIMARY \u00d7 PRIMARY; all HIGH resolvers defined for the active pair AGREE and are PRIMARY for both; provisional four-factor \u2265 0.7",
         "outcomeClass": "divergence_state",
         "classificationOutcome": "\u2460 CONVERGENT",
         "automated": "Yes",
@@ -1328,9 +1814,9 @@
         "source": "DR-C2"
       },
       {
-        "sourceRow": 14,
+        "sourceRow": 16,
         "priority": "5B",
-        "condition": "Effective AGREE 5\u20136 of 11; at least one HIGH-weight pair resolver agrees; quality \u2265 0.5",
+        "condition": "Effective AGREE 5\u20136 PRIMARY \u00d7 PRIMARY; at least one defined HIGH resolver AGREES and is PRIMARY for both; provisional four-factor \u2265 0.5. DEC-7b: one-HIGH pair still requires this 5\u20136 floor.",
         "outcomeClass": "divergence_state",
         "classificationOutcome": "\u2461 PARTIAL CONVERGENCE",
         "automated": "Yes",
