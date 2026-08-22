@@ -243,28 +243,67 @@ function emptyReliabilityEffects() {
   });
 }
 
-function deriveReliabilityEffects(flags) {
+function deriveReliabilityEffects(flags, options = {}) {
   for (const flag of flags) {
     if (!isKnownReliabilityFlag(flag)) {
       throw unrecognizedReliabilityFlagError(flag);
     }
   }
 
+  const scoringFlags = Array.isArray(options.effectiveScoringFlags) ? options.effectiveScoringFlags : flags;
+  const suppressInferenceCap = options.suppressSpeaksForGroupInferenceCap === true
+    || options.observationScopeAdjudicatedAccess === true;
+
   let numericMultiplier = 1;
-  for (const flag of flags) {
+  for (const flag of scoringFlags) {
     if (Object.hasOwn(NUMERIC_RELIABILITY_MULTIPLIERS, flag)) {
       numericMultiplier *= NUMERIC_RELIABILITY_MULTIPLIERS[flag];
     }
   }
 
   return Object.freeze({
-    evidenceTypeCap: flags.includes("speaks_for_group_without_access") ? INFERENCE_EVIDENCE_TYPE : null,
-    excludeFromPrimaryScoring: flags.includes("no_direct_knowledge")
-      || flags.includes("hypothetical")
-      || flags.includes(ACQUISITION_FRAMING_CONTAMINATION_FLAG),
-    treatAsUnknown: flags.includes("evasive"),
-    analystReviewOnly: flags.includes("structurally_unlikely"),
+    evidenceTypeCap: (!suppressInferenceCap && flags.includes("speaks_for_group_without_access"))
+      ? INFERENCE_EVIDENCE_TYPE
+      : null,
+    excludeFromPrimaryScoring: scoringFlags.includes("no_direct_knowledge")
+      || scoringFlags.includes("hypothetical")
+      || scoringFlags.includes(ACQUISITION_FRAMING_CONTAMINATION_FLAG),
+    treatAsUnknown: scoringFlags.includes("evasive"),
+    analystReviewOnly: scoringFlags.includes("structurally_unlikely"),
     numericMultiplier,
+  });
+}
+
+const ACCESS_CAUSE_FLAG = "speaks_for_group_without_access";
+
+export function deriveObservationScopeCausalDisposition({
+  reliabilityFlags = [],
+  observationScopeAdjudicatedAccess = false,
+} = {}) {
+  const retainedAuditFlags = Object.freeze([...(reliabilityFlags ?? [])]);
+  const independentlySupportedFlags = Object.freeze(
+    retainedAuditFlags.filter((flag) => flag !== ACCESS_CAUSE_FLAG),
+  );
+  const suppressAccessCause = observationScopeAdjudicatedAccess && retainedAuditFlags.includes(ACCESS_CAUSE_FLAG);
+  const suppressedScoringFlags = Object.freeze(suppressAccessCause ? [ACCESS_CAUSE_FLAG] : []);
+  const effectiveScoringFlags = Object.freeze(
+    retainedAuditFlags.filter((flag) => !suppressedScoringFlags.includes(flag)),
+  );
+  const reliabilityEffects = deriveReliabilityEffects(retainedAuditFlags, {
+    effectiveScoringFlags,
+    suppressSpeaksForGroupInferenceCap: true,
+    observationScopeAdjudicatedAccess,
+  });
+
+  return Object.freeze({
+    retainedAuditFlags,
+    effectiveScoringFlags,
+    suppressedScoringFlags,
+    effectiveTriageFlags: effectiveScoringFlags,
+    suppressedTriageFlags: suppressedScoringFlags,
+    independentlySupportedFlags,
+    reliabilityEffects,
+    forcedInference: false,
   });
 }
 

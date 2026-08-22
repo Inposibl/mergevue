@@ -24,7 +24,7 @@ function generatedQuestionId(question) {
   return question.workbookQuestionId ?? question.id;
 }
 
-function compareRuntimeModule(label, runtimeQuestions, generatedQuestions) {
+function compareRuntimeModule(label, runtimeQuestions, generatedQuestions, generatedModuleId) {
   assert.equal(runtimeQuestions.length, generatedQuestions.length, `${label}: runtime question count drift`);
 
   const runtimeById = new Map(runtimeQuestions.map((question) => [question.id, question]));
@@ -32,6 +32,18 @@ function compareRuntimeModule(label, runtimeQuestions, generatedQuestions) {
     const questionId = generatedQuestionId(generatedQuestion);
     const runtimeQuestion = runtimeById.get(questionId);
     assert.ok(runtimeQuestion, `${label}: missing runtime question ${questionId}`);
+    assert.equal(runtimeQuestion.id, questionId, `${label}: local id must remain workbookQuestionId for ${questionId}`);
+    assert.equal(
+      runtimeQuestion.workbookQuestionId,
+      generatedQuestion.workbookQuestionId ?? generatedQuestion.id,
+      `${label}: workbookQuestionId drift on ${questionId}`,
+    );
+    assert.equal(
+      runtimeQuestion.canonicalQuestionId,
+      generatedQuestion.id,
+      `${label}: canonicalQuestionId must preserve generated Question.id for ${questionId}`,
+    );
+    assert.equal(runtimeQuestion.moduleId, generatedModuleId, `${label}: moduleId drift on ${questionId}`);
     assert.equal(normalize(runtimeQuestion.text), normalize(generatedQuestion.prompt), `${label}: prompt drift on ${questionId}`);
     assert.equal(runtimeQuestion.options.length, generatedQuestion.options.length, `${label}: option count drift on ${questionId}`);
 
@@ -86,27 +98,42 @@ compareRuntimeModule(
   "STEP-2A",
   ACQUIRER_TRACK_DATA.acquirerModule.questions,
   generatedModule("acquirerEnvironment").questions,
+  "acquirerEnvironment",
 );
 compareRuntimeModule(
   "STEP-2C",
   TARGET_SELF_ASSESSMENT_DATA.targetSelfAssessment.questions,
   generatedModule("targetSelfAssessment").questions,
+  "targetSelfAssessment",
 );
 compareRuntimeModule(
   "STEP-2B-L1",
   TARGET_DIAGNOSTIC_DATA.level1.questions,
   generatedModule("environmentLevel1").questions,
+  "environmentLevel1",
 );
 compareRuntimeModule(
   "STEP-2B-L2",
   TARGET_DIAGNOSTIC_DATA.level2.questions,
   generatedModule("environmentLevel2").questions,
+  "environmentLevel2",
 );
 compareRuntimeModule(
   "STEP-TOD",
   TARGET_OBSERVATION_DIAGNOSTIC.questions,
   generatedModule("targetObservedEnvironment").questions,
+  "targetObservedEnvironment",
 );
+
+const acquirerQ1 = ACQUIRER_TRACK_DATA.acquirerModule.questions.find((question) => question.id === "Q1");
+const edv2Q1 = TARGET_DIAGNOSTIC_DATA.level1.questions.find((question) => question.id === "Q1");
+assert.ok(acquirerQ1, "AEM Q1 missing");
+assert.ok(edv2Q1, "EDv2 Q1 missing");
+assert.equal(acquirerQ1.canonicalQuestionId, "ACQUIRERENVIRONMENT-Q1");
+assert.equal(edv2Q1.canonicalQuestionId, "ENVIRONMENTLEVEL1-Q1");
+assert.notEqual(acquirerQ1.canonicalQuestionId, edv2Q1.canonicalQuestionId);
+assert.equal(acquirerQ1.moduleId, "acquirerEnvironment");
+assert.equal(edv2Q1.moduleId, "environmentLevel1");
 assertStepTodDirectObservationGates();
 
 assert.equal(bindingQuestions("step2A").size, 11, "STEP-2A binding question count drift");

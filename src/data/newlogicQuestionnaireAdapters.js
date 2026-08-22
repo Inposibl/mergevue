@@ -79,13 +79,17 @@ function normalizeGate(question) {
   return null;
 }
 
-function freezeQuestions(questions = []) {
+function freezeQuestions(questions = [], moduleId = "") {
   return Object.freeze(questions.map((question) => {
-    const questionId = question.workbookQuestionId ?? question.id;
+    const workbookQuestionId = question.workbookQuestionId ?? question.id;
+    const canonicalQuestionId = question.id ?? workbookQuestionId;
     const group = question.group ?? question.section ?? "";
     return Object.freeze({
       ...question,
-      id: questionId,
+      id: workbookQuestionId,
+      workbookQuestionId,
+      canonicalQuestionId,
+      moduleId,
       axis: group,
       group,
       section: question.section ?? group,
@@ -105,8 +109,9 @@ function freezePositioningFields(fields = []) {
 
 function runtimeQuestionnaireModule(id, worksheet) {
   const module = moduleById(id);
-  const questions = freezeQuestions(module.questions);
+  const questions = freezeQuestions(module.questions, id);
   return Object.freeze({
+    id,
     source: module.sourceWorkbook,
     worksheet,
     questionCount: questions.length,
