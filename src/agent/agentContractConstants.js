@@ -1,8 +1,22 @@
-export const AGENT_CONTRACT_VERSION = "D0_R0_CORR2";
-export const SNAPSHOT_SCHEMA_VERSION = "engine-snapshot-1.0";
+export const AGENT_CONTRACT_VERSION = "D0_R0_CORR2_A2C1_CORR1";
+export const SNAPSHOT_SCHEMA_VERSION = "engine-snapshot-1.1";
 
-export const RUNTIME_CORE_COMMIT = "709b29653ff27bdaa6fe6c51ba18e30b9535eea8";
+export const RUNTIME_CORE_COMMIT = "dcbd937e0135e790201ee5c8898c5b5f5a085298";
 export const DUAL_COMPARATOR_VERSION = "ST_Dual_Respondent_Axis_Comparison_v1.xlsx";
+
+export const ADJUDICATION_PROVENANCE_USE_CLASS_VALUES = Object.freeze([
+  "PRIMARY",
+  "CONTEXTUAL",
+  "INELIGIBLE",
+  "UNRESOLVED",
+  null,
+]);
+
+export const MATCHED_ACCESS_RULE_IDS = Object.freeze([
+  "DIRECT_OBSERVATION_GATE_NO_SUBSTANTIVE_OPTION",
+  "EVIDENCE_TYPE_HYPOTHETICAL",
+  "EVIDENCE_TYPE_UNKNOWN",
+]);
 
 export const AUTHORIZED_MODULE_IDS = Object.freeze([
   "acquirerEnvironment",

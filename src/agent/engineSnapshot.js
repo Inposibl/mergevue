@@ -14,6 +14,7 @@ import {
 import { isAuthorizedDualModule } from "../flow/observationScopeResolver.js";
 
 import {
+  ADJUDICATION_PROVENANCE_USE_CLASS_VALUES,
   AUTHORIZED_MODULE_IDS,
   BRANCH_CODES,
   DEC8_ADMISSIBILITY_SCOPE,
@@ -23,6 +24,7 @@ import {
   FAILURE_CLASS_INPUT_ASSEMBLY_FAILURE,
   FINALITY_BY_BRANCH,
   FREE_INTERPRETATION_MODE_BY_BRANCH,
+  MATCHED_ACCESS_RULE_IDS,
   P0C_EXTERNAL_FREE_INTERPRETATION_MODE,
   P0C_FREE_INTERPRETATION_MODE_BY_UNRESOLVED_REASON,
   PRIORITY_TO_BRANCH_CODE,
@@ -375,6 +377,45 @@ function projectCausalDisposition(answer) {
   return Object.hasOwn(answer, "causalDisposition") ? answer.causalDisposition : null;
 }
 
+// Runtime Core (dcbd937) emits scope.audit.adjudicationProvenance on every
+// resolved and unresolved observation scope. Absence on a projected pair-row
+// observation is an input/interface violation, not a null-provenance case.
+export function projectAdjudicationProvenance(audit, label) {
+  const provenance = presentOrNull(audit, "adjudicationProvenance");
+  if (provenance == null || typeof provenance !== "object" || Array.isArray(provenance)) {
+    fail(`${label} adjudicationProvenance is required`);
+  }
+  for (const key of ["tierDefaultUseClass", "roleQuestionOverrideCap", "matchedAccessRuleIds"]) {
+    if (!Object.hasOwn(provenance, key)) {
+      fail(`${label} adjudicationProvenance is missing ${key}`);
+    }
+  }
+  const { tierDefaultUseClass, roleQuestionOverrideCap, matchedAccessRuleIds } = provenance;
+  for (const [field, value] of [["tierDefaultUseClass", tierDefaultUseClass], ["roleQuestionOverrideCap", roleQuestionOverrideCap]]) {
+    if (!ADJUDICATION_PROVENANCE_USE_CLASS_VALUES.includes(value)) {
+      fail(`${label} adjudicationProvenance.${field} is not a lawful UseClass ${JSON.stringify(value)}`);
+    }
+  }
+  if (!Array.isArray(matchedAccessRuleIds)) {
+    fail(`${label} adjudicationProvenance.matchedAccessRuleIds must be an array`);
+  }
+  const seenRuleIds = new Set();
+  for (const ruleId of matchedAccessRuleIds) {
+    if (!MATCHED_ACCESS_RULE_IDS.includes(ruleId)) {
+      fail(`${label} adjudicationProvenance.matchedAccessRuleIds has unknown access rule id ${JSON.stringify(ruleId)}`);
+    }
+    if (seenRuleIds.has(ruleId)) {
+      fail(`${label} adjudicationProvenance.matchedAccessRuleIds duplicates access rule id ${JSON.stringify(ruleId)}`);
+    }
+    seenRuleIds.add(ruleId);
+  }
+  return {
+    tierDefaultUseClass,
+    roleQuestionOverrideCap,
+    matchedAccessRuleIds: [...matchedAccessRuleIds],
+  };
+}
+
 function projectObservation(diagnosticId, moduleId, pairRow, answer, respondentSlot) {
   if (!answer || typeof answer !== "object") {
     fail(`pairRow.${respondentSlot} answer is missing`);
@@ -408,6 +449,10 @@ function projectObservation(diagnosticId, moduleId, pairRow, answer, respondentS
       accessAdjudicated: presentOrNull(audit, "accessAdjudicated"),
       optionCode: presentOrNull(audit, "optionCode"),
     },
+    observationAdjudicationProvenance: projectAdjudicationProvenance(
+      audit,
+      `pairRow.${respondentSlot} ${questionRef} scope.audit`,
+    ),
     causalDisposition: projectCausalDisposition(answer),
     declaredEvidenceFields: {
       evidenceType: answer.evidenceType ?? null,

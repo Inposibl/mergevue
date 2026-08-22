@@ -3,13 +3,17 @@ import { readFileSync } from "node:fs";
 
 import scoringAndTriage from "../src/generated/newlogic/scoringAndTriage.json" with { type: "json" };
 import {
+  ADJUDICATION_PROVENANCE_USE_CLASS_VALUES,
+  AGENT_CONTRACT_VERSION,
   BRANCH_CODES,
   FINALITY,
   FINALITY_BY_BRANCH,
   FREE_INTERPRETATION_MODE,
   FREE_INTERPRETATION_MODE_BY_BRANCH,
+  MATCHED_ACCESS_RULE_IDS,
   P0C_EXTERNAL_FREE_INTERPRETATION_MODE,
   P0C_FREE_INTERPRETATION_MODE_BY_UNRESOLVED_REASON,
+  RUNTIME_CORE_COMMIT,
   SNAPSHOT_SCHEMA_VERSION,
   SUPPRESSION_BY_BRANCH,
   UNRESOLVED_REASON,
@@ -26,6 +30,7 @@ import {
   deriveFreeInterpretationMode,
   engineSnapshotDigestCoveredContent,
   normalizeCandidatePair,
+  projectAdjudicationProvenance,
 } from "../src/agent/engineSnapshot.js";
 import {
   buildDualRespondentCorpusConfig,
@@ -1060,6 +1065,9 @@ check("T8", "binding completeness: every mutable leaf of the full recomputed Cor
     "audit.pairRows.0.left.scope.audit.directObservationGate",
     "audit.pairRows.0.left.scope.audit.accessAdjudicated",
     "audit.pairRows.0.left.scope.audit.optionCode",
+    "audit.pairRows.0.left.scope.audit.adjudicationProvenance.tierDefaultUseClass",
+    "audit.pairRows.0.left.scope.audit.adjudicationProvenance.roleQuestionOverrideCap",
+    "audit.pairRows.0.left.scope.audit.adjudicationProvenance.matchedAccessRuleIds",
   ];
   for (const anchor of anchors) {
     assert.ok(paths.has(anchor), `leaf enumeration did not reach ${anchor}`);
@@ -1099,6 +1107,357 @@ check("T8", "binding completeness: every mutable leaf of the full recomputed Cor
   }
 });
 
+const PROVENANCE_ABSENT_BRANCHES = new Set(["P_0A", "P_0B", "P_0C"]);
+const PROVENANCE_BRANCHES = BRANCH_CODES.filter((branchCode) => !PROVENANCE_ABSENT_BRANCHES.has(branchCode));
+
+const DIRECT_HYPO_FIXTURE = {
+  moduleId: "acquirerEnvironment",
+  candidatePair: "NT/STJ vs NT/STP",
+  respondent1: SENIOR,
+  respondent2: SENIOR,
+  answers1: fill({}, { Q6: { directObservationGate: "no", evidenceType: "hypothetical" } }),
+  answers2: fill(),
+};
+
+function assertProvenanceVerbatim(snapshot, coreOutput) {
+  for (const questionRef of QUESTIONS) {
+    const row = pairRow(coreOutput, questionRef);
+    for (const [slot, side] of [["R1", row.left], ["R2", row.right]]) {
+      const observation = observationOf(snapshot, questionRef, slot);
+      assert.deepEqual(
+        observation.observationAdjudicationProvenance,
+        side.scope.audit.adjudicationProvenance,
+        `${questionRef}/${slot} observationAdjudicationProvenance must equal Core source`,
+      );
+    }
+  }
+}
+
+check("V1", "contract identity: schema engine-snapshot-1.1, D0_R0_CORR2_A2C1_CORR1, Core dcbd937", () => {
+  assert.equal(AGENT_CONTRACT_VERSION, "D0_R0_CORR2_A2C1_CORR1");
+  assert.equal(SNAPSHOT_SCHEMA_VERSION, "engine-snapshot-1.1");
+  assert.equal(RUNTIME_CORE_COMMIT, "dcbd937e0135e790201ee5c8898c5b5f5a085298");
+  assert.deepEqual(MATCHED_ACCESS_RULE_IDS, [
+    "DIRECT_OBSERVATION_GATE_NO_SUBSTANTIVE_OPTION",
+    "EVIDENCE_TYPE_HYPOTHETICAL",
+    "EVIDENCE_TYPE_UNKNOWN",
+  ]);
+  for (const fixture of [BRANCH_INPUTS.P_5A, BRANCH_INPUTS.P_1B, BRANCH_INPUTS.P_0C]) {
+    const { snapshot } = assembleFrom(fixture);
+    assert.equal(snapshot.snapshotSchemaVersion, "engine-snapshot-1.1");
+    assert.equal(snapshot.identity.runtime.coreCommit, "dcbd937e0135e790201ee5c8898c5b5f5a085298");
+  }
+});
+
+check("V2", "provenance is projected verbatim onto every observation of every pairRows branch", () => {
+  assert.equal(scoringAndTriage.dualRespondentComparison.roleQuestionOverride.length, 0);
+  for (const branchCode of PROVENANCE_BRANCHES) {
+    const { snapshot, coreOutput } = assembleFrom(BRANCH_INPUTS[branchCode]);
+    assert.equal(snapshot.engine.outcome.branchCode, branchCode);
+    assert.equal(snapshot.engine.observations.length, 22);
+    for (const observation of snapshot.engine.observations) {
+      assert.equal(Object.hasOwn(observation, "observationAdjudicationProvenance"), true);
+      assert.ok(Object.isFrozen(observation.observationAdjudicationProvenance));
+      assert.ok(Object.isFrozen(observation.observationAdjudicationProvenance.matchedAccessRuleIds));
+      assert.equal(observation.observationAdjudicationProvenance.roleQuestionOverrideCap, null);
+      assert.ok(
+        ADJUDICATION_PROVENANCE_USE_CLASS_VALUES.includes(observation.observationAdjudicationProvenance.tierDefaultUseClass),
+      );
+    }
+    assertProvenanceVerbatim(snapshot, coreOutput);
+  }
+});
+
+const RULE_PROJECTION_CASES = [
+  {
+    label: "direct observation gate matched",
+    except: { Q3: { directObservationGate: "no" } },
+    questionRef: "Q3",
+    matchedAccessRuleIds: ["DIRECT_OBSERVATION_GATE_NO_SUBSTANTIVE_OPTION"],
+    expectedUseClass: "CONTEXTUAL",
+  },
+  {
+    label: "hypothetical matched",
+    except: { Q4: { evidenceType: "hypothetical" } },
+    questionRef: "Q4",
+    matchedAccessRuleIds: ["EVIDENCE_TYPE_HYPOTHETICAL"],
+    expectedUseClass: "CONTEXTUAL",
+  },
+  {
+    label: "unknown matched",
+    except: { Q9: { evidenceType: "unknown" } },
+    questionRef: "Q9",
+    matchedAccessRuleIds: ["EVIDENCE_TYPE_UNKNOWN"],
+    expectedComparisonAvailability: "unavailable",
+  },
+  {
+    label: "direct + hypothetical matched",
+    except: { Q6: { directObservationGate: "no", evidenceType: "hypothetical" } },
+    questionRef: "Q6",
+    matchedAccessRuleIds: ["DIRECT_OBSERVATION_GATE_NO_SUBSTANTIVE_OPTION", "EVIDENCE_TYPE_HYPOTHETICAL"],
+    expectedUseClass: "CONTEXTUAL",
+  },
+  {
+    label: "direct + unknown matched",
+    except: { Q8: { directObservationGate: "no", evidenceType: "unknown" } },
+    questionRef: "Q8",
+    matchedAccessRuleIds: ["DIRECT_OBSERVATION_GATE_NO_SUBSTANTIVE_OPTION", "EVIDENCE_TYPE_UNKNOWN"],
+    expectedUseClass: "CONTEXTUAL",
+    expectedComparisonAvailability: "unavailable",
+  },
+];
+
+check("V3", "representative access-rule observations project exact Core rule matches", () => {
+  for (const spec of RULE_PROJECTION_CASES) {
+    const result = assembleFrom({
+      moduleId: "acquirerEnvironment",
+      candidatePair: "NT/STJ vs NT/STP",
+      respondent1: SENIOR,
+      respondent2: SENIOR,
+      answers1: fill({}, spec.except),
+      answers2: fill(),
+    });
+    assert.ok(
+      !PROVENANCE_ABSENT_BRANCHES.has(result.snapshot.engine.outcome.branchCode),
+      `${spec.label} landed on a pairRows-absent branch`,
+    );
+    const observation = observationOf(result.snapshot, spec.questionRef, "R1");
+    const provenance = observation.observationAdjudicationProvenance;
+    assert.equal(provenance.tierDefaultUseClass, "PRIMARY", spec.label);
+    assert.equal(provenance.roleQuestionOverrideCap, null, spec.label);
+    assert.deepEqual(provenance.matchedAccessRuleIds, spec.matchedAccessRuleIds, spec.label);
+    assert.deepEqual(
+      provenance,
+      pairRow(result.coreOutput, spec.questionRef).left.scope.audit.adjudicationProvenance,
+      spec.label,
+    );
+    if (spec.expectedUseClass) assert.equal(observation.useClass, spec.expectedUseClass, spec.label);
+    if (spec.expectedComparisonAvailability) {
+      assert.equal(observation.comparisonAvailability, spec.expectedComparisonAvailability, spec.label);
+    }
+  }
+
+  const clean = assembleFrom(BRANCH_INPUTS.P_5A);
+  const cleanObservation = observationOf(clean.snapshot, "Q1", "R1");
+  assert.deepEqual(cleanObservation.observationAdjudicationProvenance.matchedAccessRuleIds, []);
+  assert.deepEqual(
+    cleanObservation.observationAdjudicationProvenance,
+    pairRow(clean.coreOutput, "Q1").left.scope.audit.adjudicationProvenance,
+  );
+});
+
+check("V4", "tier defaults project CONTEXTUAL/INELIGIBLE by tier; external UNRESOLVED is not lawfully projectable", () => {
+  for (const row of scoringAndTriage.dualRespondentComparison.questionTierVantage) {
+    if (row.senioritytier === "external") assert.equal(row.defaultuseclass, "UNRESOLVED");
+  }
+  const external = assembleFrom({
+    moduleId: "acquirerEnvironment",
+    candidatePair: "NT/STJ vs NT/STP",
+    respondent1: EXTERNAL,
+    respondent2: SENIOR,
+    answers1: fill(),
+    answers2: fill(),
+  });
+  assert.equal(external.snapshot.engine.outcome.branchCode, "P_0C");
+  assert.equal(external.snapshot.engine.observations.length, 0);
+
+  const result = assembleFrom(BRANCH_INPUTS.P_4);
+  assert.equal(observationOf(result.snapshot, "Q1", "R1").observationAdjudicationProvenance.tierDefaultUseClass, "PRIMARY");
+  assert.equal(observationOf(result.snapshot, "Q1", "R2").observationAdjudicationProvenance.tierDefaultUseClass, "CONTEXTUAL");
+  assert.equal(observationOf(result.snapshot, "Q2", "R2").observationAdjudicationProvenance.tierDefaultUseClass, "INELIGIBLE");
+  assert.equal(observationOf(result.snapshot, "Q5", "R2").observationAdjudicationProvenance.tierDefaultUseClass, "CONTEXTUAL");
+  assertProvenanceVerbatim(result.snapshot, result.coreOutput);
+});
+
+check("V5", "projection validation preserves order and rejects unknown, duplicate, absent, or unlawful provenance", () => {
+  const supplied = {
+    tierDefaultUseClass: "PRIMARY",
+    roleQuestionOverrideCap: "CONTEXTUAL",
+    matchedAccessRuleIds: ["EVIDENCE_TYPE_UNKNOWN", "DIRECT_OBSERVATION_GATE_NO_SUBSTANTIVE_OPTION"],
+  };
+  assert.deepEqual(projectAdjudicationProvenance({ adjudicationProvenance: supplied }, "test"), supplied);
+
+  const unresolvedSupplied = { tierDefaultUseClass: null, roleQuestionOverrideCap: null, matchedAccessRuleIds: [] };
+  assert.deepEqual(
+    projectAdjudicationProvenance({ adjudicationProvenance: unresolvedSupplied }, "test"),
+    unresolvedSupplied,
+  );
+
+  assert.throws(() => projectAdjudicationProvenance({}, "test"), AgentBoundaryAssemblyError);
+  assert.throws(() => projectAdjudicationProvenance(null, "test"), AgentBoundaryAssemblyError);
+  assert.throws(() => projectAdjudicationProvenance({ adjudicationProvenance: [] }, "test"), AgentBoundaryAssemblyError);
+  assert.throws(() => projectAdjudicationProvenance({
+    adjudicationProvenance: { tierDefaultUseClass: "PRIMARY", roleQuestionOverrideCap: null },
+  }, "test"), AgentBoundaryAssemblyError);
+  assert.throws(() => projectAdjudicationProvenance({
+    adjudicationProvenance: { tierDefaultUseClass: "primary", roleQuestionOverrideCap: null, matchedAccessRuleIds: [] },
+  }, "test"), AgentBoundaryAssemblyError);
+  assert.throws(() => projectAdjudicationProvenance({
+    adjudicationProvenance: { tierDefaultUseClass: "PRIMARY", roleQuestionOverrideCap: "BOGUS", matchedAccessRuleIds: [] },
+  }, "test"), AgentBoundaryAssemblyError);
+  assert.throws(() => projectAdjudicationProvenance({
+    adjudicationProvenance: { tierDefaultUseClass: "PRIMARY", roleQuestionOverrideCap: null, matchedAccessRuleIds: "EVIDENCE_TYPE_HYPOTHETICAL" },
+  }, "test"), AgentBoundaryAssemblyError);
+  assert.throws(() => projectAdjudicationProvenance({
+    adjudicationProvenance: { tierDefaultUseClass: "PRIMARY", roleQuestionOverrideCap: null, matchedAccessRuleIds: ["NOT_A_LAWFUL_RULE"] },
+  }, "test"), AgentBoundaryAssemblyError);
+  assert.throws(() => projectAdjudicationProvenance({
+    adjudicationProvenance: { tierDefaultUseClass: "PRIMARY", roleQuestionOverrideCap: null, matchedAccessRuleIds: ["EVIDENCE_TYPE_HYPOTHETICAL", "EVIDENCE_TYPE_HYPOTHETICAL"] },
+  }, "test"), AgentBoundaryAssemblyError);
+});
+
+check("V6", "tampering Core provenance is rejected by full Core binding, field by field", () => {
+  const lineInput = withFlags(BRANCH_INPUTS.P_4);
+  const lawfulLine = compareDualRespondents(lineInput);
+  assert.equal(pairRow(lawfulLine, "Q1").right.scope.audit.adjudicationProvenance.tierDefaultUseClass, "CONTEXTUAL");
+  assertBindingTamperRejected(lineInput, lawfulLine, (out) => {
+    pairRow(out, "Q1").right.scope.audit.adjudicationProvenance.tierDefaultUseClass = "PRIMARY";
+  });
+
+  const fiveA = withFlags(BRANCH_INPUTS.P_5A);
+  const lawfulFiveA = compareDualRespondents(fiveA);
+  assert.equal(lawfulFiveA.audit.pairRows[0].left.scope.audit.adjudicationProvenance.roleQuestionOverrideCap, null);
+  assertBindingTamperRejected(fiveA, lawfulFiveA, (out) => {
+    out.audit.pairRows[0].left.scope.audit.adjudicationProvenance.roleQuestionOverrideCap = "CONTEXTUAL";
+  });
+
+  const comboInput = withFlags(DIRECT_HYPO_FIXTURE);
+  const lawfulCombo = compareDualRespondents(comboInput);
+  const comboIds = pairRow(lawfulCombo, "Q6").left.scope.audit.adjudicationProvenance.matchedAccessRuleIds;
+  assert.deepEqual(comboIds, ["DIRECT_OBSERVATION_GATE_NO_SUBSTANTIVE_OPTION", "EVIDENCE_TYPE_HYPOTHETICAL"]);
+  assertBindingTamperRejected(comboInput, lawfulCombo, (out) => {
+    pairRow(out, "Q6").left.scope.audit.adjudicationProvenance.matchedAccessRuleIds = [];
+  });
+  assertBindingTamperRejected(comboInput, lawfulCombo, (out) => {
+    pairRow(out, "Q6").left.scope.audit.adjudicationProvenance.matchedAccessRuleIds = [...comboIds].reverse();
+  });
+  assertBindingTamperRejected(comboInput, lawfulCombo, (out) => {
+    pairRow(out, "Q6").left.scope.audit.adjudicationProvenance.matchedAccessRuleIds = [comboIds[0], comboIds[0]];
+  });
+  assertBindingTamperRejected(comboInput, lawfulCombo, (out) => {
+    pairRow(out, "Q6").left.scope.audit.adjudicationProvenance.matchedAccessRuleIds = ["NOT_A_LAWFUL_RULE"];
+  });
+});
+
+check("V7", "digest is sensitive to each provenance dimension including rule order", () => {
+  const { snapshot } = assembleFrom(DIRECT_HYPO_FIXTURE);
+  const covered = engineSnapshotDigestCoveredContent(snapshot);
+  const cloneEngine = () => JSON.parse(JSON.stringify(covered.engine));
+  assert.equal(computeEngineSnapshotDigest(cloneEngine(), covered.corpus), snapshot.engineSnapshotDigest);
+
+  const provenanceOf = (engine) => engine.observations
+    .find((row) => row.questionRef === "Q6" && row.respondentSlot === "R1").observationAdjudicationProvenance;
+  const variants = [
+    (engine) => { provenanceOf(engine).tierDefaultUseClass = "CONTEXTUAL"; },
+    (engine) => { provenanceOf(engine).roleQuestionOverrideCap = "INELIGIBLE"; },
+    (engine) => { provenanceOf(engine).matchedAccessRuleIds = ["DIRECT_OBSERVATION_GATE_NO_SUBSTANTIVE_OPTION"]; },
+    (engine) => { provenanceOf(engine).matchedAccessRuleIds = [...provenanceOf(engine).matchedAccessRuleIds].reverse(); },
+  ];
+  for (const mutate of variants) {
+    const engine = cloneEngine();
+    mutate(engine);
+    assert.notEqual(computeEngineSnapshotDigest(engine, covered.corpus), snapshot.engineSnapshotDigest);
+  }
+});
+
+check("V8", "sealed observationAdjudicationProvenance is deeply immutable", () => {
+  const { snapshot } = assembleFrom(DIRECT_HYPO_FIXTURE);
+  const provenance = observationOf(snapshot, "Q6", "R1").observationAdjudicationProvenance;
+  assert.ok(Object.isFrozen(provenance));
+  assert.ok(Object.isFrozen(provenance.matchedAccessRuleIds));
+  assert.throws(() => { provenance.tierDefaultUseClass = "CONTEXTUAL"; });
+  assert.throws(() => { provenance.matchedAccessRuleIds.push("EVIDENCE_TYPE_UNKNOWN"); });
+  assert.throws(() => { provenance.matchedAccessRuleIds[0] = "EVIDENCE_TYPE_UNKNOWN"; });
+  assert.equal(provenance.tierDefaultUseClass, "PRIMARY");
+  assert.equal(provenance.roleQuestionOverrideCap, null);
+  assert.deepEqual(provenance.matchedAccessRuleIds, ["DIRECT_OBSERVATION_GATE_NO_SUBSTANTIVE_OPTION", "EVIDENCE_TYPE_HYPOTHETICAL"]);
+});
+
+check("V9", "P_0C produces no synthetic observations to transport provenance", () => {
+  const zeroCFixtures = [
+    BRANCH_INPUTS.P_0C,
+    {
+      moduleId: "",
+      candidatePair: "NT/STJ vs NT/STP",
+      respondent1: SENIOR,
+      respondent2: SENIOR,
+      answers1: fill(),
+      answers2: fill(),
+    },
+    {
+      moduleId: "environmentLevel1",
+      candidatePair: "NT/STJ vs NT/STP",
+      respondent1: SENIOR,
+      respondent2: SENIOR,
+      answers1: fill(),
+      answers2: fill(),
+    },
+    {
+      moduleId: "acquirerEnvironment",
+      candidatePair: "NT/STJ vs NT/STP",
+      respondent1: { roleCode: "c_suite", seniorityLevel: "not_a_mapped_tier" },
+      respondent2: SENIOR,
+      answers1: fill(),
+      answers2: fill(),
+    },
+    {
+      moduleId: "acquirerEnvironment",
+      candidatePair: "NT/STJ vs NT/STP",
+      respondent1: EXTERNAL,
+      respondent2: SENIOR,
+      answers1: fill(),
+      answers2: fill(),
+    },
+  ];
+  for (const fixture of zeroCFixtures) {
+    const { snapshot } = assembleFrom(fixture);
+    assert.equal(snapshot.engine.outcome.branchCode, "P_0C");
+    assert.equal(snapshot.engine.observations.length, 0);
+    assert.equal(snapshot.engine.comparison.available, false);
+  }
+});
+
+check("V10", "DIRECT gate provenance never broadens P_1B and A1.1 adds no A2 surface", () => {
+  const oneB = assembleFrom(BRANCH_INPUTS.P_1B);
+  assert.equal(oneB.snapshot.engine.outcome.branchCode, "P_1B");
+  assert.equal(oneB.coreOutput.audit.exact1bSpecialCondition, true);
+  assert.equal(pairRow(oneB.coreOutput, "Q11").left.scope.semanticClass, "OBSERVATION_GAP");
+  assert.deepEqual(observationOf(oneB.snapshot, "Q11", "R1").observationAdjudicationProvenance.matchedAccessRuleIds, []);
+
+  const gateOnDiscriminator = assembleFrom({
+    moduleId: "acquirerEnvironment",
+    candidatePair: "NF/SFP vs NF/SFJ",
+    respondent1: SENIOR,
+    respondent2: SENIOR,
+    answers1: fill({ selectedOption: "A" }, { Q11: { selectedOption: "E", directObservationGate: "no" } }),
+    answers2: fill({ selectedOption: "A" }, { Q11: { selectedOption: "E", directObservationGate: "no" } }),
+  });
+  assert.equal(pairRow(gateOnDiscriminator.coreOutput, "Q11").left.scope.semanticClass, "SUBSTANTIVE_SIGNAL");
+  assert.deepEqual(
+    observationOf(gateOnDiscriminator.snapshot, "Q11", "R1").observationAdjudicationProvenance.matchedAccessRuleIds,
+    ["DIRECT_OBSERVATION_GATE_NO_SUBSTANTIVE_OPTION"],
+  );
+  assert.notEqual(gateOnDiscriminator.snapshot.engine.outcome.branchCode, "P_1B");
+  assert.equal(gateOnDiscriminator.coreOutput.audit.exact1bSpecialCondition, false);
+  assert.equal(gateOnDiscriminator.snapshot.engine.outcome.suppression.pairEvaluationSuppressed, false);
+
+  const a2Forbidden = [
+    /uncertaintyDomain/,
+    /reasonCode/,
+    /claimScope/,
+    /disclosureRequired/,
+    /materialUncertaintyPresent/,
+    /interpretationStatus/,
+    /structuredUncertainty/i,
+  ];
+  for (const relative of ["../src/agent/agentContractConstants.js", "../src/agent/engineSnapshot.js"]) {
+    const source = readFileSync(new URL(relative, import.meta.url), "utf8");
+    for (const pattern of a2Forbidden) {
+      assert.equal(pattern.test(source), false, `${relative} matched ${pattern}`);
+    }
+  }
+});
+
 check("F2", "A1 source has no numeric-probability or withdrawn-classifier surface", () => {
   const files = [
     "../src/agent/agentContractConstants.js",
@@ -1125,7 +1484,7 @@ check("F2", "A1 source has no numeric-probability or withdrawn-classifier surfac
   }
 });
 
-console.log("Agent EngineSnapshot slice A1 CORR2 cases passed:");
+console.log("Agent EngineSnapshot slice A1.1 (D0_R0_CORR2_A2C1_CORR1) cases passed:");
 for (const row of results) {
   console.log(`  ${row.id}. ${row.label}: ${row.status}`);
 }
