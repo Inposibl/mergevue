@@ -16,6 +16,7 @@
     "validate:target-observation-runtime": "node scripts/validate-target-observation-runtime-guards.mjs",
     "validate:questionnaire-bindings": "node scripts/validate-questionnaire-bindings.mjs",
     "validate:observation-scope-runtime": "node scripts/validate-observation-scope-runtime.mjs",
+    "validate:agent-engine-snapshot": "node scripts/validate-agent-engine-snapshot.mjs",
     "validate:g3": "node scripts/validate-g3.mjs",
     "validate:evidence-capture": "node scripts/validate-evidence-capture.mjs",
     "validate:risk-output": "node scripts/validate-risk-output.mjs",
