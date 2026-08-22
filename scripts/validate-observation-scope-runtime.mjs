@@ -2147,6 +2147,454 @@ assert.equal(q1.id, "Q1");
 assert.equal(q1.canonicalQuestionId, "ACQUIRERENVIRONMENT-Q1");
 assert.equal(q1.moduleId, "acquirerEnvironment");
 
+// ——— D0_R0 adjudication provenance interface ———
+
+const DUAL_CORPUS = scoringAndTriage.dualRespondentComparison;
+const ACCESS_RULE_ENUM = Object.freeze([
+  "DIRECT_OBSERVATION_GATE_NO_SUBSTANTIVE_OPTION",
+  "EVIDENCE_TYPE_HYPOTHETICAL",
+  "EVIDENCE_TYPE_UNKNOWN",
+]);
+const PROVENANCE_KEYS = Object.freeze(["matchedAccessRuleIds", "roleQuestionOverrideCap", "tierDefaultUseClass"]);
+const PRE_DELTA_SCOPE_KEYS = Object.freeze([
+  "audit", "canonicalQuestionId", "causalDisposition", "comparisonAvailability", "comparisonEligible",
+  "expectedVantage", "moduleId", "questionRef", "rootCauseFamily", "routing", "semanticClass",
+  "semanticClassEffect", "seniorityTier", "useClass", "workbookQuestionId",
+]);
+const PRE_DELTA_RESOLVED_AUDIT_KEYS = Object.freeze([
+  "accessAdjudicated", "directObservationGate", "evidenceType", "optionCode", "reliabilityFlags",
+]);
+const PRE_DELTA_UNRESOLVED_AUDIT_KEYS = Object.freeze([
+  "directObservationGate", "evidenceType", "reliabilityFlags", "unresolvedReason",
+]);
+const PRE_DELTA_DUAL_AUDIT_KEYS = Object.freeze([
+  "agreeCount", "exact1bSpecialCondition", "fourFactorProduct", "genericContradictionEngineInvoked",
+  "genericPriority1", "highAllBothLackComparablePrimary", "highNotPrimaryBoth", "highResolvers",
+  "insufficientCount", "pairRows", "precedenceOrder", "qualitySource", "rawAgreeCount",
+]);
+const PRE_DELTA_PAIR_ROW_KEYS = Object.freeze([
+  "agree", "comparable", "countableAgree", "diverge", "excludedFromAgreementCount", "left",
+  "quality", "questionRef", "right", "trigger", "triggerQuality",
+]);
+const PRE_DELTA_ANSWER_KEYS = Object.freeze([
+  "causalDisposition", "confidence", "evidenceType", "knowledgeLevel", "questionRef",
+  "reliabilityFlags", "scope", "selectedOption",
+]);
+
+function sortedKeys(value) {
+  return Object.keys(value).sort();
+}
+
+function tierRespondentValue(tier) {
+  const row = DUAL_CORPUS.seniorityTierMapping.find((item) => String(item.seniorityTier).trim() === tier);
+  assert.ok(row, `seniorityTierMapping row for ${tier}`);
+  return String(row.respondentSenioritylevelValues).split(",")[0].trim();
+}
+
+function matrixScope(moduleId, vantageRow, overrides = {}) {
+  return resolveObservationScope({
+    moduleId,
+    workbookQuestionId: String(vantageRow.questionref).trim(),
+    respondent: { roleCode: "c_suite", seniorityLevel: tierRespondentValue(String(vantageRow.senioritytier).trim()) },
+    selectedOption: "A",
+    directObservationGate: "yes",
+    evidenceType: "direct_observation",
+    reliabilityFlags: [],
+    ...overrides,
+  });
+}
+
+check("AP1", "provenance shape exists on every successfully resolved scope and is the only audit-level addition", () => {
+  const resolvedAuditKeysWithProvenance = ["accessAdjudicated", "adjudicationProvenance", ...PRE_DELTA_RESOLVED_AUDIT_KEYS.slice(1)];
+  for (const moduleId of ["acquirerEnvironment", "targetSelfAssessment"]) {
+    for (const vantageRow of DUAL_CORPUS.questionTierVantage) {
+      const resolved = matrixScope(moduleId, vantageRow);
+      assert.deepEqual(sortedKeys(resolved), [...PRE_DELTA_SCOPE_KEYS]);
+      assert.deepEqual(sortedKeys(resolved.audit), resolvedAuditKeysWithProvenance);
+      const provenance = resolved.audit.adjudicationProvenance;
+      assert.deepEqual(sortedKeys(provenance), [...PROVENANCE_KEYS]);
+      assert.deepEqual(provenance.matchedAccessRuleIds, []);
+      assert.equal(provenance.roleQuestionOverrideCap, null);
+      for (const id of provenance.matchedAccessRuleIds) {
+        assert.ok(ACCESS_RULE_ENUM.includes(id), `unknown access rule id ${id}`);
+      }
+    }
+  }
+});
+
+check("AP2", "tierDefaultUseClass copies the exact corpus defaultuseclass and survives later ceilings", () => {
+  for (const moduleId of ["acquirerEnvironment", "targetSelfAssessment"]) {
+    for (const vantageRow of DUAL_CORPUS.questionTierVantage) {
+      const resolved = matrixScope(moduleId, vantageRow);
+      assert.equal(
+        resolved.audit.adjudicationProvenance.tierDefaultUseClass,
+        String(vantageRow.defaultuseclass).trim(),
+      );
+      assert.equal(resolved.useClass, String(vantageRow.defaultuseclass).trim());
+    }
+  }
+  const gateNo = scope({ directObservationGate: "no" });
+  assert.equal(gateNo.audit.adjudicationProvenance.tierDefaultUseClass, "PRIMARY");
+  assert.equal(gateNo.useClass, "CONTEXTUAL");
+  const unknown = scope({ evidenceType: "unknown" });
+  assert.equal(unknown.audit.adjudicationProvenance.tierDefaultUseClass, "PRIMARY");
+  assert.equal(unknown.comparisonAvailability, "unavailable");
+  const external = scope({ respondent: EXTERNAL });
+  assert.equal(external.audit.adjudicationProvenance.tierDefaultUseClass, "UNRESOLVED");
+  assert.equal(external.useClass, "UNRESOLVED");
+});
+
+check("AP3", "roleQuestionOverrideCap is the exact configured cap or null, never inferred from the final UseClass", () => {
+  for (const moduleId of ["acquirerEnvironment", "targetSelfAssessment"]) {
+    for (const vantageRow of DUAL_CORPUS.questionTierVantage) {
+      assert.equal(matrixScope(moduleId, vantageRow).audit.adjudicationProvenance.roleQuestionOverrideCap, null);
+    }
+  }
+
+  const withIneligibleCap = cloneDual();
+  withIneligibleCap.roleQuestionOverride = [{ roleCode: "c_suite", questionref: "Q1", useclasscap: "INELIGIBLE" }];
+  const ineligibleResolver = createObservationScopeResolver(withIneligibleCap);
+  const ineligible = ineligibleResolver({
+    moduleId: "acquirerEnvironment",
+    workbookQuestionId: "Q1",
+    respondent: SENIOR,
+    selectedOption: "A",
+    directObservationGate: "yes",
+    evidenceType: "direct_observation",
+    reliabilityFlags: [],
+  });
+  assert.deepEqual(ineligible.audit.adjudicationProvenance, {
+    tierDefaultUseClass: "PRIMARY",
+    roleQuestionOverrideCap: "INELIGIBLE",
+    matchedAccessRuleIds: [],
+  });
+  assert.equal(ineligible.useClass, "INELIGIBLE");
+
+  const withContextualCap = cloneDual();
+  withContextualCap.roleQuestionOverride = [{ roleCode: "c_suite", questionref: "Q1", useclasscap: "CONTEXTUAL" }];
+  const contextualResolver = createObservationScopeResolver(withContextualCap);
+  const contextual = contextualResolver({
+    moduleId: "acquirerEnvironment",
+    workbookQuestionId: "Q1",
+    respondent: SENIOR,
+    selectedOption: "A",
+    directObservationGate: "yes",
+    evidenceType: "direct_observation",
+    reliabilityFlags: [],
+  });
+  assert.equal(contextual.audit.adjudicationProvenance.roleQuestionOverrideCap, "CONTEXTUAL");
+  assert.equal(contextual.audit.adjudicationProvenance.tierDefaultUseClass, "PRIMARY");
+  assert.equal(contextual.useClass, "CONTEXTUAL");
+
+  const caplessOverride = cloneDual();
+  caplessOverride.roleQuestionOverride = [{ roleCode: "c_suite", questionref: "Q1" }];
+  const caplessResolver = createObservationScopeResolver(caplessOverride);
+  const capless = caplessResolver({
+    moduleId: "acquirerEnvironment",
+    workbookQuestionId: "Q1",
+    respondent: SENIOR,
+    selectedOption: "A",
+    directObservationGate: "yes",
+    evidenceType: "direct_observation",
+    reliabilityFlags: [],
+  });
+  assert.equal(capless.audit.adjudicationProvenance.roleQuestionOverrideCap, null);
+  assert.equal(capless.useClass, "PRIMARY");
+
+  const otherQuestionOverride = cloneDual();
+  otherQuestionOverride.roleQuestionOverride = [{ roleCode: "c_suite", questionref: "Q2", useclasscap: "INELIGIBLE" }];
+  const otherResolver = createObservationScopeResolver(otherQuestionOverride);
+  const q1UnderQ2Override = otherResolver({
+    moduleId: "acquirerEnvironment",
+    workbookQuestionId: "Q1",
+    respondent: SENIOR,
+    selectedOption: "A",
+    directObservationGate: "yes",
+    evidenceType: "direct_observation",
+    reliabilityFlags: [],
+  });
+  assert.equal(q1UnderQ2Override.audit.adjudicationProvenance.roleQuestionOverrideCap, null);
+  assert.equal(q1UnderQ2Override.useClass, "PRIMARY");
+});
+
+check("AP4", "DIRECT_OBSERVATION_GATE_NO_SUBSTANTIVE_OPTION appears iff the existing direct rule matched", () => {
+  const yes = scope({ directObservationGate: "yes" });
+  assert.equal(yes.audit.adjudicationProvenance.matchedAccessRuleIds.includes("DIRECT_OBSERVATION_GATE_NO_SUBSTANTIVE_OPTION"), false);
+
+  const gateNo = scope({ directObservationGate: "no" });
+  assert.deepEqual(gateNo.audit.adjudicationProvenance.matchedAccessRuleIds, ["DIRECT_OBSERVATION_GATE_NO_SUBSTANTIVE_OPTION"]);
+  assert.equal(gateNo.useClass, "CONTEXTUAL");
+  assert.equal(gateNo.rootCauseFamily, "RC-B");
+  assert.equal(gateNo.audit.accessAdjudicated, true);
+
+  const substantiveE = scope({
+    workbookQuestionId: "Q11",
+    canonicalQuestionId: "ACQUIRERENVIRONMENT-Q11",
+    selectedOption: "E",
+    directObservationGate: "no",
+  });
+  assert.equal(substantiveE.semanticClass, "SUBSTANTIVE_SIGNAL");
+  assert.deepEqual(substantiveE.audit.adjudicationProvenance.matchedAccessRuleIds, ["DIRECT_OBSERVATION_GATE_NO_SUBSTANTIVE_OPTION"]);
+
+  const nonSubstantiveE = scope({
+    workbookQuestionId: "Q10",
+    canonicalQuestionId: "ACQUIRERENVIRONMENT-Q10",
+    selectedOption: "E",
+    directObservationGate: "no",
+  });
+  assert.equal(nonSubstantiveE.semanticClass, "AMBIGUOUS_COLLAPSE");
+  assert.deepEqual(nonSubstantiveE.audit.adjudicationProvenance.matchedAccessRuleIds, []);
+  assert.equal(nonSubstantiveE.useClass, "PRIMARY");
+});
+
+check("AP5", "EVIDENCE_TYPE_HYPOTHETICAL appears iff the existing hypothetical rule matched", () => {
+  for (const evidenceType of ["direct_observation", "document_based", "inference", "hypothetical", "unknown", "secondhand", ""]) {
+    const resolved = scope({ evidenceType });
+    const ids = resolved.audit.adjudicationProvenance.matchedAccessRuleIds;
+    if (evidenceType === "hypothetical") {
+      assert.deepEqual(ids, ["EVIDENCE_TYPE_HYPOTHETICAL"], `evidenceType=${evidenceType}`);
+      assert.equal(resolved.useClass, "CONTEXTUAL");
+      assert.equal(resolved.rootCauseFamily, "RC-B");
+    } else {
+      assert.equal(ids.includes("EVIDENCE_TYPE_HYPOTHETICAL"), false, `evidenceType=${evidenceType}`);
+    }
+  }
+});
+
+check("AP6", "EVIDENCE_TYPE_UNKNOWN appears iff the existing unknown-evidence rule matched", () => {
+  for (const evidenceType of ["direct_observation", "document_based", "inference", "hypothetical", "unknown", "secondhand", ""]) {
+    const resolved = scope({ evidenceType });
+    const ids = resolved.audit.adjudicationProvenance.matchedAccessRuleIds;
+    if (evidenceType === "unknown") {
+      assert.deepEqual(ids, ["EVIDENCE_TYPE_UNKNOWN"], `evidenceType=${evidenceType}`);
+      assert.equal(resolved.comparisonAvailability, "unavailable");
+      assert.equal(resolved.comparisonEligible, false);
+      assert.equal(resolved.rootCauseFamily, "RC-B");
+    } else {
+      assert.equal(ids.includes("EVIDENCE_TYPE_UNKNOWN"), false, `evidenceType=${evidenceType}`);
+    }
+  }
+});
+
+check("AP7", "matchedAccessRuleIds keep the closed-enum fixed order and cannot duplicate", () => {
+  const dualMatch = scope({ directObservationGate: "no", evidenceType: "hypothetical" });
+  assert.deepEqual(dualMatch.audit.adjudicationProvenance.matchedAccessRuleIds, [
+    "DIRECT_OBSERVATION_GATE_NO_SUBSTANTIVE_OPTION",
+    "EVIDENCE_TYPE_HYPOTHETICAL",
+  ]);
+  const directPlusUnknown = scope({ directObservationGate: "no", evidenceType: "unknown" });
+  assert.deepEqual(directPlusUnknown.audit.adjudicationProvenance.matchedAccessRuleIds, [
+    "DIRECT_OBSERVATION_GATE_NO_SUBSTANTIVE_OPTION",
+    "EVIDENCE_TYPE_UNKNOWN",
+  ]);
+
+  const idScenarios = [
+    scope({}),
+    scope({ directObservationGate: "no" }),
+    scope({ evidenceType: "hypothetical" }),
+    scope({ evidenceType: "unknown" }),
+    dualMatch,
+    directPlusUnknown,
+    scope({ respondent: LINE }),
+    scope({ respondent: EXTERNAL }),
+  ];
+  for (const resolved of idScenarios) {
+    const ids = resolved.audit.adjudicationProvenance.matchedAccessRuleIds;
+    assert.equal(new Set(ids).size, ids.length, "duplicate rule ids");
+    assert.deepEqual(
+      ids,
+      ACCESS_RULE_ENUM.filter((id) => ids.includes(id)),
+      "ids must follow the fixed enum order",
+    );
+  }
+});
+
+check("AP8", "unresolved paths emit no fabricated provenance and keep exact unresolvedReason tokens", () => {
+  const families = [
+    ["missing_module", scope({ moduleId: "" })],
+    ["unsupported_module", scope({ moduleId: "environmentLevel1" })],
+    ["unsupported_or_missing_question", scope({ workbookQuestionId: "QX", canonicalQuestionId: "X-QX" })],
+    ["roleCode_unspecified", scope({ respondent: { roleCode: "unspecified", seniorityLevel: "c_suite" } })],
+    ["unknown_seniority", scope({ respondent: { roleCode: "c_suite", seniorityLevel: "not_a_mapped_tier" } })],
+  ];
+  for (const [expectedReason, resolved] of families) {
+    assert.equal(resolved.useClass, "UNRESOLVED");
+    assert.equal(resolved.audit.unresolvedReason, expectedReason);
+    assert.deepEqual(sortedKeys(resolved.audit), ["adjudicationProvenance", ...PRE_DELTA_UNRESOLVED_AUDIT_KEYS]);
+    assert.deepEqual(resolved.audit.adjudicationProvenance, {
+      tierDefaultUseClass: null,
+      roleQuestionOverrideCap: null,
+      matchedAccessRuleIds: [],
+    });
+    assert.equal(Object.hasOwn(resolved.audit, "optionCode"), false);
+    assert.equal(Object.hasOwn(resolved.audit, "accessAdjudicated"), false);
+  }
+  const external = scope({ respondent: EXTERNAL });
+  assert.equal(Object.hasOwn(external.audit, "unresolvedReason"), false);
+  assert.equal(external.audit.adjudicationProvenance.tierDefaultUseClass, "UNRESOLVED");
+});
+
+check("AP9", "Dual comparator output graph is unchanged except the scope-audit provenance addition", () => {
+  const pristine = compareDualRespondents({
+    moduleId: "acquirerEnvironment",
+    candidatePair: "NT/STJ vs NT/STP",
+    respondent1: SENIOR,
+    respondent2: SENIOR,
+    answers1: fill(),
+    answers2: fill(),
+  });
+  assert.deepEqual(sortedKeys(pristine.audit), [...PRE_DELTA_DUAL_AUDIT_KEYS]);
+  assert.deepEqual(sortedKeys(pristine.audit.pairRows[0]), [...PRE_DELTA_PAIR_ROW_KEYS]);
+  assert.deepEqual(sortedKeys(pristine.audit.pairRows[0].left), [...PRE_DELTA_ANSWER_KEYS]);
+  assert.deepEqual(sortedKeys(pristine.audit.pairRows[0].left.scope), [...PRE_DELTA_SCOPE_KEYS]);
+  assert.deepEqual(sortedKeys(pristine.audit.pairRows[0].left.scope.audit), ["accessAdjudicated", "adjudicationProvenance", "directObservationGate", "evidenceType", "optionCode", "reliabilityFlags"]);
+  assert.equal(pristine.priority, "5A");
+  assert.equal(pristine.state, "① CONVERGENT");
+  assert.equal(pristine.audit.agreeCount, 11);
+  assert.equal(pristine.audit.insufficientCount, 0);
+  assert.equal(pristine.audit.pairRows[0].quality, 1);
+  assert.deepEqual(pristine.audit.pairRows[0].left.scope.audit.adjudicationProvenance.matchedAccessRuleIds, []);
+
+  const scenarios = [
+    ["unknown", fill({ evidenceType: "unknown" }), 0.5],
+    ["gateNo", fill({ directObservationGate: "no" }), 1],
+    ["hypothetical", fill({ evidenceType: "hypothetical" }), 0.5],
+  ];
+  for (const [label, answers2, expectedQuality] of scenarios) {
+    const result = compareDualRespondents({
+      moduleId: "acquirerEnvironment",
+      candidatePair: "NT/STJ vs NT/STP",
+      respondent1: SENIOR,
+      respondent2: SENIOR,
+      answers1: fill(),
+      answers2,
+    });
+    assert.equal(result.priority, "1", label);
+    assert.equal(result.routing, "coverage_insufficient", label);
+    assert.equal(result.audit.insufficientCount, 11, label);
+    assert.equal(result.audit.rawAgreeCount, 0, label);
+    assert.equal(result.audit.agreeCount, 0, label);
+    assert.equal(result.audit.genericPriority1, true, label);
+    assert.equal(result.audit.pairRows[0].comparable, false, label);
+    assert.equal(result.audit.pairRows[0].quality, expectedQuality, label);
+    assert.deepEqual(result.audit.pairRows[0].left.scope.audit.adjudicationProvenance.matchedAccessRuleIds, [], label);
+    const rightIds = result.audit.pairRows[0].right.scope.audit.adjudicationProvenance.matchedAccessRuleIds;
+    if (label === "unknown") assert.deepEqual(rightIds, ["EVIDENCE_TYPE_UNKNOWN"], label);
+    if (label === "gateNo") assert.deepEqual(rightIds, ["DIRECT_OBSERVATION_GATE_NO_SUBSTANTIVE_OPTION"], label);
+    if (label === "hypothetical") assert.deepEqual(rightIds, ["EVIDENCE_TYPE_HYPOTHETICAL"], label);
+  }
+});
+
+check("AP10", "pre-existing scope semantics equal pre-delta baselines alongside the new provenance", () => {
+  const NULLISH = "AP10_NULLISH";
+  const ABSENT = "AP10_ABSENT";
+  const vantage = "Governance / decision-authority altitude";
+  const scenarios = [
+    {
+      label: "pristine",
+      input: {},
+      expect: { useClass: "PRIMARY", semanticClass: null, eligible: true, available: "available", rootCauseFamily: NULLISH, routing: null, tier: "senior", vantage, auditEvidence: "direct_observation", auditGate: "yes", optionCode: "A", accessAdjudicated: false, unresolvedReason: ABSENT },
+    },
+    {
+      label: "gateNo",
+      input: { directObservationGate: "no" },
+      expect: { useClass: "CONTEXTUAL", semanticClass: null, eligible: true, available: "available", rootCauseFamily: "RC-B", routing: null, tier: "senior", vantage, auditEvidence: "direct_observation", auditGate: "no", optionCode: "A", accessAdjudicated: true, unresolvedReason: ABSENT },
+    },
+    {
+      label: "hypothetical",
+      input: { evidenceType: "hypothetical" },
+      expect: { useClass: "CONTEXTUAL", semanticClass: null, eligible: true, available: "available", rootCauseFamily: "RC-B", routing: null, tier: "senior", vantage, auditEvidence: "hypothetical", auditGate: "yes", optionCode: "A", accessAdjudicated: true, unresolvedReason: ABSENT },
+    },
+    {
+      label: "unknown",
+      input: { evidenceType: "unknown" },
+      expect: { useClass: "PRIMARY", semanticClass: null, eligible: false, available: "unavailable", rootCauseFamily: "RC-B", routing: null, tier: "senior", vantage, auditEvidence: "unknown", auditGate: "yes", optionCode: "A", accessAdjudicated: true, unresolvedReason: ABSENT },
+    },
+    {
+      label: "gateNo+hypothetical",
+      input: { directObservationGate: "no", evidenceType: "hypothetical" },
+      expect: { useClass: "CONTEXTUAL", semanticClass: null, eligible: true, available: "available", rootCauseFamily: "RC-B", routing: null, tier: "senior", vantage, auditEvidence: "hypothetical", auditGate: "no", optionCode: "A", accessAdjudicated: true, unresolvedReason: ABSENT },
+    },
+    {
+      label: "line Q1",
+      input: { respondent: LINE },
+      expect: { useClass: "CONTEXTUAL", semanticClass: null, eligible: true, available: "available", rootCauseFamily: NULLISH, routing: null, tier: "line_level", vantage: "Operational altitude", auditEvidence: "direct_observation", auditGate: "yes", optionCode: "A", accessAdjudicated: true, unresolvedReason: ABSENT },
+    },
+    {
+      label: "external vantage",
+      input: { respondent: EXTERNAL },
+      expect: { useClass: "UNRESOLVED", semanticClass: null, eligible: false, available: "unavailable", rootCauseFamily: NULLISH, routing: "practitioner_access_review", tier: "external", vantage: "Outside internal seniority ladder", auditEvidence: "direct_observation", auditGate: "yes", optionCode: "A", accessAdjudicated: true, unresolvedReason: ABSENT },
+    },
+    {
+      label: "roleCode unspecified",
+      input: { respondent: { roleCode: "unspecified", seniorityLevel: "c_suite" } },
+      expect: { useClass: "UNRESOLVED", semanticClass: null, eligible: false, available: "unavailable", rootCauseFamily: "practitioner access review", routing: "practitioner_access_review", tier: null, vantage: null, auditEvidence: "direct_observation", auditGate: "yes", optionCode: ABSENT, accessAdjudicated: ABSENT, unresolvedReason: "roleCode_unspecified" },
+    },
+    {
+      label: "unknown seniority",
+      input: { respondent: { roleCode: "c_suite", seniorityLevel: "not_a_mapped_tier" } },
+      expect: { useClass: "UNRESOLVED", semanticClass: null, eligible: false, available: "unavailable", rootCauseFamily: "practitioner access review", routing: "practitioner_access_review", tier: null, vantage: null, auditEvidence: "direct_observation", auditGate: "yes", optionCode: ABSENT, accessAdjudicated: ABSENT, unresolvedReason: "unknown_seniority" },
+    },
+    {
+      label: "missing module",
+      input: { moduleId: "" },
+      expect: { useClass: "UNRESOLVED", semanticClass: null, eligible: false, available: "unavailable", rootCauseFamily: "practitioner access review", routing: "practitioner_access_review", tier: null, vantage: null, auditEvidence: "direct_observation", auditGate: "yes", optionCode: ABSENT, accessAdjudicated: ABSENT, unresolvedReason: "missing_module" },
+    },
+    {
+      label: "unsupported module",
+      input: { moduleId: "environmentLevel1" },
+      expect: { useClass: "UNRESOLVED", semanticClass: null, eligible: false, available: "unavailable", rootCauseFamily: "practitioner access review", routing: "practitioner_access_review", tier: null, vantage: null, auditEvidence: "direct_observation", auditGate: "yes", optionCode: ABSENT, accessAdjudicated: ABSENT, unresolvedReason: "unsupported_module" },
+    },
+    {
+      label: "unsupported question",
+      input: { workbookQuestionId: "QX", canonicalQuestionId: "X-QX" },
+      expect: { useClass: "UNRESOLVED", semanticClass: null, eligible: false, available: "unavailable", rootCauseFamily: "practitioner access review", routing: "practitioner_access_review", tier: null, vantage: null, auditEvidence: "direct_observation", auditGate: "yes", optionCode: ABSENT, accessAdjudicated: ABSENT, unresolvedReason: "unsupported_or_missing_question" },
+    },
+    {
+      label: "Q10 E gate=no",
+      input: { workbookQuestionId: "Q10", canonicalQuestionId: "ACQUIRERENVIRONMENT-Q10", selectedOption: "E", directObservationGate: "no" },
+      expect: { useClass: "PRIMARY", semanticClass: "AMBIGUOUS_COLLAPSE", eligible: false, available: "unavailable", rootCauseFamily: "unresolved (X-2)", routing: null, tier: "senior", vantage, auditEvidence: "direct_observation", auditGate: "no", optionCode: "E", accessAdjudicated: true, unresolvedReason: ABSENT },
+    },
+    {
+      label: "Q11 E gate=no",
+      input: { workbookQuestionId: "Q11", canonicalQuestionId: "ACQUIRERENVIRONMENT-Q11", selectedOption: "E", directObservationGate: "no" },
+      expect: { useClass: "CONTEXTUAL", semanticClass: "SUBSTANTIVE_SIGNAL", eligible: true, available: "available", rootCauseFamily: "RC-B", routing: null, tier: "senior", vantage, auditEvidence: "direct_observation", auditGate: "no", optionCode: "E", accessAdjudicated: true, unresolvedReason: ABSENT },
+    },
+  ];
+  for (const { label, input, expect } of scenarios) {
+    const resolved = scope(input);
+    assert.equal(resolved.useClass, expect.useClass, `${label}.useClass`);
+    assert.equal(resolved.semanticClass, expect.semanticClass, `${label}.semanticClass`);
+    assert.equal(resolved.comparisonEligible, expect.eligible, `${label}.comparisonEligible`);
+    assert.equal(resolved.comparisonAvailability, expect.available, `${label}.comparisonAvailability`);
+    if (expect.rootCauseFamily === NULLISH) {
+      assert.ok(resolved.rootCauseFamily == null, `${label}.rootCauseFamily must be nullish`);
+    } else {
+      assert.equal(resolved.rootCauseFamily, expect.rootCauseFamily, `${label}.rootCauseFamily`);
+    }
+    assert.equal(resolved.routing, expect.routing, `${label}.routing`);
+    assert.equal(resolved.seniorityTier, expect.tier, `${label}.seniorityTier`);
+    assert.equal(resolved.expectedVantage, expect.vantage, `${label}.expectedVantage`);
+    assert.equal(resolved.audit.evidenceType, expect.auditEvidence, `${label}.audit.evidenceType`);
+    assert.equal(resolved.audit.directObservationGate, expect.auditGate, `${label}.audit.directObservationGate`);
+    if (expect.optionCode === ABSENT) {
+      assert.equal(Object.hasOwn(resolved.audit, "optionCode"), false, `${label}.audit.optionCode must be absent`);
+    } else {
+      assert.equal(resolved.audit.optionCode, expect.optionCode, `${label}.audit.optionCode`);
+    }
+    if (expect.accessAdjudicated === ABSENT) {
+      assert.equal(Object.hasOwn(resolved.audit, "accessAdjudicated"), false, `${label}.audit.accessAdjudicated must be absent`);
+    } else {
+      assert.equal(resolved.audit.accessAdjudicated, expect.accessAdjudicated, `${label}.audit.accessAdjudicated`);
+    }
+    if (expect.unresolvedReason === ABSENT) {
+      assert.equal(Object.hasOwn(resolved.audit, "unresolvedReason"), false, `${label}.audit.unresolvedReason must be absent`);
+    } else {
+      assert.equal(resolved.audit.unresolvedReason, expect.unresolvedReason, `${label}.audit.unresolvedReason`);
+    }
+  }
+});
+
 console.log("Observation Scope runtime core cases passed:");
 for (const row of results) {
   console.log(`  ${row.id}. ${row.label}: ${row.status}`);

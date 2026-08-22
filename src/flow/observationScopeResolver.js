@@ -426,6 +426,11 @@ function unresolved(base, reason) {
     audit: Object.freeze({
       ...(base.audit ?? {}),
       unresolvedReason: reason,
+      adjudicationProvenance: Object.freeze({
+        tierDefaultUseClass: null,
+        roleQuestionOverrideCap: null,
+        matchedAccessRuleIds: Object.freeze([]),
+      }),
     }),
     causalDisposition: base.causalDisposition ?? null,
   });
@@ -541,10 +546,14 @@ function resolveWithConfig(input, config) {
     section: "questionTierVantage.defaultuseclass",
     source: "dualRespondentComparison.questionTierVantage",
   });
+  const tierDefaultUseClass = useClass;
   const expectedVantage = text(vantage.expectedvantage);
   const override = config.overrideByKey.get(`${roleCode}|${questionRef}`);
-  if (override?.useClassCap || override?.useclasscap) {
-    useClass = applyCeiling(useClass, text(override.useClassCap || override.useclasscap));
+  const roleQuestionOverrideCap = override?.useClassCap || override?.useclasscap
+    ? text(override.useClassCap || override.useclasscap)
+    : null;
+  if (roleQuestionOverrideCap) {
+    useClass = applyCeiling(useClass, roleQuestionOverrideCap);
   }
 
   const optionRow = config.optionSemantics.get(`${questionRef}|${selectedOption}`);
@@ -559,20 +568,27 @@ function resolveWithConfig(input, config) {
   let rootCauseFamily = semantic.rootCauseFamily;
   let routing = useClass === "UNRESOLVED" ? "practitioner_access_review" : null;
 
+  let matchedDirectObservationGateNo = false;
+  let matchedEvidenceHypothetical = false;
+  let matchedEvidenceUnknown = false;
+
   for (const rule of config.actualAccessCeiling) {
     const signal = text(rule.signal);
     const value = text(rule.value);
     const ceiling = text(rule.useclassceiling);
     if (signal === "directObservationGate" && value.startsWith("no") && directObservationGate === "no"
       && isSubstantiveOption(selectedOption, semanticClass)) {
+      matchedDirectObservationGateNo = true;
       useClass = applyCeiling(useClass, ceiling);
       rootCauseFamily = rule.rootcausefamily || rootCauseFamily;
     }
     if (signal === "evidenceType" && value === "hypothetical" && evidenceType === "hypothetical") {
+      matchedEvidenceHypothetical = true;
       useClass = applyCeiling(useClass, ceiling);
       rootCauseFamily = rule.rootcausefamily || rootCauseFamily;
     }
     if (signal === "evidenceType" && value === "unknown" && evidenceType === "unknown") {
+      matchedEvidenceUnknown = true;
       comparisonAvailability = "unavailable";
       comparisonEligible = false;
       rootCauseFamily = rule.rootcausefamily || rootCauseFamily;
@@ -583,6 +599,12 @@ function resolveWithConfig(input, config) {
       rootCauseFamily = rule.rootcausefamily || rootCauseFamily;
     }
   }
+
+  const matchedAccessRuleIds = Object.freeze([
+    ...(matchedDirectObservationGateNo ? ["DIRECT_OBSERVATION_GATE_NO_SUBSTANTIVE_OPTION"] : []),
+    ...(matchedEvidenceHypothetical ? ["EVIDENCE_TYPE_HYPOTHETICAL"] : []),
+    ...(matchedEvidenceUnknown ? ["EVIDENCE_TYPE_UNKNOWN"] : []),
+  ]);
 
   if (useClass === "UNRESOLVED") {
     routing = "practitioner_access_review";
@@ -613,6 +635,11 @@ function resolveWithConfig(input, config) {
       reliabilityFlags,
       optionCode: selectedOption || null,
       accessAdjudicated,
+      adjudicationProvenance: Object.freeze({
+        tierDefaultUseClass,
+        roleQuestionOverrideCap,
+        matchedAccessRuleIds,
+      }),
     }),
     causalDisposition: null,
   });
