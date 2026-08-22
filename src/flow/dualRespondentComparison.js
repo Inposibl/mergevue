@@ -766,9 +766,13 @@ function compareDualRespondentsWithConfig(input, corpusConfig) {
   const row0c = precedenceRow(dual, "0c");
 
   if (!isAuthorizedDualModule(moduleId)) {
+    const moduleScope = resolveObservationScope({ moduleId });
     return outcome(row0c, {
       routing: "practitioner_access_review",
-      audit: { reason: "unsupported_or_missing_module" },
+      audit: {
+        reason: "unsupported_or_missing_module",
+        unresolvedReason: moduleScope.audit.unresolvedReason,
+      },
     });
   }
 
@@ -788,9 +792,16 @@ function compareDualRespondentsWithConfig(input, corpusConfig) {
 
   const unresolved = resolved.find((row) => row.left.scope.useClass === "UNRESOLVED" || row.right.scope.useClass === "UNRESOLVED");
   if (unresolved) {
+    const unresolvedSide = unresolved.left.scope.useClass === "UNRESOLVED" ? unresolved.left : unresolved.right;
+    const unresolvedAudit = unresolvedSide.scope.audit ?? {};
     return outcome(row0c, {
       routing: "practitioner_access_review",
-      audit: { questionRef: unresolved.questionRef },
+      audit: {
+        questionRef: unresolved.questionRef,
+        unresolvedReason: Object.hasOwn(unresolvedAudit, "unresolvedReason")
+          ? unresolvedAudit.unresolvedReason
+          : null,
+      },
     });
   }
 

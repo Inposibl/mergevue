@@ -1758,6 +1758,390 @@ check("R10", "returned 1b still occurs through canonical precedence order", () =
   assert.equal(result.priority, "1b");
 });
 
+function diagnosticCoreFields(result) {
+  return {
+    priority: result.priority,
+    outcomeClass: result.outcomeClass,
+    classificationOutcome: result.classificationOutcome,
+    state: result.state,
+    routing: result.routing,
+    output: result.output,
+    contradictionCandidates: result.contradictionCandidates,
+    genericContradictionEngineInvoked: result.genericContradictionEngineInvoked,
+    insufficientCount: result.audit?.insufficientCount ?? null,
+    rawAgreeCount: result.audit?.rawAgreeCount ?? null,
+    agreeCount: result.audit?.agreeCount ?? null,
+    exact1bSpecialCondition: result.audit?.exact1bSpecialCondition ?? null,
+    highAllBothLackComparablePrimary: result.audit?.highAllBothLackComparablePrimary ?? null,
+    highNotPrimaryBoth: result.audit?.highNotPrimaryBoth ?? null,
+  };
+}
+
+function corpusSemanticClassEffect(semanticClass) {
+  const row = scoringAndTriage.dualRespondentComparison.semanticClassEffects.find(
+    (item) => item.semanticclass === semanticClass,
+  );
+  assert.ok(row, `missing corpus semanticClassEffects row for ${semanticClass}`);
+  return {
+    useClassEffect: row.useclasseffect,
+    signalEffect: row.signaleffect,
+    coverageEffect: row.coverageeffect,
+    rootCauseFamily: row.rootcausefamily,
+  };
+}
+
+check("U1", "P_0C unspecified preserves exact roleCode_unspecified token from the resolver", () => {
+  const input = {
+    moduleId: "acquirerEnvironment",
+    candidatePair: "NT/STJ vs NT/STP",
+    respondent1: { roleCode: "unspecified", seniorityLevel: "c_suite" },
+    respondent2: SENIOR,
+    answers1: fill(),
+    answers2: fill(),
+  };
+  const scope = resolveObservationScope({
+    moduleId: input.moduleId,
+    workbookQuestionId: "Q1",
+    respondent: input.respondent1,
+    selectedOption: "A",
+  });
+  const result = compareDualRespondents(input);
+  assert.equal(scope.audit.unresolvedReason, "roleCode_unspecified");
+  assert.equal(result.priority, "0c");
+  assert.equal(result.state, null);
+  assert.equal(result.routing, "practitioner_access_review");
+  assert.equal(result.outcomeClass, "routing_outcome");
+  assert.equal(result.classificationOutcome, "Practitioner access review");
+  assert.equal(result.output, "No five-state classification; no Contradiction record from this comparator");
+  assert.equal(result.audit.questionRef, "Q1");
+  assert.equal(result.audit.unresolvedReason, "roleCode_unspecified");
+  assert.equal(result.audit.unresolvedReason, scope.audit.unresolvedReason);
+  assert.notEqual(result.audit.unresolvedReason, result.routing);
+  assert.notEqual(result.audit.unresolvedReason, result.audit.questionRef);
+});
+
+check("U2", "P_0C unknown seniority preserves exact unknown_seniority token from the resolver", () => {
+  const respondent = { roleCode: "c_suite", seniorityLevel: "not_a_mapped_tier" };
+  const scope = resolveObservationScope({
+    moduleId: "acquirerEnvironment",
+    workbookQuestionId: "Q1",
+    respondent,
+    selectedOption: "A",
+  });
+  const result = compareDualRespondents({
+    moduleId: "acquirerEnvironment",
+    candidatePair: "NT/STJ vs NT/STP",
+    respondent1: respondent,
+    respondent2: SENIOR,
+    answers1: fill(),
+    answers2: fill(),
+  });
+  assert.equal(scope.audit.unresolvedReason, "unknown_seniority");
+  assert.equal(result.priority, "0c");
+  assert.equal(result.routing, "practitioner_access_review");
+  assert.equal(result.audit.unresolvedReason, "unknown_seniority");
+  assert.equal(result.audit.unresolvedReason, scope.audit.unresolvedReason);
+  assert.equal(result.audit.questionRef, "Q1");
+});
+
+check("U3", "P_0C missing module preserves missing_module without collapsing into unsupported_module", () => {
+  const scope = resolveObservationScope({ moduleId: "" });
+  const result = compareDualRespondents({
+    moduleId: "",
+    candidatePair: "NT/STJ vs NT/STP",
+    respondent1: SENIOR,
+    respondent2: SENIOR,
+    answers1: fill(),
+    answers2: fill(),
+  });
+  assert.equal(scope.audit.unresolvedReason, "missing_module");
+  assert.equal(result.priority, "0c");
+  assert.equal(result.routing, "practitioner_access_review");
+  assert.equal(result.state, null);
+  assert.equal(result.audit.reason, "unsupported_or_missing_module");
+  assert.equal(result.audit.unresolvedReason, "missing_module");
+  assert.notEqual(result.audit.unresolvedReason, "unsupported_module");
+  assert.equal(result.audit.unresolvedReason, scope.audit.unresolvedReason);
+});
+
+check("U4", "P_0C unsupported module preserves unsupported_module without collapsing into missing_module", () => {
+  const scope = resolveObservationScope({ moduleId: "environmentLevel1" });
+  const result = compareDualRespondents({
+    moduleId: "environmentLevel1",
+    candidatePair: "NT/STJ vs NT/STP",
+    respondent1: SENIOR,
+    respondent2: SENIOR,
+    answers1: fill(),
+    answers2: fill(),
+  });
+  assert.equal(scope.audit.unresolvedReason, "unsupported_module");
+  assert.equal(result.priority, "0c");
+  assert.equal(result.routing, "practitioner_access_review");
+  assert.equal(result.audit.reason, "unsupported_or_missing_module");
+  assert.equal(result.audit.unresolvedReason, "unsupported_module");
+  assert.notEqual(result.audit.unresolvedReason, "missing_module");
+  assert.equal(result.audit.unresolvedReason, scope.audit.unresolvedReason);
+});
+
+check("U5", "resolver unsupported_or_missing_question token is exact and Dual does not infer it from routing", () => {
+  const scope = resolveObservationScope({
+    moduleId: "acquirerEnvironment",
+    workbookQuestionId: "QX",
+    respondent: SENIOR,
+    selectedOption: "A",
+  });
+  assert.equal(scope.useClass, "UNRESOLVED");
+  assert.equal(scope.audit.unresolvedReason, "unsupported_or_missing_question");
+  assert.equal(scope.routing, "practitioner_access_review");
+  assert.notEqual(scope.audit.unresolvedReason, scope.routing);
+  assert.notEqual(scope.audit.unresolvedReason, scope.questionRef);
+});
+
+check("U6", "external vantage UNRESOLVED does not fabricate an unresolvedReason token", () => {
+  const scope = resolveObservationScope({
+    moduleId: "acquirerEnvironment",
+    workbookQuestionId: "Q1",
+    respondent: EXTERNAL,
+    selectedOption: "A",
+  });
+  const result = compareDualRespondents({
+    moduleId: "acquirerEnvironment",
+    candidatePair: "NT/STJ vs NT/STP",
+    respondent1: EXTERNAL,
+    respondent2: SENIOR,
+    answers1: fill(),
+    answers2: fill(),
+  });
+  assert.equal(scope.useClass, "UNRESOLVED");
+  assert.equal(Object.hasOwn(scope.audit, "unresolvedReason"), false);
+  assert.equal(result.priority, "0c");
+  assert.equal(result.routing, "practitioner_access_review");
+  assert.equal(result.audit.questionRef, "Q1");
+  assert.equal(result.audit.unresolvedReason, null);
+  assert.notEqual(result.audit.unresolvedReason, "unknown_seniority");
+  assert.notEqual(result.audit.unresolvedReason, "roleCode_unspecified");
+});
+
+check("U7", "P_0C same routing does not force the same unresolvedReason token", () => {
+  const unspecified = compareDualRespondents({
+    moduleId: "acquirerEnvironment",
+    candidatePair: "NT/STJ vs NT/STP",
+    respondent1: { roleCode: "unspecified", seniorityLevel: "c_suite" },
+    respondent2: SENIOR,
+    answers1: fill(),
+    answers2: fill(),
+  });
+  const unknown = compareDualRespondents({
+    moduleId: "acquirerEnvironment",
+    candidatePair: "NT/STJ vs NT/STP",
+    respondent1: { roleCode: "c_suite", seniorityLevel: "not_a_mapped_tier" },
+    respondent2: SENIOR,
+    answers1: fill(),
+    answers2: fill(),
+  });
+  const missing = compareDualRespondents({
+    moduleId: "",
+    candidatePair: "NT/STJ vs NT/STP",
+    respondent1: SENIOR,
+    respondent2: SENIOR,
+    answers1: fill(),
+    answers2: fill(),
+  });
+  const unsupported = compareDualRespondents({
+    moduleId: "environmentLevel1",
+    candidatePair: "NT/STJ vs NT/STP",
+    respondent1: SENIOR,
+    respondent2: SENIOR,
+    answers1: fill(),
+    answers2: fill(),
+  });
+  assert.equal(unspecified.routing, "practitioner_access_review");
+  assert.equal(unknown.routing, unspecified.routing);
+  assert.equal(missing.routing, unspecified.routing);
+  assert.equal(unsupported.routing, unspecified.routing);
+  assert.equal(unspecified.audit.unresolvedReason, "roleCode_unspecified");
+  assert.equal(unknown.audit.unresolvedReason, "unknown_seniority");
+  assert.equal(missing.audit.unresolvedReason, "missing_module");
+  assert.equal(unsupported.audit.unresolvedReason, "unsupported_module");
+});
+
+check("U8", "P_0C preserves only the first unresolved scalar token, not a derived collection", () => {
+  const result = compareDualRespondents({
+    moduleId: "acquirerEnvironment",
+    candidatePair: "NT/STJ vs NT/STP",
+    respondent1: { roleCode: "unspecified", seniorityLevel: "c_suite" },
+    respondent2: { roleCode: "c_suite", seniorityLevel: "not_a_mapped_tier" },
+    answers1: fill(),
+    answers2: fill(),
+  });
+  assert.equal(result.priority, "0c");
+  assert.equal(result.audit.questionRef, "Q1");
+  assert.equal(result.audit.unresolvedReason, "roleCode_unspecified");
+  assert.equal(Array.isArray(result.audit.unresolvedReason), false);
+});
+
+check("E1", "semanticClassEffect is the accepted Dual corpus effect row for reachable classes", () => {
+  const cases = [
+    { question: "Q11", option: "E", semanticClass: "SUBSTANTIVE_SIGNAL" },
+    { question: "Q11", option: "F", semanticClass: "OBSERVATION_GAP" },
+    { question: "Q10", option: "E", semanticClass: "AMBIGUOUS_COLLAPSE" },
+  ];
+  for (const item of cases) {
+    const scope = resolveObservationScope({
+      moduleId: "acquirerEnvironment",
+      workbookQuestionId: item.question,
+      canonicalQuestionId: `ACQUIRERENVIRONMENT-${item.question}`,
+      respondent: SENIOR,
+      selectedOption: item.option,
+      directObservationGate: "yes",
+      evidenceType: "direct_observation",
+    });
+    assert.equal(scope.semanticClass, item.semanticClass);
+    assert.deepEqual(scope.semanticClassEffect, corpusSemanticClassEffect(item.semanticClass));
+  }
+});
+
+check("E2", "identical observation-scope input yields identical semanticClassEffect", () => {
+  const input = {
+    moduleId: "acquirerEnvironment",
+    workbookQuestionId: "Q11",
+    canonicalQuestionId: "ACQUIRERENVIRONMENT-Q11",
+    respondent: SENIOR,
+    selectedOption: "F",
+    directObservationGate: "yes",
+    evidenceType: "direct_observation",
+  };
+  const first = resolveObservationScope(input);
+  const second = resolveObservationScope(input);
+  assert.deepEqual(first.semanticClassEffect, second.semanticClassEffect);
+  assert.deepEqual(first.semanticClassEffect, corpusSemanticClassEffect("OBSERVATION_GAP"));
+});
+
+check("E3", "pairRows left/right expose the same semanticClassEffect as the underlying scope", () => {
+  const result = compareDualRespondents({
+    moduleId: "acquirerEnvironment",
+    candidatePair: "NF/SFP vs NF/SFJ",
+    respondent1: SENIOR,
+    respondent2: SENIOR,
+    answers1: fill({ selectedOption: "A" }, { Q11: { selectedOption: "F" } }),
+    answers2: fill({ selectedOption: "A" }, { Q11: { selectedOption: "F" } }),
+  });
+  const q11 = pairRow(result, "Q11");
+  const leftScope = resolveObservationScope({
+    moduleId: "acquirerEnvironment",
+    workbookQuestionId: "Q11",
+    respondent: SENIOR,
+    selectedOption: "F",
+    directObservationGate: "yes",
+    evidenceType: "direct_observation",
+  });
+  assert.equal(q11.left.scope.semanticClass, "OBSERVATION_GAP");
+  assert.deepEqual(q11.left.scope.semanticClassEffect, leftScope.semanticClassEffect);
+  assert.deepEqual(q11.right.scope.semanticClassEffect, leftScope.semanticClassEffect);
+  assert.deepEqual(q11.left.scope.semanticClassEffect, corpusSemanticClassEffect("OBSERVATION_GAP"));
+});
+
+check("E4", "adding semanticClassEffect does not change eligibility, quality, or branch", () => {
+  const result = compareDualRespondents({
+    moduleId: "acquirerEnvironment",
+    candidatePair: "NT/STJ vs NT/STP",
+    respondent1: SENIOR,
+    respondent2: SENIOR,
+    answers1: fill(),
+    answers2: fill(),
+  });
+  assert.equal(result.priority, "5A");
+  assert.equal(result.state, "① CONVERGENT");
+  assert.equal(result.routing, "① CONVERGENT");
+  assert.equal(result.audit.agreeCount, 11);
+  assert.equal(result.audit.insufficientCount, 0);
+  const q1 = pairRow(result, "Q1");
+  assert.equal(q1.left.scope.useClass, "PRIMARY");
+  assert.equal(q1.left.scope.comparisonEligible, true);
+  assert.equal(q1.left.scope.comparisonAvailability, "available");
+  assert.equal(q1.quality, 1);
+  assert.equal(q1.left.scope.semanticClass, null);
+  assert.equal(q1.left.scope.semanticClassEffect, null);
+});
+
+check("D0", "P_0C/P_1/P_1B/P_3/P_5A diagnostic fields remain pre-repair values except additive audit tokens/effects", () => {
+  const fiveA = compareDualRespondents({
+    moduleId: "acquirerEnvironment",
+    candidatePair: "NT/STJ vs NT/STP",
+    respondent1: SENIOR,
+    respondent2: SENIOR,
+    answers1: fill(),
+    answers2: fill(),
+  });
+  assert.deepEqual(diagnosticCoreFields(fiveA), {
+    priority: "5A",
+    outcomeClass: "divergence_state",
+    classificationOutcome: "① CONVERGENT",
+    state: "① CONVERGENT",
+    routing: "① CONVERGENT",
+    output: "★★★ STRONG signal pattern; 0 Contradiction records",
+    contradictionCandidates: [],
+    genericContradictionEngineInvoked: false,
+    insufficientCount: 0,
+    rawAgreeCount: 11,
+    agreeCount: 11,
+    exact1bSpecialCondition: false,
+    highAllBothLackComparablePrimary: false,
+    highNotPrimaryBoth: false,
+  });
+
+  const oneB = compareDualRespondents({
+    moduleId: "acquirerEnvironment",
+    candidatePair: "NF/SFP vs NF/SFJ",
+    respondent1: SENIOR,
+    respondent2: SENIOR,
+    answers1: bothF11(),
+    answers2: bothF11(),
+  });
+  assert.deepEqual(diagnosticCoreFields(oneB), {
+    priority: "1b",
+    outcomeClass: "coverage_outcome",
+    classificationOutcome: "NF/SFP determination impossible",
+    state: null,
+    routing: "practitioner_review",
+    output: "Pair evaluation suppressed for NF/SFP vs NF/SFJ / Q11 discriminator family; no automatic EDv2 fallback",
+    contradictionCandidates: [],
+    genericContradictionEngineInvoked: false,
+    insufficientCount: 1,
+    rawAgreeCount: 10,
+    agreeCount: 10,
+    exact1bSpecialCondition: true,
+    highAllBothLackComparablePrimary: true,
+    highNotPrimaryBoth: false,
+  });
+
+  const unspecified = compareDualRespondents({
+    moduleId: "acquirerEnvironment",
+    candidatePair: "NT/STJ vs NT/STP",
+    respondent1: { roleCode: "unspecified", seniorityLevel: "c_suite" },
+    respondent2: SENIOR,
+    answers1: fill(),
+    answers2: fill(),
+  });
+  assert.deepEqual(diagnosticCoreFields(unspecified), {
+    priority: "0c",
+    outcomeClass: "routing_outcome",
+    classificationOutcome: "Practitioner access review",
+    state: null,
+    routing: "practitioner_access_review",
+    output: "No five-state classification; no Contradiction record from this comparator",
+    contradictionCandidates: [],
+    genericContradictionEngineInvoked: false,
+    insufficientCount: null,
+    rawAgreeCount: null,
+    agreeCount: null,
+    exact1bSpecialCondition: null,
+    highAllBothLackComparablePrimary: null,
+    highNotPrimaryBoth: null,
+  });
+  assert.equal(unspecified.audit.questionRef, "Q1");
+});
+
 const q1 = ACQUIRER_TRACK_DATA.acquirerModule.questions.find((question) => question.workbookQuestionId === "Q1");
 assert.equal(q1.id, "Q1");
 assert.equal(q1.canonicalQuestionId, "ACQUIRERENVIRONMENT-Q1");

@@ -401,6 +401,16 @@ export function buildObservationScopeCorpusConfig(dualSheet) {
   });
 }
 
+function semanticClassEffectFromRow(effect) {
+  if (!effect) return null;
+  return Object.freeze({
+    useClassEffect: effect.useclasseffect ?? null,
+    signalEffect: effect.signaleffect ?? null,
+    coverageEffect: effect.coverageeffect ?? null,
+    rootCauseFamily: effect.rootcausefamily ?? null,
+  });
+}
+
 function unresolved(base, reason) {
   return Object.freeze({
     ...base,
@@ -408,6 +418,7 @@ function unresolved(base, reason) {
     expectedVantage: base.expectedVantage ?? null,
     useClass: "UNRESOLVED",
     semanticClass: base.semanticClass ?? null,
+    semanticClassEffect: base.semanticClassEffect ?? null,
     comparisonEligible: false,
     comparisonAvailability: "unavailable",
     rootCauseFamily: base.rootCauseFamily ?? "practitioner access review",
@@ -439,7 +450,7 @@ function isSubstantiveOption(optionCode, semanticClass) {
 
 function comparisonFromSemanticClass(semanticClass, semanticEffects) {
   const effect = semanticEffects.get(text(semanticClass));
-  if (!effect) return { comparisonAvailability: "available", comparisonEligible: true };
+  if (!effect) return { comparisonAvailability: "available", comparisonEligible: true, semanticClassEffect: null };
   const unavailable = String(effect.useclasseffect ?? "").includes("unavailable")
     || String(effect.coverageeffect ?? "").includes("excluded")
     || semanticClass === "OBSERVATION_GAP"
@@ -450,6 +461,7 @@ function comparisonFromSemanticClass(semanticClass, semanticEffects) {
     comparisonAvailability: unavailable ? "unavailable" : "available",
     comparisonEligible: !unavailable,
     rootCauseFamily: effect.rootcausefamily || null,
+    semanticClassEffect: semanticClassEffectFromRow(effect),
   };
 }
 
@@ -473,6 +485,7 @@ function resolveWithConfig(input, config) {
     expectedVantage: null,
     useClass: "PRIMARY",
     semanticClass: null,
+    semanticClassEffect: null,
     comparisonEligible: true,
     comparisonAvailability: "available",
     rootCauseFamily: null,
@@ -589,6 +602,7 @@ function resolveWithConfig(input, config) {
     expectedVantage,
     useClass,
     semanticClass,
+    semanticClassEffect: semantic.semanticClassEffect ?? null,
     comparisonEligible,
     comparisonAvailability,
     rootCauseFamily,
