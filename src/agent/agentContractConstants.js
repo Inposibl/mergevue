@@ -411,3 +411,80 @@ export const QUESTION_REASON_ORDER = Object.freeze([
   "QUALITY_BELOW_MEDIUM_THRESHOLD",
   "AGREEMENT_EXCLUDED_KNOWLEDGE_LEVEL",
 ]);
+
+export const CONTEXT_PACK_SCHEMA_VERSION = "context-pack-1.1";
+export const SELECTION_POLICY_VERSION = "context-selection-1.1";
+
+export const CONTEXT_ITEM_KINDS = Object.freeze([
+  "CORPUS_VERBATIM",
+  "BOUNDARY_CANONICAL",
+]);
+
+export const CONTEXT_DOMAINS = Object.freeze([
+  "STATE_SEMANTICS",
+  "QUESTION_SEMANTICS",
+  "SEMANTIC_CLASS_SEMANTICS",
+  "ENVIRONMENT_IDENTITY",
+  "PAIR_SEMANTICS",
+  "BRANCH_SEMANTICS",
+  "FRICTION_AND_RESOURCES",
+  "TEMPORAL_HORIZON",
+  "PRODUCT_SAFETY",
+]);
+
+export const AUTHORITY_CLASSES = Object.freeze([
+  "ACCEPTED_METHODOLOGY_CONTEXT",
+  "ACCEPTED_PRODUCT_INTERPRETATION_CONTEXT",
+  "CONDITIONAL_CONTEXT",
+]);
+
+export const AUTHORITY_EXCLUSION_CLASSES = Object.freeze([
+  "PRESENTATION_ONLY_NOT_AUTHORITY",
+  "NOT_ADMISSIBLE_FOR_AGENT_GROUNDING",
+  "NOT_SELECTED",
+  "EXTRAPOLATION_LICENCE_EXCLUDED",
+]);
+
+export const PACK_SCOPE_VERDICTS = Object.freeze([
+  "FACTUAL_EXPLANATION_ONLY",
+  "MERGEVUE_INTERPRETATION_PERMITTED",
+]);
+
+export const SELECTION_RULE_IDS = Object.freeze([
+  "SR-01",
+  "SR-02",
+  "SR-03",
+  "SR-04",
+  "SR-05",
+  "SR-06",
+  "SR-07",
+  "SR-08",
+  "SR-09",
+  "SR-10",
+  "SR-11",
+  "SR-12",
+]);
+
+export const BRANCH_TO_PRECEDENCE_PRIORITY = Object.freeze({
+  P_0A: "0a",
+  P_0B: "0b",
+  P_0C: "0c",
+  P_1: "1",
+  P_1B: "1b",
+  P_2: "2",
+  P_3A: "3a",
+  P_3: "3",
+  P_4: "4",
+  P_5X: "5X",
+  P_5A: "5A",
+  P_5B: "5B",
+});
+
+export const SR12_MARKER_IDS = Object.freeze([
+  "DIRECT_FRICTION_CONTEXT_UNAVAILABLE",
+  "REVERSE_DIRECTION_EXTRAPOLATION_PROHIBITED",
+]);
+
+export const DERIVATION_METHOD_ALLOWLIST_SOURCE_ROWS = Object.freeze([5, 6, 7, 8]);
+export const DERIVATION_METHOD_ALLOWLIST_FIELDS = Object.freeze(["2", "3"]);
+export const XP1_SOURCE_ROW = 9;

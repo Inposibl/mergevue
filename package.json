@@ -18,6 +18,7 @@
     "validate:observation-scope-runtime": "node scripts/validate-observation-scope-runtime.mjs",
     "validate:agent-engine-snapshot": "node scripts/validate-agent-engine-snapshot.mjs",
     "validate:agent-structured-uncertainty": "node scripts/validate-agent-structured-uncertainty.mjs",
+    "validate:agent-context-pack": "node scripts/validate-agent-context-pack.mjs",
     "validate:g3": "node scripts/validate-g3.mjs",
     "validate:evidence-capture": "node scripts/validate-evidence-capture.mjs",
     "validate:risk-output": "node scripts/validate-risk-output.mjs",
