@@ -11,7 +11,9 @@ import {
   CONTEXT_PACK_SCHEMA_VERSION,
   FAILURE_CLASS_CONTRACT_VERSION_MISMATCH,
   FAILURE_CLASS_INPUT_ASSEMBLY_FAILURE,
+  FREE_INTERPRETATION_MODE,
   OUTPUT_SCHEMA_VERSION,
+  PACK_SCOPE_VERDICTS,
   REQUEST_SCHEMA_VERSION,
   SNAPSHOT_SCHEMA_VERSION,
   UNCERTAINTY_SCHEMA_VERSION,
@@ -270,4 +272,127 @@ export function buildAgentInterpretationRequest({
     outputSchemaVersion: OUTPUT_SCHEMA_VERSION,
   };
   return deepFreeze(request);
+}
+
+const INTEGRITY_ROOT_KEYS = Object.freeze([
+  "requestSchemaVersion",
+  "agentContractVersion",
+  "interpretationId",
+  "engineSnapshot",
+  "structuredUncertainty",
+  "interpretationContextPack",
+  "permittedOutputScope",
+  "permittedInterpretationDomains",
+  "freeInterpretationMode",
+  "humanReviewOccurred",
+  "activeConstraints",
+  "outputSchemaVersion",
+]);
+
+function assertExactRootKeys(request) {
+  const expected = new Set(INTEGRITY_ROOT_KEYS);
+  const missing = [...expected].filter((key) => !Object.hasOwn(request, key));
+  const unexpected = Object.keys(request).filter((key) => !expected.has(key));
+  if (missing.length > 0) fail(`agentInterpretationRequest is missing keys: ${missing.join(", ")}`);
+  if (unexpected.length > 0) {
+    fail(`agentInterpretationRequest carries unexpected keys: ${unexpected.join(", ")}`);
+  }
+}
+
+// Immutability is asserted, never repaired: a malformed external input must not
+// be frozen into validity by this boundary.
+function assertDeepFrozen(value, label) {
+  if (value === null || typeof value !== "object") return;
+  if (!Object.isFrozen(value)) fail(`${label} must be frozen`);
+  if (Array.isArray(value)) {
+    value.forEach((item, index) => assertDeepFrozen(item, `${label}[${index}]`));
+    return;
+  }
+  for (const [key, child] of Object.entries(value)) assertDeepFrozen(child, `${label}.${key}`);
+}
+
+// Fail-closed revalidation of an already-built canonical request at the exported
+// JS trust boundary. Reuses the assembly-time validation primitives so builder
+// semantics, field order, schema versions, and digests stay untouched.
+export function validateAgentInterpretationRequestIntegrity(request) {
+  const supplied = requireObject(request, "agentInterpretationRequest");
+
+  assertExactRootKeys(supplied);
+
+  if (supplied.requestSchemaVersion !== REQUEST_SCHEMA_VERSION) {
+    versionFail(`requestSchemaVersion must be ${REQUEST_SCHEMA_VERSION}`);
+  }
+  if (supplied.agentContractVersion !== AGENT_CONTRACT_VERSION) {
+    versionFail(`agentContractVersion must be ${AGENT_CONTRACT_VERSION}`);
+  }
+  if (supplied.outputSchemaVersion !== OUTPUT_SCHEMA_VERSION) {
+    versionFail(`outputSchemaVersion must be ${OUTPUT_SCHEMA_VERSION}`);
+  }
+  if (typeof supplied.interpretationId !== "string" || supplied.interpretationId.length === 0) {
+    fail("interpretationId must be a non-empty string");
+  }
+
+  assertDeepFrozen(supplied, "agentInterpretationRequest");
+
+  const snapshot = validateEngineSnapshot(supplied.engineSnapshot);
+  const uncertainty = validateStructuredUncertainty(snapshot, supplied.structuredUncertainty);
+  const pack = validateInterpretationContextPack(snapshot, uncertainty, supplied.interpretationContextPack);
+
+  if (!PACK_SCOPE_VERDICTS.includes(supplied.permittedOutputScope)) {
+    fail(`permittedOutputScope is not lawful: ${JSON.stringify(supplied.permittedOutputScope)}`);
+  }
+  if (supplied.permittedOutputScope !== pack.packScopeVerdict) {
+    fail("permittedOutputScope does not mirror interpretationContextPack.packScopeVerdict");
+  }
+  if (!Array.isArray(supplied.permittedInterpretationDomains)) {
+    fail("permittedInterpretationDomains must be an array");
+  }
+  supplied.permittedInterpretationDomains.forEach((domain, index) => {
+    if (typeof domain !== "string") fail(`permittedInterpretationDomains[${index}] must be a string`);
+  });
+  if (
+    canonicalBytesOrFail(supplied.permittedInterpretationDomains, "permittedInterpretationDomains")
+    !== canonicalBytesOrFail(pack.permittedInterpretationDomains, "interpretationContextPack.permittedInterpretationDomains")
+  ) {
+    fail("permittedInterpretationDomains does not ordered-mirror interpretationContextPack.permittedInterpretationDomains");
+  }
+
+  const currentBranch = snapshot.engine.outcome.branchCode;
+  if (uncertainty.originBranch !== currentBranch) {
+    fail("structuredUncertainty.originBranch does not mirror engineSnapshot.engine.outcome.branchCode");
+  }
+
+  let expectedMode;
+  try {
+    expectedMode = deriveFreeInterpretationMode(currentBranch, {
+      unresolvedReason: unresolvedReasonForMode(snapshot, currentBranch),
+    });
+  } catch (error) {
+    fail(`freeInterpretationMode derivation failed: ${error?.message ?? error}`);
+  }
+  if (!Object.values(FREE_INTERPRETATION_MODE).includes(supplied.freeInterpretationMode)) {
+    fail(`freeInterpretationMode is not lawful: ${JSON.stringify(supplied.freeInterpretationMode)}`);
+  }
+  if (supplied.freeInterpretationMode !== expectedMode) {
+    fail("freeInterpretationMode does not equal the canonical derivation for the snapshot branch");
+  }
+
+  const expectedConstraints = buildActiveConstraints(currentBranch);
+  if (
+    canonicalBytesOrFail(supplied.activeConstraints, "activeConstraints")
+    !== canonicalBytesOrFail(expectedConstraints, "re-derived activeConstraints")
+  ) {
+    fail("activeConstraints does not equal the canonical ordered activation for the snapshot branch");
+  }
+  assertUncertaintyConstraintConsistency(
+    uncertainty,
+    new Set(expectedConstraints.map((row) => row.constraintId)),
+    currentBranch,
+  );
+
+  if (supplied.humanReviewOccurred !== false) {
+    fail("humanReviewOccurred must remain false");
+  }
+
+  return supplied;
 }

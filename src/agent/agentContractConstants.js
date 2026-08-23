@@ -493,6 +493,10 @@ export const XP1_SOURCE_ROW = 9;
 export const REQUEST_SCHEMA_VERSION = "agent-request-1.1";
 export const OUTPUT_SCHEMA_VERSION = "agent-result-1.1";
 
+export const PROVIDER_PROJECTION_VERSION = "provider-projection-1.0";
+export const PROVIDER_PROMPT_VERSION = "provider-prompt-1.0";
+export const PROVIDER_CANDIDATE_SCHEMA_VERSION = "provider-semantic-candidate-1.0";
+
 export const CONSTRAINT_SCOPE_REQUEST_WIDE = "REQUEST_WIDE";
 export const CONSTRAINT_SCOPE_BRANCH = "BRANCH";
 
