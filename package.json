@@ -22,6 +22,7 @@
     "validate:agent-interpretation-request": "node scripts/validate-agent-interpretation-request.mjs",
     "validate:agent-provider-boundary-offline": "node scripts/validate-agent-provider-boundary-offline.mjs",
     "validate:agent-provider-execution-offline": "node scripts/validate-agent-provider-execution-offline.mjs",
+    "validate:agent-interpretation-result-offline": "node scripts/validate-agent-interpretation-result-offline.mjs",
     "validate:g3": "node scripts/validate-g3.mjs",
     "validate:evidence-capture": "node scripts/validate-evidence-capture.mjs",
     "validate:risk-output": "node scripts/validate-risk-output.mjs",

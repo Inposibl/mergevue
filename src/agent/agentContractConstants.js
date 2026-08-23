@@ -521,3 +521,38 @@ export const BASELINE_CONSTRAINT_IDS = Object.freeze([
 export const BLOCKED_CLAIM_IDS_BY_CONSTRAINT = Object.freeze({
   "C-1B-SUPPRESSION": Object.freeze(["CLAIM_NF_SFP_DETERMINATION"]),
 });
+
+// Canonical SystemFailure boundary (system-failure-1.0). Result Assembly owns
+// materialization; classes are provider-agnostic and retryability is canonical
+// per the accepted error model — never derived from execution-local hints.
+export const FAILURE_SCHEMA_VERSION = "system-failure-1.0";
+
+export const SYSTEM_FAILURE_CLASSES = Object.freeze([
+  "PROVIDER_UNAVAILABLE",
+  "PROVIDER_TIMEOUT",
+  "RESPONSE_MALFORMED",
+  "OUTPUT_SCHEMA_VIOLATION",
+  "UNRESOLVABLE_REFERENCE",
+  "GROUNDING_VALIDATION_FAILURE",
+  "PROHIBITED_CLAIM_VIOLATION",
+  "ENGINE_FACT_MUTATION_DETECTED",
+  FAILURE_CLASS_CONTRACT_VERSION_MISMATCH,
+  FAILURE_CLASS_INPUT_ASSEMBLY_FAILURE,
+  "CONSTRAINT_ENFORCEMENT_FAILURE",
+]);
+
+export const SYSTEM_FAILURE_RETRYABLE_BY_CLASS = Object.freeze({
+  PROVIDER_UNAVAILABLE: true,
+  PROVIDER_TIMEOUT: true,
+  RESPONSE_MALFORMED: true,
+  OUTPUT_SCHEMA_VIOLATION: true,
+  UNRESOLVABLE_REFERENCE: true,
+  GROUNDING_VALIDATION_FAILURE: true,
+  PROHIBITED_CLAIM_VIOLATION: true,
+  ENGINE_FACT_MUTATION_DETECTED: false,
+  [FAILURE_CLASS_CONTRACT_VERSION_MISMATCH]: false,
+  [FAILURE_CLASS_INPUT_ASSEMBLY_FAILURE]: false,
+  CONSTRAINT_ENFORCEMENT_FAILURE: false,
+});
+
+export const SYSTEM_FAILURE_CLIENT_DISCLOSURE = "SYSTEM_LEVEL_ONLY";
