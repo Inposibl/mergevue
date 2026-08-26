@@ -43,31 +43,53 @@ export function canStartTargetDiagnostic(session) {
   );
 }
 
-export function scoreTargetDiagnosticQuestions(questions, answers = {}) {
+function physicalDiagnosticRespondentId(value) {
+  const text = typeof value === "string" ? value.trim() : "";
+  if (!text || text === "primary" || text === "verification") return null;
+  return text;
+}
+
+function observerRespondentIdentity(session, options = {}) {
+  const respondentId = physicalDiagnosticRespondentId(
+    options.respondentId
+    ?? options.observationSessionId
+    ?? session?.targetObservation?.observationSessionId
+    ?? session?.targetObservationSetupInvite?.observationSessionId,
+  );
+  return Object.freeze({
+    respondentId,
+    respondentSlot: options.respondentSlot ?? null,
+  });
+}
+
+export function scoreTargetDiagnosticQuestions(questions, answers = {}, options = {}) {
   return Object.freeze({
     ...scoreLayeredEvidenceQuestionSet(questions, answers, {
       environmentCodes: TARGET_DIAGNOSTIC_ENVIRONMENT_CODES,
       moduleId: "target_observed_environment_diagnostic",
+      respondentId: physicalDiagnosticRespondentId(options.respondentId ?? options.observationSessionId),
+      respondentSlot: options.respondentSlot ?? null,
     }),
   });
 }
 
-export function scoreTargetDiagnosticLevel1(answers, data = TARGET_DIAGNOSTIC_DATA) {
-  const score = scoreTargetDiagnosticQuestions(data.level1.questions, answers);
+export function scoreTargetDiagnosticLevel1(answers, data = TARGET_DIAGNOSTIC_DATA, options = {}) {
+  const score = scoreTargetDiagnosticQuestions(data.level1.questions, answers, options);
   return Object.freeze({
     ...score,
     requiresLevel2: score.valid && (score.signalStrength === "weak" || score.coPresence),
   });
 }
 
-export function scoreTargetDiagnosticCombined(level1Answers, level2Answers = {}, data = TARGET_DIAGNOSTIC_DATA) {
+export function scoreTargetDiagnosticCombined(level1Answers, level2Answers = {}, data = TARGET_DIAGNOSTIC_DATA, options = {}) {
   const combinedQuestions = [...data.level1.questions, ...data.level2.questions];
   const combinedAnswers = { ...level1Answers, ...level2Answers };
-  return scoreTargetDiagnosticQuestions(combinedQuestions, combinedAnswers);
+  return scoreTargetDiagnosticQuestions(combinedQuestions, combinedAnswers, options);
 }
 
 export function attachTargetDiagnosticLevel1(session, answers, scoredAt = new Date().toISOString()) {
-  const level1Score = scoreTargetDiagnosticLevel1(answers);
+  const identity = observerRespondentIdentity(session);
+  const level1Score = scoreTargetDiagnosticLevel1(answers, TARGET_DIAGNOSTIC_DATA, identity);
   const classificationValidation = validateEvidenceClassifiedAnswers(TARGET_DIAGNOSTIC_DATA.level1.questions, answers);
   const level1Completed = level1Score.valid && classificationValidation.valid;
   const requiresLevel2 = level1Completed && level1Score.requiresLevel2;
@@ -96,9 +118,10 @@ export function attachTargetDiagnosticLevel1(session, answers, scoredAt = new Da
 }
 
 export function attachTargetDiagnosticLevel2(session, answers, scoredAt = new Date().toISOString()) {
+  const identity = observerRespondentIdentity(session);
   const level1Answers = session?.target2B?.level1?.answers ?? {};
-  const level2Score = scoreTargetDiagnosticQuestions(TARGET_DIAGNOSTIC_DATA.level2.questions, answers);
-  const finalScore = scoreTargetDiagnosticCombined(level1Answers, answers);
+  const level2Score = scoreTargetDiagnosticQuestions(TARGET_DIAGNOSTIC_DATA.level2.questions, answers, identity);
+  const finalScore = scoreTargetDiagnosticCombined(level1Answers, answers, TARGET_DIAGNOSTIC_DATA, identity);
   const level2ClassificationValidation = validateEvidenceClassifiedAnswers(TARGET_DIAGNOSTIC_DATA.level2.questions, answers);
   const finalClassificationValidation = validateEvidenceClassifiedAnswers(
     [...TARGET_DIAGNOSTIC_DATA.level1.questions, ...TARGET_DIAGNOSTIC_DATA.level2.questions],

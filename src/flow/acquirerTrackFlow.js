@@ -261,6 +261,12 @@ const DEAL_IDENTITY_OPTION_FIELD_BY_ID = Object.freeze(Object.fromEntries(
 ));
 const ACQUIRER_SIDE_RESPONDENT_SIDES = new Set(["acquirer", "board", ""]);
 
+export function firmTenureEvidenceMultiplier(value) {
+  return TRANSACTION_DETAIL_VALUES.firmTenure.has(value) && value === "less_than_18_months"
+    ? 0.5
+    : 1;
+}
+
 function normalizeString(value) {
   return typeof value === "string" ? value.trim() : "";
 }
@@ -615,6 +621,7 @@ export function canStartAcquirerModule(session) {
   return Boolean(
     session?.dealContext?.completed
       && isAcquirerSideRespondent(dealContext.respondentSide)
+      && TRANSACTION_DETAIL_VALUES.firmTenure.has(dealContext.firmTenure)
       && isAcquirerModuleSourceLoaded(),
   );
 }
@@ -632,11 +639,32 @@ function hashValue(input) {
   return `h${(hash >>> 0).toString(16).padStart(8, "0")}`;
 }
 
+function physicalRespondentId(value) {
+  const text = typeof value === "string" ? value.trim() : "";
+  if (!text || text === "primary" || text === "verification") return null;
+  return text;
+}
+
+function primaryAcquirerRespondentId(session, options = {}) {
+  return physicalRespondentId(options.respondentId ?? session?.sessionId);
+}
+
+function verificationAcquirerRespondentId(invite, options = {}) {
+  return physicalRespondentId(
+    options.respondentId
+    ?? options.acquirerVerificationSessionId
+    ?? invite?.acquirerVerificationSessionId,
+  );
+}
+
 export function scoreAcquirerModule(answers = {}, data = ACQUIRER_TRACK_DATA, options = {}) {
   const score = scoreLayeredEvidenceQuestionSet(data.acquirerModule.questions, answers, {
     environmentCodes: ACQUIRER_ENVIRONMENT_CODES,
     moduleId: "acquirer_environment",
     respondentAccessLevel: options.respondentAccessLevel,
+    respondentEvidenceMultiplier: options.respondentEvidenceMultiplier,
+    respondentId: physicalRespondentId(options.respondentId),
+    respondentSlot: options.respondentSlot ?? null,
   });
   return Object.freeze({
     ...score,
@@ -647,8 +675,24 @@ export function scoreAcquirerModule(answers = {}, data = ACQUIRER_TRACK_DATA, op
 export function scoreCombinedAcquirerModule(primaryAnswers = {}, verificationAnswers = {}, data = ACQUIRER_TRACK_DATA, options = {}) {
   const score = scoreLayeredEvidenceQuestionSets(
     [
-      { id: "primary", respondentId: "primary", questions: data.acquirerModule.questions, answers: primaryAnswers },
-      { id: "verification", respondentId: "verification", questions: data.acquirerModule.questions, answers: verificationAnswers },
+      {
+        id: "primary",
+        respondentId: physicalRespondentId(options.primaryRespondentId ?? options.respondentId),
+        respondentSlot: "primary",
+        missingQuestionIdPrefix: "primary",
+        questions: data.acquirerModule.questions,
+        answers: primaryAnswers,
+        respondentEvidenceMultiplier: options.primaryEvidenceMultiplier,
+      },
+      {
+        id: "verification",
+        respondentId: physicalRespondentId(options.verificationRespondentId ?? options.acquirerVerificationSessionId),
+        respondentSlot: "verification",
+        missingQuestionIdPrefix: "verification",
+        questions: data.acquirerModule.questions,
+        answers: verificationAnswers,
+        respondentEvidenceMultiplier: options.verificationEvidenceMultiplier,
+      },
     ],
     {
       environmentCodes: ACQUIRER_ENVIRONMENT_CODES,
@@ -666,6 +710,9 @@ export function scoreCombinedAcquirerModule(primaryAnswers = {}, verificationAns
 export function attachAcquirerModuleResult(session, answers, scoredAt = new Date().toISOString()) {
   const score = scoreAcquirerModule(answers, ACQUIRER_TRACK_DATA, {
     respondentAccessLevel: session?.dealContext?.data?.respondentAccessLevel,
+    respondentEvidenceMultiplier: firmTenureEvidenceMultiplier(session?.dealContext?.data?.firmTenure),
+    respondentId: primaryAcquirerRespondentId(session),
+    respondentSlot: "primary",
   });
   const classificationValidation = validateEvidenceClassifiedAnswers(ACQUIRER_TRACK_DATA.acquirerModule.questions, answers);
   return Object.freeze({
@@ -808,8 +855,26 @@ export function verifyAcquirerVerificationInvite(invite, code, now = new Date().
   });
 }
 
-export function completeAcquirerVerificationInvite(invite, answers, completedAt = new Date().toISOString()) {
-  const score = scoreAcquirerModule(answers);
+export function completeAcquirerVerificationInvite(
+  invite,
+  answers,
+  completedAt = new Date().toISOString(),
+  metadata = null,
+) {
+  const firmTenure = metadata?.firmTenure;
+  if (metadata !== null && (typeof firmTenure !== "string" || !TRANSACTION_DETAIL_VALUES.firmTenure.has(firmTenure))) {
+    return Object.freeze({
+      ok: false,
+      reason: "acquirer-verification-tenure-required",
+      invite,
+    });
+  }
+
+  const score = scoreAcquirerModule(answers, ACQUIRER_TRACK_DATA, {
+    respondentEvidenceMultiplier: metadata === null ? 1 : firmTenureEvidenceMultiplier(firmTenure),
+    respondentId: verificationAcquirerRespondentId(invite),
+    respondentSlot: "verification",
+  });
   const classificationValidation = validateEvidenceClassifiedAnswers(ACQUIRER_TRACK_DATA.acquirerModule.questions, answers);
   if (!invite || invite.revoked || invite.completed || !score.valid || !classificationValidation.valid) {
     return Object.freeze({
@@ -826,6 +891,9 @@ export function completeAcquirerVerificationInvite(invite, answers, completedAt 
     answers: Object.freeze({ ...answers }),
     classificationValidation,
     score,
+    ...(metadata === null
+      ? {}
+      : { respondentMetadata: Object.freeze({ firmTenure }) }),
   });
 
   return Object.freeze({
@@ -851,6 +919,12 @@ export function attachAcquirerVerificationCompletion(currentSession, completedIn
     ACQUIRER_TRACK_DATA,
     {
       respondentAccessLevel: currentSession?.dealContext?.data?.respondentAccessLevel,
+      primaryEvidenceMultiplier: firmTenureEvidenceMultiplier(currentSession?.dealContext?.data?.firmTenure),
+      verificationEvidenceMultiplier: firmTenureEvidenceMultiplier(
+        completedInvite.acquirerVerification.respondentMetadata?.firmTenure,
+      ),
+      primaryRespondentId: primaryAcquirerRespondentId(currentSession),
+      verificationRespondentId: verificationAcquirerRespondentId(completedInvite),
     },
   );
   const mergedInvite = Object.freeze({

@@ -121,7 +121,7 @@ const answers = Object.fromEntries(
 const targetScore = scoreTargetSelfAssessment(answers);
 assert.equal(targetScore.valid, true);
 assert.equal(targetScore.answeredQuestionCount, 11);
-assert.equal(targetScore.scoringModelVersion, "newlogic-layered-evidence-v1");
+assert.equal(targetScore.scoringModelVersion, "newlogic-layered-evidence-v2");
 assert.equal(targetScore.outputKind, "weighted_signal_pattern");
 assert.equal(targetScore.requiresAnalystReview, true);
 assert.equal(targetScore.legacyAdditiveScoring, false);

@@ -1,9 +1,15 @@
 import { TARGET_OBSERVATION_DIAGNOSTIC } from "../data/targetObservedEnvironmentDiagnostic.js";
 import {
   selectedOptionValue,
+  validateEvidenceClassifiedAnswerForQuestion,
   validateEvidenceClassifiedAnswers,
 } from "./evidenceClassification.js";
+import {
+  evidenceCalibrationScoreForOption,
+  isEvidenceCalibrationQuestion,
+} from "./evidenceCalibration.js";
 import { scoreLayeredEvidenceQuestionSet } from "./layeredEvidenceScoring.js";
+import { buildTargetObservationSetupMetadataProvenance } from "./targetObservationSetupProvenance.js";
 
 const TARGET_OBSERVATION_ENVIRONMENT_CODES = Object.freeze([
   "NT/STJ",
@@ -320,6 +326,16 @@ const RESPONDENT_CONTEXT_OPTION_VALUES = Object.freeze(Object.fromEntries(
   RESPONDENT_CONTEXT_SECTIONS.map((section) => [section.id, new Set(section.options.map((option) => option.value))]),
 ));
 
+const TARGET_OBSERVATION_SETUP_METADATA_OPTION_VALUES = Object.freeze({
+  observationPosition: new Set(
+    TARGET_OBSERVATION_SETUP_FIELDS.find((field) => field.id === "observationPosition").options,
+  ),
+  ...RESPONDENT_CONTEXT_OPTION_VALUES,
+  integrationTimeline: new Set(
+    TARGET_OBSERVATION_SETUP_FIELDS.find((field) => field.id === "integrationTimeline").options,
+  ),
+});
+
 function normalizeValue(value) {
   return typeof value === "string" ? value.trim() : "";
 }
@@ -332,6 +348,10 @@ export function buildRespondentContextSummary(profile = {}) {
 }
 
 export function validateTargetObservationSetup(input = {}) {
+  const setupMetadataProvenance = buildTargetObservationSetupMetadataProvenance(
+    input,
+    TARGET_OBSERVATION_SETUP_METADATA_OPTION_VALUES,
+  );
   const normalized = {};
   const missing = [];
 
@@ -368,6 +388,7 @@ export function validateTargetObservationSetup(input = {}) {
     valid: missing.length === 0,
     missing: Object.freeze(missing),
     normalized: Object.freeze(normalized),
+    setupMetadataProvenance,
   });
 }
 
@@ -378,6 +399,7 @@ export function buildTargetObservationSetupRecord(input, storedAt = new Date().t
       completed: false,
       missing: validation.missing,
       data: null,
+      setupMetadataProvenance: validation.setupMetadataProvenance,
     });
   }
 
@@ -385,6 +407,7 @@ export function buildTargetObservationSetupRecord(input, storedAt = new Date().t
     completed: true,
     storedAt,
     data: validation.normalized,
+    setupMetadataProvenance: validation.setupMetadataProvenance,
   });
 }
 
@@ -418,12 +441,13 @@ function selectedOption(question, value) {
   return question.options.find((option) => option.value === selectedOptionValue(value));
 }
 
-function confidenceValue(option) {
-  const match = option?.confidenceImpact?.match(/\+(\d+)/);
-  return match ? Number(match[1]) : 0;
+function physicalObservationRespondentId(value) {
+  const text = typeof value === "string" ? value.trim() : "";
+  if (!text || text === "primary" || text === "verification") return null;
+  return text;
 }
 
-export function scoreTargetObservation(answers = {}, diagnostic = TARGET_OBSERVATION_DIAGNOSTIC) {
+export function scoreTargetObservation(answers = {}, diagnostic = TARGET_OBSERVATION_DIAGNOSTIC, options = {}) {
   const missingQuestionIds = [];
   let evidenceConfidence = 0;
   let diagnosticAnswerCount = 0;
@@ -437,8 +461,11 @@ export function scoreTargetObservation(answers = {}, diagnostic = TARGET_OBSERVA
       continue;
     }
 
-    if (option.environment === "N/A") {
-      evidenceConfidence += confidenceValue(option);
+    if (isEvidenceCalibrationQuestion(question)) {
+      const calibrationScore = evidenceCalibrationScoreForOption(option);
+      if (validateEvidenceClassifiedAnswerForQuestion(question, answer).valid) {
+        evidenceConfidence += calibrationScore;
+      }
       continue;
     }
 
@@ -448,6 +475,8 @@ export function scoreTargetObservation(answers = {}, diagnostic = TARGET_OBSERVA
   const score = scoreLayeredEvidenceQuestionSet(diagnostic.questions, answers, {
     environmentCodes: TARGET_OBSERVATION_ENVIRONMENT_CODES,
     moduleId: "target_observed_environment",
+    respondentId: physicalObservationRespondentId(options.respondentId ?? options.observationSessionId),
+    respondentSlot: options.respondentSlot ?? null,
   });
 
   return Object.freeze({

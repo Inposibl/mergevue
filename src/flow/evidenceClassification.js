@@ -77,6 +77,11 @@ export const RELIABILITY_FLAG_OPTIONS = Object.freeze([
   }),
 ]);
 
+export const FREE_INADMISSIBLE_EVIDENCE_TYPES = Object.freeze(["document_supported"]);
+export const FREE_INADMISSIBLE_KNOWLEDGE_LEVELS = Object.freeze(["document_based"]);
+export const FREE_INADMISSIBLE_RELIABILITY_FLAGS = Object.freeze(["contradicted_by_document"]);
+export const DOCUMENT_CAPABILITY_NOT_ADMISSIBLE_IN_FREE = "document_capability_not_admissible_in_free";
+
 const DIRECT_OBSERVATION_EVIDENCE_TYPES = Object.freeze(["direct_observation", "document_supported"]);
 const INDIRECT_EVIDENCE_TYPES = Object.freeze(["reported_by_others", "inference", "hypothetical", "unknown"]);
 const DIRECT_OBSERVATION_KNOWLEDGE_LEVELS = Object.freeze(["first_hand", "document_based"]);
@@ -155,18 +160,52 @@ function filterOptions(options, allowedValues) {
   return Object.freeze(options.filter((option) => allowedValues.has(option.value)));
 }
 
+function withoutFreeInadmissibleDocumentOptions(options) {
+  const blocked = new Set([
+    ...FREE_INADMISSIBLE_EVIDENCE_TYPES,
+    ...FREE_INADMISSIBLE_KNOWLEDGE_LEVELS,
+    ...FREE_INADMISSIBLE_RELIABILITY_FLAGS,
+  ]);
+  return Object.freeze(options.filter((option) => !blocked.has(option.value)));
+}
+
+export function hasFreeInadmissibleDocumentCapability(answer) {
+  const evidenceType = normalizeString(answer?.evidenceType);
+  const knowledgeLevel = normalizeString(answer?.knowledgeLevel);
+  const flags = Array.isArray(answer?.reliabilityFlags) ? answer.reliabilityFlags : [];
+  return FREE_INADMISSIBLE_EVIDENCE_TYPES.includes(evidenceType)
+    || FREE_INADMISSIBLE_KNOWLEDGE_LEVELS.includes(knowledgeLevel)
+    || flags.some((flag) => FREE_INADMISSIBLE_RELIABILITY_FLAGS.includes(normalizeString(flag)));
+}
+
 export function evidenceTypeOptionsForGate(gate) {
   const normalizedGate = normalizeString(gate);
-  if (normalizedGate === "yes") return filterOptions(EVIDENCE_TYPE_OPTIONS, DIRECT_OBSERVATION_EVIDENCE_TYPE_VALUES);
-  if (normalizedGate === "no") return filterOptions(EVIDENCE_TYPE_OPTIONS, INDIRECT_EVIDENCE_TYPE_VALUES);
-  return EVIDENCE_TYPE_OPTIONS;
+  const options = normalizedGate === "yes"
+    ? filterOptions(EVIDENCE_TYPE_OPTIONS, DIRECT_OBSERVATION_EVIDENCE_TYPE_VALUES)
+    : normalizedGate === "no"
+      ? filterOptions(EVIDENCE_TYPE_OPTIONS, INDIRECT_EVIDENCE_TYPE_VALUES)
+      : EVIDENCE_TYPE_OPTIONS;
+  return withoutFreeInadmissibleDocumentOptions(options);
+}
+
+export function evidenceTypeOptionsForQuestion(question, gate) {
+  const options = evidenceTypeOptionsForGate(gate);
+  if (question?.allowsUnknown !== false) return options;
+  return Object.freeze(options.filter((option) => option.value !== "unknown"));
 }
 
 export function knowledgeLevelOptionsForGate(gate) {
   const normalizedGate = normalizeString(gate);
-  if (normalizedGate === "yes") return filterOptions(KNOWLEDGE_LEVEL_OPTIONS, DIRECT_OBSERVATION_KNOWLEDGE_LEVEL_VALUES);
-  if (normalizedGate === "no") return filterOptions(KNOWLEDGE_LEVEL_OPTIONS, INDIRECT_KNOWLEDGE_LEVEL_VALUES);
-  return KNOWLEDGE_LEVEL_OPTIONS;
+  const options = normalizedGate === "yes"
+    ? filterOptions(KNOWLEDGE_LEVEL_OPTIONS, DIRECT_OBSERVATION_KNOWLEDGE_LEVEL_VALUES)
+    : normalizedGate === "no"
+      ? filterOptions(KNOWLEDGE_LEVEL_OPTIONS, INDIRECT_KNOWLEDGE_LEVEL_VALUES)
+      : KNOWLEDGE_LEVEL_OPTIONS;
+  return withoutFreeInadmissibleDocumentOptions(options);
+}
+
+export function reliabilityFlagOptionsForFree(options = RELIABILITY_FLAG_OPTIONS) {
+  return withoutFreeInadmissibleDocumentOptions(options);
 }
 
 function confidenceValuesForClassification(gate, evidenceType) {
@@ -351,7 +390,7 @@ export function validateEvidenceClassifiedAnswer(answer) {
       || hasDisallowedDirectObservationReliabilityFlags(normalized.reliabilityFlags)
     );
   if (directObservationModeIssue) {
-    consistencyIssues.push("Direct observation answers can only use Direct Observation or Document-Supported evidence, with First-Hand or Document-Based knowledge. Reliability flags are not used in direct-observation mode, except acquisition_framing_contamination.");
+    consistencyIssues.push("Direct observation answers can only use Direct Observation evidence, with First-Hand knowledge. Reliability flags are not used in direct-observation mode, except acquisition_framing_contamination.");
   }
   if (
     normalized.directObservationGate === "no"
@@ -360,7 +399,7 @@ export function validateEvidenceClassifiedAnswer(answer) {
       || (normalized.knowledgeLevel && !INDIRECT_KNOWLEDGE_LEVEL_VALUES.has(normalized.knowledgeLevel))
     )
   ) {
-    consistencyIssues.push("Indirect answers cannot use Direct Observation, Document-Supported, First-Hand, or Document-Based classifications. Choose an indirect evidence basis and acknowledge reliability flags.");
+    consistencyIssues.push("Indirect answers cannot use Direct Observation or First-Hand classifications. Choose an indirect evidence basis and acknowledge reliability flags.");
   }
   if (normalized.evidenceType === "unknown") {
     if (normalized.knowledgeLevel !== "not_known") consistencyIssues.push("unknown evidence requires Not Known knowledge level");
@@ -380,6 +419,11 @@ export function validateEvidenceClassifiedAnswer(answer) {
     });
   }
 
+  if (hasFreeInadmissibleDocumentCapability(normalized)) {
+    // C3-B.1 FB-16 source fingerprint, not rendered: "Document-backed evidence is not admissible in FREE"
+    consistencyIssues.push("This evidence basis is not admissible in FREE. Reclassify this answer using the available FREE evidence basis.");
+  }
+
   return Object.freeze({
     valid: missing.length === 0 && consistencyIssues.length === 0,
     missing: Object.freeze(missing),
@@ -388,10 +432,27 @@ export function validateEvidenceClassifiedAnswer(answer) {
   });
 }
 
+export function validateEvidenceClassifiedAnswerForQuestion(question, answer) {
+  const validation = validateEvidenceClassifiedAnswer(answer);
+  if (question?.allowsUnknown !== false || validation.normalized.evidenceType !== "unknown") {
+    return validation;
+  }
+
+  return Object.freeze({
+    valid: false,
+    missing: validation.missing,
+    consistencyIssues: Object.freeze([
+      ...validation.consistencyIssues,
+      "Unknown evidence type is not allowed for this question.",
+    ]),
+    normalized: validation.normalized,
+  });
+}
+
 export function validateEvidenceClassifiedAnswers(questions = [], answers = {}) {
   const invalid = questions
     .map((question) => {
-      const validation = validateEvidenceClassifiedAnswer(answers[question.id]);
+      const validation = validateEvidenceClassifiedAnswerForQuestion(question, answers[question.id]);
       return validation.valid ? null : Object.freeze({
         questionId: question.id,
         missing: validation.missing,

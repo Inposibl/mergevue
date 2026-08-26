@@ -1,4 +1,16 @@
-export const LAYERED_EVIDENCE_SCORING_VERSION = "newlogic-layered-evidence-v1";
+import {
+  DOCUMENT_CAPABILITY_NOT_ADMISSIBLE_IN_FREE,
+  hasFreeInadmissibleDocumentCapability,
+} from "./evidenceClassification.js";
+
+export const LAYERED_EVIDENCE_SCORING_VERSION = "newlogic-layered-evidence-v2";
+export { DOCUMENT_CAPABILITY_NOT_ADMISSIBLE_IN_FREE };
+
+export const SCALE_INVARIANT_SIGNAL_THRESHOLDS = Object.freeze({
+  compositionGap: 0.111,
+  primarySupport: 0.29,
+  effectiveCoverage: 0.35,
+});
 
 export const DEFAULT_ENVIRONMENT_CODES = Object.freeze([
   "NT/STJ",
@@ -149,6 +161,21 @@ function isExcludedOption(option, signalCodes) {
     || text.includes("no direct observation")
     || text.includes("unknown")
   );
+}
+
+function questionHasScoringOpportunity(question, environmentCodes) {
+  return Array.isArray(question?.options) && question.options.some((option) => {
+    const signalCodes = optionSignalCodes(option, environmentCodes);
+    return !isExcludedOption(option, signalCodes);
+  });
+}
+
+function opportunityMassForQuestionSets(questionSets, environmentCodes) {
+  return questionSets.reduce((total, questionSet) => (
+    total + (Array.isArray(questionSet?.questions)
+      ? questionSet.questions.filter((question) => questionHasScoringOpportunity(question, environmentCodes)).length
+      : 0)
+  ), 0);
 }
 
 function isNoSuchEventOption(question, option) {
@@ -334,6 +361,7 @@ function derivePrimaryExclusionReasons({
   flags,
   originalEvidenceType,
   effectiveEvidenceType,
+  documentCapabilityExcluded,
 }) {
   const reasons = [];
   if (optionExcluded) reasons.push("option_excluded");
@@ -347,6 +375,7 @@ function derivePrimaryExclusionReasons({
   if (originalEvidenceType === UNKNOWN_EVIDENCE_TYPE || effectiveEvidenceType === UNKNOWN_EVIDENCE_TYPE) {
     reasons.push("evidence_type_unknown");
   }
+  if (documentCapabilityExcluded) reasons.push(DOCUMENT_CAPABILITY_NOT_ADMISSIBLE_IN_FREE);
   return Object.freeze(reasons);
 }
 
@@ -377,9 +406,12 @@ function deriveConfidenceEvidenceConsistency(confidence, evidenceType) {
 
 function answerWeight(answer, excludedFromPrimaryScoring, effects) {
   if (excludedFromPrimaryScoring) return 0;
+  const respondentEvidenceMultiplier = arguments[3] ?? 1;
   const evidenceWeight = evidenceTypeAuthority(scoringEvidenceType(answer.evidenceType, effects));
   const knowledgeWeight = KNOWLEDGE_WEIGHTS[answer.knowledgeLevel] ?? KNOWLEDGE_WEIGHTS.pattern_based;
-  return roundScore(evidenceWeight * knowledgeWeight * effects.numericMultiplier);
+  return roundScore(
+    evidenceWeight * knowledgeWeight * effects.numericMultiplier * respondentEvidenceMultiplier,
+  );
 }
 
 function freezeRanked(scores) {
@@ -401,12 +433,27 @@ function confidenceBand({ answeredCount, directCount, documentCount, flaggedCoun
   return "low";
 }
 
-function signalStrength({ confidence, primaryScore, gapToSecond, totalWeight }) {
-  if (totalWeight <= 0 || confidence === "cannot_determine") return "weak";
-  if (confidence === "low") return "weak";
-  if (gapToSecond <= 1.5) return "weak";
-  if (confidence === "high" && primaryScore >= 4) return "strong";
+export function classifyNormalizedSignal({
+  evidenceMass,
+  primaryEnvironmentCode,
+  effectiveCoverage,
+  confidence,
+  compositionGap,
+  primarySupport,
+}) {
+  if (evidenceMass <= 0 || primaryEnvironmentCode == null) return "weak";
+  if (!Number.isFinite(effectiveCoverage) || effectiveCoverage <= SCALE_INVARIANT_SIGNAL_THRESHOLDS.effectiveCoverage) return "weak";
+  if (confidence === "low" || confidence === "cannot_determine") return "weak";
+  if (!Number.isFinite(compositionGap) || compositionGap <= SCALE_INVARIANT_SIGNAL_THRESHOLDS.compositionGap) return "weak";
+  if (confidence === "high" && primarySupport >= SCALE_INVARIANT_SIGNAL_THRESHOLDS.primarySupport) return "strong";
   return "confirmed";
+}
+
+export function normalizedCoPresence({ evidenceMass, primaryEnvironmentCode, compositionGap }) {
+  return evidenceMass > 0
+    && primaryEnvironmentCode != null
+    && Number.isFinite(compositionGap)
+    && compositionGap <= SCALE_INVARIANT_SIGNAL_THRESHOLDS.compositionGap;
 }
 
 function signalBadge(strength) {
@@ -415,17 +462,74 @@ function signalBadge(strength) {
   return "* weak signal pattern";
 }
 
+const WORKFLOW_IDENTITY_ALIASES = Object.freeze(["primary", "verification"]);
+
+function questionProvenance(question) {
+  const questionId = question?.id;
+  const workbookQuestionId = normalizeString(question?.workbookQuestionId) || normalizeString(questionId) || null;
+  const canonicalQuestionId = normalizeString(question?.canonicalQuestionId) || null;
+  const questionModuleId = normalizeString(question?.moduleId) || null;
+  const sourceRow = question?.sourceRow;
+
+  return Object.freeze({
+    questionId,
+    canonicalQuestionId: canonicalQuestionId || null,
+    workbookQuestionId,
+    questionModuleId: questionModuleId || null,
+    sourceWorkbook: normalizeString(question?.sourceWorkbook) || null,
+    sourceSheet: normalizeString(question?.sourceSheet) || null,
+    sourceRow: sourceRow == null || sourceRow === "" ? null : sourceRow,
+  });
+}
+
+function respondentProvenance(questionSet) {
+  const rawId = normalizeString(questionSet?.respondentId);
+  const aliasId = WORKFLOW_IDENTITY_ALIASES.includes(rawId);
+  const physicalId = aliasId ? "" : rawId;
+  const explicitSlot = questionSet?.respondentSlot;
+  let respondentSlot = null;
+  if (explicitSlot === null) {
+    respondentSlot = null;
+  } else if (explicitSlot !== undefined) {
+    respondentSlot = normalizeString(explicitSlot) || null;
+  } else if (aliasId) {
+    respondentSlot = rawId;
+  }
+
+  const respondentId = physicalId || null;
+  return Object.freeze({
+    respondentId,
+    respondentSlot,
+    respondentIdentityStatus: respondentId ? "RESOLVED" : "UNRESOLVED",
+  });
+}
+
+function missingQuestionIdKey(questionSet, questionId) {
+  if (Object.hasOwn(questionSet ?? {}, "missingQuestionIdPrefix")) {
+    const prefix = normalizeString(questionSet.missingQuestionIdPrefix);
+    return prefix ? `${prefix}:${questionId}` : questionId;
+  }
+
+  const prefix = normalizeString(questionSet?.respondentId ?? questionSet?.id);
+  return prefix ? `${prefix}:${questionId}` : questionId;
+}
+
 function responseSetEntries(questionSet, environmentCodes, respondentSide) {
   const questions = Array.isArray(questionSet.questions) ? questionSet.questions : [];
   const answers = questionSet.answers ?? {};
-  const setId = normalizeString(questionSet.respondentId ?? questionSet.id);
+  const identity = respondentProvenance(questionSet);
+  const respondentEvidenceMultiplier = Number.isFinite(questionSet.respondentEvidenceMultiplier)
+    && questionSet.respondentEvidenceMultiplier > 0
+    ? questionSet.respondentEvidenceMultiplier
+    : 1;
 
   return questions.map((question) => {
+    const provenance = questionProvenance(question);
     const answer = normalizeAnswer(answers[question.id]);
     if (!answer) {
       return Object.freeze({
-        questionId: question.id,
-        respondentId: setId || null,
+        ...provenance,
+        ...identity,
         selectedOption: null,
         missing: true,
         excludedFromPrimaryScoring: true,
@@ -448,26 +552,34 @@ function responseSetEntries(questionSet, environmentCodes, respondentSide) {
     const effectiveType = scoringEvidenceType(answer.evidenceType, reliabilityEffects);
     const evidenceTypeExcludedFromPrimary = isNonPrimaryEvidenceType(answer.evidenceType)
       || isNonPrimaryEvidenceType(effectiveType);
+    const documentCapabilityExcluded = hasFreeInadmissibleDocumentCapability(answer);
     const excludedFromPrimaryScoring = optionExcluded
       || noSuchEvent
       || reliabilityEffects.excludeFromPrimaryScoring
-      || evidenceTypeExcludedFromPrimary;
+      || evidenceTypeExcludedFromPrimary
+      || documentCapabilityExcluded;
     const primaryExclusionReasons = derivePrimaryExclusionReasons({
       optionExcluded,
       noSuchEvent,
       flags: answer.reliabilityFlags,
       originalEvidenceType: answer.evidenceType,
       effectiveEvidenceType: effectiveType,
+      documentCapabilityExcluded,
     });
-    const weight = answerWeight(answer, excludedFromPrimaryScoring, reliabilityEffects);
+    const weight = answerWeight(
+      answer,
+      excludedFromPrimaryScoring,
+      reliabilityEffects,
+      respondentEvidenceMultiplier,
+    );
     const confidenceEvidenceConsistency = deriveConfidenceEvidenceConsistency(
       answer.confidence,
       answer.evidenceType,
     );
 
     return Object.freeze({
-      questionId: question.id,
-      respondentId: setId || null,
+      ...provenance,
+      ...identity,
       selectedOption: answer.selectedOption,
       evidenceType: answer.evidenceType,
       effectiveEvidenceType: effectiveType,
@@ -490,6 +602,7 @@ function responseSetEntries(questionSet, environmentCodes, respondentSide) {
 export function scoreLayeredEvidenceQuestionSets(questionSets = [], options = {}) {
   const environmentCodes = Object.freeze(options.environmentCodes ?? DEFAULT_ENVIRONMENT_CODES);
   const respondentSide = inferredRespondentSide(options);
+  const opportunityMass = opportunityMassForQuestionSets(questionSets, environmentCodes);
   const rawScores = emptyScoreMap(environmentCodes);
   const weightedScores = emptyScoreMap(environmentCodes);
   const missingQuestionIds = [];
@@ -500,7 +613,7 @@ export function scoreLayeredEvidenceQuestionSets(questionSets = [], options = {}
     for (const entry of setEntries) {
       questionResponses.push(entry);
       if (entry.missing) {
-        missingQuestionIds.push(entry.respondentId ? `${entry.respondentId}:${entry.questionId}` : entry.questionId);
+        missingQuestionIds.push(missingQuestionIdKey(questionSet, entry.questionId));
         continue;
       }
 
@@ -518,8 +631,12 @@ export function scoreLayeredEvidenceQuestionSets(questionSets = [], options = {}
 
   const answeredResponses = questionResponses.filter((entry) => !entry.missing);
   const weightedResponses = answeredResponses.filter((entry) => entry.weight > 0);
-  const directCount = answeredResponses.filter((entry) => entry.evidenceType === "direct_observation").length;
-  const documentCount = answeredResponses.filter((entry) => entry.evidenceType === "document_supported").length;
+  const evidenceSupportResponses = answeredResponses.filter((entry) => (
+    !Array.isArray(entry.primaryExclusionReasons)
+    || !entry.primaryExclusionReasons.includes(DOCUMENT_CAPABILITY_NOT_ADMISSIBLE_IN_FREE)
+  ));
+  const directCount = evidenceSupportResponses.filter((entry) => entry.evidenceType === "direct_observation").length;
+  const documentCount = evidenceSupportResponses.filter((entry) => entry.evidenceType === "document_supported").length;
   const flaggedCount = answeredResponses.filter((entry) => entry.reliabilityFlags?.length > 0).length;
   const legacyCount = answeredResponses.filter((entry) => entry.classificationSource === "legacy_option_only").length;
   const excludedAnswerCount = answeredResponses.filter((entry) => entry.excludedFromPrimaryScoring).length;
@@ -537,12 +654,34 @@ export function scoreLayeredEvidenceQuestionSets(questionSets = [], options = {}
   const rawRankedEnvironments = freezeRanked(rawScores);
   const primary = rankedEnvironments[0] ?? { code: null, score: 0 };
   const secondary = rankedEnvironments[1] ?? { code: null, score: 0 };
-  const gapToSecond = roundScore((primary.score ?? 0) - (secondary.score ?? 0));
-  const strength = signalStrength({
+  const primaryEnvironmentCode = primary.score > 0 ? primary.code : null;
+  const signalCompositionShare = Object.freeze(Object.fromEntries(
+    environmentCodes.map((code) => [code, totalWeight > 0 ? roundScore(weightedScores[code] / totalWeight) : null]),
+  ));
+  const supportStrengthByEnvironment = Object.freeze(Object.fromEntries(
+    environmentCodes.map((code) => [code, opportunityMass > 0 ? roundScore(weightedScores[code] / opportunityMass) : null]),
+  ));
+  const evidenceYield = opportunityMass > 0 ? roundScore(totalWeight / opportunityMass) : null;
+  const effectiveCoverage = opportunityMass > 0 ? roundScore(weightedResponses.length / opportunityMass) : null;
+  const excludedRate = opportunityMass > 0 ? roundScore(excludedAnswerCount / opportunityMass) : null;
+  const compositionGap = totalWeight > 0
+    ? roundScore(signalCompositionShare[primary.code] - signalCompositionShare[secondary.code])
+    : null;
+  const primarySupport = primaryEnvironmentCode != null
+    ? supportStrengthByEnvironment[primaryEnvironmentCode]
+    : 0;
+  const strength = classifyNormalizedSignal({
+    evidenceMass: totalWeight,
+    primaryEnvironmentCode,
+    effectiveCoverage,
     confidence,
-    primaryScore: primary.score ?? 0,
-    gapToSecond,
-    totalWeight,
+    compositionGap,
+    primarySupport,
+  });
+  const coPresence = normalizedCoPresence({
+    evidenceMass: totalWeight,
+    primaryEnvironmentCode,
+    compositionGap,
   });
 
   return Object.freeze({
@@ -557,20 +696,28 @@ export function scoreLayeredEvidenceQuestionSets(questionSets = [], options = {}
     missingQuestionIds: Object.freeze(missingQuestionIds),
     answeredQuestionCount: answeredResponses.length,
     questionCount: questionResponses.length,
+    opportunityMass,
     effectiveAnswerCount: weightedResponses.length,
     excludedAnswerCount,
+    excludedRate,
     totalEvidenceWeight: totalWeight,
     environmentScores: Object.freeze(rawScores),
     weightedEnvironmentScores: Object.freeze(weightedScores),
+    signalCompositionShare,
+    supportStrengthByEnvironment,
+    evidenceYield,
+    effectiveCoverage,
+    compositionGap,
+    primarySupport,
     rankedEnvironments,
     rawRankedEnvironments,
-    primaryEnvironmentCode: primary.score > 0 ? primary.code : null,
-    primarySignalEnvironmentCode: primary.score > 0 ? primary.code : null,
+    primaryEnvironmentCode,
+    primarySignalEnvironmentCode: primaryEnvironmentCode,
     primarySignalScore: roundScore(primary.score ?? 0),
     secondaryEnvironmentCode: secondary.score > 0 ? secondary.code : null,
     secondarySignalEnvironmentCode: secondary.score > 0 ? secondary.code : null,
     secondarySignalScore: roundScore(secondary.score ?? 0),
-    coPresence: gapToSecond <= 1.5,
+    coPresence,
     signalStrength: strength,
     signalBadge: signalBadge(strength),
     confidence,
@@ -597,11 +744,13 @@ export function scoreLayeredEvidenceQuestionSet(questions = [], answers = {}, op
       {
         id: options.respondentId ?? "respondent-1",
         respondentId: options.respondentId ?? "",
+        respondentSlot: options.respondentSlot ?? null,
+        missingQuestionIdPrefix: "",
         questions,
         answers,
+        respondentEvidenceMultiplier: options.respondentEvidenceMultiplier,
       },
     ],
     options,
   );
 }
-

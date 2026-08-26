@@ -102,20 +102,25 @@ assert.equal(parsedInvite.observationSessionId, "obs-g2b");
 assert.equal(verifyObservationSetupInvite(parsedInvite, "123456", "2026-05-01T01:00:00.000Z").status, "verified");
 assert.equal(verifyObservationSetupInvite(parsedInvite, "000000", "2026-05-01T01:00:00.000Z").status, "wrong-code");
 
+const EXPECTED_ALL_A_EVIDENCE_CONFIDENCE = 12;
+const calibrationQuestions = TARGET_OBSERVATION_DIAGNOSTIC.questions.filter(
+  (question) => question.questionType === "evidence_calibration",
+);
+assert.equal(calibrationQuestions.length, 4, "Target Observation must contain four EVID calibration questions");
+for (const question of calibrationQuestions) {
+  const optionA = question.options.find((item) => item.value === "A");
+  assert.equal(optionA?.evidenceCalibrationScore, 3, `${question.id} option A must carry explicit calibration score 3`);
+}
+
 const allAAnswers = Object.fromEntries(
   TARGET_OBSERVATION_DIAGNOSTIC.questions.map((question) => [question.id, evidenceClassifiedAnswer("A")]),
 );
 const score = scoreTargetObservation(allAAnswers);
-const expectedEvidenceConfidence = TARGET_OBSERVATION_DIAGNOSTIC.questions.reduce((total, question) => {
-  const option = question.options.find((item) => item.value === "A");
-  const match = option?.confidenceImpact?.match(/\+(\d+)/);
-  return total + (match ? Number(match[1]) : 0);
-}, 0);
 assert.equal(score.valid, true, "Complete Target Observation answers must score");
 assert.equal(score.answeredQuestionCount, 23);
 assert.equal(score.diagnosticAnswerCount, 19);
-assert.equal(score.evidenceConfidence, expectedEvidenceConfidence);
-assert.equal(score.scoringModelVersion, "newlogic-layered-evidence-v1");
+assert.equal(score.evidenceConfidence, EXPECTED_ALL_A_EVIDENCE_CONFIDENCE);
+assert.equal(score.scoringModelVersion, "newlogic-layered-evidence-v2");
 assert.equal(score.outputKind, "weighted_signal_pattern");
 assert.equal(score.requiresAnalystReview, true);
 assert.equal(score.legacyAdditiveScoring, false);

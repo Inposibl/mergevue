@@ -92,7 +92,7 @@ assert.equal(incomplete.missingQuestionIds.length, 12);
 const strongLevel1Answers = answersForCode(TARGET_DIAGNOSTIC_DATA.level1.questions, "NT/STJ");
 const strongLevel1Score = scoreTargetDiagnosticLevel1(strongLevel1Answers);
 assert.equal(strongLevel1Score.valid, true);
-assert.equal(strongLevel1Score.scoringModelVersion, "newlogic-layered-evidence-v1");
+assert.equal(strongLevel1Score.scoringModelVersion, "newlogic-layered-evidence-v2");
 assert.equal(strongLevel1Score.outputKind, "weighted_signal_pattern");
 assert.equal(strongLevel1Score.requiresAnalystReview, true);
 assert.equal(strongLevel1Score.legacyAdditiveScoring, false);

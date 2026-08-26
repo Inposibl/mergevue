@@ -1,5 +1,13 @@
 import { environmentAlias, publicSafeText } from "../constants/envAliases.ts";
 import { FINAL_DELIVERABLE_DATA } from "../data/finalDeliverableData.js";
+import {
+  LAYERED_EVIDENCE_SCORING_VERSION,
+  classifyNormalizedSignal,
+  normalizedCoPresence,
+} from "./layeredEvidenceScoring.js";
+import { scoreTargetDiagnosticCombined, scoreTargetDiagnosticLevel1 } from "./targetDiagnosticFlow.js";
+import { scoreTargetObservation } from "./targetObservationFlow.js";
+import { scoreTargetSelfAssessment } from "./targetSelfAssessmentFlow.js";
 
 export const FINAL_ENVIRONMENT_CODES = Object.freeze([
   "NF/NT",
@@ -624,7 +632,7 @@ function roundThree(value) {
   return Math.round((Number(value) || 0) * 1000) / 1000;
 }
 
-function scoreMapFrom(score, field) {
+function auditScoreMapFrom(score, field) {
   const source = score?.[field] ?? {};
   const hasSourceMap = source && typeof source === "object" && FINAL_ENVIRONMENT_CODES.some((code) => Number(source[code]) > 0);
   if (hasSourceMap) {
@@ -636,7 +644,7 @@ function scoreMapFrom(score, field) {
   const primaryCode = normalizeEnvironmentCode(score?.primaryEnvironmentCode ?? score?.topEnvironmentCode);
   const primaryWeight = Number(score?.primarySignalScore) > 0
     ? Number(score.primarySignalScore)
-    : sourceWeight(score) || 1;
+    : auditSourceWeight(score) || 1;
 
   return Object.freeze(Object.fromEntries(
     FINAL_ENVIRONMENT_CODES.map((code) => [code, code === primaryCode ? primaryWeight : 0]),
@@ -651,6 +659,16 @@ function rankedFromScoreMap(scores) {
   );
 }
 
+function rankedFromRawSupport(scores) {
+  return Object.freeze(
+    Object.entries(scores)
+      .sort(([leftCode, leftScore], [rightCode, rightScore]) => (
+        rightScore - leftScore || leftCode.localeCompare(rightCode)
+      ))
+      .map(([code, score]) => Object.freeze({ code, score: roundThree(score) })),
+  );
+}
+
 function combineScoreMaps(left, leftWeight, right, rightWeight) {
   return Object.freeze(Object.fromEntries(
     FINAL_ENVIRONMENT_CODES.map((code) => [
@@ -660,86 +678,361 @@ function combineScoreMaps(left, leftWeight, right, rightWeight) {
   ));
 }
 
-function sourceWeight(score) {
+function auditSourceWeight(score) {
   return Number(score?.totalEvidenceWeight) > 0 ? Number(score.totalEvidenceWeight) : Number(score?.effectiveAnswerCount) || Number(score?.answeredQuestionCount) || 0;
 }
 
-function mergeTwoScores(leftScore = {}, rightScore = {}, options = {}) {
-  const leftValid = leftScore?.valid === true;
-  const rightValid = rightScore?.valid === true;
+function isUnitInterval(value) {
+  return Number.isFinite(value) && value >= 0 && value <= 1;
+}
+
+function hasNormalizedMap(score, field, allowNullValues = false) {
+  const map = score?.[field];
+  if (!map || typeof map !== "object") return false;
+  return FINAL_ENVIRONMENT_CODES.every((code) => (
+    allowNullValues && map[code] === null
+      ? true
+      : isUnitInterval(map[code])
+  ));
+}
+
+function confidenceIngredientsFrom(score) {
+  const synthetic = Number.isFinite(score?.mergedSupportedShare)
+    && Number.isFinite(score?.mergedFlagRate)
+    && Number.isFinite(score?.mergedLegacyCount);
+  if (synthetic) {
+    return Object.freeze({
+      supportedShare: Number(score.mergedSupportedShare),
+      flagRate: Number(score.mergedFlagRate),
+      legacyCount: Number(score.mergedLegacyCount),
+    });
+  }
+
+  const quality = score?.evidenceQuality;
+  if (
+    !isUnitInterval(quality?.evidenceSupportedShare)
+    || !isUnitInterval(quality?.reliabilityFlagRate)
+    || !Number.isFinite(quality?.legacyOptionOnlyCount)
+    || quality.legacyOptionOnlyCount < 0
+  ) {
+    return null;
+  }
+
+  return Object.freeze({
+    supportedShare: Number(quality.evidenceSupportedShare),
+    flagRate: Number(quality.reliabilityFlagRate),
+    legacyCount: Number(quality.legacyOptionOnlyCount),
+  });
+}
+
+export function isNormalizedMergeEligibleScore(score) {
+  if (score?.valid !== true || score?.scoringModelVersion !== LAYERED_EVIDENCE_SCORING_VERSION) return false;
+  if (!isUnitInterval(score?.evidenceYield) || !isUnitInterval(score?.effectiveCoverage)) return false;
+  if (!hasNormalizedMap(score, "supportStrengthByEnvironment")) return false;
+  if (score.evidenceYield > 0) {
+    if (!hasNormalizedMap(score, "signalCompositionShare")) return false;
+    if (!isUnitInterval(score?.compositionGap)) return false;
+  } else {
+    if (!hasNormalizedMap(score, "signalCompositionShare", true)) return false;
+    if (!FINAL_ENVIRONMENT_CODES.every((code) => score.signalCompositionShare[code] === null)) return false;
+    if (score.compositionGap !== null) return false;
+  }
+  if (!isUnitInterval(score?.primarySupport)) return false;
+  if (!score?.evidenceQuality || !confidenceIngredientsFrom(score)) return false;
+  return ["high", "medium", "low", "cannot_determine"].includes(score?.confidence);
+}
+
+function normalizedMap(score, field) {
+  return Object.fromEntries(FINAL_ENVIRONMENT_CODES.map((code) => [code, Number(score[field][code]) || 0]));
+}
+
+function nullScoreMap() {
+  return Object.freeze(Object.fromEntries(FINAL_ENVIRONMENT_CODES.map((code) => [code, null])));
+}
+
+function zeroScoreMap() {
+  return Object.freeze(Object.fromEntries(FINAL_ENVIRONMENT_CODES.map((code) => [code, 0])));
+}
+
+function normalizedBaseWeights(options) {
+  const hasExplicitWeights = Number.isFinite(options.leftWeight) || Number.isFinite(options.rightWeight);
+  const left = hasExplicitWeights ? Number(options.leftWeight) : 0.5;
+  const right = hasExplicitWeights ? Number(options.rightWeight) : 0.5;
+  const accepted = (left === 0.5 && right === 0.5)
+    || (left === TARGET_OBSERVER_EVIDENCE_WEIGHT && right === TARGET_SELF_ASSESSMENT_WEIGHT);
+  if (!accepted) {
+    throw new Error(`Unsupported normalized merge base weights: ${left}/${right}`);
+  }
+  return Object.freeze({ left, right });
+}
+
+function confidenceFromMergedIngredients(leftScore, rightScore, baseWeights, bothZeroYield) {
+  const leftIngredients = confidenceIngredientsFrom(leftScore);
+  const rightIngredients = confidenceIngredientsFrom(rightScore);
+  const leftAuthorityRaw = baseWeights.left * leftScore.effectiveCoverage;
+  const rightAuthorityRaw = baseWeights.right * rightScore.effectiveCoverage;
+  const totalAuthority = leftAuthorityRaw + rightAuthorityRaw;
+  const leftAuthority = totalAuthority > 0 ? leftAuthorityRaw / totalAuthority : 0;
+  const rightAuthority = totalAuthority > 0 ? rightAuthorityRaw / totalAuthority : 0;
+  const mergedSupportedShareRaw = leftAuthority * leftIngredients.supportedShare
+    + rightAuthority * rightIngredients.supportedShare;
+  const mergedFlagRateRaw = leftAuthority * leftIngredients.flagRate
+    + rightAuthority * rightIngredients.flagRate;
+  const mergedLegacyCount = (leftAuthority > 0 ? leftIngredients.legacyCount : 0)
+    + (rightAuthority > 0 ? rightIngredients.legacyCount : 0);
+
+  let confidence = "low";
+  if (bothZeroYield || totalAuthority <= 0) {
+    confidence = "cannot_determine";
+  } else if (rightAuthority === 0) {
+    confidence = leftScore.confidence;
+  } else if (leftAuthority === 0) {
+    confidence = rightScore.confidence;
+  } else if (mergedLegacyCount === 0 && mergedSupportedShareRaw >= 0.6 && mergedFlagRateRaw < 0.2) {
+    confidence = "high";
+  } else if (mergedSupportedShareRaw >= 0.35 && mergedFlagRateRaw < 0.4) {
+    confidence = "medium";
+  }
+
+  return Object.freeze({
+    confidence,
+    mergedSupportedShare: roundThree(mergedSupportedShareRaw),
+    mergedFlagRate: roundThree(mergedFlagRateRaw),
+    mergedLegacyCount,
+    authority: Object.freeze({
+      left: roundThree(leftAuthority),
+      right: roundThree(rightAuthority),
+    }),
+  });
+}
+
+function failClosedMergedScore(leftScore, rightScore, options) {
+  return Object.freeze({
+    scoringModelVersion: LAYERED_EVIDENCE_SCORING_VERSION,
+    scoringMethod: options.scoringMethod ?? "normalized_support_space_merge",
+    valid: false,
+    normalizedMergeEligible: false,
+    environmentScores: zeroScoreMap(),
+    weightedEnvironmentScores: zeroScoreMap(),
+    rankedEnvironments: rankedFromScoreMap(zeroScoreMap()),
+    rawRankedEnvironments: rankedFromScoreMap(zeroScoreMap()),
+    primaryEnvironmentCode: null,
+    primarySignalEnvironmentCode: null,
+    primarySignalScore: 0,
+    secondaryEnvironmentCode: null,
+    secondarySignalEnvironmentCode: null,
+    secondarySignalScore: 0,
+    totalEvidenceWeight: 0,
+    questionCount: (Number(leftScore?.questionCount) || 0) + (Number(rightScore?.questionCount) || 0),
+    answeredQuestionCount: (Number(leftScore?.answeredQuestionCount) || 0) + (Number(rightScore?.answeredQuestionCount) || 0),
+    effectiveAnswerCount: 0,
+    excludedAnswerCount: 0,
+    signalCompositionShare: nullScoreMap(),
+    supportStrengthByEnvironment: zeroScoreMap(),
+    evidenceYield: 0,
+    effectiveCoverage: 0,
+    compositionGap: null,
+    primarySupport: 0,
+    coPresence: false,
+    signalStrength: "weak",
+    signalBadge: "WEAK",
+    confidence: "cannot_determine",
+    mergedSupportedShare: 0,
+    mergedFlagRate: 0,
+    mergedLegacyCount: 0,
+    evidenceQuality: Object.freeze({
+      confidence: "cannot_determine",
+      baseConfidence: "cannot_determine",
+      evidenceSupportedShare: 0,
+      reliabilityFlagRate: 0,
+      legacyOptionOnlyCount: 0,
+    }),
+  });
+}
+
+export function mergeTwoScores(leftScore = {}, rightScore = {}, options = {}) {
+  const leftValid = isNormalizedMergeEligibleScore(leftScore);
+  const rightValid = isNormalizedMergeEligibleScore(rightScore);
 
   if (leftValid && !rightValid) return leftScore;
   if (!leftValid && rightValid) return rightScore;
-  if (!leftValid && !rightValid) return leftScore ?? rightScore ?? {};
+  if (!leftValid && !rightValid) return failClosedMergedScore(leftScore, rightScore, options);
 
-  const leftWeight = Number.isFinite(options.leftWeight) ? options.leftWeight : null;
-  const rightWeight = Number.isFinite(options.rightWeight) ? options.rightWeight : null;
-  const totalSourceWeight = sourceWeight(leftScore) + sourceWeight(rightScore);
-  const normalizedLeftWeight = leftWeight ?? (totalSourceWeight > 0 ? sourceWeight(leftScore) / totalSourceWeight : 0.5);
-  const normalizedRightWeight = rightWeight ?? (totalSourceWeight > 0 ? sourceWeight(rightScore) / totalSourceWeight : 0.5);
+  const baseWeights = normalizedBaseWeights(options);
+  const explicitAuditWeights = Number.isFinite(options.leftWeight) && Number.isFinite(options.rightWeight);
+  const totalSourceWeight = auditSourceWeight(leftScore) + auditSourceWeight(rightScore);
+  const auditLeftWeight = explicitAuditWeights
+    ? Number(options.leftWeight)
+    : totalSourceWeight > 0 ? auditSourceWeight(leftScore) / totalSourceWeight : 0.5;
+  const auditRightWeight = explicitAuditWeights
+    ? Number(options.rightWeight)
+    : totalSourceWeight > 0 ? auditSourceWeight(rightScore) / totalSourceWeight : 0.5;
 
   const environmentScores = combineScoreMaps(
-    scoreMapFrom(leftScore, "environmentScores"),
-    normalizedLeftWeight,
-    scoreMapFrom(rightScore, "environmentScores"),
-    normalizedRightWeight,
+    auditScoreMapFrom(leftScore, "environmentScores"),
+    auditLeftWeight,
+    auditScoreMapFrom(rightScore, "environmentScores"),
+    auditRightWeight,
   );
   const weightedEnvironmentScores = combineScoreMaps(
-    scoreMapFrom(leftScore, "weightedEnvironmentScores"),
-    normalizedLeftWeight,
-    scoreMapFrom(rightScore, "weightedEnvironmentScores"),
-    normalizedRightWeight,
+    auditScoreMapFrom(leftScore, "weightedEnvironmentScores"),
+    auditLeftWeight,
+    auditScoreMapFrom(rightScore, "weightedEnvironmentScores"),
+    auditRightWeight,
   );
   const rawRankedEnvironments = rankedFromScoreMap(environmentScores);
-  const rankedEnvironments = rankedFromScoreMap(weightedEnvironmentScores);
-  const primary = rankedEnvironments[0] ?? Object.freeze({ code: "", score: 0 });
-  const secondary = rankedEnvironments[1] ?? Object.freeze({ code: "", score: 0 });
+  const auditRankedEnvironments = rankedFromScoreMap(weightedEnvironmentScores);
+  const auditPrimary = auditRankedEnvironments[0] ?? Object.freeze({ code: "", score: 0 });
+  const auditSecondary = auditRankedEnvironments[1] ?? Object.freeze({ code: "", score: 0 });
   const totalEvidenceWeight = roundThree(
-    (Number(leftScore.totalEvidenceWeight) || 0) * normalizedLeftWeight
-    + (Number(rightScore.totalEvidenceWeight) || 0) * normalizedRightWeight,
+    (Number(leftScore.totalEvidenceWeight) || 0) * auditLeftWeight
+    + (Number(rightScore.totalEvidenceWeight) || 0) * auditRightWeight,
   );
-  const gap = primary.score - secondary.score;
-  const signalStrength = totalEvidenceWeight <= 0 || primary.score <= 0 || gap <= 1.5 ? "weak" : primary.score >= 4 ? "strong" : "confirmed";
+
+  const leftSupport = normalizedMap(leftScore, "supportStrengthByEnvironment");
+  const rightSupport = normalizedMap(rightScore, "supportStrengthByEnvironment");
+  const mergedSupportRaw = Object.fromEntries(FINAL_ENVIRONMENT_CODES.map((code) => [
+    code,
+    baseWeights.left * leftSupport[code] + baseWeights.right * rightSupport[code],
+  ]));
+  const mergedYieldRaw = baseWeights.left * leftScore.evidenceYield
+    + baseWeights.right * rightScore.evidenceYield;
+  const mergedCoverageRaw = baseWeights.left * leftScore.effectiveCoverage
+    + baseWeights.right * rightScore.effectiveCoverage;
+  const bothZeroYield = leftScore.evidenceYield <= 0 && rightScore.evidenceYield <= 0;
+  const leftOnlyYield = leftScore.evidenceYield > 0 && rightScore.evidenceYield <= 0;
+  const rightOnlyYield = rightScore.evidenceYield > 0 && leftScore.evidenceYield <= 0;
+  const supportStrengthByEnvironment = Object.freeze(Object.fromEntries(
+    FINAL_ENVIRONMENT_CODES.map((code) => [code, roundThree(mergedSupportRaw[code])]),
+  ));
+  const evidenceYield = roundThree(mergedYieldRaw);
+  const effectiveCoverage = roundThree(mergedCoverageRaw);
+  let signalCompositionShare = nullScoreMap();
+  if (leftOnlyYield) {
+    signalCompositionShare = Object.freeze({ ...leftScore.signalCompositionShare });
+  } else if (rightOnlyYield) {
+    signalCompositionShare = Object.freeze({ ...rightScore.signalCompositionShare });
+  } else if (mergedYieldRaw > 0) {
+    signalCompositionShare = Object.freeze(Object.fromEntries(
+      FINAL_ENVIRONMENT_CODES.map((code) => [code, roundThree(mergedSupportRaw[code] / mergedYieldRaw)]),
+    ));
+  }
+
+  const rankedEnvironments = rankedFromRawSupport(mergedSupportRaw);
+  const positiveRanked = rankedEnvironments.filter((entry) => mergedSupportRaw[entry.code] > 0);
+  const primaryEnvironmentCode = positiveRanked[0]?.code ?? null;
+  const secondaryEnvironmentCode = positiveRanked[1]?.code ?? null;
+  const secondaryRankingCode = rankedEnvironments[1]?.code ?? null;
+  const compositionGap = mergedYieldRaw > 0 && primaryEnvironmentCode != null
+    ? roundThree(
+      signalCompositionShare[primaryEnvironmentCode]
+      - (secondaryRankingCode == null ? 0 : signalCompositionShare[secondaryRankingCode]),
+    )
+    : null;
+  const primarySupport = primaryEnvironmentCode != null
+    ? supportStrengthByEnvironment[primaryEnvironmentCode]
+    : 0;
+  const mergedConfidence = confidenceFromMergedIngredients(
+    leftScore,
+    rightScore,
+    baseWeights,
+    bothZeroYield,
+  );
+  const signalStrength = classifyNormalizedSignal({
+    evidenceMass: evidenceYield,
+    primaryEnvironmentCode,
+    effectiveCoverage,
+    confidence: mergedConfidence.confidence,
+    compositionGap,
+    primarySupport,
+  });
+  const coPresence = normalizedCoPresence({
+    evidenceMass: evidenceYield,
+    primaryEnvironmentCode,
+    compositionGap,
+  });
+  const directionalAuthorityDenominator = baseWeights.left * leftScore.evidenceYield
+    + baseWeights.right * rightScore.evidenceYield;
+  const normalizedDirectionalAuthority = Object.freeze({
+    left: roundThree(directionalAuthorityDenominator > 0
+      ? (baseWeights.left * leftScore.evidenceYield) / directionalAuthorityDenominator
+      : 0),
+    right: roundThree(directionalAuthorityDenominator > 0
+      ? (baseWeights.right * rightScore.evidenceYield) / directionalAuthorityDenominator
+      : 0),
+  });
+  const {
+    opportunityMass: omittedOpportunityMass,
+    excludedRate: omittedExcludedRate,
+    ...leftCompatibilityFields
+  } = leftScore;
+  void omittedOpportunityMass;
+  void omittedExcludedRate;
 
   return Object.freeze({
-    ...leftScore,
-    scoringMethod: options.scoringMethod ?? "weighted_score_merge",
+    ...leftCompatibilityFields,
+    scoringModelVersion: LAYERED_EVIDENCE_SCORING_VERSION,
+    scoringMethod: options.scoringMethod ?? "normalized_support_space_merge",
     valid: true,
+    normalizedMergeEligible: true,
     environmentScores,
     weightedEnvironmentScores,
     rankedEnvironments,
     rawRankedEnvironments,
-    primaryEnvironmentCode: primary.code,
-    primarySignalEnvironmentCode: primary.code,
-    primarySignalScore: primary.score,
-    secondaryEnvironmentCode: secondary.code,
-    secondarySignalEnvironmentCode: secondary.code,
-    secondarySignalScore: secondary.score,
+    primaryEnvironmentCode,
+    primarySignalEnvironmentCode: primaryEnvironmentCode,
+    primarySignalScore: auditPrimary.score,
+    secondaryEnvironmentCode,
+    secondarySignalEnvironmentCode: secondaryEnvironmentCode,
+    secondarySignalScore: auditSecondary.score,
     totalEvidenceWeight,
     questionCount: (Number(leftScore.questionCount) || 0) + (Number(rightScore.questionCount) || 0),
     answeredQuestionCount: (Number(leftScore.answeredQuestionCount) || 0) + (Number(rightScore.answeredQuestionCount) || 0),
     effectiveAnswerCount: (Number(leftScore.effectiveAnswerCount) || 0) + (Number(rightScore.effectiveAnswerCount) || 0),
     excludedAnswerCount: (Number(leftScore.excludedAnswerCount) || 0) + (Number(rightScore.excludedAnswerCount) || 0),
-    coPresence: leftScore.coPresence === true || rightScore.coPresence === true || gap <= 1.5,
+    signalCompositionShare,
+    supportStrengthByEnvironment,
+    evidenceYield,
+    effectiveCoverage,
+    compositionGap,
+    primarySupport,
+    coPresence,
     signalStrength,
     signalBadge: signalStrength.toUpperCase(),
-    mergeWeights: Object.freeze({
-      left: roundThree(normalizedLeftWeight),
-      right: roundThree(normalizedRightWeight),
+    confidence: mergedConfidence.confidence,
+    mergedSupportedShare: mergedConfidence.mergedSupportedShare,
+    mergedFlagRate: mergedConfidence.mergedFlagRate,
+    mergedLegacyCount: mergedConfidence.mergedLegacyCount,
+    evidenceQuality: Object.freeze({
+      ...(leftScore.evidenceQuality ?? {}),
+      confidence: mergedConfidence.confidence,
+      baseConfidence: mergedConfidence.confidence,
+      evidenceSupportedShare: mergedConfidence.mergedSupportedShare,
+      reliabilityFlagRate: mergedConfidence.mergedFlagRate,
+      legacyOptionOnlyCount: mergedConfidence.mergedLegacyCount,
     }),
+    mergeWeights: Object.freeze({
+      left: roundThree(auditLeftWeight),
+      right: roundThree(auditRightWeight),
+    }),
+    normalizedMergeBaseWeights: baseWeights,
+    normalizedDirectionalAuthority,
+    mergedConfidenceAuthority: mergedConfidence.authority,
   });
 }
 
-function combineTargetCanonicalScore(targetObservationScore = {}, targetDiagnosticScore = {}, targetSelfScore = {}) {
+export function combineTargetCanonicalScore(targetObservationScore = {}, targetDiagnosticScore = {}, targetSelfScore = {}) {
   const observerTargetScore = mergeTwoScores(targetObservationScore, targetDiagnosticScore, {
     scoringMethod: "target_observer_observation_diagnostic_weighted_merge",
   });
   const observerContributors = [
-    targetObservationScore?.valid === true ? "targetObservation" : null,
-    targetDiagnosticScore?.valid === true ? "targetDiagnostic" : null,
+    isNormalizedMergeEligibleScore(targetObservationScore) ? "targetObservation" : null,
+    isNormalizedMergeEligibleScore(targetDiagnosticScore) ? "targetDiagnostic" : null,
   ].filter(Boolean);
+  const observerTargetEligible = isNormalizedMergeEligibleScore(observerTargetScore);
+  const targetSelfEligible = isNormalizedMergeEligibleScore(targetSelfScore);
 
-  if (observerTargetScore?.valid === true && targetSelfScore?.valid === true) {
+  if (observerTargetEligible && targetSelfEligible) {
     return Object.freeze({
       ...mergeTwoScores(observerTargetScore, targetSelfScore, {
         leftWeight: TARGET_OBSERVER_EVIDENCE_WEIGHT,
@@ -768,7 +1061,7 @@ function combineTargetCanonicalScore(targetObservationScore = {}, targetDiagnost
     });
   }
 
-  if (observerTargetScore?.valid === true) {
+  if (observerTargetEligible) {
     return Object.freeze({
       ...observerTargetScore,
       targetCanonicalSource: "observer_side_target_evidence_only",
@@ -782,7 +1075,7 @@ function combineTargetCanonicalScore(targetObservationScore = {}, targetDiagnost
     });
   }
 
-  if (targetSelfScore?.valid === true) {
+  if (targetSelfEligible) {
     return Object.freeze({
       ...targetSelfScore,
       targetCanonicalSource: "target_self_assessment_only",
@@ -796,7 +1089,121 @@ function combineTargetCanonicalScore(targetObservationScore = {}, targetDiagnost
     });
   }
 
-  return observerTargetScore ?? targetSelfScore ?? {};
+  return failClosedMergedScore(observerTargetScore, targetSelfScore, {
+    scoringMethod: "target_canonical_normalized_merge_incomplete",
+  });
+}
+
+function hasPersistedAnswers(value) {
+  return Boolean(value && typeof value === "object" && Object.keys(value).length > 0);
+}
+
+function respondentOptionsFromScore(score, fallbackRespondentId = null) {
+  const response = Array.isArray(score?.questionResponses)
+    ? score.questionResponses.find((entry) => entry?.respondentId || entry?.respondentSlot)
+    : null;
+  return Object.freeze({
+    respondentId: response?.respondentId ?? fallbackRespondentId,
+    respondentSlot: response?.respondentSlot ?? null,
+  });
+}
+
+function ineligiblePersistedScore(originalScore, status) {
+  return Object.freeze({
+    valid: false,
+    scoringModelVersion: originalScore?.scoringModelVersion ?? null,
+    normalizedMergeEligibility: status,
+  });
+}
+
+function currentOrRecomputedScore(originalScore, recompute) {
+  if (isNormalizedMergeEligibleScore(originalScore)) {
+    return Object.freeze({ score: originalScore, status: "current_v2" });
+  }
+  if (originalScore?.scoringModelVersion === LAYERED_EVIDENCE_SCORING_VERSION) {
+    return Object.freeze({
+      score: ineligiblePersistedScore(originalScore, "invalid_v2_normalized_fields"),
+      status: "invalid_v2_normalized_fields",
+    });
+  }
+
+  const recomputedScore = recompute();
+  if (isNormalizedMergeEligibleScore(recomputedScore)) {
+    return Object.freeze({ score: recomputedScore, status: "legacy_recomputed_v2" });
+  }
+  return Object.freeze({
+    score: ineligiblePersistedScore(originalScore, "legacy_ineligible_missing_or_invalid_answers"),
+    status: "legacy_ineligible_missing_or_invalid_answers",
+  });
+}
+
+function recomputeTargetObservationScore(session) {
+  const record = session?.targetObservation;
+  if (!hasPersistedAnswers(record?.answers)) return null;
+  return scoreTargetObservation(record.answers, undefined, respondentOptionsFromScore(
+    record.score,
+    record.observationSessionId ?? session?.targetObservationSetupInvite?.observationSessionId ?? null,
+  ));
+}
+
+function recomputeTargetDiagnosticScore(session) {
+  const record = session?.target2B;
+  const level1Answers = record?.level1?.answers;
+  if (!hasPersistedAnswers(level1Answers)) return null;
+  const identity = respondentOptionsFromScore(
+    record?.finalScore,
+    session?.targetObservation?.observationSessionId
+      ?? session?.targetObservationSetupInvite?.observationSessionId
+      ?? null,
+  );
+  const level1Score = scoreTargetDiagnosticLevel1(level1Answers, undefined, identity);
+  if (!level1Score.valid) return null;
+  const level2Answers = record?.level2?.answers;
+  if (hasPersistedAnswers(level2Answers)) {
+    return scoreTargetDiagnosticCombined(level1Answers, level2Answers, undefined, identity);
+  }
+  return level1Score.requiresLevel2 ? null : level1Score;
+}
+
+function recomputeTargetSelfScore(session) {
+  const record = session?.targetSelfAssessment;
+  if (!hasPersistedAnswers(record?.answers)) return null;
+  const identity = respondentOptionsFromScore(
+    record.score,
+    session?.targetInvite?.targetSessionId ?? null,
+  );
+  return scoreTargetSelfAssessment(record.answers, undefined, {
+    ...identity,
+    positioning: record.positioning ?? {},
+    acquisitionAwareness: record.positioning?.acquisitionAwareness,
+    targetSessionId: session?.targetInvite?.targetSessionId,
+  });
+}
+
+export function rehydrateTargetScoresForNormalizedMerge(session = {}) {
+  const targetObservation = currentOrRecomputedScore(
+    session?.targetObservation?.score,
+    () => recomputeTargetObservationScore(session),
+  );
+  const targetDiagnostic = currentOrRecomputedScore(
+    session?.target2B?.finalScore,
+    () => recomputeTargetDiagnosticScore(session),
+  );
+  const targetSelfAssessment = currentOrRecomputedScore(
+    session?.targetSelfAssessment?.score,
+    () => recomputeTargetSelfScore(session),
+  );
+
+  return Object.freeze({
+    targetObservationScore: targetObservation.score,
+    targetDiagnosticScore: targetDiagnostic.score,
+    targetSelfScore: targetSelfAssessment.score,
+    statuses: Object.freeze({
+      targetObservation: targetObservation.status,
+      targetDiagnostic: targetDiagnostic.status,
+      targetSelfAssessment: targetSelfAssessment.status,
+    }),
+  });
 }
 
 function hasCompletedTargetSelfAssessment(session) {
@@ -813,9 +1220,11 @@ export function buildFinalDeliverable(session) {
   }
 
   const acquirerScore = session?.acquirer2A?.score ?? {};
-  const targetObservationScore = session?.targetObservation?.score ?? {};
-  const targetSelfScore = session?.targetSelfAssessment?.score ?? {};
-  const targetDiagnosticScore = session?.target2B?.finalScore ?? {};
+  const {
+    targetObservationScore,
+    targetDiagnosticScore,
+    targetSelfScore,
+  } = rehydrateTargetScoresForNormalizedMerge(session);
   const targetScore = combineTargetCanonicalScore(targetObservationScore, targetDiagnosticScore, targetSelfScore);
 
   return buildPairDeliverable({
@@ -826,7 +1235,7 @@ export function buildFinalDeliverable(session) {
     targetEnvironmentCode: targetScore.primaryEnvironmentCode,
     targetSecondaryEnvironmentCode: targetScore.secondaryEnvironmentCode,
     targetSignalStrength: targetScore.signalStrength,
-    targetCoPresence: Boolean(targetScore.coPresence || targetDiagnosticScore.coPresence),
+    targetCoPresence: targetScore.coPresence === true,
     targetCanonicalSource: targetScore.targetCanonicalSource,
     targetCanonicalWeights: targetScore.targetCanonicalWeights,
     targetResolutionSource: targetScore.targetResolutionSource,

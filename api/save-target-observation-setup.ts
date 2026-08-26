@@ -1,5 +1,9 @@
 import { validateTargetObservationSetup } from "../src/flow/targetObservationFlow.js";
-import { isSessionLedgerStorageError, saveTargetObservationSetup } from "../src/server/_sessionLedger.js";
+import {
+  isSessionLedgerStorageError,
+  persistRejectedTargetObservationSetup,
+  saveTargetObservationSetup,
+} from "../src/server/_sessionLedger.js";
 
 type NodeApiRequest = {
   method: string;
@@ -47,6 +51,7 @@ export default async function handler(req: NodeApiRequest, res: NodeApiResponse)
 
   const validation = validateTargetObservationSetup(setup);
   if (!validation.valid) {
+    await persistRejectedTargetObservationSetup(sessionId, setup);
     return res.status(400).json({
       status: "setup-incomplete",
       missing: validation.missing,
@@ -55,7 +60,7 @@ export default async function handler(req: NodeApiRequest, res: NodeApiResponse)
 
   let session;
   try {
-    session = await saveTargetObservationSetup(sessionId, validation.normalized);
+    session = await saveTargetObservationSetup(sessionId, setup);
   } catch (error) {
     if (isSessionLedgerStorageError(error)) {
       return res.status(503).json({
@@ -76,4 +81,3 @@ export default async function handler(req: NodeApiRequest, res: NodeApiResponse)
     targetObservationSetup: session.targetObservationSetup,
   });
 }
-

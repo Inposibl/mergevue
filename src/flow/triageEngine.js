@@ -196,8 +196,6 @@ function sourceMetrics(session, sourceId, label) {
       score?.signalStrength === "weak"
       || confidence === "low"
       || confidence === "cannot_determine"
-      || (score?.effectiveAnswerCount ?? drivingResponses.length) <= 1
-      || (score?.totalEvidenceWeight ?? 0) <= 1
     )),
     partialSignal: Boolean(primarySignal && !score?.coPresence && confidence === "medium"),
     negativeOnly: Boolean(score && !primarySignal && sourceCompleted(session, sourceId)),

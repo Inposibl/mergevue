@@ -15,7 +15,9 @@ export default async function handler(request: Request) {
   const answers = typeof body?.answers === "object" && body.answers ? body.answers : {};
   let targetSelfAssessment;
   try {
-    targetSelfAssessment = buildTargetSelfAssessmentRecord(positioning, answers);
+    targetSelfAssessment = buildTargetSelfAssessmentRecord(positioning, answers, undefined, {
+      targetSessionId,
+    });
   } catch (error) {
     if (isUnrecognizedReliabilityFlagError(error)) {
       return unrecognizedReliabilityFlagResponse("/api/submit-target-2c", error);

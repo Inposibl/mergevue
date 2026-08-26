@@ -31,6 +31,14 @@ ENV_ALIASES = {
 
 ENV_CODES = tuple(sorted(ENV_ALIASES.keys(), key=len, reverse=True))
 OPTION_VALUES = ("A", "B", "C", "D", "E", "F")
+EVIDENCE_CALIBRATION_OPTION_SCORES = {
+    "A": 3,
+    "B": 2,
+    "C": 1,
+    "D": 0,
+}
+EVIDENCE_CALIBRATION_OPTION_VALUES = ("A", "B", "C", "D")
+EVIDENCE_CALIBRATION_QUESTION_COUNT = 4
 
 
 def column_number(cell_ref):
@@ -311,6 +319,10 @@ def compact_rows(workbook, sheet_name, max_rows=None):
     return rows
 
 
+def explicit_source_primary_exclusion(signal_text):
+    return "excluded from primary scoring" in clean_text(signal_text).lower()
+
+
 def option_record(value, text, signal_text, source_row):
     signals = extract_environment_signals(signal_text)
     return {
@@ -319,7 +331,7 @@ def option_record(value, text, signal_text, source_row):
         "internalEnvironmentSignals": signals,
         "publicEnvironmentSignals": [ENV_ALIASES[code] for code in signals],
         "scoringNote": clean_text(signal_text),
-        "excludedFromPrimaryScoring": value in ("E", "F") or "excluded from primary scoring" in clean_text(signal_text).lower(),
+        "excludedFromPrimaryScoring": len(signals) == 0 or explicit_source_primary_exclusion(signal_text),
         "sourceRow": source_row,
     }
 
@@ -447,6 +459,51 @@ def parse_positioning_fields(workbook, sheet_name, source_workbook):
     return fields
 
 
+def is_evidence_calibration_question_id(question_id):
+    return clean_text(question_id).startswith("EVID")
+
+
+def materialize_evidence_calibration_options(workbook, sheet_name, question_id, options):
+    values = tuple(option.get("value") for option in options)
+    if values != EVIDENCE_CALIBRATION_OPTION_VALUES:
+        raise extraction_error(
+            workbook,
+            sheet_name,
+            "Question_ID",
+            f"evidence_calibration_option_set_invalid:{question_id}:{list(values)}",
+            block=f"evidence_calibration:{question_id}",
+        )
+
+    materialized = []
+    for option in options:
+        value = option.get("value")
+        if value not in EVIDENCE_CALIBRATION_OPTION_SCORES:
+            raise extraction_error(
+                workbook,
+                sheet_name,
+                "Question_ID",
+                f"evidence_calibration_mapping_ambiguous:{question_id}:{value}",
+                block=f"evidence_calibration:{question_id}",
+            )
+        materialized.append(
+            {
+                **option,
+                "evidenceCalibrationScore": EVIDENCE_CALIBRATION_OPTION_SCORES[value],
+            }
+        )
+
+    scores = [option["evidenceCalibrationScore"] for option in materialized]
+    if scores != [EVIDENCE_CALIBRATION_OPTION_SCORES[value] for value in EVIDENCE_CALIBRATION_OPTION_VALUES]:
+        raise extraction_error(
+            workbook,
+            sheet_name,
+            "Question_ID",
+            f"evidence_calibration_mapping_ambiguous:{question_id}:{scores}",
+            block=f"evidence_calibration:{question_id}",
+        )
+    return materialized
+
+
 def parse_target_observed_questionnaire(workbook):
     question_rows = table_records(workbook, "Questionnaire", "Question_ID")
     answer_key_rows = table_records(workbook, "Answer_Key", "Question_ID")
@@ -484,6 +541,14 @@ def parse_target_observed_questionnaire(workbook):
             )
 
         signals = sorted({signal for option in options for signal in option["internalEnvironmentSignals"]})
+        is_calibration = is_evidence_calibration_question_id(question_id)
+        question_type = "evidence_calibration" if is_calibration else "single_choice"
+        if is_calibration:
+            options = materialize_evidence_calibration_options(workbook, "Questionnaire", question_id, options)
+            allows_unknown = False
+        else:
+            allows_unknown = any(option["value"] in ("E", "F") for option in options)
+
         questions.append(
             {
                 "id": f"TGT-OBS-{question_id.replace(' ', '-')}",
@@ -492,7 +557,7 @@ def parse_target_observed_questionnaire(workbook):
                 "sourceSheet": "Questionnaire",
                 "sourceRow": row["sourceRow"],
                 "diagnosticLayer": "respondent_questionnaire",
-                "questionType": "evidence_calibration" if question_id.startswith("EVID") else "single_choice",
+                "questionType": question_type,
                 "sideApplicability": ["acquirer"],
                 "section": row.get("section", ""),
                 "prompt": row.get("questionText", ""),
@@ -512,10 +577,22 @@ def parse_target_observed_questionnaire(workbook):
                     "respondentNotes": row.get("respondentNotes", ""),
                 },
                 "requiresEvidenceClassification": True,
-                "allowsUnknown": any(option["value"] in ("E", "F") for option in options),
+                "allowsUnknown": allows_unknown,
                 "mapsToEnvironmentSignals": signals,
                 "publicEnvironmentSignals": [ENV_ALIASES[code] for code in signals],
             }
+        )
+
+    calibration_questions = [question for question in questions if question["questionType"] == "evidence_calibration"]
+    expected_ids = [f"EVID Q{index}" for index in range(1, EVIDENCE_CALIBRATION_QUESTION_COUNT + 1)]
+    actual_ids = [question["workbookQuestionId"] for question in calibration_questions]
+    if actual_ids != expected_ids:
+        raise extraction_error(
+            workbook,
+            "Questionnaire",
+            "Question_ID",
+            f"evidence_calibration_count_invalid:{actual_ids}",
+            block="evidence_calibration",
         )
 
     return questions

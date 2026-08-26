@@ -121,6 +121,13 @@ export function validateTargetSelfPositioning(input = {}) {
   });
 }
 
+function physicalTargetRespondentId(options = {}) {
+  const value = options.respondentId ?? options.targetSessionId;
+  const text = typeof value === "string" ? value.trim() : "";
+  if (!text || text === "primary" || text === "verification") return null;
+  return text;
+}
+
 export function scoreTargetSelfAssessment(answers = {}, data = TARGET_SELF_ASSESSMENT_DATA, options = {}) {
   const acquisitionAwareness = normalizeAcquisitionAwareness(options.acquisitionAwareness ?? options.positioning?.acquisitionAwareness);
   const shortTenure = options.positioning?.p2 === TARGET_SELF_SHORT_TENURE_POSITIONING_VALUE
@@ -134,6 +141,8 @@ export function scoreTargetSelfAssessment(answers = {}, data = TARGET_SELF_ASSES
     environmentCodes: TARGET_SELF_ENVIRONMENT_CODES,
     moduleId: "target_self_assessment",
     respondentSide: "target",
+    respondentId: physicalTargetRespondentId(options),
+    respondentSlot: options.respondentSlot ?? null,
   });
   return Object.freeze({
     ...score,
@@ -147,11 +156,14 @@ export function scoreTargetSelfAssessment(answers = {}, data = TARGET_SELF_ASSES
   });
 }
 
-export function buildTargetSelfAssessmentRecord(positioningInput, answers, submittedAt = new Date().toISOString()) {
+export function buildTargetSelfAssessmentRecord(positioningInput, answers, submittedAt = new Date().toISOString(), options = {}) {
   const positioning = validateTargetSelfPositioning(positioningInput);
   const score = scoreTargetSelfAssessment(answers, TARGET_SELF_ASSESSMENT_DATA, {
     positioning: positioning.normalized,
     acquisitionAwareness: positioning.normalized.acquisitionAwareness,
+    respondentId: physicalTargetRespondentId(options),
+    respondentSlot: options.respondentSlot ?? null,
+    targetSessionId: options.targetSessionId,
   });
   const classificationValidation = validateEvidenceClassifiedAnswers(TARGET_SELF_ASSESSMENT_DATA.targetSelfAssessment.questions, score.answers ?? answers);
   if (!positioning.valid || !score.valid || !classificationValidation.valid) {

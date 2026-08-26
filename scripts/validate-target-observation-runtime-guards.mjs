@@ -46,7 +46,7 @@ function routeHasNodeResponseContract(path) {
 }
 
 const app = read("src/App.jsx");
-const ledger = read("api/_sessionLedger.ts");
+const ledger = read("src/server/_sessionLedger.ts");
 const packageJson = JSON.parse(read("package.json"));
 
 addCheck("External respondent receipt is blocked until server save succeeds", () => {

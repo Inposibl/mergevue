@@ -1847,7 +1847,7 @@
                 "The Power Racket"
               ],
               "scoringNote": "STJ/STP \u00b7 SFP/SFJ",
-              "excludedFromPrimaryScoring": true,
+              "excludedFromPrimaryScoring": false,
               "sourceRow": 204
             },
             {
@@ -3788,7 +3788,7 @@
                 "The Power Racket"
               ],
               "scoringNote": "STJ/STP \u00b7 SFP/SFJ",
-              "excludedFromPrimaryScoring": true,
+              "excludedFromPrimaryScoring": false,
               "sourceRow": 204
             },
             {
@@ -7775,7 +7775,8 @@
               "environmentName": "Evidence calibration",
               "diagnosticRationale": "High direct contact depth",
               "resourceSignal": "Evidence depth +3",
-              "confidenceImpact": "Confidence +3"
+              "confidenceImpact": "Confidence +3",
+              "evidenceCalibrationScore": 3
             },
             {
               "value": "B",
@@ -7785,7 +7786,8 @@
               "environmentName": "Evidence calibration",
               "diagnosticRationale": "Moderate direct contact",
               "resourceSignal": "Evidence depth +2",
-              "confidenceImpact": "Confidence +2"
+              "confidenceImpact": "Confidence +2",
+              "evidenceCalibrationScore": 2
             },
             {
               "value": "C",
@@ -7795,7 +7797,8 @@
               "environmentName": "Evidence calibration",
               "diagnosticRationale": "Limited unscripted interaction",
               "resourceSignal": "Evidence depth +1",
-              "confidenceImpact": "Confidence +1"
+              "confidenceImpact": "Confidence +1",
+              "evidenceCalibrationScore": 1
             },
             {
               "value": "D",
@@ -7805,7 +7808,8 @@
               "environmentName": "Evidence calibration",
               "diagnosticRationale": "Secondary materials only",
               "resourceSignal": "Evidence depth +0",
-              "confidenceImpact": "Confidence +0"
+              "confidenceImpact": "Confidence +0",
+              "evidenceCalibrationScore": 0
             }
           ],
           "primaryDomain": "Evidence Depth",
@@ -7849,7 +7853,8 @@
               "environmentName": "Evidence calibration",
               "diagnosticRationale": "Full data breadth",
               "resourceSignal": "Evidence breadth +3",
-              "confidenceImpact": "Confidence +3"
+              "confidenceImpact": "Confidence +3",
+              "evidenceCalibrationScore": 3
             },
             {
               "value": "B",
@@ -7859,7 +7864,8 @@
               "environmentName": "Evidence calibration",
               "diagnosticRationale": "Moderate data breadth",
               "resourceSignal": "Evidence breadth +2",
-              "confidenceImpact": "Confidence +2"
+              "confidenceImpact": "Confidence +2",
+              "evidenceCalibrationScore": 2
             },
             {
               "value": "C",
@@ -7869,7 +7875,8 @@
               "environmentName": "Evidence calibration",
               "diagnosticRationale": "Limited documentary basis",
               "resourceSignal": "Evidence breadth +1",
-              "confidenceImpact": "Confidence +1"
+              "confidenceImpact": "Confidence +1",
+              "evidenceCalibrationScore": 1
             },
             {
               "value": "D",
@@ -7879,7 +7886,8 @@
               "environmentName": "Evidence calibration",
               "diagnosticRationale": "Insufficient documentary basis",
               "resourceSignal": "Evidence breadth +0",
-              "confidenceImpact": "Confidence +0"
+              "confidenceImpact": "Confidence +0",
+              "evidenceCalibrationScore": 0
             }
           ],
           "primaryDomain": "Evidence Breadth",
@@ -7923,7 +7931,8 @@
               "environmentName": "Evidence calibration",
               "diagnosticRationale": "Behavioral data under pressure",
               "resourceSignal": "Pressure exposure +3",
-              "confidenceImpact": "Confidence +3"
+              "confidenceImpact": "Confidence +3",
+              "evidenceCalibrationScore": 3
             },
             {
               "value": "B",
@@ -7933,7 +7942,8 @@
               "environmentName": "Evidence calibration",
               "diagnosticRationale": "Partial behavioral observation",
               "resourceSignal": "Pressure exposure +2",
-              "confidenceImpact": "Confidence +2"
+              "confidenceImpact": "Confidence +2",
+              "evidenceCalibrationScore": 2
             },
             {
               "value": "C",
@@ -7943,7 +7953,8 @@
               "environmentName": "Evidence calibration",
               "diagnosticRationale": "Indirect pressure signal",
               "resourceSignal": "Pressure exposure +1",
-              "confidenceImpact": "Confidence +1"
+              "confidenceImpact": "Confidence +1",
+              "evidenceCalibrationScore": 1
             },
             {
               "value": "D",
@@ -7953,7 +7964,8 @@
               "environmentName": "Evidence calibration",
               "diagnosticRationale": "Scripted diligence only",
               "resourceSignal": "Pressure exposure +0",
-              "confidenceImpact": "Confidence +0"
+              "confidenceImpact": "Confidence +0",
+              "evidenceCalibrationScore": 0
             }
           ],
           "primaryDomain": "Pressure Exposure",
@@ -7997,7 +8009,8 @@
               "environmentName": "Evidence calibration",
               "diagnosticRationale": "Low facade risk",
               "resourceSignal": "Facade/core gap: low",
-              "confidenceImpact": "Confidence: narrative reliable"
+              "confidenceImpact": "Confidence: narrative reliable",
+              "evidenceCalibrationScore": 3
             },
             {
               "value": "B",
@@ -8007,7 +8020,8 @@
               "environmentName": "Evidence calibration",
               "diagnosticRationale": "Moderate facade risk",
               "resourceSignal": "Facade/core gap: moderate",
-              "confidenceImpact": "Confidence: moderate; flag gap"
+              "confidenceImpact": "Confidence: moderate; flag gap",
+              "evidenceCalibrationScore": 2
             },
             {
               "value": "C",
@@ -8017,7 +8031,8 @@
               "environmentName": "Evidence calibration",
               "diagnosticRationale": "High facade risk",
               "resourceSignal": "Facade/core gap: high",
-              "confidenceImpact": "Confidence: reduced; environment may be masked"
+              "confidenceImpact": "Confidence: reduced; environment may be masked",
+              "evidenceCalibrationScore": 1
             },
             {
               "value": "D",
@@ -8027,7 +8042,8 @@
               "environmentName": "Evidence calibration",
               "diagnosticRationale": "Severe facade risk",
               "resourceSignal": "Facade/core gap: severe",
-              "confidenceImpact": "Confidence: significantly reduced; Irresolvable risk"
+              "confidenceImpact": "Confidence: significantly reduced; Irresolvable risk",
+              "evidenceCalibrationScore": 0
             }
           ],
           "primaryDomain": "Facade vs Operating Core",

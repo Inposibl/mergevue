@@ -93,29 +93,24 @@ import {
 } from "./flow/consultationFlow.js";
 import {
   DIRECT_OBSERVATION_GATE_OPTIONS,
-  RELIABILITY_FLAG_OPTIONS,
   confidenceOptionsForClassification,
-  evidenceTypeOptionsForGate,
+  evidenceTypeOptionsForQuestion,
   knowledgeLevelOptionsForGate,
   normalizeEvidenceAnswer,
+  reliabilityFlagOptionsForFree,
   selectedOptionValue,
   showReliabilityFlagsForGate,
   toggleReliabilityFlag,
   updateEvidenceAnswer,
   validateEvidenceClassifiedAnswer,
+  validateEvidenceClassifiedAnswerForQuestion,
 } from "./flow/evidenceClassification.js";
+import { applyQuestionnaireSelectedOption } from "./flow/questionnaireAnswerSemanticState.js";
 import {
-  EVIDENCE_CONFIDENCE_OPTIONS,
   EVIDENCE_DOCUMENT_TYPE_OPTIONS,
-  EVIDENCE_ITEM_TYPE_OPTIONS,
-  EVIDENCE_RELATIONSHIP_OPTIONS,
   EVIDENCE_REVIEW_STATUS_OPTIONS,
-  EVIDENCE_RISK_CATEGORY_OPTIONS,
-  EVIDENCE_SOURCE_PARTY_OPTIONS,
-  attachEvidenceItem,
   buildEvidenceCoverage,
   evidenceItemsFromSession,
-  removeEvidenceItem,
 } from "./flow/evidenceCapture.js";
 import {
   buildPairDeliverable,
@@ -1967,22 +1962,10 @@ function PromiseScreen({ session }) {
   );
 }
 
-function selectedOptionPatch(question, value) {
-  const option = question.options.find((item) => item.value === value);
-  const cannotAnswer = value === "E"
-    || value === "F"
-    || option?.excludedFromPrimaryScoring === true
-    || /cannot answer|no direct observation|unknown/i.test(option?.text ?? "");
-
-  return cannotAnswer
-    ? { selectedOption: value, evidenceType: "unknown" }
-    : { selectedOption: value };
-}
-
 function updateQuestionnaireSelectedAnswer(answers, question, value) {
   return {
     ...answers,
-    [question.id]: updateEvidenceAnswer(answers[question.id], selectedOptionPatch(question, value)),
+    [question.id]: applyQuestionnaireSelectedOption(answers[question.id], question, value),
   };
 }
 
@@ -2110,6 +2093,7 @@ function TargetContaminationSelfDeclarationControl({ answer, onChange }) {
 function EvidenceClassificationPanel({
   answer,
   onChange,
+  question = null,
   showDirectObservation = true,
   excludeReliabilityFlags = NON_TARGET_EXCLUDED_RELIABILITY_FLAGS,
 }) {
@@ -2131,15 +2115,16 @@ function EvidenceClassificationPanel({
   }
 
   const noFlagsSelected = normalized.reliabilityFlagsAcknowledged && normalized.reliabilityFlags.length === 0;
-  const unknownAnswer = normalized.evidenceType === "unknown"
+  const unknownAnswer = question?.allowsUnknown !== false
+    && normalized.evidenceType === "unknown"
     && normalized.knowledgeLevel === "not_known"
     && normalized.confidence === "cannot_determine";
-  const evidenceTypeOptions = evidenceTypeOptionsForGate(normalized.directObservationGate);
+  const evidenceTypeOptions = evidenceTypeOptionsForQuestion(question, normalized.directObservationGate);
   const knowledgeLevelOptions = knowledgeLevelOptionsForGate(normalized.directObservationGate);
   const confidenceOptions = confidenceOptionsForClassification(normalized.directObservationGate, normalized.evidenceType);
   const showReliabilityFlags = showReliabilityFlagsForGate(normalized.directObservationGate);
   const excludedReliabilityFlags = new Set(excludeReliabilityFlags);
-  const visibleReliabilityFlagOptions = RELIABILITY_FLAG_OPTIONS.filter((flag) => !excludedReliabilityFlags.has(flag.value));
+  const visibleReliabilityFlagOptions = reliabilityFlagOptionsForFree().filter((flag) => !excludedReliabilityFlags.has(flag.value));
 
   if (unknownAnswer) {
     return (
@@ -2338,6 +2323,7 @@ function AcquirerModuleScreen({ session, setSession }) {
           <EvidenceClassificationPanel
             answer={answers[question.id]}
             onChange={updateCurrentEvidenceAnswer}
+            question={question}
             showDirectObservation={!question.directObservationGate}
           />
         ) : null}
@@ -2586,6 +2572,7 @@ function AcquirerVerificationQuestionnaire({ onComplete }) {
           <EvidenceClassificationPanel
             answer={answers[question.id]}
             onChange={updateCurrentEvidenceAnswer}
+            question={question}
             showDirectObservation={!question.directObservationGate}
           />
         ) : null}
@@ -2603,8 +2590,11 @@ function AcquirerVerificationQuestionnaire({ onComplete }) {
 
 function AuthorizedAcquirerVerificationScreen({ setSession }) {
   const invite = acquirerVerificationInviteFromLocation();
+  const firmTenureSection = TRANSACTION_DETAIL_SECTIONS.find((section) => section.id === "firmTenure");
   const [digitalCode, setDigitalCode] = useState("");
   const [verified, setVerified] = useState(false);
+  const [firmTenure, setFirmTenure] = useState("");
+  const [tenureConfirmed, setTenureConfirmed] = useState(false);
   const [receipt, setReceipt] = useState(false);
   const [error, setError] = useState("");
 
@@ -2633,6 +2623,13 @@ function AuthorizedAcquirerVerificationScreen({ setSession }) {
     setVerified(true);
   }
 
+  function confirmFirmTenure(event) {
+    event.preventDefault();
+    if (!firmTenure) return;
+    setError("");
+    setTenureConfirmed(true);
+  }
+
   if (!verified) {
     return (
       <main className="target-only-screen">
@@ -2659,11 +2656,39 @@ function AuthorizedAcquirerVerificationScreen({ setSession }) {
     );
   }
 
+  if (!tenureConfirmed) {
+    return (
+      <main className="target-only-screen">
+        <section className="target-code-panel">
+          <p className="eyebrow">Authorized Acquirer Verification Survey</p>
+          <h1>Confirm your respondent context.</h1>
+          <form className="setup-form" onSubmit={confirmFirmTenure}>
+            <DealContextButtonGroup
+              label={firmTenureSection.label}
+              options={firmTenureSection.options}
+              value={firmTenure}
+              onChange={(value) => {
+                setFirmTenure(value);
+                setError("");
+              }}
+            />
+            {error ? <p className="form-error">{error}</p> : null}
+            <button className="primary-flow-action" disabled={!firmTenure} type="submit">
+              Continue to Acquirer verification survey
+            </button>
+          </form>
+        </section>
+      </main>
+    );
+  }
+
   return (
     <main className="target-only-screen">
       <AcquirerVerificationQuestionnaire
         onComplete={(completedAnswers) => {
-          const completion = completeAcquirerVerificationInvite(invite, completedAnswers);
+          const completion = completeAcquirerVerificationInvite(invite, completedAnswers, undefined, {
+            firmTenure,
+          });
           if (!completion.ok) {
             setError("Acquirer verification could not be completed. Check that all questions were answered and the link is still active.");
             return;
@@ -3134,7 +3159,10 @@ function TargetObservationQuestionnaire({ answers, setAnswers, setup, onComplete
   const currentAnswer = normalizeEvidenceAnswer(answers[question.id]);
   const visibleOptions = questionnaireVisibleOptions(question, currentAnswer);
   const selectedAnswer = questionnaireSelectedOption(question, currentAnswer);
-  const currentAnswerValidation = validateEvidenceClassifiedAnswer(sanitizeQuestionnaireAnswer(question, answers[question.id]));
+  const currentAnswerValidation = validateEvidenceClassifiedAnswerForQuestion(
+    question,
+    sanitizeQuestionnaireAnswer(question, answers[question.id]),
+  );
   const canSubmitQuestion = currentAnswerValidation.valid;
 
   function updateAnswer(value) {
@@ -3154,7 +3182,7 @@ function TargetObservationQuestionnaire({ answers, setAnswers, setup, onComplete
       return;
     }
 
-    const answerValidation = validateEvidenceClassifiedAnswer(answers[question.id]);
+    const answerValidation = validateEvidenceClassifiedAnswerForQuestion(question, answers[question.id]);
     if (!answerValidation.valid) {
       const missingText = answerValidation.missing.length ? `Missing: ${answerValidation.missing.join(", ")}.` : "";
       const issueText = answerValidation.consistencyIssues.length ? answerValidation.consistencyIssues.join(" ") : "";
@@ -3217,6 +3245,7 @@ function TargetObservationQuestionnaire({ answers, setAnswers, setup, onComplete
           <EvidenceClassificationPanel
             answer={answers[question.id]}
             onChange={updateCurrentEvidenceAnswer}
+            question={question}
             showDirectObservation={!question.directObservationGate}
           />
         ) : null}
@@ -3419,6 +3448,7 @@ function TargetObserverDiagnosticSurvey({ baseSession, onComplete, completionPen
             <EvidenceClassificationPanel
               answer={answers[question.id]}
               onChange={updateCurrentEvidenceAnswer}
+              question={question}
               showDirectObservation={!question.directObservationGate}
             />
           ) : null}
@@ -3765,6 +3795,7 @@ function Step2BLevel1Screen({ session, setSession }) {
           <EvidenceClassificationPanel
             answer={answers[question.id]}
             onChange={updateCurrentEvidenceAnswer}
+            question={question}
             showDirectObservation={!question.directObservationGate}
           />
         ) : null}
@@ -3926,6 +3957,7 @@ function Step2BLevel2Screen({ session, setSession }) {
           <EvidenceClassificationPanel
             answer={answers[question.id]}
             onChange={updateCurrentEvidenceAnswer}
+            question={question}
             showDirectObservation={!question.directObservationGate}
           />
         ) : null}
@@ -4083,7 +4115,9 @@ function TargetSelfAssessmentSurvey({ session, setSession, invite = null }) {
     }
 
     const completedAnswers = normalizedAnswers;
-    const targetSelfAssessment = buildTargetSelfAssessmentRecord(positioning, completedAnswers);
+    const targetSelfAssessment = buildTargetSelfAssessmentRecord(positioning, completedAnswers, undefined, {
+      targetSessionId: invite?.targetSessionId ?? null,
+    });
     if (!targetSelfAssessment.completed) {
       if (targetSelfAssessment.missingPositioning.length > 0 || targetSelfAssessment.invalidPositioning?.length > 0) {
         setError(targetSelfPositioningRequirementError({
@@ -4207,6 +4241,7 @@ function TargetSelfAssessmentSurvey({ session, setSession, invite = null }) {
               <EvidenceClassificationPanel
                 answer={answers[question.id]}
                 onChange={updateCurrentEvidenceAnswer}
+                question={question}
                 showDirectObservation={!question.directObservationGate}
                 excludeReliabilityFlags={[TARGET_CONTAMINATION_SELF_DECLARATION_FLAG]}
               />
@@ -4684,305 +4719,6 @@ function PreliminaryAssessmentReport({ session }) {
           </div>
         ) : null}
       </section>
-    </section>
-  );
-}
-
-const EMPTY_EVIDENCE_FORM = Object.freeze({
-  title: "",
-  itemType: "document",
-  documentType: "org_chart",
-  sourceParty: "target",
-  storageReference: "",
-  producedDate: "",
-  reviewStatus: "unreviewed",
-  confidence: "medium",
-  relationship: "context",
-  analystExtract: "",
-  documentName: "",
-  documentSize: null,
-  relevantRiskCategories: Object.freeze([]),
-  relatedFindingIds: Object.freeze([]),
-});
-
-function EvidenceCapturePanel({ session, setSession }) {
-  const [form, setForm] = useState(EMPTY_EVIDENCE_FORM);
-  const [error, setError] = useState("");
-  const evidenceItems = evidenceItemsFromSession(session);
-  const evidenceCoverage = buildEvidenceCoverage(session);
-  const contradictionFindings = buildContradictionReportForSession(session).findings;
-
-  function updateForm(fieldId, value) {
-    setForm((current) => ({ ...current, [fieldId]: value }));
-    setError("");
-  }
-
-  function toggleRiskCategory(category) {
-    setForm((current) => {
-      const currentCategories = current.relevantRiskCategories ?? [];
-      const relevantRiskCategories = currentCategories.includes(category)
-        ? currentCategories.filter((item) => item !== category)
-        : [...currentCategories, category];
-      return { ...current, relevantRiskCategories };
-    });
-    setError("");
-  }
-
-  function updateDocumentMetadata(event) {
-    const document = event.target.files?.[0];
-    if (!document) return;
-    setForm((current) => ({
-      ...current,
-      documentName: document.name,
-      documentSize: document.size,
-      storageReference: current.storageReference || document.name,
-    }));
-  }
-
-  function submitEvidence(event) {
-    event.preventDefault();
-    const result = attachEvidenceItem(session, form);
-    if (!result.ok) {
-      setError(`Required: ${result.validation.missing.join(", ")}`);
-      return;
-    }
-    setSession(result.session);
-    setForm(EMPTY_EVIDENCE_FORM);
-    setError("");
-  }
-
-  function updateEvidenceStatus(item, reviewStatus) {
-    const result = attachEvidenceItem(session, { ...item, reviewStatus });
-    if (result.ok) setSession(result.session);
-  }
-
-  function removeEvidence(itemId) {
-    setSession(removeEvidenceItem(session, itemId).session);
-  }
-
-  function linkedFindingTitle(item) {
-    const findingId = item.relatedFindingIds?.[0];
-    if (!findingId) return "No linked finding";
-    return contradictionFindings.find((finding) => finding.id === findingId)?.title ?? "Linked finding recorded";
-  }
-
-  return (
-    <section className="prelim-section evidence-capture-section">
-      <div className="prelim-section-title">
-        <h3>Evidence capture</h3>
-        <span>{evidenceCoverage.totalCount} item{evidenceCoverage.totalCount === 1 ? "" : "s"}</span>
-      </div>
-      <div className="evidence-purpose-panel">
-        <strong>Why this matters</strong>
-        <p>
-          Respondent answers are behavioral evidence, not deal facts. This layer attaches answers to documents,
-          interview notes, review status, and analyst confidence so contradictions can be tested instead of averaged away.
-        </p>
-      </div>
-      <div className="evidence-summary-grid">
-        <div>
-          <span>Verified</span>
-          <strong>{evidenceCoverage.verifiedCount}</strong>
-        </div>
-        <div>
-          <span>Disputed</span>
-          <strong>{evidenceCoverage.disputedCount}</strong>
-        </div>
-        <div>
-          <span>Linked findings</span>
-          <strong>{evidenceCoverage.linkedFindingCount}</strong>
-        </div>
-        <div>
-          <span>Risk categories</span>
-          <strong>{evidenceCoverage.riskCategoriesCovered.length}</strong>
-        </div>
-      </div>
-      <p>{publicReportText(evidenceCoverage.coverageNote)}</p>
-
-      <form className="evidence-form" onSubmit={submitEvidence}>
-        <div className="evidence-form-grid">
-          <label>
-            <span>Evidence title</span>
-            <small>Use a short name that an analyst can recognize later.</small>
-            <input value={form.title} onChange={(event) => updateForm("title", event.target.value)} placeholder="Org chart, retention plan, interview note..." />
-          </label>
-          <label>
-            <span>Evidence type</span>
-            <small>Classify the format so the report separates documents, interviews, records, and other evidence.</small>
-            <select value={form.itemType} onChange={(event) => updateForm("itemType", event.target.value)}>
-              {EVIDENCE_ITEM_TYPE_OPTIONS.map((option) => (
-                <option key={option.value} value={option.value}>{option.label}</option>
-              ))}
-            </select>
-          </label>
-          <label>
-            <span>Document class</span>
-            <small>Identify what the item proves or contextualizes in diligence.</small>
-            <select value={form.documentType} onChange={(event) => updateForm("documentType", event.target.value)}>
-              {EVIDENCE_DOCUMENT_TYPE_OPTIONS.map((option) => (
-                <option key={option.value} value={option.value}>{option.label}</option>
-              ))}
-            </select>
-          </label>
-          <label>
-            <span>Produced by</span>
-            <small>Mark whose perspective or records created the item.</small>
-            <select value={form.sourceParty} onChange={(event) => updateForm("sourceParty", event.target.value)}>
-              {EVIDENCE_SOURCE_PARTY_OPTIONS.map((option) => (
-                <option key={option.value} value={option.value}>{option.label}</option>
-              ))}
-            </select>
-          </label>
-          <label>
-            <span>Reference path or location</span>
-            <small>Enter a deal-room path, meeting note reference, or URL so the item can be found again.</small>
-            <input value={form.storageReference} onChange={(event) => updateForm("storageReference", event.target.value)} placeholder="Data room path, meeting note ID, public URL..." />
-          </label>
-          <label>
-            <span>Produced date</span>
-            <small>Optional, but useful for detecting stale or pre-close evidence.</small>
-            <input type="date" value={form.producedDate} onChange={(event) => updateForm("producedDate", event.target.value)} />
-          </label>
-          <label>
-            <span>Review status</span>
-            <small>Show whether the item is accepted, disputed, still pending, or not yet reviewed.</small>
-            <select value={form.reviewStatus} onChange={(event) => updateForm("reviewStatus", event.target.value)}>
-              {EVIDENCE_REVIEW_STATUS_OPTIONS.map((option) => (
-                <option key={option.value} value={option.value}>{option.label}</option>
-              ))}
-            </select>
-          </label>
-          <label>
-            <span>Confidence</span>
-            <small>Rate how strongly this item can support interpretation.</small>
-            <select value={form.confidence} onChange={(event) => updateForm("confidence", event.target.value)}>
-              {EVIDENCE_CONFIDENCE_OPTIONS.map((option) => (
-                <option key={option.value} value={option.value}>{option.label}</option>
-              ))}
-            </select>
-          </label>
-          <label>
-            <span>Evidence relationship</span>
-            <small>Specify whether the item supports, contradicts, contextualizes, or requires follow-up.</small>
-            <select value={form.relationship} onChange={(event) => updateForm("relationship", event.target.value)}>
-              {EVIDENCE_RELATIONSHIP_OPTIONS.map((option) => (
-                <option key={option.value} value={option.value}>{option.label}</option>
-              ))}
-            </select>
-          </label>
-          <label>
-            <span>Link to finding</span>
-            <small>Attach the item to a contradiction or reliability finding when it explains the issue.</small>
-            <select
-              value={form.relatedFindingIds[0] ?? ""}
-              onChange={(event) => updateForm("relatedFindingIds", event.target.value ? [event.target.value] : [])}
-            >
-              <option value="">No linked finding</option>
-              {contradictionFindings.map((finding) => (
-                <option key={finding.id} value={finding.id}>{publicReportText(finding.title)}</option>
-              ))}
-            </select>
-          </label>
-          <label>
-            <span>Document metadata</span>
-            <small>Optional file selector; the app stores the file name as metadata only.</small>
-            <input type="file" onChange={updateDocumentMetadata} />
-          </label>
-        </div>
-
-        <label className="evidence-summary-field">
-          <span>Analyst extract</span>
-          <small>Write the exact diligence implication, not a general summary. This is the text that helps explain the report later.</small>
-          <textarea
-            rows="3"
-            value={form.analystExtract}
-            onChange={(event) => updateForm("analystExtract", event.target.value)}
-            placeholder="Summarize only the evidentially relevant content."
-          />
-        </label>
-
-        <section className="evidence-risk-section">
-          <div>
-            <span>Risk categories</span>
-            <small>Select every risk area this item materially informs.</small>
-          </div>
-          <div className="evidence-risk-grid">
-            {EVIDENCE_RISK_CATEGORY_OPTIONS.map((category) => (
-              <label key={category.value}>
-                <input
-                  checked={form.relevantRiskCategories.includes(category.value)}
-                  onChange={() => toggleRiskCategory(category.value)}
-                  type="checkbox"
-                />
-                <span>{category.label}</span>
-              </label>
-            ))}
-          </div>
-        </section>
-
-        {error ? <p className="form-error">{error}</p> : null}
-        <button className="primary-flow-action" type="submit">Add evidence item</button>
-      </form>
-
-      {evidenceItems.length > 0 ? (
-        <div className="evidence-item-list">
-          {evidenceItems.map((item) => (
-            <article className={`evidence-item-card status-${item.reviewStatus}`} key={item.id}>
-              <header className="evidence-item-header">
-                <div>
-                  <span>{optionLabel(EVIDENCE_DOCUMENT_TYPE_OPTIONS, item.documentType)}</span>
-                  <strong>{publicReportText(item.title)}</strong>
-                </div>
-                <em>{optionLabel(EVIDENCE_REVIEW_STATUS_OPTIONS, item.reviewStatus)}</em>
-              </header>
-              <div className="evidence-extract-card">
-                <span>{item.analystExtract ? "Analyst extract" : "Reference"}</span>
-                <p>{publicReportText(item.analystExtract || item.storageReference)}</p>
-              </div>
-              <div className="evidence-card-meta">
-                <div>
-                  <span>Produced by</span>
-                  <strong>{optionLabel(EVIDENCE_SOURCE_PARTY_OPTIONS, item.sourceParty)}</strong>
-                </div>
-                <div>
-                  <span>Relationship</span>
-                  <strong>{optionLabel(EVIDENCE_RELATIONSHIP_OPTIONS, item.relationship)}</strong>
-                </div>
-                <div>
-                  <span>Confidence</span>
-                  <strong>{optionLabel(EVIDENCE_CONFIDENCE_OPTIONS, item.confidence)}</strong>
-                </div>
-                <div>
-                  <span>Finding link</span>
-                  <strong>{publicReportText(linkedFindingTitle(item))}</strong>
-                </div>
-              </div>
-              {item.relevantRiskCategories?.length ? (
-                <div className="evidence-risk-tags" aria-label="Linked risk categories">
-                  {item.relevantRiskCategories.map((category) => (
-                    <span key={category}>{category}</span>
-                  ))}
-                </div>
-              ) : null}
-              <p className="evidence-reference-line">
-                {item.documentName ? `File: ${item.documentName}. ` : ""}
-                Reference: {publicReportText(item.storageReference)}
-              </p>
-              <div className="evidence-card-actions">
-                <label>
-                  <span>Review status</span>
-                  <select value={item.reviewStatus} onChange={(event) => updateEvidenceStatus(item, event.target.value)}>
-                    {EVIDENCE_REVIEW_STATUS_OPTIONS.map((option) => (
-                      <option key={option.value} value={option.value}>{option.label}</option>
-                    ))}
-                  </select>
-                </label>
-                <button type="button" onClick={() => removeEvidence(item.id)}>Remove evidence</button>
-              </div>
-            </article>
-          ))}
-        </div>
-      ) : null}
     </section>
   );
 }

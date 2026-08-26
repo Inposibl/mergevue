@@ -144,7 +144,7 @@ function answerSheetLines(session) {
     const respondentSide = module?.data?.respondentSide
       ?? module?.respondentSide;
     lines.push(`MODULE: ${definition.label} | respondent side: ${valueOrMissing(respondentSide)} | answered: ${numberOrMissing(score.answeredQuestionCount)}/${numberOrMissing(score.questionCount)}`);
-    lines.push("Q# | OPT | SIGNALS | EVIDENCE | KNOW | CONF | WEIGHT | FLAGS");
+    lines.push("Q# | OPT | SIGNALS | EVIDENCE | KNOW | CONF | WEIGHT | FLAGS | CANONICAL | WORKBOOK | MODULE | RESPONDENT | SLOT | ID-STATUS");
     for (const response of responses) {
       const option = response?.missing
         ? MISSING
@@ -158,6 +158,12 @@ function answerSheetLines(session) {
         valueOrMissing(response?.confidence),
         numberOrMissing(response?.weight),
         valueOrMissing(response?.reliabilityFlags),
+        valueOrMissing(response?.canonicalQuestionId),
+        valueOrMissing(response?.workbookQuestionId),
+        valueOrMissing(response?.questionModuleId),
+        valueOrMissing(response?.respondentId),
+        valueOrMissing(response?.respondentSlot),
+        valueOrMissing(response?.respondentIdentityStatus),
       ].join(" | "));
     }
   }

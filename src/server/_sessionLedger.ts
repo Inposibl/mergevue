@@ -5,6 +5,7 @@ import {
   hashObservationSetupCode,
   scoreTargetObservation,
 } from "../flow/targetObservationFlow.js";
+import { hasOversizedTargetObservationSetupRawValue } from "../flow/targetObservationSetupProvenance.js";
 import {
   scoreTargetDiagnosticCombined,
   scoreTargetDiagnosticLevel1,
@@ -17,11 +18,17 @@ const TARGET_INVITE_TTL_HOURS = 72;
 const TARGET_OBSERVATION_SESSION_TTL_SECONDS = 259200;
 const REDIS_REST_TIMEOUT_MS = 4000;
 
+type TargetObservationSetupBaseRecord = ReturnType<typeof buildTargetObservationSetupRecord>;
+type TargetObservationSetupMetadataProvenance = TargetObservationSetupBaseRecord["setupMetadataProvenance"];
+type TargetObservationSetupRecord = TargetObservationSetupBaseRecord & {
+  rejectedSetupMetadataProvenance?: TargetObservationSetupMetadataProvenance;
+};
+
 type SessionRecord = {
   sessionId: string;
   createdAt: string;
   updatedAt: string;
-  targetObservationSetup: ReturnType<typeof buildTargetObservationSetupRecord> | null;
+  targetObservationSetup: TargetObservationSetupRecord | null;
   targetObservation: unknown | null;
   target2B: unknown | null;
   targetInvite?: TargetInviteRecord | null;
@@ -216,15 +223,51 @@ export function getSession(sessionId: string) {
   return session;
 }
 
-export async function saveTargetObservationSetup(sessionId: string, setupInput: Record<string, unknown>) {
+export function mergeTargetObservationSetupRecords(
+  stored: TargetObservationSetupRecord | null | undefined,
+  incoming: TargetObservationSetupBaseRecord,
+): TargetObservationSetupRecord {
+  if (incoming.completed || !stored || stored.completed !== true) return incoming;
+
+  return Object.freeze({
+    ...stored,
+    rejectedSetupMetadataProvenance: incoming.setupMetadataProvenance,
+  });
+}
+
+async function persistTargetObservationSetupRecord(
+  sessionId: string,
+  setup: TargetObservationSetupBaseRecord,
+) {
   const session = await readLedgerSession(sessionId);
-  const setup = buildTargetObservationSetupRecord(setupInput);
   const nextSession: SessionRecord = {
     ...session,
     updatedAt: new Date().toISOString(),
-    targetObservationSetup: setup,
+    targetObservationSetup: mergeTargetObservationSetupRecords(session.targetObservationSetup, setup),
   };
   return writeLedgerSession(sessionId, nextSession);
+}
+
+export async function saveTargetObservationSetup(sessionId: string, setupInput: Record<string, unknown>) {
+  const setup = buildTargetObservationSetupRecord(setupInput);
+  return persistTargetObservationSetupRecord(sessionId, setup);
+}
+
+export async function persistRejectedTargetObservationSetup(
+  sessionId: string,
+  setupInput: Record<string, unknown>,
+) {
+  if (hasOversizedTargetObservationSetupRawValue(setupInput)) return null;
+
+  const setup = buildTargetObservationSetupRecord(setupInput);
+  if (setup.completed) return null;
+
+  try {
+    return await persistTargetObservationSetupRecord(sessionId, setup);
+  } catch (error) {
+    if (isSessionLedgerStorageError(error)) return null;
+    throw error;
+  }
 }
 
 export async function targetObservationState(sessionId: string) {
@@ -243,15 +286,26 @@ export async function targetObservationState(sessionId: string) {
   };
 }
 
+function physicalObserverRespondentId(value: unknown): string | null {
+  if (typeof value !== "string") return null;
+  const text = value.trim();
+  if (!text || text === "primary" || text === "verification") return null;
+  return text;
+}
+
 function buildTargetDiagnosticRecord(input: {
   level1Answers?: Record<string, unknown>;
   level2Answers?: Record<string, unknown>;
-}) {
+}, respondentOptions: { respondentId?: string | null } = {}) {
+  const identity = Object.freeze({
+    respondentId: physicalObserverRespondentId(respondentOptions.respondentId),
+    respondentSlot: null,
+  });
   const level1Answers = typeof input.level1Answers === "object" && input.level1Answers ? input.level1Answers : {};
   const level2Answers = typeof input.level2Answers === "object" && input.level2Answers ? input.level2Answers : {};
   const level1Questions = [...TARGET_DIAGNOSTIC_DATA.level1.questions];
   const level2Questions = [...TARGET_DIAGNOSTIC_DATA.level2.questions];
-  const level1Score = scoreTargetDiagnosticLevel1(level1Answers);
+  const level1Score = scoreTargetDiagnosticLevel1(level1Answers, TARGET_DIAGNOSTIC_DATA, identity);
   const level1ClassificationValidation = validateEvidenceClassifiedAnswers(level1Questions, level1Answers);
 
   if (!level1Score.valid) {
@@ -288,7 +342,7 @@ function buildTargetDiagnosticRecord(input: {
     };
   }
 
-  const level2Score = scoreTargetDiagnosticQuestions(level2Questions, level2Answers);
+  const level2Score = scoreTargetDiagnosticQuestions(level2Questions, level2Answers, identity);
   const level2ClassificationValidation = validateEvidenceClassifiedAnswers(level2Questions, level2Answers);
   const finalClassificationValidation = validateEvidenceClassifiedAnswers(
     [...level1Questions, ...level2Questions],
@@ -332,7 +386,7 @@ function buildTargetDiagnosticRecord(input: {
       requiresLevel2: true,
       completed: true,
       classificationValidation: finalClassificationValidation,
-      finalScore: scoreTargetDiagnosticCombined(level1Answers, level2Answers),
+      finalScore: scoreTargetDiagnosticCombined(level1Answers, level2Answers, TARGET_DIAGNOSTIC_DATA, identity),
     }),
   };
 }
@@ -359,6 +413,7 @@ export async function saveTargetObservationCompletion(input: {
 
   const setupRecord = buildTargetObservationSetupRecord(input.setup);
   if (!setupRecord.completed) {
+    await persistRejectedTargetObservationSetup(input.assessmentSessionId, input.setup);
     return {
       ok: false,
       status: "setup-incomplete",
@@ -366,7 +421,11 @@ export async function saveTargetObservationCompletion(input: {
     };
   }
 
-  const score = scoreTargetObservation(input.answers);
+  const observerIdentity = {
+    respondentId: physicalObserverRespondentId(input.observationSessionId),
+    observationSessionId: input.observationSessionId,
+  };
+  const score = scoreTargetObservation(input.answers, undefined, observerIdentity);
   if (!score.valid) {
     if (score.invalidClassification?.length) {
       return {
@@ -382,7 +441,10 @@ export async function saveTargetObservationCompletion(input: {
     };
   }
 
-  const targetDiagnostic = buildTargetDiagnosticRecord(input.targetDiagnostic ?? {});
+  const targetDiagnostic = buildTargetDiagnosticRecord(
+    input.targetDiagnostic ?? {},
+    { respondentId: physicalObserverRespondentId(input.observationSessionId) },
+  );
   if (!targetDiagnostic.ok) {
     return targetDiagnostic;
   }
@@ -554,4 +616,3 @@ export function completeServerTargetSession(targetSessionId: string, code: strin
     completedAt: now,
   };
 }
-

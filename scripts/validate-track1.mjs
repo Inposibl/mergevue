@@ -356,7 +356,7 @@ const allAAnswers = Object.fromEntries(
 const score = scoreAcquirerModule(allAAnswers);
 assert.equal(score.valid, true);
 assert.equal(score.answeredQuestionCount, 11);
-assert.equal(score.scoringModelVersion, "newlogic-layered-evidence-v1");
+assert.equal(score.scoringModelVersion, "newlogic-layered-evidence-v2");
 assert.equal(score.outputKind, "weighted_signal_pattern");
 assert.equal(score.requiresAnalystReview, true);
 assert.equal(score.legacyAdditiveScoring, false);

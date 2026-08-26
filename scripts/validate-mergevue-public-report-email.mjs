@@ -1,5 +1,9 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
+import { TARGET_DIAGNOSTIC_DATA } from "../src/data/targetDiagnosticData.js";
+import { TARGET_OBSERVATION_DIAGNOSTIC } from "../src/data/targetObservedEnvironmentDiagnostic.js";
+import { TARGET_SELF_ASSESSMENT_DATA } from "../src/data/targetSelfAssessmentData.js";
+import { evidenceClassifiedAnswer } from "../src/flow/evidenceClassification.js";
 import {
   MERGEVUE_PUBLIC_REPORT_PDF_FILE_NAME,
   buildMergevuePublicReportEmailCopy,
@@ -112,6 +116,23 @@ function score(primaryEnvironmentCode, overrides = {}) {
   });
 }
 
+function targetFixtureAnswersFor(environmentCode) {
+  const answersFor = (questions) => Object.freeze(Object.fromEntries(questions.map((question) => {
+    const option = question.options.find((candidate) => candidate.signals?.includes(environmentCode))
+      ?? question.options.find((candidate) => candidate.excludedFromPrimaryScoring === true)
+      ?? question.options[0];
+    return [question.id, evidenceClassifiedAnswer(option.value)];
+  })));
+
+  return Object.freeze({
+    observation: answersFor(TARGET_OBSERVATION_DIAGNOSTIC.questions),
+    diagnosticLevel1: answersFor(TARGET_DIAGNOSTIC_DATA.level1.questions),
+    diagnosticLevel2: answersFor(TARGET_DIAGNOSTIC_DATA.level2.questions),
+    selfAssessment: answersFor(TARGET_SELF_ASSESSMENT_DATA.targetSelfAssessment.questions),
+  });
+}
+
+const demoTargetAnswers = targetFixtureAnswersFor("NT/STJ");
 const demoSession = Object.freeze({
   sessionId: "mergevue-public-report-email-smoke",
   dealContext: Object.freeze({
@@ -136,10 +157,13 @@ const demoSession = Object.freeze({
   }),
   target2B: Object.freeze({
     completed: true,
+    level1: Object.freeze({ completed: true, answers: demoTargetAnswers.diagnosticLevel1 }),
+    level2: Object.freeze({ completed: true, answers: demoTargetAnswers.diagnosticLevel2 }),
     finalScore: score("NT/STJ"),
   }),
   targetSelfAssessment: Object.freeze({
     completed: true,
+    answers: demoTargetAnswers.selfAssessment,
     score: score("NT/STJ", { confidence: "medium" }),
   }),
   targetSelfDirect: Object.freeze({
@@ -147,6 +171,7 @@ const demoSession = Object.freeze({
   }),
   targetObservation: Object.freeze({
     completed: true,
+    answers: demoTargetAnswers.observation,
     score: score("NT/STJ", { directObservationCount: 6 }),
   }),
   preliminaryAssessment: Object.freeze({
