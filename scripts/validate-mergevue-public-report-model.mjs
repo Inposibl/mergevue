@@ -458,15 +458,11 @@ const precedenceFrictionDefectReport = buildMergevuePublicReportModel(demoSessio
   deliverable: precedenceFrictionDefectModel,
   generatedAt: "2026-06-12T00:00:00.000Z",
 });
-assert.deepEqual(precedenceFrictionDefectReport.metadata.sourceBinding.consistencyLog[0], {
-  pair: "NF/NT->STJ/STP",
-  resource: "Energy",
-  frictionReading: "+|-",
-  profileReading: "+|+",
-  frictionSource: "NewLogic 03.05.2026/ST_Friction_Point_Lookup_updated.xlsx",
-  profileSource: "src/flow/finalDeliverableFlow.js RESOURCE_PRIORITY_MATRIX",
-  resolution: "friction row takes precedence for pair-level public copy",
-});
+assert.deepEqual(
+  precedenceFrictionDefectReport.metadata.sourceBinding.consistencyLog,
+  [],
+  "RMP-2: NF/NT->STJ/STP friction Energy direction is canonically +|+ after source repair, so the stale pre-RMP-2 +|- mismatch entry must be gone.",
+);
 
 const recoveredStpDeliverable = buildPairDeliverable({
   acquirerEnvironmentCode: "NF/NT",

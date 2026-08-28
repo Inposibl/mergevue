@@ -3,7 +3,7 @@
     "id": "newlogic-2026-05-03",
     "name": "NewLogic 03.05.2026",
     "path": "NewLogic 03.05.2026",
-    "exportedAt": "2026-08-27T10:52:29.691731+00:00"
+    "exportedAt": "2026-08-28T16:06:59.016451+00:00"
   },
   "environmentAliases": {
     "NF/NT": "The Idea Lab",
@@ -233,8 +233,8 @@
     },
     {
       "file": "ST_Friction_Point_Lookup_updated.xlsx",
-      "sizeBytes": 56866,
-      "lastModified": "2026-08-19T21:19:02.510626+00:00",
+      "sizeBytes": 57011,
+      "lastModified": "2026-08-28T16:00:51.584539+00:00",
       "sheets": [
         "Friction_Lookup",
         "ECS_Matrix",

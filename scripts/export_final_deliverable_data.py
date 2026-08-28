@@ -14,10 +14,10 @@ OUTPUT_FILE = Path(os.environ.get("FINAL_DELIVERABLE_OUTPUT", APP_ROOT / "src" /
 NARRATIVES_FILE = CANON_SOURCE_DIR / "ST_Free_Tier_Output_Narratives_updated.xlsx"
 FRICTION_FILE = CANON_SOURCE_DIR / "ST_Friction_Point_Lookup_updated.xlsx"
 ECS_FILE = CANON_SOURCE_DIR / "ST_ECS_v1_canonical.xlsx"
-SPEC_FILE = WORKSPACE_ROOT / "ST_UI_Track_Coder_Agent_Specification_v1.xlsx"
-CLIENT_JOURNEY_FILE = WORKSPACE_ROOT / "ST_Client_Journey_v5.xlsx"
-BSINGLE_FILE = WORKSPACE_ROOT / "ST_B_Single_Output_Template_v1.xlsx"
-INVESTMENT_MEMO_FILE = WORKSPACE_ROOT / "Proposition for the potential Investors" / "ST_Investment_Memorandum_final.docx"
+SPEC_FILE = CANON_SOURCE_DIR / "ST_UI_Track_Coder_Agent_Specification_v1.xlsx"
+CLIENT_JOURNEY_FILE = CANON_SOURCE_DIR / "ST_Client_Journey_v5.xlsx"
+BSINGLE_FILE = CANON_SOURCE_DIR / "ST_B_Single_Output_Template_v1.xlsx"
+INVESTMENT_MEMO_SOURCE_NAME = "ST_Investment_Memorandum_final.docx"
 
 NS = {
     "a": "http://schemas.openxmlformats.org/spreadsheetml/2006/main",
@@ -355,7 +355,7 @@ def build_bsingle_copy():
 
 
 def build_artifact():
-    for source in [NARRATIVES_FILE, FRICTION_FILE, ECS_FILE, SPEC_FILE, CLIENT_JOURNEY_FILE, BSINGLE_FILE, INVESTMENT_MEMO_FILE]:
+    for source in [NARRATIVES_FILE, FRICTION_FILE, ECS_FILE, SPEC_FILE, CLIENT_JOURNEY_FILE, BSINGLE_FILE]:
         if not source.exists():
             raise FileNotFoundError(source)
 
@@ -368,7 +368,7 @@ def build_artifact():
             SPEC_FILE.name,
             CLIENT_JOURNEY_FILE.name,
             BSINGLE_FILE.name,
-            INVESTMENT_MEMO_FILE.name,
+            INVESTMENT_MEMO_SOURCE_NAME,
         ],
         "narratives": build_narratives(ecs_lookup),
         "frictionPoints": build_friction_points(ecs_lookup),

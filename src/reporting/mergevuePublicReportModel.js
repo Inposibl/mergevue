@@ -1,6 +1,7 @@
 import { ENVIRONMENTS } from "../data/environments.js";
 import {
   buildFinalDeliverable,
+  FINAL_ENVIRONMENT_CODES,
   publicText,
 } from "../flow/finalDeliverableFlow.js";
 import { buildDealEconomicsReport } from "../flow/finalReportEngine.js";
@@ -161,29 +162,83 @@ function normalizedConflictSign(value) {
   return value === "\u2212" ? "-" : value;
 }
 
-function conflictDirectionParts(rawPattern) {
-  const value = String(rawPattern ?? "").trim();
-  const match = value.match(/\(([+~\-\u2212])[^()]{0,100}\s+vs\s+([+~\-\u2212])/iu);
-  if (!match) throw new Error(`Unknown public conflict direction pattern: ${value || "<empty>"}`);
-  const key = `${normalizedConflictSign(match[1])}|${normalizedConflictSign(match[2])}`;
-  const direction = PUBLIC_CONFLICT_DIRECTION_COPY[key];
-  if (!direction) throw new Error(`Unknown public conflict direction pattern: ${match[0]}`);
-  return Object.freeze({ ...direction, key });
+// Friction assertions bind each sign to an explicit environment identity
+// ("(+NT/STJ vs ~NF/NT …)"); textual position is never authority. Both labelled
+// environments must be present, distinct, and exactly the expected pair.
+const FRICTION_ENVIRONMENT_SOURCE = [...FINAL_ENVIRONMENT_CODES]
+  .sort((left, right) => right.length - left.length)
+  .map((code) => code.replace("/", "\\/"))
+  .join("|");
+const FRICTION_ASSERTION_PATTERN = new RegExp(
+  `\\(([+~\\-\\u2212])\\s*(${FRICTION_ENVIRONMENT_SOURCE})(?![A-Za-z/])[^()]*?`
+    + `\\s+vs\\s+([+~\\-\\u2212])\\s*(${FRICTION_ENVIRONMENT_SOURCE})(?![A-Za-z/])[^()]*?\\)`,
+  "iu",
+);
+const FRICTION_ENVIRONMENT_MENTIONS_PATTERN = new RegExp(
+  `(?<![A-Za-z/])(${FRICTION_ENVIRONMENT_SOURCE})(?![A-Za-z/])`,
+  "giu",
+);
+
+function expectedPairFrom(deliverable) {
+  return Object.freeze({
+    expectedAcquirer: String(deliverable?.acquirerEnvironmentCode ?? "").trim(),
+    expectedTarget: String(deliverable?.targetEnvironmentCode ?? "").trim(),
+  });
 }
 
-function conflictDirectionPhrase(rawPattern, format = "long") {
-  const direction = conflictDirectionParts(rawPattern);
+function conflictDirectionParts(rawPattern, expectedPair) {
+  const value = String(rawPattern ?? "").trim();
+  const expectedAcquirer = String(expectedPair?.expectedAcquirer ?? "").trim();
+  const expectedTarget = String(expectedPair?.expectedTarget ?? "").trim();
+  if (!FINAL_ENVIRONMENT_CODES.includes(expectedAcquirer)
+    || !FINAL_ENVIRONMENT_CODES.includes(expectedTarget)
+    || expectedAcquirer === expectedTarget) {
+    throw new Error(
+      `Invalid expected environment pair for public conflict direction: ${expectedAcquirer || "<none>"} -> ${expectedTarget || "<none>"}`,
+    );
+  }
+  const match = value.match(FRICTION_ASSERTION_PATTERN);
+  if (!match) throw new Error(`Unknown public conflict direction pattern: ${value || "<empty>"}`);
+  const firstEnvironment = match[2].toUpperCase();
+  const secondEnvironment = match[4].toUpperCase();
+  if (firstEnvironment === secondEnvironment) {
+    throw new Error(`Duplicate environment in public conflict direction pattern: ${match[0]}`);
+  }
+  const mentions = [...match[0].matchAll(FRICTION_ENVIRONMENT_MENTIONS_PATTERN)]
+    .map((mention) => mention[1].toUpperCase());
+  if (mentions.length !== 2 || mentions[0] !== firstEnvironment || mentions[1] !== secondEnvironment) {
+    throw new Error(`Unrelated environment identity in public conflict direction pattern: ${match[0]}`);
+  }
+  const signByEnvironment = Object.freeze({
+    [firstEnvironment]: normalizedConflictSign(match[1]),
+    [secondEnvironment]: normalizedConflictSign(match[3]),
+  });
+  const acquirerSign = signByEnvironment[expectedAcquirer];
+  const targetSign = signByEnvironment[expectedTarget];
+  if (!acquirerSign || !targetSign) {
+    throw new Error(
+      `Public conflict direction pattern ${match[0]} does not reference expected pair ${expectedAcquirer} -> ${expectedTarget}`,
+    );
+  }
+  const key = `${acquirerSign}|${targetSign}`;
+  const direction = PUBLIC_CONFLICT_DIRECTION_COPY[key];
+  if (!direction) throw new Error(`Unknown public conflict direction pattern: ${match[0]}`);
+  return Object.freeze({ ...direction, key, acquirerSign, targetSign });
+}
+
+function conflictDirectionPhrase(rawPattern, expectedPair, format = "long") {
+  const direction = conflictDirectionParts(rawPattern, expectedPair);
   if (!direction.target) return direction.acquirer;
   if (format === "short") return `${direction.acquirer}, ${direction.target}`;
   return `${direction.acquirer} ${direction.connector} ${direction.target}`;
 }
 
-function conflictCausalClause(rawPattern) {
-  const direction = conflictDirectionParts(rawPattern);
+function conflictCausalClause(rawPattern, expectedPair) {
+  const direction = conflictDirectionParts(rawPattern, expectedPair);
   if (direction.class === "direct" || direction.class === "partial") {
     return ", which makes it the most likely early contestation zone.";
   }
-  if (normalizedConflictSign(rawPattern.match(/\(([+~\-\u2212])/u)?.[1]) === "+") {
+  if (direction.acquirerSign === "+") {
     return " — both organisations actively rely on it, which makes ownership of it the most likely early contestation point.";
   }
   return " — neither organisation actively manages it, which makes it the most likely blind spot once integration load arrives.";
@@ -210,9 +265,10 @@ function topCanonicalConflict(deliverable) {
 }
 
 function canonicalConsistencyLog(deliverable) {
+  const expectedPair = expectedPairFrom(deliverable);
   return canonicalConflictRows(deliverable).flatMap((row) => {
     if (!String(row.sourceSignal ?? "").trim() || isPendingFrictionText(row.sourceSignal)) return [];
-    const frictionReading = conflictDirectionParts(row.sourceSignal).key;
+    const frictionReading = conflictDirectionParts(row.sourceSignal, expectedPair).key;
     const profileReading = `${normalizedConflictSign(row.acquirerImpact?.effect)}|${normalizedConflictSign(row.targetImpact?.effect)}`;
     if (frictionReading === profileReading) return [];
     return [Object.freeze({
@@ -248,22 +304,23 @@ function approvedPairCopy(deliverable) {
     throw new Error(`Missing authority phrase for public pair ${publicPairKey(deliverable)}`);
   }
   const conflict = topCanonicalConflict(deliverable);
+  const expectedPair = expectedPairFrom(deliverable);
   const commonTokens = {
     resource: conflict.resource,
     top_conflict_resource: conflict.resource,
-    conflict_direction_phrase: conflictDirectionPhrase(conflict.sourceSignal),
+    conflict_direction_phrase: conflictDirectionPhrase(conflict.sourceSignal, expectedPair),
   };
   return Object.freeze({
     coreMismatch: renderPublicTemplate(PUBLIC_COPY_TEMPLATES.coreMismatch, {
       ...commonTokens,
       acquirer_authority_phrase: acquirerAuthorityPhrase,
       target_authority_phrase: targetAuthorityPhrase,
-      conflict_direction_phrase: conflictDirectionPhrase(conflict.sourceSignal, "short"),
+      conflict_direction_phrase: conflictDirectionPhrase(conflict.sourceSignal, expectedPair, "short"),
     }),
     conflictSummary: renderPublicTemplate(PUBLIC_COPY_TEMPLATES.conflictSummary, commonTokens),
     fp2Rationale: renderPublicTemplate(PUBLIC_COPY_TEMPLATES.fp2Rationale, {
       ...commonTokens,
-      conflict_causal_clause: conflictCausalClause(conflict.sourceSignal),
+      conflict_causal_clause: conflictCausalClause(conflict.sourceSignal, expectedPair),
       window: TIMING_LOGIC.observationWindow.replace("-", "\u2013"),
       acquirer_env: environmentTemplateToken(deliverable?.acquirerAlias),
       target_env: environmentTemplateToken(deliverable?.targetAlias),
@@ -589,6 +646,7 @@ function resourceRows(deliverable) {
   ].slice(0, 5);
 
   const hasCanonicalPairCopy = Boolean(safeApprovedPairCopy(deliverable));
+  const expectedPair = expectedPairFrom(deliverable);
   return rows.map((row) => ({
     resourceName: cleanString(row.resource),
     resourceCategory: cleanString(row.resourceTypeLabel ?? row.resourceType),
@@ -600,7 +658,7 @@ function resourceRows(deliverable) {
     explanation: hasCanonicalPairCopy && String(row.sourceSignal ?? "").trim() && !isPendingFrictionText(row.sourceSignal)
       ? renderPublicTemplate(PUBLIC_COPY_TEMPLATES.resourceExplanation, {
         resource: cleanString(row.resource),
-        conflict_direction_phrase: conflictDirectionPhrase(row.sourceSignal),
+        conflict_direction_phrase: conflictDirectionPhrase(row.sourceSignal, expectedPair),
       })
       : cleanString((!isPendingFrictionText(row.sourceSignal) && row.sourceSignal) || row.potentialRisk || "Monitor this resource for overwrite or underuse after close."),
   }));
