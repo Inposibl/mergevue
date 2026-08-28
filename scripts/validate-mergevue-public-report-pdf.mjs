@@ -72,7 +72,7 @@ const REQUIRED_PDF_STRINGS = Object.freeze([
   "WATCHPOINT 03",
   "Review window",
   "Suggested control action",
-  "designated trust owner",
+  "preserve named relationship holders, map informal coordination paths",
   "17-resource",
   "selected exposed resources",
   "ECS is a compatibility score",

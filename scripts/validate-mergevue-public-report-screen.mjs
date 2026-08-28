@@ -26,7 +26,7 @@ const REQUIRED_OUTPUT_STRINGS = Object.freeze([
   "Days 30-60",
   "Day 60",
   "Competitive consolidation",
-  "designated trust owner",
+  "preserve named relationship holders, map informal coordination paths",
   "paid workflow is designed to",
   "where inputs are sufficient",
   "track record strengthens as sealed predictions mature",

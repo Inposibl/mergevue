@@ -796,8 +796,12 @@ check("C3-C provenance stays isolated from scoring and App public consumers whil
   assert.equal(treeDigest("src/agent"), "7fa97e0c326a0dd78794e3a8ce52ba3c96518da544444212ff19c9eb12e82cdd");
   // C5-B.2B CORR3 re-freeze: authorized Dual generated binding/provenance materialization.
   // Superseded: 7854b64baa829a0a323cd96ea1c2067dc0b42ea2713452b86cacbe625c78eafd
-  assert.equal(treeDigest("src/generated/newlogic"), "9414412e4473f87d607ca2d1a8462d6079fe0e68f51ef9310e6192d359d2a3e7");
-  assert.equal(treeDigest("src/reporting"), "0dfc94669be6feb52b54a5144c651aa7043e4682e4544571ee64bd74b8ed33b9");
+  // RMP-1 re-freeze: authorized governed ERI sourceManifest.json provenance entry (OD-RMP-2).
+  // Superseded: 9414412e4473f87d607ca2d1a8462d6079fe0e68f51ef9310e6192d359d2a3e7
+  assert.equal(treeDigest("src/generated/newlogic"), "fbc9655c7f302c9fe096653e4eada2717cc0f53ccf842088fd3b2ca3099d3543");
+  // RMP-1 re-freeze: authorized mergevuePublicReportModel.js profileSource attribution correction.
+  // Superseded: 0dfc94669be6feb52b54a5144c651aa7043e4682e4544571ee64bd74b8ed33b9
+  assert.equal(treeDigest("src/reporting"), "4f7c4184c64e4491b80fb432386ebf06e7770a0583e8b595fcfbc41b3b07e435");
   assert.equal(treeDigest("src/data"), "da03c4ba3cbf911a561cb1d4e35fa8b02bd365cbc903234151fd58a9093734ef");
   assert.match(read("src/flow/observationScopeResolver.js"), /const AUTHORIZED_DUAL_MODULES = Object\.freeze\(\["acquirerEnvironment", "targetSelfAssessment"\]\);/);
 });

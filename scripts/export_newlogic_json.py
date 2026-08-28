@@ -1221,18 +1221,35 @@ def parse_reporting():
     return {"reportTemplate": report_artifact, "step3Screens": screens_artifact, "clientJourney": journey_artifact}
 
 
+GOVERNED_ERI_WORKBOOK = "ST_Environment_Resource_Intelligence_updated.xlsx"
+GOVERNED_ERI_ROLE = (
+    "governed source for the Resource Priority tier dimension (TOP/MID/LOW/IGN); "
+    "direction glyphs are not canonical for Net Effect per OD-RMP-1"
+)
+
+
+def sha256_file(path):
+    digest = hashlib.sha256()
+    with open(path, "rb") as handle:
+        for chunk in iter(lambda: handle.read(65536), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
 def build_source_manifest():
     workbooks = []
     for path in sorted(SOURCE_DIR.glob("*.xlsx")):
         with Workbook(path) as workbook:
-            workbooks.append(
-                {
-                    "file": path.name,
-                    "sizeBytes": path.stat().st_size,
-                    "lastModified": datetime.fromtimestamp(path.stat().st_mtime, timezone.utc).isoformat(),
-                    "sheets": workbook.sheet_names,
-                }
-            )
+            entry = {
+                "file": path.name,
+                "sizeBytes": path.stat().st_size,
+                "lastModified": datetime.fromtimestamp(path.stat().st_mtime, timezone.utc).isoformat(),
+                "sheets": workbook.sheet_names,
+            }
+            if path.name == GOVERNED_ERI_WORKBOOK:
+                entry["sha256"] = sha256_file(path)
+                entry["governedRole"] = GOVERNED_ERI_ROLE
+            workbooks.append(entry)
     return {
         "sourcePackage": {
             "id": "newlogic-2026-05-03",

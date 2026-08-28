@@ -441,16 +441,32 @@ const precedenceModel = buildMergevuePublicReportModel(demoSession, {
 assert.equal(precedenceModel.compatibilityScoreAndDealScenario.compatibilityScore, 88.2);
 assert.equal(precedenceModel.metadata.doctrineClass, "concealed_conflict");
 assert.equal(precedenceModel.metadata.doctrineCopyReview.required, true);
-assert.deepEqual(precedenceModel.metadata.sourceBinding.consistencyLog[0], {
-  pair: "NF/NT->NT/STP",
-  resource: "Organisation / system",
-  frictionReading: "~|~",
-  profileReading: "-|~",
+assert.deepEqual(
+  precedenceModel.metadata.sourceBinding.consistencyLog,
+  [],
+  "RMP-1: NF/NT->NT/STP friction readings must agree with the composed canonical resource profile, so the former permutation-defect precedence entry must be gone.",
+);
+assert.equal(
+  precedenceModel.recommendedActions[2].actionReason,
+  "Treat Decisiveness as a protected integration resource during Days 30\u201360: it is treated as background on the acquirer side while actively amplified on the target side, which makes it the most likely early contestation zone. Separating preservation from simplification gives the integration team time to identify which Disruption Lab-linked routines protect cohesion, where Idea Lab accountability should apply, and which changes should wait until the Day 60 review.",
+);
+const precedenceFrictionDefectModel = buildPairDeliverable({
+  acquirerEnvironmentCode: "NF/NT",
+  targetEnvironmentCode: "STJ/STP",
+});
+const precedenceFrictionDefectReport = buildMergevuePublicReportModel(demoSession, {
+  deliverable: precedenceFrictionDefectModel,
+  generatedAt: "2026-06-12T00:00:00.000Z",
+});
+assert.deepEqual(precedenceFrictionDefectReport.metadata.sourceBinding.consistencyLog[0], {
+  pair: "NF/NT->STJ/STP",
+  resource: "Energy",
+  frictionReading: "+|-",
+  profileReading: "+|+",
   frictionSource: "NewLogic 03.05.2026/ST_Friction_Point_Lookup_updated.xlsx",
-  profileSource: "src/data/environments.js resource impact matrices",
+  profileSource: "src/flow/finalDeliverableFlow.js RESOURCE_PRIORITY_MATRIX",
   resolution: "friction row takes precedence for pair-level public copy",
 });
-assert.ok(precedenceModel.recommendedActions[2].actionReason.includes("neither organisation actively manages it"));
 
 const recoveredStpDeliverable = buildPairDeliverable({
   acquirerEnvironmentCode: "NF/NT",

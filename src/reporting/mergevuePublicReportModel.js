@@ -221,7 +221,7 @@ function canonicalConsistencyLog(deliverable) {
       frictionReading,
       profileReading,
       frictionSource: "NewLogic 03.05.2026/ST_Friction_Point_Lookup_updated.xlsx",
-      profileSource: "src/data/environments.js resource impact matrices",
+      profileSource: "src/flow/finalDeliverableFlow.js RESOURCE_PRIORITY_MATRIX",
       resolution: "friction row takes precedence for pair-level public copy",
     })];
   });

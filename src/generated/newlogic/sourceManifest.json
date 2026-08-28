@@ -190,6 +190,19 @@
       ]
     },
     {
+      "file": "ST_Environment_Resource_Intelligence_updated.xlsx",
+      "sizeBytes": 26515,
+      "lastModified": "2026-08-19T23:55:29.154420+00:00",
+      "sheets": [
+        "Resource Priority",
+        "Environment Detail",
+        "Transition Comparison",
+        "Resource \u00d7 Environment"
+      ],
+      "sha256": "0efefcac06358f7351eb062fd584b4472eee2f2804e22cb96d31c1d6e581a3a8",
+      "governedRole": "governed source for the Resource Priority tier dimension (TOP/MID/LOW/IGN); direction glyphs are not canonical for Net Effect per OD-RMP-1"
+    },
+    {
       "file": "ST_Form_Binding_Prompt.xlsx",
       "sizeBytes": 60478,
       "lastModified": "2026-08-19T21:19:02.509673+00:00",

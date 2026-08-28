@@ -70,32 +70,220 @@ const RESOURCE_POTENTIAL_RISKS = Object.freeze({
   "Will / discipline": "Will and discipline conflict can weaken follow-through, create uneven compliance, and make agreed integration routines difficult to sustain.",
 });
 
+// Direction comes from the canonical Net Effect source (ST_ECS_v1_canonical.xlsx,
+// Resource Impact Matrix); tier comes from the governed ERI Resource Priority
+// (ST_Environment_Resource_Intelligence_updated.xlsx). Impacts are keyed by
+// canonical environment code so no array ordering can relabel a resource vector.
+const RESOURCE_IMPACT_PATTERN = /^([+~\-]) (TOP|MID|LOW|IGN)$/;
+
 const RESOURCE_PRIORITY_MATRIX = Object.freeze([
-  resourceProfile("Time", "BG", ["+ MID", "~ MID", "- TOP", "- MID", "~ LOW", "~ LOW", "+ TOP", "+ TOP", "~ LOW"]),
-  resourceProfile("Energy", "BG", ["+ TOP", "+ TOP", "~ TOP", "- MID", "+ TOP", "+ TOP", "+ TOP", "+ TOP", "+ TOP"]),
-  resourceProfile("Attention", "BG", ["+ TOP", "~ LOW", "- TOP", "- MID", "+ TOP", "+ TOP", "+ TOP", "+ TOP", "+ TOP"]),
-  resourceProfile("Money", "HY", ["+ LOW", "+ TOP", "- MID", "- MID", "~ LOW", "~ LOW", "+ TOP", "~ LOW", "+ TOP"]),
-  resourceProfile("Reputation", "SG", ["+ TOP", "+ TOP", "- MID", "~ TOP", "+ TOP", "+ TOP", "+ TOP", "+ TOP", "+ TOP"]),
-  resourceProfile("Trust", "CO", ["+ TOP", "- IGN", "- MID", "- LOW", "~ LOW", "+ TOP", "~ LOW", "+ TOP", "- IGN"]),
-  resourceProfile("Influence", "SG", ["+ TOP", "+ TOP", "- MID", "- TOP", "+ TOP", "+ TOP", "+ MID", "+ MID", "+ TOP"]),
-  resourceProfile("Information", "BG", ["~ LOW", "~ LOW", "- MID", "- LOW", "+ TOP", "~ LOW", "+ MID", "+ MID", "~ MID"]),
-  resourceProfile("Connections", "HY", ["+ MID", "~ LOW", "- LOW", "~ TOP", "~ IGN", "+ MID", "~ IGN", "+ MID", "+ TOP"]),
-  resourceProfile("Skills", "HY", ["+ MID", "+ TOP", "- LOW", "- LOW", "+ MID", "+ MID", "+ MID", "+ MID", "+ MID"]),
-  resourceProfile("Knowledge", "HY", ["- LOW", "- IGN", "- LOW", "- LOW", "+ MID", "~ LOW", "+ MID", "+ MID", "- IGN"]),
-  resourceProfile("Health", "BG", ["+ MID", "+ MID", "- LOW", "- TOP", "~ LOW", "+ MID", "~ IGN", "~ IGN", "- LOW"]),
-  resourceProfile("Psychological resilience", "BG", ["+ MID", "~ LOW", "- LOW", "- LOW", "+ MID", "+ MID", "+ MID", "+ LOW", "~ LOW"]),
-  resourceProfile("Will / discipline", "BG", ["- LOW", "+ MID", "- TOP", "- TOP", "+ MID", "~ LOW", "+ LOW", "+ LOW", "+ MID"]),
-  resourceProfile("Creativity", "SG", ["- IGN", "~ LOW", "- IGN", "- IGN", "+ MID", "+ MID", "+ LOW", "+ LOW", "~ MID"]),
-  resourceProfile("Decisiveness", "SG", ["- IGN", "+ MID", "- IGN", "- IGN", "+ LOW", "~ IGN", "+ LOW", "~ LOW", "+ MID"]),
-  resourceProfile("Organisation / system", "BG", ["- LOW", "+ MID", "~ TOP", "- MID", "~ IGN", "- IGN", "+ LOW", "~ IGN", "+ MID"]),
+  resourceProfile("Time", "BG", {
+    "NF/NT": "+ TOP",
+    "NT/STJ": "+ TOP",
+    "NT/STP": "~ LOW",
+    "NF/SFJ": "- MID",
+    "NF/SFP": "~ LOW",
+    "SFJ/SFP": "+ MID",
+    "SFP/SFJ": "- TOP",
+    "STJ/STP": "~ MID",
+    "STP/STJ": "~ LOW",
+  }),
+  resourceProfile("Energy", "BG", {
+    "NF/NT": "+ TOP",
+    "NT/STJ": "+ TOP",
+    "NT/STP": "+ TOP",
+    "NF/SFJ": "- MID",
+    "NF/SFP": "+ TOP",
+    "SFJ/SFP": "+ TOP",
+    "SFP/SFJ": "~ TOP",
+    "STJ/STP": "+ TOP",
+    "STP/STJ": "+ TOP",
+  }),
+  resourceProfile("Attention", "BG", {
+    "NF/NT": "+ TOP",
+    "NT/STJ": "+ TOP",
+    "NT/STP": "+ TOP",
+    "NF/SFJ": "- MID",
+    "NF/SFP": "+ TOP",
+    "SFJ/SFP": "+ TOP",
+    "SFP/SFJ": "- TOP",
+    "STJ/STP": "~ LOW",
+    "STP/STJ": "+ TOP",
+  }),
+  resourceProfile("Money", "HY", {
+    "NF/NT": "~ LOW",
+    "NT/STJ": "+ TOP",
+    "NT/STP": "~ LOW",
+    "NF/SFJ": "- MID",
+    "NF/SFP": "~ LOW",
+    "SFJ/SFP": "+ LOW",
+    "SFP/SFJ": "- MID",
+    "STJ/STP": "+ TOP",
+    "STP/STJ": "+ TOP",
+  }),
+  resourceProfile("Reputation", "SG", {
+    "NF/NT": "+ TOP",
+    "NT/STJ": "+ TOP",
+    "NT/STP": "+ TOP",
+    "NF/SFJ": "~ TOP",
+    "NF/SFP": "+ TOP",
+    "SFJ/SFP": "+ TOP",
+    "SFP/SFJ": "- MID",
+    "STJ/STP": "+ TOP",
+    "STP/STJ": "+ TOP",
+  }),
+  resourceProfile("Trust", "CO", {
+    "NF/NT": "+ TOP",
+    "NT/STJ": "~ LOW",
+    "NT/STP": "~ LOW",
+    "NF/SFJ": "- LOW",
+    "NF/SFP": "+ TOP",
+    "SFJ/SFP": "+ TOP",
+    "SFP/SFJ": "- MID",
+    "STJ/STP": "- IGN",
+    "STP/STJ": "- IGN",
+  }),
+  resourceProfile("Influence", "SG", {
+    "NF/NT": "+ MID",
+    "NT/STJ": "+ MID",
+    "NT/STP": "+ TOP",
+    "NF/SFJ": "- TOP",
+    "NF/SFP": "+ TOP",
+    "SFJ/SFP": "+ TOP",
+    "SFP/SFJ": "- MID",
+    "STJ/STP": "+ TOP",
+    "STP/STJ": "+ TOP",
+  }),
+  resourceProfile("Information", "BG", {
+    "NF/NT": "+ MID",
+    "NT/STJ": "+ MID",
+    "NT/STP": "+ TOP",
+    "NF/SFJ": "- LOW",
+    "NF/SFP": "~ LOW",
+    "SFJ/SFP": "~ LOW",
+    "SFP/SFJ": "- MID",
+    "STJ/STP": "~ LOW",
+    "STP/STJ": "~ MID",
+  }),
+  resourceProfile("Connections", "HY", {
+    "NF/NT": "+ MID",
+    "NT/STJ": "~ IGN",
+    "NT/STP": "~ IGN",
+    "NF/SFJ": "~ TOP",
+    "NF/SFP": "+ MID",
+    "SFJ/SFP": "+ MID",
+    "SFP/SFJ": "- LOW",
+    "STJ/STP": "~ LOW",
+    "STP/STJ": "+ TOP",
+  }),
+  resourceProfile("Skills", "HY", {
+    "NF/NT": "+ MID",
+    "NT/STJ": "+ MID",
+    "NT/STP": "+ MID",
+    "NF/SFJ": "- LOW",
+    "NF/SFP": "+ MID",
+    "SFJ/SFP": "+ MID",
+    "SFP/SFJ": "- LOW",
+    "STJ/STP": "+ TOP",
+    "STP/STJ": "+ MID",
+  }),
+  resourceProfile("Knowledge", "HY", {
+    "NF/NT": "+ MID",
+    "NT/STJ": "+ MID",
+    "NT/STP": "+ MID",
+    "NF/SFJ": "- LOW",
+    "NF/SFP": "~ LOW",
+    "SFJ/SFP": "- LOW",
+    "SFP/SFJ": "- LOW",
+    "STJ/STP": "- IGN",
+    "STP/STJ": "- IGN",
+  }),
+  resourceProfile("Health", "BG", {
+    "NF/NT": "~ IGN",
+    "NT/STJ": "~ IGN",
+    "NT/STP": "~ LOW",
+    "NF/SFJ": "- TOP",
+    "NF/SFP": "+ MID",
+    "SFJ/SFP": "+ MID",
+    "SFP/SFJ": "- LOW",
+    "STJ/STP": "~ MID",
+    "STP/STJ": "- LOW",
+  }),
+  resourceProfile("Psychological resilience", "BG", {
+    "NF/NT": "+ LOW",
+    "NT/STJ": "+ MID",
+    "NT/STP": "+ MID",
+    "NF/SFJ": "- LOW",
+    "NF/SFP": "+ MID",
+    "SFJ/SFP": "+ MID",
+    "SFP/SFJ": "- LOW",
+    "STJ/STP": "~ LOW",
+    "STP/STJ": "~ LOW",
+  }),
+  resourceProfile("Will / discipline", "BG", {
+    "NF/NT": "+ LOW",
+    "NT/STJ": "+ LOW",
+    "NT/STP": "+ MID",
+    "NF/SFJ": "- TOP",
+    "NF/SFP": "~ LOW",
+    "SFJ/SFP": "- LOW",
+    "SFP/SFJ": "- TOP",
+    "STJ/STP": "+ MID",
+    "STP/STJ": "+ MID",
+  }),
+  resourceProfile("Creativity", "SG", {
+    "NF/NT": "+ LOW",
+    "NT/STJ": "+ LOW",
+    "NT/STP": "+ MID",
+    "NF/SFJ": "- IGN",
+    "NF/SFP": "+ MID",
+    "SFJ/SFP": "- IGN",
+    "SFP/SFJ": "- IGN",
+    "STJ/STP": "~ LOW",
+    "STP/STJ": "~ MID",
+  }),
+  resourceProfile("Decisiveness", "SG", {
+    "NF/NT": "~ LOW",
+    "NT/STJ": "+ LOW",
+    "NT/STP": "+ LOW",
+    "NF/SFJ": "- IGN",
+    "NF/SFP": "~ IGN",
+    "SFJ/SFP": "- IGN",
+    "SFP/SFJ": "- IGN",
+    "STJ/STP": "+ MID",
+    "STP/STJ": "+ MID",
+  }),
+  resourceProfile("Organisation / system", "BG", {
+    "NF/NT": "~ IGN",
+    "NT/STJ": "+ LOW",
+    "NT/STP": "~ IGN",
+    "NF/SFJ": "- MID",
+    "NF/SFP": "- IGN",
+    "SFJ/SFP": "- LOW",
+    "SFP/SFJ": "~ TOP",
+    "STJ/STP": "+ MID",
+    "STP/STJ": "+ MID",
+  }),
 ]);
 
-function resourceProfile(resource, type, values) {
+function resourceProfile(resource, type, impacts) {
+  const unknownCodes = Object.keys(impacts).filter((code) => !FINAL_ENVIRONMENT_CODES.includes(code));
+  if (unknownCodes.length > 0) {
+    throw new Error(`Unknown environment code(s) in ${resource} resource impacts: ${unknownCodes.join(", ")}`);
+  }
+  const keyedImpacts = {};
+  for (const code of FINAL_ENVIRONMENT_CODES) {
+    const value = String(impacts[code] ?? "");
+    if (!RESOURCE_IMPACT_PATTERN.test(value)) {
+      throw new Error(`Invalid canonical resource impact for ${resource}/${code}: ${value || "<missing>"}`);
+    }
+    keyedImpacts[code] = value;
+  }
   return Object.freeze({
     resource,
     type,
     potentialRisk: RESOURCE_POTENTIAL_RISKS[resource],
-    impacts: Object.freeze(Object.fromEntries(FINAL_ENVIRONMENT_CODES.map((code, index) => [code, values[index]]))),
+    impacts: Object.freeze(keyedImpacts),
   });
 }
 
@@ -206,13 +394,17 @@ function parseConflictedResources(value) {
   );
 }
 
-function parseResourceImpact(value) {
-  const [effect = "~", tier = "LOW"] = String(value ?? "").trim().split(/\s+/);
+export function parseResourceImpact(value, context = "") {
+  const impact = String(value ?? "");
+  const match = RESOURCE_IMPACT_PATTERN.exec(impact);
+  if (!match) {
+    throw new Error(`Invalid canonical resource impact${context ? ` for ${context}` : ""}: ${impact || "<missing>"}`);
+  }
   return Object.freeze({
-    effect,
-    tier,
-    tierScore: RESOURCE_TIER_SCORES[tier] ?? 1,
-    label: `${RESOURCE_EFFECT_LABELS[effect] ?? "Neutral"} ${tier}`,
+    effect: match[1],
+    tier: match[2],
+    tierScore: RESOURCE_TIER_SCORES[match[2]],
+    label: `${RESOURCE_EFFECT_LABELS[match[1]]} ${match[2]}`,
   });
 }
 
@@ -335,8 +527,8 @@ function buildResourceConflictProfile(acquirerEnvironmentCode, targetEnvironment
   const ecsScoreLabel = ecsScore === null ? options.ecsRange ?? PENDING : ecsScore.toFixed(1);
 
   const rows = RESOURCE_PRIORITY_MATRIX.map((resource) => {
-    const acquirerImpact = parseResourceImpact(resource.impacts[acquirerCode]);
-    const targetImpact = parseResourceImpact(resource.impacts[targetCode]);
+    const acquirerImpact = parseResourceImpact(resource.impacts[acquirerCode], `${resource.resource}/${acquirerCode}`);
+    const targetImpact = parseResourceImpact(resource.impacts[targetCode], `${resource.resource}/${targetCode}`);
     const sourceConflict = primaryConflicts.get(normalizeResourceKey(resource.resource)) ?? null;
     const environmentInteractionScore = resourceInteractionScore(acquirerImpact, targetImpact, Boolean(sourceConflict), sameEnvironment);
     const probability = conflictProbability(environmentInteractionScore, Boolean(sourceConflict), sameEnvironment);
