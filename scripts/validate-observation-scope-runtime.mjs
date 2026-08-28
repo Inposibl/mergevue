@@ -11,6 +11,10 @@ import {
   dualPrecedenceOrder,
   dualQualityConfig,
 } from "../src/flow/dualRespondentComparison.js";
+import {
+  DualSemanticIntegrityError,
+  PRE_DUAL_SEMANTIC_INTEGRITY,
+} from "../src/flow/dualQuestionSemanticResolver.js";
 import { readFileSync } from "node:fs";
 import { deriveObservationScopeCausalDisposition } from "../src/flow/layeredEvidenceScoring.js";
 import {
@@ -366,15 +370,18 @@ check(25, "one-HIGH agreement with only 4 total agreements does NOT reach ②", 
 });
 
 check(26, "EDv2 answers cannot enter comparator", () => {
-  const result = compareDualRespondents({
+  assert.throws(() => compareDualRespondents({
     moduleId: "environmentLevel1",
     candidatePair: "NT/STJ vs NT/STP",
     respondent1: SENIOR,
     respondent2: SENIOR,
     answers1: fill(),
     answers2: fill(),
-  });
-  assert.equal(result.priority, "0c");
+  }), (error) => (
+    error instanceof DualSemanticIntegrityError
+    && error.failureReason === "UNSUPPORTED_SEMANTIC_MODULE"
+    && error.canonicalFailureClass === "INPUT_ASSEMBLY_FAILURE"
+  ));
 });
 
 check(27, "DEC-8 trigger score does NOT count toward priority-1 coverage", () => {
@@ -1844,43 +1851,44 @@ check("U2", "P_0C unknown seniority preserves exact unknown_seniority token from
   assert.equal(result.audit.questionRef, "Q1");
 });
 
-check("U3", "P_0C missing module preserves missing_module without collapsing into unsupported_module", () => {
+check("U3", "resolver missing_module stays standalone; Dual missing module is PRE-DUAL, not 0c", () => {
   const scope = resolveObservationScope({ moduleId: "" });
-  const result = compareDualRespondents({
+  assert.equal(scope.audit.unresolvedReason, "missing_module");
+  assert.notEqual(scope.audit.unresolvedReason, "unsupported_module");
+  assert.throws(() => compareDualRespondents({
     moduleId: "",
     candidatePair: "NT/STJ vs NT/STP",
     respondent1: SENIOR,
     respondent2: SENIOR,
     answers1: fill(),
     answers2: fill(),
-  });
-  assert.equal(scope.audit.unresolvedReason, "missing_module");
-  assert.equal(result.priority, "0c");
-  assert.equal(result.routing, "practitioner_access_review");
-  assert.equal(result.state, null);
-  assert.equal(result.audit.reason, "unsupported_or_missing_module");
-  assert.equal(result.audit.unresolvedReason, "missing_module");
-  assert.notEqual(result.audit.unresolvedReason, "unsupported_module");
-  assert.equal(result.audit.unresolvedReason, scope.audit.unresolvedReason);
+  }), (error) => (
+    error instanceof DualSemanticIntegrityError
+    && error.boundary === PRE_DUAL_SEMANTIC_INTEGRITY
+    && error.failureReason === "MISSING_SEMANTIC_IDENTITY"
+    && error.canonicalFailureClass === "INPUT_ASSEMBLY_FAILURE"
+    && !("priority" in error)
+  ));
 });
 
-check("U4", "P_0C unsupported module preserves unsupported_module without collapsing into missing_module", () => {
+check("U4", "resolver unsupported_module stays standalone; Dual unsupported module is PRE-DUAL, not 0c", () => {
   const scope = resolveObservationScope({ moduleId: "environmentLevel1" });
-  const result = compareDualRespondents({
+  assert.equal(scope.audit.unresolvedReason, "unsupported_module");
+  assert.notEqual(scope.audit.unresolvedReason, "missing_module");
+  assert.throws(() => compareDualRespondents({
     moduleId: "environmentLevel1",
     candidatePair: "NT/STJ vs NT/STP",
     respondent1: SENIOR,
     respondent2: SENIOR,
     answers1: fill(),
     answers2: fill(),
-  });
-  assert.equal(scope.audit.unresolvedReason, "unsupported_module");
-  assert.equal(result.priority, "0c");
-  assert.equal(result.routing, "practitioner_access_review");
-  assert.equal(result.audit.reason, "unsupported_or_missing_module");
-  assert.equal(result.audit.unresolvedReason, "unsupported_module");
-  assert.notEqual(result.audit.unresolvedReason, "missing_module");
-  assert.equal(result.audit.unresolvedReason, scope.audit.unresolvedReason);
+  }), (error) => (
+    error instanceof DualSemanticIntegrityError
+    && error.boundary === PRE_DUAL_SEMANTIC_INTEGRITY
+    && error.failureReason === "UNSUPPORTED_SEMANTIC_MODULE"
+    && error.canonicalFailureClass === "INPUT_ASSEMBLY_FAILURE"
+    && !("priority" in error)
+  ));
 });
 
 check("U5", "resolver unsupported_or_missing_question token is exact and Dual does not infer it from routing", () => {
@@ -1939,30 +1947,28 @@ check("U7", "P_0C same routing does not force the same unresolvedReason token", 
     answers1: fill(),
     answers2: fill(),
   });
-  const missing = compareDualRespondents({
+  assert.equal(unspecified.routing, "practitioner_access_review");
+  assert.equal(unknown.routing, unspecified.routing);
+  assert.equal(unspecified.priority, "0c");
+  assert.equal(unknown.priority, "0c");
+  assert.equal(unspecified.audit.unresolvedReason, "roleCode_unspecified");
+  assert.equal(unknown.audit.unresolvedReason, "unknown_seniority");
+  assert.throws(() => compareDualRespondents({
     moduleId: "",
     candidatePair: "NT/STJ vs NT/STP",
     respondent1: SENIOR,
     respondent2: SENIOR,
     answers1: fill(),
     answers2: fill(),
-  });
-  const unsupported = compareDualRespondents({
+  }), DualSemanticIntegrityError);
+  assert.throws(() => compareDualRespondents({
     moduleId: "environmentLevel1",
     candidatePair: "NT/STJ vs NT/STP",
     respondent1: SENIOR,
     respondent2: SENIOR,
     answers1: fill(),
     answers2: fill(),
-  });
-  assert.equal(unspecified.routing, "practitioner_access_review");
-  assert.equal(unknown.routing, unspecified.routing);
-  assert.equal(missing.routing, unspecified.routing);
-  assert.equal(unsupported.routing, unspecified.routing);
-  assert.equal(unspecified.audit.unresolvedReason, "roleCode_unspecified");
-  assert.equal(unknown.audit.unresolvedReason, "unknown_seniority");
-  assert.equal(missing.audit.unresolvedReason, "missing_module");
-  assert.equal(unsupported.audit.unresolvedReason, "unsupported_module");
+  }), DualSemanticIntegrityError);
 });
 
 check("U8", "P_0C preserves only the first unresolved scalar token, not a derived collection", () => {

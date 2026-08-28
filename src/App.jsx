@@ -30,6 +30,7 @@ import {
   completeAcquirerVerificationInvite,
   createAcquirerVerificationInvite,
   isAcquirerVerificationComplete,
+  isResolvedAcquirerVerificationRespondentContext,
   nextRouteForDealStart,
   requiresAcquirerVerification,
   verifyAcquirerVerificationInvite,
@@ -175,6 +176,12 @@ function parseAcquirerVerificationCompletion(value) {
       || !payload?.completed
       || !payload?.acquirerVerification?.completed
     ) {
+      return null;
+    }
+    // Live production admission: legacy low-level completions without the full
+    // resolved respondent context are LEGACY_INTERNAL_ONLY and must not
+    // materialize production R2-complete state in any receiver tab.
+    if (!isResolvedAcquirerVerificationRespondentContext(payload)) {
       return null;
     }
     return payload;
@@ -2594,6 +2601,8 @@ function AuthorizedAcquirerVerificationScreen({ setSession }) {
   const [digitalCode, setDigitalCode] = useState("");
   const [verified, setVerified] = useState(false);
   const [firmTenure, setFirmTenure] = useState("");
+  const [respondentSeniority, setRespondentSeniority] = useState("");
+  const [respondentRole, setRespondentRole] = useState("");
   const [tenureConfirmed, setTenureConfirmed] = useState(false);
   const [receipt, setReceipt] = useState(false);
   const [error, setError] = useState("");
@@ -2625,7 +2634,7 @@ function AuthorizedAcquirerVerificationScreen({ setSession }) {
 
   function confirmFirmTenure(event) {
     event.preventDefault();
-    if (!firmTenure) return;
+    if (!firmTenure || !respondentSeniority || !respondentRole) return;
     setError("");
     setTenureConfirmed(true);
   }
@@ -2672,8 +2681,32 @@ function AuthorizedAcquirerVerificationScreen({ setSession }) {
                 setError("");
               }}
             />
+            <DealContextButtonGroup
+              label="Respondent seniority"
+              helper="choose your actual seniority in the acquiring organization"
+              options={RESPONDENT_SENIORITY_OPTIONS}
+              value={respondentSeniority}
+              onChange={(value) => {
+                setRespondentSeniority(value);
+                setError("");
+              }}
+            />
+            <DealContextButtonGroup
+              label="Respondent role"
+              helper="choose the role you act in for this deal on the acquirer side"
+              options={roleOptionsForSide("acquirer")}
+              value={respondentRole}
+              onChange={(value) => {
+                setRespondentRole(value);
+                setError("");
+              }}
+            />
             {error ? <p className="form-error">{error}</p> : null}
-            <button className="primary-flow-action" disabled={!firmTenure} type="submit">
+            <button
+              className="primary-flow-action"
+              disabled={!firmTenure || !respondentSeniority || !respondentRole}
+              type="submit"
+            >
               Continue to Acquirer verification survey
             </button>
           </form>
@@ -2688,8 +2721,10 @@ function AuthorizedAcquirerVerificationScreen({ setSession }) {
         onComplete={(completedAnswers) => {
           const completion = completeAcquirerVerificationInvite(invite, completedAnswers, undefined, {
             firmTenure,
+            respondentSeniority,
+            respondentRole,
           });
-          if (!completion.ok) {
+          if (!completion.ok || !isResolvedAcquirerVerificationRespondentContext(completion.invite)) {
             setError("Acquirer verification could not be completed. Check that all questions were answered and the link is still active.");
             return;
           }

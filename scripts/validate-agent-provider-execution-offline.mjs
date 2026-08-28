@@ -6,7 +6,7 @@ import {
   PROVIDER_PROMPT_VERSION,
   PROVIDER_PROJECTION_VERSION,
 } from "../src/agent/agentContractConstants.js";
-import { assembleEngineSnapshot } from "../src/agent/engineSnapshot.js";
+import { assembleEngineSnapshot, normalizeCandidatePair } from "../src/agent/engineSnapshot.js";
 import { buildStructuredUncertainty } from "../src/agent/structuredUncertainty.js";
 import { buildInterpretationContextPack } from "../src/agent/interpretationContextPack.js";
 import { buildAgentInterpretationRequest } from "../src/agent/agentInterpretationRequest.js";
@@ -14,6 +14,7 @@ import { projectProviderProjection } from "../src/agent/providerProjection.js";
 import { buildProviderPrompt } from "../src/agent/providerPrompt.js";
 import { compareDualRespondents } from "../src/flow/dualRespondentComparison.js";
 import { isAuthorizedDualModule } from "../src/flow/observationScopeResolver.js";
+import { buildC5CSelectedSelectorProvenance } from "./fixtures/c5c-selected-session.mjs";
 import {
   GEMINI_API_HOST,
   GEMINI_API_VERSION,
@@ -69,6 +70,7 @@ function fill(template = {}, except = {}) {
 }
 
 const SENIOR = { roleCode: "c_suite", seniorityLevel: "c_suite" };
+const SELECTOR = buildC5CSelectedSelectorProvenance();
 
 function withFlags(coreInput) {
   return {
@@ -84,6 +86,7 @@ function identityFor(coreInput, overrides = {}) {
     projectId: null,
     moduleId: isAuthorizedDualModule(coreInput.moduleId) ? coreInput.moduleId : "acquirerEnvironment",
     candidatePair: coreInput.candidatePair ?? "",
+    candidatePairNormalized: normalizeCandidatePair(coreInput.candidatePair ?? ""),
     ...overrides,
   };
 }
@@ -95,6 +98,7 @@ function assembleUpstream(coreInput) {
     coreOutput,
     identityContext: identityFor(input),
     coreInput: input,
+    selectorProvenance: SELECTOR,
   });
   const uncertainty = buildStructuredUncertainty(snapshot);
   const pack = buildInterpretationContextPack({
@@ -125,11 +129,20 @@ const P5A_INPUT = {
 
 const P1B_INPUT = {
   moduleId: "acquirerEnvironment",
-  candidatePair: "NF/SFP vs NF/SFJ",
+  candidatePair: "NT/STJ vs NT/STP",
   respondent1: SENIOR,
   respondent2: SENIOR,
-  answers1: fill({ selectedOption: "A" }, { Q11: { selectedOption: "F" } }),
-  answers2: fill({ selectedOption: "A" }, { Q11: { selectedOption: "F" } }),
+  answers1: fill(),
+  answers2: fill({}, {
+    Q1: { selectedOption: "E" },
+    Q2: { selectedOption: "E" },
+    Q3: { selectedOption: "E" },
+    Q4: { selectedOption: "E" },
+    Q5: { selectedOption: "E" },
+    Q7: { selectedOption: "E" },
+    Q8: { selectedOption: "E" },
+    Q9: { selectedOption: "E" },
+  }),
 };
 
 // ---------------------------------------------------------------------------
@@ -467,7 +480,7 @@ async function main() {
       "model constant pinned exactly in source",
     );
     for (const versionLiteral of [
-      "provider-projection-1.0",
+      "provider-projection-1.1",
       "provider-prompt-1.0",
       "provider-semantic-candidate-1.0",
     ]) {
@@ -571,7 +584,7 @@ async function main() {
 
   await check("EX4", "package/projection version mismatch fails configuration before HTTP", async () => {
     const tamperedProjection = structuredClone(p5aProjection);
-    tamperedProjection.providerProjectionVersion = "provider-projection-1.1";
+    tamperedProjection.providerProjectionVersion = "provider-projection-1.0";
     const first = await executeRejected(
       { projection: tamperedProjection, prompt: p5aPrompt, responder: jsonResponse(successPayload(p5aCandidateJson)) },
       "PROVIDER_CONFIGURATION_FAILURE",
@@ -1141,7 +1154,7 @@ async function main() {
     assert.ok(metadata.durationMs >= 0);
     assert.equal(ISO_PATTERN.test(metadata.executedAt), true);
     assert.equal(metadata.promptVersion, "provider-prompt-1.0");
-    assert.equal(metadata.providerProjectionVersion, "provider-projection-1.0");
+    assert.equal(metadata.providerProjectionVersion, "provider-projection-1.1");
     assert.equal(metadata.providerCandidateSchemaVersion, "provider-semantic-candidate-1.0");
     assert.deepEqual(metadata.observedProvider, {
       requestId: "req-123-offline",

@@ -4,6 +4,7 @@ import {
   scoreLayeredEvidenceQuestionSets,
 } from "./layeredEvidenceScoring.js";
 import { validateEvidenceClassifiedAnswers } from "./evidenceClassification.js";
+import { resolveCanonicalRespondentContext } from "./respondentContextBridge.js";
 
 export const ACQUIRER_ENVIRONMENT_CODES = Object.freeze([
   "NT/STJ",
@@ -739,6 +740,24 @@ export function isAcquirerVerificationComplete(session) {
   return Boolean(session?.acquirerVerification?.completed && session?.acquirer2A?.score?.verificationIncluded);
 }
 
+// C5-A CORR1 live production admission predicate. Low-level legacy completion
+// calls pinned by C3-D may still return ok:true, but their payloads are
+// LEGACY_INTERNAL_ONLY: only a completion carrying the full real respondent
+// context and its resolved canonical bridge output may enter live production
+// R2-complete state. Pure; no fabricated defaults; no eligibility scoring.
+export function isResolvedAcquirerVerificationRespondentContext(completion) {
+  const metadata = completion?.acquirerVerification?.respondentMetadata;
+  if (!metadata || typeof metadata !== "object") return false;
+  if (typeof metadata.firmTenure !== "string" || !TRANSACTION_DETAIL_VALUES.firmTenure.has(metadata.firmTenure)) return false;
+  if (typeof metadata.respondentSeniority !== "string" || !metadata.respondentSeniority) return false;
+  if (typeof metadata.respondentRole !== "string" || !metadata.respondentRole) return false;
+  const canonical = metadata.canonicalRespondentContext;
+  if (!canonical || typeof canonical !== "object" || canonical.status !== "resolved") return false;
+  if (canonical.productSeniority !== metadata.respondentSeniority) return false;
+  if (canonical.productRole !== metadata.respondentRole) return false;
+  return true;
+}
+
 export function canContinueToTargetObservationSetup(session) {
   return Boolean(
     session?.dealContext?.completed
@@ -855,6 +874,12 @@ export function verifyAcquirerVerificationInvite(invite, code, now = new Date().
   });
 }
 
+export const ACQUIRER_VERIFICATION_RESPONDENT_CONTEXT_REQUIRED = "acquirer-verification-respondent-context-required";
+
+function respondentContextFieldValid(present, value, validValues) {
+  return !present || (typeof value === "string" && validValues.has(value));
+}
+
 export function completeAcquirerVerificationInvite(
   invite,
   answers,
@@ -866,6 +891,35 @@ export function completeAcquirerVerificationInvite(
     return Object.freeze({
       ok: false,
       reason: "acquirer-verification-tenure-required",
+      invite,
+    });
+  }
+
+  // C5-A respondent-context bridge gate: seniority/role are real product values
+  // validated against the authoritative option sets; anything provided but not
+  // a lawful product value fails closed. No fabricated defaults exist.
+  const seniorityProvided = metadata !== null && Object.hasOwn(metadata, "respondentSeniority");
+  const roleProvided = metadata !== null && Object.hasOwn(metadata, "respondentRole");
+  const seniorityValid = respondentContextFieldValid(
+    seniorityProvided,
+    metadata?.respondentSeniority,
+    RESPONDENT_SENIORITY_VALUES,
+  );
+  const roleValid = respondentContextFieldValid(
+    roleProvided,
+    metadata?.respondentRole,
+    RESPONDENT_ROLE_VALUES,
+  );
+  const canonicalContext = seniorityProvided && seniorityValid
+    ? resolveCanonicalRespondentContext({
+      respondentSeniority: metadata.respondentSeniority,
+      respondentRole: roleProvided ? metadata.respondentRole : undefined,
+    })
+    : null;
+  if (!seniorityValid || !roleValid || (canonicalContext !== null && canonicalContext.status !== "resolved")) {
+    return Object.freeze({
+      ok: false,
+      reason: ACQUIRER_VERIFICATION_RESPONDENT_CONTEXT_REQUIRED,
       invite,
     });
   }
@@ -893,7 +947,14 @@ export function completeAcquirerVerificationInvite(
     score,
     ...(metadata === null
       ? {}
-      : { respondentMetadata: Object.freeze({ firmTenure }) }),
+      : {
+        respondentMetadata: Object.freeze({
+          firmTenure,
+          ...(seniorityProvided ? { respondentSeniority: metadata.respondentSeniority } : {}),
+          ...(roleProvided ? { respondentRole: metadata.respondentRole } : {}),
+          ...(canonicalContext !== null ? { canonicalRespondentContext: canonicalContext } : {}),
+        }),
+      }),
   });
 
   return Object.freeze({

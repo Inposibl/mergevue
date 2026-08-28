@@ -1,4 +1,5 @@
 import { assembleEngineSnapshot } from "./engineSnapshot.js";
+import { assemblePreCoreSelectorSnapshot } from "./preCoreSelectorSnapshot.js";
 import { buildStructuredUncertainty } from "./structuredUncertainty.js";
 import { buildInterpretationContextPack } from "./interpretationContextPack.js";
 import { buildAgentInterpretationRequest } from "./agentInterpretationRequest.js";
@@ -51,6 +52,8 @@ function mapKnownFailure(error, agentInterpretationRequest) {
 }
 
 export async function runAgentInterpretation({
+  outcomeSource,
+  selectorProvenance,
   coreOutput,
   identityContext,
   coreInput,
@@ -59,7 +62,22 @@ export async function runAgentInterpretation({
 } = {}) {
   let agentInterpretationRequest = null;
   try {
-    const engineSnapshot = assembleEngineSnapshot({ coreOutput, identityContext, coreInput });
+    let engineSnapshot;
+    if (outcomeSource === "DUAL_CORE") {
+      engineSnapshot = assembleEngineSnapshot({
+        coreOutput,
+        identityContext,
+        coreInput,
+        selectorProvenance,
+      });
+    } else if (outcomeSource === "PRE_CORE_SELECTOR") {
+      if (coreInput !== undefined || coreOutput !== undefined) {
+        throw new TypeError("PRE_CORE_SELECTOR requires coreInput and coreOutput to be absent");
+      }
+      engineSnapshot = assemblePreCoreSelectorSnapshot({ identityContext, selectorProvenance });
+    } else {
+      throw new TypeError(`Unsupported outcomeSource: ${String(outcomeSource)}`);
+    }
     const structuredUncertainty = buildStructuredUncertainty(engineSnapshot);
     const interpretationContextPack = buildInterpretationContextPack({
       engineSnapshot,

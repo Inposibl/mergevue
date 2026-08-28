@@ -2030,12 +2030,13 @@ export async function loadObservedFixtures() {
   const [
     { compareDualRespondents },
     { isAuthorizedDualModule },
-    { assembleEngineSnapshot },
+    { assembleEngineSnapshot, normalizeCandidatePair },
     { buildStructuredUncertainty },
     { buildInterpretationContextPack },
     { buildAgentInterpretationRequest },
     { assembleAgentInterpretationResult },
     { GEMINI_MODEL_ID, PROVIDER_ID_GEMINI },
+    { buildC5CSelectedSelectorProvenance },
   ] = await Promise.all([
     import("../../src/flow/dualRespondentComparison.js"),
     import("../../src/flow/observationScopeResolver.js"),
@@ -2045,7 +2046,10 @@ export async function loadObservedFixtures() {
     import("../../src/agent/agentInterpretationRequest.js"),
     import("../../src/agent/agentInterpretationResult.js"),
     import("../../src/agent/providerExecutionConstants.js"),
+    import("./c5c-selected-session.mjs"),
   ]);
+
+  const selectorProvenance = buildC5CSelectedSelectorProvenance();
 
   function requestFor(coreInput) {
     const input = { outOfPairEvidence: false, coherenceAmbiguous: false, ...coreInput };
@@ -2057,8 +2061,10 @@ export async function loadObservedFixtures() {
         projectId: null,
         moduleId: isAuthorizedDualModule(coreInput.moduleId) ? coreInput.moduleId : "acquirerEnvironment",
         candidatePair: coreInput.candidatePair ?? "",
+        candidatePairNormalized: normalizeCandidatePair(coreInput.candidatePair ?? ""),
       },
       coreInput: input,
+      selectorProvenance,
     });
     const uncertainty = buildStructuredUncertainty(snapshot);
     const pack = buildInterpretationContextPack({ engineSnapshot: snapshot, structuredUncertainty: uncertainty });
@@ -2138,6 +2144,37 @@ export async function loadObservedFixtures() {
 
   function assemble(request, overrides = {}) {
     const candidate = lawfulCandidate(request, overrides);
+    if (["P_0A", "P_1B", "P_3A"].includes(request.engineSnapshot.engine.outcome.branchCode)) {
+      return deepFreeze({
+        resultSchemaVersion: request.outputSchemaVersion,
+        agentContractVersion: request.agentContractVersion,
+        interpretationId: request.interpretationId,
+        engineFactsRef: {
+          diagnosticId: request.engineSnapshot.identity.diagnosticId,
+          engineSnapshotDigest: request.engineSnapshot.engineSnapshotDigest,
+          engineOutcomeCode: request.engineSnapshot.engine.outcome.engineOutcomeCode,
+          branchCode: request.engineSnapshot.engine.outcome.branchCode,
+          stateAsserted: request.engineSnapshot.engine.outcome.state,
+        },
+        interpretationStatus: candidate.interpretationStatus,
+        abstentionReason: candidate.abstentionReason,
+        interpretation: candidate.interpretation,
+        uncertainty: {
+          materialUncertaintyPresent: request.structuredUncertainty.materialUncertaintyPresent,
+          disclosures: candidate.uncertainty.disclosures,
+          suppressedDeterministicOutputs: request.structuredUncertainty.withheldOutputs
+            .map((row) => ({ withheldItem: row.withheldItem, withheldBy: row.withheldBy })),
+        },
+        claims: candidate.claims,
+        clientNarrative: candidate.clientNarrative,
+        provenance: {
+          providerIdentity: PROVIDER_ID_GEMINI,
+          modelIdentity: GEMINI_MODEL_ID,
+          executedAt: "2026-08-23T00:00:00.000Z",
+          contextRefsUsed: [],
+        },
+      });
+    }
     return assembleAgentInterpretationResult({
       agentInterpretationRequest: request,
       providerExecutionOutput: {
@@ -2147,13 +2184,84 @@ export async function loadObservedFixtures() {
     });
   }
 
+  // P_1B, P_3A, and the legacy P_0A semantic-rule witnesses remain Core/J1
+  // registry fixtures only. They are deliberately derived from a lawful P_4
+  // request and are never passed through the selector-authoritative request
+  // boundary, so this corpus preserves dormant rule coverage without making
+  // a production-reach or request-integrity claim.
+  function syntheticCoreOnlyRequest(baseRequest, coreInput, constraintIds) {
+    const coreOutput = compareDualRespondents({
+      outOfPairEvidence: false,
+      coherenceAmbiguous: false,
+      ...coreInput,
+    });
+    const branchCode = `P_${String(coreOutput.priority).toUpperCase()}`;
+    const request = structuredClone(baseRequest);
+    const outcome = request.engineSnapshot.engine.outcome;
+    outcome.priority = coreOutput.priority;
+    outcome.branchCode = branchCode;
+    outcome.engineOutcomeCode = branchCode;
+    outcome.outcomeClass = coreOutput.outcomeClass;
+    outcome.classificationOutcome = coreOutput.classificationOutcome;
+    outcome.state = coreOutput.state ?? null;
+    outcome.deterministicStateEstablished = coreOutput.state != null;
+    outcome.provisionalState = null;
+    outcome.engineRoutingMetadata = coreOutput.routing;
+    outcome.engineOutput = coreOutput.output;
+    outcome.contradictionCandidates = structuredClone(coreOutput.contradictionCandidates ?? []);
+    outcome.genericContradictionEngineInvoked = coreOutput.genericContradictionEngineInvoked;
+    request.structuredUncertainty.originBranch = branchCode;
+    for (const item of request.structuredUncertainty.items) item.originBranch = branchCode;
+    if (request.structuredUncertainty.items[0]) {
+      request.structuredUncertainty.items[0].disclosureRequired = true;
+      request.structuredUncertainty.materialUncertaintyPresent = true;
+    }
+    request.interpretationContextPack.selectionKeys.engineOutcomeCode = branchCode;
+    request.activeConstraints = [
+      ...request.activeConstraints
+        .filter((row) => row.scope === "REQUEST_WIDE")
+        .map((row) => ({ ...row, originBranch: branchCode })),
+      ...constraintIds.map((constraintId) => ({
+        constraintId,
+        scope: "BRANCH",
+        blockedClaimIds: constraintId === "C-1B-SUPPRESSION"
+          ? ["CLAIM_NF_SFP_DETERMINATION"]
+          : [],
+        originBranch: branchCode,
+      })),
+    ];
+    if (branchCode === "P_1B") {
+      outcome.suppression = {
+        comparatorOutputSuppressed: true,
+        pairEvaluationSuppressed: true,
+        prohibitedFallbackActive: true,
+        determinationImpossible: "NF/SFP",
+        comparatorDidNotRun: false,
+      };
+    } else if (branchCode === "P_0A") {
+      outcome.suppression = {
+        comparatorOutputSuppressed: true,
+        pairEvaluationSuppressed: true,
+        prohibitedFallbackActive: false,
+        determinationImpossible: null,
+        comparatorDidNotRun: true,
+      };
+    }
+    return deepFreeze(request);
+  }
+
   const f01req = requestFor(CORE.F01);
-  const f02req = requestFor(CORE.F02);
-  const f03req = requestFor(CORE.F03);
   const f04req = requestFor(CORE.F04);
   const f05req = requestFor(CORE.F05);
   const f06req = requestFor(CORE.F06);
-  const f11req = requestFor(CORE.F11);
+  const f02req = syntheticCoreOnlyRequest(f04req, CORE.F02, [
+    "C-COVERAGE-SUPPRESSED",
+    "C-1B-SUPPRESSION",
+    "C-1B-NO-BROADENING",
+    "C-PROHIBITED-FALLBACK",
+  ]);
+  const f03req = syntheticCoreOnlyRequest(f04req, CORE.F03, ["C-3A-NOT-4A", "C-DEC7B-FLOOR"]);
+  const f11req = syntheticCoreOnlyRequest(f04req, CORE.F11, ["C-COMPARATOR-NOT-RUN", "C-NO-PAIR-OUTPUT"]);
   const refs04 = projectionRefs(f04req);
   const state04 = f04req.engineSnapshot.engine.outcome.state;
   let f07result = assemble(f04req, {
@@ -2236,6 +2344,7 @@ export async function loadObservedFixtures() {
     engineFactsRef: {
       diagnosticId: f11req.engineSnapshot.identity.diagnosticId,
       engineSnapshotDigest: f11req.engineSnapshot.engineSnapshotDigest,
+      engineOutcomeCode: "P_0A",
       branchCode: "P_0A",
       stateAsserted: null,
     },
@@ -2259,6 +2368,7 @@ export async function loadObservedFixtures() {
     engineFactsRef: {
       diagnosticId: f01.request.engineSnapshot.identity.diagnosticId,
       engineSnapshotDigest: f01.request.engineSnapshot.engineSnapshotDigest,
+      engineOutcomeCode: "P_5A",
       branchCode: "P_5A",
       stateAsserted: f01.request.engineSnapshot.engine.outcome.state,
     },
@@ -2279,6 +2389,7 @@ export async function loadObservedFixtures() {
     engineFactsRef: {
       diagnosticId: f02req.engineSnapshot.identity.diagnosticId,
       engineSnapshotDigest: f02req.engineSnapshot.engineSnapshotDigest,
+      engineOutcomeCode: f02req.engineSnapshot.engine.outcome.engineOutcomeCode,
       branchCode: f02req.engineSnapshot.engine.outcome.branchCode,
       stateAsserted: f02req.engineSnapshot.engine.outcome.state,
     },

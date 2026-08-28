@@ -12,6 +12,10 @@ import {
   dualQualityConfig,
 } from "../flow/dualRespondentComparison.js";
 import { isAuthorizedDualModule } from "../flow/observationScopeResolver.js";
+import {
+  DualSemanticIntegrityError,
+  assertPreDualSemanticIntegrity,
+} from "../flow/dualQuestionSemanticResolver.js";
 
 import {
   ADJUDICATION_PROVENANCE_USE_CLASS_VALUES,
@@ -33,6 +37,7 @@ import {
   RESPONDENT_SLOT_R1,
   RESPONDENT_SLOT_R2,
   RUNTIME_CORE_COMMIT,
+  SELECTOR_COMPATIBLE_DUAL_BRANCH_CODES,
   SNAPSHOT_SCHEMA_VERSION,
   SUPPRESSION_BY_BRANCH,
   UNMATCHED_CLASSIFICATION_OUTCOME,
@@ -54,6 +59,32 @@ const GENERATED_CORPUS_ARTIFACTS = Object.freeze({
 
 const DUAL_CORPUS_CONFIG = buildDualRespondentCorpusConfig(scoringAndTriage.dualRespondentComparison);
 const PAIRROWS_ABSENT_BRANCHES = new Set(["P_0A", "P_0B", "P_0C"]);
+const SELECTOR_PROVENANCE_FIXED_KEYS = Object.freeze([
+  "selectorId",
+  "selectorVersion",
+  "observationScopePolicy",
+  "sourceModule",
+  "sourceInstrument",
+  "sessionId",
+  "respondentSlot",
+  "respondentVantage",
+  "semanticBindings",
+  "status",
+  "decisionCode",
+  "candidatePair",
+  "candidatePairNormalized",
+]);
+const SELECTOR_PROVENANCE_UNRESOLVED_KEYS = Object.freeze([
+  ...SELECTOR_PROVENANCE_FIXED_KEYS,
+  "routing",
+  "unresolvedReason",
+]);
+const SELECTOR_STATUSES = Object.freeze([
+  "SELECTED",
+  "ADMISSIBILITY_UNRESOLVED",
+  "NO_LAWFUL_PAIR",
+  "PAIR_SELECTION_AMBIGUOUS",
+]);
 
 export class AgentBoundaryAssemblyError extends Error {
   constructor({ failureClass, detail } = {}) {
@@ -92,6 +123,34 @@ function requireNonEmptyString(value, label) {
   const text = requireString(value, label);
   if (!text.trim()) fail(`${label} must be a non-empty string`);
   return text;
+}
+
+function isPlainObject(value) {
+  if (value == null || typeof value !== "object" || Array.isArray(value)) return false;
+  const proto = Object.getPrototypeOf(value);
+  return proto === Object.prototype || proto === null;
+}
+
+function requirePlainObject(value, label) {
+  if (!isPlainObject(value)) fail(`${label} must be a plain object`);
+  return value;
+}
+
+function assertExactKeys(value, expectedKeys, label) {
+  const actualKeys = Object.keys(value);
+  const expected = new Set(expectedKeys);
+  const missing = expectedKeys.filter((key) => !Object.hasOwn(value, key));
+  const unexpected = actualKeys.filter((key) => !expected.has(key));
+  if (missing.length > 0) fail(`${label} is missing keys: ${missing.join(", ")}`);
+  if (unexpected.length > 0) fail(`${label} carries unexpected keys: ${unexpected.join(", ")}`);
+}
+
+function copyCanonicalJson(value, label) {
+  try {
+    return JSON.parse(canonicalSerialize(value));
+  } catch (error) {
+    fail(`${label} must be canonical JSON: ${error?.message ?? String(error)}`);
+  }
 }
 
 function copyArray(value) {
@@ -190,14 +249,81 @@ export function buildCorpusIdentity() {
 
 export function engineSnapshotDigestCoveredContent(snapshot) {
   const sealed = requireObject(snapshot, "snapshot");
+  const identity = requireObject(sealed.identity, "snapshot.identity");
   return {
-    corpus: requireObject(sealed.identity, "snapshot.identity").corpus,
+    snapshotSchemaVersion: sealed.snapshotSchemaVersion,
+    outcomeSource: sealed.outcomeSource,
+    identity: {
+      diagnosticId: identity.diagnosticId,
+      projectId: identity.projectId,
+      moduleId: identity.moduleId,
+      instrumentSourceWorkbook: identity.instrumentSourceWorkbook,
+      candidatePair: identity.candidatePair,
+      candidatePairNormalized: identity.candidatePairNormalized,
+      questionUniverse: identity.questionUniverse,
+      corpus: identity.corpus,
+      runtime: identity.runtime,
+    },
+    selector: requireObject(sealed.selector, "snapshot.selector"),
     engine: requireObject(sealed.engine, "snapshot.engine"),
   };
 }
 
-export function computeEngineSnapshotDigest(engine, corpus) {
-  return sha256PrefixedDigest(canonicalSerialize({ corpus, engine }));
+export function computeEngineSnapshotDigest(coveredContent) {
+  return sha256PrefixedDigest(canonicalSerialize(requireObject(coveredContent, "coveredContent")));
+}
+
+export function projectSelectorProvenance(selectorProvenance) {
+  const source = requirePlainObject(selectorProvenance, "selectorProvenance");
+  const status = source.status;
+  if (!SELECTOR_STATUSES.includes(status)) {
+    fail(`selectorProvenance.status is not snapshot-eligible: ${JSON.stringify(status)}`);
+  }
+  const expectedKeys = status === "ADMISSIBILITY_UNRESOLVED"
+    ? SELECTOR_PROVENANCE_UNRESOLVED_KEYS
+    : SELECTOR_PROVENANCE_FIXED_KEYS;
+  assertExactKeys(source, expectedKeys, "selectorProvenance");
+
+  for (const key of [
+    "selectorId",
+    "selectorVersion",
+    "observationScopePolicy",
+    "sourceModule",
+    "sourceInstrument",
+    "sessionId",
+    "respondentSlot",
+    "decisionCode",
+  ]) {
+    requireNonEmptyString(source[key], `selectorProvenance.${key}`);
+  }
+  if (source.respondentSlot !== "R1") fail("selectorProvenance.respondentSlot must be R1");
+  requirePlainObject(source.respondentVantage, "selectorProvenance.respondentVantage");
+  if (!Array.isArray(source.semanticBindings)) fail("selectorProvenance.semanticBindings must be an array");
+  if (source.decisionCode !== status) {
+    fail("selectorProvenance.decisionCode must equal selectorProvenance.status");
+  }
+
+  if (status === "SELECTED") {
+    requireNonEmptyString(source.candidatePair, "selectorProvenance.candidatePair");
+    requireNonEmptyString(source.candidatePairNormalized, "selectorProvenance.candidatePairNormalized");
+  } else if (source.candidatePair !== null || source.candidatePairNormalized !== null) {
+    fail(`${status} selectorProvenance requires candidatePair and candidatePairNormalized to be null`);
+  }
+
+  if (status === "ADMISSIBILITY_UNRESOLVED") {
+    if (source.routing !== "practitioner_access_review") {
+      fail("ADMISSIBILITY_UNRESOLVED selectorProvenance.routing must be practitioner_access_review");
+    }
+    if (source.unresolvedReason !== null && typeof source.unresolvedReason !== "string") {
+      fail("selectorProvenance.unresolvedReason must be a string or null");
+    }
+  }
+
+  const projected = {};
+  for (const key of expectedKeys) {
+    projected[key] = copyCanonicalJson(source[key], `selectorProvenance.${key}`);
+  }
+  return projected;
 }
 
 function precedenceRowForPriority(priority) {
@@ -231,6 +357,29 @@ function normalizeCoreBindingForm(value, seen) {
   return normalized;
 }
 
+function mapPreDualIntegrityFailure(error) {
+  if (error instanceof DualSemanticIntegrityError) {
+    throw new AgentBoundaryAssemblyError({
+      failureClass: error.canonicalFailureClass,
+      detail: [
+        error.boundary,
+        error.integrityDomain,
+        error.failureReason,
+        error.detail,
+      ].filter(Boolean).join("|"),
+    });
+  }
+  throw error;
+}
+
+function enforcePreDualSemanticIntegrity(coreInput) {
+  try {
+    assertPreDualSemanticIntegrity(coreInput);
+  } catch (error) {
+    mapPreDualIntegrityFailure(error);
+  }
+}
+
 function bindIdentityToInvocation(identity, coreInput, coreOutput, branchCode) {
   if (identity.candidatePair !== coreInput.candidatePair) {
     fail("identityContext.candidatePair does not match coreInput.candidatePair");
@@ -238,32 +387,30 @@ function bindIdentityToInvocation(identity, coreInput, coreOutput, branchCode) {
 
   const invocationModuleId = coreInput.moduleId;
   const identityModuleId = identity.moduleId;
-  const invocationAuthorized = isAuthorizedDualModule(invocationModuleId);
-
-  if (invocationAuthorized) {
-    if (identityModuleId !== invocationModuleId) {
-      fail("identityContext.moduleId does not match coreInput.moduleId");
-    }
-    return;
+  if (!AUTHORIZED_MODULE_IDS.includes(invocationModuleId) || !isAuthorizedDualModule(invocationModuleId)) {
+    fail("coreInput.moduleId is not an authorized Dual module");
   }
-
-  if (!AUTHORIZED_MODULE_IDS.includes(identityModuleId) || !isAuthorizedDualModule(identityModuleId)) {
-    fail("P_0C identity-family snapshots still require an authorized identityContext.moduleId");
+  if (identityModuleId !== invocationModuleId) {
+    fail("identityContext.moduleId does not match coreInput.moduleId");
   }
-  if (branchCode !== "P_0C") {
-    fail("unauthorized coreInput.moduleId is only bindable to P_0C");
-  }
-  const unresolvedReason = presentOrNull(coreOutput.audit, "unresolvedReason");
   if (
-    unresolvedReason !== UNRESOLVED_REASON.MISSING_MODULE
-    && unresolvedReason !== UNRESOLVED_REASON.UNSUPPORTED_MODULE
+    branchCode === "P_0C"
+    && (
+      presentOrNull(coreOutput.audit, "unresolvedReason") === UNRESOLVED_REASON.MISSING_MODULE
+      || presentOrNull(coreOutput.audit, "unresolvedReason") === UNRESOLVED_REASON.UNSUPPORTED_MODULE
+    )
   ) {
-    fail("unauthorized coreInput.moduleId is not bound to a transported identity unresolvedReason");
+    fail("semantic module identity corruption cannot become P_0C");
   }
 }
 
 function bindCoreOutputToInvocation(coreInput, coreOutput) {
-  const recomputed = compareDualRespondents(coreInput);
+  let recomputed;
+  try {
+    recomputed = compareDualRespondents(coreInput);
+  } catch (error) {
+    mapPreDualIntegrityFailure(error);
+  }
   const supplied = canonicalSerialize(normalizeCoreBindingForm(coreOutput, new Set()));
   const expected = canonicalSerialize(normalizeCoreBindingForm(recomputed, new Set()));
   if (supplied !== expected) {
@@ -608,10 +755,14 @@ function projectComparison({ coreOutput, coreInput, candidatePair, pairRows }) {
   };
 }
 
-export function assembleEngineSnapshot({ coreOutput, identityContext, coreInput } = {}) {
+export function assembleEngineSnapshot({ coreOutput, identityContext, coreInput, selectorProvenance } = {}) {
   const output = requireObject(coreOutput, "coreOutput");
   const identity = requireObject(identityContext, "identityContext");
   const input = requireObject(coreInput, "coreInput");
+  const selector = projectSelectorProvenance(selectorProvenance);
+  if (selector.status !== "SELECTED") {
+    fail("DUAL_CORE requires selectorProvenance.status SELECTED");
+  }
   const diagnosticId = requireNonEmptyString(identity.diagnosticId, "identityContext.diagnosticId");
   const moduleId = requireNonEmptyString(identity.moduleId, "identityContext.moduleId");
   if (!AUTHORIZED_MODULE_IDS.includes(moduleId)) {
@@ -619,6 +770,9 @@ export function assembleEngineSnapshot({ coreOutput, identityContext, coreInput 
   }
   if (!Object.hasOwn(identity, "candidatePair") || typeof identity.candidatePair !== "string") {
     fail("identityContext.candidatePair must be a string");
+  }
+  if (!Object.hasOwn(identity, "candidatePairNormalized") || typeof identity.candidatePairNormalized !== "string") {
+    fail("identityContext.candidatePairNormalized must be a string");
   }
   if (typeof input.moduleId !== "string") fail("coreInput.moduleId must be a string");
   if (typeof input.candidatePair !== "string") fail("coreInput.candidatePair must be a string");
@@ -637,7 +791,23 @@ export function assembleEngineSnapshot({ coreOutput, identityContext, coreInput 
   }
 
   const branchCode = deriveBranchCode(output);
+  if (!SELECTOR_COMPATIBLE_DUAL_BRANCH_CODES.includes(branchCode)) {
+    fail(`${branchCode} is not selector-compatible for a DUAL_CORE snapshot`);
+  }
+  if (
+    selector.candidatePair !== identity.candidatePair
+    || selector.candidatePair !== input.candidatePair
+  ) {
+    fail("selectorProvenance.candidatePair must match identityContext and coreInput");
+  }
+  if (selector.candidatePairNormalized !== identity.candidatePairNormalized) {
+    fail("selectorProvenance.candidatePairNormalized must match identityContext.candidatePairNormalized");
+  }
+  if (identity.candidatePairNormalized !== normalizeCandidatePair(identity.candidatePair)) {
+    fail("identityContext.candidatePairNormalized must equal canonical candidate-pair normalization");
+  }
   requireExplicitInvocationFlags(input, branchCode);
+  enforcePreDualSemanticIntegrity(input);
   bindIdentityToInvocation(identity, input, output, branchCode);
   bindCoreOutputToInvocation(input, output);
   requireBranchShape(output, branchCode);
@@ -650,6 +820,7 @@ export function assembleEngineSnapshot({ coreOutput, identityContext, coreInput 
     outcome: {
       priority: output.priority,
       branchCode,
+      engineOutcomeCode: branchCode,
       outcomeClass: output.outcomeClass,
       classificationOutcome: output.classificationOutcome,
       state: output.state ?? null,
@@ -672,25 +843,34 @@ export function assembleEngineSnapshot({ coreOutput, identityContext, coreInput 
     }),
   };
 
-  const corpus = buildCorpusIdentity();
+  const snapshotIdentity = {
+    diagnosticId,
+    projectId: identity.projectId ?? null,
+    moduleId,
+    instrumentSourceWorkbook: scoringAndTriage.dualRespondentComparison.sourceWorkbook,
+    candidatePair: identity.candidatePair,
+    candidatePairNormalized: identity.candidatePairNormalized,
+    questionUniverse: [...QUESTION_UNIVERSE],
+    corpus: buildCorpusIdentity(),
+    runtime: {
+      coreCommit: identity.coreCommit ?? RUNTIME_CORE_COMMIT,
+      dualComparatorVersion: DUAL_COMPARATOR_VERSION,
+      layeredEvidenceScoringVersion: identity.layeredEvidenceScoringVersion ?? null,
+    },
+  };
+  const coveredContent = {
+    snapshotSchemaVersion: SNAPSHOT_SCHEMA_VERSION,
+    outcomeSource: "DUAL_CORE",
+    identity: snapshotIdentity,
+    selector,
+    engine,
+  };
   const snapshot = {
     snapshotSchemaVersion: SNAPSHOT_SCHEMA_VERSION,
-    engineSnapshotDigest: computeEngineSnapshotDigest(engine, corpus),
-    identity: {
-      diagnosticId,
-      projectId: identity.projectId ?? null,
-      moduleId,
-      instrumentSourceWorkbook: scoringAndTriage.dualRespondentComparison.sourceWorkbook,
-      candidatePair: identity.candidatePair,
-      candidatePairNormalized: normalizeCandidatePair(identity.candidatePair),
-      questionUniverse: [...QUESTION_UNIVERSE],
-      corpus,
-      runtime: {
-        coreCommit: identity.coreCommit ?? RUNTIME_CORE_COMMIT,
-        dualComparatorVersion: DUAL_COMPARATOR_VERSION,
-        layeredEvidenceScoringVersion: identity.layeredEvidenceScoringVersion ?? null,
-      },
-    },
+    engineSnapshotDigest: computeEngineSnapshotDigest(coveredContent),
+    outcomeSource: "DUAL_CORE",
+    identity: snapshotIdentity,
+    selector,
     engine,
   };
 

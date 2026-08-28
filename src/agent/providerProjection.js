@@ -14,6 +14,8 @@ import {
   CONTEXT_PACK_SCHEMA_VERSION,
   DEC8_ADMISSIBILITY_SCOPE,
   DETERMINATION_IMPOSSIBLE_NF_SFP,
+  ENGINE_OUTCOME_CODES,
+  ENGINE_OUTCOME_SOURCES,
   FAILURE_CLASS_CONTRACT_VERSION_MISMATCH,
   FAILURE_CLASS_INPUT_ASSEMBLY_FAILURE,
   FINALITY,
@@ -21,11 +23,14 @@ import {
   MATCHED_ACCESS_RULE_IDS,
   OUTPUT_SCHEMA_VERSION,
   PACK_SCOPE_VERDICTS,
+  PRE_CORE_CONSTRAINT_IDS,
+  PRE_CORE_OUTCOME_CODES,
   PROVIDER_PROJECTION_VERSION,
   QUESTION_UNIVERSE,
   REQUEST_SCHEMA_VERSION,
   RESPONDENT_SLOTS,
   SELECTION_RULE_IDS,
+  SELECTOR_STATUS_TO_PRE_CORE_OUTCOME_CODE,
   SNAPSHOT_SCHEMA_VERSION,
   SR12_MARKER_IDS,
   UNCERTAINTY_DOMAINS,
@@ -83,6 +88,14 @@ const REQUEST_ROOT_KEYS = Object.freeze([
 const SNAPSHOT_KEYS = Object.freeze([
   "snapshotSchemaVersion",
   "engineSnapshotDigest",
+  "outcomeSource",
+  "identity",
+  "selector",
+  "engine",
+]);
+
+const SNAPSHOT_PROJECTED_KEYS = Object.freeze([
+  "outcomeSource",
   "identity",
   "engine",
 ]);
@@ -106,11 +119,13 @@ const SNAPSHOT_IDENTITY_PROJECTED_KEYS = Object.freeze([
   "questionUniverse",
 ]);
 
-const ENGINE_KEYS = Object.freeze(["outcome", "observations", "comparison"]);
+const DUAL_ENGINE_KEYS = Object.freeze(["outcome", "observations", "comparison"]);
+const PRE_CORE_ENGINE_KEYS = Object.freeze(["outcome", "observations"]);
 
-const OUTCOME_KEYS = Object.freeze([
+const DUAL_OUTCOME_KEYS = Object.freeze([
   "priority",
   "branchCode",
+  "engineOutcomeCode",
   "outcomeClass",
   "classificationOutcome",
   "state",
@@ -125,9 +140,25 @@ const OUTCOME_KEYS = Object.freeze([
   "engineAuditRaw",
 ]);
 
-const OUTCOME_PROJECTED_KEYS = Object.freeze([
+const PRE_CORE_OUTCOME_KEYS = Object.freeze([
+  "engineOutcomeCode",
+  "outcomeClass",
+  "classificationOutcome",
+  "state",
+  "deterministicStateEstablished",
+  "provisionalState",
+  "engineRoutingMetadata",
+  "engineOutput",
+  "contradictionCandidates",
+  "genericContradictionEngineInvoked",
+  "suppression",
+  "finality",
+]);
+
+const DUAL_OUTCOME_PROJECTED_KEYS = Object.freeze([
   "priority",
   "branchCode",
+  "engineOutcomeCode",
   "outcomeClass",
   "classificationOutcome",
   "state",
@@ -138,6 +169,42 @@ const OUTCOME_PROJECTED_KEYS = Object.freeze([
   "genericContradictionEngineInvoked",
   "suppression",
   "finality",
+]);
+
+const PRE_CORE_OUTCOME_PROJECTED_KEYS = Object.freeze([
+  "engineOutcomeCode",
+  "outcomeClass",
+  "classificationOutcome",
+  "state",
+  "deterministicStateEstablished",
+  "provisionalState",
+  "engineOutput",
+  "contradictionCandidates",
+  "genericContradictionEngineInvoked",
+  "suppression",
+  "finality",
+]);
+
+const SELECTOR_FIXED_KEYS = Object.freeze([
+  "selectorId",
+  "selectorVersion",
+  "observationScopePolicy",
+  "sourceModule",
+  "sourceInstrument",
+  "sessionId",
+  "respondentSlot",
+  "respondentVantage",
+  "semanticBindings",
+  "status",
+  "decisionCode",
+  "candidatePair",
+  "candidatePairNormalized",
+]);
+
+const SELECTOR_UNRESOLVED_KEYS = Object.freeze([
+  ...SELECTOR_FIXED_KEYS,
+  "routing",
+  "unresolvedReason",
 ]);
 
 const OBSERVATION_KEYS = Object.freeze([
@@ -617,18 +684,22 @@ function vNullableFixedObject(spec) {
 
 const USE_CLASS = vEnum(ADJUDICATION_PROVENANCE_USE_CLASS_VALUES);
 const COMPARISON_AVAILABILITY = vEnum(["available", "unavailable"]);
-const ALL_CONSTRAINT_IDS = Object.freeze([...BASELINE_CONSTRAINT_IDS, ...CONSTRAINT_IDS]);
+const ENGINE_CONSTRAINT_IDS = Object.freeze([...CONSTRAINT_IDS, ...PRE_CORE_CONSTRAINT_IDS]);
+const ALL_CONSTRAINT_IDS = Object.freeze([
+  ...BASELINE_CONSTRAINT_IDS,
+  ...CONSTRAINT_IDS,
+  ...PRE_CORE_CONSTRAINT_IDS,
+]);
 
 const IDENTITY_VALUE_SHAPES = Object.freeze({
   moduleId: vEnum(AUTHORIZED_MODULE_IDS),
-  candidatePair: vString,
-  candidatePairNormalized: vString,
+  candidatePair: vNullable(vString),
+  candidatePairNormalized: vNullable(vString),
   questionUniverse: vQuestionUniverse,
 });
 
-const OUTCOME_VALUE_SHAPES = Object.freeze({
-  priority: vNullable(vString),
-  branchCode: vEnum(BRANCH_CODES),
+const SHARED_OUTCOME_VALUE_SHAPES = Object.freeze({
+  engineOutcomeCode: vEnum(ENGINE_OUTCOME_CODES),
   outcomeClass: vString,
   classificationOutcome: vString,
   state: vNullable(vString),
@@ -637,6 +708,17 @@ const OUTCOME_VALUE_SHAPES = Object.freeze({
   engineOutput: vString,
   genericContradictionEngineInvoked: vBoolean,
   finality: vEnum(Object.values(FINALITY)),
+});
+
+const DUAL_OUTCOME_VALUE_SHAPES = Object.freeze({
+  ...SHARED_OUTCOME_VALUE_SHAPES,
+  priority: vNullable(vString),
+  branchCode: vEnum(BRANCH_CODES),
+});
+
+const PRE_CORE_OUTCOME_VALUE_SHAPES = Object.freeze({
+  ...SHARED_OUTCOME_VALUE_SHAPES,
+  engineOutcomeCode: vEnum(PRE_CORE_OUTCOME_CODES),
 });
 
 const SUPPRESSION_VALUE_SHAPES = Object.freeze({
@@ -829,7 +911,7 @@ const COMPARISON_VALUE_SHAPES = Object.freeze({
 
 const UNCERTAINTY_ROOT_VALUE_SHAPES = Object.freeze({
   uncertaintySchemaVersion: vString,
-  originBranch: vEnum(BRANCH_CODES),
+  originBranch: vEnum(ENGINE_OUTCOME_CODES),
   materialUncertaintyPresent: vBoolean,
   survivingEvidenceRefs: vArrayOf(vString),
   unavailableEvidenceRefs: vArrayOf(vString),
@@ -849,7 +931,7 @@ const UNKNOWN_ROW_VALUE_SHAPES = Object.freeze({
 
 const WITHHELD_ROW_VALUE_SHAPES = Object.freeze({
   withheldItem: vString,
-  withheldBy: vEnum(BRANCH_CODES),
+  withheldBy: vEnum(ENGINE_OUTCOME_CODES),
   engineOutputText: vString,
   reconstructionProhibited: vBoolean,
 });
@@ -858,11 +940,11 @@ const UNCERTAINTY_ITEM_ROW_VALUE_SHAPES = Object.freeze({
   uncertaintyId: vString,
   uncertaintyDomain: vEnum(UNCERTAINTY_DOMAINS),
   reasonCode: vNullable(vEnum(UNCERTAINTY_REASON_CODES)),
-  originBranch: vEnum(BRANCH_CODES),
+  originBranch: vEnum(ENGINE_OUTCOME_CODES),
   affectedClaims: vArrayOf(vEnum(CLAIM_IDS)),
   claimScope: vEnum(CLAIM_SCOPES),
   evidenceRefs: vArrayOf(vString),
-  constraintIds: vArrayOf(vEnum(CONSTRAINT_IDS)),
+  constraintIds: vArrayOf(vEnum(ENGINE_CONSTRAINT_IDS)),
   disclosureRequired: vBoolean,
   derivationSource: vString,
 });
@@ -880,7 +962,7 @@ const CONTEXT_ITEM_VALUE_SHAPES = Object.freeze({
   authorityClass: vEnum(AUTHORITY_CLASSES),
   contextDomain: vEnum(CONTEXT_DOMAINS),
   relevance: vFixedObject(Object.freeze({
-    branchRelevance: vArrayOf(vEnum(BRANCH_CODES)),
+    branchRelevance: vArrayOf(vEnum(ENGINE_OUTCOME_CODES)),
     questionRelevance: vArrayOf(vEnum(QUESTION_UNIVERSE)),
     environmentRelevance: vArrayOf(vString),
     selectionRuleId: vEnum(SELECTION_RULE_IDS),
@@ -903,7 +985,7 @@ const CONSTRAINT_ROW_VALUE_SHAPES = Object.freeze({
   constraintId: vEnum(ALL_CONSTRAINT_IDS),
   scope: vEnum(CONSTRAINT_SCOPES),
   blockedClaimIds: vArrayOf(vEnum(CLAIM_IDS)),
-  originBranch: vEnum(BRANCH_CODES),
+  originBranch: vEnum(ENGINE_OUTCOME_CODES),
 });
 
 function closedRows(rows, keys, label) {
@@ -999,11 +1081,60 @@ function closedComparison(comparison) {
   };
 }
 
+function validateSelectorNode(selector, outcomeSource, identity, engineOutcomeCode) {
+  const label = "engineSnapshot.selector";
+  requirePlainObject(selector, label);
+  const expectedKeys = selector.status === "ADMISSIBILITY_UNRESOLVED"
+    ? SELECTOR_UNRESOLVED_KEYS
+    : SELECTOR_FIXED_KEYS;
+  assertExactKeySet(selector, expectedKeys, label);
+  for (const key of [
+    "selectorId",
+    "selectorVersion",
+    "observationScopePolicy",
+    "sourceModule",
+    "sourceInstrument",
+    "sessionId",
+    "respondentSlot",
+    "status",
+    "decisionCode",
+  ]) {
+    vString(selector[key], `${label}.${key}`);
+  }
+  requirePlainObject(selector.respondentVantage, `${label}.respondentVantage`);
+  requireArray(selector.semanticBindings, `${label}.semanticBindings`);
+  if (selector.decisionCode !== selector.status) fail(`${label}.decisionCode must equal status`);
+  if (outcomeSource === "DUAL_CORE") {
+    if (selector.status !== "SELECTED") fail("DUAL_CORE requires a SELECTED selector node");
+    if (selector.candidatePair !== identity.candidatePair) fail("selector candidatePair mismatch");
+    if (selector.candidatePairNormalized !== identity.candidatePairNormalized) {
+      fail("selector candidatePairNormalized mismatch");
+    }
+    if (engineOutcomeCode === undefined) fail("DUAL_CORE engineOutcomeCode is required");
+    return;
+  }
+  if (selector.candidatePair !== null || selector.candidatePairNormalized !== null) {
+    fail("PRE_CORE_SELECTOR selector candidate pair fields must be null");
+  }
+  if (SELECTOR_STATUS_TO_PRE_CORE_OUTCOME_CODE[selector.status] !== engineOutcomeCode) {
+    fail("PRE_CORE_SELECTOR selector status does not match engineOutcomeCode");
+  }
+  if (selector.status === "ADMISSIBILITY_UNRESOLVED") {
+    if (selector.routing !== "practitioner_access_review") fail("selector routing mismatch");
+    if (selector.unresolvedReason !== null && typeof selector.unresolvedReason !== "string") {
+      fail("selector unresolvedReason must be a string or null");
+    }
+  }
+}
+
 function projectEngineSnapshot(snapshot) {
   requirePlainObject(snapshot, "engineSnapshot");
   assertExactKeySet(snapshot, SNAPSHOT_KEYS, "engineSnapshot");
   if (snapshot.snapshotSchemaVersion !== SNAPSHOT_SCHEMA_VERSION) {
     versionFail(`engineSnapshot.snapshotSchemaVersion must be ${SNAPSHOT_SCHEMA_VERSION}`);
+  }
+  if (!ENGINE_OUTCOME_SOURCES.includes(snapshot.outcomeSource)) {
+    fail(`engineSnapshot.outcomeSource is not lawful: ${JSON.stringify(snapshot.outcomeSource)}`);
   }
 
   const identity = pickExact(
@@ -1014,17 +1145,31 @@ function projectEngineSnapshot(snapshot) {
   assertShaped(identity, IDENTITY_VALUE_SHAPES, "engineSnapshot.identity");
 
   const engine = requirePlainObject(snapshot.engine, "engineSnapshot.engine");
-  assertExactKeySet(engine, ENGINE_KEYS, "engineSnapshot.engine");
+  const engineKeys = snapshot.outcomeSource === "DUAL_CORE" ? DUAL_ENGINE_KEYS : PRE_CORE_ENGINE_KEYS;
+  assertExactKeySet(engine, engineKeys, "engineSnapshot.engine");
 
   const outcomeLabel = "engineSnapshot.engine.outcome";
+  const outcomeKeys = snapshot.outcomeSource === "DUAL_CORE"
+    ? DUAL_OUTCOME_KEYS
+    : PRE_CORE_OUTCOME_KEYS;
   const pickedOutcome = pickExact(
     requirePlainObject(engine.outcome, outcomeLabel),
-    OUTCOME_KEYS,
+    outcomeKeys,
     outcomeLabel,
   );
-  if (!BRANCH_CODES.includes(pickedOutcome.branchCode)) {
-    fail(`engineSnapshot.engine.outcome.branchCode is not a closed branch: ${JSON.stringify(pickedOutcome.branchCode)}`);
+  if (!ENGINE_OUTCOME_CODES.includes(pickedOutcome.engineOutcomeCode)) {
+    fail(`engineSnapshot.engine.outcome.engineOutcomeCode is not closed: ${JSON.stringify(pickedOutcome.engineOutcomeCode)}`);
   }
+  if (
+    snapshot.outcomeSource === "DUAL_CORE"
+    && (
+      !BRANCH_CODES.includes(pickedOutcome.branchCode)
+      || pickedOutcome.branchCode !== pickedOutcome.engineOutcomeCode
+    )
+  ) {
+    fail("DUAL_CORE branchCode must equal engineOutcomeCode");
+  }
+  validateSelectorNode(snapshot.selector, snapshot.outcomeSource, identity, pickedOutcome.engineOutcomeCode);
   const suppression = pickExact(
     requirePlainObject(pickedOutcome.suppression, `${outcomeLabel}.suppression`),
     SUPPRESSION_KEYS,
@@ -1044,7 +1189,11 @@ function projectEngineSnapshot(snapshot) {
     suppression,
     contradictionCandidates,
   };
-  assertShaped(outcome, OUTCOME_VALUE_SHAPES, outcomeLabel);
+  assertShaped(
+    outcome,
+    snapshot.outcomeSource === "DUAL_CORE" ? DUAL_OUTCOME_VALUE_SHAPES : PRE_CORE_OUTCOME_VALUE_SHAPES,
+    outcomeLabel,
+  );
 
   const observations = requireArray(
     engine.observations,
@@ -1080,15 +1229,25 @@ function projectEngineSnapshot(snapshot) {
     return closed;
   });
 
-  const comparison = closedComparison(engine.comparison);
-  assertShaped(comparison, COMPARISON_VALUE_SHAPES, "engineSnapshot.engine.comparison");
+  if (snapshot.outcomeSource === "PRE_CORE_SELECTOR" && observations.length !== 0) {
+    fail("PRE_CORE_SELECTOR observations must be empty");
+  }
+  const comparison = snapshot.outcomeSource === "DUAL_CORE"
+    ? closedComparison(engine.comparison)
+    : null;
+  if (comparison) {
+    assertShaped(comparison, COMPARISON_VALUE_SHAPES, "engineSnapshot.engine.comparison");
+  }
 
   const projectedIdentity = {};
   for (const key of SNAPSHOT_IDENTITY_PROJECTED_KEYS) {
     projectedIdentity[key] = identity[key];
   }
   const projectedOutcome = {};
-  for (const key of OUTCOME_PROJECTED_KEYS) {
+  const projectedOutcomeKeys = snapshot.outcomeSource === "DUAL_CORE"
+    ? DUAL_OUTCOME_PROJECTED_KEYS
+    : PRE_CORE_OUTCOME_PROJECTED_KEYS;
+  for (const key of projectedOutcomeKeys) {
     projectedOutcome[key] = outcome[key];
   }
   const projectedObservations = observations.map((observation) => {
@@ -1099,14 +1258,17 @@ function projectEngineSnapshot(snapshot) {
     return projected;
   });
 
-  return {
+  const projected = {
+    outcomeSource: snapshot.outcomeSource,
     identity: projectedIdentity,
     engine: {
       outcome: projectedOutcome,
       observations: projectedObservations,
-      comparison,
     },
   };
+  if (comparison) projected.engine.comparison = comparison;
+  assertExactKeySet(projected, SNAPSHOT_PROJECTED_KEYS, "providerProjection.engineSnapshot");
+  return projected;
 }
 
 function projectStructuredUncertainty(uncertainty) {
@@ -1115,8 +1277,8 @@ function projectStructuredUncertainty(uncertainty) {
   if (uncertainty.uncertaintySchemaVersion !== UNCERTAINTY_SCHEMA_VERSION) {
     versionFail(`structuredUncertainty.uncertaintySchemaVersion must be ${UNCERTAINTY_SCHEMA_VERSION}`);
   }
-  if (!BRANCH_CODES.includes(uncertainty.originBranch)) {
-    fail(`structuredUncertainty.originBranch is not a closed branch: ${JSON.stringify(uncertainty.originBranch)}`);
+  if (!ENGINE_OUTCOME_CODES.includes(uncertainty.originBranch)) {
+    fail(`structuredUncertainty.originBranch is not a closed outcome: ${JSON.stringify(uncertainty.originBranch)}`);
   }
   const picked = pickExact(uncertainty, UNCERTAINTY_KEYS, "structuredUncertainty");
   const shaped = {

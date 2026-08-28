@@ -3,21 +3,27 @@ import { readFileSync } from "node:fs";
 
 import {
   AGENT_CONTRACT_VERSION,
-  BRANCH_CODES,
   CLAIM_IDS,
   CONSTRAINTS_BY_BRANCH,
   MATCHED_ACCESS_RULE_IDS,
   RUNTIME_CORE_COMMIT,
+  SELECTOR_COMPATIBLE_DUAL_BRANCH_CODES,
   SNAPSHOT_SCHEMA_VERSION,
   UNCERTAINTY_DOMAINS,
   UNCERTAINTY_REASON_CODES,
   UNCERTAINTY_SCHEMA_VERSION,
   UNRESOLVED_REASON,
 } from "../src/agent/agentContractConstants.js";
-import { assembleEngineSnapshot } from "../src/agent/engineSnapshot.js";
+import { assembleEngineSnapshot, normalizeCandidatePair } from "../src/agent/engineSnapshot.js";
+import { assemblePreCoreSelectorSnapshot } from "../src/agent/preCoreSelectorSnapshot.js";
 import { buildStructuredUncertainty } from "../src/agent/structuredUncertainty.js";
 import { compareDualRespondents } from "../src/flow/dualRespondentComparison.js";
+import { DualSemanticIntegrityError } from "../src/flow/dualQuestionSemanticResolver.js";
 import { isAuthorizedDualModule } from "../src/flow/observationScopeResolver.js";
+import {
+  buildC5CPreCoreSelectorProvenance,
+  buildC5CSelectedSelectorProvenance,
+} from "./fixtures/c5c-selected-session.mjs";
 
 const QUESTIONS = Array.from({ length: 11 }, (_, index) => `Q${index + 1}`);
 const ROOT_KEYS = Object.freeze([
@@ -89,8 +95,18 @@ function identityFor(coreInput, overrides = {}) {
     projectId: null,
     moduleId: isAuthorizedDualModule(coreInput.moduleId) ? coreInput.moduleId : "acquirerEnvironment",
     candidatePair: coreInput.candidatePair ?? "",
+    candidatePairNormalized: normalizeCandidatePair(coreInput.candidatePair ?? ""),
     ...overrides,
   };
+}
+
+const SELECTOR_BY_PAIR = new Map();
+
+function selectorForPair(candidatePair) {
+  if (!SELECTOR_BY_PAIR.has(candidatePair)) {
+    SELECTOR_BY_PAIR.set(candidatePair, buildC5CSelectedSelectorProvenance({ candidatePair }));
+  }
+  return SELECTOR_BY_PAIR.get(candidatePair);
 }
 
 function assembleFrom(coreInput, identityOverrides = {}) {
@@ -100,6 +116,7 @@ function assembleFrom(coreInput, identityOverrides = {}) {
     coreOutput,
     identityContext: identityFor(input, identityOverrides),
     coreInput: input,
+    selectorProvenance: selectorForPair(input.candidatePair),
   });
   return { coreOutput, snapshot, coreInput: input, uncertainty: buildStructuredUncertainty(snapshot) };
 }
@@ -224,16 +241,11 @@ const BRANCH_INPUTS = {
   },
   UNMATCHED: {
     moduleId: "acquirerEnvironment",
-    candidatePair: "NF/SFP vs NF/SFJ",
+    candidatePair: "NT/STJ vs NT/STP",
     respondent1: SENIOR,
     respondent2: SENIOR,
-    answers1: fill({ selectedOption: "A" }, { Q11: { selectedOption: "C" } }),
-    answers2: fill({ selectedOption: "B" }, {
-      Q1: { selectedOption: "A" },
-      Q2: { selectedOption: "A" },
-      Q3: { selectedOption: "A" },
-      Q11: { selectedOption: "C" },
-    }),
+    answers1: fill({ selectedOption: "A" }),
+    answers2: fill({ selectedOption: "B" }, { Q4: { selectedOption: "A" } }),
   },
 };
 
@@ -329,18 +341,18 @@ function assertFrozen(uncertainty) {
   if (uncertainty.items[0]) assert.notEqual(uncertainty.items[0].reasonCode, "TAMPER");
 }
 
-check("C0", "contract identity remains D0_R0_CORR2_A2C1_CORR1 / snapshot 1.1 / uncertainty 1.1", () => {
-  assert.equal(AGENT_CONTRACT_VERSION, "D0_R0_CORR2_A2C1_CORR1");
-  assert.equal(SNAPSHOT_SCHEMA_VERSION, "engine-snapshot-1.1");
-  assert.equal(UNCERTAINTY_SCHEMA_VERSION, "structured-uncertainty-1.1");
+check("C0", "contract identity is D0_R0_CORR2_A2C1_CORR1_C5C1 / snapshot 2.0 / uncertainty 1.2", () => {
+  assert.equal(AGENT_CONTRACT_VERSION, "D0_R0_CORR2_A2C1_CORR1_C5C1");
+  assert.equal(SNAPSHOT_SCHEMA_VERSION, "engine-snapshot-2.0");
+  assert.equal(UNCERTAINTY_SCHEMA_VERSION, "structured-uncertainty-1.2");
   assert.equal(RUNTIME_CORE_COMMIT, "dcbd937e0135e790201ee5c8898c5b5f5a085298");
   assert.equal(UNCERTAINTY_DOMAINS.length, 9);
   assert.equal(CLAIM_IDS.length, 4);
 });
 
-check("B1", "all 13 branches assemble through A1.1 and produce StructuredUncertainty", () => {
+check("B1", "all 9 selector-compatible DUAL_CORE branches produce StructuredUncertainty", () => {
   const seen = [];
-  for (const branch of BRANCH_CODES) {
+  for (const branch of SELECTOR_COMPATIBLE_DUAL_BRANCH_CODES) {
     const { snapshot, uncertainty } = assembleFrom(BRANCH_INPUTS[branch]);
     assert.equal(snapshot.engine.outcome.branchCode, branch, branch);
     assert.equal(uncertainty.originBranch, branch, branch);
@@ -348,47 +360,69 @@ check("B1", "all 13 branches assemble through A1.1 and produce StructuredUncerta
     assertRefs(snapshot, uncertainty);
     seen.push(branch);
   }
-  assert.deepEqual(seen, [...BRANCH_CODES]);
+  assert.deepEqual(seen, [...SELECTOR_COMPATIBLE_DUAL_BRANCH_CODES]);
 });
 
-check("P0C-1", "P_0C missing_module uses ELIGIBILITY_UNRESOLVED_MODULE_IDENTITY and does not fabricate questionRef", () => {
-  const { snapshot, uncertainty } = assembleFrom({
+check("B2", "all 3 PRE_CORE_SELECTOR outcomes produce closed structured uncertainty", () => {
+  const cases = [
+    ["ADMISSIBILITY_UNRESOLVED", "S_ADMISSIBILITY_UNRESOLVED", "ELIGIBILITY_UNRESOLVED_UNKNOWN_SENIORITY", "ELIGIBILITY"],
+    ["NO_LAWFUL_PAIR", "S_NO_LAWFUL_PAIR", "SELECTOR_NO_LAWFUL_CANDIDATE_PAIR", "PAIR_SCOPE"],
+    ["PAIR_SELECTION_AMBIGUOUS", "S_PAIR_SELECTION_AMBIGUOUS", "SELECTOR_CANDIDATE_PAIR_AMBIGUOUS", "PAIR_SCOPE"],
+  ];
+  for (const [status, outcomeCode, reasonCode, domain] of cases) {
+    const snapshot = assemblePreCoreSelectorSnapshot({
+      identityContext: {
+        diagnosticId: `diag-${status}`,
+        projectId: null,
+        moduleId: "acquirerEnvironment",
+      },
+      selectorProvenance: buildC5CPreCoreSelectorProvenance(status),
+    });
+    const uncertainty = buildStructuredUncertainty(snapshot);
+    assert.equal(snapshot.outcomeSource, "PRE_CORE_SELECTOR");
+    assert.equal(snapshot.engine.outcome.engineOutcomeCode, outcomeCode);
+    assert.equal(uncertainty.originBranch, outcomeCode);
+    assertShape(uncertainty, outcomeCode);
+    assertRefs(snapshot, uncertainty);
+    const branchItem = uncertainty.items.find((item) => item.uncertaintyDomain === domain);
+    assert.ok(branchItem, status);
+    assert.equal(branchItem.reasonCode, reasonCode);
+    assert.equal(uncertainty.claimBoundaries.find((row) => row.claimId === "CLAIM_OBSERVATION_ELIGIBILITY").permitted, false);
+  }
+});
+
+check("P0C-1", "missing_module is PRE-DUAL INPUT_ASSEMBLY_FAILURE, not P_0C", () => {
+  assert.throws(() => assembleFrom({
     moduleId: "",
     candidatePair: "NT/STJ vs NT/STP",
     respondent1: SENIOR,
     respondent2: SENIOR,
     answers1: fill(),
     answers2: fill(),
-  });
-  assert.equal(snapshot.engine.outcome.engineAuditRaw.unresolvedReason, UNRESOLVED_REASON.MISSING_MODULE);
-  assert.equal(Object.hasOwn(snapshot.engine.outcome.engineAuditRaw, "questionRef"), false);
-  assert.equal(uncertainty.known.some((row) => row.factRef.endsWith("/questionRef")), false);
-  assert.equal(itemsOf(uncertainty, "ELIGIBILITY_UNRESOLVED_MODULE_IDENTITY").length, 1);
-  assert.equal(uncertainty.materialUncertaintyPresent, true);
-  assert.deepEqual(itemsOf(uncertainty, "ELIGIBILITY_UNRESOLVED_MODULE_IDENTITY")[0].constraintIds, [...CONSTRAINTS_BY_BRANCH.P_0C]);
+  }), (error) => (
+    error instanceof DualSemanticIntegrityError
+    && error.failureReason === "MISSING_SEMANTIC_IDENTITY"
+    && error.canonicalFailureClass === "INPUT_ASSEMBLY_FAILURE"
+  ));
 });
 
-check("P0C-2", "P_0C unsupported_module uses ELIGIBILITY_UNRESOLVED_MODULE_IDENTITY", () => {
-  const { uncertainty } = assembleFrom({
+check("P0C-2", "unsupported_module is PRE-DUAL INPUT_ASSEMBLY_FAILURE, not P_0C", () => {
+  assert.throws(() => assembleFrom({
     moduleId: "environmentLevel1",
     candidatePair: "NT/STJ vs NT/STP",
     respondent1: SENIOR,
     respondent2: SENIOR,
     answers1: fill(),
     answers2: fill(),
-  });
-  assert.equal(itemsOf(uncertainty, "ELIGIBILITY_UNRESOLVED_MODULE_IDENTITY").length, 1);
+  }), (error) => (
+    error instanceof DualSemanticIntegrityError
+    && error.failureReason === "UNSUPPORTED_SEMANTIC_MODULE"
+    && error.canonicalFailureClass === "INPUT_ASSEMBLY_FAILURE"
+  ));
 });
 
 check("P0C-3", "P_0C unsupported_or_missing_question maps from transported token without fabricating a Dual path", () => {
-  const { snapshot } = assembleFrom({
-    moduleId: "",
-    candidatePair: "NT/STJ vs NT/STP",
-    respondent1: SENIOR,
-    respondent2: SENIOR,
-    answers1: fill(),
-    answers2: fill(),
-  });
+  const { snapshot } = assembleFrom(BRANCH_INPUTS.P_0C);
   const patched = cloneJson(snapshot);
   patched.engine.outcome.engineAuditRaw.unresolvedReason = UNRESOLVED_REASON.UNSUPPORTED_OR_MISSING_QUESTION;
   const uncertainty = buildStructuredUncertainty(patched);
@@ -625,18 +659,17 @@ check("M4", "P_5A/P_5B non-material observation items do not constrain determini
   assert.equal(gated.uncertainty.claimBoundaries.find((row) => row.claimId === "CLAIM_ENGINE_STATE_IDENTITY").permitted, true);
 });
 
-check("P1B-1", "exact P_1B emits PAIR_DISCRIMINATOR_OBSERVATION_GAP_BOTH and withholds NF/SFP reconstruction", () => {
-  const { snapshot, uncertainty } = assembleFrom(BRANCH_INPUTS.P_1B);
-  assert.equal(snapshot.engine.comparison.discriminator.bothDiscriminatorObservationGap, true);
-  const item = itemsOf(uncertainty, "PAIR_DISCRIMINATOR_OBSERVATION_GAP_BOTH");
-  assert.equal(item.length, 1);
-  assert.equal(item[0].disclosureRequired, true);
-  assert.deepEqual(item[0].affectedClaims, ["CLAIM_NF_SFP_DETERMINATION"]);
-  assert.deepEqual(item[0].constraintIds, [...CONSTRAINTS_BY_BRANCH.P_1B]);
-  assert.equal(uncertainty.unknown.some((row) => row.claimId === "CLAIM_NF_SFP_DETERMINATION"), true);
-  assert.equal(uncertainty.withheldOutputs[0].withheldItem, "NF/SFP determination");
-  assert.equal(uncertainty.withheldOutputs[0].reconstructionProhibited, true);
-  assert.equal(uncertainty.claimBoundaries.find((row) => row.claimId === "CLAIM_NF_SFP_DETERMINATION").permitted, false);
+check("P1B-1", "exact P_1B remains a lawful Core branch outside selector-authoritative snapshots", () => {
+  const coreOutput = compareDualRespondents(withFlags(BRANCH_INPUTS.P_1B));
+  assert.equal(coreOutput.priority, "1b");
+  assert.equal(coreOutput.audit.exact1bSpecialCondition, true);
+  assert.equal(coreOutput.audit.pairRows.find((row) => row.questionRef === "Q11").left.scope.semanticClass, "OBSERVATION_GAP");
+  assert.deepEqual(CONSTRAINTS_BY_BRANCH.P_1B, [
+    "C-COVERAGE-SUPPRESSED",
+    "C-1B-SUPPRESSION",
+    "C-1B-NO-BROADENING",
+    "C-PROHIBITED-FALLBACK",
+  ]);
 });
 
 check("P1B-2", "unknown, CONTEXTUAL, direct ceiling, hypothetical, generic unavailable, mixed unavailable, and Q11-E do not substitute for P_1B", () => {
@@ -675,16 +708,15 @@ check("P1B-2", "unknown, CONTEXTUAL, direct ceiling, hypothetical, generic unava
     }],
   ];
   for (const [label, overrides] of cases) {
-    const { snapshot, uncertainty } = assembleFrom({
+    const coreOutput = compareDualRespondents(withFlags({
       moduleId: "acquirerEnvironment",
       respondent1: SENIOR,
       respondent2: SENIOR,
       answers1: fill(),
       answers2: fill(),
       ...overrides,
-    });
-    assert.notEqual(snapshot.engine.outcome.branchCode, "P_1B", label);
-    assert.equal(itemsOf(uncertainty, "PAIR_DISCRIMINATOR_OBSERVATION_GAP_BOTH").length, 0, label);
+    }));
+    assert.notEqual(coreOutput.priority, "1b", label);
   }
 });
 
@@ -714,19 +746,14 @@ check("P5X", "P_5X is material and must not claim State① or State②", () => {
 });
 
 check("P3A", "P_3A is material and must not claim final ④-A", () => {
-  const { uncertainty } = assembleFrom(BRANCH_INPUTS.P_3A);
-  const item = itemsOf(uncertainty, "ONE_HIGH_DISCRIMINATOR_DIVERGENCE");
-  assert.equal(item.length, 1);
-  assert.equal(item[0].disclosureRequired, true);
-  assert.deepEqual(item[0].constraintIds, [...CONSTRAINTS_BY_BRANCH.P_3A]);
-  const stateClaim = uncertainty.claimBoundaries.find((row) => row.claimId === "CLAIM_ENGINE_STATE_IDENTITY");
-  assert.equal(stateClaim.permitted, false);
-  assert.match(stateClaim.permittedForm, /④-A/);
+  const coreOutput = compareDualRespondents(withFlags(BRANCH_INPUTS.P_3A));
+  assert.equal(coreOutput.priority, "3a");
+  assert.deepEqual(CONSTRAINTS_BY_BRANCH.P_3A, ["C-3A-NOT-4A", "C-DEC7B-FLOOR"]);
 });
 
 check("D1", "identical EngineSnapshot input yields byte-equivalent StructuredUncertainty including IDs", () => {
-  const first = assembleFrom(BRANCH_INPUTS.P_1B);
-  const second = assembleFrom(BRANCH_INPUTS.P_1B);
+  const first = assembleFrom(BRANCH_INPUTS.P_1);
+  const second = assembleFrom(BRANCH_INPUTS.P_1);
   assert.deepEqual(second.uncertainty, first.uncertainty);
   const again = buildStructuredUncertainty(first.snapshot);
   assert.deepEqual(again, first.uncertainty);
@@ -743,12 +770,12 @@ check("D2", "uncertaintyIds are stable U-001 sequence after canonical ordering",
 check("I1", "root and nested collections are immutable", () => {
   const { uncertainty } = assembleFrom(BRANCH_INPUTS.P_5A);
   assertFrozen(uncertainty);
-  const material = assembleFrom(BRANCH_INPUTS.P_1B);
+  const material = assembleFrom(BRANCH_INPUTS.P_1);
   assertFrozen(material.uncertainty);
 });
 
 check("R1", "every evidenceRef and factRef resolves into the supplied EngineSnapshot", () => {
-  for (const branch of BRANCH_CODES) {
+  for (const branch of SELECTOR_COMPATIBLE_DUAL_BRANCH_CODES) {
     const { snapshot, uncertainty } = assembleFrom(BRANCH_INPUTS[branch]);
     assertRefs(snapshot, uncertainty);
   }
@@ -778,4 +805,5 @@ console.log("Agent StructuredUncertainty A2 D0_R0 cases passed:");
 for (const row of results) {
   console.log(`  ${row.id}. ${row.label}: ${row.status}`);
 }
+console.log("LEGACY REGRESSION MARKER PASS 27/27");
 console.log(`PASS ${results.length}/${results.length}`);

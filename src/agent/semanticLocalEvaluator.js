@@ -92,6 +92,7 @@ function checkV05DisclosureIdentity(request, result) {
 function abstentionPreconditionHolds(request) {
   const snapshot = request.engineSnapshot;
   const uncertainty = request.structuredUncertainty;
+  if (snapshot.outcomeSource === "PRE_CORE_SELECTOR") return false;
   const branchCode = snapshot.engine.outcome.branchCode;
 
   if (branchCode === "P_0A") return true;

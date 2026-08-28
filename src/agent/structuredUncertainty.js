@@ -4,10 +4,14 @@ import {
   BRANCH_LEVEL_REASON_ORDER,
   CLAIM_IDS,
   CONSTRAINTS_BY_BRANCH,
+  ENGINE_OUTCOME_CODES,
+  ENGINE_OUTCOME_SOURCES,
   MATCHED_ACCESS_RULE_IDS,
   OBSERVATION_REASON_ORDER,
   QUESTION_REASON_ORDER,
   QUESTION_UNIVERSE,
+  PRE_CORE_CONSTRAINTS_BY_OUTCOME_CODE,
+  PRE_CORE_OUTCOME_CODES,
   RESPONDENT_SLOT_R1,
   RESPONDENT_SLOT_R2,
   SEMANTIC_CLASS_TO_COVERAGE_REASON,
@@ -110,6 +114,8 @@ function domainForReason(reasonCode) {
     reasonCode === "PAIR_ABSENT"
     || reasonCode === "PAIR_NOT_IN_PRODUCTION_SET"
     || reasonCode === "PAIR_DISCRIMINATOR_OBSERVATION_GAP_BOTH"
+    || reasonCode === "SELECTOR_NO_LAWFUL_CANDIDATE_PAIR"
+    || reasonCode === "SELECTOR_CANDIDATE_PAIR_AMBIGUOUS"
   ) {
     return "PAIR_SCOPE";
   }
@@ -149,8 +155,11 @@ function itemShape({
   };
 }
 
-function constraintsFor(branchCode) {
-  return copyArray(CONSTRAINTS_BY_BRANCH[branchCode]);
+function constraintsFor(engineOutcomeCode) {
+  if (PRE_CORE_OUTCOME_CODES.includes(engineOutcomeCode)) {
+    return copyArray(PRE_CORE_CONSTRAINTS_BY_OUTCOME_CODE[engineOutcomeCode]);
+  }
+  return copyArray(CONSTRAINTS_BY_BRANCH[engineOutcomeCode]);
 }
 
 function qrefsForQuestion(observations, questionRef) {
@@ -174,18 +183,57 @@ function eligibilityReason(unresolvedReason) {
     return "ELIGIBILITY_UNRESOLVED_UNKNOWN_SENIORITY";
   }
   if (unresolvedReason === null) return null;
-  fail(`P_0C unresolvedReason is not a transported eligibility token: ${JSON.stringify(unresolvedReason)}`);
+  fail(`unresolvedReason is not a transported eligibility token: ${JSON.stringify(unresolvedReason)}`);
 }
 
 function branchItems(snapshot) {
   const outcome = snapshot.engine.outcome;
-  const branch = outcome.branchCode;
+  const branch = outcome.engineOutcomeCode;
   const comparison = snapshot.engine.comparison ?? {};
   const coverage = comparison.coverage ?? {};
   const high = comparison.highResolvers ?? {};
   const discriminator = comparison.discriminator ?? {};
   const observations = copyArray(snapshot.engine.observations);
   const items = [];
+
+  if (branch === "S_ADMISSIBILITY_UNRESOLVED") {
+    items.push(itemShape({
+      reasonCode: eligibilityReason(snapshot.selector.unresolvedReason),
+      originBranch: branch,
+      affectedClaims: ["CLAIM_ENGINE_STATE_IDENTITY", "CLAIM_OBSERVATION_ELIGIBILITY"],
+      claimScope: "STATE_IDENTITY",
+      evidenceRefs: [],
+      constraintIds: constraintsFor(branch),
+      disclosureRequired: true,
+      derivationSource: "selector.unresolvedReason",
+    }));
+  }
+
+  if (branch === "S_NO_LAWFUL_PAIR") {
+    items.push(itemShape({
+      reasonCode: "SELECTOR_NO_LAWFUL_CANDIDATE_PAIR",
+      originBranch: branch,
+      affectedClaims: ["CLAIM_ENGINE_STATE_IDENTITY"],
+      claimScope: "STATE_IDENTITY",
+      evidenceRefs: [],
+      constraintIds: constraintsFor(branch),
+      disclosureRequired: true,
+      derivationSource: "selector.status",
+    }));
+  }
+
+  if (branch === "S_PAIR_SELECTION_AMBIGUOUS") {
+    items.push(itemShape({
+      reasonCode: "SELECTOR_CANDIDATE_PAIR_AMBIGUOUS",
+      originBranch: branch,
+      affectedClaims: ["CLAIM_ENGINE_STATE_IDENTITY"],
+      claimScope: "STATE_IDENTITY",
+      evidenceRefs: [],
+      constraintIds: constraintsFor(branch),
+      disclosureRequired: true,
+      derivationSource: "selector.status",
+    }));
+  }
 
   if (branch === "P_0C") {
     const audit = outcome.engineAuditRaw ?? {};
@@ -428,7 +476,8 @@ function observationItem(originBranch, reasonCode, observation, derivationSource
 }
 
 function questionQualityItems(snapshot, questionRef) {
-  const branch = snapshot.engine.outcome.branchCode;
+  const branch = snapshot.engine.outcome.engineOutcomeCode;
+  if (snapshot.outcomeSource === "PRE_CORE_SELECTOR") return [];
   const comparison = snapshot.engine.comparison ?? {};
   if (comparison.available !== true) return [];
   const row = copyArray(comparison.perQuestionQuality).find((item) => item.questionRef === questionRef);
@@ -485,7 +534,8 @@ function questionQualityItems(snapshot, questionRef) {
 }
 
 function perQuestionItems(snapshot) {
-  const branch = snapshot.engine.outcome.branchCode;
+  if (snapshot.outcomeSource === "PRE_CORE_SELECTOR") return [];
+  const branch = snapshot.engine.outcome.engineOutcomeCode;
   const observations = copyArray(snapshot.engine.observations);
   const byQuestion = new Map();
   for (const questionRef of QUESTION_UNIVERSE) byQuestion.set(questionRef, { R1: null, R2: null });
@@ -514,11 +564,14 @@ function assignIds(items) {
 function buildKnown(snapshot) {
   const outcome = snapshot.engine.outcome;
   const known = [
-    knownFact("engine/outcome/branchCode", outcome.branchCode),
+    knownFact("engine/outcome/engineOutcomeCode", outcome.engineOutcomeCode),
     knownFact("engine/outcome/state", outcome.state),
     knownFact("engine/outcome/deterministicStateEstablished", outcome.deterministicStateEstablished),
   ];
-  const branch = outcome.branchCode;
+  if (snapshot.outcomeSource === "DUAL_CORE") {
+    known.push(knownFact("engine/outcome/branchCode", outcome.branchCode));
+  }
+  const branch = outcome.engineOutcomeCode;
   const audit = outcome.engineAuditRaw ?? {};
   const comparison = snapshot.engine.comparison ?? {};
 
@@ -571,7 +624,7 @@ function buildKnown(snapshot) {
 
 function buildUnknown(snapshot, items) {
   const outcome = snapshot.engine.outcome;
-  const branch = outcome.branchCode;
+  const branch = outcome.engineOutcomeCode;
   const unknown = [];
   if (outcome.deterministicStateEstablished !== true) {
     unknown.push({
@@ -595,7 +648,7 @@ function buildUnknown(snapshot, items) {
       whyUnknown: "CANDIDATE_PAIR_IDENTIFICATION_FAILURE",
     });
   }
-  if (branch === "P_0C") {
+  if (branch === "P_0C" || branch === "S_ADMISSIBILITY_UNRESOLVED") {
     unknown.push({
       claimId: "CLAIM_OBSERVATION_ELIGIBILITY",
       statement: "The engine did not establish observation eligibility.",
@@ -616,7 +669,7 @@ function withheldEntry(withheldItem, withheldBy, engineOutputText, reconstructio
 
 function buildWithheld(snapshot) {
   const outcome = snapshot.engine.outcome;
-  const branch = outcome.branchCode;
+  const branch = outcome.engineOutcomeCode;
   const engineOutputText = outcome.engineOutput;
   if (branch === "P_0A") {
     return [withheldEntry("comparator output", "P_0A", engineOutputText, true)];
@@ -645,6 +698,12 @@ function buildWithheld(snapshot) {
   if (branch === "UNMATCHED") {
     return [withheldEntry("deterministic state identity", "UNMATCHED", engineOutputText, true)];
   }
+  if (branch === "S_ADMISSIBILITY_UNRESOLVED") {
+    return [withheldEntry("five-state classification", branch, engineOutputText, true)];
+  }
+  if (branch === "S_NO_LAWFUL_PAIR" || branch === "S_PAIR_SELECTION_AMBIGUOUS") {
+    return [withheldEntry("comparator output", branch, engineOutputText, true)];
+  }
   return [];
 }
 
@@ -670,7 +729,7 @@ function partitionEvidence(snapshot) {
 }
 
 function permittedFormFor(claimId, snapshot) {
-  const branch = snapshot.engine.outcome.branchCode;
+  const branch = snapshot.engine.outcome.engineOutcomeCode;
   const state = snapshot.engine.outcome.state;
   if (claimId === "CLAIM_ENGINE_STATE_IDENTITY") {
     if (branch === "P_3A") return "The engine did not establish final ④-A.";
@@ -692,7 +751,12 @@ function permittedFormFor(claimId, snapshot) {
     return "The engine did not establish a final ④-B determination.";
   }
   if (claimId === "CLAIM_OBSERVATION_ELIGIBILITY") {
-    if (branch === "P_0C" || branch === "P_0A" || branch === "P_0B") {
+    if (
+      branch === "P_0C"
+      || branch === "P_0A"
+      || branch === "P_0B"
+      || PRE_CORE_OUTCOME_CODES.includes(branch)
+    ) {
       return "The engine did not establish observation eligibility.";
     }
     return "Observation eligibility is limited to sealed EngineSnapshot useClass and comparison fields.";
@@ -701,14 +765,17 @@ function permittedFormFor(claimId, snapshot) {
 }
 
 function claimPermitted(claimId, snapshot) {
-  const branch = snapshot.engine.outcome.branchCode;
+  const branch = snapshot.engine.outcome.engineOutcomeCode;
   if (claimId === "CLAIM_ENGINE_STATE_IDENTITY") {
     return snapshot.engine.outcome.deterministicStateEstablished === true;
   }
   if (claimId === "CLAIM_NF_SFP_DETERMINATION") return false;
   if (claimId === "CLAIM_FINAL_4B_DETERMINATION") return false;
   if (claimId === "CLAIM_OBSERVATION_ELIGIBILITY") {
-    return branch !== "P_0C" && branch !== "P_0A" && branch !== "P_0B";
+    return branch !== "P_0C"
+      && branch !== "P_0A"
+      && branch !== "P_0B"
+      && !PRE_CORE_OUTCOME_CODES.includes(branch);
   }
   return false;
 }
@@ -728,11 +795,26 @@ function validateSnapshot(engineSnapshot) {
   }
   const engine = requireObject(snapshot.engine, "engineSnapshot.engine");
   const outcome = requireObject(engine.outcome, "engineSnapshot.engine.outcome");
-  if (!BRANCH_CODES.includes(outcome.branchCode)) {
-    fail(`engine.outcome.branchCode is not a closed branch: ${JSON.stringify(outcome.branchCode)}`);
+  if (!ENGINE_OUTCOME_SOURCES.includes(snapshot.outcomeSource)) {
+    fail(`engineSnapshot.outcomeSource is not closed: ${JSON.stringify(snapshot.outcomeSource)}`);
+  }
+  if (!ENGINE_OUTCOME_CODES.includes(outcome.engineOutcomeCode)) {
+    fail(`engine.outcome.engineOutcomeCode is not closed: ${JSON.stringify(outcome.engineOutcomeCode)}`);
   }
   if (!Array.isArray(engine.observations)) fail("engine.observations must be an array");
-  requireObject(engine.comparison, "engineSnapshot.engine.comparison");
+  if (snapshot.outcomeSource === "DUAL_CORE") {
+    if (!BRANCH_CODES.includes(outcome.branchCode) || outcome.branchCode !== outcome.engineOutcomeCode) {
+      fail("DUAL_CORE requires branchCode equal to engineOutcomeCode");
+    }
+    requireObject(engine.comparison, "engineSnapshot.engine.comparison");
+  } else {
+    if (!PRE_CORE_OUTCOME_CODES.includes(outcome.engineOutcomeCode)) {
+      fail("PRE_CORE_SELECTOR requires an S_* engineOutcomeCode");
+    }
+    if (Object.hasOwn(outcome, "branchCode")) fail("PRE_CORE_SELECTOR outcome cannot contain branchCode");
+    if (Object.hasOwn(engine, "comparison")) fail("PRE_CORE_SELECTOR engine cannot contain comparison");
+    if (engine.observations.length !== 0) fail("PRE_CORE_SELECTOR observations must be empty");
+  }
   return snapshot;
 }
 
@@ -764,7 +846,7 @@ function assertNoHumanRuntime(value, path) {
 
 export function buildStructuredUncertainty(engineSnapshot) {
   const snapshot = validateSnapshot(engineSnapshot);
-  const originBranch = snapshot.engine.outcome.branchCode;
+  const originBranch = snapshot.engine.outcome.engineOutcomeCode;
   const collected = [
     ...branchItems(snapshot),
     ...perQuestionItems(snapshot),

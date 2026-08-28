@@ -1,5 +1,6 @@
 import {
   BRANCH_CODES,
+  ENGINE_OUTCOME_CODES,
   FAILURE_CLASS_CONTRACT_VERSION_MISMATCH,
   FAILURE_CLASS_INPUT_ASSEMBLY_FAILURE,
   FAILURE_SCHEMA_VERSION,
@@ -97,11 +98,12 @@ export const agentInterpretationResultSchema = deepFreeze({
     engineFactsRef: Object.freeze({
       type: "object",
       additionalProperties: false,
-      required: Object.freeze(["diagnosticId", "engineSnapshotDigest", "branchCode", "stateAsserted"]),
+      required: Object.freeze(["diagnosticId", "engineSnapshotDigest", "engineOutcomeCode", "branchCode", "stateAsserted"]),
       properties: Object.freeze({
         diagnosticId: nonEmptyString,
         engineSnapshotDigest: Object.freeze({ type: "string", pattern: SHA256_DIGEST_PATTERN }),
-        branchCode: Object.freeze({ enum: BRANCH_CODES }),
+        engineOutcomeCode: Object.freeze({ enum: ENGINE_OUTCOME_CODES }),
+        branchCode: Object.freeze({ enum: Object.freeze([...BRANCH_CODES, null]) }),
         stateAsserted: Object.freeze({ type: "string", nullable: true }),
       }),
     }),
@@ -123,7 +125,7 @@ export const agentInterpretationResultSchema = deepFreeze({
             required: Object.freeze(["withheldItem", "withheldBy"]),
             properties: Object.freeze({
               withheldItem: nonEmptyString,
-              withheldBy: Object.freeze({ enum: BRANCH_CODES }),
+              withheldBy: Object.freeze({ enum: ENGINE_OUTCOME_CODES }),
             }),
           }),
         }),
@@ -342,7 +344,8 @@ function extractRequestIdentity(agentInterpretationRequest) {
     agentContractVersion: requireString(request.agentContractVersion, "agentInterpretationRequest.agentContractVersion"),
     diagnosticId: requireString(identity.diagnosticId, "engineSnapshot.identity.diagnosticId"),
     engineSnapshotDigest: requireString(snapshot.engineSnapshotDigest, "engineSnapshot.engineSnapshotDigest"),
-    branchCode: requireString(outcome.branchCode, "engineSnapshot.engine.outcome.branchCode"),
+    engineOutcomeCode: requireString(outcome.engineOutcomeCode, "engineSnapshot.engine.outcome.engineOutcomeCode"),
+    branchCode: outcome.branchCode ?? null,
     state: outcome.state,
     materialUncertaintyPresent: uncertainty.materialUncertaintyPresent,
     withheldOutputs: uncertainty.withheldOutputs,
@@ -391,6 +394,9 @@ export function validateAgentInterpretationResultStructure(agentInterpretationRe
   }
   if (engineFactsRef.engineSnapshotDigest !== ctx.engineSnapshotDigest) {
     fail("ENGINE_FACT_MUTATION_DETECTED", "engineFactsRef.engineSnapshotDigest does not mirror the sealed digest");
+  }
+  if (engineFactsRef.engineOutcomeCode !== ctx.engineOutcomeCode) {
+    fail("ENGINE_FACT_MUTATION_DETECTED", "engineFactsRef.engineOutcomeCode does not mirror the engine outcome");
   }
   if (engineFactsRef.branchCode !== ctx.branchCode) {
     fail("ENGINE_FACT_MUTATION_DETECTED", "engineFactsRef.branchCode does not mirror the engine outcome");

@@ -1,3 +1,4 @@
+import hashlib
 import json
 import re
 import zipfile
@@ -39,6 +40,25 @@ EVIDENCE_CALIBRATION_OPTION_SCORES = {
 }
 EVIDENCE_CALIBRATION_OPTION_VALUES = ("A", "B", "C", "D")
 EVIDENCE_CALIBRATION_QUESTION_COUNT = 4
+DUAL_KEEP_ANSWER_MAP_QUESTIONS = tuple(f"Q{index}" for index in range(1, 9)) + ("Q11",)
+AUTHORIZED_Q9_Q10_BINDINGS = (
+    ("acquirerEnvironment", "ACQUIRERENVIRONMENT-Q9", "Q9"),
+    ("acquirerEnvironment", "ACQUIRERENVIRONMENT-Q10", "Q10"),
+    ("targetSelfAssessment", "TARGETSELFASSESSMENT-Q9", "Q9"),
+    ("targetSelfAssessment", "TARGETSELFASSESSMENT-Q10", "Q10"),
+)
+CORR2_BINDING_DIGESTS = {
+    ("acquirerEnvironment", "Q9"): ("sha256:8f9c36125ab2f6c5d59e0d29c5651aac8c918d213e7455b6dd0e17215a07c833", 1419),
+    ("acquirerEnvironment", "Q10"): ("sha256:13dd709ddb265aa747b48a59ba4d3cba8ac2cb4b4e47ca816c240a2e78a31d46", 1339),
+    ("targetSelfAssessment", "Q9"): ("sha256:cdd4495fbb8a18ea82b120b07ef9c8648e90363a432647a50f953bd51e89045a", 1815),
+    ("targetSelfAssessment", "Q10"): ("sha256:4a79992147af7a642dca1df6670dfd1a561803f70891f45ef165ba0595a4398c", 1526),
+}
+SUPERSEDED_BINDING_DIGESTS = {
+    "sha256:230023d493a5c27bb6d0aed3a24f10fffa07b19c6a0a1f97e87b4f168a28daea",
+    "sha256:cb1239cada38ba82b31f305006d190966aef959ba1cf1915663d8dd01be27fd0",
+    "sha256:bcd820d0cbc7bfa581d42ba0ed54434c64ff94750c5a7ea41e7e6d033d9cbf6b",
+    "sha256:b8b7cf9b869481d4865d1341d0f523b3f85270c19c59ccc68a959ff338021316",
+}
 
 
 def column_number(cell_ref):
@@ -783,11 +803,203 @@ def parse_form_bindings():
         }
 
 
-def parse_scoring_and_triage():
+def canonical_serialize(value):
+    if value is None:
+        return "null"
+    if isinstance(value, bool):
+        return "true" if value else "false"
+    if isinstance(value, str):
+        return json.dumps(value, ensure_ascii=False)
+    if isinstance(value, int) and not isinstance(value, bool):
+        return json.dumps(value)
+    if isinstance(value, float):
+        if value != value or value in (float("inf"), float("-inf")):
+            raise CanonicalExtractionError("canonical_serialize non-finite number")
+        return json.dumps(value)
+    if isinstance(value, list):
+        return "[" + ",".join(canonical_serialize(item) for item in value) + "]"
+    if isinstance(value, dict):
+        parts = []
+        for key in sorted(value.keys()):
+            child = value[key]
+            if child is None and key not in value:
+                raise CanonicalExtractionError(f"canonical_serialize undefined at key {key!r}")
+            parts.append(f"{json.dumps(key, ensure_ascii=False)}:{canonical_serialize(child)}")
+        return "{" + ",".join(parts) + "}"
+    raise CanonicalExtractionError(f"canonical_serialize unsupported type {type(value).__name__}")
+
+
+def sha256_prefixed_digest(canonical):
+    encoded = canonical.encode("utf-8")
+    return f"sha256:{hashlib.sha256(encoded).hexdigest()}", len(encoded)
+
+
+def find_questionnaire_question(questionnaires, module_id, workbook_question_id):
+    for module in questionnaires.get("modules", []):
+        if module.get("id") != module_id:
+            continue
+        for question in module.get("questions", []):
+            if question.get("workbookQuestionId") == workbook_question_id:
+                return question
+    return None
+
+
+def lookup_question_option_semantics(dual_artifact, workbook_question_id, option_value):
+    for row in dual_artifact.get("questionOptionSemantics", []):
+        if row.get("questionref") == workbook_question_id and row.get("optioncode") == option_value:
+            semantic_class = row.get("semanticclass")
+            return semantic_class if semantic_class else None
+    return None
+
+
+def reconstruct_q9_q10_material(questionnaires, dual_artifact, module_id, workbook_question_id):
+    question = find_questionnaire_question(questionnaires, module_id, workbook_question_id)
+    if question is None:
+        raise CanonicalExtractionError(
+            f"missing questionnaire question for {module_id} {workbook_question_id}"
+        )
+    options = []
+    for option in question.get("options", []):
+        signals = sorted(set(option.get("internalEnvironmentSignals") or []))
+        options.append(
+            {
+                "selectedOption": option.get("value"),
+                "optionText": option.get("text"),
+                "environmentSignals": signals,
+                "excludedFromPrimaryScoring": option.get("excludedFromPrimaryScoring") is True,
+                "semanticClass": lookup_question_option_semantics(
+                    dual_artifact,
+                    workbook_question_id,
+                    option.get("value"),
+                ),
+            }
+        )
+    return {
+        "moduleId": module_id,
+        "canonicalQuestionId": question.get("id"),
+        "workbookQuestionId": workbook_question_id,
+        "options": options,
+    }
+
+
+def build_answer_semantic_bindings(dual, questionnaires, dual_artifact):
+    declared = table_records(
+        dual,
+        "1_Answer_Env_Map",
+        "moduleId",
+        block="answerSemanticBindings",
+        header_source_row=47,
+    )
+    declared_bindings = [
+        row
+        for row in declared
+        if row.get("moduleid") in {"acquirerEnvironment", "targetSelfAssessment"}
+    ]
+    if len(declared_bindings) != 4:
+        raise CanonicalExtractionError(
+            "Canonical extraction failed: "
+            "workbook=ST_Dual_Respondent_Axis_Comparison_v1.xlsx sheet='1_Answer_Env_Map' "
+            f"block='answerSemanticBindings' reason=expected_four_bindings got={len(declared_bindings)}"
+        )
+
+    seen_keys = set()
+    seen_canonicals = {}
+    bindings = []
+    for declared_row, expected in zip(declared_bindings, AUTHORIZED_Q9_Q10_BINDINGS):
+        module_id = declared_row.get("moduleid")
+        canonical_question_id = declared_row.get("canonicalquestionid")
+        workbook_question_id = declared_row.get("workbookquestionid")
+        expected_module, expected_canonical, expected_workbook = expected
+        key = (module_id, workbook_question_id)
+        if key in seen_keys:
+            raise CanonicalExtractionError(
+                f"duplicate Q9/Q10 semantic binding {module_id} {workbook_question_id}"
+            )
+        seen_keys.add(key)
+        if module_id != expected_module or workbook_question_id != expected_workbook:
+            raise CanonicalExtractionError(
+                f"Q9/Q10 binding order/identity mismatch: got {module_id} {workbook_question_id}"
+            )
+        if canonical_question_id != expected_canonical:
+            raise CanonicalExtractionError(
+                f"canonical mismatch for {module_id} {workbook_question_id}: {canonical_question_id}"
+            )
+        if canonical_question_id in seen_canonicals and seen_canonicals[canonical_question_id] != key:
+            raise CanonicalExtractionError(
+                f"ambiguous canonical binding {canonical_question_id}"
+            )
+        seen_canonicals[canonical_question_id] = key
+        if not str(canonical_question_id).startswith(
+            "ACQUIRERENVIRONMENT-" if module_id == "acquirerEnvironment" else "TARGETSELFASSESSMENT-"
+        ):
+            raise CanonicalExtractionError(
+                f"module/canonical family mismatch {module_id} {canonical_question_id}"
+            )
+
+        material = reconstruct_q9_q10_material(
+            questionnaires,
+            dual_artifact,
+            module_id,
+            workbook_question_id,
+        )
+        if material["canonicalQuestionId"] != canonical_question_id:
+            raise CanonicalExtractionError(
+                f"questionnaire canonical mismatch for {module_id} {workbook_question_id}"
+            )
+        canonical = canonical_serialize(material)
+        mapping_digest, byte_length = sha256_prefixed_digest(canonical)
+        expected_digest, expected_bytes = CORR2_BINDING_DIGESTS[key]
+        if mapping_digest in SUPERSEDED_BINDING_DIGESTS:
+            raise CanonicalExtractionError(
+                f"superseded binding digest reintroduced for {module_id} {workbook_question_id}"
+            )
+        if mapping_digest != expected_digest or byte_length != expected_bytes:
+            raise CanonicalExtractionError(
+                "Q9/Q10 binding digest mismatch: "
+                f"{module_id} {workbook_question_id} got {mapping_digest} bytes={byte_length}"
+            )
+        if declared_row.get("mappingowner") != "QUESTIONNAIRE_MODULE":
+            raise CanonicalExtractionError(
+                f"mappingOwner must be QUESTIONNAIRE_MODULE for {module_id} {workbook_question_id}"
+            )
+        bindings.append(
+            {
+                "sourceRow": declared_row.get("sourceRow"),
+                "moduleId": module_id,
+                "canonicalQuestionId": canonical_question_id,
+                "workbookQuestionId": workbook_question_id,
+                "sourceWorkbook": declared_row.get("sourceworkbook"),
+                "sourceSheet": declared_row.get("sourcesheet"),
+                "sourceRows": declared_row.get("sourcerows"),
+                "sourceVersion": declared_row.get("sourceversion"),
+                "mappingOwner": "QUESTIONNAIRE_MODULE",
+                "derivationType": "MODULE_LOCAL_REFERENCE",
+                "mappingDigest": mapping_digest,
+            }
+        )
+
+    missing = [
+        f"{module_id} {workbook_question_id}"
+        for module_id, _, workbook_question_id in AUTHORIZED_Q9_Q10_BINDINGS
+        if (module_id, workbook_question_id) not in seen_keys
+    ]
+    if missing:
+        raise CanonicalExtractionError(f"missing Q9/Q10 semantic bindings: {missing}")
+    return bindings
+
+
+def parse_scoring_and_triage(questionnaires):
     with Workbook(SOURCE_DIR / "ST_Dual_Respondent_Axis_Comparison_v1.xlsx") as dual:
+        answer_environment_map = [
+            row
+            for row in table_records(dual, "1_Answer_Env_Map", "Q#", block="answerEnvironmentMap")
+            if row.get("q") in DUAL_KEEP_ANSWER_MAP_QUESTIONS
+        ]
+        if any(row.get("q") in {"Q9", "Q10"} for row in answer_environment_map):
+            raise CanonicalExtractionError("active generic Dual Q9/Q10 answer-map rows were exported")
         dual_artifact = {
             "sourceWorkbook": "ST_Dual_Respondent_Axis_Comparison_v1.xlsx",
-            "answerEnvironmentMap": table_records(dual, "1_Answer_Env_Map", "Q#", block="answerEnvironmentMap"),
+            "answerEnvironmentMap": answer_environment_map,
             "pairSpecificWeights": table_records(dual, "2_Pair_Specific_Weights", "Candidate Pair", block="pairSpecificWeights"),
             "comparisonEngine": table_records(dual, "3_Comparison_Engine", "Q#", block="comparisonEngine"),
             "evidenceQualityLayer": table_records(
@@ -863,6 +1075,11 @@ def parse_scoring_and_triage():
                 stop_on_row_discontinuity=True,
             ),
         }
+        dual_artifact["answerSemanticBindings"] = build_answer_semantic_bindings(
+            dual,
+            questionnaires,
+            dual_artifact,
+        )
 
     with Workbook(SOURCE_DIR / "ST_Triage_Framework.xlsx") as triage:
         triage_artifact = {
@@ -1039,12 +1256,13 @@ def main():
     if not SOURCE_DIR.exists():
         raise FileNotFoundError(f"Missing NewLogic source folder: {SOURCE_DIR}")
 
+    questionnaires = parse_questionnaires()
     artifacts = {
         "sourceManifest.json": build_source_manifest(),
         "canonicalSchema.json": parse_canonical_schema(),
-        "questionnaires.json": parse_questionnaires(),
+        "questionnaires.json": questionnaires,
         "formBindings.json": parse_form_bindings(),
-        "scoringAndTriage.json": parse_scoring_and_triage(),
+        "scoringAndTriage.json": parse_scoring_and_triage(questionnaires),
         "narrativesAndFriction.json": parse_narratives_and_friction(),
         "reporting.json": parse_reporting(),
     }

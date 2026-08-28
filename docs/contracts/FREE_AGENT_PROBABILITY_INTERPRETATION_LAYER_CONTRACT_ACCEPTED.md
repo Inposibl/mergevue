@@ -22,7 +22,7 @@
 **uncertaintySchemaVersion:** `structured-uncertainty-1.0`  
 **failureSchemaVersion:** `system-failure-1.0`  
 **contextPackSchemaVersion:** `context-pack-1.1`  
-**selectionPolicyVersion:** `context-selection-1.1`
+**selectionPolicyVersion:** `context-selection-1.2`
 
 ---
 
@@ -512,7 +512,7 @@ None reuse PRIMARY / CONTEXTUAL / INELIGIBLE / UNRESOLVED. Provider and system f
 - `survivingEvidenceRefs.length === 0`; or
 - every surviving observation has `comparisonAvailability = "unavailable"` and no `semanticClassEffect.signalEffect` is a corpus-declared diagnostic finding; or
 - `branchCode = P_0A` (comparator did not run — no engine content exists to interpret); or
-- `branchCode = P_0C` and the eligibility failure is module-identity or question-identity.
+- `branchCode = P_0C` and the eligibility failure is lawful observation-scope question-identity (`unsupported_or_missing_question`). Module/Q9/Q10 semantic-identity corruption is not a P_0C branch; it fails at `PRE_DUAL_SEMANTIC_INTEGRITY` as non-retryable `INPUT_ASSEMBLY_FAILURE`.
 
 The mere existence of an uncertainty branch is explicitly not grounds for abstention. `EVENT_ABSENCE` and `STRUCTURAL_PRECONDITION_ABSENCE` observations are corpus-declared diagnostic findings and therefore count as surviving evidence even though they are excluded from comparison.
 
@@ -750,9 +750,9 @@ MUST: state the precise reason eligibility remained UNRESOLVED; identify which c
 
 MUST NOT: reclassify any observation; state or imply that eligibility was resolved; assign a UseClass; describe `practitioner_access_review` as a review that occurred.
 
-Special case: when the cause is `missing_module` / `unsupported_module` / `unsupported_or_missing_question`, this is an assembly defect, not a client-facing diagnostic. The comparator short-circuits on module identity before resolving any answers, so no observations exist to interpret. Required behaviour: `ABSTAINED_INSUFFICIENT_EVIDENCE` with `abstentionReason = "IDENTITY_UNRESOLVED"`, and the boundary SHOULD additionally raise `INPUT_ASSEMBLY_FAILURE` for operators.
+Special case: malformed semantic identity (`missing_module`, `unsupported_module`, bare Q9/Q10, module/canonical/workbook mismatch, unknown Q9/Q10 option, or registry/digest corruption) is **not** P_0C. It is a `PRE_DUAL_SEMANTIC_INTEGRITY` failure mapped to non-retryable `INPUT_ASSEMBLY_FAILURE`. No Dual branch, observation, EngineSnapshot, StructuredUncertainty, or InterpretationContextPack is produced. Lawful P_0C remains valid semantic binding plus observation-scope `UseClass = UNRESOLVED` (including `roleCode_unspecified` / `unknown_seniority`).
 
-Mode: `AUTOMATED_UNCERTAINTY_INTERPRETATION` (or `AUTOMATED_ABSTENTION_CANDIDATE` in the identity case).
+Mode: `AUTOMATED_UNCERTAINTY_INTERPRETATION` for lawful role/access P_0C (or `AUTOMATED_ABSTENTION_CANDIDATE` only for remaining observation-scope question-identity P_0C).
 
 ### 7.2 P_1 — coverage insufficient
 
@@ -875,7 +875,7 @@ Three strictly separated concepts:
 | P_3 | blocked | AUTOMATED_STANDARD_INTERPRETATION |
 | P_4 | standard_analyst_review_queue | AUTOMATED_UNCERTAINTY_INTERPRETATION |
 | P_0C (role/seniority) | practitioner_access_review | AUTOMATED_UNCERTAINTY_INTERPRETATION |
-| P_0C (identity) | practitioner_access_review | AUTOMATED_ABSTENTION_CANDIDATE |
+| P_0C (observation-scope question-identity only) | practitioner_access_review | AUTOMATED_ABSTENTION_CANDIDATE |
 | P_1 | coverage_insufficient | AUTOMATED_CONSTRAINED_INTERPRETATION |
 | P_1B | practitioner_review | AUTOMATED_CONSTRAINED_INTERPRETATION |
 | P_2 | candidate_4b_practitioner_confirmation_required | AUTOMATED_CONSTRAINED_INTERPRETATION |
@@ -955,7 +955,7 @@ Out of scope. If ever introduced, it must arrive as a separate, distinctly-named
   "contextPackSchemaVersion": "context-pack-1.1",
   "contextPackId": "…",
   "contextPackDigest": "sha256:…",
-  "selectionPolicyVersion": "context-selection-1.1",
+  "selectionPolicyVersion": "context-selection-1.2",
   "methodologySourcePackageId": "newlogic-2026-05-03",
   "methodologyCorpusDigest": "sha256:…",
 
@@ -1024,7 +1024,7 @@ If a precedence row path is **not** registered, select field `condition` verbati
 
 ### 10.3 Template `T-BP-1B`
 
-The sole template in `context-selection-1.1`. Deterministic function of the same corpus-derived values Runtime Core parses and applies: `oneHighPair`, `oneHighDiscriminatorQuestion`. The validator recreates the output byte-for-byte.
+The sole template in `context-selection-1.2`. Deterministic function of the same corpus-derived values Runtime Core parses and applies: `oneHighPair`, `oneHighDiscriminatorQuestion`. The validator recreates the output byte-for-byte.
 
 The `BOUNDARY_CANONICAL` item for `P_1B` contains exactly the following statements and nothing more:
 
@@ -1072,7 +1072,8 @@ Authority classification by exact source path/key. Everything below is REPOSITOR
 | `questionnaires.modules[].questions[].options[].text` | ACCEPTED_PRODUCT_INTERPRETATION_CONTEXT | |
 | `questionnaires.modules[].questions[].methodologyNotes[]` | ACCEPTED_METHODOLOGY_CONTEXT | |
 | `…dualRespondentComparison.comparisonEngine[]` — `axisPair`, `divergeMeaning`, `weight`, `r1OrR2E`, `bothEOrF` | ACCEPTED_METHODOLOGY_CONTEXT | |
-| `…dualRespondentComparison.answerEnvironmentMap[]` | ACCEPTED_METHODOLOGY_CONTEXT | |
+| `…dualRespondentComparison.answerEnvironmentMap[]` | ACCEPTED_METHODOLOGY_CONTEXT | Q1–Q8 and Q11 only. Generic Dual Q9/Q10 rows are not active authority. |
+| `…dualRespondentComparison.answerSemanticBindings[]` | ACCEPTED_METHODOLOGY_CONTEXT | Exactly four module-local Q9/Q10 references. Option signals are questionnaire-owned. |
 
 ### 11.C Environment definitions and public aliases
 
@@ -1120,7 +1121,7 @@ EngineSnapshot (sealed)  +  StructuredUncertainty (sealed)
 
 The selector runs **before** the provider call. It is pure: same `selectionKeys` + same `methodologyCorpusDigest` + same `selectionPolicyVersion` ⇒ byte-identical `contextPackDigest`. No retrieval technology, embedding, ranking, or similarity search is specified or permitted — selection is table-driven lookup on deterministic keys.
 
-### 12.2 Selection rules (`context-selection-1.1`)
+### 12.2 Selection rules (`context-selection-1.2`)
 
 Selection is **subtractive by default**: any artifact not named by a fired rule is absent from the pack. No rule may select from a source classified `PRESENTATION_ONLY_NOT_AUTHORITY` or `NOT_ADMISSIBLE_FOR_AGENT_GROUNDING`.
 
@@ -1131,7 +1132,7 @@ Selection is **subtractive by default**: any artifact not named by a fired rule 
 | SR-03 | always | (1) `classificationPrecedence` row for `branchCode` → field `source` verbatim (`CORPUS_VERBATIM`, domain `BRANCH_SEMANTICS`). (2) Predicate content registry-controlled: unregistered rows select `condition` verbatim; SP-1 generates exactly one `BOUNDARY_CANONICAL` item `CI-BOUNDARY-PRED-P_1B` via `T-BP-1B`. |
 | SR-04 | `branchCode ∈ {P_5X, P_1, P_1B, P_2, P_3A, UNMATCHED}` | matching `edgeCases` rows by `classification` / `trigger` correspondence |
 | SR-05 | per `questionRef` in `selectionKeys.questionRefs` | `comparisonEngine` row for that Q; `questionnaires…questions[Q].{group, prompt, methodologyNotes}` |
-| SR-06 | per `(questionRef, selectedOption)` present in `engine.observations[]` | `answerEnvironmentMap` row; `questionnaires…options[option].text` |
+| SR-06 | per `(questionRef, selectedOption)` present in `engine.observations[]` | Q1–Q8/Q11: `answerEnvironmentMap` row plus `questionnaires…options[option].text`. Q9/Q10: module-local `answerSemanticBindings` row plus questionnaire option `text` and `internalEnvironmentSignals`. Generic Dual Q9/Q10 map is not selected. |
 | SR-07 | per distinct `semanticClass` in `selectionKeys.semanticClasses` | `semanticClassEffects` row for that class |
 | SR-08 | always | `pairSpecificWeights` rows for `candidatePairNormalized`; `seniorityTierMapping.definition` for tiers present in `roleSplit`; `questionTierVantage` rows for (Q × tier) pairs present |
 | SR-09 | any `declaredEvidenceFields` enum value present | `canonicalSchema.{evidenceTypes, knowledgeLevels, confidenceLevels, reliabilityFlags}` definition rows for those values only |
@@ -1618,6 +1619,7 @@ Historical/provenance only. Does not re-activate superseded normative language.
 | CORR1 §4.2 SR-12 | — | Replaced (two boundary markers) |
 | CORR1 §4.2 SR-13 | — | Deleted |
 | CORR1 §4.2 `context-selection-1.0` | — | `context-selection-1.1` |
+| C5-B.2B + CORR1 + CORR2 SR-06 generic Dual Q9/Q10 map | — | `context-selection-1.2`; Q9/Q10 grounded on module-local questionnaire bindings |
 | CORR1 §7.3 N ≥ 5 unlock wording | — | Replaced: N ≥ 5 is a future review trigger only |
 | CORR1 §9 V-31 reject list | — | Extended to entire `freeTierNarratives.*` |
 | CORR1 §13 OD-CORR1-1 open default (b) | — | Recorded as future corpus-export act |

@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 
 import { compareDualRespondents } from "../src/flow/dualRespondentComparison.js";
 import { isAuthorizedDualModule } from "../src/flow/observationScopeResolver.js";
-import { assembleEngineSnapshot } from "../src/agent/engineSnapshot.js";
+import { assembleEngineSnapshot, normalizeCandidatePair } from "../src/agent/engineSnapshot.js";
 import { buildStructuredUncertainty } from "../src/agent/structuredUncertainty.js";
 import { buildInterpretationContextPack } from "../src/agent/interpretationContextPack.js";
 import { buildAgentInterpretationRequest } from "../src/agent/agentInterpretationRequest.js";
@@ -31,10 +31,11 @@ import {
   JUDGE_TRANSPORT_FAILURE,
   SemanticJudgeTransportError,
 } from "../src/agent/semanticJudgeTransportError.js";
-import { BLOCKED_CLAIM_IDS_BY_CONSTRAINT } from "../src/agent/agentContractConstants.js";
+import { buildC5CSelectedSelectorProvenance } from "./fixtures/c5c-selected-session.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const results = [];
+const SELECTOR_PROVENANCE = buildC5CSelectedSelectorProvenance();
 const J5_PRODUCTION_FILES = Object.freeze([
   "src/agent/agentInterpretationRun.js",
   "src/agent/semanticJudgeAdapter.js",
@@ -137,6 +138,7 @@ function identityFor(coreInput) {
     projectId: null,
     moduleId: isAuthorizedDualModule(coreInput.moduleId) ? coreInput.moduleId : "acquirerEnvironment",
     candidatePair: coreInput.candidatePair ?? "",
+    candidatePairNormalized: normalizeCandidatePair(coreInput.candidatePair ?? ""),
   };
 }
 
@@ -144,7 +146,12 @@ function dualBundle(coreInput) {
   const input = withFlags(coreInput);
   const coreOutput = compareDualRespondents(input);
   const identityContext = identityFor(input);
-  const snapshot = assembleEngineSnapshot({ coreOutput, identityContext, coreInput: input });
+  const snapshot = assembleEngineSnapshot({
+    coreOutput,
+    identityContext,
+    coreInput: input,
+    selectorProvenance: SELECTOR_PROVENANCE,
+  });
   const uncertainty = buildStructuredUncertainty(snapshot);
   const pack = buildInterpretationContextPack({ engineSnapshot: snapshot, structuredUncertainty: uncertainty });
   const request = buildAgentInterpretationRequest({
@@ -401,6 +408,8 @@ async function runWith(coreInput, {
   };
   try {
     const outcome = await runAgentInterpretation({
+      outcomeSource: "DUAL_CORE",
+      selectorProvenance: SELECTOR_PROVENANCE,
       coreOutput: prepared.bundle.coreOutput,
       identityContext: prepared.bundle.identityContext,
       coreInput: prepared.bundle.input,
@@ -616,7 +625,7 @@ async function main() {
     const iAssemble = runSource.indexOf("const assembledResult = assembleAgentInterpretationResult");
     const iValidate = runSource.indexOf("const validatedResult = await validateAgentInterpretationSemantics");
     const iIdentity = runSource.indexOf("if (validatedResult !== assembledResult)");
-    const iThrow = runSource.indexOf("throw new TypeError(");
+    const iThrow = runSource.indexOf("throw new TypeError(", iIdentity);
     const iReturn = runSource.indexOf("return assembledResult;");
     assert.equal(iAssemble >= 0, true);
     assert.equal(runSource.includes("agentInterpretationResult: assembledResult"), true);
@@ -699,6 +708,8 @@ async function main() {
     });
     await assert.rejects(
       () => runAgentInterpretation({
+        outcomeSource: "DUAL_CORE",
+        selectorProvenance: SELECTOR_PROVENANCE,
         coreOutput: throwing,
         identityContext: identityFor(P5A_INPUT),
         coreInput: withFlags(P5A_INPUT),
@@ -736,21 +747,25 @@ async function main() {
     assert.equal(isInterpretationResult(ran.outcome), true);
   });
 
-  await check("W17", "P_1B suppression lock preserved", async () => {
-    const ran = await runWith(P1B_INPUT);
-    assert.equal(isInterpretationResult(ran.outcome), true);
-    const request = ran.prepared.bundle.request;
-    const snapshot = request.engineSnapshot;
-    assert.equal(snapshot.engine.outcome.branchCode, "P_1B");
-    assert.equal(snapshot.engine.outcome.suppression.comparatorOutputSuppressed, true);
-    const blocked = request.activeConstraints
-      .filter((row) => row.constraintId === "C-1B-SUPPRESSION")
-      .flatMap((row) => row.blockedClaimIds);
-    assert.deepEqual([...blocked], [...BLOCKED_CLAIM_IDS_BY_CONSTRAINT["C-1B-SUPPRESSION"]]);
-    assert.equal(request.activeConstraints.some((row) => row.constraintId === "C-1B-NO-BROADENING"), true);
-    assert.equal(request.humanReviewOccurred, false);
-    const uncertaintyText = JSON.stringify(request.structuredUncertainty);
-    assert.equal(uncertaintyText.includes("PAIR_DISCRIMINATOR_OBSERVATION_GAP_BOTH") || uncertaintyText.includes("OBSERVATION_GAP"), true);
+  await check("W17", "P_1B Core semantics remain intact but have no selector-authoritative Agent reach", async () => {
+    const input = withFlags(P1B_INPUT);
+    const coreOutput = compareDualRespondents(input);
+    assert.equal(coreOutput.priority, "1b");
+    assert.equal(coreOutput.audit.exact1bSpecialCondition, true);
+    await assert.rejects(
+      () => runAgentInterpretation({
+        outcomeSource: "DUAL_CORE",
+        selectorProvenance: SELECTOR_PROVENANCE,
+        coreOutput,
+        identityContext: identityFor(input),
+        coreInput: input,
+      }),
+      (error) => {
+        assert.equal(error?.name, "AgentBoundaryAssemblyError");
+        assert.match(error?.message ?? "", /P_1B is not selector-compatible/);
+        return true;
+      },
+    );
   });
 
   await check("W18", "Renderer/UI isolation", () => {

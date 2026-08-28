@@ -11,7 +11,7 @@ import {
   SYSTEM_FAILURE_RETRYABLE_BY_CLASS,
 } from "../src/agent/agentContractConstants.js";
 import { canonicalSerialize } from "../src/agent/canonicalDigest.js";
-import { assembleEngineSnapshot } from "../src/agent/engineSnapshot.js";
+import { assembleEngineSnapshot, normalizeCandidatePair } from "../src/agent/engineSnapshot.js";
 import { buildStructuredUncertainty } from "../src/agent/structuredUncertainty.js";
 import { buildInterpretationContextPack } from "../src/agent/interpretationContextPack.js";
 import { buildAgentInterpretationRequest } from "../src/agent/agentInterpretationRequest.js";
@@ -36,6 +36,7 @@ import {
 } from "../src/agent/agentInterpretationResult.js";
 import { compareDualRespondents } from "../src/flow/dualRespondentComparison.js";
 import { isAuthorizedDualModule } from "../src/flow/observationScopeResolver.js";
+import { buildC5CSelectedSelectorProvenance } from "./fixtures/c5c-selected-session.mjs";
 
 // ---------------------------------------------------------------------------
 // Canonical upstream fixtures (same construction as the upstream validators)
@@ -64,6 +65,7 @@ function fill(template = {}, except = {}) {
 }
 
 const SENIOR = { roleCode: "c_suite", seniorityLevel: "c_suite" };
+const SELECTOR = buildC5CSelectedSelectorProvenance();
 
 function withFlags(coreInput) {
   return {
@@ -79,6 +81,7 @@ function identityFor(coreInput) {
     projectId: null,
     moduleId: isAuthorizedDualModule(coreInput.moduleId) ? coreInput.moduleId : "acquirerEnvironment",
     candidatePair: coreInput.candidatePair ?? "",
+    candidatePairNormalized: normalizeCandidatePair(coreInput.candidatePair ?? ""),
   };
 }
 
@@ -89,6 +92,7 @@ function requestFor(coreInput) {
     coreOutput,
     identityContext: identityFor(input),
     coreInput: input,
+    selectorProvenance: SELECTOR,
   });
   const uncertainty = buildStructuredUncertainty(snapshot);
   const pack = buildInterpretationContextPack({
@@ -114,11 +118,20 @@ const P5A_INPUT = {
 
 const P1B_INPUT = {
   moduleId: "acquirerEnvironment",
-  candidatePair: "NF/SFP vs NF/SFJ",
+  candidatePair: "NT/STJ vs NT/STP",
   respondent1: SENIOR,
   respondent2: SENIOR,
-  answers1: fill({ selectedOption: "A" }, { Q11: { selectedOption: "F" } }),
-  answers2: fill({ selectedOption: "A" }, { Q11: { selectedOption: "F" } }),
+  answers1: fill(),
+  answers2: fill({}, {
+    Q1: { selectedOption: "E" },
+    Q2: { selectedOption: "E" },
+    Q3: { selectedOption: "E" },
+    Q4: { selectedOption: "E" },
+    Q5: { selectedOption: "E" },
+    Q7: { selectedOption: "E" },
+    Q8: { selectedOption: "E" },
+    Q9: { selectedOption: "E" },
+  }),
 };
 
 // ---------------------------------------------------------------------------
@@ -431,7 +444,7 @@ async function main() {
 
   await check("RA0", "exact canonical constants and closed frozen schemas", () => {
     assert.equal(FAILURE_SCHEMA_VERSION, "system-failure-1.0");
-    assert.equal(OUTPUT_SCHEMA_VERSION, "agent-result-1.1");
+    assert.equal(OUTPUT_SCHEMA_VERSION, "agent-result-1.2");
     assert.deepEqual([...SYSTEM_FAILURE_CLASSES], [
       "PROVIDER_UNAVAILABLE",
       "PROVIDER_TIMEOUT",
@@ -460,7 +473,7 @@ async function main() {
     }
     assert.equal(SYSTEM_FAILURE_CLIENT_DISCLOSURE, "SYSTEM_LEVEL_ONLY");
 
-    assert.equal(agentInterpretationResultSchema.$id, "agent-result-1.1");
+    assert.equal(agentInterpretationResultSchema.$id, "agent-result-1.2");
     assert.equal(systemFailureSchema.$id, "system-failure-1.0");
     assert.equal(Object.isFrozen(agentInterpretationResultSchema), true);
     assert.equal(Object.isFrozen(systemFailureSchema), true);
@@ -561,11 +574,12 @@ async function main() {
         "uncertainty",
       ]);
       assert.equal(result.resultSchemaVersion, request.outputSchemaVersion);
-      assert.equal(result.resultSchemaVersion, "agent-result-1.1");
+      assert.equal(result.resultSchemaVersion, "agent-result-1.2");
       assert.equal(result.agentContractVersion, request.agentContractVersion);
       assert.equal(result.interpretationId, request.interpretationId);
       assert.equal(result.engineFactsRef.diagnosticId, request.engineSnapshot.identity.diagnosticId);
       assert.equal(result.engineFactsRef.engineSnapshotDigest, request.engineSnapshot.engineSnapshotDigest);
+      assert.equal(result.engineFactsRef.engineOutcomeCode, request.engineSnapshot.engine.outcome.engineOutcomeCode);
       assert.equal(result.engineFactsRef.branchCode, request.engineSnapshot.engine.outcome.branchCode);
       assert.equal(result.engineFactsRef.stateAsserted, request.engineSnapshot.engine.outcome.state);
     }
@@ -610,7 +624,7 @@ async function main() {
   });
 
   await check("RA3", "withheld outputs project 1:1 in order with no reconstruction", () => {
-    assert.ok(p1b.request.structuredUncertainty.withheldOutputs.length > 0, "P_1B fixture carries withheld outputs");
+    assert.ok(p1b.request.structuredUncertainty.withheldOutputs.length > 0, "P_1 fixture carries withheld outputs");
     const withheld = p1b.request.structuredUncertainty.withheldOutputs;
     const suppressed = p1b.result.uncertainty.suppressedDeterministicOutputs;
     assert.equal(suppressed.length, withheld.length);
@@ -796,6 +810,7 @@ async function main() {
       engineFactsRef: {
         diagnosticId: caseARequest.engineSnapshot.identity.diagnosticId,
         engineSnapshotDigest: caseARequest.engineSnapshot.engineSnapshotDigest,
+        engineOutcomeCode: caseARequest.engineSnapshot.engine.outcome.engineOutcomeCode,
         branchCode: caseARequest.engineSnapshot.engine.outcome.branchCode,
         stateAsserted: caseARequest.engineSnapshot.engine.outcome.state,
       },
@@ -879,21 +894,11 @@ async function main() {
     );
     assert.equal(prohibitedSection.failureClass, "PROHIBITED_CLAIM_VIOLATION");
 
-    // P_1B: withheld identity stays projected, blocked claim stays blocked.
+    // P_1: withheld deterministic text remains unavailable in the Result.
     const p1bResult = p1b.result;
     for (const item of p1bResult.interpretation.hypotheses.items) {
       assert.deepEqual(item.requiresEngineFactNotEstablished, []);
     }
-    const tamperedP1b = deepFreezeValue((() => {
-      const clone = structuredClone(p1bResult);
-      clone.interpretation.hypotheses.items[0].requiresEngineFactNotEstablished = ["CLAIM_NF_SFP_DETERMINATION"];
-      return clone;
-    })());
-    const blocked = captureSyncRejection(
-      () => validateAgentInterpretationResultStructure(p1b.request, tamperedP1b),
-      AgentInterpretationResultValidationError,
-    );
-    assert.equal(blocked.failureClass, "PROHIBITED_CLAIM_VIOLATION");
     const p1bBytes = canonicalSerialize(p1bResult);
     for (const row of p1b.request.structuredUncertainty.withheldOutputs) {
       assert.equal(p1bBytes.includes(row.engineOutputText), false);

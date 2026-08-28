@@ -787,10 +787,16 @@ check("C3-C provenance stays isolated from scoring and App public consumers whil
   assert.deepEqual(appPublicConsumerViolations(read("src/App.jsx")), []);
   assert.equal(sha256(read("api/submit-target-observation.ts")), "1c989b6b1314b80856efc77fb29f0d5d738978044c679d3e940dfff5f27b80d0");
   assert.equal(sha256(read("src/flow/observationScopeResolver.js")), "e922aafb514bd6ed7b6ab7d574283605bb8b93b425448257ab8846044ce6f061");
-  assert.equal(sha256(read("src/flow/dualRespondentComparison.js")), "d8e5f2651021580f3943b0d18f86de855a7bc941ffe19dfb052cdb405b1be35e");
+  // C5-B.2B CORR3 re-freeze: authorized C5-B.2B + CORR1 + CORR2 Dual PRE_DUAL gate.
+  // Superseded: d8e5f2651021580f3943b0d18f86de855a7bc941ffe19dfb052cdb405b1be35e
+  assert.equal(sha256(read("src/flow/dualRespondentComparison.js")), "5b730d53df647ddf12f58a0f4e8bf1bcb294e852b4f080ed5a038103b79ba2e3");
   assert.equal(sha256(read("src/flow/questionnaireAnswerSemanticState.js")), "ce68af824d85ec02fac6738f5a58b9f9ca5548eb0e92fbd1e3e641a434496935");
-  assert.equal(treeDigest("src/agent"), "d30779d16e0875bb20fe1d9a57ca75118052453cb42f97786847cf0493297240");
-  assert.equal(treeDigest("src/generated/newlogic"), "7854b64baa829a0a323cd96ea1c2067dc0b42ea2713452b86cacbe625c78eafd");
+  // C5-C.1 CORR2 re-freeze: authorized C5-C.1.IMPL + CORR1 agent-tree changes superseding the stale C5-B.2B CORR3 baseline.
+  // Superseded: d09069b81e86b4819050f0f1815634d15bae6af6c222d9de271e3d502406139e
+  assert.equal(treeDigest("src/agent"), "7fa97e0c326a0dd78794e3a8ce52ba3c96518da544444212ff19c9eb12e82cdd");
+  // C5-B.2B CORR3 re-freeze: authorized Dual generated binding/provenance materialization.
+  // Superseded: 7854b64baa829a0a323cd96ea1c2067dc0b42ea2713452b86cacbe625c78eafd
+  assert.equal(treeDigest("src/generated/newlogic"), "9414412e4473f87d607ca2d1a8462d6079fe0e68f51ef9310e6192d359d2a3e7");
   assert.equal(treeDigest("src/reporting"), "0dfc94669be6feb52b54a5144c651aa7043e4682e4544571ee64bd74b8ed33b9");
   assert.equal(treeDigest("src/data"), "da03c4ba3cbf911a561cb1d4e35fa8b02bd365cbc903234151fd58a9093734ef");
   assert.match(read("src/flow/observationScopeResolver.js"), /const AUTHORIZED_DUAL_MODULES = Object\.freeze\(\["acquirerEnvironment", "targetSelfAssessment"\]\);/);

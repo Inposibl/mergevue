@@ -9,11 +9,17 @@ import {
   CONSTRAINT_SCOPE_BRANCH,
   CONSTRAINT_SCOPE_REQUEST_WIDE,
   CONTEXT_PACK_SCHEMA_VERSION,
+  ENGINE_OUTCOME_CODES,
+  ENGINE_OUTCOME_SOURCES,
   FAILURE_CLASS_CONTRACT_VERSION_MISMATCH,
   FAILURE_CLASS_INPUT_ASSEMBLY_FAILURE,
   FREE_INTERPRETATION_MODE,
   OUTPUT_SCHEMA_VERSION,
   PACK_SCOPE_VERDICTS,
+  PRE_CORE_CONSTRAINTS_BY_OUTCOME_CODE,
+  PRE_CORE_CONSTRAINT_IDS,
+  PRE_CORE_FREE_INTERPRETATION_MODE_BY_OUTCOME_CODE,
+  PRE_CORE_OUTCOME_CODES,
   REQUEST_SCHEMA_VERSION,
   SNAPSHOT_SCHEMA_VERSION,
   UNCERTAINTY_SCHEMA_VERSION,
@@ -100,13 +106,23 @@ function validateEngineSnapshot(engineSnapshot) {
     requireObject(snapshot.engine, "engineSnapshot.engine").outcome,
     "engineSnapshot.engine.outcome",
   );
-  if (!BRANCH_CODES.includes(outcome.branchCode)) {
-    fail(`engineSnapshot.engine.outcome.branchCode is not a closed branch: ${JSON.stringify(outcome.branchCode)}`);
+  if (!ENGINE_OUTCOME_SOURCES.includes(snapshot.outcomeSource)) {
+    fail(`engineSnapshot.outcomeSource is not closed: ${JSON.stringify(snapshot.outcomeSource)}`);
+  }
+  if (!ENGINE_OUTCOME_CODES.includes(outcome.engineOutcomeCode)) {
+    fail(`engineSnapshot.engine.outcome.engineOutcomeCode is not closed: ${JSON.stringify(outcome.engineOutcomeCode)}`);
+  }
+  if (snapshot.outcomeSource === "DUAL_CORE") {
+    if (!BRANCH_CODES.includes(outcome.branchCode) || outcome.branchCode !== outcome.engineOutcomeCode) {
+      fail("DUAL_CORE branchCode must equal engineOutcomeCode");
+    }
+  } else if (!PRE_CORE_OUTCOME_CODES.includes(outcome.engineOutcomeCode) || Object.hasOwn(outcome, "branchCode")) {
+    fail("PRE_CORE_SELECTOR requires an S_* engineOutcomeCode and no branchCode");
   }
   let expectedDigest;
   try {
     const covered = engineSnapshotDigestCoveredContent(snapshot);
-    expectedDigest = computeEngineSnapshotDigest(covered.engine, covered.corpus);
+    expectedDigest = computeEngineSnapshotDigest(covered);
   } catch (error) {
     fail(`engineSnapshot digest recomputation failed: ${error?.message ?? error}`);
   }
@@ -186,7 +202,7 @@ function blockedClaimIdsFor(constraintId) {
   return Object.freeze(blocked ? [...blocked] : []);
 }
 
-function buildActiveConstraints(currentBranch) {
+function buildActiveConstraints(currentBranch, outcomeSource) {
   const rows = [];
   const seen = new Set();
   const emit = (constraintId, scope) => {
@@ -202,7 +218,10 @@ function buildActiveConstraints(currentBranch) {
   for (const constraintId of BASELINE_CONSTRAINT_IDS) {
     emit(constraintId, CONSTRAINT_SCOPE_REQUEST_WIDE);
   }
-  for (const constraintId of CONSTRAINTS_BY_BRANCH[currentBranch] ?? []) {
+  const branchConstraints = outcomeSource === "PRE_CORE_SELECTOR"
+    ? (PRE_CORE_CONSTRAINTS_BY_OUTCOME_CODE[currentBranch] ?? [])
+    : CONSTRAINTS_BY_BRANCH[currentBranch];
+  for (const constraintId of branchConstraints ?? []) {
     emit(constraintId, CONSTRAINT_SCOPE_BRANCH);
   }
   return Object.freeze(rows);
@@ -212,6 +231,9 @@ function assertUncertaintyConstraintConsistency(structuredUncertainty, activated
   for (const item of structuredUncertainty.items ?? []) {
     for (const constraintId of item.constraintIds ?? []) {
       if (!activatedIds.has(constraintId)) {
+        if (PRE_CORE_OUTCOME_CODES.includes(currentBranch) && PRE_CORE_CONSTRAINT_IDS.includes(constraintId)) {
+          continue;
+        }
         fail(
           `structuredUncertainty item ${item.uncertaintyId ?? "?"} carries constraint ${constraintId} `
           + `which is not canonically activated on ${currentBranch}`,
@@ -230,6 +252,17 @@ function unresolvedReasonForMode(snapshot, currentBranch) {
   return Object.hasOwn(auditRaw, "unresolvedReason") ? auditRaw.unresolvedReason : null;
 }
 
+function interpretationModeFor(snapshot, currentBranch) {
+  if (snapshot.outcomeSource === "PRE_CORE_SELECTOR") {
+    const mode = PRE_CORE_FREE_INTERPRETATION_MODE_BY_OUTCOME_CODE[currentBranch];
+    if (!mode) fail(`no PRE_CORE freeInterpretationMode for ${currentBranch}`);
+    return mode;
+  }
+  return deriveFreeInterpretationMode(currentBranch, {
+    unresolvedReason: unresolvedReasonForMode(snapshot, currentBranch),
+  });
+}
+
 export function buildAgentInterpretationRequest({
   engineSnapshot,
   structuredUncertainty,
@@ -239,18 +272,16 @@ export function buildAgentInterpretationRequest({
   const uncertainty = validateStructuredUncertainty(snapshot, structuredUncertainty);
   const pack = validateInterpretationContextPack(snapshot, uncertainty, interpretationContextPack);
 
-  const currentBranch = snapshot.engine.outcome.branchCode;
+  const currentBranch = snapshot.engine.outcome.engineOutcomeCode;
 
   let freeInterpretationMode;
   try {
-    freeInterpretationMode = deriveFreeInterpretationMode(currentBranch, {
-      unresolvedReason: unresolvedReasonForMode(snapshot, currentBranch),
-    });
+    freeInterpretationMode = interpretationModeFor(snapshot, currentBranch);
   } catch (error) {
     fail(`freeInterpretationMode derivation failed: ${error?.message ?? error}`);
   }
 
-  const activeConstraints = buildActiveConstraints(currentBranch);
+  const activeConstraints = buildActiveConstraints(currentBranch, snapshot.outcomeSource);
   assertUncertaintyConstraintConsistency(
     uncertainty,
     new Set(activeConstraints.map((row) => row.constraintId)),
@@ -357,16 +388,14 @@ export function validateAgentInterpretationRequestIntegrity(request) {
     fail("permittedInterpretationDomains does not ordered-mirror interpretationContextPack.permittedInterpretationDomains");
   }
 
-  const currentBranch = snapshot.engine.outcome.branchCode;
+  const currentBranch = snapshot.engine.outcome.engineOutcomeCode;
   if (uncertainty.originBranch !== currentBranch) {
-    fail("structuredUncertainty.originBranch does not mirror engineSnapshot.engine.outcome.branchCode");
+    fail("structuredUncertainty.originBranch does not mirror engineSnapshot.engine.outcome.engineOutcomeCode");
   }
 
   let expectedMode;
   try {
-    expectedMode = deriveFreeInterpretationMode(currentBranch, {
-      unresolvedReason: unresolvedReasonForMode(snapshot, currentBranch),
-    });
+    expectedMode = interpretationModeFor(snapshot, currentBranch);
   } catch (error) {
     fail(`freeInterpretationMode derivation failed: ${error?.message ?? error}`);
   }
@@ -377,7 +406,7 @@ export function validateAgentInterpretationRequestIntegrity(request) {
     fail("freeInterpretationMode does not equal the canonical derivation for the snapshot branch");
   }
 
-  const expectedConstraints = buildActiveConstraints(currentBranch);
+  const expectedConstraints = buildActiveConstraints(currentBranch, snapshot.outcomeSource);
   if (
     canonicalBytesOrFail(supplied.activeConstraints, "activeConstraints")
     !== canonicalBytesOrFail(expectedConstraints, "re-derived activeConstraints")

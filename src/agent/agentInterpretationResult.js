@@ -258,7 +258,8 @@ function assembleResult(agentInterpretationRequest, providerExecutionOutput) {
     engineFactsRef: {
       diagnosticId: request.engineSnapshot.identity.diagnosticId,
       engineSnapshotDigest: request.engineSnapshot.engineSnapshotDigest,
-      branchCode: request.engineSnapshot.engine.outcome.branchCode,
+      engineOutcomeCode: request.engineSnapshot.engine.outcome.engineOutcomeCode,
+      branchCode: request.engineSnapshot.engine.outcome.branchCode ?? null,
       stateAsserted: request.engineSnapshot.engine.outcome.state,
     },
     interpretationStatus: validatedCandidate.interpretationStatus,

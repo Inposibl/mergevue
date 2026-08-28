@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 
 import { compareDualRespondents } from "../src/flow/dualRespondentComparison.js";
 import { isAuthorizedDualModule } from "../src/flow/observationScopeResolver.js";
-import { assembleEngineSnapshot } from "../src/agent/engineSnapshot.js";
+import { assembleEngineSnapshot, normalizeCandidatePair } from "../src/agent/engineSnapshot.js";
 import { buildStructuredUncertainty } from "../src/agent/structuredUncertainty.js";
 import { buildInterpretationContextPack } from "../src/agent/interpretationContextPack.js";
 import { buildAgentInterpretationRequest } from "../src/agent/agentInterpretationRequest.js";
@@ -42,6 +42,7 @@ import {
   mapSemanticValidationErrorToSystemFailure,
   SemanticSystemFailureMappingError,
 } from "../src/agent/semanticSystemFailure.js";
+import { buildC5CSelectedSelectorProvenance } from "./fixtures/c5c-selected-session.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const ISO_PATTERN = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{1,3})?Z$/;
@@ -67,6 +68,7 @@ const J2_CODES = Object.freeze([
 
 const QUESTIONS = Array.from({ length: 11 }, (_, index) => `Q${index + 1}`);
 const SENIOR = { roleCode: "c_suite", seniorityLevel: "c_suite" };
+const SELECTOR = buildC5CSelectedSelectorProvenance();
 const PLAIN_EVIDENCE_BASIS = Object.freeze({
   supportBasis: "PRIMARY_COMPARABLE",
   conflictLevel: "NO_CONFLICTING_COMPARABLE_EVIDENCE",
@@ -107,8 +109,10 @@ function requestFor(coreInput) {
       projectId: null,
       moduleId: isAuthorizedDualModule(coreInput.moduleId) ? coreInput.moduleId : "acquirerEnvironment",
       candidatePair: coreInput.candidatePair ?? "",
+      candidatePairNormalized: normalizeCandidatePair(coreInput.candidatePair ?? ""),
     },
     coreInput: input,
+    selectorProvenance: SELECTOR,
   });
   const uncertainty = buildStructuredUncertainty(snapshot);
   const pack = buildInterpretationContextPack({

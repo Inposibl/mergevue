@@ -574,8 +574,11 @@ const AUTHORITY_PLANS = Object.freeze({
     const set = new AuthoritySet();
     set.add("ENGINE_FACT", "engine.outcome.state", outcome.state);
     set.add("ENGINE_FACT", "engine.outcome.deterministicStateEstablished", outcome.deterministicStateEstablished);
-    set.add("ENGINE_FACT", "engine.outcome.priority", outcome.priority);
-    set.add("BRANCH", "engine.outcome.branchCode", outcome.branchCode);
+    set.add("BRANCH", "engine.outcome.engineOutcomeCode", outcome.engineOutcomeCode);
+    if (request.engineSnapshot.outcomeSource === "DUAL_CORE") {
+      set.add("ENGINE_FACT", "engine.outcome.priority", outcome.priority);
+      set.add("BRANCH", "engine.outcome.branchCode", outcome.branchCode);
+    }
     set.add("SUPPRESSION_FACT", "engine.outcome.suppression", outcome.suppression);
     addWithheldAuthorities(set, request);
     addBlockedClaimAuthorities(set, request);

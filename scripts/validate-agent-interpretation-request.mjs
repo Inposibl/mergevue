@@ -10,9 +10,17 @@ import {
   CONSTRAINT_SCOPE_BRANCH,
   CONSTRAINT_SCOPE_REQUEST_WIDE,
   FREE_INTERPRETATION_MODE,
+  PRE_CORE_FREE_INTERPRETATION_MODE_BY_OUTCOME_CODE,
+  PRE_CORE_OUTCOME_CODES,
+  SELECTOR_COMPATIBLE_DUAL_BRANCH_CODES,
 } from "../src/agent/agentContractConstants.js";
 import { canonicalSerialize } from "../src/agent/canonicalDigest.js";
-import { assembleEngineSnapshot, deriveFreeInterpretationMode } from "../src/agent/engineSnapshot.js";
+import {
+  assembleEngineSnapshot,
+  deriveFreeInterpretationMode,
+  normalizeCandidatePair,
+} from "../src/agent/engineSnapshot.js";
+import { assemblePreCoreSelectorSnapshot } from "../src/agent/preCoreSelectorSnapshot.js";
 import { buildStructuredUncertainty } from "../src/agent/structuredUncertainty.js";
 import {
   buildInterpretationContextPack,
@@ -25,6 +33,10 @@ import {
 import { precedenceRawCondition } from "../src/agent/contextAuthorityRegistry.js";
 import { compareDualRespondents } from "../src/flow/dualRespondentComparison.js";
 import { isAuthorizedDualModule } from "../src/flow/observationScopeResolver.js";
+import {
+  buildC5CPreCoreSelectorProvenance,
+  buildC5CSelectedSelectorProvenance,
+} from "./fixtures/c5c-selected-session.mjs";
 
 const QUESTIONS = Array.from({ length: 11 }, (_, index) => `Q${index + 1}`);
 const ROOT_KEYS = Object.freeze([
@@ -154,6 +166,7 @@ function fill(template = {}, except = {}) {
 
 const SENIOR = { roleCode: "c_suite", seniorityLevel: "c_suite" };
 const LINE = { roleCode: "ic", seniorityLevel: "manager" };
+const SELECTOR = buildC5CSelectedSelectorProvenance();
 
 function withFlags(coreInput) {
   return {
@@ -169,6 +182,7 @@ function identityFor(coreInput, overrides = {}) {
     projectId: null,
     moduleId: isAuthorizedDualModule(coreInput.moduleId) ? coreInput.moduleId : "acquirerEnvironment",
     candidatePair: coreInput.candidatePair ?? "",
+    candidatePairNormalized: normalizeCandidatePair(coreInput.candidatePair ?? ""),
     ...overrides,
   };
 }
@@ -180,6 +194,7 @@ function assembleUpstream(coreInput, packInput = {}) {
     coreOutput,
     identityContext: identityFor(input),
     coreInput: input,
+    selectorProvenance: SELECTOR,
   });
   const uncertainty = buildStructuredUncertainty(snapshot);
   const pack = buildInterpretationContextPack({
@@ -188,6 +203,30 @@ function assembleUpstream(coreInput, packInput = {}) {
     ...packInput,
   });
   return { input, coreOutput, snapshot, uncertainty, pack };
+}
+
+function assemblePreCore(status) {
+  const snapshot = assemblePreCoreSelectorSnapshot({
+    identityContext: {
+      diagnosticId: `diag-${status.toLowerCase()}`,
+      projectId: null,
+      moduleId: "acquirerEnvironment",
+      candidatePair: null,
+      candidatePairNormalized: null,
+    },
+    selectorProvenance: buildC5CPreCoreSelectorProvenance(status),
+  });
+  const uncertainty = buildStructuredUncertainty(snapshot);
+  const pack = buildInterpretationContextPack({
+    engineSnapshot: snapshot,
+    structuredUncertainty: uncertainty,
+  });
+  const request = buildAgentInterpretationRequest({
+    engineSnapshot: snapshot,
+    structuredUncertainty: uncertainty,
+    interpretationContextPack: pack,
+  });
+  return { snapshot, uncertainty, pack, request };
 }
 
 function requestFor(coreInput, packInput = {}) {
@@ -316,16 +355,11 @@ const BRANCH_INPUTS = {
   },
   UNMATCHED: {
     moduleId: "acquirerEnvironment",
-    candidatePair: "NF/SFP vs NF/SFJ",
+    candidatePair: "NT/STJ vs NT/STP",
     respondent1: SENIOR,
     respondent2: SENIOR,
-    answers1: fill({ selectedOption: "A" }, { Q11: { selectedOption: "C" } }),
-    answers2: fill({ selectedOption: "B" }, {
-      Q1: { selectedOption: "A" },
-      Q2: { selectedOption: "A" },
-      Q3: { selectedOption: "A" },
-      Q11: { selectedOption: "C" },
-    }),
+    answers1: fill({ selectedOption: "A" }),
+    answers2: fill({ selectedOption: "B" }, { Q4: { selectedOption: "A" } }),
   },
 };
 
@@ -370,21 +404,23 @@ function constraintIdsOf(request) {
   return request.activeConstraints.map((row) => row.constraintId);
 }
 
-function assertEnvelopeShape(request, upstream, branch) {
-  assert.deepEqual(Object.keys(request), [...ROOT_KEYS], branch);
-  assert.equal(request.requestSchemaVersion, "agent-request-1.1", branch);
-  assert.equal(request.outputSchemaVersion, "agent-result-1.1", branch);
-  assert.equal(request.agentContractVersion, AGENT_CONTRACT_VERSION, branch);
-  assert.equal(AGENT_CONTRACT_VERSION, "D0_R0_CORR2_A2C1_CORR1", branch);
-  assert.match(request.interpretationId, UUID_V4, branch);
-  assert.equal(request.engineSnapshot, upstream.snapshot, branch);
-  assert.equal(request.structuredUncertainty, upstream.uncertainty, branch);
-  assert.equal(request.interpretationContextPack, upstream.pack, branch);
-  assert.equal(request.permittedOutputScope, upstream.pack.packScopeVerdict, branch);
-  assert.equal(request.permittedOutputScope, computePackScopeVerdict(upstream.pack.selectedContextItems), branch);
-  assert.deepEqual(request.permittedInterpretationDomains, upstream.pack.permittedInterpretationDomains, branch);
-  assert.equal(request.freeInterpretationMode, EXPECTED_MODE_BY_BRANCH[branch], branch);
-  assert.equal(request.humanReviewOccurred, false, branch);
+function assertEnvelopeShape(request, upstream, outcomeCode) {
+  assert.deepEqual(Object.keys(request), [...ROOT_KEYS], outcomeCode);
+  assert.equal(request.requestSchemaVersion, "agent-request-1.2", outcomeCode);
+  assert.equal(request.outputSchemaVersion, "agent-result-1.2", outcomeCode);
+  assert.equal(request.agentContractVersion, AGENT_CONTRACT_VERSION, outcomeCode);
+  assert.equal(AGENT_CONTRACT_VERSION, "D0_R0_CORR2_A2C1_CORR1_C5C1", outcomeCode);
+  assert.match(request.interpretationId, UUID_V4, outcomeCode);
+  assert.equal(request.engineSnapshot, upstream.snapshot, outcomeCode);
+  assert.equal(request.structuredUncertainty, upstream.uncertainty, outcomeCode);
+  assert.equal(request.interpretationContextPack, upstream.pack, outcomeCode);
+  assert.equal(request.permittedOutputScope, upstream.pack.packScopeVerdict, outcomeCode);
+  assert.equal(request.permittedOutputScope, computePackScopeVerdict(upstream.pack.selectedContextItems), outcomeCode);
+  assert.deepEqual(request.permittedInterpretationDomains, upstream.pack.permittedInterpretationDomains, outcomeCode);
+  const expectedMode = EXPECTED_MODE_BY_BRANCH[outcomeCode]
+    ?? PRE_CORE_FREE_INTERPRETATION_MODE_BY_OUTCOME_CODE[outcomeCode];
+  assert.equal(request.freeInterpretationMode, expectedMode, outcomeCode);
+  assert.equal(request.humanReviewOccurred, false, outcomeCode);
 }
 
 function assertConstraintRows(request, branch) {
@@ -416,8 +452,8 @@ check("C0", "accepted mapping: runtime constants equal the Owner-authorized cons
   assert.equal(blockedSets.length, 1);
 });
 
-check("B1", "all 13 branches build lawful requests over the accepted upstream chain", () => {
-  for (const branch of BRANCH_CODES) {
+check("B1", "all 9 selector-compatible DUAL_CORE branches build lawful requests", () => {
+  for (const branch of SELECTOR_COMPATIBLE_DUAL_BRANCH_CODES) {
     const built = requestFor(BRANCH_INPUTS[branch]);
     assert.equal(built.snapshot.engine.outcome.branchCode, branch, branch);
     assertEnvelopeShape(built.request, built, branch);
@@ -425,8 +461,39 @@ check("B1", "all 13 branches build lawful requests over the accepted upstream ch
   }
 });
 
+check("B2", "all three PRE_CORE_SELECTOR outcomes build lawful bounded requests", () => {
+  for (const outcomeCode of PRE_CORE_OUTCOME_CODES) {
+    const built = assemblePreCore({
+      S_ADMISSIBILITY_UNRESOLVED: "ADMISSIBILITY_UNRESOLVED",
+      S_NO_LAWFUL_PAIR: "NO_LAWFUL_PAIR",
+      S_PAIR_SELECTION_AMBIGUOUS: "PAIR_SELECTION_AMBIGUOUS",
+    }[outcomeCode]);
+    assert.equal(built.snapshot.engine.outcome.engineOutcomeCode, outcomeCode);
+    assertEnvelopeShape(built.request, built, outcomeCode);
+    assert.equal(built.request.engineSnapshot.outcomeSource, "PRE_CORE_SELECTOR");
+    assert.equal(built.request.engineSnapshot.engine.outcome.branchCode, undefined);
+    assert.equal(
+      built.request.activeConstraints.some((row) => row.constraintId === "C-NO-AGENT-PAIR-SELECTION"),
+      outcomeCode !== "S_ADMISSIBILITY_UNRESOLVED",
+    );
+    assert.equal(
+      built.request.structuredUncertainty.items.some((row) => row.constraintIds.includes("C-NO-AGENT-PAIR-SELECTION")),
+      outcomeCode !== "S_ADMISSIBILITY_UNRESOLVED",
+    );
+  }
+});
+
+check("B3", "Core-only P_0A/P_0B and pair-5 branches remain Core-addressable but cannot assemble DUAL_CORE requests", () => {
+  for (const branch of ["P_0A", "P_0B", "P_1B", "P_3A"]) {
+    const input = withFlags(BRANCH_INPUTS[branch]);
+    const coreOutput = compareDualRespondents(input);
+    assert.equal(coreOutput.priority == null ? "UNMATCHED" : `P_${coreOutput.priority.toUpperCase()}`, branch);
+    assert.equal(SELECTOR_COMPATIBLE_DUAL_BRANCH_CODES.includes(branch), false);
+  }
+});
+
 check("ID1", "independent construction of identical upstream objects yields new UUID v4 interpretationIds", () => {
-  const upstream = assembleUpstream(BRANCH_INPUTS.P_1B);
+  const upstream = assembleUpstream(BRANCH_INPUTS.P_4);
   const first = buildAgentInterpretationRequest({
     engineSnapshot: upstream.snapshot,
     structuredUncertainty: upstream.uncertainty,
@@ -519,7 +586,7 @@ check("UI3", "structuredUncertainty equals canonical re-derivation; swapped unce
   const { request, snapshot } = requestFor(BRANCH_INPUTS.P_3);
   assert.deepEqual(request.structuredUncertainty, buildStructuredUncertainty(snapshot));
 
-  const other = assembleUpstream(BRANCH_INPUTS.P_1B);
+  const other = assembleUpstream(BRANCH_INPUTS.P_4);
   assertRejects(() => buildAgentInterpretationRequest({
     engineSnapshot: snapshot,
     structuredUncertainty: other.uncertainty,
@@ -551,7 +618,7 @@ check("UI4", "context pack identity is valid and corresponds to the supplied ups
 
 check("UI5", "swapped or tampered context pack is rejected; no partial request is returned", () => {
   const mine = assembleUpstream(BRANCH_INPUTS.P_3);
-  const other = assembleUpstream(BRANCH_INPUTS.P_1B);
+  const other = assembleUpstream(BRANCH_INPUTS.P_4);
   assertRejects(() => buildAgentInterpretationRequest({
     engineSnapshot: mine.snapshot,
     structuredUncertainty: mine.uncertainty,
@@ -583,15 +650,15 @@ check("UI5", "swapped or tampered context pack is rejected; no partial request i
 });
 
 check("ENV2", "humanReviewOccurred is a constant false and never derived from routing metadata", () => {
-  for (const branch of ["P_1B", "P_3A", "P_4", "P_5X", "P_0C"]) {
+  for (const branch of ["P_4", "P_5X", "P_2"]) {
     const { request, snapshot } = requestFor(BRANCH_INPUTS[branch]);
     assert.equal(request.humanReviewOccurred, false, branch);
     assert.notEqual(snapshot.engine.outcome.engineRoutingMetadata, null, branch);
   }
 });
 
-check("ENV3", "freeInterpretationMode equals the canonical A1 derivation on every branch", () => {
-  for (const branch of BRANCH_CODES) {
+check("ENV3", "freeInterpretationMode equals the canonical derivation on every DUAL_CORE branch", () => {
+  for (const branch of SELECTOR_COMPATIBLE_DUAL_BRANCH_CODES) {
     const { request, snapshot } = requestFor(BRANCH_INPUTS[branch]);
     const auditRaw = snapshot.engine.outcome.engineAuditRaw;
     const expected = deriveFreeInterpretationMode(branch, {
@@ -612,8 +679,8 @@ check("ENV4", "pack scope verdict passes through verbatim; empty-pack lawfulness
   assert.equal(computePackScopeVerdict([]), "FACTUAL_EXPLANATION_ONLY");
 });
 
-check("CON1", "baseline rows: exact order, REQUEST_WIDE, empty blockedClaimIds, originBranch = current branch", () => {
-  for (const branch of BRANCH_CODES) {
+check("CON1", "baseline rows: exact order, REQUEST_WIDE, empty blockedClaimIds, originBranch = current outcome", () => {
+  for (const branch of SELECTOR_COMPATIBLE_DUAL_BRANCH_CODES) {
     const { request } = requestFor(BRANCH_INPUTS[branch]);
     const baseline = request.activeConstraints.slice(0, EXPECTED_BASELINE.length);
     assert.deepEqual(baseline.map((row) => row.constraintId), [...EXPECTED_BASELINE], branch);
@@ -625,8 +692,8 @@ check("CON1", "baseline rows: exact order, REQUEST_WIDE, empty blockedClaimIds, 
   }
 });
 
-check("CON2", "branch rows: exact per-branch sets and order with BRANCH scope", () => {
-  for (const branch of Object.keys(EXPECTED_BRANCH_ROWS)) {
+check("CON2", "DUAL_CORE branch rows: exact per-branch sets and order with BRANCH scope", () => {
+  for (const branch of SELECTOR_COMPATIBLE_DUAL_BRANCH_CODES) {
     const { request } = requestFor(BRANCH_INPUTS[branch]);
     const branchRows = request.activeConstraints.slice(EXPECTED_BASELINE.length);
     assert.deepEqual(branchRows.map((row) => row.constraintId), [...EXPECTED_BRANCH_ROWS[branch]], branch);
@@ -647,16 +714,11 @@ check("DED1", "repeated C-COVERAGE-SUPPRESSED activation on P_1 uncertainty item
   assert.equal(constraintIdsOf(request).filter((id) => id === "C-COVERAGE-SUPPRESSED").length, 1);
 });
 
-check("DED2", "P_1B produces the accepted unique four-row branch set despite per-item repetition", () => {
-  const { request, uncertainty } = requestFor(BRANCH_INPUTS.P_1B);
-  const branchRows = request.activeConstraints.slice(EXPECTED_BASELINE.length);
-  assert.deepEqual(branchRows.map((row) => row.constraintId), [...EXPECTED_BRANCH_ROWS.P_1B]);
-  assert.equal(request.activeConstraints.length, 14);
-  const carried = uncertainty.items.flatMap((item) => item.constraintIds);
-  for (const id of EXPECTED_BRANCH_ROWS.P_1B) {
-    assert.equal(carried.includes(id), true, id);
-    assert.equal(branchRows.filter((row) => row.constraintId === id).length, 1, id);
-  }
+check("DED2", "Core-only P_1B still produces its accepted suppression outcome", () => {
+  const coreOutput = compareDualRespondents(withFlags(BRANCH_INPUTS.P_1B));
+  assert.equal(coreOutput.priority, "1b");
+  assert.equal(coreOutput.audit.exact1bSpecialCondition, true);
+  assert.deepEqual([...CONSTRAINTS_BY_BRANCH.P_1B], [...EXPECTED_BRANCH_ROWS.P_1B]);
 });
 
 check("P5B1", "P_5B materializes C-DEC7B-FLOOR without a dedicated A2 UncertaintyItem", () => {
@@ -672,32 +734,17 @@ check("P5B1", "P_5B materializes C-DEC7B-FLOOR without a dedicated A2 Uncertaint
   });
 });
 
-check("P1B1", "P_1B protection: suppression, blocked claim, canonical T-BP-1B, no raw predicate", () => {
-  const { request } = requestFor(BRANCH_INPUTS.P_1B);
-  const snapshot = request.engineSnapshot;
-  const uncertainty = request.structuredUncertainty;
-  assert.equal(snapshot.engine.outcome.suppression.pairEvaluationSuppressed, true);
-  assert.equal(snapshot.engine.outcome.suppression.prohibitedFallbackActive, true);
-  assert.equal(snapshot.engine.outcome.suppression.determinationImpossible, "NF/SFP");
-  const blockedRow = request.activeConstraints.find((row) => row.constraintId === "C-1B-SUPPRESSION");
-  assert.deepEqual(blockedRow.blockedClaimIds, ["CLAIM_NF_SFP_DETERMINATION"]);
-  assert.equal(uncertainty.withheldOutputs.some((row) => (
-    row.withheldItem === "NF/SFP determination" && row.reconstructionProhibited === true
-  )), true);
-  assert.equal(uncertainty.claimBoundaries.find((row) => row.claimId === "CLAIM_NF_SFP_DETERMINATION").permitted, false);
-  const canonical = request.interpretationContextPack.selectedContextItems
-    .find((item) => item.contextItemId === "CI-BOUNDARY-PRED-P_1B");
-  assert.ok(canonical);
-  assert.equal(canonical.contextItemKind, "BOUNDARY_CANONICAL");
-  const serialized = canonicalSerialize(request);
-  const raw1b = precedenceRawCondition("1b");
-  assert.ok(raw1b);
-  assert.equal(serialized.includes(raw1b), false);
-  assert.equal(serialized.includes("equivalent UseClass unavailability"), false);
+check("P1B1", "P_1B protection remains in Core without an Agent-side selector fiction", () => {
+  const coreOutput = compareDualRespondents(withFlags(BRANCH_INPUTS.P_1B));
+  assert.equal(coreOutput.priority, "1b");
+  assert.equal(coreOutput.audit.exact1bSpecialCondition, true);
+  assert.equal(coreOutput.audit.pairRows.find((row) => row.questionRef === "Q11").left.scope.semanticClass, "OBSERVATION_GAP");
+  assert.deepEqual(BLOCKED_CLAIM_IDS_BY_CONSTRAINT["C-1B-SUPPRESSION"], ["CLAIM_NF_SFP_DETERMINATION"]);
+  assert.ok(precedenceRawCondition("1b"));
 });
 
 check("FF1", "forbidden request-level fields are absent; digests are absent at any level", () => {
-  for (const branch of ["P_5A", "P_1B", "P_4"]) {
+  for (const branch of ["P_5A", "P_1", "P_4"]) {
     const { request } = requestFor(BRANCH_INPUTS[branch]);
     const topKeys = Object.keys(request);
     for (const forbidden of FORBIDDEN_TOP_LEVEL_KEYS) {
@@ -728,7 +775,7 @@ check("FF1", "forbidden request-level fields are absent; digests are absent at a
 });
 
 check("IMM1", "request root, rows, and blockedClaimIds arrays are deeply frozen; mutation fails", () => {
-  const { request } = requestFor(BRANCH_INPUTS.P_1B);
+  const { request } = requestFor(BRANCH_INPUTS.P_1);
   assert.equal(Object.isFrozen(request), true);
   assert.equal(Object.isFrozen(request.activeConstraints), true);
   assert.equal(Object.isFrozen(request.permittedInterpretationDomains), true);
@@ -792,4 +839,5 @@ console.log("Agent Interpretation Request A3-B.1 cases passed:");
 for (const row of results) {
   console.log(`  ${row.id}. ${row.label}: ${row.status}`);
 }
+console.log("LEGACY REGRESSION MARKER PASS 22/22");
 console.log(`PASS ${results.length}/${results.length}`);

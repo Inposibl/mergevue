@@ -465,127 +465,6 @@
         "signalType": "EXCLUDED \u2014 flagged no_such_period_observed"
       },
       {
-        "sourceRow": 47,
-        "q": "Q9",
-        "axisPair": "Confirmatory \u2014 STJ/STP vs NT/STJ",
-        "option": "A",
-        "optionText": "Found better environment \u2014 departure as loss",
-        "primaryEnvSignal": "NT/STJ",
-        "secondaryEnvSignal": "NF/NT",
-        "canonicalEnvName": "The Performance Arena \u00b7 The Idea Lab",
-        "signalType": "SHARED"
-      },
-      {
-        "sourceRow": 48,
-        "q": "Q9",
-        "axisPair": "Confirmatory \u2014 STJ/STP vs NT/STJ",
-        "option": "B",
-        "optionText": "Became visible as not rising \u2014 natural selection",
-        "primaryEnvSignal": "STJ/STP",
-        "secondaryEnvSignal": "NT/STJ",
-        "canonicalEnvName": "The Power Racket \u00b7 The Performance Arena (competitive variant)",
-        "signalType": "SHARED \u2014 CRITICAL \u00b7 most important post-close treatment predictor"
-      },
-      {
-        "sourceRow": 49,
-        "q": "Q9",
-        "axisPair": "Confirmatory \u2014 STJ/STP vs NT/STJ",
-        "option": "C",
-        "optionText": "Pace and approval requirements incompatible",
-        "primaryEnvSignal": "NT/STP",
-        "secondaryEnvSignal": "\u2014",
-        "canonicalEnvName": "The Disruption Lab",
-        "signalType": "SINGLE"
-      },
-      {
-        "sourceRow": 50,
-        "q": "Q9",
-        "axisPair": "Confirmatory \u2014 STJ/STP vs NT/STJ",
-        "option": "D",
-        "optionText": "Relationship rupture",
-        "primaryEnvSignal": "SFJ/SFP",
-        "secondaryEnvSignal": "NF/SFJ",
-        "canonicalEnvName": "The Hometown Network \u00b7 The Mission Field",
-        "signalType": "SHARED"
-      },
-      {
-        "sourceRow": 51,
-        "q": "Q9",
-        "axisPair": "Confirmatory \u2014 STJ/STP vs NT/STJ",
-        "option": "E",
-        "optionText": "No such departure in observation",
-        "primaryEnvSignal": "\u2014",
-        "secondaryEnvSignal": "\u2014",
-        "canonicalEnvName": "\u2014",
-        "signalType": "EXCLUDED \u2014 flagged no_such_event_observed"
-      },
-      {
-        "sourceRow": 52,
-        "q": "Q9",
-        "axisPair": "Confirmatory \u2014 STJ/STP vs NT/STJ",
-        "option": "F",
-        "optionText": "Departure occurred but mechanism unknown",
-        "primaryEnvSignal": "\u2014",
-        "secondaryEnvSignal": "\u2014",
-        "canonicalEnvName": "\u2014",
-        "signalType": "EXCLUDED \u2014 flagged mechanism_unknown"
-      },
-      {
-        "sourceRow": 53,
-        "q": "Q10",
-        "axisPair": "Confirmatory \u2014 NF/SFJ vs NF/NT",
-        "option": "A",
-        "optionText": "Work evaluated on merits \u2014 thesis revised",
-        "primaryEnvSignal": "NF/NT",
-        "secondaryEnvSignal": "NT/STJ",
-        "canonicalEnvName": "The Idea Lab \u00b7 The Performance Arena",
-        "signalType": "SHARED \u2014 PRIMARY DISCRIMINATOR"
-      },
-      {
-        "sourceRow": 54,
-        "q": "Q10",
-        "axisPair": "Confirmatory \u2014 NF/SFJ vs NF/NT",
-        "option": "B",
-        "optionText": "Work taken seriously but thesis not challenged",
-        "primaryEnvSignal": "NT/STJ",
-        "secondaryEnvSignal": "SFJ/SFP",
-        "canonicalEnvName": "The Performance Arena \u00b7 The Hometown Network",
-        "signalType": "SHARED"
-      },
-      {
-        "sourceRow": 55,
-        "q": "Q10",
-        "axisPair": "Confirmatory \u2014 NF/SFJ vs NF/NT",
-        "option": "C",
-        "optionText": "Analyst repositioned as not understanding",
-        "primaryEnvSignal": "NF/SFJ",
-        "secondaryEnvSignal": "STP/STJ",
-        "canonicalEnvName": "The Mission Field \u00b7 The Enforcer Network",
-        "signalType": "SHARED \u2014 HIGH RISK"
-      },
-      {
-        "sourceRow": 56,
-        "q": "Q10",
-        "axisPair": "Confirmatory \u2014 NF/SFJ vs NF/NT",
-        "option": "D",
-        "optionText": "Thesis reflects values \u2014 analysis informs execution",
-        "primaryEnvSignal": "NF/SFJ",
-        "secondaryEnvSignal": "STJ/STP",
-        "canonicalEnvName": "The Mission Field \u00b7 The Power Racket",
-        "signalType": "SHARED \u2014 HIGH RISK"
-      },
-      {
-        "sourceRow": 57,
-        "q": "Q10",
-        "axisPair": "Confirmatory \u2014 NF/SFJ vs NF/NT",
-        "option": "E",
-        "optionText": "Cannot answer from direct observation",
-        "primaryEnvSignal": "\u2014",
-        "secondaryEnvSignal": "\u2014",
-        "canonicalEnvName": "\u2014",
-        "signalType": "EXCLUDED"
-      },
-      {
         "sourceRow": 58,
         "q": "Q11",
         "axisPair": "v3.1 NEW \u2014 NF/SFP discriminator",
@@ -694,12 +573,12 @@
         "candidatePair": "NT/STJ vs NT/STP",
         "q": "Q9",
         "axisPairTier": "Confirmatory",
-        "optionEnvA": "A \u2192 NT/STJ",
-        "optionEnvB": "C \u2192 NT/STP",
+        "optionEnvA": "Module-local (not generic Dual): AEM Q9-A = STP/STJ\u00b7NT/STJ; TSAM Q9-A = NT/STJ\u00b7NF/NT",
+        "optionEnvB": "Module-local: AEM Q9-C = STJ/STP (not NT/STP); TSAM Q9-C = NT/STP",
         "weightTier": "STANDARD",
         "agreeCondition": "Both A or both C",
         "divergeCondition": "{A,C} split across the two respondents (unordered)",
-        "sourceBasis": "Q9-C single NT/STP"
+        "sourceBasis": "STANDARD tier unchanged. Direction is module-local questionnaire semantics, not generic Dual Q9. Q9-C is NT/STP only in TSAM."
       },
       {
         "sourceRow": 9,
@@ -766,12 +645,12 @@
         "candidatePair": "STJ/STP vs NT/STJ",
         "q": "Q9",
         "axisPairTier": "Confirmatory",
-        "optionEnvA": "A \u2192 NT/STJ",
-        "optionEnvB": "B \u2192 STJ/STP",
+        "optionEnvA": "Module-local: both modules Q9-A include NT/STJ (AEM primary STP/STJ; TSAM primary NT/STJ)",
+        "optionEnvB": "Module-local: both modules Q9-B = STJ/STP\u00b7SFP/SFJ (not Dual hybrid NT/STJ)",
         "weightTier": "HIGH \u2014 PRIMARY",
         "agreeCondition": "Both A or both B",
         "divergeCondition": "{A,B} split across the two respondents (unordered)",
-        "sourceBasis": "Most important post-close leadership treatment predictor"
+        "sourceBasis": "HIGH \u2014 PRIMARY unchanged. A/B identify pair direction in both modules; secondary signals are module-local. Historical Dual Q9-B NT/STJ secondary: UNKNOWN origin."
       },
       {
         "sourceRow": 15,
@@ -802,12 +681,12 @@
         "candidatePair": "NF/SFJ vs NF/NT",
         "q": "Q10",
         "axisPairTier": "Confirmatory",
-        "optionEnvA": "A \u2192 NF/NT\u00b7NT/STJ",
-        "optionEnvB": "C or D \u2192 NF/SFJ",
+        "optionEnvA": "Module-local: both modules Q10-A = NF/NT\u00b7NT/STJ",
+        "optionEnvB": "Module-local: AEM Q10 NF/SFJ is D only; TSAM Q10 NF/SFJ is C and D",
         "weightTier": "HIGH \u2014 PRIMARY",
         "agreeCondition": "Both A",
         "divergeCondition": "{A} vs {C or D} split across the two respondents (unordered)",
-        "sourceBasis": "AEM Q10 note: most cognitively demanding; primary discriminator"
+        "sourceBasis": "HIGH \u2014 PRIMARY unchanged. Generic Dual C/D\u2192NF/SFJ is not AEM-true. Cited AEM Q10 cognitive-demand note is not present in current AEM; that wording is TSAM."
       },
       {
         "sourceRow": 18,
@@ -863,11 +742,11 @@
         "q": "Q10",
         "axisPairTier": "Confirmatory",
         "optionEnvA": "\u2014 (NF/SFP not directly signalled)",
-        "optionEnvB": "C or D \u2192 NF/SFJ",
+        "optionEnvB": "Module-local: AEM Q10 only D contains NF/SFJ; TSAM C/D contain NF/SFJ; Q10 has no NF/SFP signal",
         "weightTier": "STANDARD",
         "agreeCondition": "Q11 dominates",
         "divergeCondition": "Q10 absence of C/D suggests not NF/SFJ",
-        "sourceBasis": "Q10 has no NF/SFP signal \u2014 Q11 is the only test"
+        "sourceBasis": "STANDARD unchanged. Q11 remains the sole HIGH discriminator. Q10 is not a Q11 proxy."
       }
     ],
     "comparisonEngine": [
@@ -968,7 +847,7 @@
         "r1OrR2E": "Mixed-E (E = no-such-event, F = mechanism-unknown): substantive answer contributes; E and F have distinct semantics",
         "bothEOrF": "Both-E: both respondents observed no senior departures \u2014 diagnostic in deflection-heavy environments. Both-F: mechanism unknown to both \u2014 coverage gap.",
         "weight": "HIGH PRIMARY (STJ/STP vs NT/STJ)",
-        "divergeMeaning": "{A,B} split across the two respondents (unordered) is the definitive NT/STJ vs STJ/STP diverge \u2014 most important post-close leadership treatment predictor. Both-E in this pair is itself a STJ/STP indicator (departures structurally suppressed)."
+        "divergeMeaning": "{A,B} letter split remains Dual AGREE/DIVERGE. Environment direction is module-local: both modules Q9-B = STJ/STP\u00b7SFP/SFJ; AEM Q9-A = STP/STJ\u00b7NT/STJ; TSAM Q9-A = NT/STJ\u00b7NF/NT. Generic Dual Q9 map is not authority. Q9-E = EVENT_ABSENCE and Q9-F = OBSERVATION_GAP remain distinct and signal-free."
       },
       {
         "sourceRow": 14,
@@ -979,7 +858,7 @@
         "r1OrR2E": "Mixed-E: substantive answer contributes",
         "bothEOrF": "Both-E: NF/SFJ vs NF/NT pair COMPROMISED",
         "weight": "HIGH PRIMARY (NF/SFJ vs NF/NT)",
-        "divergeMeaning": "{A} vs {C/D} split across the two respondents (unordered) is the definitive NF/NT vs NF/SFJ diverge. C and D indicate ideological orthodoxy."
+        "divergeMeaning": "{A} vs {C/D} letter split remains Dual AGREE/DIVERGE. Environment direction is module-local: AEM Q10-C = STJ/STP\u00b7SFP/SFJ; AEM Q10-D = STP/STJ\u00b7NF/SFJ; TSAM Q10-C/D contain NF/SFJ. Generic Dual Q10 map is not authority. Q10-E remains AMBIGUOUS_COLLAPSE and signal-free."
       },
       {
         "sourceRow": 15,
@@ -1823,6 +1702,60 @@
         "humanGate": "",
         "output": "\u2605\u2605 CONFIRMED signal pattern; 0\u20133 Contradiction records",
         "source": "DR-C2"
+      }
+    ],
+    "answerSemanticBindings": [
+      {
+        "sourceRow": 48,
+        "moduleId": "acquirerEnvironment",
+        "canonicalQuestionId": "ACQUIRERENVIRONMENT-Q9",
+        "workbookQuestionId": "Q9",
+        "sourceWorkbook": "ST_Acquirer_Environment_Module.xlsx",
+        "sourceSheet": "3_Screening",
+        "sourceRows": "161-166",
+        "sourceVersion": "v3.1",
+        "mappingOwner": "QUESTIONNAIRE_MODULE",
+        "derivationType": "MODULE_LOCAL_REFERENCE",
+        "mappingDigest": "sha256:8f9c36125ab2f6c5d59e0d29c5651aac8c918d213e7455b6dd0e17215a07c833"
+      },
+      {
+        "sourceRow": 49,
+        "moduleId": "acquirerEnvironment",
+        "canonicalQuestionId": "ACQUIRERENVIRONMENT-Q10",
+        "workbookQuestionId": "Q10",
+        "sourceWorkbook": "ST_Acquirer_Environment_Module.xlsx",
+        "sourceSheet": "3_Screening",
+        "sourceRows": "181-185",
+        "sourceVersion": "v3.1",
+        "mappingOwner": "QUESTIONNAIRE_MODULE",
+        "derivationType": "MODULE_LOCAL_REFERENCE",
+        "mappingDigest": "sha256:13dd709ddb265aa747b48a59ba4d3cba8ac2cb4b4e47ca816c240a2e78a31d46"
+      },
+      {
+        "sourceRow": 50,
+        "moduleId": "targetSelfAssessment",
+        "canonicalQuestionId": "TARGETSELFASSESSMENT-Q9",
+        "workbookQuestionId": "Q9",
+        "sourceWorkbook": "ST_Target_Self_Assessment_Module.xlsx",
+        "sourceSheet": "3_Screening",
+        "sourceRows": "161-166",
+        "sourceVersion": "v3.1",
+        "mappingOwner": "QUESTIONNAIRE_MODULE",
+        "derivationType": "MODULE_LOCAL_REFERENCE",
+        "mappingDigest": "sha256:cdd4495fbb8a18ea82b120b07ef9c8648e90363a432647a50f953bd51e89045a"
+      },
+      {
+        "sourceRow": 51,
+        "moduleId": "targetSelfAssessment",
+        "canonicalQuestionId": "TARGETSELFASSESSMENT-Q10",
+        "workbookQuestionId": "Q10",
+        "sourceWorkbook": "ST_Target_Self_Assessment_Module.xlsx",
+        "sourceSheet": "3_Screening",
+        "sourceRows": "181-185",
+        "sourceVersion": "v3.1",
+        "mappingOwner": "QUESTIONNAIRE_MODULE",
+        "derivationType": "MODULE_LOCAL_REFERENCE",
+        "mappingDigest": "sha256:4a79992147af7a642dca1df6670dfd1a561803f70891f45ef165ba0595a4398c"
       }
     ]
   },

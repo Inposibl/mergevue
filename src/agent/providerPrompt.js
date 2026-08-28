@@ -51,6 +51,7 @@ const ACTIVE_CONSTRAINT_RULES = Object.freeze({
   "C-CONTEXT-BOUND-INTERPRETATION": "Make MergeVue-specific interpretation only within permittedInterpretationDomains and only with resolving mref context.",
   "C-NO-SHADOW-SCORING": "Do not create counts, weights, scores, thresholds, bands, or arithmetic rules not already established by the Engine.",
   "C-ELIGIBILITY-UNRESOLVED": "Preserve unresolved eligibility and its exact unresolvedReason; do not assign a replacement UseClass.",
+  "C-NO-AGENT-PAIR-SELECTION": "Do not choose, infer, rank, narrow, resolve, or fabricate a candidate pair, and do not treat matched-pair or selector audit material as pair authority; state only that no candidate pair was established and describe the resulting uncertainty.",
   "C-COVERAGE-SUPPRESSED": "Use only survivingEvidenceRefs; do not reconstruct suppressed comparator output or use unavailableEvidenceRefs as signal.",
   "C-1B-SUPPRESSION": "Do not assert, imply, rank, or hypothesize the blocked CLAIM_NF_SFP_DETERMINATION.",
   "C-1B-NO-BROADENING": "Describe P_1B only as the exact both-discriminator OBSERVATION_GAP condition supplied by T-BP-1B; do not generalize it to other unavailability.",

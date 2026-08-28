@@ -3,7 +3,8 @@ import { readFileSync } from "node:fs";
 
 import { compareDualRespondents } from "../src/flow/dualRespondentComparison.js";
 import { isAuthorizedDualModule } from "../src/flow/observationScopeResolver.js";
-import { assembleEngineSnapshot } from "../src/agent/engineSnapshot.js";
+import { assembleEngineSnapshot, normalizeCandidatePair } from "../src/agent/engineSnapshot.js";
+import { assemblePreCoreSelectorSnapshot } from "../src/agent/preCoreSelectorSnapshot.js";
 import { buildStructuredUncertainty } from "../src/agent/structuredUncertainty.js";
 import { buildInterpretationContextPack } from "../src/agent/interpretationContextPack.js";
 import { buildAgentInterpretationRequest } from "../src/agent/agentInterpretationRequest.js";
@@ -54,6 +55,10 @@ import {
   SemanticValidationError,
   SemanticViolationError,
 } from "../src/agent/semanticValidationError.js";
+import {
+  buildC5CPreCoreSelectorProvenance,
+  buildC5CSelectedSelectorProvenance,
+} from "./fixtures/c5c-selected-session.mjs";
 
 // ---------------------------------------------------------------------------
 // Canonical upstream fixtures (same construction as the upstream validators)
@@ -83,6 +88,7 @@ function fill(template = {}, except = {}) {
 
 const SENIOR = { roleCode: "c_suite", seniorityLevel: "c_suite" };
 const LINE = { roleCode: "ic", seniorityLevel: "manager" };
+const SELECTOR = buildC5CSelectedSelectorProvenance();
 
 function requestFor(coreInput) {
   const input = {
@@ -98,8 +104,34 @@ function requestFor(coreInput) {
       projectId: null,
       moduleId: isAuthorizedDualModule(coreInput.moduleId) ? coreInput.moduleId : "acquirerEnvironment",
       candidatePair: coreInput.candidatePair ?? "",
+      candidatePairNormalized: normalizeCandidatePair(coreInput.candidatePair ?? ""),
     },
     coreInput: input,
+    selectorProvenance: SELECTOR,
+  });
+  const uncertainty = buildStructuredUncertainty(snapshot);
+  const pack = buildInterpretationContextPack({
+    engineSnapshot: snapshot,
+    structuredUncertainty: uncertainty,
+  });
+  const request = buildAgentInterpretationRequest({
+    engineSnapshot: snapshot,
+    structuredUncertainty: uncertainty,
+    interpretationContextPack: pack,
+  });
+  return { request, snapshot, uncertainty, pack };
+}
+
+function preCoreRequest(status) {
+  const snapshot = assemblePreCoreSelectorSnapshot({
+    identityContext: {
+      diagnosticId: "diag-j1-pre-core",
+      projectId: null,
+      moduleId: "acquirerEnvironment",
+      candidatePair: null,
+      candidatePairNormalized: null,
+    },
+    selectorProvenance: buildC5CPreCoreSelectorProvenance(status),
   });
   const uncertainty = buildStructuredUncertainty(snapshot);
   const pack = buildInterpretationContextPack({
@@ -177,6 +209,24 @@ const P0A_INPUT = {
   respondent2: SENIOR,
   answers1: fill(),
   answers2: fill(),
+};
+
+const P1_INPUT = {
+  moduleId: "acquirerEnvironment",
+  candidatePair: "NT/STJ vs NT/STP",
+  respondent1: SENIOR,
+  respondent2: SENIOR,
+  answers1: fill(),
+  answers2: fill({}, {
+    Q1: { selectedOption: "E" },
+    Q2: { selectedOption: "E" },
+    Q3: { selectedOption: "E" },
+    Q4: { selectedOption: "E" },
+    Q5: { selectedOption: "E" },
+    Q7: { selectedOption: "E" },
+    Q8: { selectedOption: "E" },
+    Q9: { selectedOption: "E" },
+  }),
 };
 
 // ---------------------------------------------------------------------------
@@ -368,6 +418,65 @@ function assembledFixture(coreInput, candidateOverrides = {}) {
   return { ...fixture, candidate, result };
 }
 
+// Pair-5 outcomes remain valid Core semantics but are no longer reachable
+// through the selector-authoritative Agent request boundary. J1 still owns
+// their dormant rule registry, so these fixtures isolate applicability tests
+// without claiming production reachability or passing request integrity.
+function syntheticCoreOnlyBranchFixture(baseFixture, branchCode, constraintIds) {
+  const request = structuredClone(baseFixture.request);
+  request.engineSnapshot.engine.outcome.priority = branchCode.slice(2).toLowerCase();
+  request.engineSnapshot.engine.outcome.branchCode = branchCode;
+  request.engineSnapshot.engine.outcome.engineOutcomeCode = branchCode;
+  request.structuredUncertainty.originBranch = branchCode;
+  for (const item of request.structuredUncertainty.items) item.originBranch = branchCode;
+  if (request.structuredUncertainty.items[0]) {
+    request.structuredUncertainty.items[0].disclosureRequired = true;
+  }
+  request.interpretationContextPack.selectionKeys.engineOutcomeCode = branchCode;
+  request.activeConstraints = [
+    ...request.activeConstraints.filter((row) => row.scope === "REQUEST_WIDE"),
+    ...constraintIds.map((constraintId) => ({
+      constraintId,
+      scope: "BRANCH",
+      blockedClaimIds: constraintId === "C-1B-SUPPRESSION" ? ["CLAIM_NF_SFP_DETERMINATION"] : [],
+      originBranch: branchCode,
+    })),
+  ];
+  if (branchCode === "P_1B") {
+    request.engineSnapshot.engine.outcome.suppression = {
+      comparatorOutputSuppressed: true,
+      pairEvaluationSuppressed: true,
+      prohibitedFallbackActive: true,
+      determinationImpossible: "NF/SFP",
+      comparatorDidNotRun: false,
+    };
+    const blockedBoundary = request.structuredUncertainty.claimBoundaries
+      .find((row) => row.claimId === "CLAIM_NF_SFP_DETERMINATION");
+    if (blockedBoundary) {
+      blockedBoundary.permitted = false;
+      blockedBoundary.permittedForm = "DISCLOSURE_ONLY";
+    } else {
+      request.structuredUncertainty.claimBoundaries.push({
+        claimId: "CLAIM_NF_SFP_DETERMINATION",
+        permitted: false,
+        permittedForm: "DISCLOSURE_ONLY",
+      });
+    }
+  }
+  const result = structuredClone(baseFixture.result);
+  result.engineFactsRef.engineOutcomeCode = branchCode;
+  result.engineFactsRef.branchCode = branchCode;
+  if (branchCode === "P_1B") result.interpretationStatus = "INTERPRETATION_CONSTRAINED";
+  return {
+    request: deepFreezeValue(request),
+    snapshot: deepFreezeValue(request.engineSnapshot),
+    uncertainty: deepFreezeValue(request.structuredUncertainty),
+    pack: deepFreezeValue(request.interpretationContextPack),
+    candidate: baseFixture.candidate,
+    result: deepFreezeValue(result),
+  };
+}
+
 // Synthetic registry-walk fixture: one instance of every target family with
 // recognizable array order, for T-set enumeration only (J1 assumes a
 // successful canonical Result; this fixture exercises the walk itself).
@@ -380,6 +489,7 @@ function syntheticRichResult(fixture) {
     engineFactsRef: {
       diagnosticId: fixture.request.engineSnapshot.identity.diagnosticId,
       engineSnapshotDigest: fixture.request.engineSnapshot.engineSnapshotDigest,
+      engineOutcomeCode: fixture.request.engineSnapshot.engine.outcome.engineOutcomeCode,
       branchCode: fixture.request.engineSnapshot.engine.outcome.branchCode,
       stateAsserted: fixture.request.engineSnapshot.engine.outcome.state,
     },
@@ -496,6 +606,7 @@ function syntheticCaseAFixture(baseFixture) {
     engineFactsRef: {
       diagnosticId: request.engineSnapshot.identity.diagnosticId,
       engineSnapshotDigest: request.engineSnapshot.engineSnapshotDigest,
+      engineOutcomeCode: request.engineSnapshot.engine.outcome.engineOutcomeCode,
       branchCode: request.engineSnapshot.engine.outcome.branchCode,
       stateAsserted: request.engineSnapshot.engine.outcome.state,
     },
@@ -556,7 +667,8 @@ function syntheticAbstainedEmptyResult(fixture) {
     engineFactsRef: {
       diagnosticId: fixture.request.engineSnapshot.identity.diagnosticId,
       engineSnapshotDigest: fixture.request.engineSnapshot.engineSnapshotDigest,
-      branchCode: "P_0A",
+      engineOutcomeCode: fixture.request.engineSnapshot.engine.outcome.engineOutcomeCode,
+      branchCode: null,
       stateAsserted: null,
     },
     interpretationStatus: "ABSTAINED_INSUFFICIENT_EVIDENCE",
@@ -605,6 +717,7 @@ function syntheticEmptySurfaceResult(fixture) {
     engineFactsRef: {
       diagnosticId: fixture.request.engineSnapshot.identity.diagnosticId,
       engineSnapshotDigest: fixture.request.engineSnapshot.engineSnapshotDigest,
+      engineOutcomeCode: fixture.request.engineSnapshot.engine.outcome.engineOutcomeCode,
       branchCode: "P_5A",
       stateAsserted: "① CONVERGENT",
     },
@@ -1258,12 +1371,17 @@ function assertExactCheckSet(label, request, result, expectedTuples) {
 
 async function main() {
   const p5a = assembledFixture(P5A_INPUT);
-  const p1b = assembledFixture(P1B_INPUT);
-  const p3a = assembledFixture(P3A_INPUT);
   const p4 = assembledFixture(P4_INPUT);
+  const p1b = syntheticCoreOnlyBranchFixture(p4, "P_1B", [
+    "C-COVERAGE-SUPPRESSED",
+    "C-1B-SUPPRESSION",
+    "C-1B-NO-BROADENING",
+    "C-PROHIBITED-FALLBACK",
+  ]);
+  const p3a = syntheticCoreOnlyBranchFixture(p4, "P_3A", ["C-3A-NOT-4A", "C-DEC7B-FLOOR"]);
   const p5x = assembledFixture(P5X_INPUT);
   const p2 = assembledFixture(P2_INPUT);
-  const p0a = requestFor(P0A_INPUT);
+  const p0a = preCoreRequest("ADMISSIBILITY_UNRESOLVED");
 
   // Shared derived fixtures: RANKED-hypotheses variant of P_5A and a
   // marker-present clone of the P_5A request (used by SV2 and SV15).
@@ -1310,7 +1428,8 @@ async function main() {
   assert.equal(p4.request.engineSnapshot.engine.outcome.branchCode, "P_4");
   assert.equal(p5x.request.engineSnapshot.engine.outcome.branchCode, "P_5X");
   assert.equal(p2.request.engineSnapshot.engine.outcome.branchCode, "P_2");
-  assert.equal(p0a.request.engineSnapshot.engine.outcome.branchCode, "P_0A");
+  assert.equal(p0a.request.engineSnapshot.engine.outcome.engineOutcomeCode, "S_ADMISSIBILITY_UNRESOLVED");
+  assert.equal(p0a.request.engineSnapshot.engine.outcome.branchCode, undefined);
   for (const fixture of [p5a, p1b, p3a, p4, p5x, p2]) {
     assert.equal(fixture.request.permittedOutputScope, "MERGEVUE_INTERPRETATION_PERMITTED");
   }
@@ -1616,7 +1735,8 @@ async function main() {
       ["V-17-ABSTENTION-PRECONDITIONS", "PASS"],
     ]);
     const d0a = evaluateDeterministicChecks(p0a.request, syntheticAbstainedEmptyResult(p0a));
-    assert.deepEqual(d0a.map((row) => row.outcome), ["PASS", "PASS"]);
+    assert.deepEqual(d0a.map((row) => row.outcome), ["PASS", "FAIL"]);
+    assert.equal(d0a[1].violationCode, "OUTPUT_SCHEMA_VIOLATION");
 
     // Deterministic FAIL: a disclosureRequired item loses its disclosure.
     const missingDisclosure = deepFreezeValue((() => {
@@ -2319,22 +2439,16 @@ async function main() {
     });
     assert.equal(Object.is(returned, empty), true);
 
-    // The abstention fixture on P_0A still exposes its mandatory disclosure
-    // target, so its C-set is non-empty and the judge is invoked.
+    // PRE_CORE_SELECTOR exposes its mandatory disclosure target but automatic
+    // abstention is deterministically prohibited before any judge invocation.
     const abstained = syntheticAbstainedEmptyResult(p0a);
     const abstainedExpansion = buildSemanticCheckSet(p0a.request, abstained);
     assert.equal(abstainedExpansion.tSet.length, 1);
     assert.equal(abstainedExpansion.tSet[0].targetFamily, "DISCLOSURE_CLIENT_STATEMENT");
     assert.ok(abstainedExpansion.cSet.length > 0);
-    const recording = ALL_PASS_MOCK();
-    const abstainedReturned = await validateAgentInterpretationSemantics({
-      agentInterpretationRequest: p0a.request,
-      agentInterpretationResult: abstained,
-      semanticJudge: recording,
-      maxChecksPerBatch: 3,
-    });
-    assert.equal(Object.is(abstainedReturned, abstained), true);
-    assert.ok(recording.calls.length > 0);
+    const dPreCore = evaluateDeterministicChecks(p0a.request, abstained);
+    assert.equal(dPreCore[1].outcome, "FAIL");
+    assert.equal(dPreCore[1].violationCode, "OUTPUT_SCHEMA_VIOLATION");
   });
 
   // --- SV11: immutability ---------------------------------------------------------------------

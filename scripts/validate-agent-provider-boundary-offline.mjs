@@ -4,17 +4,19 @@ import { readFileSync } from "node:fs";
 import {
   AGENT_CONTRACT_VERSION,
   BASELINE_CONSTRAINT_IDS,
-  BRANCH_CODES,
   CONSTRAINT_IDS,
+  PRE_CORE_CONSTRAINT_IDS,
   PROVIDER_CANDIDATE_SCHEMA_VERSION,
   PROVIDER_PROMPT_VERSION,
   PROVIDER_PROJECTION_VERSION,
+  SELECTOR_COMPATIBLE_DUAL_BRANCH_CODES,
 } from "../src/agent/agentContractConstants.js";
 import { canonicalSerialize } from "../src/agent/canonicalDigest.js";
 import {
   assembleEngineSnapshot,
   computeEngineSnapshotDigest,
   engineSnapshotDigestCoveredContent,
+  normalizeCandidatePair,
 } from "../src/agent/engineSnapshot.js";
 import { buildStructuredUncertainty } from "../src/agent/structuredUncertainty.js";
 import { buildInterpretationContextPack } from "../src/agent/interpretationContextPack.js";
@@ -41,6 +43,7 @@ import {
 import { precedenceRawCondition } from "../src/agent/contextAuthorityRegistry.js";
 import { compareDualRespondents } from "../src/flow/dualRespondentComparison.js";
 import { isAuthorizedDualModule } from "../src/flow/observationScopeResolver.js";
+import { buildC5CSelectedSelectorProvenance } from "./fixtures/c5c-selected-session.mjs";
 
 // ---------------------------------------------------------------------------
 // Canonical upstream fixtures (same construction as the A3-B request validator)
@@ -70,6 +73,8 @@ function fill(template = {}, except = {}) {
 
 const SENIOR = { roleCode: "c_suite", seniorityLevel: "c_suite" };
 const LINE = { roleCode: "ic", seniorityLevel: "manager" };
+const BRANCH_CODES = SELECTOR_COMPATIBLE_DUAL_BRANCH_CODES;
+const SELECTOR = buildC5CSelectedSelectorProvenance();
 
 function withFlags(coreInput) {
   return {
@@ -85,6 +90,7 @@ function identityFor(coreInput, overrides = {}) {
     projectId: null,
     moduleId: isAuthorizedDualModule(coreInput.moduleId) ? coreInput.moduleId : "acquirerEnvironment",
     candidatePair: coreInput.candidatePair ?? "",
+    candidatePairNormalized: normalizeCandidatePair(coreInput.candidatePair ?? ""),
     ...overrides,
   };
 }
@@ -96,6 +102,7 @@ function assembleUpstream(coreInput, packInput = {}) {
     coreOutput,
     identityContext: identityFor(input),
     coreInput: input,
+    selectorProvenance: SELECTOR,
   });
   const uncertainty = buildStructuredUncertainty(snapshot);
   const pack = buildInterpretationContextPack({
@@ -232,16 +239,11 @@ const BRANCH_INPUTS = {
   },
   UNMATCHED: {
     moduleId: "acquirerEnvironment",
-    candidatePair: "NF/SFP vs NF/SFJ",
+    candidatePair: "NT/STJ vs NT/STP",
     respondent1: SENIOR,
     respondent2: SENIOR,
-    answers1: fill({ selectedOption: "A" }, { Q11: { selectedOption: "C" } }),
-    answers2: fill({ selectedOption: "B" }, {
-      Q1: { selectedOption: "A" },
-      Q2: { selectedOption: "A" },
-      Q3: { selectedOption: "A" },
-      Q11: { selectedOption: "C" },
-    }),
+    answers1: fill({ selectedOption: "A" }),
+    answers2: fill({ selectedOption: "B" }, { Q4: { selectedOption: "A" } }),
   },
 };
 
@@ -303,6 +305,7 @@ const EXPECTED_IDENTITY_KEYS = Object.freeze([
 const EXPECTED_OUTCOME_KEYS = Object.freeze([
   "priority",
   "branchCode",
+  "engineOutcomeCode",
   "outcomeClass",
   "classificationOutcome",
   "state",
@@ -380,6 +383,7 @@ const CONSTRAINT_RULE_TEXTS = Object.freeze({
   "C-CONTEXT-BOUND-INTERPRETATION": "Make MergeVue-specific interpretation only within permittedInterpretationDomains and only with resolving mref context.",
   "C-NO-SHADOW-SCORING": "Do not create counts, weights, scores, thresholds, bands, or arithmetic rules not already established by the Engine.",
   "C-ELIGIBILITY-UNRESOLVED": "Preserve unresolved eligibility and its exact unresolvedReason; do not assign a replacement UseClass.",
+  "C-NO-AGENT-PAIR-SELECTION": "Do not choose, infer, rank, narrow, resolve, or fabricate a candidate pair, and do not treat matched-pair or selector audit material as pair authority; state only that no candidate pair was established and describe the resulting uncertainty.",
   "C-COVERAGE-SUPPRESSED": "Use only survivingEvidenceRefs; do not reconstruct suppressed comparator output or use unavailableEvidenceRefs as signal.",
   "C-1B-SUPPRESSION": "Do not assert, imply, rank, or hypothesize the blocked CLAIM_NF_SFP_DETERMINATION.",
   "C-1B-NO-BROADENING": "Describe P_1B only as the exact both-discriminator OBSERVATION_GAP condition supplied by T-BP-1B; do not generalize it to other unavailability.",
@@ -560,7 +564,7 @@ function emptyPackSyntheticRequest() {
     contextPackSchemaVersion: "context-pack-1.1",
     contextPackId: `sha256:${"0".repeat(64)}`,
     contextPackDigest: `sha256:${"0".repeat(64)}`,
-    selectionPolicyVersion: "context-selection-1.1",
+    selectionPolicyVersion: "context-selection-1.3",
     methodologySourcePackageId: "newlogic-03.05.2026",
     methodologyCorpusDigest: `sha256:${"0".repeat(64)}`,
     selectionKeys: {},
@@ -623,7 +627,7 @@ function resealedEngineTamperedRequest(branch, packInput, mutate) {
   const clone = structuredClone(request);
   mutate(clone);
   const covered = engineSnapshotDigestCoveredContent(clone.engineSnapshot);
-  clone.engineSnapshot.engineSnapshotDigest = computeEngineSnapshotDigest(covered.engine, covered.corpus);
+  clone.engineSnapshot.engineSnapshotDigest = computeEngineSnapshotDigest(covered);
   clone.structuredUncertainty = buildStructuredUncertainty(clone.engineSnapshot);
   clone.interpretationContextPack = buildInterpretationContextPack({
     engineSnapshot: clone.engineSnapshot,
@@ -805,7 +809,7 @@ function expectCandidateReject(candidate, projection, label) {
 // ---------------------------------------------------------------------------
 
 check("V0", "exact version literals", () => {
-  assert.equal(PROVIDER_PROJECTION_VERSION, "provider-projection-1.0");
+  assert.equal(PROVIDER_PROJECTION_VERSION, "provider-projection-1.1");
   assert.equal(PROVIDER_PROMPT_VERSION, "provider-prompt-1.0");
   assert.equal(PROVIDER_CANDIDATE_SCHEMA_VERSION, "provider-semantic-candidate-1.0");
   assert.equal(providerSemanticCandidateSchema.$id, "provider-semantic-candidate-1.0");
@@ -815,7 +819,7 @@ check("V0", "exact version literals", () => {
 // Provider projection
 // ---------------------------------------------------------------------------
 
-check("PRJ0", "all 13 branches project lawfully; output frozen; upstream untouched", () => {
+check("PRJ0", "all 9 selector-compatible DUAL_CORE branches project lawfully; output frozen; upstream untouched", () => {
   for (const branch of BRANCH_CODES) {
     const built = fixtureRequest(branch);
     const before = [
@@ -843,7 +847,7 @@ check("PRJ1", "exact top-level keys and copied request-level fields", () => {
       [...PROJECTION_ROOT_KEYS].sort(),
       branch,
     );
-    assert.equal(projection.providerProjectionVersion, "provider-projection-1.0", branch);
+    assert.equal(projection.providerProjectionVersion, "provider-projection-1.1", branch);
     assert.equal(projection.agentContractVersion, AGENT_CONTRACT_VERSION, branch);
     assert.equal(projection.agentContractVersion, request.agentContractVersion, branch);
     assert.equal(projection.outputSchemaVersion, request.outputSchemaVersion, branch);
@@ -870,7 +874,8 @@ check("PRJ2", "exact lexicographic serialized top-level order via canonicalSeria
 check("PRJ3", "exact nested allowlists and omission registry", () => {
   for (const branch of BRANCH_CODES) {
     const { snapshot, uncertainty, projection } = projectionFor(branch);
-    assert.deepEqual(Object.keys(projection.engineSnapshot).sort(), ["engine", "identity"], branch);
+    assert.deepEqual(Object.keys(projection.engineSnapshot).sort(), ["engine", "identity", "outcomeSource"], branch);
+    assert.equal(projection.engineSnapshot.outcomeSource, "DUAL_CORE", branch);
     assert.deepEqual(
       Object.keys(projection.engineSnapshot.identity),
       [...EXPECTED_IDENTITY_KEYS],
@@ -911,7 +916,7 @@ check("PRJ3", "exact nested allowlists and omission registry", () => {
 });
 
 check("PRJ4", "request identity does not leak into the projection", () => {
-  const { request, projection } = projectionFor("P_1B");
+  const { request, projection } = projectionFor("P_1");
   const bytes = canonicalSerialize(projection);
   assert.equal(bytes.includes(request.interpretationId), false);
   assert.equal(projection.engineSnapshot.identity.moduleId, request.engineSnapshot.identity.moduleId);
@@ -990,10 +995,6 @@ check("PRJ6", "null, empty-string, empty-array and physical-absence preservation
   assert.equal(unmatched.projection.engineSnapshot.engine.outcome.priority, null);
   assert.equal(unmatched.request.engineSnapshot.engine.outcome.priority, null);
 
-  const p0a = projectionFor("P_0A");
-  assert.deepEqual(p0a.projection.engineSnapshot.engine.observations, []);
-  assert.deepEqual(p0a.projection.structuredUncertainty.survivingEvidenceRefs, []);
-
   const p5a = projectionFor("P_5A");
   assert.deepEqual(p5a.projection.engineSnapshot.engine.outcome.contradictionCandidates, []);
   assert.deepEqual(p5a.projection.structuredUncertainty.items, []);
@@ -1006,21 +1007,10 @@ check("PRJ6", "null, empty-string, empty-array and physical-absence preservation
   assert.equal(syntheticProjection.engineSnapshot.engine.observations[0].selectedOption, "");
   assert.equal(syntheticProjection.engineSnapshot.engine.observations[0].rootCauseFamily, null);
 
-  const p1b = projectionFor("P_1B");
-  const boundary = p1b.projection.interpretationContextPack.selectedContextItems
-    .find((item) => item.contextItemId === "CI-BOUNDARY-PRED-P_1B");
-  assert.ok(boundary, "T-BP-1B boundary item present");
-  assert.equal(Object.hasOwn(boundary, "sourceRef"), true);
-  assert.equal(Object.hasOwn(boundary, "supersededBy"), true);
-  const upstreamBoundary = p1b.pack.selectedContextItems
-    .find((item) => item.contextItemId === "CI-BOUNDARY-PRED-P_1B");
-  assert.equal(boundary.sourceRef, upstreamBoundary.sourceRef);
-  assert.equal(boundary.supersededBy, upstreamBoundary.supersededBy);
-  const firstPlain = p1b.projection.interpretationContextPack.selectedContextItems[0];
+  const p1 = projectionFor("P_1");
+  const firstPlain = p1.projection.interpretationContextPack.selectedContextItems[0];
   assert.equal(Object.hasOwn(firstPlain, "sourceRef"), false);
   assert.equal(Object.hasOwn(firstPlain, "supersededBy"), false);
-  assert.equal(Object.hasOwn(boundary, "conditionalOn"), true);
-  assert.equal(boundary.conditionalOn, null);
 });
 
 check("PRJ7", "references travel verbatim; no remap; no uref in projection", () => {
@@ -1049,7 +1039,7 @@ check("PRJ7", "references travel verbatim; no remap; no uref in projection", () 
 });
 
 check("PRJ8", "deterministic repeated projection; canonical byte equality", () => {
-  for (const branch of ["P_1B", "P_5A", "P_0C", "UNMATCHED"]) {
+  for (const branch of ["P_1", "P_5A", "P_0C", "UNMATCHED"]) {
     const { request } = fixtureRequest(branch);
     const first = projectProviderProjection(request);
     const second = projectProviderProjection(request);
@@ -1143,7 +1133,7 @@ check("PM0", "prompt builds for all branches with exactly two messages", () => {
     const prompt = buildProviderPrompt(projection);
     assert.equal(Object.isFrozen(prompt), true, branch);
     assert.equal(prompt.promptVersion, "provider-prompt-1.0", branch);
-    assert.equal(prompt.providerProjectionVersion, "provider-projection-1.0", branch);
+    assert.equal(prompt.providerProjectionVersion, "provider-projection-1.1", branch);
     assert.equal(prompt.agentContractVersion, projection.agentContractVersion, branch);
     assert.equal(prompt.messages.length, 2, branch);
     assert.equal(prompt.messages[0].role, "system", branch);
@@ -1155,8 +1145,8 @@ check("PM0", "prompt builds for all branches with exactly two messages", () => {
   }
 });
 
-check("PM1", "system instruction byte-exact for P_1B and P_5A", () => {
-  const p1b = projectionFor("P_1B");
+check("PM1", "system instruction byte-exact for P_1 and P_5A", () => {
+  const p1b = projectionFor("P_1");
   const p5a = projectionFor("P_5A");
   const p1bSystem = buildProviderSystemInstruction(p1b.projection);
   const p5aSystem = buildProviderSystemInstruction(p5a.projection);
@@ -1164,7 +1154,7 @@ check("PM1", "system instruction byte-exact for P_1B and P_5A", () => {
   assert.equal(p5aSystem, expectedSystemInstruction(p5a.request.activeConstraints));
   assert.equal(p1bSystem.includes("{{"), false);
   assert.equal(p5aSystem.includes("{{"), false);
-  assert.ok(p1bSystem.length > p5aSystem.length, "P_1B carries more constraints than P_5A");
+  assert.ok(p1bSystem.length > p5aSystem.length, "P_1 carries more constraints than P_5A");
 });
 
 check("PM2", "exact section order and corrected uref sentence", () => {
@@ -1185,9 +1175,7 @@ check("PM3", "active-constraint expansion: exact lines, order, and per-branch se
   const expectedBranchConstraints = {
     P_0C: ["C-ELIGIBILITY-UNRESOLVED"],
     P_1: ["C-COVERAGE-SUPPRESSED"],
-    P_1B: ["C-COVERAGE-SUPPRESSED", "C-1B-SUPPRESSION", "C-1B-NO-BROADENING", "C-PROHIBITED-FALLBACK"],
     P_2: ["C-4B-CANDIDATE-ONLY"],
-    P_3A: ["C-3A-NOT-4A", "C-DEC7B-FLOOR"],
     P_4: ["C-DEC8-TRIGGER-ONLY"],
     P_5X: ["C-5X-NO-COLLAPSE"],
     P_5B: ["C-DEC7B-FLOOR"],
@@ -1201,13 +1189,13 @@ check("PM3", "active-constraint expansion: exact lines, order, and per-branch se
       .map((id) => `- ${id}: ${CONSTRAINT_RULE_TEXTS[id]}`);
     assert.deepEqual(lines, expectedLines, branch);
   }
-  for (const id of [...BASELINE_CONSTRAINT_IDS, ...CONSTRAINT_IDS]) {
+  for (const id of [...BASELINE_CONSTRAINT_IDS, ...CONSTRAINT_IDS, ...PRE_CORE_CONSTRAINT_IDS]) {
     assert.ok(CONSTRAINT_RULE_TEXTS[id], `rule for ${id}`);
   }
 });
 
 check("PM4", "user message framing bytes exactly wrap canonical projection bytes", () => {
-  const { projection } = projectionFor("P_1B");
+  const { projection } = projectionFor("P_1");
   const user = buildProviderUserMessage(projection);
   assert.ok(user.startsWith("BEGIN_PROVIDER_PROJECTION_JSON\n"));
   assert.ok(user.endsWith("\nEND_PROVIDER_PROJECTION_JSON"));
@@ -1328,8 +1316,8 @@ check("SCH2", "exact enums and unauthorable mechanical fields", () => {
 // Candidate structural validation — positive cases
 // ---------------------------------------------------------------------------
 
-check("CAND1", "lawful Case B candidates pass on P_1B, P_5A, P_5B, P_3", () => {
-  for (const branch of ["P_1B", "P_5A", "P_5B", "P_3"]) {
+check("CAND1", "lawful Case B candidates pass on P_1, P_5A, P_5B, P_3", () => {
+  for (const branch of ["P_1", "P_5A", "P_5B", "P_3"]) {
     const { projection } = projectionFor(branch);
     const candidate = lawfulCandidate(projection);
     const validated = expectCandidateAccept(candidate, projection, branch);
@@ -1338,7 +1326,7 @@ check("CAND1", "lawful Case B candidates pass on P_1B, P_5A, P_5B, P_3", () => {
 });
 
 check("CAND2", "lawful frictionMechanism requires a resolving FRICTION_AND_RESOURCES mref", () => {
-  const withPair = projectionFor("P_1B", P1B_CROSS_SIDE_INPUT_PACK);
+  const withPair = projectionFor("P_1", P1B_CROSS_SIDE_INPUT_PACK);
   const refs = projectionRefs(withPair.projection);
   assert.ok(refs.frictionMref, "cross-side pack carries friction context");
   const lawful = lawfulCandidate(withPair.projection, {
@@ -1387,26 +1375,7 @@ check("CAND2", "lawful frictionMechanism requires a resolving FRICTION_AND_RESOU
   }), withPair.projection, "friction without evidenceRefs must fail");
 });
 
-check("CAND3", "ABSTAINED with empty hypotheses passes; abstention coupling fails closed", () => {
-  const p0a = projectionFor("P_0A");
-  const abstained = {
-    interpretationStatus: "ABSTAINED_INSUFFICIENT_EVIDENCE",
-    abstentionReason: "COMPARATOR_DID_NOT_RUN",
-    interpretation: {
-      hypotheses: { ordering: "CO_EQUAL", items: [] },
-      decisiveEvidence: [],
-      conflictingEvidence: [],
-      missingEvidence: [],
-      changeConditions: [],
-      affectedResources: [],
-      watchpoints: [],
-    },
-    uncertainty: { disclosures: [] },
-    claims: [],
-    clientNarrative: { language: "en", sections: [] },
-  };
-  expectCandidateAccept(abstained, p0a.projection, "abstained P_0A");
-
+check("CAND3", "abstention structural coupling fails closed on a DUAL_CORE projection", () => {
   const p5a = projectionFor("P_5A");
   expectCandidateReject(
     lawfulCandidate(p5a.projection, { interpretationStatus: "ABSTAINED_INSUFFICIENT_EVIDENCE" }),
@@ -1432,9 +1401,9 @@ check("CAND3", "ABSTAINED with empty hypotheses passes; abstention coupling fail
 // ---------------------------------------------------------------------------
 
 check("CAND4", "mechanical Result fields are structurally unauthorable", () => {
-  const { projection } = projectionFor("P_1B");
+  const { projection } = projectionFor("P_1");
   for (const field of [
-    { resultSchemaVersion: "agent-result-1.1" },
+    { resultSchemaVersion: "agent-result-1.2" },
     { interpretationId: "00000000-0000-4000-8000-000000000000" },
     { engineFactsRef: {} },
     { provenance: {} },
@@ -1469,7 +1438,7 @@ check("CAND4", "mechanical Result fields are structurally unauthorable", () => {
   );
   expectCandidateReject(
     lawfulCandidate(projection, {
-      uncertainty: { disclosures: [], uncertaintySchemaVersion: "structured-uncertainty-1.1" },
+      uncertainty: { disclosures: [], uncertaintySchemaVersion: "structured-uncertainty-1.2" },
     }),
     projection,
     "candidate may not author uncertainty schema versions",
@@ -1477,7 +1446,7 @@ check("CAND4", "mechanical Result fields are structurally unauthorable", () => {
 });
 
 check("CAND5", "RANKED ordering law: ranks, ids, adjacency, minimum", () => {
-  const { projection } = projectionFor("P_1B");
+  const { projection } = projectionFor("P_1");
   const refs = projectionRefs(projection);
   const rankedItems = [
     { hypothesisId: "H1", rank: 1, statement: "First evidentiary ordering.", evidenceBasis: PLAIN_EVIDENCE_BASIS, decisiveEvidenceRefs: [refs.qrefA], conflictingEvidenceRefs: [], contextRefs: [refs.mref], requiresEngineFactNotEstablished: [] },
@@ -1524,7 +1493,7 @@ check("CAND5", "RANKED ordering law: ranks, ids, adjacency, minimum", () => {
 });
 
 check("CAND6", "CO_EQUAL structural law: no rank key; preference-language probes are NON-AUTHORITATIVE DEFENSE-IN-DEPTH", () => {
-  const { projection } = projectionFor("P_1B");
+  const { projection } = projectionFor("P_1");
   const refs = projectionRefs(projection);
   const withRank = lawfulCandidate(projection);
   withRank.interpretation.hypotheses.items[0].rank = 1;
@@ -1569,7 +1538,7 @@ check("CAND7", "conditional hypothesis minimums: P_5X and INTERPRETATION_CONSTRA
   expectCandidateReject(single, p5x.projection, "P_5X single hypothesis");
   expectCandidateAccept(lawfulCandidate(p5x.projection), p5x.projection, "P_5X two hypotheses");
 
-  const constrained = projectionFor("P_1B");
+  const constrained = projectionFor("P_1");
   const refs1b = projectionRefs(constrained.projection);
   const singleConstrained = lawfulCandidate(constrained.projection, {
     interpretationStatus: "INTERPRETATION_CONSTRAINED",
@@ -1589,9 +1558,9 @@ check("CAND7", "conditional hypothesis minimums: P_5X and INTERPRETATION_CONSTRA
 });
 
 check("CAND8", "reference resolution and namespaces", () => {
-  const { projection } = projectionFor("P_1B");
+  const { projection } = projectionFor("P_1");
   const refs = projectionRefs(projection);
-  assert.ok(refs.unavailableQref, "P_1B carries unavailable qrefs");
+  assert.ok(refs.unavailableQref, "P_1 carries unavailable qrefs");
 
   expectCandidateReject(lawfulCandidate(projection, {
     interpretation: {
@@ -1640,7 +1609,7 @@ check("CAND8", "reference resolution and namespaces", () => {
 });
 
 check("CAND9", "uncertainty reference grammar: raw ids vs uref claims", () => {
-  const { projection } = projectionFor("P_1B");
+  const { projection } = projectionFor("P_1");
   const refs = projectionRefs(projection);
   assert.equal(refs.uncertaintyId, "U-001");
 
@@ -1675,7 +1644,7 @@ check("CAND9", "uncertainty reference grammar: raw ids vs uref claims", () => {
 });
 
 check("CAND10", "claim-type grounding rules", () => {
-  const { projection } = projectionFor("P_1B");
+  const { projection } = projectionFor("P_1");
   const refs = projectionRefs(projection);
   expectCandidateReject(lawfulCandidate(projection, {
     claims: [{ claimId: "CL-D", claimType: "DETERMINISTIC_FACT", text: "Only observation grounding.", refs: [refs.qrefA], contextRefs: [] }],
@@ -1774,7 +1743,7 @@ check("CAND12D", "NON-AUTHORITATIVE DEFENSE-IN-DEPTH lexical probes: limited ban
 });
 
 check("CAND13", "scenarioInterpretation bound only to an established engine state", () => {
-  const p1b = projectionFor("P_1B");
+  const p1b = projectionFor("P_1");
   expectCandidateReject(lawfulCandidate(p1b.projection, {
     interpretation: {
       scenarioInterpretation: {
@@ -1902,146 +1871,40 @@ check("EMPT2", "Case A structural gate: no contextRefs, no transitionPattern, no
 });
 
 // ---------------------------------------------------------------------------
-// P_1B protection evidence
+// Core-only pair-5 protection evidence
 // ---------------------------------------------------------------------------
 
-check("P1B1", "projection preserves every accepted P_1B suppression protection", () => {
-  const { projection } = projectionFor("P_1B");
-  const outcome = projection.engineSnapshot.engine.outcome;
-  assert.equal(outcome.suppression.pairEvaluationSuppressed, true);
-  assert.equal(outcome.suppression.prohibitedFallbackActive, true);
-  assert.equal(outcome.suppression.determinationImpossible, "NF/SFP");
-  assert.equal(outcome.suppression.comparatorOutputSuppressed, true);
-  const gapItem = projection.structuredUncertainty.items
-    .find((item) => item.reasonCode === "PAIR_DISCRIMINATOR_OBSERVATION_GAP_BOTH");
-  assert.ok(gapItem, "PAIR_DISCRIMINATOR_OBSERVATION_GAP_BOTH item travels");
-  assert.equal(gapItem.disclosureRequired, true);
-  assert.deepEqual(gapItem.affectedClaims, ["CLAIM_NF_SFP_DETERMINATION"]);
-  const withheld = projection.structuredUncertainty.withheldOutputs
-    .find((row) => row.withheldItem === "NF/SFP determination");
-  assert.ok(withheld);
-  assert.equal(withheld.reconstructionProhibited, true);
-  assert.equal(withheld.withheldBy, "P_1B");
-  const boundary = projection.structuredUncertainty.claimBoundaries
-    .find((row) => row.claimId === "CLAIM_NF_SFP_DETERMINATION");
-  assert.equal(boundary.permitted, false);
-  const constraintIds = projection.activeConstraints.map((row) => row.constraintId);
-  for (const id of ["C-COVERAGE-SUPPRESSED", "C-1B-SUPPRESSION", "C-1B-NO-BROADENING", "C-PROHIBITED-FALLBACK"]) {
-    assert.ok(constraintIds.includes(id), id);
-  }
-  const blockedRow = projection.activeConstraints.find((row) => row.constraintId === "C-1B-SUPPRESSION");
-  assert.deepEqual(blockedRow.blockedClaimIds, ["CLAIM_NF_SFP_DETERMINATION"]);
-  const tbp = projection.interpretationContextPack.selectedContextItems
-    .find((item) => item.contextItemId === "CI-BOUNDARY-PRED-P_1B");
-  assert.ok(tbp, "canonical T-BP-1B boundary item travels");
-  assert.equal(tbp.contextItemKind, "BOUNDARY_CANONICAL");
-  assert.ok(tbp.content.includes("NF/SFP determination impossible"));
-  assert.ok(tbp.content.includes("OBSERVATION_GAP"));
-  const bytes = canonicalSerialize(projection);
-  const raw1b = precedenceRawCondition("1b");
-  assert.ok(raw1b);
-  assert.equal(bytes.includes(raw1b), false);
-  assert.equal(bytes.includes("equivalent UseClass unavailability"), false);
-  assert.equal(allKeysAnywhere(projection).has("engineAuditRaw"), false);
-  assert.equal(outcome.deterministicStateEstablished, false);
-  const stateFact = projection.structuredUncertainty.known
-    .find((row) => row.factRef === "factref://engineSnapshot/engine/outcome/state");
-  assert.ok(stateFact);
-  assert.equal(stateFact.value, null);
+check("P1B1", "P_1B remains lawful Core output but is absent from selector-authoritative provider projection", () => {
+  const coreOutput = compareDualRespondents(withFlags(BRANCH_INPUTS.P_1B));
+  assert.equal(coreOutput.priority, "1b");
+  assert.equal(coreOutput.audit.exact1bSpecialCondition, true);
+  assert.equal(BRANCH_CODES.includes("P_1B"), false);
+  assert.ok(precedenceRawCondition("1b"));
 });
 
-check("P1B2", "structured blocked-claim routes are rejected: no blocked factref, no blocked requiresEngineFactNotEstablished, no spoofed claim id (arbitrary prose paraphrase DEFERRED TO FUTURE SEMANTIC VALIDATOR)", () => {
-  const { projection } = projectionFor("P_1B");
-  const refs = projectionRefs(projection);
-
-  expectCandidateReject(lawfulCandidate(projection, {
-    interpretation: {
-      hypotheses: {
-        items: [
-          hypothesisItem("H1", "Reading requiring the blocked determination.", refs, refs.mref, {
-            requiresEngineFactNotEstablished: ["CLAIM_NF_SFP_DETERMINATION"],
-          }),
-          hypothesisItem("H2", "Other.", refs, refs.mref, { decisiveEvidenceRefs: [refs.qrefB] }),
-        ],
-      },
-    },
-  }), projection, "blocked claim reintroduced through requiresEngineFactNotEstablished");
-
-  expectCandidateReject(lawfulCandidate(projection, {
-    interpretation: {
-      hypotheses: {
-        items: [
-          hypothesisItem("H1", "Reading.", refs, refs.mref, {
-            requiresEngineFactNotEstablished: ["CLAIM_NOT_IN_UNIVERSE"],
-          }),
-          hypothesisItem("H2", "Other.", refs, refs.mref, { decisiveEvidenceRefs: [refs.qrefB] }),
-        ],
-      },
-    },
-  }), projection, "unknown engine claim in requiresEngineFactNotEstablished");
-
-  expectCandidateReject(lawfulCandidate(projection, {
-    claims: [{ claimId: "CL-DF", claimType: "DETERMINISTIC_FACT", text: "The pair resolves to NF/SFP.", refs: ["factref://engineSnapshot/engine/outcome/nfSfpDetermination"], contextRefs: [] }],
-  }), projection, "no factref exists that grounds a blocked determination");
-
-  expectCandidateAccept(lawfulCandidate(projection, {
-    uncertainty: {
-      disclosures: [{
-        uncertaintyId: refs.uncertaintyId,
-        affects: "STATE_IDENTITY",
-        clientStatement: "The engine did not establish an NF/SFP determination.",
-        unresolvedEngineFacts: ["CLAIM_NF_SFP_DETERMINATION"],
-      }],
-    },
-  }), projection, "blocked claim disclosed as unresolved stays lawful");
+check("P1B2", "provider projection carries outcomeSource and engineOutcomeCode but omits selector and routing metadata", () => {
+  const { projection } = projectionFor("P_1");
+  assert.equal(projection.engineSnapshot.outcomeSource, "DUAL_CORE");
+  assert.equal(projection.engineSnapshot.engine.outcome.engineOutcomeCode, "P_1");
+  assert.equal(allKeysAnywhere(projection).has("selector"), false);
+  assert.equal(allKeysAnywhere(projection).has("engineRoutingMetadata"), false);
 });
 
-check("P1B3", "P_1B structural guarantees: INTERPRETATION_CONSTRAINED status, scenarioInterpretation absent, constrained hypothesis minimum — ARBITRARY NATURAL-LANGUAGE P_1B PARAPHRASE IS OUT OF SCOPE FOR THIS STRUCTURAL VALIDATOR AND REMAINS A FUTURE SEMANTIC VALIDATOR RESPONSIBILITY", () => {
-  const { projection } = projectionFor("P_1B");
+check("P1B3", "generic constrained-candidate minimum remains enforced on a lawful P_1 projection", () => {
+  const { projection } = projectionFor("P_1");
   const refs = projectionRefs(projection);
-
   expectCandidateReject(lawfulCandidate(projection, {
-    interpretationStatus: "INTERPRETATION_SUPPORTED",
-  }), projection, "P_1B candidate with INTERPRETATION_SUPPORTED status");
-
-  expectCandidateReject(lawfulCandidate(projection, {
-    interpretationStatus: "ABSTAINED_INSUFFICIENT_EVIDENCE",
-    abstentionReason: "NO_SURVIVING_ADMISSIBLE_EVIDENCE",
-  }), projection, "P_1B abstention is not the constrained status");
-
-  expectCandidateReject(lawfulCandidate(projection, {
-    interpretation: {
-      scenarioInterpretation: {
-        statement: "A scenario on a suppressed branch.",
-        boundToEngineState: "① CONVERGENT",
-        evidenceBasis: PLAIN_EVIDENCE_BASIS,
-      },
-    },
-  }), projection, "P_1B scenarioInterpretation present");
-
-  expectCandidateReject(lawfulCandidate(projection, {
+    interpretationStatus: "INTERPRETATION_CONSTRAINED",
     interpretation: {
       hypotheses: {
         ordering: "CO_EQUAL",
         items: [hypothesisItem("H1", "Only one reading.", refs, refs.mref)],
       },
     },
-  }), projection, "P_1B CONSTRAINED with a single hypothesis");
-
-  // Honest boundary: adversarial P_1B paraphrase prose is valid input for this
-  // structural layer; its meaning is a future Semantic Validator concern.
+  }), projection, "CONSTRAINED with a single hypothesis");
   expectCandidateAccept(lawfulCandidate(projection, {
-    interpretation: {
-      hypotheses: {
-        items: [
-          hypothesisItem("H1", "NF is more plausible than SFJ for this pair.", refs, refs.mref),
-          hypothesisItem("H2", "The evidence leans toward SFP.", refs, refs.mref, {
-            decisiveEvidenceRefs: [refs.qrefB],
-          }),
-        ],
-      },
-    },
-  }), projection, "adversarial P_1B paraphrase prose passes the structural layer — DEFERRED TO FUTURE SEMANTIC VALIDATOR");
+    interpretationStatus: "INTERPRETATION_CONSTRAINED",
+  }), projection, "CONSTRAINED with two hypotheses");
 });
 
 // ---------------------------------------------------------------------------
@@ -2118,9 +1981,9 @@ check("F01", "F-01 closed nested shapes (integrity-bound families): unexpected k
     ["request root", "P_5B", {}, (r) => { r.extraUnexpectedKey = 1; }],
     ["structuredUncertainty root", "P_5B", {}, (r) => { r.structuredUncertainty.extraUnexpectedKey = 1; }],
     ["known row", "P_5B", {}, (r) => { r.structuredUncertainty.known[0].extraUnexpectedKey = 1; }],
-    ["unknown row", "P_1B", {}, (r) => { r.structuredUncertainty.unknown[0].extraUnexpectedKey = 1; }],
-    ["withheld row", "P_1B", {}, (r) => { r.structuredUncertainty.withheldOutputs[0].extraUnexpectedKey = 1; }],
-    ["item row", "P_1B", {}, (r) => { r.structuredUncertainty.items[0].extraUnexpectedKey = 1; }],
+    ["unknown row", "P_1", {}, (r) => { r.structuredUncertainty.unknown[0].extraUnexpectedKey = 1; }],
+    ["withheld row", "P_1", {}, (r) => { r.structuredUncertainty.withheldOutputs[0].extraUnexpectedKey = 1; }],
+    ["item row", "P_1", {}, (r) => { r.structuredUncertainty.items[0].extraUnexpectedKey = 1; }],
     ["claimBoundary row", "P_5B", {}, (r) => { r.structuredUncertainty.claimBoundaries[0].extraUnexpectedKey = 1; }],
     ["context pack root", "P_5B", {}, (r) => { r.interpretationContextPack.extraUnexpectedKey = 1; }],
     ["selected context item", "P_5B", {}, (r) => { r.interpretationContextPack.selectedContextItems[0].extraUnexpectedKey = 1; }],
@@ -2153,7 +2016,7 @@ check("F01B", "F-01 projector nested key closure (defense-in-depth): resealed en
     ["suppression", "P_5B", {}, (r) => { r.engineSnapshot.engine.outcome.suppression.extraUnexpectedKey = 1; }],
     ["contradiction row", "P_3", {}, (r) => { r.engineSnapshot.engine.outcome.contradictionCandidates[0].extraUnexpectedKey = 1; }],
     ["observation", "P_5B", {}, (r) => { r.engineSnapshot.engine.observations[0].extraUnexpectedKey = 1; }],
-    ["semanticClassEffect", "P_1B", {}, (r) => {
+    ["semanticClassEffect", "P_1", {}, (r) => {
       const row = r.engineSnapshot.engine.observations.find((o) => o.semanticClassEffect !== null);
       assert.ok(row, "P_1B fixture carries a non-null semanticClassEffect");
       row.semanticClassEffect.extraUnexpectedKey = 1;
@@ -2359,7 +2222,7 @@ check("F01V", "F-01 value-shape attack matrix (engine side): resealed requests p
     ["enum field to unknown string (respondentSlot)", "P_5B", (r) => {
       r.engineSnapshot.engine.observations[0].respondentSlot = "R9";
     }],
-    ["enum field to unknown string (suppression.determinationImpossible)", "P_1B", (r) => {
+    ["enum field to unknown string (suppression.determinationImpossible)", "P_1", (r) => {
       r.engineSnapshot.engine.outcome.suppression.determinationImpossible = "XX/YY";
     }],
     ["string-array element to object (retainedReliabilityFlags)", "P_5B", (r) => {
@@ -2388,13 +2251,13 @@ check("F01VI", "F-01 value-shape attack matrix (integrity-bound families): wrong
     ["known factRef to object", "P_5B", {}, (r) => {
       r.structuredUncertainty.known[0].factRef = HIDDEN_PAYLOAD;
     }],
-    ["unknown claimId invented", "P_1B", {}, (r) => {
+    ["unknown claimId invented", "P_1", {}, (r) => {
       r.structuredUncertainty.unknown[0].claimId = "CLAIM_MADE_UP";
     }],
-    ["item uncertaintyDomain invented", "P_1B", {}, (r) => {
+    ["item uncertaintyDomain invented", "P_1", {}, (r) => {
       r.structuredUncertainty.items[0].uncertaintyDomain = "NOT_A_DOMAIN";
     }],
-    ["item constraintIds invented", "P_1B", {}, (r) => {
+    ["item constraintIds invented", "P_1", {}, (r) => {
       r.structuredUncertainty.items[0].constraintIds = ["C-UNKNOWN"];
     }],
     ["claimBoundary permitted to string", "P_5B", {}, (r) => {

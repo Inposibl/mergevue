@@ -1,6 +1,7 @@
 import scoringAndTriage from "../generated/newlogic/scoringAndTriage.json" with { type: "json" };
 import { deriveObservationScopeCausalDisposition } from "./layeredEvidenceScoring.js";
-import { isAuthorizedDualModule, resolveObservationScope } from "./observationScopeResolver.js";
+import { resolveObservationScope } from "./observationScopeResolver.js";
+import { assertPreDualSemanticIntegrity } from "./dualQuestionSemanticResolver.js";
 
 const DUAL = scoringAndTriage.dualRespondentComparison;
 const QUESTIONS = Object.freeze(Array.from({ length: 11 }, (_, index) => `Q${index + 1}`));
@@ -754,6 +755,8 @@ function compareDualRespondentsWithConfig(input, corpusConfig) {
   const oneHighDiscriminatorQuestion = corpusConfig.oneHighDiscriminatorQuestion;
   const dual = corpusConfig.dual;
 
+  assertPreDualSemanticIntegrity(input);
+
   const moduleId = text(input.moduleId);
   const candidatePair = text(input.candidatePair);
   const respondent1 = input.respondent1 ?? {};
@@ -764,17 +767,6 @@ function compareDualRespondentsWithConfig(input, corpusConfig) {
   const row0a = precedenceRow(dual, "0a");
   const row0b = precedenceRow(dual, "0b");
   const row0c = precedenceRow(dual, "0c");
-
-  if (!isAuthorizedDualModule(moduleId)) {
-    const moduleScope = resolveObservationScope({ moduleId });
-    return outcome(row0c, {
-      routing: "practitioner_access_review",
-      audit: {
-        reason: "unsupported_or_missing_module",
-        unresolvedReason: moduleScope.audit.unresolvedReason,
-      },
-    });
-  }
 
   if (!candidatePair) {
     return outcome(row0a, { routing: "comparator_does_not_run" });

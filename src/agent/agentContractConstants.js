@@ -1,5 +1,5 @@
-export const AGENT_CONTRACT_VERSION = "D0_R0_CORR2_A2C1_CORR1";
-export const SNAPSHOT_SCHEMA_VERSION = "engine-snapshot-1.1";
+export const AGENT_CONTRACT_VERSION = "D0_R0_CORR2_A2C1_CORR1_C5C1";
+export const SNAPSHOT_SCHEMA_VERSION = "engine-snapshot-2.0";
 
 export const RUNTIME_CORE_COMMIT = "dcbd937e0135e790201ee5c8898c5b5f5a085298";
 export const DUAL_COMPARATOR_VERSION = "ST_Dual_Respondent_Axis_Comparison_v1.xlsx";
@@ -46,6 +46,40 @@ export const BRANCH_CODES = Object.freeze([
   "P_5B",
   "UNMATCHED",
 ]);
+
+export const ENGINE_OUTCOME_SOURCES = Object.freeze([
+  "DUAL_CORE",
+  "PRE_CORE_SELECTOR",
+]);
+
+export const PRE_CORE_OUTCOME_CODES = Object.freeze([
+  "S_ADMISSIBILITY_UNRESOLVED",
+  "S_NO_LAWFUL_PAIR",
+  "S_PAIR_SELECTION_AMBIGUOUS",
+]);
+
+export const ENGINE_OUTCOME_CODES = Object.freeze([
+  ...BRANCH_CODES,
+  ...PRE_CORE_OUTCOME_CODES,
+]);
+
+export const SELECTOR_COMPATIBLE_DUAL_BRANCH_CODES = Object.freeze([
+  "P_5A",
+  "P_5B",
+  "P_4",
+  "P_3",
+  "P_2",
+  "P_5X",
+  "P_1",
+  "P_0C",
+  "UNMATCHED",
+]);
+
+export const SELECTOR_STATUS_TO_PRE_CORE_OUTCOME_CODE = Object.freeze({
+  ADMISSIBILITY_UNRESOLVED: "S_ADMISSIBILITY_UNRESOLVED",
+  NO_LAWFUL_PAIR: "S_NO_LAWFUL_PAIR",
+  PAIR_SELECTION_AMBIGUOUS: "S_PAIR_SELECTION_AMBIGUOUS",
+});
 
 export const PRIORITY_TO_BRANCH_CODE = Object.freeze({
   "0a": "P_0A",
@@ -203,6 +237,76 @@ export const FREE_INTERPRETATION_MODE_BY_BRANCH = Object.freeze({
   P_0A: FREE_INTERPRETATION_MODE.AUTOMATED_ABSTENTION_CANDIDATE,
 });
 
+export const PRE_CORE_ROUTING_BY_OUTCOME_CODE = Object.freeze({
+  S_ADMISSIBILITY_UNRESOLVED: "practitioner_access_review",
+  S_NO_LAWFUL_PAIR: "selector_no_lawful_candidate_pair",
+  S_PAIR_SELECTION_AMBIGUOUS: "selector_candidate_pair_ambiguous",
+});
+
+export const PRE_CORE_OUTCOME_CLASS_BY_OUTCOME_CODE = Object.freeze({
+  S_ADMISSIBILITY_UNRESOLVED: "routing_outcome",
+  S_NO_LAWFUL_PAIR: "routing_outcome",
+  S_PAIR_SELECTION_AMBIGUOUS: "routing_outcome",
+});
+
+export const PRE_CORE_CLASSIFICATION_OUTCOME_BY_OUTCOME_CODE = Object.freeze({
+  S_ADMISSIBILITY_UNRESOLVED: "Practitioner access review",
+  S_NO_LAWFUL_PAIR: "CANDIDATE PAIR NOT ESTABLISHED — no lawful candidate pair",
+  S_PAIR_SELECTION_AMBIGUOUS: "CANDIDATE PAIR NOT ESTABLISHED — more than one lawful candidate pair",
+});
+
+export const PRE_CORE_OUTPUT_BY_OUTCOME_CODE = Object.freeze({
+  S_ADMISSIBILITY_UNRESOLVED: "No five-state classification; no Contradiction record from this comparator",
+  S_NO_LAWFUL_PAIR: "No comparator output; no Contradiction record",
+  S_PAIR_SELECTION_AMBIGUOUS: "No comparator output; no Contradiction record",
+});
+
+export const PRE_CORE_FINALITY_BY_OUTCOME_CODE = Object.freeze({
+  S_ADMISSIBILITY_UNRESOLVED: FINALITY.NON_FINAL_ROUTED,
+  S_NO_LAWFUL_PAIR: FINALITY.NON_FINAL_ROUTED,
+  S_PAIR_SELECTION_AMBIGUOUS: FINALITY.NON_FINAL_ROUTED,
+});
+
+export const PRE_CORE_SUPPRESSION_BY_OUTCOME_CODE = Object.freeze({
+  S_ADMISSIBILITY_UNRESOLVED: Object.freeze({
+    comparatorOutputSuppressed: false,
+    pairEvaluationSuppressed: false,
+    prohibitedFallbackActive: false,
+    determinationImpossible: null,
+    comparatorDidNotRun: true,
+  }),
+  S_NO_LAWFUL_PAIR: Object.freeze({
+    comparatorOutputSuppressed: false,
+    pairEvaluationSuppressed: false,
+    prohibitedFallbackActive: false,
+    determinationImpossible: null,
+    comparatorDidNotRun: true,
+  }),
+  S_PAIR_SELECTION_AMBIGUOUS: Object.freeze({
+    comparatorOutputSuppressed: false,
+    pairEvaluationSuppressed: false,
+    prohibitedFallbackActive: false,
+    determinationImpossible: null,
+    comparatorDidNotRun: true,
+  }),
+});
+
+export const PRE_CORE_CONSTRAINTS_BY_OUTCOME_CODE = Object.freeze({
+  S_ADMISSIBILITY_UNRESOLVED: Object.freeze(["C-ELIGIBILITY-UNRESOLVED"]),
+  S_NO_LAWFUL_PAIR: Object.freeze(["C-NO-AGENT-PAIR-SELECTION"]),
+  S_PAIR_SELECTION_AMBIGUOUS: Object.freeze(["C-NO-AGENT-PAIR-SELECTION"]),
+});
+
+export const PRE_CORE_CONSTRAINT_IDS = Object.freeze([
+  "C-NO-AGENT-PAIR-SELECTION",
+]);
+
+export const PRE_CORE_FREE_INTERPRETATION_MODE_BY_OUTCOME_CODE = Object.freeze({
+  S_ADMISSIBILITY_UNRESOLVED: FREE_INTERPRETATION_MODE.AUTOMATED_UNCERTAINTY_INTERPRETATION,
+  S_NO_LAWFUL_PAIR: FREE_INTERPRETATION_MODE.AUTOMATED_UNCERTAINTY_INTERPRETATION,
+  S_PAIR_SELECTION_AMBIGUOUS: FREE_INTERPRETATION_MODE.AUTOMATED_UNCERTAINTY_INTERPRETATION,
+});
+
 export const UNRESOLVED_REASON = Object.freeze({
   MISSING_MODULE: "missing_module",
   UNSUPPORTED_MODULE: "unsupported_module",
@@ -212,8 +316,6 @@ export const UNRESOLVED_REASON = Object.freeze({
 });
 
 export const P0C_IDENTITY_UNRESOLVED_REASONS = Object.freeze([
-  UNRESOLVED_REASON.MISSING_MODULE,
-  UNRESOLVED_REASON.UNSUPPORTED_MODULE,
   UNRESOLVED_REASON.UNSUPPORTED_OR_MISSING_QUESTION,
 ]);
 
@@ -223,8 +325,6 @@ export const P0C_ROLE_SENIORITY_UNRESOLVED_REASONS = Object.freeze([
 ]);
 
 export const P0C_FREE_INTERPRETATION_MODE_BY_UNRESOLVED_REASON = Object.freeze({
-  [UNRESOLVED_REASON.MISSING_MODULE]: FREE_INTERPRETATION_MODE.AUTOMATED_ABSTENTION_CANDIDATE,
-  [UNRESOLVED_REASON.UNSUPPORTED_MODULE]: FREE_INTERPRETATION_MODE.AUTOMATED_ABSTENTION_CANDIDATE,
   [UNRESOLVED_REASON.UNSUPPORTED_OR_MISSING_QUESTION]: FREE_INTERPRETATION_MODE.AUTOMATED_ABSTENTION_CANDIDATE,
   [UNRESOLVED_REASON.ROLE_CODE_UNSPECIFIED]: FREE_INTERPRETATION_MODE.AUTOMATED_UNCERTAINTY_INTERPRETATION,
   [UNRESOLVED_REASON.UNKNOWN_SENIORITY]: FREE_INTERPRETATION_MODE.AUTOMATED_UNCERTAINTY_INTERPRETATION,
@@ -267,7 +367,7 @@ export const DIGEST_PREFIX = "sha256:";
 export const FAILURE_CLASS_INPUT_ASSEMBLY_FAILURE = "INPUT_ASSEMBLY_FAILURE";
 export const FAILURE_CLASS_CONTRACT_VERSION_MISMATCH = "CONTRACT_VERSION_MISMATCH";
 
-export const UNCERTAINTY_SCHEMA_VERSION = "structured-uncertainty-1.1";
+export const UNCERTAINTY_SCHEMA_VERSION = "structured-uncertainty-1.2";
 
 export const UNCERTAINTY_DOMAINS = Object.freeze([
   "ELIGIBILITY",
@@ -301,6 +401,8 @@ export const UNCERTAINTY_REASON_CODES = Object.freeze([
   "ELIGIBILITY_UNRESOLVED_QUESTION_IDENTITY",
   "ELIGIBILITY_UNRESOLVED_ROLE_UNSPECIFIED",
   "ELIGIBILITY_UNRESOLVED_UNKNOWN_SENIORITY",
+  "SELECTOR_NO_LAWFUL_CANDIDATE_PAIR",
+  "SELECTOR_CANDIDATE_PAIR_AMBIGUOUS",
   "ACCESS_GATE_NOT_DIRECT",
   "ACCESS_EVIDENCE_HYPOTHETICAL",
   "ACCESS_EVIDENCE_UNKNOWN",
@@ -380,6 +482,8 @@ export const BRANCH_LEVEL_REASON_ORDER = Object.freeze([
   "ELIGIBILITY_UNRESOLVED_QUESTION_IDENTITY",
   "ELIGIBILITY_UNRESOLVED_ROLE_UNSPECIFIED",
   "ELIGIBILITY_UNRESOLVED_UNKNOWN_SENIORITY",
+  "SELECTOR_NO_LAWFUL_CANDIDATE_PAIR",
+  "SELECTOR_CANDIDATE_PAIR_AMBIGUOUS",
   null,
   "COVERAGE_COMPARABLE_PAIRS_BELOW_MINIMUM",
   "COVERAGE_HIGH_RESOLVER_UNAVAILABLE",
@@ -414,7 +518,7 @@ export const QUESTION_REASON_ORDER = Object.freeze([
 ]);
 
 export const CONTEXT_PACK_SCHEMA_VERSION = "context-pack-1.1";
-export const SELECTION_POLICY_VERSION = "context-selection-1.1";
+export const SELECTION_POLICY_VERSION = "context-selection-1.3";
 
 export const CONTEXT_ITEM_KINDS = Object.freeze([
   "CORPUS_VERBATIM",
@@ -490,10 +594,10 @@ export const DERIVATION_METHOD_ALLOWLIST_SOURCE_ROWS = Object.freeze([5, 6, 7, 8
 export const DERIVATION_METHOD_ALLOWLIST_FIELDS = Object.freeze(["2", "3"]);
 export const XP1_SOURCE_ROW = 9;
 
-export const REQUEST_SCHEMA_VERSION = "agent-request-1.1";
-export const OUTPUT_SCHEMA_VERSION = "agent-result-1.1";
+export const REQUEST_SCHEMA_VERSION = "agent-request-1.2";
+export const OUTPUT_SCHEMA_VERSION = "agent-result-1.2";
 
-export const PROVIDER_PROJECTION_VERSION = "provider-projection-1.0";
+export const PROVIDER_PROJECTION_VERSION = "provider-projection-1.1";
 export const PROVIDER_PROMPT_VERSION = "provider-prompt-1.0";
 export const PROVIDER_CANDIDATE_SCHEMA_VERSION = "provider-semantic-candidate-1.0";
 

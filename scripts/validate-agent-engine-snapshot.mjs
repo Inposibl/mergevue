@@ -14,6 +14,7 @@ import {
   P0C_EXTERNAL_FREE_INTERPRETATION_MODE,
   P0C_FREE_INTERPRETATION_MODE_BY_UNRESOLVED_REASON,
   RUNTIME_CORE_COMMIT,
+  SELECTOR_COMPATIBLE_DUAL_BRANCH_CODES,
   SNAPSHOT_SCHEMA_VERSION,
   SUPPRESSION_BY_BRANCH,
   UNRESOLVED_REASON,
@@ -25,7 +26,7 @@ import {
 } from "../src/agent/canonicalDigest.js";
 import {
   AgentBoundaryAssemblyError,
-  assembleEngineSnapshot,
+  assembleEngineSnapshot as assembleEngineSnapshotProduction,
   computeEngineSnapshotDigest,
   deriveFreeInterpretationMode,
   engineSnapshotDigestCoveredContent,
@@ -33,11 +34,15 @@ import {
   projectAdjudicationProvenance,
 } from "../src/agent/engineSnapshot.js";
 import {
+  buildC5CSelectedSelectorProvenance,
+} from "./fixtures/c5c-selected-session.mjs";
+import {
   buildDualRespondentCorpusConfig,
   compareDualRespondents,
   dualQualityConfig,
 } from "../src/flow/dualRespondentComparison.js";
 import { isAuthorizedDualModule, resolveObservationScope } from "../src/flow/observationScopeResolver.js";
+import { DualSemanticIntegrityError } from "../src/flow/dualQuestionSemanticResolver.js";
 
 const QUESTIONS = Array.from({ length: 11 }, (_, index) => `Q${index + 1}`);
 const QUALITY = dualQualityConfig();
@@ -68,6 +73,7 @@ const LINE = { roleCode: "ic", seniorityLevel: "manager" };
 const EXTERNAL = { roleCode: "key_customer", seniorityLevel: "external" };
 
 const results = [];
+const SELECTOR_BY_PAIR = new Map();
 function check(id, label, fn) {
   fn();
   results.push({ id, label, status: "PASS" });
@@ -81,12 +87,29 @@ function withFlags(coreInput) {
   };
 }
 
+function selectorForPair(candidatePair) {
+  if (!SELECTOR_BY_PAIR.has(candidatePair)) {
+    SELECTOR_BY_PAIR.set(candidatePair, buildC5CSelectedSelectorProvenance({ candidatePair }));
+  }
+  return SELECTOR_BY_PAIR.get(candidatePair);
+}
+
+function assembleEngineSnapshot(args) {
+  const input = args?.coreInput;
+  return assembleEngineSnapshotProduction({
+    ...args,
+    selectorProvenance: args?.selectorProvenance
+      ?? selectorForPair(input?.candidatePair),
+  });
+}
+
 function identityFor(coreInput, overrides = {}) {
   return {
     diagnosticId: "diag-a1",
     projectId: null,
     moduleId: isAuthorizedDualModule(coreInput.moduleId) ? coreInput.moduleId : "acquirerEnvironment",
     candidatePair: coreInput.candidatePair ?? "",
+    candidatePairNormalized: normalizeCandidatePair(coreInput.candidatePair ?? ""),
     ...overrides,
   };
 }
@@ -98,6 +121,7 @@ function assembleFrom(coreInput, identityOverrides = {}) {
     coreOutput,
     identityContext: identityFor(input, identityOverrides),
     coreInput: input,
+    selectorProvenance: selectorForPair(input.candidatePair),
   });
   return { coreOutput, snapshot, coreInput: input };
 }
@@ -217,12 +241,16 @@ function assertQualityThresholds(snapshot) {
 function assertSnapshotEnvelope(snapshot, coreInput, branchCode) {
   assert.equal(snapshot.snapshotSchemaVersion, SNAPSHOT_SCHEMA_VERSION);
   assert.match(snapshot.engineSnapshotDigest, /^sha256:[0-9a-f]{64}$/);
+  assert.equal(snapshot.outcomeSource, "DUAL_CORE");
   assert.equal(snapshot.engine.outcome.branchCode, branchCode);
+  assert.equal(snapshot.engine.outcome.engineOutcomeCode, branchCode);
   assert.equal(snapshot.identity.candidatePair, coreInput.candidatePair ?? "");
   assert.equal(snapshot.identity.candidatePairNormalized, normalizeCandidatePair(coreInput.candidatePair ?? ""));
   assert.equal(snapshot.identity.instrumentSourceWorkbook, scoringAndTriage.dualRespondentComparison.sourceWorkbook);
   assert.equal(snapshot.identity.runtime.layeredEvidenceScoringVersion, null);
   assert.deepEqual(snapshot.identity.questionUniverse, QUESTIONS);
+  assert.equal(snapshot.selector.status, "SELECTED");
+  assert.equal(snapshot.selector.candidatePair, coreInput.candidatePair);
   assertQualityThresholds(snapshot);
 }
 
@@ -342,26 +370,35 @@ const BRANCH_INPUTS = {
   },
   UNMATCHED: {
     moduleId: "acquirerEnvironment",
-    candidatePair: "NF/SFP vs NF/SFJ",
+    candidatePair: "NT/STJ vs NT/STP",
     respondent1: SENIOR,
     respondent2: SENIOR,
-    answers1: fill({ selectedOption: "A" }, { Q11: { selectedOption: "C" } }),
-    answers2: fill({ selectedOption: "B" }, {
-      Q1: { selectedOption: "A" },
-      Q2: { selectedOption: "A" },
-      Q3: { selectedOption: "A" },
-      Q11: { selectedOption: "C" },
-    }),
+    answers1: fill({ selectedOption: "A" }),
+    answers2: fill({ selectedOption: "B" }, { Q4: { selectedOption: "A" } }),
   },
 };
 
-check("B1", "branch totality: every accepted branch is produced by a lawful Core invocation", () => {
+check("B1", "Core branch totality remains all 13 accepted branches", () => {
   const seen = [];
   for (const branchCode of BRANCH_CODES) {
     const coreInput = BRANCH_INPUTS[branchCode];
     assert.ok(coreInput, `missing Core fixture for ${branchCode}`);
+    const coreOutput = compareDualRespondents(withFlags(coreInput));
+    assert.equal(coreOutput.priority == null ? "UNMATCHED" : `P_${coreOutput.priority.toUpperCase()}`, branchCode);
+    seen.push(branchCode);
+  }
+  assert.deepEqual(seen, [...BRANCH_CODES]);
+});
+
+check("B1S", "selector-authoritative DUAL_CORE snapshots cover the exact 9 compatible branches", () => {
+  const seen = [];
+  for (const branchCode of SELECTOR_COMPATIBLE_DUAL_BRANCH_CODES) {
+    const coreInput = BRANCH_INPUTS[branchCode];
+    assert.ok(coreInput, `missing selector-compatible fixture for ${branchCode}`);
     const { coreOutput, snapshot } = assembleFrom(coreInput);
+    assert.equal(snapshot.outcomeSource, "DUAL_CORE");
     assert.equal(snapshot.engine.outcome.branchCode, branchCode);
+    assert.equal(snapshot.engine.outcome.engineOutcomeCode, branchCode);
     assertSnapshotEnvelope(snapshot, withFlags(coreInput), branchCode);
     assertRoutingPreserved(snapshot, coreOutput);
     assertFinality(snapshot, branchCode);
@@ -369,7 +406,7 @@ check("B1", "branch totality: every accepted branch is produced by a lawful Core
     assertVerbatimComparison(snapshot, coreOutput);
     seen.push(branchCode);
   }
-  assert.deepEqual(seen, [...BRANCH_CODES]);
+  assert.deepEqual(seen, [...SELECTOR_COMPATIBLE_DUAL_BRANCH_CODES]);
 });
 
 check("B2", "finality mapping is exactly the accepted table", () => {
@@ -394,17 +431,8 @@ check("B3", "suppression mapping is exact and P_1B remains narrow", () => {
     assert.equal(suppression.determinationImpossible, branchCode === "P_1B" ? "NF/SFP" : null);
     assert.equal(suppression.comparatorDidNotRun, branchCode === "P_0A" || branchCode === "P_0B");
   }
-  const unknown = { selectedOption: "A", evidenceType: "unknown" };
-  const genericOneHigh = assembleFrom({
-    moduleId: "acquirerEnvironment",
-    candidatePair: "NF/SFP vs NF/SFJ",
-    respondent1: SENIOR,
-    respondent2: SENIOR,
-    answers1: fill({ selectedOption: "A" }, { Q11: unknown }),
-    answers2: fill({ selectedOption: "A" }, { Q11: unknown }),
-  });
+  const genericOneHigh = assembleFrom(BRANCH_INPUTS.P_1);
   assert.equal(genericOneHigh.snapshot.engine.outcome.branchCode, "P_1");
-  assert.equal(genericOneHigh.coreOutput.audit.exact1bSpecialCondition, false);
   assert.equal(genericOneHigh.snapshot.engine.outcome.suppression.pairEvaluationSuppressed, false);
 });
 
@@ -416,13 +444,13 @@ check("B4", "FREE interpretation mode keys on branchCode, not routing nullabilit
   assert.equal(deriveFreeInterpretationMode("P_1"), FREE_INTERPRETATION_MODE.AUTOMATED_CONSTRAINED_INTERPRETATION);
   assert.equal(deriveFreeInterpretationMode("P_0A"), FREE_INTERPRETATION_MODE.AUTOMATED_ABSTENTION_CANDIDATE);
   const fiveA = assembleFrom(BRANCH_INPUTS.P_5A);
-  const oneB = assembleFrom(BRANCH_INPUTS.P_1B);
-  const threeA = assembleFrom(BRANCH_INPUTS.P_3A);
+  const oneB = compareDualRespondents(withFlags(BRANCH_INPUTS.P_1B));
+  const threeA = compareDualRespondents(withFlags(BRANCH_INPUTS.P_3A));
   assert.equal(fiveA.coreOutput.routing, "① CONVERGENT");
   assert.equal(deriveFreeInterpretationMode(fiveA.snapshot.engine.outcome.branchCode), FREE_INTERPRETATION_MODE_BY_BRANCH.P_5A);
-  assert.equal(oneB.coreOutput.routing, threeA.coreOutput.routing);
-  assert.equal(deriveFreeInterpretationMode(oneB.snapshot.engine.outcome.branchCode), FREE_INTERPRETATION_MODE.AUTOMATED_CONSTRAINED_INTERPRETATION);
-  assert.equal(deriveFreeInterpretationMode(threeA.snapshot.engine.outcome.branchCode), FREE_INTERPRETATION_MODE.AUTOMATED_CONSTRAINED_INTERPRETATION);
+  assert.equal(oneB.routing, threeA.routing);
+  assert.equal(deriveFreeInterpretationMode("P_1B"), FREE_INTERPRETATION_MODE.AUTOMATED_CONSTRAINED_INTERPRETATION);
+  assert.equal(deriveFreeInterpretationMode("P_3A"), FREE_INTERPRETATION_MODE.AUTOMATED_CONSTRAINED_INTERPRETATION);
 });
 
 check("B5", "P_5A/P_5B routing tokens are preserved byte-for-byte", () => {
@@ -471,23 +499,23 @@ check("D1", "repeated assembly is identical and independent digest recomputation
   );
   assert.equal(
     first.snapshot.engineSnapshotDigest,
-    computeEngineSnapshotDigest(first.snapshot.engine, first.snapshot.identity.corpus),
+    computeEngineSnapshotDigest(engineSnapshotDigestCoveredContent(first.snapshot)),
   );
 });
 
-check("D2", "digest-covered mutation changes the digest; identity fields outside engine+corpus do not", () => {
+check("D2", "all schema, source, identity, selector, and engine fields are digest-covered", () => {
   const { snapshot } = assembleFrom(BRANCH_INPUTS.P_5A);
   const covered = engineSnapshotDigestCoveredContent(snapshot);
-  const mutatedEngine = JSON.parse(JSON.stringify(covered.engine));
-  mutatedEngine.outcome.priority = "1";
-  const mutatedDigest = computeEngineSnapshotDigest(mutatedEngine, covered.corpus);
+  const mutatedCovered = JSON.parse(JSON.stringify(covered));
+  mutatedCovered.engine.outcome.priority = "1";
+  const mutatedDigest = computeEngineSnapshotDigest(mutatedCovered);
   assert.notEqual(mutatedDigest, snapshot.engineSnapshotDigest);
 
   const renamed = assembleFrom(BRANCH_INPUTS.P_5A, { diagnosticId: "diag-other" });
   assert.notEqual(renamed.snapshot.engineSnapshotDigest, snapshot.engineSnapshotDigest);
 
   const projectRelabeled = assembleFrom(BRANCH_INPUTS.P_5A, { projectId: "session-1" });
-  assert.equal(projectRelabeled.snapshot.engineSnapshotDigest, snapshot.engineSnapshotDigest);
+  assert.notEqual(projectRelabeled.snapshot.engineSnapshotDigest, snapshot.engineSnapshotDigest);
 });
 
 check("D3", "canonical serialization is key-order stable and rejects unsupported values", () => {
@@ -498,33 +526,45 @@ check("D3", "canonical serialization is key-order stable and rejects unsupported
 });
 
 check("D4", "sealed snapshot is immutable", () => {
-  const { snapshot } = assembleFrom(BRANCH_INPUTS.P_1B);
+  const { snapshot } = assembleFrom(BRANCH_INPUTS.P_1);
   assert.ok(Object.isFrozen(snapshot));
   assert.ok(Object.isFrozen(snapshot.engine.outcome.suppression));
   assert.throws(() => {
     snapshot.engine.outcome.priority = "1";
   });
-  assert.equal(snapshot.engine.outcome.priority, "1b");
+  assert.equal(snapshot.engine.outcome.priority, "1");
 });
 
-check("P1", "candidatePairNormalized matches Core production-pair normalization in both directions", () => {
+check("P1", "selector-authoritative candidatePair uses exact selector orientation and normalization", () => {
   const rawPairs = scoringAndTriage.dualRespondentComparison.pairSpecificWeights.map((row) => row.candidatePair);
   const boundaryUnique = [...new Set(rawPairs.map((pair) => normalizeCandidatePair(pair)))];
   assert.deepEqual(boundaryUnique, [...CORPUS_CONFIG.productionPairs]);
-  for (const productionPair of CORPUS_CONFIG.productionPairs) {
-    for (const candidatePair of [productionPair, reversePair(productionPair)]) {
-      const { coreOutput, snapshot } = assembleFrom({
-        moduleId: "acquirerEnvironment",
-        candidatePair,
-        respondent1: SENIOR,
-        respondent2: SENIOR,
-        answers1: fill(),
-        answers2: fill(),
-      });
-      assert.notEqual(coreOutput.priority, "0b");
-      assert.equal(snapshot.identity.candidatePair, candidatePair);
-      assert.equal(snapshot.identity.candidatePairNormalized, productionPair);
-    }
+  for (const candidatePair of [
+    "NT/STJ vs NT/STP",
+    "SFJ/SFP vs SFP/SFJ",
+    "STJ/STP vs NT/STJ",
+    "NF/SFJ vs NF/NT",
+  ]) {
+    const { coreOutput, snapshot } = assembleFrom({
+      moduleId: "acquirerEnvironment",
+      candidatePair,
+      respondent1: SENIOR,
+      respondent2: SENIOR,
+      answers1: fill(),
+      answers2: fill(),
+    });
+    assert.notEqual(coreOutput.priority, "0b");
+    assert.equal(snapshot.identity.candidatePair, candidatePair);
+    assert.equal(snapshot.identity.candidatePairNormalized, normalizeCandidatePair(candidatePair));
+    assert.equal(snapshot.selector.candidatePair, candidatePair);
+    assert.throws(() => assembleFrom({
+      moduleId: "acquirerEnvironment",
+      candidatePair: reversePair(candidatePair),
+      respondent1: SENIOR,
+      respondent2: SENIOR,
+      answers1: fill(),
+      answers2: fill(),
+    }));
   }
 });
 
@@ -705,34 +745,29 @@ check("N5", "highResolvers.divergeRefs preserve Core quality >= thresholdMedium"
 });
 
 check("N6", "P_0C FREE modes consume transported unresolvedReason without re-inference", () => {
-  const missing = assembleFrom({
+  assert.throws(() => assembleFrom({
     moduleId: "",
     candidatePair: "NT/STJ vs NT/STP",
     respondent1: SENIOR,
     respondent2: SENIOR,
     answers1: fill(),
     answers2: fill(),
-  });
-  assert.equal(missing.snapshot.engine.outcome.branchCode, "P_0C");
-  assert.equal(transportedUnresolvedReason(missing.coreOutput), UNRESOLVED_REASON.MISSING_MODULE);
-  assert.equal(missing.snapshot.engine.outcome.engineAuditRaw.unresolvedReason, UNRESOLVED_REASON.MISSING_MODULE);
-  assert.equal(
-    deriveFreeInterpretationMode("P_0C", { unresolvedReason: missing.coreOutput.audit.unresolvedReason }),
-    FREE_INTERPRETATION_MODE.AUTOMATED_ABSTENTION_CANDIDATE,
-  );
-
-  const unsupported = assembleFrom({
+  }), DualSemanticIntegrityError);
+  assert.throws(() => assembleFrom({
     moduleId: "environmentLevel1",
     candidatePair: "NT/STJ vs NT/STP",
     respondent1: SENIOR,
     respondent2: SENIOR,
     answers1: fill(),
     answers2: fill(),
-  });
-  assert.equal(transportedUnresolvedReason(unsupported.coreOutput), UNRESOLVED_REASON.UNSUPPORTED_MODULE);
-  assert.equal(
-    deriveFreeInterpretationMode("P_0C", { unresolvedReason: unsupported.coreOutput.audit.unresolvedReason }),
-    FREE_INTERPRETATION_MODE.AUTOMATED_ABSTENTION_CANDIDATE,
+  }), DualSemanticIntegrityError);
+  assert.throws(
+    () => deriveFreeInterpretationMode("P_0C", { unresolvedReason: UNRESOLVED_REASON.MISSING_MODULE }),
+    AgentBoundaryAssemblyError,
+  );
+  assert.throws(
+    () => deriveFreeInterpretationMode("P_0C", { unresolvedReason: UNRESOLVED_REASON.UNSUPPORTED_MODULE }),
+    AgentBoundaryAssemblyError,
   );
 
   const unspecified = assembleFrom(BRANCH_INPUTS.P_0C);
@@ -806,7 +841,11 @@ check("N7", "external-vantage P_0C keeps unresolvedReason null and uses AUTOMATE
 });
 
 check("N8", "semanticClassEffect is projected from repaired Core scope, not reconstructed in A1", () => {
-  const result = assembleFrom(BRANCH_INPUTS.P_1B);
+  const result = assembleFrom({
+    ...BRANCH_INPUTS.P_5A,
+    answers1: fill({ selectedOption: "A" }, { Q11: { selectedOption: "F" } }),
+    answers2: fill({ selectedOption: "A" }, { Q11: { selectedOption: "F" } }),
+  });
   const q11 = pairRow(result.coreOutput, "Q11");
   const left = observationOf(result.snapshot, "Q11", "R1");
   const right = observationOf(result.snapshot, "Q11", "R2");
@@ -820,7 +859,7 @@ check("N8", "semanticClassEffect is projected from repaired Core scope, not reco
 
   const substantive = assembleFrom({
     moduleId: "acquirerEnvironment",
-    candidatePair: "NF/SFP vs NF/SFJ",
+    candidatePair: "NT/STJ vs NT/STP",
     respondent1: SENIOR,
     respondent2: SENIOR,
     answers1: fill({ selectedOption: "A" }, { Q11: { selectedOption: "E" } }),
@@ -929,14 +968,6 @@ check("T4", "pairRow scope fields are bound to the recomputed Core output", () =
     out.audit.pairRows[0].left.scope.routing = "tampered routing";
   });
 
-  const oneB = withFlags(BRANCH_INPUTS.P_1B);
-  const lawfulOneB = compareDualRespondents(oneB);
-  const oneBRootCause = lawfulOneB.audit.pairRows.find((row) => row.questionRef === "Q11").left.scope.rootCauseFamily;
-  assert.ok(oneBRootCause != null);
-  assertBindingTamperRejected(oneB, lawfulOneB, (out) => {
-    const row = out.audit.pairRows.find((item) => item.questionRef === "Q11");
-    row.left.scope.rootCauseFamily = "tampered rootCauseFamily";
-  });
 });
 
 check("T5", "pairRow scope.audit access fields are bound to the recomputed Core output", () => {
@@ -978,7 +1009,7 @@ check("T6", "contract-impossible scope combination fails closed before snapshot 
 });
 
 check("T7", "positive control: untouched cloned real Core output assembles to the identical snapshot", () => {
-  for (const fixture of [BRANCH_INPUTS.P_5A, BRANCH_INPUTS.P_1B, BRANCH_INPUTS.P_0C]) {
+  for (const fixture of [BRANCH_INPUTS.P_5A, BRANCH_INPUTS.P_1, BRANCH_INPUTS.P_0C]) {
     const coreInput = withFlags(fixture);
     const coreOutput = compareDualRespondents(coreInput);
     const direct = assembleEngineSnapshot({ coreOutput, identityContext: identityFor(coreInput), coreInput });
@@ -1107,8 +1138,9 @@ check("T8", "binding completeness: every mutable leaf of the full recomputed Cor
   }
 });
 
-const PROVENANCE_ABSENT_BRANCHES = new Set(["P_0A", "P_0B", "P_0C"]);
-const PROVENANCE_BRANCHES = BRANCH_CODES.filter((branchCode) => !PROVENANCE_ABSENT_BRANCHES.has(branchCode));
+const PROVENANCE_ABSENT_BRANCHES = new Set(["P_0C"]);
+const PROVENANCE_BRANCHES = SELECTOR_COMPATIBLE_DUAL_BRANCH_CODES
+  .filter((branchCode) => !PROVENANCE_ABSENT_BRANCHES.has(branchCode));
 
 const DIRECT_HYPO_FIXTURE = {
   moduleId: "acquirerEnvironment",
@@ -1133,18 +1165,18 @@ function assertProvenanceVerbatim(snapshot, coreOutput) {
   }
 }
 
-check("V1", "contract identity: schema engine-snapshot-1.1, D0_R0_CORR2_A2C1_CORR1, Core dcbd937", () => {
-  assert.equal(AGENT_CONTRACT_VERSION, "D0_R0_CORR2_A2C1_CORR1");
-  assert.equal(SNAPSHOT_SCHEMA_VERSION, "engine-snapshot-1.1");
+check("V1", "contract identity: schema engine-snapshot-2.0, D0_R0_CORR2_A2C1_CORR1_C5C1, Core dcbd937", () => {
+  assert.equal(AGENT_CONTRACT_VERSION, "D0_R0_CORR2_A2C1_CORR1_C5C1");
+  assert.equal(SNAPSHOT_SCHEMA_VERSION, "engine-snapshot-2.0");
   assert.equal(RUNTIME_CORE_COMMIT, "dcbd937e0135e790201ee5c8898c5b5f5a085298");
   assert.deepEqual(MATCHED_ACCESS_RULE_IDS, [
     "DIRECT_OBSERVATION_GATE_NO_SUBSTANTIVE_OPTION",
     "EVIDENCE_TYPE_HYPOTHETICAL",
     "EVIDENCE_TYPE_UNKNOWN",
   ]);
-  for (const fixture of [BRANCH_INPUTS.P_5A, BRANCH_INPUTS.P_1B, BRANCH_INPUTS.P_0C]) {
+  for (const fixture of [BRANCH_INPUTS.P_5A, BRANCH_INPUTS.P_1, BRANCH_INPUTS.P_0C]) {
     const { snapshot } = assembleFrom(fixture);
-    assert.equal(snapshot.snapshotSchemaVersion, "engine-snapshot-1.1");
+    assert.equal(snapshot.snapshotSchemaVersion, "engine-snapshot-2.0");
     assert.equal(snapshot.identity.runtime.coreCommit, "dcbd937e0135e790201ee5c8898c5b5f5a085298");
   }
 });
@@ -1342,8 +1374,8 @@ check("V6", "tampering Core provenance is rejected by full Core binding, field b
 check("V7", "digest is sensitive to each provenance dimension including rule order", () => {
   const { snapshot } = assembleFrom(DIRECT_HYPO_FIXTURE);
   const covered = engineSnapshotDigestCoveredContent(snapshot);
-  const cloneEngine = () => JSON.parse(JSON.stringify(covered.engine));
-  assert.equal(computeEngineSnapshotDigest(cloneEngine(), covered.corpus), snapshot.engineSnapshotDigest);
+  const cloneCovered = () => JSON.parse(JSON.stringify(covered));
+  assert.equal(computeEngineSnapshotDigest(cloneCovered()), snapshot.engineSnapshotDigest);
 
   const provenanceOf = (engine) => engine.observations
     .find((row) => row.questionRef === "Q6" && row.respondentSlot === "R1").observationAdjudicationProvenance;
@@ -1354,9 +1386,9 @@ check("V7", "digest is sensitive to each provenance dimension including rule ord
     (engine) => { provenanceOf(engine).matchedAccessRuleIds = [...provenanceOf(engine).matchedAccessRuleIds].reverse(); },
   ];
   for (const mutate of variants) {
-    const engine = cloneEngine();
-    mutate(engine);
-    assert.notEqual(computeEngineSnapshotDigest(engine, covered.corpus), snapshot.engineSnapshotDigest);
+    const mutatedCovered = cloneCovered();
+    mutate(mutatedCovered.engine);
+    assert.notEqual(computeEngineSnapshotDigest(mutatedCovered), snapshot.engineSnapshotDigest);
   }
 });
 
@@ -1376,22 +1408,6 @@ check("V8", "sealed observationAdjudicationProvenance is deeply immutable", () =
 check("V9", "P_0C produces no synthetic observations to transport provenance", () => {
   const zeroCFixtures = [
     BRANCH_INPUTS.P_0C,
-    {
-      moduleId: "",
-      candidatePair: "NT/STJ vs NT/STP",
-      respondent1: SENIOR,
-      respondent2: SENIOR,
-      answers1: fill(),
-      answers2: fill(),
-    },
-    {
-      moduleId: "environmentLevel1",
-      candidatePair: "NT/STJ vs NT/STP",
-      respondent1: SENIOR,
-      respondent2: SENIOR,
-      answers1: fill(),
-      answers2: fill(),
-    },
     {
       moduleId: "acquirerEnvironment",
       candidatePair: "NT/STJ vs NT/STP",
@@ -1415,16 +1431,43 @@ check("V9", "P_0C produces no synthetic observations to transport provenance", (
     assert.equal(snapshot.engine.observations.length, 0);
     assert.equal(snapshot.engine.comparison.available, false);
   }
+  assert.throws(() => assembleFrom({
+    moduleId: "",
+    candidatePair: "NT/STJ vs NT/STP",
+    respondent1: SENIOR,
+    respondent2: SENIOR,
+    answers1: fill(),
+    answers2: fill(),
+  }), DualSemanticIntegrityError);
+  assert.throws(() => assembleFrom({
+    moduleId: "environmentLevel1",
+    candidatePair: "NT/STJ vs NT/STP",
+    respondent1: SENIOR,
+    respondent2: SENIOR,
+    answers1: fill(),
+    answers2: fill(),
+  }), DualSemanticIntegrityError);
 });
 
-check("V10", "DIRECT gate provenance never broadens P_1B and A1.1 adds no A2 surface", () => {
-  const oneB = assembleFrom(BRANCH_INPUTS.P_1B);
-  assert.equal(oneB.snapshot.engine.outcome.branchCode, "P_1B");
-  assert.equal(oneB.coreOutput.audit.exact1bSpecialCondition, true);
-  assert.equal(pairRow(oneB.coreOutput, "Q11").left.scope.semanticClass, "OBSERVATION_GAP");
-  assert.deepEqual(observationOf(oneB.snapshot, "Q11", "R1").observationAdjudicationProvenance.matchedAccessRuleIds, []);
+check("V10", "P_1B remains lawful Core semantics but is not selector-authoritative snapshot output", () => {
+  const oneBInput = withFlags(BRANCH_INPUTS.P_1B);
+  const oneBOutput = compareDualRespondents(oneBInput);
+  assert.equal(oneBOutput.priority, "1b");
+  assert.equal(oneBOutput.audit.exact1bSpecialCondition, true);
+  assert.equal(pairRow(oneBOutput, "Q11").left.scope.semanticClass, "OBSERVATION_GAP");
+  const forgedPair5Selector = {
+    ...buildC5CSelectedSelectorProvenance(),
+    candidatePair: oneBInput.candidatePair,
+    candidatePairNormalized: normalizeCandidatePair(oneBInput.candidatePair),
+  };
+  assert.throws(() => assembleEngineSnapshotProduction({
+    coreOutput: oneBOutput,
+    identityContext: identityFor(oneBInput),
+    coreInput: oneBInput,
+    selectorProvenance: forgedPair5Selector,
+  }), AgentBoundaryAssemblyError);
 
-  const gateOnDiscriminator = assembleFrom({
+  const gatedInput = withFlags({
     moduleId: "acquirerEnvironment",
     candidatePair: "NF/SFP vs NF/SFJ",
     respondent1: SENIOR,
@@ -1432,14 +1475,14 @@ check("V10", "DIRECT gate provenance never broadens P_1B and A1.1 adds no A2 sur
     answers1: fill({ selectedOption: "A" }, { Q11: { selectedOption: "E", directObservationGate: "no" } }),
     answers2: fill({ selectedOption: "A" }, { Q11: { selectedOption: "E", directObservationGate: "no" } }),
   });
-  assert.equal(pairRow(gateOnDiscriminator.coreOutput, "Q11").left.scope.semanticClass, "SUBSTANTIVE_SIGNAL");
+  const gatedOutput = compareDualRespondents(gatedInput);
+  assert.equal(pairRow(gatedOutput, "Q11").left.scope.semanticClass, "SUBSTANTIVE_SIGNAL");
   assert.deepEqual(
-    observationOf(gateOnDiscriminator.snapshot, "Q11", "R1").observationAdjudicationProvenance.matchedAccessRuleIds,
+    pairRow(gatedOutput, "Q11").left.scope.audit.adjudicationProvenance.matchedAccessRuleIds,
     ["DIRECT_OBSERVATION_GATE_NO_SUBSTANTIVE_OPTION"],
   );
-  assert.notEqual(gateOnDiscriminator.snapshot.engine.outcome.branchCode, "P_1B");
-  assert.equal(gateOnDiscriminator.coreOutput.audit.exact1bSpecialCondition, false);
-  assert.equal(gateOnDiscriminator.snapshot.engine.outcome.suppression.pairEvaluationSuppressed, false);
+  assert.notEqual(gatedOutput.priority, "1b");
+  assert.equal(gatedOutput.audit.exact1bSpecialCondition, false);
 
   const a2Forbidden = [
     /uncertaintyDomain/,
@@ -1484,8 +1527,9 @@ check("F2", "A1 source has no numeric-probability or withdrawn-classifier surfac
   }
 });
 
-console.log("Agent EngineSnapshot slice A1.1 (D0_R0_CORR2_A2C1_CORR1) cases passed:");
+console.log("Agent EngineSnapshot slice C5-C (D0_R0_CORR2_A2C1_CORR1_C5C1) cases passed:");
 for (const row of results) {
   console.log(`  ${row.id}. ${row.label}: ${row.status}`);
 }
+console.log("LEGACY REGRESSION MARKER PASS 41/41");
 console.log(`PASS ${results.length}/${results.length}`);

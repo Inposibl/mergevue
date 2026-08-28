@@ -1,12 +1,12 @@
 import {
   AUTHORIZED_MODULE_IDS,
-  BRANCH_CODES,
   BRANCH_TO_PRECEDENCE_PRIORITY,
   CONTEXT_DOMAINS,
   CONTEXT_ITEM_KINDS,
   CONTEXT_PACK_SCHEMA_VERSION,
   DERIVATION_METHOD_ALLOWLIST_FIELDS,
   DERIVATION_METHOD_ALLOWLIST_SOURCE_ROWS,
+  ENGINE_OUTCOME_CODES,
   PACK_SCOPE_VERDICTS,
   QUESTION_UNIVERSE,
   SELECTION_POLICY_VERSION,
@@ -199,7 +199,7 @@ function collectSelectionKeys(snapshot, uncertainty, establishedEnvironmentCodes
   const established = uniqueSorted(establishedEnvironmentCodes);
   return {
     moduleId: snapshot.identity.moduleId,
-    branchCode: snapshot.engine.outcome.branchCode,
+    engineOutcomeCode: snapshot.engine.outcome.engineOutcomeCode,
     questionRefs,
     semanticClasses,
     candidatePairNormalized: snapshot.identity.candidatePairNormalized ?? "",
@@ -223,7 +223,7 @@ function selectSr01(keys) {
     contextRef: "mref://narrativesAndFriction/narratives/implementationGuideRows/sourceRow=3/cells/2",
     contextDomain: "PRODUCT_SAFETY",
     selectionRuleId: "SR-01",
-    branchRelevance: [keys.branchCode],
+    branchRelevance: [keys.engineOutcomeCode],
     authorityClass: "ACCEPTED_PRODUCT_INTERPRETATION_CONTEXT",
   });
   if (disclaimer) items.push(disclaimer);
@@ -234,7 +234,7 @@ function selectSr01(keys) {
       contextRef: `mref://sourceManifest/environmentAliases/${encoded}`,
       contextDomain: "ENVIRONMENT_IDENTITY",
       selectionRuleId: "SR-01",
-      branchRelevance: [keys.branchCode],
+      branchRelevance: [keys.engineOutcomeCode],
       environmentRelevance: [code],
       authorityClass: "ACCEPTED_PRODUCT_INTERPRETATION_CONTEXT",
     });
@@ -246,7 +246,7 @@ function selectSr01(keys) {
         contextRef: `mref://reporting/reportTemplate/buyerFacingAliases/environmentPair=${encoded}/buyerFacingAlias`,
         contextDomain: "ENVIRONMENT_IDENTITY",
         selectionRuleId: "SR-01",
-        branchRelevance: [keys.branchCode],
+        branchRelevance: [keys.engineOutcomeCode],
         environmentRelevance: [code],
         authorityClass: "ACCEPTED_PRODUCT_INTERPRETATION_CONTEXT",
       });
@@ -263,20 +263,20 @@ function selectSr02(keys) {
     contextRef: `mref://scoringAndTriage/dualRespondentComparison/divergenceClassification/state=${encoded}`,
     contextDomain: "STATE_SEMANTICS",
     selectionRuleId: "SR-02",
-    branchRelevance: [keys.branchCode],
+    branchRelevance: [keys.engineOutcomeCode],
   });
   return item ? [item] : [];
 }
 
 function selectSr03(keys, snapshot) {
   const items = [];
-  const priority = BRANCH_TO_PRECEDENCE_PRIORITY[keys.branchCode];
+  const priority = BRANCH_TO_PRECEDENCE_PRIORITY[keys.engineOutcomeCode];
   if (!priority) return items;
   const source = verbatim({
     contextRef: `mref://scoringAndTriage/dualRespondentComparison/classificationPrecedence/priority=${priority}/source`,
     contextDomain: "BRANCH_SEMANTICS",
     selectionRuleId: "SR-03",
-    branchRelevance: [keys.branchCode],
+    branchRelevance: [keys.engineOutcomeCode],
   });
   if (source) items.push(source);
   const superseded = SUPERSEDED_RAW_PREDICATES.find((row) => row.priority === priority);
@@ -292,7 +292,7 @@ function selectSr03(keys, snapshot) {
       authorityClass: "ACCEPTED_METHODOLOGY_CONTEXT",
       contextDomain: "BRANCH_SEMANTICS",
       selectionRuleId: "SR-03",
-      branchRelevance: [keys.branchCode],
+      branchRelevance: [keys.engineOutcomeCode],
       questionRelevance: discriminator.discriminatorQuestionRef ? [discriminator.discriminatorQuestionRef] : [],
       environmentRelevance: [],
       content,
@@ -306,21 +306,21 @@ function selectSr03(keys, snapshot) {
     contextRef: `mref://scoringAndTriage/dualRespondentComparison/classificationPrecedence/priority=${priority}/condition`,
     contextDomain: "BRANCH_SEMANTICS",
     selectionRuleId: "SR-03",
-    branchRelevance: [keys.branchCode],
+    branchRelevance: [keys.engineOutcomeCode],
   });
   if (condition) items.push(condition);
   return items;
 }
 
 function selectSr04(keys) {
-  const rows = SR04_EDGE_CASE_SOURCE_ROWS[keys.branchCode] ?? [];
+  const rows = SR04_EDGE_CASE_SOURCE_ROWS[keys.engineOutcomeCode] ?? [];
   const items = [];
   for (const sourceRow of rows) {
     const item = verbatim({
       contextRef: `mref://scoringAndTriage/dualRespondentComparison/edgeCases/sourceRow=${sourceRow}`,
       contextDomain: "BRANCH_SEMANTICS",
       selectionRuleId: "SR-04",
-      branchRelevance: [keys.branchCode],
+      branchRelevance: [keys.engineOutcomeCode],
     });
     if (item) items.push(item);
   }
@@ -335,7 +335,7 @@ function selectSr05(keys) {
       contextRef: `mref://scoringAndTriage/dualRespondentComparison/comparisonEngine/q=${questionRef}`,
       contextDomain: "QUESTION_SEMANTICS",
       selectionRuleId: "SR-05",
-      branchRelevance: [keys.branchCode],
+      branchRelevance: [keys.engineOutcomeCode],
       questionRelevance: [questionRef],
     });
     if (comparison) items.push(comparison);
@@ -347,7 +347,7 @@ function selectSr05(keys) {
         contextRef: `mref://questionnaires/modules/${moduleIndex}/questions/workbookQuestionId=${questionRef}/${field}`,
         contextDomain: "QUESTION_SEMANTICS",
         selectionRuleId: "SR-05",
-        branchRelevance: [keys.branchCode],
+        branchRelevance: [keys.engineOutcomeCode],
         questionRelevance: [questionRef],
         authorityClass: "ACCEPTED_PRODUCT_INTERPRETATION_CONTEXT",
       });
@@ -359,7 +359,7 @@ function selectSr05(keys) {
         contextRef: `mref://questionnaires/modules/${moduleIndex}/questions/workbookQuestionId=${questionRef}/methodologyNotes/${noteIndex}/text`,
         contextDomain: "QUESTION_SEMANTICS",
         selectionRuleId: "SR-05",
-        branchRelevance: [keys.branchCode],
+        branchRelevance: [keys.engineOutcomeCode],
         questionRelevance: [questionRef],
         authorityClass: "ACCEPTED_METHODOLOGY_CONTEXT",
       });
@@ -380,16 +380,28 @@ function selectSr06(keys, snapshot) {
     const key = `${questionRef}|${option}`;
     if (seen.has(key)) continue;
     seen.add(key);
-    const mapRow = (DUAL.answerEnvironmentMap ?? []).find((row) => row.q === questionRef && row.option === option);
-    if (mapRow) {
-      const item = verbatim({
-        contextRef: `mref://scoringAndTriage/dualRespondentComparison/answerEnvironmentMap/q=${questionRef}/option=${option}`,
+    const moduleLocalQuestion = questionRef === "Q9" || questionRef === "Q10";
+    if (!moduleLocalQuestion) {
+      const mapRow = (DUAL.answerEnvironmentMap ?? []).find((row) => row.q === questionRef && row.option === option);
+      if (mapRow) {
+        const item = verbatim({
+          contextRef: `mref://scoringAndTriage/dualRespondentComparison/answerEnvironmentMap/q=${questionRef}/option=${option}`,
+          contextDomain: "QUESTION_SEMANTICS",
+          selectionRuleId: "SR-06",
+          branchRelevance: [keys.engineOutcomeCode],
+          questionRelevance: [questionRef],
+        });
+        if (item) items.push(item);
+      }
+    } else if (keys.moduleId) {
+      const binding = verbatim({
+        contextRef: `mref://scoringAndTriage/dualRespondentComparison/answerSemanticBindings/moduleId=${keys.moduleId}/workbookQuestionId=${questionRef}`,
         contextDomain: "QUESTION_SEMANTICS",
         selectionRuleId: "SR-06",
-        branchRelevance: [keys.branchCode],
+        branchRelevance: [keys.engineOutcomeCode],
         questionRelevance: [questionRef],
       });
-      if (item) items.push(item);
+      if (binding) items.push(binding);
     }
     if (moduleIndex === -1) continue;
     const question = findQuestionnaireQuestion(keys.moduleId, questionRef);
@@ -399,11 +411,22 @@ function selectSr06(keys, snapshot) {
       contextRef: `mref://questionnaires/modules/${moduleIndex}/questions/workbookQuestionId=${questionRef}/options/${optionIndex}/text`,
       contextDomain: "QUESTION_SEMANTICS",
       selectionRuleId: "SR-06",
-      branchRelevance: [keys.branchCode],
+      branchRelevance: [keys.engineOutcomeCode],
       questionRelevance: [questionRef],
       authorityClass: "ACCEPTED_PRODUCT_INTERPRETATION_CONTEXT",
     });
     if (optionText) items.push(optionText);
+    if (moduleLocalQuestion) {
+      const signals = verbatim({
+        contextRef: `mref://questionnaires/modules/${moduleIndex}/questions/workbookQuestionId=${questionRef}/options/${optionIndex}/internalEnvironmentSignals`,
+        contextDomain: "QUESTION_SEMANTICS",
+        selectionRuleId: "SR-06",
+        branchRelevance: [keys.engineOutcomeCode],
+        questionRelevance: [questionRef],
+        authorityClass: "ACCEPTED_PRODUCT_INTERPRETATION_CONTEXT",
+      });
+      if (signals) items.push(signals);
+    }
   }
   return items;
 }
@@ -415,7 +438,7 @@ function selectSr07(keys) {
       contextRef: `mref://scoringAndTriage/dualRespondentComparison/semanticClassEffects/semanticclass=${semanticClass}`,
       contextDomain: "SEMANTIC_CLASS_SEMANTICS",
       selectionRuleId: "SR-07",
-      branchRelevance: [keys.branchCode],
+      branchRelevance: [keys.engineOutcomeCode],
     });
     if (item) items.push(item);
   }
@@ -432,7 +455,7 @@ function selectSr08(keys, snapshot) {
       contextRef: `mref://scoringAndTriage/dualRespondentComparison/pairSpecificWeights/${index}`,
       contextDomain: "PAIR_SEMANTICS",
       selectionRuleId: "SR-08",
-      branchRelevance: [keys.branchCode],
+      branchRelevance: [keys.engineOutcomeCode],
     });
     if (item) items.push(item);
   });
@@ -446,7 +469,7 @@ function selectSr08(keys, snapshot) {
       contextRef: `mref://scoringAndTriage/dualRespondentComparison/seniorityTierMapping/seniorityTier=${tier}/definition`,
       contextDomain: "PAIR_SEMANTICS",
       selectionRuleId: "SR-08",
-      branchRelevance: [keys.branchCode],
+      branchRelevance: [keys.engineOutcomeCode],
     });
     if (item) items.push(item);
   }
@@ -462,7 +485,7 @@ function selectSr08(keys, snapshot) {
       contextRef: `mref://scoringAndTriage/dualRespondentComparison/questionTierVantage/questionref=${questionRef}/senioritytier=${tier}`,
       contextDomain: "PAIR_SEMANTICS",
       selectionRuleId: "SR-08",
-      branchRelevance: [keys.branchCode],
+      branchRelevance: [keys.engineOutcomeCode],
       questionRelevance: [questionRef],
     });
     if (item) items.push(item);
@@ -488,7 +511,7 @@ function selectSr09(keys, snapshot) {
       contextRef: `mref://canonicalSchema/${collection}/code=${encodeURIComponent(code)}/${field}`,
       contextDomain: "QUESTION_SEMANTICS",
       selectionRuleId: "SR-09",
-      branchRelevance: [keys.branchCode],
+      branchRelevance: [keys.engineOutcomeCode],
     });
     if (item) items.push(item);
   };
@@ -510,7 +533,7 @@ function selectSr10(keys, snapshot) {
       contextRef: `mref://scoringAndTriage/dualRespondentComparison/contradictionOutput/divergenceState=${encodeURIComponent(state)}/${field}`,
       contextDomain: "STATE_SEMANTICS",
       selectionRuleId: "SR-10",
-      branchRelevance: [keys.branchCode],
+      branchRelevance: [keys.engineOutcomeCode],
     });
     if (item) items.push(item);
   }
@@ -535,7 +558,7 @@ function selectSr11(keys) {
       contextRef: `mref://narrativesAndFriction/friction/frictionLookup/acquirerEnvironmentCode=${encodeURIComponent(pair.acquirerEnvironmentCode)}/targetEnvironmentCode=${encodeURIComponent(pair.targetEnvironmentCode)}`,
       contextDomain: "FRICTION_AND_RESOURCES",
       selectionRuleId: "SR-11",
-      branchRelevance: [keys.branchCode],
+      branchRelevance: [keys.engineOutcomeCode],
       environmentRelevance: [pair.acquirerEnvironmentCode, pair.targetEnvironmentCode],
       authorityClass: "CONDITIONAL_CONTEXT",
       conditionalOn: "crossSideEnvironmentPair",
@@ -553,7 +576,7 @@ function selectSr11(keys) {
         contextRef: `mref://narrativesAndFriction/friction/riskCategoryTagging/sourceRow=${sourceRow}`,
         contextDomain: "FRICTION_AND_RESOURCES",
         selectionRuleId: "SR-11",
-        branchRelevance: [keys.branchCode],
+        branchRelevance: [keys.engineOutcomeCode],
         environmentRelevance: [pair.acquirerEnvironmentCode, pair.targetEnvironmentCode],
       });
       if (tag) items.push(tag);
@@ -565,7 +588,7 @@ function selectSr11(keys) {
     contextRef: `mref://narrativesAndFriction/friction/ecsMatrix/acquirerEnvironmentCode=${encodeURIComponent(pair.acquirerEnvironmentCode)}/targetScores/${encodeURIComponent(pair.targetEnvironmentCode)}`,
     contextDomain: "FRICTION_AND_RESOURCES",
     selectionRuleId: "SR-11",
-    branchRelevance: [keys.branchCode],
+    branchRelevance: [keys.engineOutcomeCode],
     environmentRelevance: [pair.acquirerEnvironmentCode, pair.targetEnvironmentCode],
     authorityClass: "CONDITIONAL_CONTEXT",
     conditionalOn: "crossSideEnvironmentPair",
@@ -578,7 +601,7 @@ function selectSr11(keys) {
         contextRef: `mref://narrativesAndFriction/friction/derivationMethod/sourceRow=${sourceRow}/cells/${field}`,
         contextDomain: domain,
         selectionRuleId: "SR-11",
-        branchRelevance: [keys.branchCode],
+        branchRelevance: [keys.engineOutcomeCode],
         environmentRelevance: [pair.acquirerEnvironmentCode, pair.targetEnvironmentCode],
       });
       if (item) items.push(item);
@@ -663,9 +686,9 @@ function validateInputs(engineSnapshot, structuredUncertainty) {
   if (uncertainty.uncertaintySchemaVersion !== UNCERTAINTY_SCHEMA_VERSION) {
     fail(`structuredUncertainty.uncertaintySchemaVersion must be ${UNCERTAINTY_SCHEMA_VERSION}`);
   }
-  const branch = snapshot.engine?.outcome?.branchCode;
-  if (!BRANCH_CODES.includes(branch)) fail(`unknown branchCode ${JSON.stringify(branch)}`);
-  if (uncertainty.originBranch !== branch) fail("structuredUncertainty.originBranch does not match snapshot branchCode");
+  const branch = snapshot.engine?.outcome?.engineOutcomeCode;
+  if (!ENGINE_OUTCOME_CODES.includes(branch)) fail(`unknown engineOutcomeCode ${JSON.stringify(branch)}`);
+  if (uncertainty.originBranch !== branch) fail("structuredUncertainty.originBranch does not match snapshot engineOutcomeCode");
   const snapshotDigest = snapshot.identity?.corpus?.corpusDigest;
   if (typeof snapshotDigest !== "string" || !snapshotDigest.startsWith("sha256:")) {
     fail("engineSnapshot.identity.corpus.corpusDigest is required");
