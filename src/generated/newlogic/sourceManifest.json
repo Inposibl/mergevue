@@ -3,7 +3,7 @@
     "id": "newlogic-2026-05-03",
     "name": "NewLogic 03.05.2026",
     "path": "NewLogic 03.05.2026",
-    "exportedAt": "2026-08-28T16:06:59.016451+00:00"
+    "exportedAt": "2026-08-28T19:25:31.908484+00:00"
   },
   "environmentAliases": {
     "NF/NT": "The Idea Lab",
@@ -121,8 +121,8 @@
     },
     {
       "file": "ST_Dual_Respondent_Axis_Comparison_v1.xlsx",
-      "sizeBytes": 56235,
-      "lastModified": "2026-08-27T10:49:39.931548+00:00",
+      "sizeBytes": 58822,
+      "lastModified": "2026-08-28T19:24:24.320604+00:00",
       "sheets": [
         "0_Index",
         "1_Answer_Env_Map",
@@ -136,7 +136,8 @@
         "9_Methodology_Audit",
         "10_v3_1_Build_Notes",
         "11_Role_Question_Scope",
-        "12_Classification_Precedence"
+        "12_Classification_Precedence",
+        "13_Cross_Side_Structural_Diff"
       ]
     },
     {
@@ -325,8 +326,8 @@
     },
     {
       "file": "ST_UI_Track_Coder_Agent_Specification_v1.xlsx",
-      "sizeBytes": 41626,
-      "lastModified": "2026-08-19T21:19:02.513345+00:00",
+      "sizeBytes": 41716,
+      "lastModified": "2026-08-28T19:24:26.517562+00:00",
       "sheets": [
         "B-01 PROVENANCE",
         "B-02 FILE_REGISTER",

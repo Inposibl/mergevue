@@ -1704,6 +1704,73 @@
         "source": "DR-C2"
       }
     ],
+    "crossSideStructuralDifferentiation": [
+      {
+        "sourceRow": 4,
+        "field": "Purpose",
+        "governedRule": "For a same-environment (homogeneous) pair, count the comparable structural answer dimensions on which the Acquirer Environment Module (AEM) and the Target Self-Assessment Module (TSAM) selected different canonical options. Same environment code does not mean same answer pattern."
+      },
+      {
+        "sourceRow": 5,
+        "field": "Scope",
+        "governedRule": "cross_side: AEM (ST_Acquirer_Environment_Module.xlsx \u00b7 3_Screening) \u2194 TSAM (ST_Target_Self_Assessment_Module.xlsx \u00b7 3_Screening) on the shared question set Q1\u2013Q11, matched by workbookQuestionId. TOD, EDv2, and the canonical 80/20 environment vector are NOT valid bases for this layer."
+      },
+      {
+        "sourceRow": 6,
+        "field": "Comparison rule",
+        "governedRule": "Letter-level canonical option identity per selected option letter, following sheet 3_Comparison_Engine letter logic: identical letters = AGREE (aligned); different letters = DIVERGE. Q9/Q10 compare the canonical selected letter only; their module-local environment mappings are not authority cross-side (sheet 1_Answer_Env_Map note and answerSemanticBindings). Cross-side environment-vector distance (L1/L2/cosine/JSD or any full-vector divergence) is forbidden for this layer."
+      },
+      {
+        "sourceRow": 7,
+        "field": "Comparable options",
+        "governedRule": "Options A\u2013D are comparable. Option E/F comparability is governed by sheet 11_Role_Question_Scope Block C1/C2 semantic classes: comparable when the class preserves ordinary comparison / divergence-map semantics (EXTERNAL_OR_PERSONAL_CAUSE \u2014 Q6-E; SUBSTANTIVE_SIGNAL \u2014 Q11-E); not comparable when the class states comparable answer unavailable (OBSERVATION_GAP, EVENT_ABSENCE, STRUCTURAL_PRECONDITION_ABSENCE, AMBIGUOUS_COLLAPSE)."
+      },
+      {
+        "sourceRow": 8,
+        "field": "Row status values",
+        "governedRule": "aligned = identical comparable letters on both sides. divergent = different comparable letters on both sides. not_comparable = question unanswered/missing on either side, or either selected option is a non-comparable E/F class."
+      },
+      {
+        "sourceRow": 9,
+        "field": "Count definitions",
+        "governedRule": "comparableCount = number of aligned rows + number of divergent rows. agreeCount = number of aligned rows. divergeCount = number of divergent rows. Required arithmetic: agreeCount + divergeCount = comparableCount. Integer counts only; no floats, no 0\u2013100 conversion, no averaging."
+      },
+      {
+        "sourceRow": 10,
+        "field": "Missing-data denominator rule",
+        "governedRule": "not_comparable rows are excluded from the denominator. No substitution, no imputation, no weighting of missing answers. A question answered on one side only is not_comparable, not divergent."
+      },
+      {
+        "sourceRow": 11,
+        "field": "Symmetry",
+        "governedRule": "AEM \u2194 TSAM order swap preserves comparableCount, agreeCount, and divergeCount exactly. The layer is history independent: only current selected letters matter."
+      },
+      {
+        "sourceRow": 12,
+        "field": "No weights",
+        "governedRule": "This layer introduces no weights, no thresholds, and no numeric severity. The sheet 4_Evidence_Quality_Layer four-factor product is NOT a differentiation magnitude and must not be used as one; evidence quality remains separate metadata."
+      },
+      {
+        "sourceRow": 13,
+        "field": "Explicit non-claims",
+        "governedRule": "NOT ECS. NOT FRICTION. NOT SEVERITY. NOT RESOURCE PRESSURE. NOT a resource-conflict score. This layer does not modify ECS, the ECS range, the risk band, ERI resource tiers, or canonical Net Effect."
+      },
+      {
+        "sourceRow": 14,
+        "field": "Insufficient evidence",
+        "governedRule": "When comparableCount = 0 or required cross-side AEM/TSAM evidence is unavailable, emit the structured unavailable state INSUFFICIENT_COMPARABLE_CROSS_SIDE_EVIDENCE. Do not manufacture a score or substitute other instruments."
+      },
+      {
+        "sourceRow": 15,
+        "field": "Public representation",
+        "governedRule": "\"{divergeCount} of {comparableCount} comparable structural dimensions differ\" plus the exact per-dimension rows (questionId, axis label, both selected options, row status)."
+      },
+      {
+        "sourceRow": 16,
+        "field": "Provenance",
+        "governedRule": "NewLogic 03.05.2026 corpus \u00b7 ST_Dual_Respondent_Axis_Comparison_v1.xlsx. Owner decisions OD-RMP3-1\u2026OD-RMP3-16 (accepted August 2026) \u00b7 RMP-3 core implementation. Source basis: sheet 3_Comparison_Engine (letter logic), sheet 1_Answer_Env_Map (question identities / axis labels / Q9-Q10 module-local note), sheet 11_Role_Question_Scope Blocks C1/C2 (option semantic classes)."
+      }
+    ],
     "answerSemanticBindings": [
       {
         "sourceRow": 48,

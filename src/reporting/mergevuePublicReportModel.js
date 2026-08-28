@@ -67,6 +67,10 @@ const APPROVED_VALUATION_DISCLAIMER = "Illustrative posture, not a valuation.";
 const APPROVED_ENGAGEMENT_TIER_REQUIREMENT = "Absolute risk figures require the engagement-tier economic model.";
 const APPROVED_OVERWRITE_RISK_EXPLANATION = "The main risk is translation failure: the acquirer may impose its standard integration logic before it understands which target routines preserve loyalty, trust, knowledge flow, execution quality, or deal-critical continuity after close.";
 const APPROVED_CONCEALED_CONFLICT_RISK_EXPLANATION = "The main risk is false alignment: the shared operating environment can make integration look settled while duplicated authority, routine overwrite, or control expectations become visible only after close.";
+// RMP-3 authorized factual homogeneous templates (OD-RMP3-5/16/26). The homogeneous
+// resource layer is a structural resource profile, never a pairwise contestation score.
+const HOMOGENEOUS_STRUCTURAL_RESOURCE_QUALIFIER = "Shared structural state; this is not a pairwise resource-conflict score.";
+const HOMOGENEOUS_DOCTRINE_CLASS = "structural_homogeneous";
 const PUBLIC_COPY_TEMPLATES = Object.freeze({
   coreMismatch: "The core mismatch is between {acquirer_authority_phrase}, and {target_authority_phrase}. The sharpest contested resource is {top_conflict_resource}: {conflict_direction_phrase}.",
   fp2Rationale: "Treat {resource} as a protected integration resource during {window}: it is {conflict_direction_phrase}{conflict_causal_clause} Separating preservation from simplification gives the integration team time to identify which {target_env}-linked routines protect cohesion, where {acquirer_env} accountability should apply, and which changes should wait until the Day 60 review.",
@@ -328,7 +332,10 @@ function approvedPairCopy(deliverable) {
   });
 }
 
-function branchAwareOverwriteRiskExplanation(doctrineClass, resource) {
+function branchAwareOverwriteRiskExplanation(doctrineClass, resource, isHomogeneous = false) {
+  if (isHomogeneous) {
+    return HOMOGENEOUS_STRUCTURAL_RESOURCE_QUALIFIER;
+  }
   if (doctrineClass === "concealed_conflict") {
     return APPROVED_CONCEALED_CONFLICT_RISK_EXPLANATION;
   }
@@ -338,7 +345,13 @@ function branchAwareOverwriteRiskExplanation(doctrineClass, resource) {
 const APPROVED_CONCEALED_CONFLICT_POST_CLOSE_FAILURE_MODE =
   "The shared operating environment can make post-close alignment look stronger than it is. The main failure mode is delayed control friction: duplicated authority, routine overwrite, or unclear preservation choices become visible only after integration decisions begin.";
 
-function branchAwarePostCloseFailureMode(doctrineClass, narrative) {
+function branchAwarePostCloseFailureMode(doctrineClass, narrative, isHomogeneous = false) {
+  if (isHomogeneous) {
+    // Governed Screen 10b Block 4 copy (ST_UI_Track_Coder_Agent_Specification_v1.xlsx).
+    return publicFrictionText(
+      "What this analysis cannot tell you — and what determines whether the integration succeeds at the leadership level — is the depth of the hierarchy on each side and the type-level distribution within that hierarchy."
+    );
+  }
   if (doctrineClass === "concealed_conflict") {
     return APPROVED_CONCEALED_CONFLICT_POST_CLOSE_FAILURE_MODE;
   }
@@ -588,6 +601,33 @@ function hasUsableAnchors(deliverable) {
   const anchors = deliverable?.anchors ?? [];
   return anchors.length >= 3 && anchors.slice(0, 3).every((a) => a?.text && !isPendingFrictionText(a.text));
 }
+// One homogeneity identity (OD-RMP3-23): the renderer/report layer never re-detects
+// homogeneous status from alias text, display patterns, or code equality; it trusts the
+// explicit semantic mode propagated by the deliverable.
+function isHomogeneousDeliverable(deliverable) {
+  return deliverable?.pairMode === "homogeneous" || deliverable?.outcomeKey === "homogeneous";
+}
+
+function homogeneousCompatibilityExplanation(deliverable, compatibilityBand) {
+  const structural = deliverable?.structuralCompatibility;
+  const qualification = String(structural?.evidenceGate?.publicQualification ?? "").trim();
+  const base = `Structural compatibility is canonically derived (ECS = 100 × (1 − C / 34) over the 17 canonical resources) for the shared environment: ${compatibilityBand} (${structural?.canonicalScore}, ${structural?.canonicalRange} · ${structural?.canonicalBand}).`;
+  return qualification ? `${base} ${qualification}` : base;
+}
+
+function homogeneousDifferentiationSummary(deliverable) {
+  const differentiation = deliverable?.withinEnvironmentDifferentiation;
+  if (!differentiation) return null;
+  return Object.freeze({
+    mode: differentiation.mode,
+    status: differentiation.status,
+    summary: cleanString(differentiation.summary),
+    totalSharedDimensions: differentiation.totalSharedDimensions,
+    comparableCount: differentiation.comparableCount,
+    agreeCount: differentiation.agreeCount,
+    divergeCount: differentiation.divergeCount,
+  });
+}
 function homogeneousClaim(anchor, window) {
   const text = cleanString(anchor?.text);
   const firstSentence = text.split(/(?<=\.)\s/)[0] || text;
@@ -599,7 +639,7 @@ function homogeneousClaim(anchor, window) {
 }
 function buildPredictions(deliverable, doctrineClass) {
   if (!hasCanonicalFrictionContent(deliverable) && !hasUsableAnchors(deliverable)) return [];
-  const isHomogeneous = cleanString(deliverable?.acquirerAlias) === cleanString(deliverable?.targetAlias) && Boolean(cleanString(deliverable?.acquirerAlias));
+  const isHomogeneous = isHomogeneousDeliverable(deliverable);
   const anchors = (deliverable?.anchors ?? []).map((anchor) => (
     isPendingFrictionText(anchor?.text) ? null : anchor
   ));
@@ -638,6 +678,24 @@ function buildPredictions(deliverable, doctrineClass) {
   ];
 }
 function resourceRows(deliverable) {
+  if (isHomogeneousDeliverable(deliverable)) {
+    // Structural resource profile (OD-RMP3-7/16): canonical Net Effect × ERI tier for all
+    // 17 resources in canonical order. No contestation score, no probability, no IGN
+    // penalty, no numeric tier weight, no top-5 selection.
+    const structuralRows = deliverable?.structuralResourceProfile?.resources ?? [];
+    return structuralRows.map((row) => ({
+      resourceName: cleanString(row.resource),
+      resourceCategory: cleanString(row.resourceTypeLabel ?? row.resourceType),
+      conflictIntensity: null,
+      conflictBand: "",
+      direction: cleanString(row.canonicalEffectLabel),
+      sharedStateClass: cleanString(row.sharedStateClass),
+      sharedStateLabel: cleanString(row.sharedStateLabel),
+      eriTier: cleanString(row.eriTier),
+      explanation: HOMOGENEOUS_STRUCTURAL_RESOURCE_QUALIFIER,
+    }));
+  }
+
   const profile = deliverable?.resourceConflictProfile;
   const candidateRows = profile?.highProbabilityConflicts?.length ? profile.highProbabilityConflicts : profile?.allResources ?? [];
   const rows = [
@@ -695,6 +753,37 @@ function timelinePhases(deliverable) {
 }
 
 function recommendedActions(deliverable, doctrineClass) {
+  if (isHomogeneousDeliverable(deliverable)) {
+    // Homogeneous next step is the governed Screen 10b Block 6 basis (OD-RMP3-11/21):
+    // Hierarchy Depth & Type Distribution Assessment. No unsourced per-resource
+    // Protect-X controls are generated for homogeneous reports.
+    const nextStep = deliverable?.nextStep;
+    const alias = cleanString(deliverable?.acquirerAlias);
+    const actions = [
+      {
+        actionTitle: `Run the ${nextStep?.name || "Hierarchy Depth & Type Distribution Assessment"}`,
+        actionTiming: "Next step",
+        actionOwner: "Deal sponsor",
+        actionReason: publicFrictionText(
+          `Two ${alias} organisations may share an operating logic and still produce a leadership clash if their internal type distributions differ markedly.`
+        ),
+        actionExpectedEffect: cleanString(nextStep?.description),
+      },
+      {
+        actionTitle: "Run the Day 60 early-checkpoint review",
+        actionTiming: TIMING_LOGIC.verificationDeadline,
+        actionOwner: "Deal sponsor",
+        actionReason: "The preview claim should not drift into an untested integration assumption.",
+        actionExpectedEffect: "Creates a clear decision point for escalation, revision, or closure.",
+      },
+    ];
+    return actions.map((action) => ({
+      ...action,
+      actionReason: publicFrictionText(action.actionReason),
+      actionExpectedEffect: publicFrictionText(action.actionExpectedEffect),
+    }));
+  }
+
   const resource = resourceRows(deliverable)[0];
   const pairCopy = safeApprovedPairCopy(deliverable);
   const dealInsights = cleanArray(
@@ -738,6 +827,11 @@ function recommendedActions(deliverable, doctrineClass) {
 }
 
 function firstIntegrationControlMove(deliverable) {
+  if (isHomogeneousDeliverable(deliverable)) {
+    const nextStep = deliverable?.nextStep;
+    return cleanString(`Next step: ${nextStep?.name || "Hierarchy Depth & Type Distribution Assessment"} — ${nextStep?.description || ""}`);
+  }
+
   const resources = resourceRows(deliverable)
     .map((row) => row.resourceName)
     .filter(Boolean)
@@ -790,18 +884,20 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
   const friction = deliverable?.friction ?? {};
   const resources = resourceRows(deliverable);
   const pairCopy = safeApprovedPairCopy(deliverable);
-  const pairSourceClass = deliverable?.screen === "screen-10b" || deliverable?.outcomeKey === "homogeneous" || (deliverable?.acquirerEnvironmentCode && deliverable.acquirerEnvironmentCode === deliverable?.targetEnvironmentCode)
+  const isHomogeneous = isHomogeneousDeliverable(deliverable);
+  // One homogeneity identity (OD-RMP3-23): explicit upstream semantic mode only.
+  const pairSourceClass = isHomogeneous
     ? "homogeneous"
     : deliverable?.screen === "screen-10"
       ? "heterogeneous"
       : "incomplete";
   const doctrineClass = pairSourceClass === "homogeneous"
-    ? "concealed_conflict"
+    ? HOMOGENEOUS_DOCTRINE_CLASS
     : pairSourceClass === "heterogeneous" && Number.isFinite(compatibilityScore)
       ? (compatibilityScore >= 80 ? "concealed_conflict" : "collision")
       : "low_information";
   const copyDoctrineClass = pairSourceClass === "homogeneous"
-    ? "concealed_conflict"
+    ? HOMOGENEOUS_DOCTRINE_CLASS
     : pairSourceClass === "heterogeneous"
       ? "collision"
       : "low_information";
@@ -824,6 +920,7 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
     finalDeliverableScreen: cleanString(deliverable?.screen),
     finalDeliverableRoute: cleanString(deliverable?.route),
     finalDeliverableOutcomeKey: cleanString(deliverable?.outcomeKey),
+    ...(isHomogeneous ? { pairMode: cleanString(deliverable?.pairMode) } : {}),
     acquirerEnvironmentCode: cleanString(deliverable?.acquirerEnvironmentCode),
     targetEnvironmentCode: cleanString(deliverable?.targetEnvironmentCode),
     ecsSource: Number.isFinite(Number(deliverable?.compatibilityScore)) ? Number(deliverable.compatibilityScore) : null,
@@ -832,10 +929,12 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
     narrativeSource: Object.keys(narrative).length ? "deliverable.narrative" : "",
     frictionSource: Object.keys(friction).length ? "deliverable.friction" : "",
     resourceProfileSource: Object.freeze({
-      source: "deliverable.resourceConflictProfile",
-      resourcesScanned: Number(deliverable?.resourceConflictProfile?.resourcesScanned) || resources.length,
-      }),
-      consistencyLog,
+      source: isHomogeneous ? "deliverable.structuralResourceProfile" : "deliverable.resourceConflictProfile",
+      resourcesScanned: isHomogeneous
+        ? Number(deliverable?.structuralResourceProfile?.resourceCount) || resources.length
+        : Number(deliverable?.resourceConflictProfile?.resourcesScanned) || resources.length,
+    }),
+    consistencyLog,
   });
   const leadResource = resources[0]?.resourceName ?? "operating system";
   const dealEconomicsReport = buildDealEconomicsReport(session, {
@@ -904,7 +1003,9 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
       headline: cleanString(narrative.headline ?? deliverable?.headline ?? "Post-close behavior risk preview"),
       oneParagraphSummary: cleanString(narrative.situation ?? deliverable?.body ?? "This brief summarizes the most likely post-close behavior friction visible from the current diagnostic inputs."),
       decisionImplication: publicFrictionText(narrative.implication ?? "Use this brief to decide what must be observed before the integration plan hardens."),
-      mainRisk: publicFrictionText(!isPendingFrictionText(friction.fp1) ? friction.fp1 : `${leadResource} may become the first visible post-close friction point.`),
+      mainRisk: isHomogeneous
+        ? publicFrictionText(fallbackPredictionText(deliverable))
+        : publicFrictionText(!isPendingFrictionText(friction.fp1) ? friction.fp1 : `${leadResource} may become the first visible post-close friction point.`),
       recommendedAction: firstIntegrationControlMove(deliverable),
     },
     sealedPredictions: {
@@ -920,7 +1021,12 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
       dataQuality: scoreQualityLabel(session),
       compatibilityScore,
       compatibilityBand,
-      compatibilityExplanation: `${compatibilityBand} compatibility based on the current environment-pair score.`,
+      compatibilityExplanation: isHomogeneous
+        ? homogeneousCompatibilityExplanation(deliverable, compatibilityBand)
+        : `${compatibilityBand} compatibility based on the current environment-pair score.`,
+      ...(isHomogeneous
+        ? { withinEnvironmentDifferentiation: homogeneousDifferentiationSummary(deliverable) }
+        : {}),
     },
     theTwoEnvironments: {
       acquirerEnvironmentName: cleanString(deliverable?.acquirerAlias ?? acquirerEnvironment?.alias),
@@ -945,16 +1051,38 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
       targetSystemicRole: cleanString(targetEnvironment?.systemicRole),
     },
     collisionThesis: {
-      collisionHeadline: cleanString(narrative.headline ?? "Operating systems may collide after close"),
+      collisionHeadline: cleanString(narrative.headline ?? deliverable?.headline ?? "Operating systems may collide after close"),
       coreMismatch: pairCopy?.coreMismatch ?? "",
-      collisionSummary: publicFrictionText(!isPendingFrictionText(friction.fp1) ? (friction.fp1 ?? narrative.situation) : (narrative.situation ?? "The collision thesis is based on the current environment-pair result.")),
-      primaryTension: pairCopy?.conflictSummary ?? cleanString(!isPendingFrictionText(friction.primaryConflictedResources) ? (friction.primaryConflictedResources ?? `${leadResource} is the primary tension to monitor.`) : `${leadResource} is the primary tension to monitor.`),
-      whyItMatters: publicFrictionText(narrative.implication ?? "The risk matters because early operating assumptions can become permanent integration defaults."), 
-      postCloseFailureMode: branchAwarePostCloseFailureMode(copyDoctrineClass, narrative),
+      collisionSummary: isHomogeneous
+        ? publicFrictionText("This pair is structurally low-friction at the environment level — the operating logic is shared. The risk shifts from cultural collision to internal hierarchy and individual differentiation.")
+        : publicFrictionText(!isPendingFrictionText(friction.fp1) ? (friction.fp1 ?? narrative.situation) : (narrative.situation ?? "The collision thesis is based on the current environment-pair result.")),
+      primaryTension: isHomogeneous
+        ? cleanString(homogeneousDifferentiationSummary(deliverable)?.summary ?? HOMOGENEOUS_STRUCTURAL_RESOURCE_QUALIFIER)
+        : pairCopy?.conflictSummary ?? cleanString(!isPendingFrictionText(friction.primaryConflictedResources) ? (friction.primaryConflictedResources ?? `${leadResource} is the primary tension to monitor.`) : `${leadResource} is the primary tension to monitor.`),
+      whyItMatters: isHomogeneous
+        ? publicFrictionText(`Two ${cleanString(deliverable?.acquirerAlias)} organisations may share an operating logic and still produce a leadership clash if their internal type distributions differ markedly.`)
+        : publicFrictionText(narrative.implication ?? "The risk matters because early operating assumptions can become permanent integration defaults."),
+      postCloseFailureMode: branchAwarePostCloseFailureMode(copyDoctrineClass, narrative, isHomogeneous),
     },
     resourceConflictMap: {
-      overwriteRiskExplanation: branchAwareOverwriteRiskExplanation(copyDoctrineClass),
+      overwriteRiskExplanation: branchAwareOverwriteRiskExplanation(copyDoctrineClass, undefined, isHomogeneous),
       resources,
+      ...(isHomogeneous
+        ? {
+          structuralCaveats: Object.freeze([
+            ...(deliverable?.structuralResourceProfile?.alignedSuppression?.applies
+              ? [cleanString(deliverable.structuralResourceProfile.alignedSuppression.caveat)]
+              : []),
+            ...(deliverable?.structuralResourceProfile?.b25Guardrail?.applies
+              ? [cleanString(deliverable.structuralResourceProfile.b25Guardrail.note)]
+              : []),
+          ]),
+          guardrails: Object.freeze({
+            b25: freezePlainObject(deliverable?.structuralResourceProfile?.b25Guardrail),
+            alignedSuppression: freezePlainObject(deliverable?.structuralResourceProfile?.alignedSuppression),
+          }),
+        }
+        : {}),
     },
     timelineOfExpectedFriction: {
       timingLogic: { ...TIMING_LOGIC },
@@ -1041,6 +1169,17 @@ function resourceLines(resource, index) {
   ];
 }
 
+// Homogeneous reports render structural resource state, never contestation intensity.
+function structuralResourceLines(resource, index) {
+  return [
+    `Resource ${index + 1}: ${resource.resourceName}`,
+    line("Category", resource.resourceCategory),
+    line("Shared structural state", resource.sharedStateLabel),
+    line("Canonical direction", resource.direction),
+    line("ERI tier", resource.eriTier),
+  ];
+}
+
 function phaseLines(phase, index) {
   return [
     `Phase ${index + 1}: ${phase.phaseName}`,
@@ -1080,6 +1219,7 @@ export function buildMergevuePublicReportPdfTextModel(report) {
   const evidence = report.evidenceBasisAndLimits;
   const engagement = report.whatTheFullEngagementAdds;
   const footer = report.auditFooter;
+  const isHomogeneous = report.metadata?.pairSourceClass === "homogeneous";
 
   return Object.freeze({
     fileName: MERGEVUE_PUBLIC_REPORT_PDF_FILE_NAME,
@@ -1113,6 +1253,9 @@ export function buildMergevuePublicReportPdfTextModel(report) {
         line("Compatibility score", scenario.compatibilityScore),
         line("Compatibility band", scenario.compatibilityBand),
         line("Compatibility explanation", scenario.compatibilityExplanation),
+        ...(scenario.withinEnvironmentDifferentiation
+          ? [line("Within-environment structural differentiation", scenario.withinEnvironmentDifferentiation.summary)]
+          : []),
       ]),
       pdfSection(MERGEVUE_PUBLIC_REPORT_BLOCKS[3], [
         line("Acquirer environment", environments.acquirerEnvironmentName),
@@ -1131,9 +1274,10 @@ export function buildMergevuePublicReportPdfTextModel(report) {
         line("Why it matters", collision.whyItMatters),
         line("Post-close failure mode", collision.postCloseFailureMode),
       ]),
-      pdfSection(MERGEVUE_PUBLIC_REPORT_BLOCKS[5], [
+      pdfSection(isHomogeneous ? "Structural Resource Profile" : MERGEVUE_PUBLIC_REPORT_BLOCKS[5], [
         resourceMap.overwriteRiskExplanation,
-        ...resourceMap.resources.flatMap(resourceLines),
+        ...(isHomogeneous ? (resourceMap.structuralCaveats ?? []) : []),
+        ...resourceMap.resources.flatMap(isHomogeneous ? structuralResourceLines : resourceLines),
       ]),
       pdfSection(MERGEVUE_PUBLIC_REPORT_BLOCKS[6], [
         line("Signal setup", timeline.timingLogic.signalSetup),

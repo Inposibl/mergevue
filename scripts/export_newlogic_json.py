@@ -1074,6 +1074,12 @@ def parse_scoring_and_triage(questionnaires):
                 block="classificationPrecedence",
                 stop_on_row_discontinuity=True,
             ),
+            "crossSideStructuralDifferentiation": table_records(
+                dual,
+                "13_Cross_Side_Structural_Diff",
+                "Field",
+                block="crossSideStructuralDifferentiation",
+            ),
         }
         dual_artifact["answerSemanticBindings"] = build_answer_semantic_bindings(
             dual,

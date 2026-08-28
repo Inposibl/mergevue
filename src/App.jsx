@@ -4613,6 +4613,54 @@ function hasUnverifiedWeakAcquirerSignal(session) {
   return requiresAcquirerVerification(session) && !isAcquirerVerificationComplete(session);
 }
 
+/* RMP3_SCREEN_9A_MODEL_START */
+function buildScreen9aResourcePanelModel(deliverable) {
+  if (!deliverable?.ready) {
+    return Object.freeze({ status: "incomplete", mode: "incomplete" });
+  }
+  if (deliverable?.pairMode === "homogeneous" || deliverable?.outcomeKey === "homogeneous") {
+    const profile = deliverable.structuralResourceProfile;
+    const structural = deliverable.structuralCompatibility;
+    const differentiation = deliverable.withinEnvironmentDifferentiation;
+    const nextStep = deliverable.nextStep;
+    return Object.freeze({
+      status: "ready",
+      mode: "homogeneous",
+      title: "Structural Resource Profile",
+      scoreLabel: structural?.canonicalRange || deliverable.compatibilityRange,
+      bandLabel: structural?.canonicalBand || deliverable.riskBand,
+      qualification: structural?.evidenceGate?.publicQualification || "",
+      qualifier: "Shared structural state; this is not a pairwise resource-conflict score.",
+      resources: Object.freeze((profile?.resources ?? []).map((row) => Object.freeze({
+        resource: row.resource,
+        resourceTypeLabel: row.resourceTypeLabel,
+        canonicalEffectLabel: row.canonicalEffectLabel,
+        eriTier: row.eriTier,
+        sharedStateLabel: row.sharedStateLabel,
+      }))),
+      caveats: Object.freeze([
+        profile?.alignedSuppression?.applies ? profile.alignedSuppression.caveat : "",
+        profile?.b25Guardrail?.applies ? profile.b25Guardrail.note : "",
+      ].filter(Boolean)),
+      nextStepName: nextStep?.name || "",
+      nextStepDescription: nextStep?.description || "",
+      differentiationSummary: differentiation?.status === "available" ? (differentiation.summary || "") : "",
+      differentiationStatus: differentiation?.status || "",
+    });
+  }
+  const resourceConflictProfile = deliverable.resourceConflictProfile;
+  return Object.freeze({
+    status: "ready",
+    mode: "heterogeneous",
+    title: "Resource Hierarchy Output",
+    scoreLabel: deliverable.compatibilityScore ?? deliverable.compatibilityRange,
+    hasProfile: Boolean(resourceConflictProfile),
+    highConflictRows: Object.freeze((resourceConflictProfile?.highProbabilityConflicts ?? []).slice(0, 4)),
+    conclusion: Object.freeze([...(resourceConflictProfile?.conclusion ?? [])]),
+  });
+}
+/* RMP3_SCREEN_9A_MODEL_END */
+
 function PreliminaryAssessmentReport({ session }) {
   const dealContext = session.dealContext?.data ?? {};
   const acquirer = session.acquirer2A;
@@ -4658,8 +4706,7 @@ function PreliminaryAssessmentReport({ session }) {
   const nextStepText = targetSelfReady
     ? "Target Self-Assessment is complete. Review final deliverables and paid implementation options."
     : "Target Self-Assessment is not complete. Send the target respondent link and digital code below, then review the final report after submission.";
-  const resourceConflictProfile = deliverable.resourceConflictProfile;
-  const highConflictRows = (resourceConflictProfile?.highProbabilityConflicts ?? []).slice(0, 4);
+  const resourcePanel = buildScreen9aResourcePanelModel(deliverable);
   const contradictionReport = buildContradictionReportForSession(session);
   const contradictionFindings = contradictionReport.findings.slice(0, 6);
   const contradictionSummary = contradictionReport.summary;
@@ -4675,22 +4722,54 @@ function PreliminaryAssessmentReport({ session }) {
       {deliverable.ready ? (
         <section className="prelim-section prelim-ecs-output">
           <div className="prelim-section-title">
-            <h3>Resource Hierarchy Output</h3>
-            <span>ECS {deliverable.compatibilityScore ?? deliverable.compatibilityRange}</span>
+            <h3>{resourcePanel.title}</h3>
+            <span>{resourcePanel.mode === "homogeneous" ? `${resourcePanel.scoreLabel} · ${resourcePanel.bandLabel}` : `ECS ${resourcePanel.scoreLabel}`}</span>
           </div>
-          {resourceConflictProfile ? (
+          {resourcePanel.mode === "homogeneous" ? (
+            <div className="resource-conflict-panel">
+              <div className="resource-conflict-summary">
+                <strong>Structural Resource Profile</strong>
+                <p>{resourcePanel.qualifier}</p>
+                {resourcePanel.qualification ? <p>{resourcePanel.qualification}</p> : null}
+                {resourcePanel.differentiationSummary ? <p>{resourcePanel.differentiationSummary}</p> : null}
+              </div>
+              <div className="resource-conflict-table" role="table" aria-label="Structural resource profile">
+                <div className="resource-conflict-row resource-conflict-head" role="row">
+                  <span role="columnheader">Resource type</span>
+                  <span role="columnheader">Shared structural state</span>
+                </div>
+                {resourcePanel.resources.map((row) => (
+                  <div className="resource-conflict-row" role="row" key={row.resource}>
+                    <div role="cell">
+                      <strong>{row.resource}</strong>
+                      <small>{row.resourceTypeLabel}</small>
+                    </div>
+                    <p role="cell">{row.sharedStateLabel}; {row.canonicalEffectLabel}; ERI {row.eriTier}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="resource-analysis-conclusion" aria-label="Structural resource caveats">
+                {resourcePanel.caveats.map((caveat) => (
+                  <p key={caveat}>{publicText(caveat)}</p>
+                ))}
+                {resourcePanel.nextStepName ? (
+                  <p>Recommended next step: {resourcePanel.nextStepName}{resourcePanel.nextStepDescription ? ` — ${resourcePanel.nextStepDescription}` : ""}</p>
+                ) : null}
+              </div>
+            </div>
+          ) : resourcePanel.hasProfile ? (
             <div className="resource-conflict-panel">
               <div className="resource-conflict-summary">
                 <strong>High-probability resource conflict types</strong>
                 <p>When a resource appears in this conflict zone, it marks a resource that is likely to create operational friction after close unless it is explicitly protected, governed, or sequenced during integration.</p>
               </div>
-              {highConflictRows.length > 0 ? (
+              {resourcePanel.highConflictRows.length > 0 ? (
                 <div className="resource-conflict-table" role="table" aria-label="High-probability resource conflicts">
                   <div className="resource-conflict-row resource-conflict-head" role="row">
                     <span role="columnheader">Resource type</span>
                     <span role="columnheader">Potential risks</span>
                   </div>
-                  {highConflictRows.map((row) => (
+                  {resourcePanel.highConflictRows.map((row) => (
                     <div className="resource-conflict-row" role="row" key={row.resource}>
                       <div role="cell">
                         <strong>{row.resource}</strong>
@@ -4705,7 +4784,7 @@ function PreliminaryAssessmentReport({ session }) {
               )}
               <div className="resource-analysis-conclusion" aria-label="Resource analysis conclusion">
                 <strong>Verified conclusion</strong>
-                {(resourceConflictProfile.conclusion ?? []).map((sentence) => (
+                {(resourcePanel.conclusion ?? []).map((sentence) => (
                   <p key={sentence}>{publicText(sentence)}</p>
                 ))}
               </div>
@@ -5995,6 +6074,8 @@ function ForecastLedPublicReport({ report }) {
   const evidence = report.evidenceBasisAndLimits;
   const engagement = report.whatTheFullEngagementAdds;
   const footer = report.auditFooter;
+  // One homogeneity identity (OD-RMP3-23): explicit model semantics, not alias/pattern re-detection.
+  const isHomogeneous = report.metadata?.pairSourceClass === "homogeneous";
 
   return (
     <div className="forecast-report-document" style={FORECAST_REPORT_STYLES.document}>
@@ -6047,6 +6128,9 @@ function ForecastLedPublicReport({ report }) {
           ["Compatibility score", scoreDisplayValue(scenario.compatibilityScore)],
           ["Compatibility band", scenario.compatibilityBand],
           ["Explanation", scenario.compatibilityExplanation],
+          ...(scenario.withinEnvironmentDifferentiation
+            ? [["Within-environment structural differentiation", scenario.withinEnvironmentDifferentiation.summary]]
+            : []),
         ]} />
       </ForecastReportSection>
 
@@ -6075,10 +6159,22 @@ function ForecastLedPublicReport({ report }) {
         <p><strong>Post-close failure mode:</strong> {collision.postCloseFailureMode}</p>
       </ForecastReportSection>
 
-      <ForecastReportSection number={nextSectionNumber()} title={MERGEVUE_PUBLIC_REPORT_BLOCKS[5]}>
+      <ForecastReportSection number={nextSectionNumber()} title={isHomogeneous ? "Structural Resource Profile" : MERGEVUE_PUBLIC_REPORT_BLOCKS[5]}>
         <p>{resourceMap.overwriteRiskExplanation}</p>
+        {(isHomogeneous ? (resourceMap.structuralCaveats ?? []) : []).map((caveat) => (
+          <p key={caveat}><strong>Canonical caveat.</strong> {caveat}</p>
+        ))}
         <div className="client-output-stack">
-          {resourceMap.resources.map((resource) => (
+          {resourceMap.resources.map((resource) => (isHomogeneous ? (
+            <article key={resource.resourceName}>
+              <strong>{resource.resourceName}</strong>
+              <p><strong>Category:</strong> {resource.resourceCategory}</p>
+              <p><strong>Shared structural state:</strong> {resource.sharedStateLabel}</p>
+              <p><strong>Canonical direction:</strong> {resource.direction}</p>
+              <p><strong>ERI tier:</strong> {resource.eriTier}</p>
+              <p>{resource.explanation}</p>
+            </article>
+          ) : (
             <article key={`${resource.resourceName}-${resource.conflictBand}`}>
               <strong>{resource.resourceName}</strong>
               <p><strong>Category:</strong> {resource.resourceCategory}</p>
@@ -6087,7 +6183,7 @@ function ForecastLedPublicReport({ report }) {
               <p><strong>Direction:</strong> {resource.direction}</p>
               <p>{resource.explanation}</p>
             </article>
-          ))}
+          )))}
         </div>
       </ForecastReportSection>
 
@@ -6653,7 +6749,8 @@ function buildPreliminaryAssessmentReportLines(lines, seen, session, deliverable
   const observationScore = session?.targetObservation?.score;
   const targetCurrentScore = session?.target2B?.finalScore;
   const targetSelfScore = session?.targetSelfAssessment?.score;
-  const resourceRows = deliverable.resourceConflictProfile?.highProbabilityConflicts?.slice(0, 4) ?? [];
+  const resourcePanel = buildScreen9aResourcePanelModel(deliverable);
+  const resourceRows = resourcePanel.mode === "homogeneous" ? [] : (resourcePanel.highConflictRows ?? []);
   const contradictionReport = buildContradictionReportForSession(session);
   const contradictionFindings = contradictionReport.findings.slice(0, 6);
   const triageReport = buildTriageReportForSession(session);
@@ -6759,20 +6856,46 @@ function buildPreliminaryAssessmentReportLines(lines, seen, session, deliverable
     `${risk.riskCategory}: ${risk.severity} severity, confidence ${risk.confidence}, score ${risk.score}/100. ${risk.divergenceSummary} Evidence: ${risk.evidenceSummary}`
   )));
 
-  if (resourceRows.length > 0) {
-    addReportLine(lines, seen, "Primary Resource Risks", { size: 12, after: 3, unique: false });
-    addReportLine(lines, seen, `Primary resource-risk cluster: ${listPublicResourceNames(resourceRows)}.`, { size: 10, after: 4 });
-  }
+  if (resourcePanel.mode === "homogeneous") {
+    addReportLine(lines, seen, "Structural Resource Profile", { size: 12, after: 3, unique: false });
+    addReportLine(lines, seen, resourcePanel.qualifier, { size: 10, after: 4 });
+    addReportBullets(lines, seen, resourcePanel.resources.map((row) => (
+      `${row.resource}: ${row.sharedStateLabel}; ${row.canonicalEffectLabel}; ERI ${row.eriTier}`
+    )));
+    for (const caveat of resourcePanel.caveats) {
+      addReportLine(lines, seen, caveat, { size: 10, after: 4 });
+    }
+    if (resourcePanel.nextStepName) {
+      addReportLine(
+        lines,
+        seen,
+        `Recommended next step: ${resourcePanel.nextStepName}${resourcePanel.nextStepDescription ? ` — ${resourcePanel.nextStepDescription}` : ""}.`,
+        { size: 10, after: 4 },
+      );
+    }
+    addReportLine(lines, seen, "Preliminary Conclusion", { size: 12, after: 3, unique: false });
+    addReportLine(
+      lines,
+      seen,
+      "The preliminary homogeneous read uses shared structural resource state, not a pairwise resource-conflict score.",
+      { size: 10, after: 3 },
+    );
+  } else {
+    if (resourceRows.length > 0) {
+      addReportLine(lines, seen, "Primary Resource Risks", { size: 12, after: 3, unique: false });
+      addReportLine(lines, seen, `Primary resource-risk cluster: ${listPublicResourceNames(resourceRows)}.`, { size: 10, after: 4 });
+    }
 
-  addReportLine(lines, seen, "Preliminary Conclusion", { size: 12, after: 3, unique: false });
-  addReportLine(
-    lines,
-    seen,
-    resourceRows.length > 0
-      ? `The preliminary read indicates that integration risk is concentrated in ${listPublicResourceNames(resourceRows)}, rather than spread evenly across the entire deal relationship.`
-      : "The preliminary read does not indicate a concentrated resource-risk cluster at the environment level.",
-    { size: 10, after: 3 },
-  );
+    addReportLine(lines, seen, "Preliminary Conclusion", { size: 12, after: 3, unique: false });
+    addReportLine(
+      lines,
+      seen,
+      resourceRows.length > 0
+        ? `The preliminary read indicates that integration risk is concentrated in ${listPublicResourceNames(resourceRows)}, rather than spread evenly across the entire deal relationship.`
+        : "The preliminary read does not indicate a concentrated resource-risk cluster at the environment level.",
+      { size: 10, after: 3 },
+    );
+  }
 }
 
 function listPublicResourceNames(rows) {

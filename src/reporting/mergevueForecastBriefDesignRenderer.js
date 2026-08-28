@@ -290,6 +290,34 @@ function archiveResourceGroups(resources = []) {
     })));
 }
 
+// Homogeneous structural resource profile (OD-RMP3-7/16/24): categorical shared-state
+// grouping of all 17 canonical resources in canonical order. No contestation intensity,
+// no numeric bars, no ranking claim, no asset/strength interpretation.
+function structuralResourceGroups(resources = []) {
+  const classOrder = [
+    { key: "shared_amplified_structural_state", label: "Shared amplified structural state" },
+    { key: "shared_neutral_structural_state", label: "Shared neutral structural state" },
+    { key: "shared_suppressed_structural_state", label: "Shared suppressed structural state" },
+  ];
+  const rows = resources.map((resource) => Object.freeze({
+    label: cleanText(resource.resourceName),
+    category: cleanText(resource.resourceCategory),
+    direction: publicResourceDirection(resource.direction),
+    explanation: cleanText(resource.explanation),
+    sharedStateClass: cleanText(resource.sharedStateClass),
+    sharedStateLabel: cleanText(resource.sharedStateLabel) || "Shared structural state",
+    eriTier: cleanText(resource.eriTier),
+  }));
+  return Object.freeze(classOrder
+    .map((entry) => Object.freeze({
+      band: entry.key,
+      label: entry.label,
+      rows: Object.freeze(rows.filter((row) => row.sharedStateClass === entry.key)),
+    }))
+    .filter((group) => group.rows.length)
+    .map((group) => Object.freeze({ ...group, count: group.rows.length })));
+}
+
 function actionForPrediction(actions, index) {
   const allActions = [...(actions.beforeClose ?? []), ...(actions.afterClose ?? [])];
   const timingText = (action) => cleanText(action?.actionTiming).toLowerCase();
@@ -506,11 +534,16 @@ export function buildMergevueForecastBriefDesignModel(report, options = {}) {
   const evidence = report.evidenceBasisAndLimits;
   const engagement = report.whatTheFullEngagementAdds;
   const audit = report.auditFooter;
+  // One homogeneity identity (OD-RMP3-23): the renderer trusts the explicit semantic
+  // mode from the report model; it never re-detects homogeneous status from labels.
+  const isHomogeneous = report?.metadata?.pairSourceClass === "homogeneous";
   const score = Number(scenario.compatibilityScore);
   const scoreBandKey = forecastBriefScoreBand(score);
   const confidenceGate = confidenceGateLabel(evidence.dataQualityLevel || scenario.dataQuality);
   const actions = actionBuckets(report.recommendedActions);
-  const resourceGroups = archiveResourceGroups(resources.resources);
+  const resourceGroups = isHomogeneous
+    ? structuralResourceGroups(resources.resources)
+    : archiveResourceGroups(resources.resources);
   const predictionContext = { ...actions, resourceGroups };
   const predictions = Object.freeze(sealed.predictions.map((prediction, index) => predictionCard(prediction, index, predictionContext)));
   const includeAppendixSections = options.includeAppendixSections !== false;
@@ -520,7 +553,9 @@ export function buildMergevueForecastBriefDesignModel(report, options = {}) {
   const resourceList = Array.isArray(resources.resources) ? resources.resources : [];
   const averageResourceIntensity = averageScore(resourceList.map((resource) => resource.conflictIntensity ?? resource.intensity ?? 0));
   const compatibilityFriction = Number.isFinite(score) ? 100 - score : averageResourceIntensity;
-  const economicCategories = [
+  // Homogeneous reports carry no pairwise contestation intensities, so the derived
+  // numeric exposure categories are omitted rather than computed from absent inputs.
+  const economicCategories = isHomogeneous ? [] : [
     {
       label: "Operating drift",
       value: clampScore(0.55 * averageResourceIntensity + 0.45 * compatibilityFriction),
@@ -614,24 +649,50 @@ export function buildMergevueForecastBriefDesignModel(report, options = {}) {
       primaryTension: distinctText(collision.primaryTension, executive.mainRisk),
       whyItMatters: distinctText(collision.whyItMatters, executive.decisionImplication),
       postCloseFailureMode: collision.postCloseFailureMode,
+      ...(isHomogeneous
+        ? {
+          differentiation: scenario.withinEnvironmentDifferentiation ?? null,
+          nextStep: cleanText(executive.recommendedAction),
+        }
+        : {}),
     },
     {
       id: SECTION_IDS[5],
-      title: MERGEVUE_PUBLIC_REPORT_BLOCKS[5],
+      title: isHomogeneous ? "Structural Resource Profile" : MERGEVUE_PUBLIC_REPORT_BLOCKS[5],
       explanation: resources.overwriteRiskExplanation,
-      legend: ["High-risk | 70-100", "Moderate | 40-69", "Aligned | 0-39"],
+      ...(isHomogeneous
+        ? {
+          differentiation: scenario.withinEnvironmentDifferentiation ?? null,
+          caveats: Array.isArray(resources.structuralCaveats) ? resources.structuralCaveats : [],
+        }
+        : {}),
+      legend: isHomogeneous
+        ? ["Shared amplified structural state", "Shared neutral structural state", "Shared suppressed structural state"]
+        : ["High-risk | 70-100", "Moderate | 40-69", "Aligned | 0-39"],
       scanned: resources.resources.length,
-      scannedLabel: `${resources.resources.length} DISPLAYED EXPOSED RESOURCES`,
+      scannedLabel: isHomogeneous
+        ? `${resources.resources.length} CANONICAL RESOURCES · SHARED STRUCTURAL STATE`
+        : `${resources.resources.length} DISPLAYED EXPOSED RESOURCES`,
       groups: resourceGroups,
-      zones: resources.resources.map((resource, index) => Object.freeze({
-        id: `R${index + 1}`,
-        name: resource.resourceName,
-        category: resource.resourceCategory,
-        intensity: Number(resource.conflictIntensity) || 0,
-        band: resource.conflictBand,
-        direction: resource.direction,
-        explanation: resource.explanation,
-      })),
+      zones: isHomogeneous
+        ? resources.resources.map((resource, index) => Object.freeze({
+          id: `R${index + 1}`,
+          name: resource.resourceName,
+          category: resource.resourceCategory,
+          sharedStateLabel: cleanText(resource.sharedStateLabel) || "Shared structural state",
+          direction: resource.direction,
+          eriTier: resource.eriTier,
+          explanation: resource.explanation,
+        }))
+        : resources.resources.map((resource, index) => Object.freeze({
+          id: `R${index + 1}`,
+          name: resource.resourceName,
+          category: resource.resourceCategory,
+          intensity: Number(resource.conflictIntensity) || 0,
+          band: resource.conflictBand,
+          direction: resource.direction,
+          explanation: resource.explanation,
+        })),
     },
     {
       id: SECTION_IDS[6],
@@ -696,6 +757,7 @@ export function buildMergevueForecastBriefDesignModel(report, options = {}) {
 
   const model = {
     fileName: MERGEVUE_PUBLIC_REPORT_PDF_FILE_NAME,
+    ...(isHomogeneous ? { pairMode: "homogeneous" } : {}),
     sectionSet: includeAppendixSections ? "full-public-brief-with-appendix" : "core-public-brief",
     humanSignOffNote: "Section count may vary only when an approved appendix toggle is used; human sign-off is required before appendix sections are suppressed.",
     masthead: Object.freeze({
@@ -753,9 +815,13 @@ export function buildMergevueForecastBriefDesignModel(report, options = {}) {
       }),
     }),
     resourceConflictMap: Object.freeze({
-      legend: "Score = structural contestation intensity | 0 aligned -> 100 maximal conflict",
+      legend: isHomogeneous
+        ? "Shared structural state | canonical Net Effect \u00d7 ERI resource priority tier \u2014 not a pairwise resource-conflict score"
+        : "Score = structural contestation intensity | 0 aligned -> 100 maximal conflict",
       scanned: resources.resources.length,
-      scannedLabel: `${resources.resources.length} DISPLAYED EXPOSED RESOURCES`,
+      scannedLabel: isHomogeneous
+        ? `${resources.resources.length} CANONICAL RESOURCES \u00b7 SHARED STRUCTURAL STATE`
+        : `${resources.resources.length} DISPLAYED EXPOSED RESOURCES`,
       groups: resourceGroups,
     }),
     sealedPredictions: predictions,
@@ -1280,11 +1346,11 @@ function renderForecastBriefPages(model) {
 
   const pages = [
     renderReportPage(`${renderArchiveMasthead(model)}${renderArchiveExecutive(model)}`, "cover-page"),
-    environments ? renderReportPage(renderHtmlSection(environments, 1), "environments-page") : "",
+    environments ? renderReportPage(renderHtmlSection(environments, 1, { pairMode: model.pairMode }), "environments-page") : "",
     firstPredictions ? renderReportPage(renderHtmlSection(firstPredictions, 2), "page-preds predictions-page") : "",
-    renderReportPage(`${continuationPredictions ? renderPredictionContinuation(continuationPredictions, 2) : ""}${collision ? renderHtmlSection(collision, 3) : ""}`, "prediction-collision-page"),
-    resources ? renderReportPage(renderHtmlSection(resources, 4), "resources-page") : "",
-    economics ? renderReportPage(renderHtmlSection(economics, 5), "economic-page") : "",
+    renderReportPage(`${continuationPredictions ? renderPredictionContinuation(continuationPredictions, 2) : ""}${collision ? renderHtmlSection(collision, 3, { pairMode: model.pairMode }) : ""}`, "prediction-collision-page"),
+    resources ? renderReportPage(renderHtmlSection(resources, 4, { pairMode: model.pairMode }), "resources-page") : "",
+    economics ? renderReportPage(renderHtmlSection(economics, 5, { pairMode: model.pairMode }), "economic-page") : "",
     renderReportPage(`${evidence ? renderHtmlSection(evidence, 6) : ""}${engagement ? renderHtmlSection(engagement, 7) : ""}`, "page-tight evidence-page"),
   ];
 
@@ -1345,8 +1411,9 @@ function renderCoverHeadline(model) {
   const acquirerPattern = String(model?.forecast?.acquirer?.pattern ?? "").trim();
   const targetPattern = String(model?.forecast?.target?.pattern ?? "").trim();
   const possessive = (value) => /s$/i.test(value) ? `${value}'` : `${value}'s`;
-  if (acquirerPattern && targetPattern && acquirerPattern === targetPattern) {
-    return `${possessive(acquirerCompany)} ${acquirerPattern} operating logic is being combined with the same operating logic at ${targetCompany}. The risk may appear stable at first but can compound as integration pressure exposes hidden differences in authority, routines, and control expectations.`;
+  if (model?.pairMode === "homogeneous" && acquirerPattern && targetPattern) {
+    // Governed Screen 10b Block 2 copy (ST_UI_Track_Coder_Agent_Specification_v1.xlsx).
+    return `${possessive(acquirerCompany)} ${acquirerPattern} operating logic is being combined with the same operating logic at ${targetCompany}. This pair is structurally low-friction at the environment level — the operating logic is shared. The risk shifts from cultural collision to internal hierarchy and individual differentiation.`;
   }
   return `${possessive(acquirerCompany)} ${acquirerPattern || "identified"} operating logic is being combined with ${possessive(targetCompany)} ${targetPattern || "identified"} operating logic. The risk may appear stable at first but can compound as integration pressure increases.`;
 }
@@ -1365,14 +1432,19 @@ function renderCoverExecutiveSummary(model) {
   const band = cleanText(model?.compatibility?.bandLabel || "current compatibility band").toLowerCase();
   const acquirerPattern = cleanText(model?.forecast?.acquirer?.pattern || "the acquirer environment");
   const targetPattern = cleanText(model?.forecast?.target?.pattern || "the target environment");
-  const samePattern = acquirerPattern && targetPattern && acquirerPattern === targetPattern;
-  const summary = samePattern
-    ? `The result indicates ${band} because both organisations show the same operating environment. The executive risk is false confidence: integration may look aligned while authority duplication, routine overwrite, or control friction appears during the first 60 days.`
+  const isHomogeneous = model?.pairMode === "homogeneous";
+  const summary = isHomogeneous
+    ? `The result indicates ${band} because both organisations resolve to the same structural operating environment. Their structural compatibility score is canonically derived, and evidence quality may make this classification provisional. Same-environment classification does not mean identical answer patterns.`
     : `The result indicates ${band} across two different operating environments: ${acquirerPattern} and ${targetPattern}. The executive risk is translation failure: integration decisions may damage the routines, authority patterns, or trust mechanisms that currently protect deal value.`;
   return `<div class="cover-executive-summary"><div class="cover-executive-summary-title">Executive summary</div><p>${escapeHtml(summary)}</p></div>`;
 }
 
 function renderCoverControlMove(model) {
+  if (model?.pairMode === "homogeneous") {
+    // Governed homogeneous next step (Screen 10b Block 6). No unsourced per-resource
+    // controls and no alignment-asset language for the homogeneous branch.
+    return cleanText(model?.forecast?.recommendedAction);
+  }
   const groups = Array.isArray(model?.resourceConflictMap?.groups) ? model.resourceConflictMap.groups : [];
   const items = resourceSummaryItems({ groups });
   const watch = items.filter((resource) => resource.band === "high" || resource.band === "moderate").map((resource) => resource.name);
@@ -1442,11 +1514,40 @@ function renderResourceZones(section) {
   }).join("");
 }
 
+// Homogeneous structural resource profile rendering: categorical shared-state rows in
+// canonical order. No contestation bar, no numeric intensity — the value cell carries
+// the categorical ERI tier only (OD-RMP3-7/14/16/24).
+function renderStructuralResourceZones(section) {
+  return section.groups.filter((group) => group.count > 0).map((group) => {
+    const rows = group.rows.map((row) => `<div class="rbar"><span><span class="rn">${escapeHtml(row.label)}</span><div class="rd">${escapeHtml(row.category)} | ${escapeHtml(row.direction)}</div></span><span class="rv">${escapeHtml(row.eriTier)}</span></div>`).join("");
+    return `<div class="zone"><div class="zone-head"><span class="zone-name">${escapeHtml(group.label)}</span><span class="zone-count">${group.count} of ${escapeHtml(section.scannedLabel || `${section.scanned} CANONICAL RESOURCES`)}</span></div><div class="rbars">${rows}</div></div>`;
+  }).join("");
+}
+
+// Homogeneous structural summary: factual differentiation count and canonical caveats
+// only. No alignment-asset, blind-spot, or contestation narrative (OD-RMP3-5/9/17/18).
+function renderStructuralResourceSummary(section) {
+  const differentiation = section.differentiation;
+  const caveats = (Array.isArray(section.caveats) ? section.caveats : []).map(cleanText).filter(Boolean);
+  const summaryLine = differentiation
+    ? `Within-environment structural differentiation: ${cleanText(differentiation.summary)}.`
+    : "";
+  return `<div class="resource-summary"><h4>What this means in practice</h4>${summaryLine ? `<p>${escapeHtml(summaryLine)}</p>` : ""}${caveats.map((caveat) => `<p>${escapeHtml(caveat)}</p>`).join("")}</div>`;
+}
+
 function renderActionPanel(title, actions) {
   return `<div class="act"><h4>${escapeHtml(title)}</h4>${actions.map((action) => `<div class="act-item"><div class="act-title">${escapeHtml(action.actionTitle)}</div><div class="act-meta">${escapeHtml(action.actionTiming)} | ${escapeHtml(action.actionOwner)} | expected effect: ${escapeHtml(action.actionExpectedEffect)}</div><div class="act-reason">${escapeHtml(action.actionReason)}</div></div>`).join("")}</div>`;
 }
 
-function collisionFindingHumanText(section) {
+function collisionFindingHumanText(section, isHomogeneous = false) {
+  if (isHomogeneous) {
+    const differentiation = section?.differentiation;
+    if (differentiation?.status === "available") {
+      return cleanText(`Both organisations resolve to the same structural environment; ${differentiation.summary}.`);
+    }
+    return "Both organisations resolve to the same structural environment; comparable AEM/TSAM answer evidence is insufficient to state how many structural dimensions differ, so no within-environment differentiation count is issued.";
+  }
+
   const resources = Array.isArray(section.zones)
     ? section.zones.slice(0, 3).filter((resource) => cleanText(resource.name))
     : [];
@@ -1608,20 +1709,32 @@ function renderHtmlSection(section, number, context = {}) {
       const rows = [["Definition", env.oneLineDefinition || env.description], ["Authority", env.authorityStructure], ["Decision logic", env.behaviorPattern], ["Innovation stance", env.innovationStance], ["Economic function", env.economicFunction], ["Resource focus", env.resourceTarget], ["Systemic role", env.systemicRole]].filter(([, value]) => cleanText(value));
       return `<article class="env env-rich"><div class="role">${escapeHtml(role)}</div><div class="co">${escapeHtml(env.name)}</div><div class="arc">${escapeHtml(env.environment)}</div><p>${escapeHtml(env.description)}</p><div class="env-facts">${rows.map(([label, value]) => `<div class="env-fact"><span>${escapeHtml(label)}</span><p>${escapeHtml(value)}</p></div>`).join("")}</div></article>`;
     };
-    return `<section class="sec" id="environments" data-screen-label="Identified Environment Types">${sectionHead(number, section.title, (cleanText(section.acquirer && section.acquirer.environment) === cleanText(section.target && section.target.environment) && cleanText(section.acquirer && section.acquirer.environment)) ? "Convergent operating model" : ARCHIVE_SECTION_NOTES.environments)}<div class="envs">${renderEnvironmentCard("Acquirer", section.acquirer)}${renderEnvironmentCard("Target", section.target)}</div><div class="panel env-bridge"><strong>Core mismatch.</strong> ${escapeHtml(section.coreMismatch || ((cleanText(section.acquirer && section.acquirer.environment) === cleanText(section.target && section.target.environment) && cleanText(section.acquirer && section.acquirer.environment)) ? "With both sides operating as the same environment, there is no cross-environment mismatch: the pair is structurally low-friction at the environment level. The risk shifts from cultural collision to convergence itself — shared operating logic can make early alignment look settled while differences in hierarchy depth and authority distribution surface later." : "The core mismatch depends on the two identified operating environments."))}</div></section>`;
+    const isHomogeneous = context.pairMode === "homogeneous";
+    return `<section class="sec" id="environments" data-screen-label="Identified Environment Types">${sectionHead(number, section.title, isHomogeneous ? "Convergent operating model" : ARCHIVE_SECTION_NOTES.environments)}<div class="envs">${renderEnvironmentCard("Acquirer", section.acquirer)}${renderEnvironmentCard("Target", section.target)}</div><div class="panel env-bridge"><strong>Core mismatch.</strong> ${escapeHtml(section.coreMismatch || (isHomogeneous ? "With both sides operating as the same environment, there is no cross-environment mismatch: the pair is structurally low-friction at the environment level. The risk shifts from cultural collision to convergence itself — shared operating logic can make early alignment look settled while differences in hierarchy depth and authority distribution surface later." : "The core mismatch depends on the two identified operating environments."))}</div></section>`;
   }
   if (section.id === "collision") {
-    const humanFinding = collisionFindingHumanText(section);
-    const collisionRows = [
-      ["Core thesis", "The deal risk is premature translation of the target operating system into the acquirer's management language.", false],
-      ["What we found", humanFinding, false],
-      ["Why it matters", section.postCloseFailureMode || section.whyItMatters || section.summary, false],
-      ["What you can do", "Protect the affected operating resources first; delay irreversible integration changes until the Day 60 early-checkpoint review indicates which routines should be preserved, simplified, or integrated.", false],
-    ].filter(([, value]) => cleanText(value));
+    const isHomogeneous = context.pairMode === "homogeneous";
+    const humanFinding = collisionFindingHumanText(section, isHomogeneous);
+    const collisionRows = isHomogeneous
+      ? [
+        ["Core thesis", "Both organisations operate inside the same interaction environment: environment-level compatibility is high by construction, and the open question is hierarchy depth and type-level distribution within each side.", false],
+        ["What we found", humanFinding, false],
+        ["Why it matters", section.postCloseFailureMode || section.whyItMatters || section.summary, false],
+        ["What you can do", cleanText(section.nextStep) || "Run the Hierarchy Depth & Type Distribution Assessment.", false],
+      ].filter(([, value]) => cleanText(value))
+      : [
+        ["Core thesis", "The deal risk is premature translation of the target operating system into the acquirer's management language.", false],
+        ["What we found", humanFinding, false],
+        ["Why it matters", section.postCloseFailureMode || section.whyItMatters || section.summary, false],
+        ["What you can do", "Protect the affected operating resources first; delay irreversible integration changes until the Day 60 early-checkpoint review indicates which routines should be preserved, simplified, or integrated.", false],
+      ].filter(([, value]) => cleanText(value));
 
     return `<section class="sec" id="collision" data-screen-label="Collision Thesis">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.collision)}<div class="collide">${collisionRows.map(([label, value, isHtml]) => `<div class="collide-row"><div class="cl">${escapeHtml(label)}</div><div class="cr">${isHtml ? value : escapeHtml(value)}</div></div>`).join("")}</div></section>`;
   }
   if (section.id === "resources") {
+    if (context.pairMode === "homogeneous") {
+      return `<section class="sec" id="resources" data-screen-label="Structural Resource Profile">${sectionHead(number, section.title, `${section.scanned} canonical resources scanned`)}<p class="thresholds">${escapeHtml(section.explanation)}</p><div class="legend"><span class="lg">Shared structural state</span><span class="lg"><span class="sw"></span>Shared amplified structural state</span><span class="lg"><span class="sw"></span>Shared neutral structural state</span><span class="lg"><span class="sw"></span>Shared suppressed structural state</span><span class="anchor">Canonical Net Effect \u00d7 ERI tier</span></div>${renderStructuralResourceZones(section)}${renderStructuralResourceSummary(section)}</section>`;
+    }
     return `<section class="sec" id="resources" data-screen-label="Resource Map">${sectionHead(number, section.title, `${section.scanned} resources scanned`)}<p class="thresholds">${escapeHtml(section.explanation)}</p><div class="legend"><span class="lg">Legend</span><span class="lg"><span class="sw" style="background:var(--sig-risk)"></span>High-risk | 70-100</span><span class="lg"><span class="sw" style="background:var(--sig-mod)"></span>Moderate | 40-69</span><span class="lg"><span class="sw" style="background:var(--sig-high)"></span>Aligned | 0-39</span><span class="anchor">Score = structural contestation intensity</span></div>${renderResourceZones(section)}${renderResourceConflictSummary(section)}</section>`;
   }
   if (section.id === "timeline") {

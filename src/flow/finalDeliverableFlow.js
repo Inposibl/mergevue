@@ -1,6 +1,11 @@
 import { environmentAlias, publicSafeText } from "../constants/envAliases.ts";
 import { FINAL_DELIVERABLE_DATA } from "../data/finalDeliverableData.js";
 import {
+  ALIGNED_SUPPRESSION_ENVIRONMENTS,
+  ERI_B25_EXTRACTION_ENVIRONMENTS,
+  buildCrossSideStructuralDifferentiation,
+} from "./crossSideStructuralDifferentiation.js";
+import {
   LAYERED_EVIDENCE_SCORING_VERSION,
   classifyNormalizedSignal,
   normalizedCoPresence,
@@ -332,10 +337,159 @@ export function findFrictionPoint(acquirerEnvironmentCode, targetEnvironmentCode
 
 export function compatibilityRange(score) {
   if (!Number.isFinite(score)) return PENDING;
-  const low = Math.max(0, Math.round(score - 5));
-  const high = Math.min(100, Math.round(score + 5));
+  const low = Math.max(0, Math.round(score - COMPATIBILITY_RANGE_HALF_WIDTH));
+  const high = Math.min(100, Math.round(score + COMPATIBILITY_RANGE_HALF_WIDTH));
   return `${low}\u2013${high}`;
 }
+
+// GOVERNED PARAMETERS — canonical ECS derivation chain (OD-RMP3-1/2).
+// ST_ECS_Derivation_Method_v1.xlsx · Method: ECS = 100 × (1 − C / 34);
+// C = sum over the 17 canonical resources of pairwise conflict points between the two
+// environments' Net Effect values (2 = direct opposition + vs −; 1 = partial vs ~;
+// 0 = identical Net Effect, including ~/~, +/+, −/−). Denominator 34 = 17 resources × 2
+// maximum points. For a same-environment pair every Net Effect comparison is identical,
+// so C = 0 and ECS = 100 mechanically — no transaction literal is used.
+const CANONICAL_MAX_CONFLICT_POINTS_PER_RESOURCE = 2;
+const CANONICAL_ECS_MAX_CONFLICT_POINTS = RESOURCE_PRIORITY_MATRIX.length
+  * CANONICAL_MAX_CONFLICT_POINTS_PER_RESOURCE;
+
+// GOVERNED PARAMETER — compatibility display half-range. ST_UI_Track_Coder_Agent_
+// Specification_v1.xlsx · APPENDIX_B SCREEN_SPEC, Screen 10 source binding:
+// "Block 3: Friction_Point_Lookup → ECS_Matrix value ±5".
+const COMPATIBILITY_RANGE_HALF_WIDTH = 5;
+
+// Canonical risk-band legend, ST_ECS_v1_canonical.xlsx · Compatibility Matrix row 16 and
+// ST_Friction_Point_Lookup_updated.xlsx · ECS_Matrix row 2 (identical thresholds).
+export function canonicalRiskBand(score) {
+  if (!Number.isFinite(score)) return PENDING;
+  if (score >= 80) return "HIGH COMPATIBILITY";
+  if (score >= 65) return "MODERATE-HIGH";
+  if (score >= 50) return "MODERATE";
+  if (score >= 35) return "MODERATE-LOW";
+  return "HIGH RISK";
+}
+
+function canonicalConflictPointsForEffects(leftEffect, rightEffect) {
+  if (leftEffect === rightEffect) return 0;
+  if (leftEffect === "~" || rightEffect === "~") return 1;
+  return 2;
+}
+
+export function canonicalStructuralEcs(acquirerEnvironmentCode, targetEnvironmentCode) {
+  const acquirerCode = normalizeEnvironmentCode(acquirerEnvironmentCode);
+  const targetCode = normalizeEnvironmentCode(targetEnvironmentCode);
+  const perResource = [];
+  let conflictPoints = 0;
+  for (const resource of RESOURCE_PRIORITY_MATRIX) {
+    const acquirerImpact = parseResourceImpact(resource.impacts[acquirerCode], `${resource.resource}/${acquirerCode}`);
+    const targetImpact = parseResourceImpact(resource.impacts[targetCode], `${resource.resource}/${targetCode}`);
+    const points = canonicalConflictPointsForEffects(acquirerImpact.effect, targetImpact.effect);
+    conflictPoints += points;
+    perResource.push(Object.freeze({
+      resource: resource.resource,
+      acquirerNetEffect: acquirerImpact.effect,
+      targetNetEffect: targetImpact.effect,
+      conflictPoints: points,
+    }));
+  }
+  const ecs = Math.round(100 * (1 - conflictPoints / CANONICAL_ECS_MAX_CONFLICT_POINTS) * 10) / 10;
+  return Object.freeze({
+    formula: "ECS = 100 \u00d7 (1 \u2212 C / 34)",
+    conflictPoints,
+    maxConflictPoints: CANONICAL_ECS_MAX_CONFLICT_POINTS,
+    ecs,
+    perResource: Object.freeze(perResource),
+    source: "ST_ECS_Derivation_Method_v1.xlsx \u00b7 Net_Effect_Vectors/Method; ST_ECS_v1_canonical.xlsx \u00b7 Compatibility Matrix",
+  });
+}
+
+const SHARED_STATE_CLASSES = Object.freeze({
+  "+": Object.freeze({ key: "shared_amplified_structural_state", label: "Shared amplified structural state" }),
+  "~": Object.freeze({ key: "shared_neutral_structural_state", label: "Shared neutral structural state" }),
+  "-": Object.freeze({ key: "shared_suppressed_structural_state", label: "Shared suppressed structural state" }),
+});
+
+export function buildStructuralResourceProfile(environmentCode) {
+  const code = normalizeEnvironmentCode(environmentCode);
+  const b25Applies = ERI_B25_EXTRACTION_ENVIRONMENTS.includes(code);
+  const rows = RESOURCE_PRIORITY_MATRIX.map((resource) => {
+    const impact = parseResourceImpact(resource.impacts[code], `${resource.resource}/${code}`);
+    return Object.freeze({
+      resource: resource.resource,
+      resourceType: resource.type,
+      resourceTypeLabel: RESOURCE_TYPE_LABELS[resource.type] ?? resource.type,
+      canonicalNetEffect: impact.effect,
+      canonicalEffectLabel: impact.label,
+      eriTier: impact.tier,
+      sharedStateClass: SHARED_STATE_CLASSES[impact.effect].key,
+      sharedStateLabel: SHARED_STATE_CLASSES[impact.effect].label,
+      interpretationGuardrail: b25Applies && impact.effect === "+" ? "ERI_B25_EXTRACTION_OR_COMPLICITY" : "",
+    });
+  });
+  const suppressedCount = rows.filter((row) => row.canonicalNetEffect === "-").length;
+  const alignedSuppressionApplies = ALIGNED_SUPPRESSION_ENVIRONMENTS.includes(code);
+  return Object.freeze({
+    environmentCode: code,
+    resourceCount: rows.length,
+    resources: Object.freeze(rows),
+    sharedStateClasses: Object.freeze(Object.values(SHARED_STATE_CLASSES).map((entry) => Object.freeze({ ...entry }))),
+    b25Guardrail: Object.freeze({
+      applies: b25Applies,
+      environments: ERI_B25_EXTRACTION_ENVIRONMENTS,
+      source: "ST_Environment_Resource_Intelligence_updated.xlsx \u00b7 Resource Priority row 25",
+      note: b25Applies
+        ? "Resource effects in this environment represent extraction or complicity, not development. TOP tier = least suppressed / most extracted, not amplified, so amplified-state resources must not be described as genuine alignment assets or strengths to protect."
+        : "",
+    }),
+    alignedSuppression: Object.freeze({
+      applies: alignedSuppressionApplies,
+      suppressedResourceCount: suppressedCount,
+      caveat: alignedSuppressionApplies
+        ? "Aligned-suppression caveat (canonical, ST_ECS_Derivation_Method_v1.xlsx \u00b7 Interpretation_Caveats): high ECS here means compatibility in degradation, not health. The formula scores agreement of Net Effects, not their sign: an environment whose Net Effect vector is predominantly negative registers zero conflict against itself, so structural compatibility can be high while the shared resource state is predominantly suppressed."
+        : "",
+      source: "ST_ECS_Derivation_Method_v1.xlsx \u00b7 Interpretation_Caveats (aligned suppression)",
+    }),
+  });
+}
+
+// Homogeneous evidence-issuance gate (OD-RMP3-10): evidence confidence and structural
+// compatibility are separate constructs. Weak evidence / co-presence never changes the
+// canonical structural ECS; it changes public issuance qualification. Gate inputs are the
+// existing governed fields (signalStrength === "weak", coPresence === true).
+function homogeneousEvidenceGate(acquirerScore, targetScore) {
+  const inputs = Object.freeze({
+    acquirerSignalStrength: acquirerScore.signalStrength ?? "confirmed",
+    acquirerCoPresence: acquirerScore.coPresence === true,
+    targetSignalStrength: targetScore.signalStrength ?? "confirmed",
+    targetCoPresence: targetScore.coPresence === true,
+  });
+  const weak = inputs.acquirerSignalStrength === "weak" || inputs.targetSignalStrength === "weak";
+  const coPresent = inputs.acquirerCoPresence || inputs.targetCoPresence;
+  const status = weak || coPresent ? "provisional" : "confirmed";
+  return Object.freeze({
+    inputs,
+    weak,
+    coPresent,
+    status,
+    publicQualification: status === "provisional"
+      ? "Same-environment classification is provisional: weak or co-present environment evidence does not support an unqualified confirmed compatibility result."
+      : "",
+  });
+}
+
+function homogeneousNextStep() {
+  const body = FINAL_DELIVERABLE_DATA.screenCopy.homogeneousBody;
+  const match = body.match(/Block 6: Recommended next step: (.+)/);
+  const governedLine = match?.[1] ?? "";
+  const [name, ...rest] = governedLine.split(" \u2014 ");
+  const descriptor = rest.join(" \u2014 ").replace(/\s*\*Full assessment specification[^*]*\.\s*$/, "").trim();
+  return Object.freeze({
+    name: name?.trim() || PENDING,
+    description: descriptor ? `${descriptor.charAt(0).toUpperCase()}${descriptor.slice(1)}.` : PENDING,
+    source: "APPENDIX_B SCREEN_SPEC \u00b7 Screen 10b Block 6 (ST_UI_Track_Coder_Agent_Specification_v1.xlsx)",
+  });
+}
+
 
 function protocolForRiskBand(riskBand = "") {
   if (riskBand === "HIGH COMPATIBILITY") return "RHQA";
@@ -730,28 +884,64 @@ export function buildPairDeliverable(input = {}) {
   const targetAlias = aliasForEnvironment(targetEnvironmentCode);
 
   if (acquirerEnvironmentCode === targetEnvironmentCode) {
+    // Homogeneous (self-pair) deliverable — OD-RMP3-1…OD-RMP3-16. The compatibility
+    // result is the canonical structural ECS chain (Net Effect vectors → conflict
+    // points → canonical formula → governed range/band transforms), never a transaction
+    // literal. No pairwise resource-contestation model, protocol routing, or per-resource
+    // controls apply to this branch.
     const anchors = homogeneousAnchors(acquirerAlias);
-    const compatibilityRangeValue = "80\u201395";
+    const structuralEcs = canonicalStructuralEcs(acquirerEnvironmentCode, targetEnvironmentCode);
+    const canonicalRange = compatibilityRange(structuralEcs.ecs);
+    const canonicalBand = canonicalRiskBand(structuralEcs.ecs);
+    const evidenceGate = homogeneousEvidenceGate(acquirerScore, targetScore);
+    const body = publicText(FINAL_DELIVERABLE_DATA.screenCopy.homogeneousBody
+      .replaceAll("{alias}", acquirerAlias)
+      .replaceAll("{compatibilityRange}", canonicalRange)
+      .replaceAll("{riskBand}", canonicalBand));
     return Object.freeze({
       ready: true,
       route: "/screen-10b-homogeneous",
       screen: "screen-10b",
       outcomeKey: "homogeneous",
+      pairMode: "homogeneous",
       acquirerEnvironmentCode,
       targetEnvironmentCode,
       acquirerAlias,
       targetAlias,
       headline: FINAL_DELIVERABLE_DATA.screenCopy.homogeneousHeaderTemplate.replaceAll("{alias}", acquirerAlias),
-      body: publicText(FINAL_DELIVERABLE_DATA.screenCopy.homogeneousBody.replaceAll("{alias}", acquirerAlias)),
-      compatibilityScore: 88,
-      compatibilityRange: compatibilityRangeValue,
-      riskBand: "HIGH COMPATIBILITY",
-      targetResolutionSource: input.targetResolutionSource,
-      resourceConflictProfile: buildResourceConflictProfile(acquirerEnvironmentCode, targetEnvironmentCode, {
-        ecsRange: compatibilityRangeValue,
-        riskBand: "HIGH COMPATIBILITY",
-        protocolName: "RHQA",
+      body,
+      compatibilityScore: structuralEcs.ecs,
+      compatibilityRange: canonicalRange,
+      riskBand: canonicalBand,
+      structuralCompatibility: Object.freeze({
+        canonicalScore: structuralEcs.ecs,
+        canonicalRange,
+        canonicalBand,
+        issued: true,
+        status: evidenceGate.status,
+        evidenceGate,
+        derivation: Object.freeze({
+          formula: structuralEcs.formula,
+          conflictPoints: structuralEcs.conflictPoints,
+          maxConflictPoints: structuralEcs.maxConflictPoints,
+          source: structuralEcs.source,
+        }),
       }),
+      withinEnvironmentDifferentiation: buildCrossSideStructuralDifferentiation(
+        input.acquirerQuestionResponses,
+        input.targetSelfQuestionResponses,
+      ),
+      structuralResourceProfile: buildStructuralResourceProfile(acquirerEnvironmentCode),
+      // Vector identity for the RMP-1 81-pair resource-map sentinel. Public homogeneous
+      // output uses structuralResourceProfile, not this contestation model.
+      resourceConflictProfile: buildResourceConflictProfile(acquirerEnvironmentCode, targetEnvironmentCode, {
+        ecsScore: structuralEcs.ecs,
+        ecsRange: canonicalRange,
+        riskBand: canonicalBand,
+        protocolName: "",
+      }),
+      nextStep: homogeneousNextStep(),
+      targetResolutionSource: input.targetResolutionSource,
       anchors,
       caveat: FINAL_DELIVERABLE_DATA.screenCopy.sealedCaveat,
       cta: FINAL_DELIVERABLE_DATA.screenCopy.homogeneousCtaLabel.replaceAll("{alias}", acquirerAlias),
@@ -1424,10 +1614,12 @@ export function buildFinalDeliverable(session) {
     acquirerSecondaryEnvironmentCode: acquirerScore.secondaryEnvironmentCode,
     acquirerSignalStrength: acquirerScore.signalStrength,
     acquirerCoPresence: acquirerScore.coPresence,
+    acquirerQuestionResponses: acquirerScore.questionResponses,
     targetEnvironmentCode: targetScore.primaryEnvironmentCode,
     targetSecondaryEnvironmentCode: targetScore.secondaryEnvironmentCode,
     targetSignalStrength: targetScore.signalStrength,
     targetCoPresence: targetScore.coPresence === true,
+    targetSelfQuestionResponses: targetSelfScore.questionResponses,
     targetCanonicalSource: targetScore.targetCanonicalSource,
     targetCanonicalWeights: targetScore.targetCanonicalWeights,
     targetResolutionSource: targetScore.targetResolutionSource,
