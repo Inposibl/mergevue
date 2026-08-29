@@ -768,6 +768,27 @@ function assertPreCoreCandidateContract(candidate, state) {
   }
 }
 
+function assertSingleR1CandidateContract(candidate, state) {
+  if (state.outcomeSource !== "SINGLE_R1_ONLY") return;
+  if (candidate.interpretationStatus !== "INTERPRETATION_CONSTRAINED") {
+    fail("SINGLE_R1_ONLY requires interpretationStatus INTERPRETATION_CONSTRAINED");
+  }
+  if (candidate.abstentionReason !== null) fail("SINGLE_R1_ONLY requires abstentionReason null");
+  if (candidate.interpretation.hypotheses.items.length < 2) {
+    fail("SINGLE_R1_ONLY requires at least two hypotheses");
+  }
+  for (const key of ["scenarioInterpretation", "frictionMechanism"]) {
+    if (Object.hasOwn(candidate.interpretation, key)) {
+      fail(`SINGLE_R1_ONLY prohibits interpretation.${key}`);
+    }
+  }
+  const requiredItem = [...state.disclosureRequiredIds];
+  const disclosed = candidate.uncertainty.disclosures.map((row) => row.uncertaintyId);
+  if (requiredItem.length !== 1 || disclosed.length !== 1 || disclosed[0] !== requiredItem[0]) {
+    fail("SINGLE_R1_ONLY requires exactly the canonical no-R2 disclosure");
+  }
+}
+
 function validateHypotheses(candidate, state) {
   const interpretation = candidate.interpretation;
   const status = candidate.interpretationStatus;
@@ -1095,6 +1116,7 @@ export function validateProviderSemanticCandidate(candidate, providerProjection)
   assertCaseAStructuralGate(candidate, state);
   assertP1BStructuralGate(candidate, state);
   assertPreCoreCandidateContract(candidate, state);
+  assertSingleR1CandidateContract(candidate, state);
 
   validateInterpretation(candidate, state);
   validateUncertaintyDisclosures(candidate, state);

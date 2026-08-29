@@ -349,10 +349,10 @@ function assertFrozen(uncertainty) {
   if (uncertainty.items[0]) assert.notEqual(uncertainty.items[0].reasonCode, "TAMPER");
 }
 
-check("C0", "contract identity is D0_R0_CORR2_A2C1_CORR1_C5C1_PC1 / snapshot 2.0 / uncertainty 1.3", () => {
-  assert.equal(AGENT_CONTRACT_VERSION, "D0_R0_CORR2_A2C1_CORR1_C5C1_PC1");
+check("C0", "contract identity is D0_R0_CORR2_A2C1_CORR1_C5C1_PC1_SR1 / snapshot 2.0 / uncertainty 1.4", () => {
+  assert.equal(AGENT_CONTRACT_VERSION, "D0_R0_CORR2_A2C1_CORR1_C5C1_PC1_SR1");
   assert.equal(SNAPSHOT_SCHEMA_VERSION, "engine-snapshot-2.0");
-  assert.equal(UNCERTAINTY_SCHEMA_VERSION, "structured-uncertainty-1.3");
+  assert.equal(UNCERTAINTY_SCHEMA_VERSION, "structured-uncertainty-1.4");
   assert.equal(RUNTIME_CORE_COMMIT, "dcbd937e0135e790201ee5c8898c5b5f5a085298");
   assert.equal(UNCERTAINTY_DOMAINS.length, 9);
   assert.equal(CLAIM_IDS.length, 4);

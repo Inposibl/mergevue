@@ -1,5 +1,6 @@
 import { assembleEngineSnapshot } from "./engineSnapshot.js";
 import { assemblePreCoreSelectorSnapshot } from "./preCoreSelectorSnapshot.js";
+import { assembleSingleR1Snapshot } from "./singleR1Snapshot.js";
 import { buildStructuredUncertainty } from "./structuredUncertainty.js";
 import { buildInterpretationContextPack } from "./interpretationContextPack.js";
 import { buildAgentInterpretationRequest } from "./agentInterpretationRequest.js";
@@ -57,6 +58,7 @@ export async function runAgentInterpretation({
   coreOutput,
   identityContext,
   coreInput,
+  singleR1Session,
   establishedEnvironmentCodes,
   crossSideEnvironmentPair,
 } = {}) {
@@ -75,6 +77,15 @@ export async function runAgentInterpretation({
         throw new TypeError("PRE_CORE_SELECTOR requires coreInput and coreOutput to be absent");
       }
       engineSnapshot = assemblePreCoreSelectorSnapshot({ identityContext, selectorProvenance });
+    } else if (outcomeSource === "SINGLE_R1_ONLY") {
+      if (coreInput !== undefined || coreOutput !== undefined) {
+        throw new TypeError("SINGLE_R1_ONLY requires coreInput and coreOutput to be absent");
+      }
+      engineSnapshot = assembleSingleR1Snapshot({
+        session: singleR1Session,
+        identityContext,
+        selectorProvenance,
+      });
     } else {
       throw new TypeError(`Unsupported outcomeSource: ${String(outcomeSource)}`);
     }

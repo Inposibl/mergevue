@@ -563,7 +563,7 @@ export function projectAdjudicationProvenance(audit, label) {
   };
 }
 
-function projectObservation(diagnosticId, moduleId, pairRow, answer, respondentSlot) {
+export function projectEngineObservation(diagnosticId, moduleId, pairRow, answer, respondentSlot) {
   if (!answer || typeof answer !== "object") {
     fail(`pairRow.${respondentSlot} answer is missing`);
   }
@@ -615,8 +615,8 @@ function projectObservations(diagnosticId, moduleId, pairRows) {
   if (!Array.isArray(pairRows)) return [];
   const observations = [];
   for (const pairRow of pairRows) {
-    observations.push(projectObservation(diagnosticId, moduleId, pairRow, pairRow.left, RESPONDENT_SLOT_R1));
-    observations.push(projectObservation(diagnosticId, moduleId, pairRow, pairRow.right, RESPONDENT_SLOT_R2));
+    observations.push(projectEngineObservation(diagnosticId, moduleId, pairRow, pairRow.left, RESPONDENT_SLOT_R1));
+    observations.push(projectEngineObservation(diagnosticId, moduleId, pairRow, pairRow.right, RESPONDENT_SLOT_R2));
   }
   return observations;
 }

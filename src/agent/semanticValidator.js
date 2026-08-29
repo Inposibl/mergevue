@@ -1,4 +1,4 @@
-import { PRE_CORE_OUTCOME_CODES } from "./agentContractConstants.js";
+import { PRE_CORE_OUTCOME_CODES, SINGLE_R1_OUTCOME_CODE } from "./agentContractConstants.js";
 import { evaluateDeterministicChecks } from "./semanticLocalEvaluator.js";
 import { buildSemanticCheckSet } from "./semanticCheckEnumerator.js";
 import { buildSemanticJudgePackets } from "./semanticJudgePacket.js";
@@ -82,6 +82,12 @@ function assertInputPreconditions(agentInterpretationRequest, agentInterpretatio
     }
     if (!PRE_CORE_OUTCOME_CODES.includes(engine.outcome.engineOutcomeCode)) {
       preconditionFail("PRE_CORE_SELECTOR engineOutcomeCode must be a lawful S_* code");
+    }
+  } else if (outcomeSource === SINGLE_R1_OUTCOME_CODE) {
+    if (Object.hasOwn(engine, "comparison")) preconditionFail("SINGLE_R1_ONLY engine.comparison must be absent");
+    requirePlainObject(engine.r1Scoring, "engineSnapshot.engine.r1Scoring");
+    if (engine.outcome.engineOutcomeCode !== SINGLE_R1_OUTCOME_CODE) {
+      preconditionFail("SINGLE_R1_ONLY engineOutcomeCode mismatch");
     }
   } else {
     preconditionFail("engineSnapshot.outcomeSource is not a lawful closed source");
@@ -229,6 +235,27 @@ function assertPreCoreStructuralLaw(request, result) {
   }
 }
 
+function assertSingleR1StructuralLaw(request, result) {
+  if (request.engineSnapshot.outcomeSource !== SINGLE_R1_OUTCOME_CODE) return;
+  if (result.interpretationStatus !== "INTERPRETATION_CONSTRAINED") {
+    preCoreStructuralFail("SINGLE_R1_ONLY requires interpretationStatus INTERPRETATION_CONSTRAINED");
+  }
+  if (result.abstentionReason !== null) preCoreStructuralFail("SINGLE_R1_ONLY requires abstentionReason null");
+  if (result.interpretation.hypotheses.items.length < 2) {
+    preCoreStructuralFail("SINGLE_R1_ONLY requires at least two hypotheses");
+  }
+  if (Object.hasOwn(result.interpretation, "scenarioInterpretation")) {
+    preCoreStructuralFail("SINGLE_R1_ONLY prohibits scenarioInterpretation");
+  }
+  const required = request.structuredUncertainty.items
+    .filter((item) => item.reasonCode === "NO_INDEPENDENT_R2_COMPARISON" && item.disclosureRequired === true)
+    .map((item) => item.uncertaintyId);
+  const disclosed = result.uncertainty.disclosures.map((row) => row.uncertaintyId);
+  if (required.length !== 1 || disclosed.length !== 1 || disclosed[0] !== required[0]) {
+    preCoreStructuralFail("SINGLE_R1_ONLY requires exactly the canonical no-R2 disclosure");
+  }
+}
+
 function assertMaxChecksPerBatch(maxChecksPerBatch) {
   if (!Number.isInteger(maxChecksPerBatch) || maxChecksPerBatch < 1) {
     preconditionFail("maxChecksPerBatch must be an injected positive integer");
@@ -325,6 +352,7 @@ export async function validateAgentInterpretationSemantics({
   assertSemanticJudgeInterface(semanticJudge);
   assertMaxChecksPerBatch(maxChecksPerBatch);
   assertPreCoreStructuralLaw(request, result);
+  assertSingleR1StructuralLaw(request, result);
 
   // D-set: J1-owned deterministic checks run first, in fixed order.
   const dSet = evaluateDeterministicChecks(request, result);

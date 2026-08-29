@@ -30,6 +30,9 @@ import {
   REQUEST_SCHEMA_VERSION,
   RESPONDENT_SLOTS,
   SELECTION_RULE_IDS,
+  SINGLE_R1_CONSTRAINT_ID,
+  SINGLE_R1_OUTCOME_CODE,
+  SINGLE_R1_REASON_CODE,
   SELECTOR_STATUS_TO_PRE_CORE_OUTCOME_CODE,
   SNAPSHOT_SCHEMA_VERSION,
   SR12_MARKER_IDS,
@@ -40,6 +43,7 @@ import {
 import {
   AgentInterpretationRequestAssemblyError,
   assertPreCoreEmptyContextInvariant,
+  assertSingleR1ContextInvariant,
   validateAgentInterpretationRequestIntegrity,
 } from "./agentInterpretationRequest.js";
 
@@ -126,6 +130,7 @@ const PRE_CORE_IDENTITY_PROJECTED_KEYS = Object.freeze([
 
 const DUAL_ENGINE_KEYS = Object.freeze(["outcome", "observations", "comparison"]);
 const PRE_CORE_ENGINE_KEYS = Object.freeze(["outcome", "observations"]);
+const SINGLE_R1_ENGINE_KEYS = Object.freeze(["outcome", "observations", "r1Scoring"]);
 
 const DUAL_OUTCOME_KEYS = Object.freeze([
   "priority",
@@ -160,6 +165,22 @@ const PRE_CORE_OUTCOME_KEYS = Object.freeze([
   "finality",
 ]);
 
+const SINGLE_R1_OUTCOME_KEYS = Object.freeze([
+  "engineOutcomeCode",
+  "outcomeClass",
+  "classificationOutcome",
+  "reason",
+  "constraintId",
+  "state",
+  "deterministicStateEstablished",
+  "provisionalState",
+  "engineOutput",
+  "contradictionCandidates",
+  "genericContradictionEngineInvoked",
+  "suppression",
+  "finality",
+]);
+
 const DUAL_OUTCOME_PROJECTED_KEYS = Object.freeze([
   "priority",
   "branchCode",
@@ -181,6 +202,35 @@ const PRE_CORE_OUTCOME_PROJECTED_KEYS = Object.freeze([
   "state",
   "deterministicStateEstablished",
   "suppression",
+]);
+
+const SINGLE_R1_OUTCOME_PROJECTED_KEYS = Object.freeze([
+  "engineOutcomeCode",
+  "reason",
+  "constraintId",
+  "state",
+  "deterministicStateEstablished",
+  "engineOutput",
+  "contradictionCandidates",
+  "genericContradictionEngineInvoked",
+  "suppression",
+  "finality",
+]);
+
+const R1_SCORING_KEYS = Object.freeze([
+  "scoringModelVersion",
+  "environmentScores",
+  "weightedEnvironmentScores",
+  "rankedEnvironments",
+  "rawRankedEnvironments",
+  "signalCompositionShare",
+  "supportStrengthByEnvironment",
+  "primaryEnvironmentCode",
+  "primarySignalEnvironmentCode",
+  "primarySignalScore",
+  "secondaryEnvironmentCode",
+  "secondarySignalEnvironmentCode",
+  "secondarySignalScore",
 ]);
 
 const SELECTOR_FIXED_KEYS = Object.freeze([
@@ -719,6 +769,13 @@ const PRE_CORE_OUTCOME_VALUE_SHAPES = Object.freeze({
   engineOutcomeCode: vEnum(PRE_CORE_OUTCOME_CODES),
 });
 
+const SINGLE_R1_OUTCOME_VALUE_SHAPES = Object.freeze({
+  ...SHARED_OUTCOME_VALUE_SHAPES,
+  engineOutcomeCode: vEnum([SINGLE_R1_OUTCOME_CODE]),
+  reason: vEnum([SINGLE_R1_REASON_CODE]),
+  constraintId: vEnum([SINGLE_R1_CONSTRAINT_ID]),
+});
+
 const SUPPRESSION_VALUE_SHAPES = Object.freeze({
   comparatorOutputSuppressed: vBoolean,
   pairEvaluationSuppressed: vBoolean,
@@ -1102,13 +1159,13 @@ function validateSelectorNode(selector, outcomeSource, identity, engineOutcomeCo
   requirePlainObject(selector.respondentVantage, `${label}.respondentVantage`);
   requireArray(selector.semanticBindings, `${label}.semanticBindings`);
   if (selector.decisionCode !== selector.status) fail(`${label}.decisionCode must equal status`);
-  if (outcomeSource === "DUAL_CORE") {
+  if (outcomeSource === "DUAL_CORE" || outcomeSource === SINGLE_R1_OUTCOME_CODE) {
     if (selector.status !== "SELECTED") fail("DUAL_CORE requires a SELECTED selector node");
     if (selector.candidatePair !== identity.candidatePair) fail("selector candidatePair mismatch");
     if (selector.candidatePairNormalized !== identity.candidatePairNormalized) {
       fail("selector candidatePairNormalized mismatch");
     }
-    if (engineOutcomeCode === undefined) fail("DUAL_CORE engineOutcomeCode is required");
+    if (engineOutcomeCode === undefined) fail("selected selector engineOutcomeCode is required");
     return;
   }
   if (selector.candidatePair !== null || selector.candidatePairNormalized !== null) {
@@ -1143,13 +1200,19 @@ function projectEngineSnapshot(snapshot) {
   assertShaped(identity, IDENTITY_VALUE_SHAPES, "engineSnapshot.identity");
 
   const engine = requirePlainObject(snapshot.engine, "engineSnapshot.engine");
-  const engineKeys = snapshot.outcomeSource === "DUAL_CORE" ? DUAL_ENGINE_KEYS : PRE_CORE_ENGINE_KEYS;
+  const engineKeys = snapshot.outcomeSource === "DUAL_CORE"
+    ? DUAL_ENGINE_KEYS
+    : snapshot.outcomeSource === SINGLE_R1_OUTCOME_CODE
+      ? SINGLE_R1_ENGINE_KEYS
+      : PRE_CORE_ENGINE_KEYS;
   assertExactKeySet(engine, engineKeys, "engineSnapshot.engine");
 
   const outcomeLabel = "engineSnapshot.engine.outcome";
   const outcomeKeys = snapshot.outcomeSource === "DUAL_CORE"
     ? DUAL_OUTCOME_KEYS
-    : PRE_CORE_OUTCOME_KEYS;
+    : snapshot.outcomeSource === SINGLE_R1_OUTCOME_CODE
+      ? SINGLE_R1_OUTCOME_KEYS
+      : PRE_CORE_OUTCOME_KEYS;
   const pickedOutcome = pickExact(
     requirePlainObject(engine.outcome, outcomeLabel),
     outcomeKeys,
@@ -1189,7 +1252,11 @@ function projectEngineSnapshot(snapshot) {
   };
   assertShaped(
     outcome,
-    snapshot.outcomeSource === "DUAL_CORE" ? DUAL_OUTCOME_VALUE_SHAPES : PRE_CORE_OUTCOME_VALUE_SHAPES,
+    snapshot.outcomeSource === "DUAL_CORE"
+      ? DUAL_OUTCOME_VALUE_SHAPES
+      : snapshot.outcomeSource === SINGLE_R1_OUTCOME_CODE
+        ? SINGLE_R1_OUTCOME_VALUE_SHAPES
+        : PRE_CORE_OUTCOME_VALUE_SHAPES,
     outcomeLabel,
   );
 
@@ -1240,14 +1307,18 @@ function projectEngineSnapshot(snapshot) {
   const projectedIdentity = {};
   const projectedIdentityKeys = snapshot.outcomeSource === "DUAL_CORE"
     ? SNAPSHOT_IDENTITY_PROJECTED_KEYS
-    : PRE_CORE_IDENTITY_PROJECTED_KEYS;
+    : snapshot.outcomeSource === SINGLE_R1_OUTCOME_CODE
+      ? SNAPSHOT_IDENTITY_PROJECTED_KEYS
+      : PRE_CORE_IDENTITY_PROJECTED_KEYS;
   for (const key of projectedIdentityKeys) {
     projectedIdentity[key] = identity[key];
   }
   const projectedOutcome = {};
   const projectedOutcomeKeys = snapshot.outcomeSource === "DUAL_CORE"
     ? DUAL_OUTCOME_PROJECTED_KEYS
-    : PRE_CORE_OUTCOME_PROJECTED_KEYS;
+    : snapshot.outcomeSource === SINGLE_R1_OUTCOME_CODE
+      ? SINGLE_R1_OUTCOME_PROJECTED_KEYS
+      : PRE_CORE_OUTCOME_PROJECTED_KEYS;
   for (const key of projectedOutcomeKeys) {
     projectedOutcome[key] = outcome[key];
   }
@@ -1268,6 +1339,13 @@ function projectEngineSnapshot(snapshot) {
     },
   };
   if (comparison) projected.engine.comparison = comparison;
+  if (snapshot.outcomeSource === SINGLE_R1_OUTCOME_CODE) {
+    projected.engine.r1Scoring = pickExact(
+      requirePlainObject(engine.r1Scoring, "engineSnapshot.engine.r1Scoring"),
+      R1_SCORING_KEYS,
+      "engineSnapshot.engine.r1Scoring",
+    );
+  }
   assertExactKeySet(projected, SNAPSHOT_PROJECTED_KEYS, "providerProjection.engineSnapshot");
   return projected;
 }
@@ -1440,6 +1518,7 @@ export function projectProviderProjection(agentInterpretationRequest) {
   // even if that shared path were to change. No sanitising, no filtering.
   try {
     assertPreCoreEmptyContextInvariant(request.engineSnapshot, request.interpretationContextPack);
+    assertSingleR1ContextInvariant(request.engineSnapshot, request.interpretationContextPack);
   } catch (error) {
     if (error instanceof AgentInterpretationRequestAssemblyError) {
       throw new ProviderProjectionError({

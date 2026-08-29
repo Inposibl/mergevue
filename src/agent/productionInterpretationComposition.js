@@ -87,6 +87,16 @@ function assertPreCoreInvocationContainment(establishedEnvironmentCodes, crossSi
   });
 }
 
+function assertSingleR1InvocationContainment(establishedEnvironmentCodes, crossSideEnvironmentPair) {
+  const lawfulPair = crossSideEnvironmentPair === null;
+  const lawfulCodes = Array.isArray(establishedEnvironmentCodes) && establishedEnvironmentCodes.length === 0;
+  if (lawfulPair && lawfulCodes) return;
+  throw new AgentInterpretationRequestAssemblyError({
+    failureClass: FAILURE_CLASS_INPUT_ASSEMBLY_FAILURE,
+    detail: "SINGLE_R1_ONLY invocation carries forbidden cross-side context inputs",
+  });
+}
+
 function assertSelectorBinding(selectorResult, diagnosticId) {
   if (!isPlainObject(selectorResult)) throw new TypeError("selector result must be a plain object");
   const provenance = selectorResult.provenance;
@@ -162,29 +172,48 @@ export async function runProductionInterpretation({
       moduleId: ASSEMBLER_SCORING_MODULE,
       candidatePair: selectorResult.candidatePair,
     });
-    if (assembled.ok !== true) return nonAgentAssemblerResult(assembled);
-
-    const coreInput = Object.freeze({
-      ...assembled.coreInput,
-      outOfPairEvidence: false,
-      coherenceAmbiguous: false,
-    });
-    const coreOutput = compareDualRespondents(coreInput);
-    agentInvocation = {
-      outcomeSource: "DUAL_CORE",
-      selectorProvenance,
-      coreInput,
-      coreOutput,
-      identityContext: {
-        diagnosticId,
-        projectId,
-        moduleId: ACCEPTED_SCOPE_MODULE,
-        candidatePair: selectorResult.candidatePair,
-        candidatePairNormalized: selectorResult.candidatePairNormalized,
-      },
-      establishedEnvironmentCodes,
-      crossSideEnvironmentPair,
-    };
+    if (assembled.ok !== true) {
+      if (assembled.reason !== "missing_r2_context" || assembled.audit?.stage !== "r2_context") {
+        return nonAgentAssemblerResult(assembled);
+      }
+      assertSingleR1InvocationContainment(establishedEnvironmentCodes, crossSideEnvironmentPair);
+      agentInvocation = {
+        outcomeSource: "SINGLE_R1_ONLY",
+        selectorProvenance,
+        singleR1Session: session,
+        identityContext: {
+          diagnosticId,
+          projectId,
+          moduleId: ACCEPTED_SCOPE_MODULE,
+          candidatePair: selectorResult.candidatePair,
+          candidatePairNormalized: selectorResult.candidatePairNormalized,
+        },
+        establishedEnvironmentCodes,
+        crossSideEnvironmentPair,
+      };
+    } else {
+      const coreInput = Object.freeze({
+        ...assembled.coreInput,
+        outOfPairEvidence: false,
+        coherenceAmbiguous: false,
+      });
+      const coreOutput = compareDualRespondents(coreInput);
+      agentInvocation = {
+        outcomeSource: "DUAL_CORE",
+        selectorProvenance,
+        coreInput,
+        coreOutput,
+        identityContext: {
+          diagnosticId,
+          projectId,
+          moduleId: ACCEPTED_SCOPE_MODULE,
+          candidatePair: selectorResult.candidatePair,
+          candidatePairNormalized: selectorResult.candidatePairNormalized,
+        },
+        establishedEnvironmentCodes,
+        crossSideEnvironmentPair,
+      };
+    }
   } else if (PRE_CORE_SELECTOR_STATUSES.has(selectorResult.status)) {
     assertPreCoreInvocationContainment(establishedEnvironmentCodes, crossSideEnvironmentPair);
     agentInvocation = {

@@ -709,6 +709,15 @@ function assertPreCoreInputsAbsent(establishedEnvironmentCodes, crossSideEnviron
   }
 }
 
+function assertSingleR1InputsAbsent(establishedEnvironmentCodes, crossSideEnvironmentPair) {
+  if (crossSideEnvironmentPair != null) {
+    fail("SINGLE_R1_ONLY forbids crossSideEnvironmentPair at the context-pack boundary");
+  }
+  if (!Array.isArray(establishedEnvironmentCodes) || establishedEnvironmentCodes.length !== 0) {
+    fail("SINGLE_R1_ONLY forbids establishedEnvironmentCodes at the context-pack boundary");
+  }
+}
+
 export function buildInterpretationContextPack({
   engineSnapshot,
   structuredUncertainty,
@@ -730,12 +739,14 @@ export function buildInterpretationContextPack({
   }
 
   const preCore = snapshot.outcomeSource === "PRE_CORE_SELECTOR";
+  const singleR1 = snapshot.outcomeSource === "SINGLE_R1_ONLY";
   if (preCore) {
     if (!PRE_CORE_OUTCOME_CODES.includes(snapshot.engine.outcome.engineOutcomeCode)) {
       fail("PRE_CORE_SELECTOR snapshot carries a non-PRE_CORE engineOutcomeCode");
     }
     assertPreCoreInputsAbsent(establishedEnvironmentCodes, crossSideEnvironmentPair);
   }
+  if (singleR1) assertSingleR1InputsAbsent(establishedEnvironmentCodes, crossSideEnvironmentPair);
 
   const selectionKeys = collectSelectionKeys(
     snapshot,
@@ -747,7 +758,14 @@ export function buildInterpretationContextPack({
   // OD-PC-1A / OD-PC-2 CORR1 empty PRE_CORE pack invariant: no selection rule
   // contributes context on the PRE_CORE branch, so the pack is empty by
   // construction and SR-01 is excluded there without affecting DUAL_CORE paths.
-  const branchItems = preCore ? [] : [
+  const branchItems = preCore ? [] : singleR1 ? [
+    ...selectSr01(selectionKeys),
+    ...selectSr05(selectionKeys),
+    ...selectSr06(selectionKeys, snapshot),
+    ...selectSr07(selectionKeys),
+    ...selectSr08(selectionKeys, snapshot),
+    ...selectSr09(selectionKeys, snapshot),
+  ] : [
     ...selectSr01(selectionKeys),
     ...selectSr02(selectionKeys),
     ...selectSr03(selectionKeys, snapshot),
@@ -759,8 +777,8 @@ export function buildInterpretationContextPack({
     ...selectSr09(selectionKeys, snapshot),
     ...selectSr10(selectionKeys, snapshot),
   ];
-  const sr11 = preCore ? { items: [], lookupMissing: false } : selectSr11(selectionKeys);
-  const sr12Items = preCore ? [] : selectSr12(selectionKeys, sr11.lookupMissing);
+  const sr11 = preCore || singleR1 ? { items: [], lookupMissing: false } : selectSr11(selectionKeys);
+  const sr12Items = preCore || singleR1 ? [] : selectSr12(selectionKeys, sr11.lookupMissing);
   const collected = [...branchItems, ...sr11.items, ...sr12Items].filter(Boolean);
 
   const selectedContextItems = assignIds(sortItems(collected));

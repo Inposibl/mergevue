@@ -2,7 +2,7 @@
 // vocabularies. Provider-neutral by construction: no provider, model,
 // transport, capacity, attempt, or deadline constant may ever be added here.
 
-export const SEMANTIC_VALIDATOR_VERSION = "semantic-validator-1.0";
+export const SEMANTIC_VALIDATOR_VERSION = "semantic-validator-1.1";
 export const SEMANTIC_JUDGE_PROMPT_VERSION = "semantic-judge-prompt-1.0";
 export const SEMANTIC_JUDGE_PACKET_VERSION = "semantic-judge-packet-1.0";
 

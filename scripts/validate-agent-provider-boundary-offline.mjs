@@ -397,11 +397,12 @@ const CONSTRAINT_RULE_TEXTS = Object.freeze({
   "C-DEC7B-FLOOR": "Do not describe a pattern below the accepted 5–6 effective-agreement window as State② or effectively State②.",
   "C-DEC8-TRIGGER-ONLY": "Do not count DEC-8 trigger observations as ordinary PRIMARY × PRIMARY agreement or priority-1 coverage.",
   "C-5X-NO-COLLAPSE": "Do not assign, default, or effectively collapse coherence ambiguity into State①, State②, or ④-B; provide at least two hypotheses.",
+  "C-SINGLE-NO-R2-COMPARISON": "State clearly that no independent R2 comparison occurred. Do not claim agreement, divergence, corroboration, cross-side friction, or any comparison result. Preserve the selector-established pair and the sealed R1 scoring facts without reranking, rescoring, or replacing them.",
 });
 
 // Independent copy of the accepted system-instruction template.
 const SYSTEM_TEMPLATE = [
-  "MERGEVUE_PROVIDER_PROMPT provider-prompt-1.1",
+  "MERGEVUE_PROVIDER_PROMPT provider-prompt-1.2",
   "",
   "[ROLE]",
   "You are the bounded interpretation stage of the MergeVue FREE diagnostic. Produce a best-effort structured interpretation from the supplied provider projection. You are not an Engine, classifier, methodology author, reviewer, renderer, or source of organizational facts.",
@@ -422,7 +423,7 @@ const SYSTEM_TEMPLATE = [
   "Use ordering RANKED only when adjacent hypotheses have distinct, exposed decisiveEvidenceRefs that justify ordinal ordering without arithmetic. RANKED means evidentiary ordering, never probability or likelihood. Use ordering CO_EQUAL when the supplied evidence does not support an ordering. Under CO_EQUAL omit rank from every hypothesis. A suppressed deterministic claim may never be reintroduced as a hypothesis, leaning, or most-likely statement.",
   "",
   "[OUTPUT]",
-  "Return exactly one JSON object conforming to provider-semantic-candidate-1.1. Return no Markdown, prose wrapper, code fence, commentary, citations outside schema fields, or additional key. Author only fields permitted by the candidate schema. Do not author result versions, request identity, Engine identity, canonical provenance, validation state, provider identity, model identity, or execution metadata.",
+  "Return exactly one JSON object conforming to provider-semantic-candidate-1.2. Return no Markdown, prose wrapper, code fence, commentary, citations outside schema fields, or additional key. Author only fields permitted by the candidate schema. Do not author result versions, request identity, Engine identity, canonical provenance, validation state, provider identity, model identity, or execution metadata.",
 ].join("\n");
 
 const EXPECTED_SECTIONS = Object.freeze([
@@ -902,10 +903,10 @@ function expectCandidateReject(candidate, projection, label) {
 // ---------------------------------------------------------------------------
 
 check("V0", "exact version literals", () => {
-  assert.equal(PROVIDER_PROJECTION_VERSION, "provider-projection-1.2");
-  assert.equal(PROVIDER_PROMPT_VERSION, "provider-prompt-1.1");
-  assert.equal(PROVIDER_CANDIDATE_SCHEMA_VERSION, "provider-semantic-candidate-1.1");
-  assert.equal(providerSemanticCandidateSchema.$id, "provider-semantic-candidate-1.1");
+  assert.equal(PROVIDER_PROJECTION_VERSION, "provider-projection-1.3");
+  assert.equal(PROVIDER_PROMPT_VERSION, "provider-prompt-1.2");
+  assert.equal(PROVIDER_CANDIDATE_SCHEMA_VERSION, "provider-semantic-candidate-1.2");
+  assert.equal(providerSemanticCandidateSchema.$id, "provider-semantic-candidate-1.2");
 });
 
 // ---------------------------------------------------------------------------
@@ -940,7 +941,7 @@ check("PRJ1", "exact top-level keys and copied request-level fields", () => {
       [...PROJECTION_ROOT_KEYS].sort(),
       branch,
     );
-    assert.equal(projection.providerProjectionVersion, "provider-projection-1.2", branch);
+    assert.equal(projection.providerProjectionVersion, "provider-projection-1.3", branch);
     assert.equal(projection.agentContractVersion, AGENT_CONTRACT_VERSION, branch);
     assert.equal(projection.agentContractVersion, request.agentContractVersion, branch);
     assert.equal(projection.outputSchemaVersion, request.outputSchemaVersion, branch);
@@ -1225,8 +1226,8 @@ check("PM0", "prompt builds for all branches with exactly two messages", () => {
     const { projection } = projectionFor(branch);
     const prompt = buildProviderPrompt(projection);
     assert.equal(Object.isFrozen(prompt), true, branch);
-    assert.equal(prompt.promptVersion, "provider-prompt-1.1", branch);
-    assert.equal(prompt.providerProjectionVersion, "provider-projection-1.2", branch);
+    assert.equal(prompt.promptVersion, "provider-prompt-1.2", branch);
+    assert.equal(prompt.providerProjectionVersion, "provider-projection-1.3", branch);
     assert.equal(prompt.agentContractVersion, projection.agentContractVersion, branch);
     assert.equal(prompt.messages.length, 2, branch);
     assert.equal(prompt.messages[0].role, "system", branch);
@@ -1260,7 +1261,7 @@ check("PM2", "exact section order and corrected uref sentence", () => {
     previous = at;
   }
   assert.equal(system.includes(UREF_SENTENCE), true);
-  assert.equal(system.startsWith("MERGEVUE_PROVIDER_PROMPT provider-prompt-1.1\n"), true);
+  assert.equal(system.startsWith("MERGEVUE_PROVIDER_PROMPT provider-prompt-1.2\n"), true);
   assert.equal(system.includes("uref://{uncertaintyId}"), true);
 });
 
@@ -1700,7 +1701,7 @@ check("PC-CAND3", "SELECTOR_BOUNDARY_EXPLANATION is not lawful on DUAL", () => {
 check("CAND4", "mechanical Result fields are structurally unauthorable", () => {
   const { projection } = projectionFor("P_1");
   for (const field of [
-    { resultSchemaVersion: "agent-result-1.3" },
+    { resultSchemaVersion: "agent-result-1.4" },
     { interpretationId: "00000000-0000-4000-8000-000000000000" },
     { engineFactsRef: {} },
     { provenance: {} },
@@ -1735,7 +1736,7 @@ check("CAND4", "mechanical Result fields are structurally unauthorable", () => {
   );
   expectCandidateReject(
     lawfulCandidate(projection, {
-      uncertainty: { disclosures: [], uncertaintySchemaVersion: "structured-uncertainty-1.3" },
+      uncertainty: { disclosures: [], uncertaintySchemaVersion: "structured-uncertainty-1.4" },
     }),
     projection,
     "candidate may not author uncertainty schema versions",

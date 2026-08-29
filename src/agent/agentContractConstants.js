@@ -1,4 +1,4 @@
-export const AGENT_CONTRACT_VERSION = "D0_R0_CORR2_A2C1_CORR1_C5C1_PC1";
+export const AGENT_CONTRACT_VERSION = "D0_R0_CORR2_A2C1_CORR1_C5C1_PC1_SR1";
 export const SNAPSHOT_SCHEMA_VERSION = "engine-snapshot-2.0";
 
 export const RUNTIME_CORE_COMMIT = "dcbd937e0135e790201ee5c8898c5b5f5a085298";
@@ -50,7 +50,12 @@ export const BRANCH_CODES = Object.freeze([
 export const ENGINE_OUTCOME_SOURCES = Object.freeze([
   "DUAL_CORE",
   "PRE_CORE_SELECTOR",
+  "SINGLE_R1_ONLY",
 ]);
+
+export const SINGLE_R1_OUTCOME_CODE = "SINGLE_R1_ONLY";
+export const SINGLE_R1_REASON_CODE = "NO_INDEPENDENT_R2_COMPARISON";
+export const SINGLE_R1_CONSTRAINT_ID = "C-SINGLE-NO-R2-COMPARISON";
 
 export const PRE_CORE_OUTCOME_CODES = Object.freeze([
   "S_ADMISSIBILITY_UNRESOLVED",
@@ -61,6 +66,7 @@ export const PRE_CORE_OUTCOME_CODES = Object.freeze([
 export const ENGINE_OUTCOME_CODES = Object.freeze([
   ...BRANCH_CODES,
   ...PRE_CORE_OUTCOME_CODES,
+  SINGLE_R1_OUTCOME_CODE,
 ]);
 
 export const SELECTOR_COMPATIBLE_DUAL_BRANCH_CODES = Object.freeze([
@@ -370,7 +376,7 @@ export const DIGEST_PREFIX = "sha256:";
 export const FAILURE_CLASS_INPUT_ASSEMBLY_FAILURE = "INPUT_ASSEMBLY_FAILURE";
 export const FAILURE_CLASS_CONTRACT_VERSION_MISMATCH = "CONTRACT_VERSION_MISMATCH";
 
-export const UNCERTAINTY_SCHEMA_VERSION = "structured-uncertainty-1.3";
+export const UNCERTAINTY_SCHEMA_VERSION = "structured-uncertainty-1.4";
 
 export const UNCERTAINTY_DOMAINS = Object.freeze([
   "ELIGIBILITY",
@@ -400,6 +406,7 @@ export const CLAIM_SCOPES = Object.freeze([
 ]);
 
 export const UNCERTAINTY_REASON_CODES = Object.freeze([
+  SINGLE_R1_REASON_CODE,
   "ELIGIBILITY_UNRESOLVED_MODULE_IDENTITY",
   "ELIGIBILITY_UNRESOLVED_QUESTION_IDENTITY",
   "ELIGIBILITY_UNRESOLVED_ROLE_UNSPECIFIED",
@@ -453,6 +460,7 @@ export const SURVIVING_DIAGNOSTIC_SEMANTIC_CLASSES = Object.freeze([
 ]);
 
 export const CONSTRAINT_IDS = Object.freeze([
+  SINGLE_R1_CONSTRAINT_ID,
   "C-ELIGIBILITY-UNRESOLVED",
   "C-COVERAGE-SUPPRESSED",
   "C-1B-SUPPRESSION",
@@ -602,11 +610,11 @@ export const DERIVATION_METHOD_ALLOWLIST_FIELDS = Object.freeze(["2", "3"]);
 export const XP1_SOURCE_ROW = 9;
 
 export const REQUEST_SCHEMA_VERSION = "agent-request-1.2";
-export const OUTPUT_SCHEMA_VERSION = "agent-result-1.3";
+export const OUTPUT_SCHEMA_VERSION = "agent-result-1.4";
 
-export const PROVIDER_PROJECTION_VERSION = "provider-projection-1.2";
-export const PROVIDER_PROMPT_VERSION = "provider-prompt-1.1";
-export const PROVIDER_CANDIDATE_SCHEMA_VERSION = "provider-semantic-candidate-1.1";
+export const PROVIDER_PROJECTION_VERSION = "provider-projection-1.3";
+export const PROVIDER_PROMPT_VERSION = "provider-prompt-1.2";
+export const PROVIDER_CANDIDATE_SCHEMA_VERSION = "provider-semantic-candidate-1.2";
 
 export const CONSTRAINT_SCOPE_REQUEST_WIDE = "REQUEST_WIDE";
 export const CONSTRAINT_SCOPE_BRANCH = "BRANCH";

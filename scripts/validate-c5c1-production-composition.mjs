@@ -10,6 +10,7 @@ import { buildAgentInterpretationRequest } from "../src/agent/agentInterpretatio
 import { assembleEngineSnapshot } from "../src/agent/engineSnapshot.js";
 import { buildInterpretationContextPack } from "../src/agent/interpretationContextPack.js";
 import { assemblePreCoreSelectorSnapshot } from "../src/agent/preCoreSelectorSnapshot.js";
+import { assembleSingleR1Snapshot } from "../src/agent/singleR1Snapshot.js";
 import { runProductionInterpretation } from "../src/agent/productionInterpretationComposition.js";
 import { runAgentInterpretation } from "../src/agent/agentInterpretationRun.js";
 import { AgentInterpretationRequestAssemblyError } from "../src/agent/agentInterpretationRequest.js";
@@ -91,13 +92,13 @@ const NO_PAIR_PRE_STATUSES = Object.freeze([
 ]);
 const NO_PAIR_CONSTRAINT_ID = "C-NO-AGENT-PAIR-SELECTION";
 const NO_PAIR_PROVIDER_RULE = "Never choose, infer, name, rank, narrow, or reconstruct a candidate pair. Do not treat matched-pair or selector audit material as pair authority. Describe only the canonical selector-boundary fact supplied in this projection.";
-const ADMISSIBILITY_SYSTEM_INSTRUCTION_SHA256 = "4ae5e31214ba2991393748c0c25a3c97b441a82d72d82162bdaaa156e24098a5";
+const ADMISSIBILITY_SYSTEM_INSTRUCTION_SHA256 = "bf3acb2be67b7f27a9f182619d9f2b16e0b221a922dba56d690d008518d53bec";
 const ADMISSIBILITY_SYSTEM_INSTRUCTION_BYTES = 5867;
 const SENTINELS = Object.freeze({
   "src/flow/candidatePairSelector.js": "9aa93625d3a3f19b9fbc002504b97d0acf284d084a9c91f3f0dc119ad3404d43",
   "src/flow/dualRespondentComparison.js": "5b730d53df647ddf12f58a0f4e8bf1bcb294e852b4f080ed5a038103b79ba2e3",
   "scripts/validate-c5b-candidate-pair-selector.mjs": "a7a6d95e829645f396aea3718300c38ecbb64406ed41d4669f7df850a89995a6",
-  "scripts/validate-agent-semantic-conformance-offline.mjs": "3cc5ba4aa57fc0f2002cc59a54a9a25b98d9fb6e8d5e900535dd0ad6f2d30bbb",
+  "scripts/validate-agent-semantic-conformance-offline.mjs": "0ef9425aa310cb5e75ab41e7c9d8bfd8f6c357888545fc2bf3ce520e12d1b1d2",
 });
 const J5_FORBIDDEN_IMPORT_FRAGMENTS = Object.freeze([
   "src/flow/",
@@ -230,6 +231,32 @@ function expectedDualBundle(session) {
     assembled,
     coreInput,
     coreOutput,
+    identityContext,
+    snapshot,
+  };
+}
+
+function expectedSingleBundle(session) {
+  const selectorResult = selectCandidatePair({ session });
+  assert.equal(selectorResult.status, "SELECTED");
+  const selectorProvenance = projectSelectorLiteral(selectorResult);
+  const identityContext = {
+    diagnosticId: session.sessionId,
+    projectId: null,
+    moduleId: "acquirerEnvironment",
+    candidatePair: selectorResult.candidatePair,
+    candidatePairNormalized: selectorResult.candidatePairNormalized,
+  };
+  const snapshot = assembleSingleR1Snapshot({
+    session,
+    identityContext,
+    selectorProvenance,
+  });
+  assert.equal(snapshot.outcomeSource, "SINGLE_R1_ONLY");
+  assert.equal(snapshot.engine.outcome.engineOutcomeCode, "SINGLE_R1_ONLY");
+  return {
+    selectorResult,
+    selectorProvenance,
     identityContext,
     snapshot,
   };
@@ -446,6 +473,9 @@ mock.module(url("src/flow/productionAdjudicationInputAssembler.js"), {
       if (args.session.incomplete === true) {
         return { ok: false, reason: "missing_r2_context", audit: { stage: "r2_context" } };
       }
+      if (args.session.assemblerBlocked === true) {
+        return { ok: false, reason: "missing_r2_answers", audit: { stage: "r2_answers" } };
+      }
       return {
         ok: true,
         coreInput: {
@@ -553,7 +583,23 @@ const incomplete = await run({
   session: { sessionId: "mock-incomplete", scenario: "SELECTED", incomplete: true },
   moduleId: "acquirerEnvironment",
 });
-const incompleteSummary = { counts: { ...calls }, result: incomplete };
+const incompleteSummary = {
+  counts: { ...calls },
+  result: incomplete,
+  downstreamIdentity: incomplete === downstream,
+  outcomeSource: lastAgent.outcomeSource,
+  hasCoreInput: Object.hasOwn(lastAgent, "coreInput"),
+  hasCoreOutput: Object.hasOwn(lastAgent, "coreOutput"),
+  hasSingleR1Session: Object.hasOwn(lastAgent, "singleR1Session"),
+  identityPair: lastAgent.identityContext.candidatePair,
+  identityDiagnostic: lastAgent.identityContext.diagnosticId,
+};
+reset();
+const assemblerBlocked = await run({
+  session: { sessionId: "mock-assembler-blocked", scenario: "SELECTED", assemblerBlocked: true },
+  moduleId: "acquirerEnvironment",
+});
+const assemblerBlockedSummary = { counts: { ...calls }, result: assemblerBlocked };
 const rejected = {};
 for (const scenario of ["INPUT_INVALID", "CONFIG_INVALID", "throw_config"]) {
   reset();
@@ -580,6 +626,7 @@ console.log(JSON.stringify({
   pre,
   injected,
   incomplete: incompleteSummary,
+  assemblerBlocked: assemblerBlockedSummary,
   rejected,
   moduleMismatch,
   mismatchCounts,
@@ -622,6 +669,7 @@ const extraAuthorityAttempt = await runWithoutProviders({
 const incompleteSession = buildC5CSelectedSession({
   sessionId: C5C1_DUAL_CORE_SESSION_ID,
 });
+const expectedIncomplete = expectedSingleBundle(incompleteSession);
 const incompleteResult = await runWithoutProviders({
   session: incompleteSession,
   moduleId: "acquirerEnvironment",
@@ -753,15 +801,25 @@ await check("C5C1-38", "routing keys are absent outside ADMISSIBILITY", () => {
   assert.deepEqual(control.pre.NO_LAWFUL_PAIR.keys, [...SELECTED_KEYS].sort());
   assert.deepEqual(control.pre.PAIR_SELECTION_AMBIGUOUS.keys, [...SELECTED_KEYS].sort());
 });
-await check("C5C1-39", "SELECTED assembler failure stops before Core and Agent", () => {
-  assert.deepEqual(control.incomplete.counts, { selector: 1, assembler: 1, core: 0, agent: 0 });
+await check("C5C1-39", "SELECTED missing_r2_context routes to Agent as SINGLE_R1_ONLY without Core", () => {
+  assert.deepEqual(control.incomplete.counts, { selector: 1, assembler: 1, core: 0, agent: 1 });
+  assert.equal(control.incomplete.outcomeSource, "SINGLE_R1_ONLY");
+  assert.equal(control.incomplete.hasCoreInput, false);
+  assert.equal(control.incomplete.hasCoreOutput, false);
+  assert.equal(control.incomplete.hasSingleR1Session, true);
+  assert.equal(control.incomplete.identityPair, "NT/STJ vs NT/STP");
+  assert.equal(control.incomplete.identityDiagnostic, "mock-incomplete");
 });
-await check("C5C1-40", "missing R2 returns bounded non-Agent result", () => {
-  assert.deepEqual(control.incomplete.result, {
+await check("C5C1-40", "mocked missing R2 returns the SINGLE Agent downstream identity", () => {
+  assert.equal(control.incomplete.downstreamIdentity, true);
+});
+await check("C5C1-40A", "other SELECTED assembler failures still stop before Core and Agent", () => {
+  assert.deepEqual(control.assemblerBlocked.counts, { selector: 1, assembler: 1, core: 0, agent: 0 });
+  assert.deepEqual(control.assemblerBlocked.result, {
     ok: false,
     selectorStatus: "SELECTED",
-    reason: "missing_r2_context",
-    stage: "r2_context",
+    reason: "missing_r2_answers",
+    stage: "r2_answers",
   });
 });
 await check("C5C1-41", "INPUT_INVALID produces no assembler/Core/Agent", () => {
@@ -876,21 +934,22 @@ await check("C5C1-63", "execution is history-independent", () => {
   assert.equal(fullResult1.engineSnapshotDigest, historyResult.engineSnapshotDigest);
 });
 
-await check("C5C1-64", "actual incomplete R2 stops with assembler reason", () => {
-  assert.deepEqual(incompleteResult, {
-    ok: false,
-    selectorStatus: "SELECTED",
-    reason: "missing_r2_context",
-    stage: "r2_context",
-  });
+await check("C5C1-64", "actual incomplete R2 seals SINGLE_R1_ONLY and reaches the Agent provider boundary", () => {
+  assert.equal(expectedIncomplete.snapshot.outcomeSource, "SINGLE_R1_ONLY");
+  assert.equal(incompleteResult.engineSnapshotDigest, expectedIncomplete.snapshot.engineSnapshotDigest);
+  assert.equal(incompleteResult.failureClass, "PROVIDER_UNAVAILABLE");
+  assert.equal(incompleteResult.diagnosticId, incompleteSession.sessionId);
 });
 await check("C5C1-65", "missing R2 does not become PRE_CORE", () => {
   assert.equal(JSON.stringify(incompleteResult).includes("PRE_CORE_SELECTOR"), false);
   assert.equal(JSON.stringify(incompleteResult).includes("S_"), false);
+  assert.notEqual(expectedIncomplete.snapshot.engine.outcome.engineOutcomeCode.startsWith("S_"), true);
 });
-await check("C5C1-66", "missing R2 does not become a fabricated failure envelope", () => {
-  assert.equal(Object.hasOwn(incompleteResult, "failureSchemaVersion"), false);
-  assert.equal(Object.hasOwn(incompleteResult, "engineSnapshotDigest"), false);
+await check("C5C1-66", "missing R2 does not reuse the DUAL snapshot or skip Agent", () => {
+  assert.notEqual(incompleteResult.engineSnapshotDigest, expectedFull.snapshot.engineSnapshotDigest);
+  assert.equal(expectedFull.snapshot.outcomeSource, "DUAL_CORE");
+  assert.equal(incompleteResult.failureSchemaVersion, "system-failure-1.0");
+  assert.equal(Object.hasOwn(expectedIncomplete.snapshot.engine, "comparison"), false);
 });
 await check("C5C1-67", "same session identity can run after lawful R2 completion", () => {
   assert.equal(completedAfterIncomplete.diagnosticId, incompleteSession.sessionId);

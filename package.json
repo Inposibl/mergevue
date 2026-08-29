@@ -31,6 +31,7 @@
     "validate:observation-scope-runtime": "node scripts/validate-observation-scope-runtime.mjs",
     "validate:dual-module-aware-q9-q10-semantics": "node scripts/validate-dual-module-aware-q9-q10-semantics.mjs",
     "validate:agent-engine-snapshot": "node scripts/validate-agent-engine-snapshot.mjs",
+    "validate:agent-single-r1-snapshot": "node scripts/validate-agent-single-r1-snapshot.mjs",
     "validate:agent-structured-uncertainty": "node scripts/validate-agent-structured-uncertainty.mjs",
     "validate:agent-context-pack": "node scripts/validate-agent-context-pack.mjs",
     "validate:agent-interpretation-request": "node scripts/validate-agent-interpretation-request.mjs",

@@ -17,6 +17,9 @@ import {
   RESPONDENT_SLOT_R2,
   SEMANTIC_CLASS_TO_COVERAGE_REASON,
   SNAPSHOT_SCHEMA_VERSION,
+  SINGLE_R1_CONSTRAINT_ID,
+  SINGLE_R1_OUTCOME_CODE,
+  SINGLE_R1_REASON_CODE,
   SURVIVING_DIAGNOSTIC_SEMANTIC_CLASSES,
   UNCERTAINTY_DOMAINS,
   UNCERTAINTY_REASON_CODES,
@@ -93,6 +96,7 @@ function reasonRank(order, reasonCode) {
 }
 
 function domainForReason(reasonCode) {
+  if (reasonCode === SINGLE_R1_REASON_CODE) return "PAIR_SCOPE";
   if (reasonCode == null) return "ELIGIBILITY";
   if (reasonCode.startsWith("ELIGIBILITY_")) return "ELIGIBILITY";
   if (ACCESS_REASON_SET.has(reasonCode)) return "ACCESS";
@@ -157,6 +161,7 @@ function itemShape({
 }
 
 function constraintsFor(engineOutcomeCode) {
+  if (engineOutcomeCode === SINGLE_R1_OUTCOME_CODE) return [SINGLE_R1_CONSTRAINT_ID];
   if (PRE_CORE_OUTCOME_CODES.includes(engineOutcomeCode)) {
     return copyArray(PRE_CORE_CONSTRAINTS_BY_OUTCOME_CODE[engineOutcomeCode]);
   }
@@ -217,6 +222,19 @@ function branchItems(snapshot) {
   const discriminator = comparison.discriminator ?? {};
   const observations = copyArray(snapshot.engine.observations);
   const items = [];
+
+  if (branch === SINGLE_R1_OUTCOME_CODE) {
+    items.push(itemShape({
+      reasonCode: SINGLE_R1_REASON_CODE,
+      originBranch: branch,
+      affectedClaims: [],
+      claimScope: "DETAIL_ONLY",
+      evidenceRefs: [],
+      constraintIds: constraintsFor(branch),
+      disclosureRequired: true,
+      derivationSource: "engine.outcome.reason",
+    }));
+  }
 
   if (branch === "S_ADMISSIBILITY_UNRESOLVED") {
     items.push(itemShape({
@@ -593,6 +611,12 @@ function buildKnown(snapshot) {
   if (snapshot.outcomeSource === "DUAL_CORE") {
     known.push(knownFact("engine/outcome/branchCode", outcome.branchCode));
   }
+  if (snapshot.outcomeSource === SINGLE_R1_OUTCOME_CODE) {
+    known.push(knownFact("identity/candidatePair", snapshot.identity.candidatePair));
+    known.push(knownFact("engine/r1Scoring/primaryEnvironmentCode", snapshot.engine.r1Scoring.primaryEnvironmentCode));
+    known.push(knownFact("engine/r1Scoring/secondaryEnvironmentCode", snapshot.engine.r1Scoring.secondaryEnvironmentCode));
+    known.push(knownFact("engine/outcome/suppression/comparatorDidNotRun", true));
+  }
   const branch = outcome.engineOutcomeCode;
   if (PRE_CORE_OUTCOME_CODES.includes(branch)) {
     known.push(knownFact("identity/candidatePair", snapshot.identity.candidatePair));
@@ -700,6 +724,9 @@ function buildWithheld(snapshot) {
   const outcome = snapshot.engine.outcome;
   const branch = outcome.engineOutcomeCode;
   const engineOutputText = outcome.engineOutput;
+  if (branch === SINGLE_R1_OUTCOME_CODE) {
+    return [withheldEntry("independent R2 comparison", SINGLE_R1_OUTCOME_CODE, engineOutputText, true)];
+  }
   if (branch === "P_0A") {
     return [withheldEntry("comparator output", "P_0A", engineOutputText, true)];
   }
@@ -845,13 +872,43 @@ function validateSnapshot(engineSnapshot) {
       fail("DUAL_CORE requires branchCode equal to engineOutcomeCode");
     }
     requireObject(engine.comparison, "engineSnapshot.engine.comparison");
-  } else {
+  } else if (snapshot.outcomeSource === "PRE_CORE_SELECTOR") {
     if (!PRE_CORE_OUTCOME_CODES.includes(outcome.engineOutcomeCode)) {
       fail("PRE_CORE_SELECTOR requires an S_* engineOutcomeCode");
     }
     if (Object.hasOwn(outcome, "branchCode")) fail("PRE_CORE_SELECTOR outcome cannot contain branchCode");
     if (Object.hasOwn(engine, "comparison")) fail("PRE_CORE_SELECTOR engine cannot contain comparison");
     if (engine.observations.length !== 0) fail("PRE_CORE_SELECTOR observations must be empty");
+  } else {
+    if (outcome.engineOutcomeCode !== SINGLE_R1_OUTCOME_CODE) {
+      fail("SINGLE_R1_ONLY requires matching engineOutcomeCode");
+    }
+    if (Object.hasOwn(outcome, "branchCode")) fail("SINGLE_R1_ONLY outcome cannot contain branchCode");
+    if (Object.hasOwn(engine, "comparison")) fail("SINGLE_R1_ONLY engine cannot contain comparison");
+    requireObject(engine.r1Scoring, "engineSnapshot.engine.r1Scoring");
+    if (outcome.reason !== SINGLE_R1_REASON_CODE || outcome.constraintId !== SINGLE_R1_CONSTRAINT_ID) {
+      fail("SINGLE_R1_ONLY reason/constraint identity mismatch");
+    }
+    if (outcome.suppression?.comparatorDidNotRun !== true) {
+      fail("SINGLE_R1_ONLY requires comparatorDidNotRun true");
+    }
+    const expectedQuestions = new Set(QUESTION_UNIVERSE);
+    if (engine.observations.length !== QUESTION_UNIVERSE.length) {
+      fail("SINGLE_R1_ONLY requires the exact R1 question universe");
+    }
+    for (const observation of engine.observations) {
+      if (observation?.respondentSlot !== RESPONDENT_SLOT_R1) {
+        fail("SINGLE_R1_ONLY observations must be R1-only");
+      }
+      if (!expectedQuestions.delete(observation.questionRef)) {
+        fail("SINGLE_R1_ONLY observations contain a duplicate or unknown questionRef");
+      }
+      const expectedRef = `qref://${snapshot.identity?.diagnosticId}/${snapshot.identity?.moduleId}/${observation.questionRef}/${RESPONDENT_SLOT_R1}`;
+      if (observation.observationRef !== expectedRef) {
+        fail("SINGLE_R1_ONLY observationRef must carry canonical R1 provenance");
+      }
+    }
+    if (expectedQuestions.size !== 0) fail("SINGLE_R1_ONLY observations omit an R1 questionRef");
   }
   return snapshot;
 }

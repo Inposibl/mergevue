@@ -359,7 +359,7 @@ check("C0", "schema identities are context-pack-1.1 / context-selection-1.3", ()
   assert.equal(CONTEXT_PACK_SCHEMA_VERSION, "context-pack-1.1");
   assert.equal(SELECTION_POLICY_VERSION, "context-selection-1.3");
   assert.equal(SNAPSHOT_SCHEMA_VERSION, "engine-snapshot-2.0");
-  assert.equal(AGENT_CONTRACT_VERSION, "D0_R0_CORR2_A2C1_CORR1_C5C1_PC1");
+  assert.equal(AGENT_CONTRACT_VERSION, "D0_R0_CORR2_A2C1_CORR1_C5C1_PC1_SR1");
   assert.equal(SELECTION_RULE_IDS.includes("SR-13"), false);
   assert.equal(SUPERSEDED_RAW_PREDICATES.length, 1);
   assert.equal(SUPERSEDED_RAW_PREDICATES[0].id, "SP-1");

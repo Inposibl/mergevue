@@ -31,6 +31,7 @@ function families(...names) {
 
 // Condition vocabulary (deterministic, data-only):
 //   { type: "BRANCH_IS", value }        — engine outcome branchCode equals value
+//   { type: "OUTCOME_SOURCE_IS", value } — snapshot outcomeSource equals value
 //   { type: "CONSTRAINT_ACTIVE", value } — constraintId is active on the request
 //   { type: "SCOPE_IS", value }          — permittedOutputScope equals value
 //   { type: "HYPOTHESES_PRESENT" }       — interpretation.hypotheses.items.length >= 1
@@ -535,6 +536,72 @@ export const SEMANTIC_APPLICABILITY_MATRIX = Object.freeze({
       ]),
       authorityPlan: "V-32-EXTRAPOLATION",
     }),
+    Object.freeze({
+      ruleId: "V-33",
+      semanticSubruleId: "V-33-SEM-SINGLE-NO-R2-COMPARISON",
+      ordinal: 23,
+      targetFamilies: ALL_FAMILIES,
+      conditions: Object.freeze([{ type: "OUTCOME_SOURCE_IS", value: "SINGLE_R1_ONLY" }]),
+      failureViolationCode: "PROHIBITED_CLAIM_VIOLATION",
+      expectedInvariant: "SINGLE_R1_ONLY states that no independent substantive R2 comparison occurred and never implies agreement, divergence, corroboration, comparison evidence, cross-side friction, or a replacement comparison result.",
+      allowedSemanticInterpretations: Object.freeze([
+        "Interpreting sealed R1 facts while explicitly preserving the absence of an independent R2 comparison.",
+      ]),
+      forbiddenSemanticImplications: Object.freeze([
+        "Any R1-versus-R2 agreement, divergence, corroboration, comparison, or cross-side friction claim.",
+        "Any fabricated R2 observation or comparison output.",
+      ]),
+      authorityPlan: "V-33-SINGLE-NO-R2-COMPARISON",
+    }),
+    Object.freeze({
+      ruleId: "V-34",
+      semanticSubruleId: "V-34-SEM-SINGLE-NO-SHADOW-SCORING",
+      ordinal: 24,
+      targetFamilies: ALL_FAMILIES,
+      conditions: Object.freeze([{ type: "OUTCOME_SOURCE_IS", value: "SINGLE_R1_ONLY" }]),
+      failureViolationCode: "PROHIBITED_CLAIM_VIOLATION",
+      expectedInvariant: "SINGLE_R1_ONLY preserves the selector-established pair and sealed r1Scoring facts; prose may not rescore, rerank, create a new primary Environment, or use score order as hypothesis order.",
+      allowedSemanticInterpretations: Object.freeze([
+        "Restating the sealed R1 primary, secondary, pair, and score facts without changing their authority or order.",
+      ]),
+      forbiddenSemanticImplications: Object.freeze([
+        "A newly calculated or reranked R1 score, new primary Environment, or replacement candidate pair.",
+        "Treating the Engine score order as automatic hypothesis order.",
+      ]),
+      authorityPlan: "V-34-SINGLE-NO-SHADOW-SCORING",
+    }),
+    Object.freeze({
+      ruleId: "V-35",
+      semanticSubruleId: "V-35-SEM-SINGLE-DISCLOSURE",
+      ordinal: 25,
+      targetFamilies: Object.freeze(["DISCLOSURE_CLIENT_STATEMENT"]),
+      conditions: Object.freeze([{ type: "OUTCOME_SOURCE_IS", value: "SINGLE_R1_ONLY" }]),
+      failureViolationCode: "PROHIBITED_CLAIM_VIOLATION",
+      expectedInvariant: "The required SINGLE_R1_ONLY client disclosure states clearly that there was no independent R2 comparison and does not weaken that limitation.",
+      allowedSemanticInterpretations: Object.freeze([
+        "A clear client-facing statement that no independent R2 comparison occurred.",
+      ]),
+      forbiddenSemanticImplications: Object.freeze([
+        "Language that hides, softens, or contradicts the absence of independent R2 comparison.",
+      ]),
+      authorityPlan: "V-35-SINGLE-DISCLOSURE",
+    }),
+    Object.freeze({
+      ruleId: "V-36",
+      semanticSubruleId: "V-36-SEM-SINGLE-R1-FACTS",
+      ordinal: 26,
+      targetFamilies: ALL_FAMILIES,
+      conditions: Object.freeze([{ type: "OUTCOME_SOURCE_IS", value: "SINGLE_R1_ONLY" }]),
+      failureViolationCode: "ENGINE_FACT_MUTATION_DETECTED",
+      expectedInvariant: "Every stated R1 observation, Environment score fact, primary/secondary identity, and selector pair remains identical in meaning to the sealed SINGLE_R1_ONLY authority.",
+      allowedSemanticInterpretations: Object.freeze([
+        "Faithful statements and bounded interpretations grounded in the sealed R1 observations and scoring facts.",
+      ]),
+      forbiddenSemanticImplications: Object.freeze([
+        "Changing any R1 answer, observation meaning, score value, primary/secondary Environment, or selector-established pair.",
+      ]),
+      authorityPlan: "V-36-SINGLE-R1-FACTS",
+    }),
   ]),
 });
 
@@ -564,6 +631,7 @@ export function resolveSemanticApplicabilityContext(
   const hypotheses = result.interpretation.hypotheses;
   return Object.freeze({
     branchCode,
+    outcomeSource: request.engineSnapshot.outcomeSource,
     permittedOutputScope: request.permittedOutputScope,
     activeConstraintIds: Object.freeze(
       [...(request.activeConstraints ?? [])]
@@ -583,6 +651,8 @@ function conditionHolds(condition, context, target) {
   switch (condition.type) {
     case "BRANCH_IS":
       return context.branchCode === condition.value;
+    case "OUTCOME_SOURCE_IS":
+      return context.outcomeSource === condition.value;
     case "CONSTRAINT_ACTIVE":
       return context.activeConstraintIds.includes(condition.value);
     case "SCOPE_IS":

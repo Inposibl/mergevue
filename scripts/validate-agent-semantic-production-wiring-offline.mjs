@@ -952,10 +952,10 @@ async function main() {
   });
 
   const gates = [
-    ["validate:agent-semantic-validator-core-offline", "PASS 20/20"],
+    ["validate:agent-semantic-validator-core-offline", "PASS 24/24"],
     ["validate:agent-semantic-judge-transport-offline", "PASS 73/73"],
     ["validate:agent-semantic-system-failure-offline", "PASS 57/57"],
-    ["validate:agent-semantic-conformance-offline", "PASS 305/305"],
+    ["validate:agent-semantic-conformance-offline", "PASS 313/313"],
   ];
   await check("W19", "accepted semantic regressions remain unchanged", () => {
     for (const [script, expected] of gates) {

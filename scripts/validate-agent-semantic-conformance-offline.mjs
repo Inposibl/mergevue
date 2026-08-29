@@ -64,7 +64,8 @@ import {
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const results = [];
-const TWENTY_TWO = EXPECTED_SUBRULE_MATRIX.map((row) => row.subruleId);
+const ALL_SUBRULES = EXPECTED_SUBRULE_MATRIX.map((row) => row.subruleId);
+const SINGLE_ONLY_SUBRULES = Object.freeze(ALL_SUBRULES.slice(22));
 
 function pass(id, label) {
   results.push({ id, label, status: "PASS" });
@@ -345,7 +346,7 @@ async function stageG1() {
   });
   await check("CS-06", "assertedSubruleId domain", () => {
     for (const record of records) {
-      if (record.assertedSubruleId !== null) assert.equal(TWENTY_TWO.includes(record.assertedSubruleId), true);
+      if (record.assertedSubruleId !== null) assert.equal(ALL_SUBRULES.includes(record.assertedSubruleId), true);
     }
   });
   await check("CS-07", "expectedViolationCode domain", () => {
@@ -392,19 +393,19 @@ async function stageG1() {
     const families = new Set(familyRecords.map((row) => row.assertedTargetFamily));
     assert.equal(families.size, 13);
   });
-  await check("CS-14", "SUBRULE covers 22 semantic subrules", () => {
+  await check("CS-14", "SUBRULE covers 26 semantic subrules", () => {
     const sub = records.filter((row) => row.category === "SUBRULE" && row.assertedSubruleId);
-    assert.equal(new Set(sub.map((row) => row.assertedSubruleId)).size, 22);
+    assert.equal(new Set(sub.map((row) => row.assertedSubruleId)).size, 26);
   });
   await check("CS-15", "declared total equals physical count", () => {
-    assert.equal(records.length, 256);
-    assert.equal(CANONICAL_CASE_IDS.length, 256);
+    assert.equal(records.length, 264);
+    assert.equal(CANONICAL_CASE_IDS.length, 264);
   });
   await check("CS-16", "category subtotals sum to total", () => {
     const counts = Object.fromEntries(CANONICAL_CATEGORIES.map((key) => [key, 0]));
     for (const record of records) counts[record.category] += 1;
     assert.deepEqual(counts, {
-      TARGET_FAMILY: 52, SUBRULE: 49, JUDGE_LAW: 30, PRODUCT_LOCK: 15, MECHANICS: 7,
+      TARGET_FAMILY: 52, SUBRULE: 57, JUDGE_LAW: 30, PRODUCT_LOCK: 15, MECHANICS: 7,
       PROTOCOL: 21, TRANSPORT: 28, MAPPING: 27, INTEGRATION: 10, PRIVACY: 17,
     });
   });
@@ -438,12 +439,12 @@ async function stageG1() {
   await check("CS-22", "materialized ids equal frozen CANONICAL_CASE_IDS", () => {
     assert.deepEqual([...records.map((row) => row.caseId)].sort(), [...CANONICAL_CASE_IDS].sort());
   });
-  await check("CS-23", "provider partition 220/36", () => {
+  await check("CS-23", "provider partition 228/36", () => {
     assert.equal(records.filter((row) => row.providerSpecific).length, 36);
-    assert.equal(records.filter((row) => !row.providerSpecific).length, 220);
+    assert.equal(records.filter((row) => !row.providerSpecific).length, 228);
   });
-  await check("CS-24", "J2-state partition 220/4/32", () => {
-    assert.equal(records.filter((row) => row.expectedJ2Status === "NOT_EXERCISED").length, 220);
+  await check("CS-24", "J2-state partition 228/4/32", () => {
+    assert.equal(records.filter((row) => row.expectedJ2Status === "NOT_EXERCISED").length, 228);
     assert.equal(records.filter((row) => row.expectedJ2Status === "ADMITTED").length, 4);
     assert.equal(records.filter((row) => row.expectedJ2Status === "ERROR").length, 32);
   });
@@ -455,7 +456,7 @@ async function stageG1() {
     assert.equal(sha256PrefixedDigest(canonicalSerialize([...SEMANTIC_TARGET_FAMILIES])), EXPECTED_TARGET_FAMILIES_DIGEST);
   });
   await check("CS-27", "production matrix row order", () => {
-    assert.equal(SEMANTIC_APPLICABILITY_MATRIX.rows.length, 22);
+    assert.equal(SEMANTIC_APPLICABILITY_MATRIX.rows.length, 26);
     SEMANTIC_APPLICABILITY_MATRIX.rows.forEach((row, index) => {
       const expected = EXPECTED_SUBRULE_MATRIX[index];
       assert.equal(row.ordinal, expected.ordinal);
@@ -488,15 +489,16 @@ async function stageG1() {
       assert.deepEqual(actual, [...row.applicable].sort(), row.family);
     }
   });
-  await check("CS-31", "observed NA sets partition the 22", async () => {
+  await check("CS-31", "observed NA sets partition all 26 subrules", async () => {
     const fixtures = await loadObservedFixtures();
     for (const row of EXPECTED_TARGET_FAMILY_MATRIX) {
       const fixture = fixtures[row.fixtureId];
       const { cSet } = buildSemanticCheckSet(fixture.request, fixture.result);
       const actualApp = new Set(applicableSet(cSet, row.family, row.locator));
-      const actualNa = TWENTY_TWO.filter((id) => !actualApp.has(id));
-      assert.deepEqual(actualNa.sort(), [...row.nonApplicable].sort(), row.family);
-      assert.equal(new Set([...row.applicable, ...row.nonApplicable]).size, 22);
+      const actualNa = ALL_SUBRULES.filter((id) => !actualApp.has(id));
+      const expectedNa = [...row.nonApplicable, ...SINGLE_ONLY_SUBRULES];
+      assert.deepEqual(actualNa.sort(), expectedNa.sort(), row.family);
+      assert.equal(new Set([...row.applicable, ...expectedNa]).size, 26);
       assert.equal([...row.applicable].filter((id) => row.nonApplicable.includes(id)).length, 0);
     }
   });
@@ -539,7 +541,7 @@ async function stageG1() {
       assert.equal(sub.failureViolationCode, row.witnessClass);
     }
   });
-  await check("CS-36", "J3 execution law and 50/206 partition", () => {
+  await check("CS-36", "J3 execution law and 50/214 partition", () => {
     let nonNull = 0;
     for (const record of records) {
       if (record.expectedJ3FailureClass !== null) {
@@ -550,7 +552,7 @@ async function stageG1() {
       if (record.expectedTerminalStatus === "SYSTEM_FAILURE") assert.notEqual(record.expectedJ3FailureClass, null, record.caseId);
     }
     assert.equal(nonNull, 50);
-    assert.equal(records.length - nonNull, 206);
+    assert.equal(records.length - nonNull, 214);
   });
   await check("CS-37", "expected materialization is production-independent", () => {
     const source = readFileSync(join(ROOT, "scripts/fixtures/agent-semantic-conformance-corpus.mjs"), "utf8");
@@ -633,7 +635,7 @@ async function executeDckAndInvariants(record, fixtures) {
     return;
   }
   if (record.caseId === "VJ-I04") {
-    for (const id of ["F01", "F02", "F03", "F04", "F05", "F06", "F07", "F08", "F09", "F10", "F11", "F12", "F13"]) {
+    for (const id of ["F01", "F02", "F03", "F04", "F05", "F06", "F07", "F08", "F09", "F10", "F11", "F12", "F13", "F15"]) {
       const fixture = fixtures[id];
       assert.equal(buildSemanticCheckSet(fixture.request, fixture.result).localFails.length, 0, id);
     }

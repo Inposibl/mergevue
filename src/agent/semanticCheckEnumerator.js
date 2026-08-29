@@ -645,7 +645,9 @@ const AUTHORITY_PLANS = Object.freeze({
   "V-12-HUMAN-REVIEW"(request, result, target) {
     const set = new AuthoritySet();
     set.add("ENGINE_FACT", "agentInterpretationRequest.humanReviewOccurred", request.humanReviewOccurred);
-    set.add("ENGINE_FACT", "engine.outcome.engineRoutingMetadata", outcomeOf(request).engineRoutingMetadata);
+    if (Object.hasOwn(outcomeOf(request), "engineRoutingMetadata")) {
+      set.add("ENGINE_FACT", "engine.outcome.engineRoutingMetadata", outcomeOf(request).engineRoutingMetadata);
+    }
     set.add("CONSTRAINT", "C-NO-HUMAN-REVIEW-CLAIM", constraintRow(request, "C-NO-HUMAN-REVIEW-CLAIM"));
     return set;
   },
@@ -758,6 +760,36 @@ const AUTHORITY_PLANS = Object.freeze({
     }
     return set;
   },
+  "V-33-SINGLE-NO-R2-COMPARISON"(request) {
+    const set = new AuthoritySet();
+    set.add("SUPPRESSION_FACT", "engine.outcome.suppression.comparatorDidNotRun", outcomeOf(request).suppression?.comparatorDidNotRun);
+    set.add("CONSTRAINT", "C-SINGLE-NO-R2-COMPARISON", constraintRow(request, "C-SINGLE-NO-R2-COMPARISON"));
+    addWithheldAuthorities(set, request);
+    return set;
+  },
+  "V-34-SINGLE-NO-SHADOW-SCORING"(request) {
+    const set = new AuthoritySet();
+    set.add("ENGINE_FACT", "identity.candidatePair", request.engineSnapshot.identity.candidatePair);
+    set.add("ENGINE_FACT", "engine.r1Scoring", request.engineSnapshot.engine.r1Scoring);
+    set.add("CONSTRAINT", "C-NO-SHADOW-SCORING", constraintRow(request, "C-NO-SHADOW-SCORING"));
+    set.add("CONSTRAINT", "C-SINGLE-NO-R2-COMPARISON", constraintRow(request, "C-SINGLE-NO-R2-COMPARISON"));
+    return set;
+  },
+  "V-35-SINGLE-DISCLOSURE"(request, result, target) {
+    const set = new AuthoritySet();
+    set.add("UNCERTAINTY_ITEM", target.metadata.uncertaintyId, resolveUncertaintyItem(request, target.metadata.uncertaintyId));
+    set.add("CONSTRAINT", "C-SINGLE-NO-R2-COMPARISON", constraintRow(request, "C-SINGLE-NO-R2-COMPARISON"));
+    return set;
+  },
+  "V-36-SINGLE-R1-FACTS"(request) {
+    const set = new AuthoritySet();
+    set.add("ENGINE_FACT", "identity.candidatePair", request.engineSnapshot.identity.candidatePair);
+    set.add("ENGINE_FACT", "engine.r1Scoring", request.engineSnapshot.engine.r1Scoring);
+    for (const observation of request.engineSnapshot.engine.observations) {
+      set.add("ENGINE_FACT", observation.observationRef, observation);
+    }
+    return set;
+  },
 });
 
 // ---------------------------------------------------------------------------
@@ -829,7 +861,11 @@ export function buildSemanticCheckSet(agentInterpretationRequest, agentInterpret
           continue;
         }
         if (local.outcome !== "REQUIRES_SEMANTIC_JUDGMENT") continue;
-        const authorities = AUTHORITY_PLANS[row.authorityPlan](request, result, target);
+        const authorityPlan = AUTHORITY_PLANS[row.authorityPlan];
+        if (typeof authorityPlan !== "function") {
+          preconditionFail(`unknown semantic authority plan ${JSON.stringify(row.authorityPlan)}`);
+        }
+        const authorities = authorityPlan(request, result, target);
         const orderedAuthorities = Object.freeze(authorities.ordered());
         const authoritySetDigest = computeAuthoritySetDigest(orderedAuthorities);
         const specification = specificationFor(row, target, [...context.activeConstraintIds], authoritySetDigest);

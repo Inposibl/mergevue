@@ -32,9 +32,9 @@ export const EXPECTED_TARGET_FAMILIES = Object.freeze([
   "DISCLOSURE_CLIENT_STATEMENT"
 ]);
 
-export const EXPECTED_APPLICABILITY_MATRIX_DIGEST = "sha256:05a9d9d04ef6308289dd84aec1e8e34754e850a60f1bc2ba642c70bdfd4d3a63";
+export const EXPECTED_APPLICABILITY_MATRIX_DIGEST = "sha256:88ee8b3305558e27a5c157fdab2211912713556b81a6c3f0c0a618ef5ab64f5e";
 export const EXPECTED_TARGET_FAMILIES_DIGEST = "sha256:5cb8fc6d64a31b3323a63860ae6ce07994afa476a7860511f3a1a184b499329b";
-export const EXPECTED_APPLICABILITY_SOURCE_SHA256 = "d653889e1e0ea3c4627e05ae6de27129bbd2b293130fd5ce096c27a063e27a26";
+export const EXPECTED_APPLICABILITY_SOURCE_SHA256 = "ca4cb7146d6599142fccf8f0c6ca4903e3c3c54b25e3ed7da8868c1e02c19ca3";
 
 export const EXPECTED_TARGET_FAMILY_MATRIX = Object.freeze([
   {
@@ -1065,6 +1065,72 @@ export const EXPECTED_SUBRULE_MATRIX = Object.freeze([
       "AFFECTED_RESOURCE_LABEL",
       "WATCHPOINT_STATEMENT"
     ]
+  },
+  {
+    "ordinal": 23,
+    "subruleId": "V-33-SEM-SINGLE-NO-R2-COMPARISON",
+    "ruleId": "V-33",
+    "conditions": [{ "type": "OUTCOME_SOURCE_IS", "value": "SINGLE_R1_ONLY" }],
+    "conditionsByFamily": null,
+    "fixtureId": "F15",
+    "family": "CLAIM_TEXT",
+    "locator": "claims.CL-003.text",
+    "failureViolationCode": "PROHIBITED_CLAIM_VIOLATION",
+    "declaredFamilies": [
+      "CLAIM_TEXT", "NARRATIVE_SECTION_TEXT", "HYPOTHESIS_STATEMENT",
+      "TRANSITION_PATTERN_LABEL", "FRICTION_MECHANISM_LABEL", "SCENARIO_INTERPRETATION_STATEMENT",
+      "DECISIVE_EVIDENCE_STATEMENT", "CONFLICTING_EVIDENCE_STATEMENT", "MISSING_EVIDENCE_STATEMENT",
+      "CHANGE_CONDITION_STATEMENT", "AFFECTED_RESOURCE_LABEL", "WATCHPOINT_STATEMENT",
+      "DISCLOSURE_CLIENT_STATEMENT"
+    ]
+  },
+  {
+    "ordinal": 24,
+    "subruleId": "V-34-SEM-SINGLE-NO-SHADOW-SCORING",
+    "ruleId": "V-34",
+    "conditions": [{ "type": "OUTCOME_SOURCE_IS", "value": "SINGLE_R1_ONLY" }],
+    "conditionsByFamily": null,
+    "fixtureId": "F15",
+    "family": "HYPOTHESIS_STATEMENT",
+    "locator": "interpretation.hypotheses.items.H1.statement",
+    "failureViolationCode": "PROHIBITED_CLAIM_VIOLATION",
+    "declaredFamilies": [
+      "CLAIM_TEXT", "NARRATIVE_SECTION_TEXT", "HYPOTHESIS_STATEMENT",
+      "TRANSITION_PATTERN_LABEL", "FRICTION_MECHANISM_LABEL", "SCENARIO_INTERPRETATION_STATEMENT",
+      "DECISIVE_EVIDENCE_STATEMENT", "CONFLICTING_EVIDENCE_STATEMENT", "MISSING_EVIDENCE_STATEMENT",
+      "CHANGE_CONDITION_STATEMENT", "AFFECTED_RESOURCE_LABEL", "WATCHPOINT_STATEMENT",
+      "DISCLOSURE_CLIENT_STATEMENT"
+    ]
+  },
+  {
+    "ordinal": 25,
+    "subruleId": "V-35-SEM-SINGLE-DISCLOSURE",
+    "ruleId": "V-35",
+    "conditions": [{ "type": "OUTCOME_SOURCE_IS", "value": "SINGLE_R1_ONLY" }],
+    "conditionsByFamily": null,
+    "fixtureId": "F15",
+    "family": "DISCLOSURE_CLIENT_STATEMENT",
+    "locator": "uncertainty.disclosures[0].clientStatement",
+    "failureViolationCode": "PROHIBITED_CLAIM_VIOLATION",
+    "declaredFamilies": ["DISCLOSURE_CLIENT_STATEMENT"]
+  },
+  {
+    "ordinal": 26,
+    "subruleId": "V-36-SEM-SINGLE-R1-FACTS",
+    "ruleId": "V-36",
+    "conditions": [{ "type": "OUTCOME_SOURCE_IS", "value": "SINGLE_R1_ONLY" }],
+    "conditionsByFamily": null,
+    "fixtureId": "F15",
+    "family": "CLAIM_TEXT",
+    "locator": "claims.CL-001.text",
+    "failureViolationCode": "ENGINE_FACT_MUTATION_DETECTED",
+    "declaredFamilies": [
+      "CLAIM_TEXT", "NARRATIVE_SECTION_TEXT", "HYPOTHESIS_STATEMENT",
+      "TRANSITION_PATTERN_LABEL", "FRICTION_MECHANISM_LABEL", "SCENARIO_INTERPRETATION_STATEMENT",
+      "DECISIVE_EVIDENCE_STATEMENT", "CONFLICTING_EVIDENCE_STATEMENT", "MISSING_EVIDENCE_STATEMENT",
+      "CHANGE_CONDITION_STATEMENT", "AFFECTED_RESOURCE_LABEL", "WATCHPOINT_STATEMENT",
+      "DISCLOSURE_CLIENT_STATEMENT"
+    ]
   }
 ].map((row) => Object.freeze(row)));
 
@@ -1090,7 +1156,11 @@ export const FROZEN_LAWFUL_TEXT = Object.freeze({
   "V-28-SEM-SHADOW-SCORING": "Structured evidenceBasis as a direct projection of already-accepted engine facts.",
   "V-29-SEM-RANK-PROBABILITY": "\"The best-supported reading of the available evidence, though support is limited\" where rank-1 evidenceBasis does not support a single well-grounded reading.",
   "V-30-SEM-COEQUAL-PREFERENCE": "Presenting co-equal hypotheses as equally available readings.",
-  "V-32-SEM-EXTRAPOLATION": "Stating plainly that direct friction context is absent and no substitute exists."
+  "V-32-SEM-EXTRAPOLATION": "Stating plainly that direct friction context is absent and no substitute exists.",
+  "V-33-SEM-SINGLE-NO-R2-COMPARISON": "Interpreting sealed R1 facts while explicitly preserving the absence of an independent R2 comparison.",
+  "V-34-SEM-SINGLE-NO-SHADOW-SCORING": "Restating the sealed R1 primary, secondary, pair, and score facts without changing their authority or order.",
+  "V-35-SEM-SINGLE-DISCLOSURE": "A clear client-facing statement that no independent R2 comparison occurred.",
+  "V-36-SEM-SINGLE-R1-FACTS": "Faithful statements and bounded interpretations grounded in the sealed R1 observations and scoring facts."
 });
 export const FROZEN_ADVERSARIAL_TEXT = Object.freeze({
   "V-02-SEM-STATE-IN-PROSE": "Asserting a deterministic state, priority, branch, or suppression value different from, or absent in, canonical Engine truth.",
@@ -1114,7 +1184,11 @@ export const FROZEN_ADVERSARIAL_TEXT = Object.freeze({
   "V-28-SEM-SHADOW-SCORING": "A support or confidence label whose stated basis is a count of observations, a cut point, or a weighting not present in an accepted source.",
   "V-29-SEM-RANK-PROBABILITY": "Converting rank into most-likely phrasing unsupported by rank-1 evidenceBasis.",
   "V-30-SEM-COEQUAL-PREFERENCE": "Preference language such as most likely, primary hypothesis, or first choice under CO_EQUAL.",
-  "V-32-SEM-EXTRAPOLATION": "Friction claims derived from reverse-direction logic from adjacent pairs."
+  "V-32-SEM-EXTRAPOLATION": "Friction claims derived from reverse-direction logic from adjacent pairs.",
+  "V-33-SEM-SINGLE-NO-R2-COMPARISON": "Any R1-versus-R2 agreement, divergence, corroboration, comparison, or cross-side friction claim.",
+  "V-34-SEM-SINGLE-NO-SHADOW-SCORING": "A newly calculated or reranked R1 score, new primary Environment, or replacement candidate pair.",
+  "V-35-SEM-SINGLE-DISCLOSURE": "Language that hides, softens, or contradicts the absence of independent R2 comparison.",
+  "V-36-SEM-SINGLE-R1-FACTS": "Changing any R1 answer, observation meaning, score value, primary/secondary Environment, or selector-established pair."
 });
 export const FROZEN_INVARIANT_TEXT = Object.freeze({
   "V-02-SEM-STATE-IN-PROSE": "Authored prose must not change or assert Engine state beyond canonical Engine truth: result.engineFactsRef.{branchCode, stateAsserted} strict-equal the sealed snapshot, null included (V-02, I1).",
@@ -1138,7 +1212,11 @@ export const FROZEN_INVARIANT_TEXT = Object.freeze({
   "V-28-SEM-SHADOW-SCORING": "No qualitative support or confidence label rests on a newly invented threshold, count, or weighting; support language is not a diagnostic score and the withdrawn four-band enum never appears as a support label (V-28; C-NO-SHADOW-SCORING; §6.3, I20).",
   "V-29-SEM-RANK-PROBABILITY": "Ranking is interpretive ordering, not an engine score: no probability, likelihood, odds, percentage, or frequency language attaches to any hypothesis or to rank, and no invented numerics or hidden weighting justify an ordering (V-29; §6.6).",
   "V-30-SEM-COEQUAL-PREFERENCE": "Where ordering = CO_EQUAL, hypotheses are co-equal first-class alternatives: rank is omitted from every item and preference language is prohibited (V-30; §6.6).",
-  "V-32-SEM-EXTRAPOLATION": "When a prohibited extrapolation marker is present in the canonical Context Pack authority, no claim may assert the content it closes (V-32; §12.4)."
+  "V-32-SEM-EXTRAPOLATION": "When a prohibited extrapolation marker is present in the canonical Context Pack authority, no claim may assert the content it closes (V-32; §12.4).",
+  "V-33-SEM-SINGLE-NO-R2-COMPARISON": "SINGLE_R1_ONLY states that no independent substantive R2 comparison occurred and never implies agreement, divergence, corroboration, comparison evidence, cross-side friction, or a replacement comparison result.",
+  "V-34-SEM-SINGLE-NO-SHADOW-SCORING": "SINGLE_R1_ONLY preserves the selector-established pair and sealed r1Scoring facts; prose may not rescore, rerank, create a new primary Environment, or use score order as hypothesis order.",
+  "V-35-SEM-SINGLE-DISCLOSURE": "The required SINGLE_R1_ONLY client disclosure states clearly that there was no independent R2 comparison and does not weaken that limitation.",
+  "V-36-SEM-SINGLE-R1-FACTS": "Every stated R1 observation, Environment score fact, primary/secondary identity, and selector pair remains identical in meaning to the sealed SINGLE_R1_ONLY authority."
 });
 export const EXPECTED_TEXT_AUTHORITY_DIGESTS = Object.freeze({
   "V-02-SEM-STATE-IN-PROSE": {
@@ -1250,6 +1328,26 @@ export const EXPECTED_TEXT_AUTHORITY_DIGESTS = Object.freeze({
     "allowed0": "sha256:db355cc771f373ecf1241d2ee4439df992c3c6ce20ed3c2ccd3f46beb24c89dc",
     "forbidden0": "sha256:eb9e78e744172b849a3e81a35efece7602cac964e44e6111947b90cc702337a2",
     "expectedInvariant": "sha256:a68eb87138e2d0dd6285b9250eb3333ca429c8b90e65245db6305ececa4221f9"
+  },
+  "V-33-SEM-SINGLE-NO-R2-COMPARISON": {
+    "allowed0": "sha256:c1781d4a9041fc5929660aa1093690530ddeae1a1104fdf57c663470edd8ac3f",
+    "forbidden0": "sha256:6aaa4eeaf12089808e37d4701ddb2c02f2e386774ab89d2094ecc76823ebbf7c",
+    "expectedInvariant": "sha256:32959f0621b4a3b43ded9b8a253330758ad33eca559be86cc534f92d7c854518"
+  },
+  "V-34-SEM-SINGLE-NO-SHADOW-SCORING": {
+    "allowed0": "sha256:7600e7a2979987c0753473c65e001257624ec63177c2609f5827c6f81338e7e4",
+    "forbidden0": "sha256:ecf3595c9d74d5149736855ba390ec07a4b2afa6d413543f53f83bc387c0f3a5",
+    "expectedInvariant": "sha256:a6e57e8669ab1f516da73fb72f82bd1cf1690c035cb86d3de69807a5336f0334"
+  },
+  "V-35-SEM-SINGLE-DISCLOSURE": {
+    "allowed0": "sha256:28a06ecf86edb73d09cdfe76b22d6100cb6db84ef07a8206850d3d2b95cc9976",
+    "forbidden0": "sha256:b5ee00fc31b534b0bc9b7781b6440f492887eb52273af13e6137910b605f2f65",
+    "expectedInvariant": "sha256:0f00e4be620e4d5efafcbc0a746a5681122fae667453c160d861afde49e73026"
+  },
+  "V-36-SEM-SINGLE-R1-FACTS": {
+    "allowed0": "sha256:c4fb031a97ea81c581d5804069da6f5a07fe807cfb2f2789b569fcae53a8b791",
+    "forbidden0": "sha256:40b8042795a3402cf0577134b83e7d9b80602775298f2d9390915f8e3bd14101",
+    "expectedInvariant": "sha256:dbe004840486e39f0c9a09f7acd713d0c25e00946f34347a6ca8723f0c45129d"
   }
 });
 
@@ -1268,6 +1366,7 @@ export const FROZEN_FIXTURE_PROFILE = Object.freeze({
   F12: Object.freeze({ branchCode: "P_5A", permittedOutputScope: "MERGEVUE_INTERPRETATION_PERMITTED", hypothesesOrdering: "CO_EQUAL", activeConstraintIds: Object.freeze([]) }),
   F13: Object.freeze({ branchCode: "P_1B", permittedOutputScope: "MERGEVUE_INTERPRETATION_PERMITTED", hypothesesOrdering: "RANKED", activeConstraintIds: Object.freeze([]) }),
   F14: Object.freeze({ branchCode: null, permittedOutputScope: null, hypothesesOrdering: null, activeConstraintIds: Object.freeze([]) }),
+  F15: Object.freeze({ branchCode: null, permittedOutputScope: "MERGEVUE_INTERPRETATION_PERMITTED", hypothesesOrdering: "CO_EQUAL", activeConstraintIds: Object.freeze(["C-SINGLE-NO-R2-COMPARISON"]) }),
 });
 
 function deepFreeze(value) {
@@ -1714,8 +1813,8 @@ export function materializeExpectedRecords() {
     }));
   }
 
-  if (records.length !== 256) {
-    throw new Error(`expected 256 records, got ${records.length}`);
+  if (records.length !== 264) {
+    throw new Error(`expected 264 records, got ${records.length}`);
   }
   return Object.freeze(records.map((row) => deepFreeze({ ...row })));
 }
@@ -1821,6 +1920,14 @@ export const EXPECTED_RECORD_DIGESTS = Object.freeze({
   "SR-21-F": "sha256:c0afd89ca0e15a9872a4c0455a78c353c80492c0e7b4e0ad93d162f76f512d8b",
   "SR-22-A": "sha256:7b9c5edb73a9fc33f9620a7c9fafbd680db34526d5a390c59010969d31370ce1",
   "SR-22-F": "sha256:efd5bdf16e01c77d8df028905665d7d62705e713571ab689349a47b20f1156d6",
+  "SR-23-A": "sha256:941ddfd3898680eef1269f6439f43d63105486c66a1c642b737f2dd440544bdb",
+  "SR-23-F": "sha256:7216cdc810455932d20c85e2dbc9f2958e05860e2546d0d61d9812f8d137b19e",
+  "SR-24-A": "sha256:917f2058c57cc7eaf4e01b95ee3d9af74049f98415d32357ec859f8d569093d4",
+  "SR-24-F": "sha256:76011bb04232361735d28df516dab5db1e60c59a978af2c00fc550a041fc1b8e",
+  "SR-25-A": "sha256:daef2dc98e9caab4c3c13f8a5e2aa07ceeea9ca3e91353e77dfe323eb8ce6a72",
+  "SR-25-F": "sha256:955a2ad2e48186f821cb42e77a6d101b9764066f03e82347502424063eee5831",
+  "SR-26-A": "sha256:e71808aa8c0df4a8ea027a20da57f33cdfe61ef32b643cf833ebf6bab2f9b149",
+  "SR-26-F": "sha256:b6ff929f9e29f133a125f38e9ae828fa21223d1a88932ce92b11e477e88271dc",
   "DCK-01": "sha256:39e4983850e5fae011ec225335b4375caebd6199f764d1d8a0d7dcddd7b5da78",
   "DCK-02": "sha256:66a90ae58b8ed884c3c1503c19ebf64b411b57b5c68008b5ed7deead6466eb4e",
   "DCK-03": "sha256:ffb182f60c06d26ed28305c719796e03175a7ca6e6b4ec9e32e27d0f4f7aff0c",
@@ -1982,7 +2089,7 @@ export const EXPECTED_RECORD_DIGESTS = Object.freeze({
   "PV-15": "sha256:f8cf307361f4344dddf7a179bd92d5c3fb2af6be243166d0dc659f2479a553c1",
   "PV-16": "sha256:31da2bc49f88af049a8d977f99cc8a70a325b671fdc7107d697ca1bcb0c0f5d0"
 });
-export const CANONICAL_CORPUS_DIGEST = "sha256:76e865105bf58e3c44a615c1f6e35620a38d926b2fbf17e4373d03386c32bb15";
+export const CANONICAL_CORPUS_DIGEST = "sha256:266a6347239948f98bca6f1363bed15f56031dfa521432153e8f99e884da0800";
 
 function fillAnswers(template = {}, except = {}) {
   const out = {};
@@ -2031,16 +2138,23 @@ export async function loadObservedFixtures() {
     { compareDualRespondents },
     { isAuthorizedDualModule },
     { assembleEngineSnapshot, normalizeCandidatePair },
+    { assembleSingleR1Snapshot },
     { buildStructuredUncertainty },
     { buildInterpretationContextPack },
     { buildAgentInterpretationRequest },
     { assembleAgentInterpretationResult },
     { GEMINI_MODEL_ID, PROVIDER_ID_GEMINI },
-    { buildC5CSelectedSelectorProvenance },
+    {
+      buildC5CSelectedSession,
+      buildC5CSelectedSelectorProvenance,
+      projectC5CSelectorProvenance,
+      selectC5CCandidatePair,
+    },
   ] = await Promise.all([
     import("../../src/flow/dualRespondentComparison.js"),
     import("../../src/flow/observationScopeResolver.js"),
     import("../../src/agent/engineSnapshot.js"),
+    import("../../src/agent/singleR1Snapshot.js"),
     import("../../src/agent/structuredUncertainty.js"),
     import("../../src/agent/interpretationContextPack.js"),
     import("../../src/agent/agentInterpretationRequest.js"),
@@ -2086,8 +2200,9 @@ export async function loadObservedFixtures() {
     const hypothesisMref = caseB ? refs.mref : null;
     const boundedContextRefs = caseB ? [refs.mref] : [];
     const branch = request.engineSnapshot.engine.outcome.branchCode;
+    const singleR1 = request.engineSnapshot.outcomeSource === "SINGLE_R1_ONLY";
     const candidate = {
-      interpretationStatus: branch === "P_1B" || branch === "P_5X" ? "INTERPRETATION_CONSTRAINED" : "INTERPRETATION_SUPPORTED",
+      interpretationStatus: singleR1 || branch === "P_1B" || branch === "P_5X" ? "INTERPRETATION_CONSTRAINED" : "INTERPRETATION_SUPPORTED",
       abstentionReason: null,
       interpretation: {
         hypotheses: {
@@ -2103,14 +2218,16 @@ export async function loadObservedFixtures() {
         conflictingEvidence: [],
         missingEvidence: refs.uncertaintyId ? [{ statement: "An open uncertainty.", uncertaintyIds: [refs.uncertaintyId] }] : [],
         changeConditions: refs.uncertaintyId ? [{ statement: "What would change the reading.", uncertaintyIds: [refs.uncertaintyId], wouldChange: "STATE_IDENTITY" }] : [],
-        affectedResources: caseB ? [{ label: "Decision authority", contextRefs: [refs.mref] }] : [],
-        watchpoints: caseB ? [{ statement: "A watchpoint.", horizon: "6m", contextRefs: [refs.mref], evidenceRefs: [refs.qrefA] }] : [],
+        affectedResources: caseB && !singleR1 ? [{ label: "Decision authority", contextRefs: [refs.mref] }] : [],
+        watchpoints: caseB && !singleR1 ? [{ statement: "A watchpoint.", horizon: "6m", contextRefs: [refs.mref], evidenceRefs: [refs.qrefA] }] : [],
       },
       uncertainty: {
         disclosures: refs.uncertaintyId ? [{
-          uncertaintyId: refs.uncertaintyId, affects: "STATE_IDENTITY",
-          clientStatement: "The engine did not establish a deterministic state identity.",
-          unresolvedEngineFacts: ["CLAIM_ENGINE_STATE_IDENTITY"],
+          uncertaintyId: refs.uncertaintyId, affects: singleR1 ? "DETAIL" : "STATE_IDENTITY",
+          clientStatement: singleR1
+            ? "No independent R2 comparison occurred; this interpretation uses sealed R1 facts only."
+            : "The engine did not establish a deterministic state identity.",
+          unresolvedEngineFacts: singleR1 ? [] : ["CLAIM_ENGINE_STATE_IDENTITY"],
         }] : [],
       },
       claims: [
@@ -2118,7 +2235,7 @@ export async function loadObservedFixtures() {
         { claimId: "CL-002", claimType: "DIRECT_EVIDENCE", text: "A respondent supplied a directly observed answer.", refs: [refs.qrefA], contextRefs: [] },
         { claimId: "CL-003", claimType: "BOUNDED_INTERPRETATION", text: "A bounded organizational reading of the supplied evidence.", refs: [refs.qrefA], contextRefs: boundedContextRefs },
         ...(refs.uncertaintyId ? [{ claimId: "CL-004", claimType: "UNCERTAINTY_DISCLOSURE", text: "A material uncertainty remains open.", refs: [`uref://${refs.uncertaintyId}`], contextRefs: [] }] : []),
-        ...(caseB ? [{ claimId: "CL-005", claimType: "WATCHPOINT", text: "A friction-related watchpoint.", refs: [refs.qrefA], contextRefs: [refs.mref] }] : []),
+        ...(caseB && !singleR1 ? [{ claimId: "CL-005", claimType: "WATCHPOINT", text: "A friction-related watchpoint.", refs: [refs.qrefA], contextRefs: [refs.mref] }] : []),
         { claimId: "CL-006", claimType: "SCOPE_LIMITATION_DISCLOSURE", text: "A MergeVue-specific reading was not offered where the methodology domain was absent.", refs: [], contextRefs: [] },
       ],
       clientNarrative: {
@@ -2303,6 +2420,29 @@ export async function loadObservedFixtures() {
   const f09req = structuredClone(f02req);
   f09req.interpretationContextPack.prohibitedExtrapolationMarkers = [{ markerId: "DIRECT_FRICTION_CONTEXT_UNAVAILABLE", text: "marker one" }];
   deepFreeze(f09req);
+  const f15session = buildC5CSelectedSession({ sessionId: "diag-j4-single" });
+  const f15selector = projectC5CSelectorProvenance(selectC5CCandidatePair({ sessionId: "diag-j4-single" }));
+  const f15snapshot = assembleSingleR1Snapshot({
+    session: f15session,
+    selectorProvenance: f15selector,
+    identityContext: {
+      diagnosticId: f15session.sessionId,
+      projectId: null,
+      moduleId: "acquirerEnvironment",
+      candidatePair: f15selector.candidatePair,
+      candidatePairNormalized: f15selector.candidatePairNormalized,
+    },
+  });
+  const f15uncertainty = buildStructuredUncertainty(f15snapshot);
+  const f15pack = buildInterpretationContextPack({
+    engineSnapshot: f15snapshot,
+    structuredUncertainty: f15uncertainty,
+  });
+  const f15req = buildAgentInterpretationRequest({
+    engineSnapshot: f15snapshot,
+    structuredUncertainty: f15uncertainty,
+    interpretationContextPack: f15pack,
+  });
   const fixtures = {
     F01: { request: f01req, result: assemble(f01req) },
     F02: { request: f02req, result: assemble(f02req) },
@@ -2318,6 +2458,7 @@ export async function loadObservedFixtures() {
     F12: { request: f01req, result: null },
     F13: { request: f02req, result: null },
     F14: { request: f04req, result: f07result },
+    F15: { request: f15req, result: assemble(f15req) },
   };
 
   const f01 = fixtures.F01;

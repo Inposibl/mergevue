@@ -901,7 +901,7 @@ function subruleIds(cSet) {
 // ---------------------------------------------------------------------------
 // Independent expected applicability matrix (audit remediation Finding 4A).
 // Declared entirely in this validator — NOT generated from
-// semanticApplicability.js or the matrix object under test — for all 22
+// semanticApplicability.js or the matrix object under test — for all 26
 // accepted semantic subrules: exact target families, exact applicability
 // condition, exact canonical failure class. SV14 fails if production drifts
 // by even one family, one condition, or one failure class in either
@@ -1041,6 +1041,10 @@ const EXPECTED_SEMANTIC_APPLICABILITY = Object.freeze({
     ]),
     failureClass: "PROHIBITED_CLAIM_VIOLATION",
   },
+  "V-33-SEM-SINGLE-NO-R2-COMPARISON": { ruleId: "V-33", condition: ["OUTCOME_SOURCE_IS:SINGLE_R1_ONLY"], families: INDEPENDENT_ALL_FAMILIES, failureClass: "PROHIBITED_CLAIM_VIOLATION" },
+  "V-34-SEM-SINGLE-NO-SHADOW-SCORING": { ruleId: "V-34", condition: ["OUTCOME_SOURCE_IS:SINGLE_R1_ONLY"], families: INDEPENDENT_ALL_FAMILIES, failureClass: "PROHIBITED_CLAIM_VIOLATION" },
+  "V-35-SEM-SINGLE-DISCLOSURE": { ruleId: "V-35", condition: ["OUTCOME_SOURCE_IS:SINGLE_R1_ONLY"], families: Object.freeze(["DISCLOSURE_CLIENT_STATEMENT"]), failureClass: "PROHIBITED_CLAIM_VIOLATION" },
+  "V-36-SEM-SINGLE-R1-FACTS": { ruleId: "V-36", condition: ["OUTCOME_SOURCE_IS:SINGLE_R1_ONLY"], families: INDEPENDENT_ALL_FAMILIES, failureClass: "ENGINE_FACT_MUTATION_DETECTED" },
 });
 
 function conditionDescriptor(condition) {
@@ -1053,6 +1057,7 @@ function conditionDescriptor(condition) {
     case "HYPOTHESES_PRESENT": return "HYPOTHESES_PRESENT";
     case "MARKER_PRESENT": return "MARKER_PRESENT";
     case "HAS_LINKED_OBSERVATION_USECLASS": return "HAS_LINKED_OBSERVATION_USECLASS";
+    case "OUTCOME_SOURCE_IS": return `OUTCOME_SOURCE_IS:${condition.value}`;
     default: return `UNKNOWN_CONDITION:${condition.type}`;
   }
 }
@@ -1553,7 +1558,7 @@ async function main() {
   // --- SV0: constants and matrix closure -----------------------------------
 
   await check("SV0", "exact J1 version identities and closed frozen vocabularies", () => {
-    assert.equal(SEMANTIC_VALIDATOR_VERSION, "semantic-validator-1.0");
+    assert.equal(SEMANTIC_VALIDATOR_VERSION, "semantic-validator-1.1");
     assert.equal(SEMANTIC_JUDGE_PROMPT_VERSION, "semantic-judge-prompt-1.0");
     assert.equal(SEMANTIC_JUDGE_PACKET_VERSION, "semantic-judge-packet-1.0");
     assert.deepEqual([...LOCAL_OUTCOMES], ["PASS", "FAIL", "REQUIRES_SEMANTIC_JUDGMENT"]);
@@ -1612,7 +1617,7 @@ async function main() {
       "EXTRAPOLATION_MARKER",
     ]);
 
-    // Matrix is frozen, version-bound, and carries exactly the 22 accepted
+    // Matrix is frozen, version-bound, and carries exactly the 26 accepted
     // semantic sub-rules in canonical order.
     assert.equal(SEMANTIC_APPLICABILITY_MATRIX.semanticValidatorVersion, SEMANTIC_VALIDATOR_VERSION);
     assert.equal(Object.isFrozen(SEMANTIC_APPLICABILITY_MATRIX), true);
@@ -1641,6 +1646,10 @@ async function main() {
       "V-29-SEM-RANK-PROBABILITY",
       "V-30-SEM-COEQUAL-PREFERENCE",
       "V-32-SEM-EXTRAPOLATION",
+      "V-33-SEM-SINGLE-NO-R2-COMPARISON",
+      "V-34-SEM-SINGLE-NO-SHADOW-SCORING",
+      "V-35-SEM-SINGLE-DISCLOSURE",
+      "V-36-SEM-SINGLE-R1-FACTS",
     ]);
     SEMANTIC_APPLICABILITY_MATRIX.rows.forEach((row, index) => {
       assert.equal(row.ordinal, index + 1);
@@ -2795,11 +2804,11 @@ async function main() {
 
   // --- SV14: independent applicability matrix (audit remediation 4A) --------
 
-  await check("SV14", "production applicability matrix equals the independently declared 22-subrule matrix", () => {
+  await check("SV14", "production applicability matrix equals the independently declared 26-subrule matrix", () => {
     assert.deepEqual(
       Object.keys(EXPECTED_SEMANTIC_APPLICABILITY).sort(),
       SEMANTIC_APPLICABILITY_MATRIX.rows.map((row) => row.semanticSubruleId).sort(),
-      "exactly the 22 expected subrules exist, no more, no fewer",
+      "exactly the 26 expected subrules exist, no more, no fewer",
     );
     for (const row of SEMANTIC_APPLICABILITY_MATRIX.rows) {
       const expected = EXPECTED_SEMANTIC_APPLICABILITY[row.semanticSubruleId];

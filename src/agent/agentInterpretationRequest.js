@@ -22,6 +22,8 @@ import {
   PRE_CORE_OUTCOME_CODES,
   REQUEST_SCHEMA_VERSION,
   SNAPSHOT_SCHEMA_VERSION,
+  SINGLE_R1_CONSTRAINT_ID,
+  SINGLE_R1_OUTCOME_CODE,
   UNCERTAINTY_SCHEMA_VERSION,
 } from "./agentContractConstants.js";
 import { canonicalSerialize } from "./canonicalDigest.js";
@@ -116,8 +118,16 @@ function validateEngineSnapshot(engineSnapshot) {
     if (!BRANCH_CODES.includes(outcome.branchCode) || outcome.branchCode !== outcome.engineOutcomeCode) {
       fail("DUAL_CORE branchCode must equal engineOutcomeCode");
     }
-  } else if (!PRE_CORE_OUTCOME_CODES.includes(outcome.engineOutcomeCode) || Object.hasOwn(outcome, "branchCode")) {
+  } else if (snapshot.outcomeSource === "PRE_CORE_SELECTOR"
+    && (!PRE_CORE_OUTCOME_CODES.includes(outcome.engineOutcomeCode) || Object.hasOwn(outcome, "branchCode"))) {
     fail("PRE_CORE_SELECTOR requires an S_* engineOutcomeCode and no branchCode");
+  } else if (snapshot.outcomeSource === SINGLE_R1_OUTCOME_CODE) {
+    if (outcome.engineOutcomeCode !== SINGLE_R1_OUTCOME_CODE || Object.hasOwn(outcome, "branchCode")) {
+      fail("SINGLE_R1_ONLY requires matching engineOutcomeCode and no branchCode");
+    }
+    if (Object.hasOwn(snapshot.engine, "comparison") || !isPlainObject(snapshot.engine.r1Scoring)) {
+      fail("SINGLE_R1_ONLY requires r1Scoring and physically absent comparison");
+    }
   }
   let expectedDigest;
   try {
@@ -179,6 +189,24 @@ export function assertPreCoreEmptyContextInvariant(engineSnapshot, interpretatio
   }
 }
 
+export function assertSingleR1ContextInvariant(engineSnapshot, interpretationContextPack) {
+  const snapshot = requireObject(engineSnapshot, "engineSnapshot");
+  if (snapshot.outcomeSource !== SINGLE_R1_OUTCOME_CODE) return;
+  const pack = requireObject(interpretationContextPack, "interpretationContextPack");
+  const keys = requireObject(pack.selectionKeys, "interpretationContextPack.selectionKeys");
+  if (keys.crossSideEnvironmentPair != null) fail("SINGLE_R1_ONLY context crossSideEnvironmentPair must be null");
+  if (!Array.isArray(keys.establishedEnvironmentCodes) || keys.establishedEnvironmentCodes.length !== 0) {
+    fail("SINGLE_R1_ONLY context establishedEnvironmentCodes must be empty");
+  }
+  const forbiddenRules = new Set(["SR-02", "SR-03", "SR-04", "SR-10", "SR-11", "SR-12"]);
+  if (pack.selectedContextItems.some((item) => forbiddenRules.has(item.relevance?.selectionRuleId))) {
+    fail("SINGLE_R1_ONLY context contains a forbidden selection rule");
+  }
+  if (pack.packScopeVerdict !== "MERGEVUE_INTERPRETATION_PERMITTED") {
+    fail("SINGLE_R1_ONLY packScopeVerdict must be MERGEVUE_INTERPRETATION_PERMITTED");
+  }
+}
+
 function validateInterpretationContextPack(engineSnapshot, structuredUncertainty, interpretationContextPack) {
   const pack = requireObject(interpretationContextPack, "interpretationContextPack");
   if (pack.contextPackSchemaVersion !== CONTEXT_PACK_SCHEMA_VERSION) {
@@ -187,6 +215,7 @@ function validateInterpretationContextPack(engineSnapshot, structuredUncertainty
   requireSha256Digest(pack.contextPackId, "interpretationContextPack.contextPackId");
   requireSha256Digest(pack.contextPackDigest, "interpretationContextPack.contextPackDigest");
   assertPreCoreEmptyContextInvariant(engineSnapshot, pack);
+  assertSingleR1ContextInvariant(engineSnapshot, pack);
   const corpus = requireObject(
     requireObject(engineSnapshot.identity, "engineSnapshot.identity").corpus,
     "engineSnapshot.identity.corpus",
@@ -249,6 +278,8 @@ function buildActiveConstraints(currentBranch, outcomeSource) {
   }
   const branchConstraints = outcomeSource === "PRE_CORE_SELECTOR"
     ? (PRE_CORE_CONSTRAINTS_BY_OUTCOME_CODE[currentBranch] ?? [])
+    : outcomeSource === SINGLE_R1_OUTCOME_CODE
+      ? [SINGLE_R1_CONSTRAINT_ID]
     : CONSTRAINTS_BY_BRANCH[currentBranch];
   for (const constraintId of branchConstraints ?? []) {
     emit(constraintId, CONSTRAINT_SCOPE_BRANCH);
@@ -286,6 +317,9 @@ function interpretationModeFor(snapshot, currentBranch) {
     const mode = PRE_CORE_FREE_INTERPRETATION_MODE_BY_OUTCOME_CODE[currentBranch];
     if (!mode) fail(`no PRE_CORE freeInterpretationMode for ${currentBranch}`);
     return mode;
+  }
+  if (snapshot.outcomeSource === SINGLE_R1_OUTCOME_CODE) {
+    return FREE_INTERPRETATION_MODE.AUTOMATED_CONSTRAINED_INTERPRETATION;
   }
   return deriveFreeInterpretationMode(currentBranch, {
     unresolvedReason: unresolvedReasonForMode(snapshot, currentBranch),

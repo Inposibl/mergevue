@@ -534,7 +534,7 @@ async function main() {
 
   await check("RA0", "exact canonical constants and closed frozen schemas", () => {
     assert.equal(FAILURE_SCHEMA_VERSION, "system-failure-1.0");
-    assert.equal(OUTPUT_SCHEMA_VERSION, "agent-result-1.3");
+    assert.equal(OUTPUT_SCHEMA_VERSION, "agent-result-1.4");
     assert.deepEqual([...SYSTEM_FAILURE_CLASSES], [
       "PROVIDER_UNAVAILABLE",
       "PROVIDER_TIMEOUT",
@@ -563,7 +563,7 @@ async function main() {
     }
     assert.equal(SYSTEM_FAILURE_CLIENT_DISCLOSURE, "SYSTEM_LEVEL_ONLY");
 
-    assert.equal(agentInterpretationResultSchema.$id, "agent-result-1.3");
+    assert.equal(agentInterpretationResultSchema.$id, "agent-result-1.4");
     assert.equal(systemFailureSchema.$id, "system-failure-1.0");
     assert.equal(Object.isFrozen(agentInterpretationResultSchema), true);
     assert.equal(Object.isFrozen(systemFailureSchema), true);
@@ -642,7 +642,7 @@ async function main() {
       Object.is(agentInterpretationResultSchema.properties.interpretation, providerSemanticCandidateSchema.properties.interpretation),
       true,
     );
-    assert.equal(PROVIDER_CANDIDATE_SCHEMA_VERSION, "provider-semantic-candidate-1.1");
+    assert.equal(PROVIDER_CANDIDATE_SCHEMA_VERSION, "provider-semantic-candidate-1.2");
   });
 
   // --- Success assembly / mirrors -------------------------------------------
@@ -664,7 +664,7 @@ async function main() {
         "uncertainty",
       ]);
       assert.equal(result.resultSchemaVersion, request.outputSchemaVersion);
-      assert.equal(result.resultSchemaVersion, "agent-result-1.3");
+      assert.equal(result.resultSchemaVersion, "agent-result-1.4");
       assert.equal(result.agentContractVersion, request.agentContractVersion);
       assert.equal(result.interpretationId, request.interpretationId);
       assert.equal(result.engineFactsRef.diagnosticId, request.engineSnapshot.identity.diagnosticId);
