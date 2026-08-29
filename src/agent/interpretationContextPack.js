@@ -8,6 +8,7 @@ import {
   DERIVATION_METHOD_ALLOWLIST_SOURCE_ROWS,
   ENGINE_OUTCOME_CODES,
   PACK_SCOPE_VERDICTS,
+  PRE_CORE_OUTCOME_CODES,
   QUESTION_UNIVERSE,
   SELECTION_POLICY_VERSION,
   SNAPSHOT_SCHEMA_VERSION,
@@ -696,6 +697,18 @@ function validateInputs(engineSnapshot, structuredUncertainty) {
   return { snapshot, uncertainty, branch, snapshotDigest };
 }
 
+// PRE_CORE containment boundary (OD-PC-2 CORR1): caller-supplied cross-side
+// inputs are not authority on the PRE_CORE_SELECTOR branch and must fail
+// closed before any selection rule — including SR-01/SR-11/SR-12 — can run.
+function assertPreCoreInputsAbsent(establishedEnvironmentCodes, crossSideEnvironmentPair) {
+  if (crossSideEnvironmentPair != null) {
+    fail("PRE_CORE_SELECTOR forbids crossSideEnvironmentPair at the context-pack boundary");
+  }
+  if (!Array.isArray(establishedEnvironmentCodes) || establishedEnvironmentCodes.length !== 0) {
+    fail("PRE_CORE_SELECTOR forbids establishedEnvironmentCodes at the context-pack boundary");
+  }
+}
+
 export function buildInterpretationContextPack({
   engineSnapshot,
   structuredUncertainty,
@@ -716,6 +729,14 @@ export function buildInterpretationContextPack({
     }
   }
 
+  const preCore = snapshot.outcomeSource === "PRE_CORE_SELECTOR";
+  if (preCore) {
+    if (!PRE_CORE_OUTCOME_CODES.includes(snapshot.engine.outcome.engineOutcomeCode)) {
+      fail("PRE_CORE_SELECTOR snapshot carries a non-PRE_CORE engineOutcomeCode");
+    }
+    assertPreCoreInputsAbsent(establishedEnvironmentCodes, crossSideEnvironmentPair);
+  }
+
   const selectionKeys = collectSelectionKeys(
     snapshot,
     uncertainty,
@@ -723,8 +744,10 @@ export function buildInterpretationContextPack({
     crossSideEnvironmentPair,
   );
 
-  const sr11 = selectSr11(selectionKeys);
-  const collected = [
+  // OD-PC-1A / OD-PC-2 CORR1 empty PRE_CORE pack invariant: no selection rule
+  // contributes context on the PRE_CORE branch, so the pack is empty by
+  // construction and SR-01 is excluded there without affecting DUAL_CORE paths.
+  const branchItems = preCore ? [] : [
     ...selectSr01(selectionKeys),
     ...selectSr02(selectionKeys),
     ...selectSr03(selectionKeys, snapshot),
@@ -735,9 +758,10 @@ export function buildInterpretationContextPack({
     ...selectSr08(selectionKeys, snapshot),
     ...selectSr09(selectionKeys, snapshot),
     ...selectSr10(selectionKeys, snapshot),
-    ...sr11.items,
-    ...selectSr12(selectionKeys, sr11.lookupMissing),
-  ].filter(Boolean);
+  ];
+  const sr11 = preCore ? { items: [], lookupMissing: false } : selectSr11(selectionKeys);
+  const sr12Items = preCore ? [] : selectSr12(selectionKeys, sr11.lookupMissing);
+  const collected = [...branchItems, ...sr11.items, ...sr12Items].filter(Boolean);
 
   const selectedContextItems = assignIds(sortItems(collected));
   const permittedInterpretationDomains = permittedDomains(selectedContextItems);

@@ -4,7 +4,9 @@ import {
 } from "../flow/candidatePairSelector.js";
 import { compareDualRespondents } from "../flow/dualRespondentComparison.js";
 import { assembleProductionDualAdjudicationInput } from "../flow/productionAdjudicationInputAssembler.js";
+import { AgentInterpretationRequestAssemblyError } from "./agentInterpretationRequest.js";
 import { runAgentInterpretation } from "./agentInterpretationRun.js";
+import { FAILURE_CLASS_INPUT_ASSEMBLY_FAILURE } from "./agentContractConstants.js";
 
 const ACCEPTED_SCOPE_MODULE = "acquirerEnvironment";
 const ASSEMBLER_SCORING_MODULE = "acquirer_environment";
@@ -70,6 +72,19 @@ function nonAgentAssemblerResult(assembled) {
   const stage = assembled.audit?.stage;
   if (typeof stage === "string" && stage) result.stage = stage;
   return Object.freeze(result);
+}
+
+// Early composition containment (OD-PC-2 CORR1): once the selector outcome is
+// physically PRE_CORE_SELECTOR, cross-side inputs are forbidden and fail
+// closed before runAgentInterpretation — never silently normalized away.
+function assertPreCoreInvocationContainment(establishedEnvironmentCodes, crossSideEnvironmentPair) {
+  const lawfulPair = crossSideEnvironmentPair === null;
+  const lawfulCodes = Array.isArray(establishedEnvironmentCodes) && establishedEnvironmentCodes.length === 0;
+  if (lawfulPair && lawfulCodes) return;
+  throw new AgentInterpretationRequestAssemblyError({
+    failureClass: FAILURE_CLASS_INPUT_ASSEMBLY_FAILURE,
+    detail: "PRE_CORE_SELECTOR invocation carries forbidden cross-side context inputs",
+  });
 }
 
 function assertSelectorBinding(selectorResult, diagnosticId) {
@@ -171,6 +186,7 @@ export async function runProductionInterpretation({
       crossSideEnvironmentPair,
     };
   } else if (PRE_CORE_SELECTOR_STATUSES.has(selectorResult.status)) {
+    assertPreCoreInvocationContainment(establishedEnvironmentCodes, crossSideEnvironmentPair);
     agentInvocation = {
       outcomeSource: "PRE_CORE_SELECTOR",
       selectorProvenance,

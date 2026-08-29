@@ -11,6 +11,9 @@ import { assembleEngineSnapshot } from "../src/agent/engineSnapshot.js";
 import { buildInterpretationContextPack } from "../src/agent/interpretationContextPack.js";
 import { assemblePreCoreSelectorSnapshot } from "../src/agent/preCoreSelectorSnapshot.js";
 import { runProductionInterpretation } from "../src/agent/productionInterpretationComposition.js";
+import { runAgentInterpretation } from "../src/agent/agentInterpretationRun.js";
+import { AgentInterpretationRequestAssemblyError } from "../src/agent/agentInterpretationRequest.js";
+import { ContextPackSelectionError } from "../src/agent/interpretationContextPack.js";
 import {
   ProviderPromptError,
   buildProviderPrompt,
@@ -353,6 +356,26 @@ async function runWithoutProviders(args) {
   }
 }
 
+async function runAgentWithoutProviders(args) {
+  const previousGemini = process.env.GEMINI_API_KEY;
+  const previousXai = process.env.XAI_API_KEY;
+  const previousFetch = globalThis.fetch;
+  delete process.env.GEMINI_API_KEY;
+  delete process.env.XAI_API_KEY;
+  globalThis.fetch = async () => {
+    throw new Error("network must not be reached without credentials");
+  };
+  try {
+    return await runAgentInterpretation(args);
+  } finally {
+    globalThis.fetch = previousFetch;
+    if (previousGemini === undefined) delete process.env.GEMINI_API_KEY;
+    else process.env.GEMINI_API_KEY = previousGemini;
+    if (previousXai === undefined) delete process.env.XAI_API_KEY;
+    else process.env.XAI_API_KEY = previousXai;
+  }
+}
+
 function runControlFlowHarness() {
   const harness = String.raw`
 import assert from "node:assert/strict";
@@ -439,6 +462,11 @@ mock.module(url("src/flow/productionAdjudicationInputAssembler.js"), {
 });
 mock.module(url("src/flow/dualRespondentComparison.js"), {
   namedExports: {
+    // Composition now imports the typed Agent input-assembly error, which
+    // transitively loads engineSnapshot.js; these corpus-config exports are
+    // only consumed at import/instantiation time and stay inert under mocks.
+    buildDualRespondentCorpusConfig: () => ({}),
+    dualQualityConfig: () => ({}),
     compareDualRespondents: (input) => {
       calls.core += 1;
       lastCore = input;
@@ -493,6 +521,33 @@ for (const status of ["ADMISSIBILITY_UNRESOLVED", "NO_LAWFUL_PAIR", "PAIR_SELECT
     keys: Object.keys(lastAgent.selectorProvenance).sort(),
   };
 }
+const injectedPair = Object.freeze({
+  acquirerEnvironmentCode: "NF/NT",
+  targetEnvironmentCode: "NT/STP",
+});
+const injected = {};
+for (const [scenarioName, extra] of [
+  ["pair", { crossSideEnvironmentPair: injectedPair }],
+  ["codes", { establishedEnvironmentCodes: ["NF/NT"] }],
+  ["pairAndCodes", { crossSideEnvironmentPair: injectedPair, establishedEnvironmentCodes: ["NF/NT", "NT/STP"] }],
+]) {
+  reset();
+  let threw = null;
+  try {
+    await run({
+      session: { sessionId: "mock-injected-" + scenarioName, scenario: "NO_LAWFUL_PAIR" },
+      moduleId: "acquirerEnvironment",
+      ...extra,
+    });
+  } catch (error) {
+    threw = {
+      name: error.name,
+      failureClass: error.failureClass ?? null,
+      detail: error.detail ?? null,
+    };
+  }
+  injected[scenarioName] = { threw, counts: { ...calls } };
+}
 reset();
 const incomplete = await run({
   session: { sessionId: "mock-incomplete", scenario: "SELECTED", incomplete: true },
@@ -523,6 +578,7 @@ try {
 console.log(JSON.stringify({
   selected: selectedSummary,
   pre,
+  injected,
   incomplete: incompleteSummary,
   rejected,
   moduleMismatch,
@@ -1054,6 +1110,119 @@ await check("C5C1-89", "authorized artifacts exist at exact paths", () => {
   for (const relativePath of [ROOT_RELATIVE, FIXTURE_RELATIVE, VALIDATOR_RELATIVE]) {
     assert.equal(statSync(join(ROOT, relativePath)).isFile(), true, relativePath);
   }
+});
+
+// ── PRE_CORE cross-side context containment (OD-PC-1A / OD-PC-2 CORR1) ─────
+
+const PRE_CORE_PAIR = Object.freeze({
+  acquirerEnvironmentCode: "NF/NT",
+  targetEnvironmentCode: "NT/STP",
+});
+
+await check("C5C1-90", "lawful PRE_CORE passes containment and yields the accepted empty pack (CASE 1)", () => {
+  for (const status of PRE_STATUSES) {
+    const row = preBundles[status];
+    const pack = row.expected.interpretationContextPack;
+    assert.deepEqual(pack.selectedContextItems, [], status);
+    assert.deepEqual(pack.permittedInterpretationDomains, [], status);
+    assert.deepEqual(pack.prohibitedExtrapolationMarkers, [], status);
+    assert.equal(pack.packScopeVerdict, "FACTUAL_EXPLANATION_ONLY", status);
+    assert.equal(pack.selectionKeys.crossSideEnvironmentPair, null, status);
+    assert.deepEqual(pack.selectionKeys.establishedEnvironmentCodes, [], status);
+    assert.equal(row.expected.request.permittedOutputScope, "FACTUAL_EXPLANATION_ONLY", status);
+    assert.deepEqual(row.expected.request.permittedInterpretationDomains, [], status);
+    assert.equal(row.actual.engineSnapshotDigest, row.expected.snapshot.engineSnapshotDigest, status);
+    assert.equal(row.actual.failureClass, "PROVIDER_UNAVAILABLE", status);
+  }
+});
+
+await check("C5C1-91", "PRE_CORE pack carries no SR-01/SR-11/SR-12 or pair-derived context (CASE 9)", () => {
+  for (const status of PRE_STATUSES) {
+    const pack = preBundles[status].expected.interpretationContextPack;
+    const serialized = JSON.stringify(pack);
+    for (const ruleId of ["SR-01", "SR-11", "SR-12"]) {
+      assert.equal(
+        pack.selectedContextItems.some((item) => item.relevance.selectionRuleId === ruleId),
+        false,
+        `${status}: ${ruleId}`,
+      );
+      assert.equal(serialized.includes(ruleId), false, `${status}: ${ruleId}`);
+    }
+    for (const domain of ["ENVIRONMENT_IDENTITY", "FRICTION_AND_RESOURCES", "TEMPORAL_HORIZON", "PAIR_SEMANTICS"]) {
+      assert.equal(pack.permittedInterpretationDomains.includes(domain), false, `${status}: ${domain}`);
+    }
+    assert.equal(serialized.includes("frictionLookup"), false, status);
+    assert.equal(serialized.includes("ecsMatrix"), false, status);
+  }
+});
+
+for (const [scenarioName, label] of [
+  ["pair", "injected valid cross-side pair (CASE 2)"],
+  ["codes", "injected established environment codes (CASE 3)"],
+  ["pairAndCodes", "injected pair + codes, same terminal class (CASE 4)"],
+]) {
+  await check("C5C1-" + String(checks.length + 1).padStart(2, "0"), "composition containment rejects PRE_CORE + " + label, () => {
+    const row = control.injected[scenarioName];
+    assert.ok(row.threw, scenarioName);
+    assert.equal(row.threw.name, "AgentInterpretationRequestAssemblyError", scenarioName);
+    assert.equal(row.threw.failureClass, "INPUT_ASSEMBLY_FAILURE", scenarioName);
+    assert.match(String(row.threw.detail), /PRE_CORE_SELECTOR invocation carries forbidden cross-side context inputs/, scenarioName);
+    assert.deepEqual(row.counts, { selector: 1, assembler: 0, core: 0, agent: 0 }, scenarioName);
+  });
+}
+
+await check("C5C1-96", "real composition path fails closed on injected pair and codes (CASE 2/3 full stack)", async () => {
+  const session = buildPreSession("NO_LAWFUL_PAIR");
+  for (const extra of [
+    { crossSideEnvironmentPair: PRE_CORE_PAIR },
+    { establishedEnvironmentCodes: ["NF/NT"] },
+    { crossSideEnvironmentPair: PRE_CORE_PAIR, establishedEnvironmentCodes: ["NF/NT", "NT/STP"] },
+  ]) {
+    let threw = null;
+    try {
+      await runWithoutProviders({ session, moduleId: "acquirerEnvironment", ...extra });
+    } catch (error) {
+      threw = error;
+    }
+    assert.ok(threw instanceof AgentInterpretationRequestAssemblyError);
+    assert.equal(threw.failureClass, "INPUT_ASSEMBLY_FAILURE");
+    assert.match(String(threw.detail), /PRE_CORE_SELECTOR invocation carries forbidden cross-side context inputs/);
+  }
+});
+
+await check("C5C1-97", "direct runAgentInterpretation bypass is contained at the pack boundary (CASE 6)", async () => {
+  const base = preBundles.NO_LAWFUL_PAIR.expected;
+  for (const [name, extra] of [
+    ["pair", { crossSideEnvironmentPair: PRE_CORE_PAIR }],
+    ["codes", { establishedEnvironmentCodes: ["NF/NT"] }],
+  ]) {
+    let threw = null;
+    let returned = null;
+    try {
+      returned = await runAgentWithoutProviders({
+        outcomeSource: "PRE_CORE_SELECTOR",
+        selectorProvenance: base.selectorProvenance,
+        identityContext: base.identityContext,
+        ...extra,
+      });
+    } catch (error) {
+      threw = error;
+    }
+    assert.equal(returned, null, name);
+    assert.ok(threw instanceof ContextPackSelectionError, `${name}: ${threw?.constructor?.name}`);
+    assert.match(String(threw.message), /PRE_CORE_SELECTOR forbids/, name);
+  }
+});
+
+await check("C5C1-98", "lawful direct runAgentInterpretation passes containment and reaches the provider boundary", async () => {
+  const base = preBundles.NO_LAWFUL_PAIR.expected;
+  const value = await runAgentWithoutProviders({
+    outcomeSource: "PRE_CORE_SELECTOR",
+    selectorProvenance: base.selectorProvenance,
+    identityContext: base.identityContext,
+  });
+  assert.equal(value.failureSchemaVersion, "system-failure-1.0");
+  assert.equal(value.failureClass, "PROVIDER_UNAVAILABLE");
 });
 
 console.log("C5-C.1 Production Composition cases passed:");

@@ -13,8 +13,9 @@ import {
   PRE_CORE_FREE_INTERPRETATION_MODE_BY_OUTCOME_CODE,
   PRE_CORE_OUTCOME_CODES,
   SELECTOR_COMPATIBLE_DUAL_BRANCH_CODES,
+  SYSTEM_FAILURE_RETRYABLE_BY_CLASS,
 } from "../src/agent/agentContractConstants.js";
-import { canonicalSerialize } from "../src/agent/canonicalDigest.js";
+import { canonicalSerialize, sha256PrefixedDigest } from "../src/agent/canonicalDigest.js";
 import {
   assembleEngineSnapshot,
   deriveFreeInterpretationMode,
@@ -29,7 +30,12 @@ import {
 import {
   AgentInterpretationRequestAssemblyError,
   buildAgentInterpretationRequest,
+  validateAgentInterpretationRequestIntegrity,
 } from "../src/agent/agentInterpretationRequest.js";
+import {
+  ProviderProjectionError,
+  projectProviderProjection,
+} from "../src/agent/providerProjection.js";
 import { precedenceRawCondition } from "../src/agent/contextAuthorityRegistry.js";
 import { compareDualRespondents } from "../src/flow/dualRespondentComparison.js";
 import { isAuthorizedDualModule } from "../src/flow/observationScopeResolver.js";
@@ -833,6 +839,116 @@ check("SB1", "production request module imports only the accepted Agent-layer in
   ]) {
     assert.equal(source.includes(required), true, required);
   }
+});
+
+// ── PRE_CORE cross-side context containment (OD-PC-1A / OD-PC-2 CORR1) ─────
+
+const PRE_CORE_PAIR = Object.freeze({
+  acquirerEnvironmentCode: "NF/NT",
+  targetEnvironmentCode: "NT/STP",
+});
+
+function deepFreezeValue(value) {
+  if (value === null || typeof value !== "object") return value;
+  if (!Object.isFrozen(value)) Object.freeze(value);
+  if (Array.isArray(value)) {
+    value.forEach(deepFreezeValue);
+    return value;
+  }
+  for (const child of Object.values(value)) deepFreezeValue(child);
+  return value;
+}
+
+// Re-seals a tampered pack exactly like the builder would: every internal
+// id/digest becomes self-consistent with the illegal content.
+function resealPack(pack) {
+  const cloned = structuredClone(pack);
+  cloned.contextPackId = sha256PrefixedDigest(canonicalSerialize({
+    selectionPolicyVersion: cloned.selectionPolicyVersion,
+    methodologyCorpusDigest: cloned.methodologyCorpusDigest,
+    selectionKeys: cloned.selectionKeys,
+  }));
+  cloned.contextPackDigest = sha256PrefixedDigest(canonicalSerialize({
+    selectedContextItems: cloned.selectedContextItems,
+    permittedInterpretationDomains: cloned.permittedInterpretationDomains,
+    prohibitedExtrapolationMarkers: cloned.prohibitedExtrapolationMarkers,
+  }));
+  return deepFreezeValue(cloned);
+}
+
+check("PC-R1", "lawful PRE_CORE requests satisfy the accepted empty-context invariant (CASE 1 / policy-as-code)", () => {
+  assert.equal(SYSTEM_FAILURE_RETRYABLE_BY_CLASS.INPUT_ASSEMBLY_FAILURE, false);
+  for (const outcomeCode of PRE_CORE_OUTCOME_CODES) {
+    const built = assemblePreCore({
+      S_ADMISSIBILITY_UNRESOLVED: "ADMISSIBILITY_UNRESOLVED",
+      S_NO_LAWFUL_PAIR: "NO_LAWFUL_PAIR",
+      S_PAIR_SELECTION_AMBIGUOUS: "PAIR_SELECTION_AMBIGUOUS",
+    }[outcomeCode]);
+    const { request, pack } = built;
+    assert.equal(pack.selectionKeys.crossSideEnvironmentPair, null, outcomeCode);
+    assert.deepEqual(pack.selectionKeys.establishedEnvironmentCodes, [], outcomeCode);
+    assert.deepEqual(pack.selectedContextItems, [], outcomeCode);
+    assert.deepEqual(pack.permittedInterpretationDomains, [], outcomeCode);
+    assert.deepEqual(pack.prohibitedExtrapolationMarkers, [], outcomeCode);
+    assert.equal(pack.packScopeVerdict, "FACTUAL_EXPLANATION_ONLY", outcomeCode);
+    assert.equal(request.permittedOutputScope, "FACTUAL_EXPLANATION_ONLY", outcomeCode);
+    assert.deepEqual(request.permittedInterpretationDomains, [], outcomeCode);
+    for (const ruleId of ["SR-01", "SR-11", "SR-12"]) {
+      assert.equal(pack.selectedContextItems.some((item) => item.relevance.selectionRuleId === ruleId), false, `${outcomeCode}: ${ruleId}`);
+    }
+  }
+});
+
+check("PC-R2", "a re-sealed pair-derived pack cannot become a lawful PRE_CORE request (CASE 7)", () => {
+  const lawful = assemblePreCore("NO_LAWFUL_PAIR");
+  const illegalSource = assembleUpstream(BRANCH_INPUTS.P_5A, { crossSideEnvironmentPair: PRE_CORE_PAIR });
+  assert.ok(illegalSource.pack.selectedContextItems.some((item) => item.relevance.selectionRuleId === "SR-11"));
+  assert.equal(illegalSource.pack.packScopeVerdict, "MERGEVUE_INTERPRETATION_PERMITTED");
+  const illegal = resealPack(illegalSource.pack);
+
+  assertRejects(() => buildAgentInterpretationRequest({
+    engineSnapshot: lawful.snapshot,
+    structuredUncertainty: lawful.uncertainty,
+    interpretationContextPack: illegal,
+  }), "re-sealed pair-derived pack must fail closed", "INPUT_ASSEMBLY_FAILURE");
+
+  const envelope = deepFreezeValue({
+    ...structuredClone(lawful.request),
+    interpretationContextPack: illegal,
+    permittedOutputScope: illegal.packScopeVerdict,
+    permittedInterpretationDomains: [...illegal.permittedInterpretationDomains],
+  });
+  assertRejects(() => validateAgentInterpretationRequestIntegrity(envelope), "re-sealed illegal request must fail integrity revalidation", "INPUT_ASSEMBLY_FAILURE");
+});
+
+check("PC-R3", "direct provider projection rejects the re-sealed illegal PRE_CORE request (CASE 8)", () => {
+  const lawful = assemblePreCore("NO_LAWFUL_PAIR");
+  const illegalSource = assembleUpstream(BRANCH_INPUTS.P_5A, { crossSideEnvironmentPair: PRE_CORE_PAIR });
+  const illegal = resealPack(illegalSource.pack);
+  const envelope = deepFreezeValue({
+    ...structuredClone(lawful.request),
+    interpretationContextPack: illegal,
+    permittedOutputScope: illegal.packScopeVerdict,
+    permittedInterpretationDomains: [...illegal.permittedInterpretationDomains],
+  });
+  let threw = null;
+  try {
+    projectProviderProjection(envelope);
+  } catch (error) {
+    threw = error;
+  }
+  assert.ok(threw instanceof ProviderProjectionError, threw?.constructor?.name);
+  assert.equal(threw.failureClass, "INPUT_ASSEMBLY_FAILURE");
+});
+
+check("PC-R4", "lawful PRE_CORE requests still pass integrity revalidation and projection (CASE 1/10 regression)", () => {
+  const { request } = assemblePreCore("NO_LAWFUL_PAIR");
+  const revalidated = validateAgentInterpretationRequestIntegrity(request);
+  assert.equal(revalidated, request);
+  const projection = projectProviderProjection(request);
+  assert.equal(projection.interpretationContextPack.selectedContextItems.length, 0);
+  assert.equal(projection.interpretationContextPack.packScopeVerdict, "FACTUAL_EXPLANATION_ONLY");
+  assert.equal(projection.engineSnapshot.outcomeSource, "PRE_CORE_SELECTOR");
 });
 
 console.log("Agent Interpretation Request A3-B.1 cases passed:");

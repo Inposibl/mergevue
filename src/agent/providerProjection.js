@@ -39,6 +39,7 @@ import {
 } from "./agentContractConstants.js";
 import {
   AgentInterpretationRequestAssemblyError,
+  assertPreCoreEmptyContextInvariant,
   validateAgentInterpretationRequestIntegrity,
 } from "./agentInterpretationRequest.js";
 
@@ -1432,6 +1433,23 @@ export function projectProviderProjection(agentInterpretationRequest) {
   }
 
   const request = requirePlainObject(agentInterpretationRequest, "agentInterpretationRequest");
+
+  // Defense-in-depth for direct projection calls: the shared integrity
+  // revalidation above already enforces the PRE_CORE empty-context invariant;
+  // this explicit check keeps the projection boundary provably fail-closed
+  // even if that shared path were to change. No sanitising, no filtering.
+  try {
+    assertPreCoreEmptyContextInvariant(request.engineSnapshot, request.interpretationContextPack);
+  } catch (error) {
+    if (error instanceof AgentInterpretationRequestAssemblyError) {
+      throw new ProviderProjectionError({
+        failureClass: error.failureClass,
+        detail: `PRE_CORE empty-context invariant violated: ${error.detail ?? error.message}`,
+      });
+    }
+    throw error;
+  }
+
   assertExactKeySet(request, REQUEST_ROOT_KEYS, "agentInterpretationRequest");
   if (request.requestSchemaVersion !== REQUEST_SCHEMA_VERSION) {
     versionFail(`requestSchemaVersion must be ${REQUEST_SCHEMA_VERSION}`);

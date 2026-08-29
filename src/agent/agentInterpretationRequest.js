@@ -151,6 +151,34 @@ function validateStructuredUncertainty(engineSnapshot, structuredUncertainty) {
   return supplied;
 }
 
+// OD-PC-2 CORR1 PRE_CORE contract boundary. A lawful PRE_CORE_SELECTOR request
+// carries exactly the accepted empty-context pack: reproducible ids/digests are
+// never proof of lawfulness. Structural invariant, not a field blacklist.
+export function assertPreCoreEmptyContextInvariant(engineSnapshot, interpretationContextPack) {
+  const snapshot = requireObject(engineSnapshot, "engineSnapshot");
+  if (snapshot.outcomeSource !== "PRE_CORE_SELECTOR") return;
+  const pack = requireObject(interpretationContextPack, "interpretationContextPack");
+  const keys = requireObject(pack.selectionKeys, "interpretationContextPack.selectionKeys");
+  if (keys.crossSideEnvironmentPair != null) {
+    fail("PRE_CORE_SELECTOR interpretationContextPack.selectionKeys.crossSideEnvironmentPair must be null");
+  }
+  if (!Array.isArray(keys.establishedEnvironmentCodes) || keys.establishedEnvironmentCodes.length !== 0) {
+    fail("PRE_CORE_SELECTOR interpretationContextPack.selectionKeys.establishedEnvironmentCodes must be empty");
+  }
+  if (!Array.isArray(pack.selectedContextItems) || pack.selectedContextItems.length !== 0) {
+    fail("PRE_CORE_SELECTOR interpretationContextPack.selectedContextItems must be empty");
+  }
+  if (!Array.isArray(pack.permittedInterpretationDomains) || pack.permittedInterpretationDomains.length !== 0) {
+    fail("PRE_CORE_SELECTOR interpretationContextPack.permittedInterpretationDomains must be empty");
+  }
+  if (!Array.isArray(pack.prohibitedExtrapolationMarkers) || pack.prohibitedExtrapolationMarkers.length !== 0) {
+    fail("PRE_CORE_SELECTOR interpretationContextPack.prohibitedExtrapolationMarkers must be empty");
+  }
+  if (pack.packScopeVerdict !== "FACTUAL_EXPLANATION_ONLY") {
+    fail("PRE_CORE_SELECTOR interpretationContextPack.packScopeVerdict must be FACTUAL_EXPLANATION_ONLY");
+  }
+}
+
 function validateInterpretationContextPack(engineSnapshot, structuredUncertainty, interpretationContextPack) {
   const pack = requireObject(interpretationContextPack, "interpretationContextPack");
   if (pack.contextPackSchemaVersion !== CONTEXT_PACK_SCHEMA_VERSION) {
@@ -158,6 +186,7 @@ function validateInterpretationContextPack(engineSnapshot, structuredUncertainty
   }
   requireSha256Digest(pack.contextPackId, "interpretationContextPack.contextPackId");
   requireSha256Digest(pack.contextPackDigest, "interpretationContextPack.contextPackDigest");
+  assertPreCoreEmptyContextInvariant(engineSnapshot, pack);
   const corpus = requireObject(
     requireObject(engineSnapshot.identity, "engineSnapshot.identity").corpus,
     "engineSnapshot.identity.corpus",

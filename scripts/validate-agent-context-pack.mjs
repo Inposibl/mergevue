@@ -19,6 +19,7 @@ import { buildStructuredUncertainty } from "../src/agent/structuredUncertainty.j
 import {
   buildInterpretationContextPack,
   computePackScopeVerdict,
+  ContextPackSelectionError,
 } from "../src/agent/interpretationContextPack.js";
 import {
   CORPUS_ARTIFACTS,
@@ -545,6 +546,65 @@ check("SB1", "A3 production modules do not import Runtime Core flow", () => {
     assert.equal(source.includes("compareDualRespondents"), false, relative);
     assert.equal(source.includes("resolveObservationScope"), false, relative);
   }
+});
+
+// ── PRE_CORE cross-side context containment (OD-PC-1A / OD-PC-2 CORR1) ─────
+
+const PRE_CORE_PAIR = Object.freeze({
+  acquirerEnvironmentCode: "NF/NT",
+  targetEnvironmentCode: "NT/STP",
+});
+
+check("PC-B1", "lawful PRE_CORE baseline passes containment and produces the accepted empty pack (CASE 1)", () => {
+  for (const status of ["ADMISSIBILITY_UNRESOLVED", "NO_LAWFUL_PAIR", "PAIR_SELECTION_AMBIGUOUS"]) {
+    const { pack } = assemblePrePack(status);
+    assert.deepEqual(pack.selectedContextItems, [], status);
+    assert.deepEqual(pack.permittedInterpretationDomains, [], status);
+    assert.deepEqual(pack.prohibitedExtrapolationMarkers, [], status);
+    assert.equal(pack.packScopeVerdict, "FACTUAL_EXPLANATION_ONLY", status);
+    assert.equal(pack.selectionKeys.crossSideEnvironmentPair, null, status);
+    assert.deepEqual(pack.selectionKeys.establishedEnvironmentCodes, [], status);
+    for (const ruleId of ["SR-01", "SR-11", "SR-12"]) {
+      assert.equal(pack.selectedContextItems.some((item) => item.relevance.selectionRuleId === ruleId), false, `${status}: ${ruleId}`);
+    }
+    assert.equal(packSerialized(pack).includes("frictionLookup"), false, status);
+    assert.equal(packSerialized(pack).includes("ecsMatrix"), false, status);
+  }
+});
+
+check("PC-B2", "SR-01-only is not a lawful PRE_CORE exception; no replacement context exists (CASE 9)", () => {
+  for (const status of ["ADMISSIBILITY_UNRESOLVED", "NO_LAWFUL_PAIR", "PAIR_SELECTION_AMBIGUOUS"]) {
+    const { pack } = assemblePrePack(status);
+    for (const domain of ["PRODUCT_SAFETY", "ENVIRONMENT_IDENTITY", "FRICTION_AND_RESOURCES", "TEMPORAL_HORIZON", "PAIR_SEMANTICS"]) {
+      assert.equal(pack.selectedContextItems.some((item) => item.contextDomain === domain), false, `${status}: ${domain}`);
+    }
+    assert.deepEqual(pack.permittedInterpretationDomains, [], status);
+  }
+});
+
+check("PC-B3", "injected pair / codes / both fail closed at the pack boundary before any selection rule (CASE 3/4/5)", () => {
+  const { snapshot, uncertainty } = assemblePrePack("NO_LAWFUL_PAIR");
+  const variants = [
+    { crossSideEnvironmentPair: PRE_CORE_PAIR },
+    { establishedEnvironmentCodes: ["NF/NT"] },
+    { establishedEnvironmentCodes: ["NF/NT"], crossSideEnvironmentPair: PRE_CORE_PAIR },
+  ];
+  for (const packInput of variants) {
+    assert.throws(
+      () => buildInterpretationContextPack({ engineSnapshot: snapshot, structuredUncertainty: uncertainty, ...packInput }),
+      (error) => error instanceof ContextPackSelectionError
+        && /PRE_CORE_SELECTOR forbids/.test(String(error.message)),
+      "containment must fire before collectSelectionKeys/SR-11",
+    );
+  }
+});
+
+check("PC-B4", "DUAL_CORE paths are not blocked by the PRE_CORE-only containment (CASE 10 regression)", () => {
+  const dualPair = assemblePack(BRANCH_INPUTS.P_5A, { crossSideEnvironmentPair: PRE_CORE_PAIR });
+  assert.ok(dualPair.pack.selectedContextItems.some((item) => item.relevance.selectionRuleId === "SR-11"));
+  assert.equal(dualPair.pack.selectionKeys.crossSideEnvironmentPair.acquirerEnvironmentCode, "NF/NT");
+  const dualCodes = assemblePack(BRANCH_INPUTS.P_5A, { establishedEnvironmentCodes: ["NF/NT"] });
+  assert.deepEqual(dualCodes.pack.selectionKeys.establishedEnvironmentCodes, ["NF/NT"]);
 });
 
 console.log("Agent Interpretation Context Pack A3-A cases passed:");
