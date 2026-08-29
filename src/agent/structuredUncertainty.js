@@ -13,6 +13,7 @@ import {
   PRE_CORE_CONSTRAINTS_BY_OUTCOME_CODE,
   PRE_CORE_OUTCOME_CODES,
   RESPONDENT_SLOT_R1,
+  SENIORITY_TIER_EXTERNAL,
   RESPONDENT_SLOT_R2,
   SEMANTIC_CLASS_TO_COVERAGE_REASON,
   SNAPSHOT_SCHEMA_VERSION,
@@ -186,6 +187,27 @@ function eligibilityReason(unresolvedReason) {
   fail(`unresolvedReason is not a transported eligibility token: ${JSON.stringify(unresolvedReason)}`);
 }
 
+function isExternalVantage(vantage) {
+  if (!isPlainObject(vantage)) return false;
+  return vantage.canonicalSeniorityTier === SENIORITY_TIER_EXTERNAL
+    || vantage.canonicalSeniorityLevel === SENIORITY_TIER_EXTERNAL;
+}
+
+// PRE_CORE S_ADMISSIBILITY_UNRESOLVED maps only the two Owner-accepted
+// semantic reason classes. Raw resolver tokens are never Agent-facing.
+function preCoreAdmissibilityReason(snapshot) {
+  const unresolvedReason = snapshot.selector?.unresolvedReason;
+  if (unresolvedReason === UNRESOLVED_REASON.UNKNOWN_SENIORITY) {
+    return "ELIGIBILITY_UNRESOLVED_RESPONDENT_VANTAGE_NOT_ESTABLISHED";
+  }
+  if (unresolvedReason === null && isExternalVantage(snapshot.selector?.respondentVantage)) {
+    return "ELIGIBILITY_UNRESOLVED_EXTERNAL_VANTAGE";
+  }
+  fail(
+    `unexpected PRE_CORE eligibility token: ${JSON.stringify(unresolvedReason)}`,
+  );
+}
+
 function branchItems(snapshot) {
   const outcome = snapshot.engine.outcome;
   const branch = outcome.engineOutcomeCode;
@@ -198,7 +220,7 @@ function branchItems(snapshot) {
 
   if (branch === "S_ADMISSIBILITY_UNRESOLVED") {
     items.push(itemShape({
-      reasonCode: eligibilityReason(snapshot.selector.unresolvedReason),
+      reasonCode: preCoreAdmissibilityReason(snapshot),
       originBranch: branch,
       affectedClaims: ["CLAIM_ENGINE_STATE_IDENTITY", "CLAIM_OBSERVATION_ELIGIBILITY"],
       claimScope: "STATE_IDENTITY",
@@ -572,6 +594,13 @@ function buildKnown(snapshot) {
     known.push(knownFact("engine/outcome/branchCode", outcome.branchCode));
   }
   const branch = outcome.engineOutcomeCode;
+  if (PRE_CORE_OUTCOME_CODES.includes(branch)) {
+    known.push(knownFact("identity/candidatePair", snapshot.identity.candidatePair));
+    known.push(knownFact(
+      "engine/outcome/suppression/comparatorDidNotRun",
+      outcome.suppression?.comparatorDidNotRun,
+    ));
+  }
   const audit = outcome.engineAuditRaw ?? {};
   const comparison = snapshot.engine.comparison ?? {};
 
@@ -780,8 +809,17 @@ function claimPermitted(claimId, snapshot) {
   return false;
 }
 
+function claimIdsFor(snapshot) {
+  const branch = snapshot.engine.outcome.engineOutcomeCode;
+  if (!PRE_CORE_OUTCOME_CODES.includes(branch)) return CLAIM_IDS;
+  if (branch === "S_ADMISSIBILITY_UNRESOLVED") {
+    return Object.freeze(["CLAIM_ENGINE_STATE_IDENTITY", "CLAIM_OBSERVATION_ELIGIBILITY"]);
+  }
+  return Object.freeze(["CLAIM_ENGINE_STATE_IDENTITY"]);
+}
+
 function buildClaimBoundaries(snapshot) {
-  return CLAIM_IDS.map((claimId) => ({
+  return claimIdsFor(snapshot).map((claimId) => ({
     claimId,
     permitted: claimPermitted(claimId, snapshot),
     permittedForm: permittedFormFor(claimId, snapshot),

@@ -445,7 +445,7 @@ check("C5C-29", "unknown_seniority remains a production-generated unresolved cau
   const fixture = PRE.ADMISSIBILITY_UNRESOLVED;
   assert.equal(fixture.selectorProvenance.status, "ADMISSIBILITY_UNRESOLVED");
   assert.equal(fixture.selectorProvenance.unresolvedReason, "unknown_seniority");
-  assert.equal(fixture.uncertainty.items[0].reasonCode, "ELIGIBILITY_UNRESOLVED_UNKNOWN_SENIORITY");
+  assert.equal(fixture.uncertainty.items[0].reasonCode, "ELIGIBILITY_UNRESOLVED_RESPONDENT_VANTAGE_NOT_ESTABLISHED");
   assert.equal(abstentionOutcome(fixture), "FAIL");
 });
 
@@ -608,8 +608,8 @@ check("C5C-61", "dualRespondentComparison remains byte-identical", () => {
 });
 
 check("C5C-62", "provider prompt and candidate-schema versions remain unchanged", () => {
-  assert.equal(PROVIDER_PROMPT_VERSION, "provider-prompt-1.0");
-  assert.equal(PROVIDER_CANDIDATE_SCHEMA_VERSION, "provider-semantic-candidate-1.0");
+  assert.equal(PROVIDER_PROMPT_VERSION, "provider-prompt-1.1");
+  assert.equal(PROVIDER_CANDIDATE_SCHEMA_VERSION, "provider-semantic-candidate-1.1");
 });
 
 check("C5C-63", "ADMISSIBILITY owns routing/unresolvedReason while other PRE statuses do not", () => {
@@ -627,9 +627,14 @@ check("C5C-64", "all PRE_CORE observations are exact empty arrays", () => {
 });
 
 check("C5C-65", "CLAIM_OBSERVATION_ELIGIBILITY never becomes permitted from zero observations", () => {
-  for (const fixture of Object.values(PRE)) {
-    const boundary = fixture.uncertainty.claimBoundaries.find((row) => row.claimId === "CLAIM_OBSERVATION_ELIGIBILITY");
-    assert.equal(boundary?.permitted, false);
+  const eligibilityBoundary = PRE.ADMISSIBILITY_UNRESOLVED.uncertainty.claimBoundaries
+    .find((row) => row.claimId === "CLAIM_OBSERVATION_ELIGIBILITY");
+  assert.equal(eligibilityBoundary?.permitted, false);
+  for (const fixture of [PRE.NO_LAWFUL_PAIR, PRE.PAIR_SELECTION_AMBIGUOUS]) {
+    assert.equal(
+      fixture.uncertainty.claimBoundaries.some((row) => row.claimId === "CLAIM_OBSERVATION_ELIGIBILITY"),
+      false,
+    );
   }
 });
 

@@ -10,6 +10,7 @@ import {
   SELECTOR_COMPATIBLE_DUAL_BRANCH_CODES,
   SNAPSHOT_SCHEMA_VERSION,
   UNCERTAINTY_DOMAINS,
+  PRE_CORE_OUTCOME_CODES,
   UNCERTAINTY_REASON_CODES,
   UNCERTAINTY_SCHEMA_VERSION,
   UNRESOLVED_REASON,
@@ -296,7 +297,14 @@ function assertShape(uncertainty, branch) {
     assert.equal(typeof boundary.permitted, "boolean");
     assert.equal(typeof boundary.permittedForm, "string");
   }
-  assert.deepEqual(uncertainty.claimBoundaries.map((row) => row.claimId), [...CLAIM_IDS]);
+  if (PRE_CORE_OUTCOME_CODES.includes(branch)) {
+    const expected = branch === "S_ADMISSIBILITY_UNRESOLVED"
+      ? ["CLAIM_ENGINE_STATE_IDENTITY", "CLAIM_OBSERVATION_ELIGIBILITY"]
+      : ["CLAIM_ENGINE_STATE_IDENTITY"];
+    assert.deepEqual(uncertainty.claimBoundaries.map((row) => row.claimId), expected);
+  } else {
+    assert.deepEqual(uncertainty.claimBoundaries.map((row) => row.claimId), [...CLAIM_IDS]);
+  }
 }
 
 function assertRefs(snapshot, uncertainty) {
@@ -341,10 +349,10 @@ function assertFrozen(uncertainty) {
   if (uncertainty.items[0]) assert.notEqual(uncertainty.items[0].reasonCode, "TAMPER");
 }
 
-check("C0", "contract identity is D0_R0_CORR2_A2C1_CORR1_C5C1 / snapshot 2.0 / uncertainty 1.2", () => {
-  assert.equal(AGENT_CONTRACT_VERSION, "D0_R0_CORR2_A2C1_CORR1_C5C1");
+check("C0", "contract identity is D0_R0_CORR2_A2C1_CORR1_C5C1_PC1 / snapshot 2.0 / uncertainty 1.3", () => {
+  assert.equal(AGENT_CONTRACT_VERSION, "D0_R0_CORR2_A2C1_CORR1_C5C1_PC1");
   assert.equal(SNAPSHOT_SCHEMA_VERSION, "engine-snapshot-2.0");
-  assert.equal(UNCERTAINTY_SCHEMA_VERSION, "structured-uncertainty-1.2");
+  assert.equal(UNCERTAINTY_SCHEMA_VERSION, "structured-uncertainty-1.3");
   assert.equal(RUNTIME_CORE_COMMIT, "dcbd937e0135e790201ee5c8898c5b5f5a085298");
   assert.equal(UNCERTAINTY_DOMAINS.length, 9);
   assert.equal(CLAIM_IDS.length, 4);
@@ -363,22 +371,45 @@ check("B1", "all 9 selector-compatible DUAL_CORE branches produce StructuredUnce
   assert.deepEqual(seen, [...SELECTOR_COMPATIBLE_DUAL_BRANCH_CODES]);
 });
 
+function assemblePreCore(status, mutateProvenance) {
+  const provenance = structuredClone(buildC5CPreCoreSelectorProvenance(status));
+  if (mutateProvenance) mutateProvenance(provenance);
+  const snapshot = assemblePreCoreSelectorSnapshot({
+    identityContext: {
+      diagnosticId: `diag-${status}`,
+      projectId: null,
+      moduleId: "acquirerEnvironment",
+    },
+    selectorProvenance: provenance,
+  });
+  return { snapshot, uncertainty: buildStructuredUncertainty(snapshot) };
+}
+
+function assertPreCoreKnownFacts(snapshot, uncertainty) {
+  const paths = uncertainty.known.map((row) => row.factRef);
+  assert.equal(paths.some((ref) => ref.endsWith("/engine/outcome/state")), true);
+  assert.equal(paths.some((ref) => ref.endsWith("/engine/outcome/deterministicStateEstablished")), true);
+  assert.equal(paths.some((ref) => ref.endsWith("/identity/candidatePair")), true);
+  assert.equal(paths.some((ref) => ref.endsWith("/engine/outcome/suppression/comparatorDidNotRun")), true);
+  const pair = uncertainty.known.find((row) => row.factRef.endsWith("/identity/candidatePair"));
+  assert.equal(pair.value, null);
+  const comparator = uncertainty.known.find((row) => row.factRef.endsWith("/engine/outcome/suppression/comparatorDidNotRun"));
+  assert.equal(comparator.value, true);
+  const serialized = JSON.stringify(uncertainty);
+  assert.equal(serialized.includes("NF/SFP"), false);
+  assert.equal(serialized.includes("NF/SFJ"), false);
+  assert.equal(serialized.includes("unknown_seniority"), false);
+  assert.equal(serialized.includes("practitioner_access_review"), false);
+}
+
 check("B2", "all 3 PRE_CORE_SELECTOR outcomes produce closed structured uncertainty", () => {
   const cases = [
-    ["ADMISSIBILITY_UNRESOLVED", "S_ADMISSIBILITY_UNRESOLVED", "ELIGIBILITY_UNRESOLVED_UNKNOWN_SENIORITY", "ELIGIBILITY"],
+    ["ADMISSIBILITY_UNRESOLVED", "S_ADMISSIBILITY_UNRESOLVED", "ELIGIBILITY_UNRESOLVED_RESPONDENT_VANTAGE_NOT_ESTABLISHED", "ELIGIBILITY"],
     ["NO_LAWFUL_PAIR", "S_NO_LAWFUL_PAIR", "SELECTOR_NO_LAWFUL_CANDIDATE_PAIR", "PAIR_SCOPE"],
     ["PAIR_SELECTION_AMBIGUOUS", "S_PAIR_SELECTION_AMBIGUOUS", "SELECTOR_CANDIDATE_PAIR_AMBIGUOUS", "PAIR_SCOPE"],
   ];
   for (const [status, outcomeCode, reasonCode, domain] of cases) {
-    const snapshot = assemblePreCoreSelectorSnapshot({
-      identityContext: {
-        diagnosticId: `diag-${status}`,
-        projectId: null,
-        moduleId: "acquirerEnvironment",
-      },
-      selectorProvenance: buildC5CPreCoreSelectorProvenance(status),
-    });
-    const uncertainty = buildStructuredUncertainty(snapshot);
+    const { snapshot, uncertainty } = assemblePreCore(status);
     assert.equal(snapshot.outcomeSource, "PRE_CORE_SELECTOR");
     assert.equal(snapshot.engine.outcome.engineOutcomeCode, outcomeCode);
     assert.equal(uncertainty.originBranch, outcomeCode);
@@ -387,8 +418,48 @@ check("B2", "all 3 PRE_CORE_SELECTOR outcomes produce closed structured uncertai
     const branchItem = uncertainty.items.find((item) => item.uncertaintyDomain === domain);
     assert.ok(branchItem, status);
     assert.equal(branchItem.reasonCode, reasonCode);
-    assert.equal(uncertainty.claimBoundaries.find((row) => row.claimId === "CLAIM_OBSERVATION_ELIGIBILITY").permitted, false);
+    assert.equal(branchItem.disclosureRequired, true);
+    assert.equal(uncertainty.items.filter((item) => item.disclosureRequired === true).length, 1);
+    assert.equal(uncertainty.items[0].constraintIds.includes("C-NO-AGENT-PAIR-SELECTION"), true);
+    if (outcomeCode === "S_ADMISSIBILITY_UNRESOLVED") {
+      assert.equal(uncertainty.items[0].constraintIds.includes("C-ELIGIBILITY-UNRESOLVED"), true);
+      assert.equal(uncertainty.claimBoundaries.find((row) => row.claimId === "CLAIM_OBSERVATION_ELIGIBILITY").permitted, false);
+    } else {
+      assert.equal(uncertainty.claimBoundaries.some((row) => row.claimId === "CLAIM_OBSERVATION_ELIGIBILITY"), false);
+    }
+    assertPreCoreKnownFacts(snapshot, uncertainty);
   }
+});
+
+check("B2A", "blank/missing seniority maps to ELIGIBILITY_UNRESOLVED_RESPONDENT_VANTAGE_NOT_ESTABLISHED", () => {
+  const { snapshot, uncertainty } = assemblePreCore("ADMISSIBILITY_UNRESOLVED");
+  assert.equal(snapshot.selector.unresolvedReason, UNRESOLVED_REASON.UNKNOWN_SENIORITY);
+  assert.equal(uncertainty.items[0].reasonCode, "ELIGIBILITY_UNRESOLVED_RESPONDENT_VANTAGE_NOT_ESTABLISHED");
+  assert.equal(JSON.stringify(uncertainty).includes("unknown_seniority"), false);
+});
+
+check("B2B", "external vantage + raw null maps to ELIGIBILITY_UNRESOLVED_EXTERNAL_VANTAGE", () => {
+  const { snapshot, uncertainty } = assemblePreCore("ADMISSIBILITY_UNRESOLVED", (provenance) => {
+    provenance.unresolvedReason = null;
+    provenance.respondentVantage = {
+      ...provenance.respondentVantage,
+      canonicalSeniorityLevel: "external",
+      canonicalSeniorityTier: "external",
+    };
+  });
+  assert.equal(snapshot.selector.unresolvedReason, null);
+  assert.equal(snapshot.selector.respondentVantage.canonicalSeniorityTier, "external");
+  assert.equal(uncertainty.items[0].reasonCode, "ELIGIBILITY_UNRESOLVED_EXTERNAL_VANTAGE");
+  assert.equal(JSON.stringify(uncertainty).includes("external_advisor"), false);
+});
+
+check("B2C", "unexpected PRE_CORE eligibility token fails closed", () => {
+  assert.throws(() => assemblePreCore("ADMISSIBILITY_UNRESOLVED", (provenance) => {
+    provenance.unresolvedReason = UNRESOLVED_REASON.ROLE_CODE_UNSPECIFIED;
+  }));
+  assert.throws(() => assemblePreCore("ADMISSIBILITY_UNRESOLVED", (provenance) => {
+    provenance.unresolvedReason = null;
+  }));
 });
 
 check("P0C-1", "missing_module is PRE-DUAL INPUT_ASSEMBLY_FAILURE, not P_0C", () => {

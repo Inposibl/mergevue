@@ -122,7 +122,9 @@ function requestFor(coreInput) {
   return { request, snapshot, uncertainty, pack };
 }
 
-function preCoreRequest(status) {
+function preCoreRequest(status, mutateProvenance) {
+  const provenance = structuredClone(buildC5CPreCoreSelectorProvenance(status));
+  if (mutateProvenance) mutateProvenance(provenance);
   const snapshot = assemblePreCoreSelectorSnapshot({
     identityContext: {
       diagnosticId: "diag-j1-pre-core",
@@ -131,7 +133,7 @@ function preCoreRequest(status) {
       candidatePair: null,
       candidatePairNormalized: null,
     },
-    selectorProvenance: buildC5CPreCoreSelectorProvenance(status),
+    selectorProvenance: provenance,
   });
   const uncertainty = buildStructuredUncertainty(snapshot);
   const pack = buildInterpretationContextPack({
@@ -144,6 +146,120 @@ function preCoreRequest(status) {
     interpretationContextPack: pack,
   });
   return { request, snapshot, uncertainty, pack };
+}
+
+function lawfulPreCoreCandidateFromRequest(request, overrides = {}) {
+  const known = request.structuredUncertainty.known;
+  const fact = (suffix) => known.find((row) => row.factRef.endsWith(suffix))?.factRef;
+  const stateFact = fact("/engine/outcome/state") ?? known[0].factRef;
+  const pairFact = fact("/identity/candidatePair") ?? stateFact;
+  const comparatorFact = fact("/engine/outcome/suppression/comparatorDidNotRun") ?? stateFact;
+  const uncertaintyId = request.structuredUncertainty.items[0].uncertaintyId;
+  const candidate = {
+    interpretationStatus: "SELECTOR_BOUNDARY_EXPLANATION",
+    abstentionReason: null,
+    interpretation: {
+      hypotheses: { ordering: "CO_EQUAL", items: [] },
+      decisiveEvidence: [],
+      conflictingEvidence: [],
+      missingEvidence: [],
+      changeConditions: [],
+      affectedResources: [],
+      watchpoints: [],
+    },
+    uncertainty: {
+      disclosures: [{
+        uncertaintyId,
+        affects: "STATE_IDENTITY",
+        clientStatement: "The selector did not establish a deterministic Environment pair from the current admissible signals.",
+        unresolvedEngineFacts: ["CLAIM_ENGINE_STATE_IDENTITY"],
+      }],
+    },
+    claims: [
+      {
+        claimId: "CL-PC-001",
+        claimType: "DETERMINISTIC_FACT",
+        text: "The engine did not establish a deterministic state identity, no candidate pair was established, and the comparator did not run.",
+        refs: [stateFact, pairFact, comparatorFact],
+        contextRefs: [],
+      },
+      {
+        claimId: "CL-PC-002",
+        claimType: "UNCERTAINTY_DISCLOSURE",
+        text: "Selector-boundary uncertainty remains because the current signals could not lawfully finalise a pair.",
+        refs: [`uref://${uncertaintyId}`],
+        contextRefs: [],
+      },
+      {
+        claimId: "CL-PC-003",
+        claimType: "SCOPE_LIMITATION_DISCLOSURE",
+        text: "This result explains only the current knowledge boundary and does not interpret the organization.",
+        refs: [],
+        contextRefs: [],
+      },
+    ],
+    clientNarrative: {
+      language: "en",
+      sections: [{
+        sectionId: "S-PC-001",
+        text: "The engine did not establish a deterministic state identity, no candidate pair was established, and the comparator did not run. Selector-boundary uncertainty remains because the current signals could not lawfully finalise a pair. This result explains only the current knowledge boundary and does not interpret the organization.",
+        derivedFromClaimIds: ["CL-PC-001", "CL-PC-002", "CL-PC-003"],
+      }],
+    },
+  };
+  return deepMerge(candidate, overrides);
+}
+
+function assembledPreCore(status, candidateOverrides = {}, mutateProvenance) {
+  const fixture = preCoreRequest(status, mutateProvenance);
+  const candidate = lawfulPreCoreCandidateFromRequest(fixture.request, candidateOverrides);
+  const output = deepFreezeValue({
+    candidate: deepFreezeValue(structuredClone(candidate)),
+    executionMetadata: deepFreezeValue({
+      provider: PROVIDER_ID_GEMINI,
+      model: GEMINI_MODEL_ID,
+      executedAt: "2026-08-23T00:00:00.000Z",
+    }),
+  });
+  const result = assembleAgentInterpretationResult({
+    agentInterpretationRequest: fixture.request,
+    providerExecutionOutput: output,
+  });
+  return { ...fixture, candidate, result };
+}
+
+function syntheticPreCoreResult(fixture, overrides = {}) {
+  const candidate = lawfulPreCoreCandidateFromRequest(fixture.request);
+  const result = {
+    resultSchemaVersion: fixture.request.outputSchemaVersion,
+    agentContractVersion: fixture.request.agentContractVersion,
+    interpretationId: fixture.request.interpretationId,
+    engineFactsRef: {
+      diagnosticId: fixture.request.engineSnapshot.identity.diagnosticId,
+      engineSnapshotDigest: fixture.request.engineSnapshot.engineSnapshotDigest,
+      engineOutcomeCode: fixture.request.engineSnapshot.engine.outcome.engineOutcomeCode,
+      branchCode: null,
+      stateAsserted: null,
+    },
+    interpretationStatus: candidate.interpretationStatus,
+    abstentionReason: candidate.abstentionReason,
+    interpretation: candidate.interpretation,
+    uncertainty: {
+      materialUncertaintyPresent: fixture.request.structuredUncertainty.materialUncertaintyPresent,
+      disclosures: candidate.uncertainty.disclosures,
+      suppressedDeterministicOutputs: fixture.request.structuredUncertainty.withheldOutputs
+        .map((row) => ({ withheldItem: row.withheldItem, withheldBy: row.withheldBy })),
+    },
+    claims: candidate.claims,
+    clientNarrative: candidate.clientNarrative,
+    provenance: {
+      providerIdentity: PROVIDER_ID_GEMINI,
+      modelIdentity: GEMINI_MODEL_ID,
+      executedAt: "2026-08-23T00:00:00.000Z",
+      contextRefsUsed: [],
+    },
+  };
+  return deepFreezeValue(deepMerge(result, overrides));
 }
 
 const P5A_INPUT = {
@@ -3075,6 +3191,237 @@ async function main() {
       );
       assert.equal(violation.violationCode, "GROUNDING_VALIDATION_FAILURE", `${label}: canonical semantic violation class`);
     }
+  });
+
+  await check("SV-PC1", "lawful PRE_CORE SELECTOR_BOUNDARY_EXPLANATION reaches semantic PASS on all four accepted paths", async () => {
+    const blank = assembledPreCore("ADMISSIBILITY_UNRESOLVED");
+    const external = assembledPreCore("ADMISSIBILITY_UNRESOLVED", {}, (provenance) => {
+      provenance.unresolvedReason = null;
+      provenance.respondentVantage = {
+        ...provenance.respondentVantage,
+        canonicalSeniorityLevel: "external",
+        canonicalSeniorityTier: "external",
+      };
+    });
+    const noPair = assembledPreCore("NO_LAWFUL_PAIR");
+    const ambiguous = assembledPreCore("PAIR_SELECTION_AMBIGUOUS");
+    const rows = [
+      ["blank/missing seniority", blank, "ELIGIBILITY_UNRESOLVED_RESPONDENT_VANTAGE_NOT_ESTABLISHED"],
+      ["external vantage", external, "ELIGIBILITY_UNRESOLVED_EXTERNAL_VANTAGE"],
+      ["no lawful pair", noPair, "SELECTOR_NO_LAWFUL_CANDIDATE_PAIR"],
+      ["pair selection ambiguous", ambiguous, "SELECTOR_CANDIDATE_PAIR_AMBIGUOUS"],
+    ];
+    for (const [label, fixture, reasonCode] of rows) {
+      assert.equal(Object.hasOwn(fixture.request.engineSnapshot.engine, "comparison"), false, label);
+      assert.deepEqual(fixture.request.engineSnapshot.engine.observations, [], label);
+      assert.equal(fixture.request.structuredUncertainty.items[0].reasonCode, reasonCode, label);
+      assert.equal(fixture.result.interpretationStatus, "SELECTOR_BOUNDARY_EXPLANATION", label);
+      const { cSet } = buildSemanticCheckSet(fixture.request, fixture.result);
+      assert.equal(cSet.some((row) => row.semanticSubruleId === "V-24-SEM-CASE-A-LEAKAGE"), true, label);
+      const returned = await validateAgentInterpretationSemantics({
+        agentInterpretationRequest: fixture.request,
+        agentInterpretationResult: fixture.result,
+        semanticJudge: ALL_PASS_MOCK(),
+        maxChecksPerBatch: 20,
+      });
+      assert.equal(Object.is(returned, fixture.result), true, label);
+    }
+  });
+
+  await check("SV-PC2", "comparison absence is lawful for PRE_CORE and remains mandatory for DUAL", async () => {
+    const pre = assembledPreCore("NO_LAWFUL_PAIR");
+    const returned = await validateAgentInterpretationSemantics({
+      agentInterpretationRequest: pre.request,
+      agentInterpretationResult: pre.result,
+      semanticJudge: ALL_PASS_MOCK(),
+      maxChecksPerBatch: 20,
+    });
+    assert.equal(Object.is(returned, pre.result), true);
+
+    const dualMissing = deepFreezeValue((() => {
+      const clone = structuredClone(p5a.request);
+      delete clone.engineSnapshot.engine.comparison;
+      return clone;
+    })());
+    const dualCaught = await assertRejects(
+      () => validateAgentInterpretationSemantics({
+        agentInterpretationRequest: dualMissing,
+        agentInterpretationResult: p5a.result,
+        semanticJudge: ALL_PASS_MOCK(),
+        maxChecksPerBatch: 6,
+      }),
+      SemanticValidationError,
+      "DUAL missing comparison",
+    );
+    assert.equal(dualCaught.errorKind, "INPUT_PRECONDITION_FAILURE");
+
+    const preWithComparison = deepFreezeValue((() => {
+      const clone = structuredClone(pre.request);
+      clone.engineSnapshot.engine.comparison = p5a.request.engineSnapshot.engine.comparison;
+      return clone;
+    })());
+    const preCaught = await assertRejects(
+      () => validateAgentInterpretationSemantics({
+        agentInterpretationRequest: preWithComparison,
+        agentInterpretationResult: pre.result,
+        semanticJudge: ALL_PASS_MOCK(),
+        maxChecksPerBatch: 6,
+      }),
+      SemanticValidationError,
+      "PRE_CORE with comparison",
+    );
+    assert.equal(preCaught.errorKind, "INPUT_PRECONDITION_FAILURE");
+  });
+
+  await check("SV-PC3", "J1 structurally rejects forbidden PRE_CORE statuses, hypotheses, qrefs, claims, and disclosures", async () => {
+    const fixture = assembledPreCore("NO_LAWFUL_PAIR");
+    const run = (result) => validateAgentInterpretationSemantics({
+      agentInterpretationRequest: fixture.request,
+      agentInterpretationResult: result,
+      semanticJudge: ALL_PASS_MOCK(),
+      maxChecksPerBatch: 20,
+    });
+    const cases = [
+      ["ABSTAINED", { interpretationStatus: "ABSTAINED_INSUFFICIENT_EVIDENCE", abstentionReason: "COMPARATOR_DID_NOT_RUN" }],
+      ["CONSTRAINED", { interpretationStatus: "INTERPRETATION_CONSTRAINED" }],
+      ["SUPPORTED", { interpretationStatus: "INTERPRETATION_SUPPORTED" }],
+      ["QUALIFIED", { interpretationStatus: "INTERPRETATION_QUALIFIED" }],
+      ["non-null abstention", { abstentionReason: "COMPARATOR_DID_NOT_RUN" }],
+      ["non-empty hypotheses", {
+        interpretation: {
+          hypotheses: {
+            ordering: "CO_EQUAL",
+            items: [{
+              hypothesisId: "H1",
+              statement: "A fabricated hypothesis.",
+              evidenceBasis: PLAIN_EVIDENCE_BASIS,
+              decisiveEvidenceRefs: [],
+              conflictingEvidenceRefs: [],
+              contextRefs: [],
+              requiresEngineFactNotEstablished: [],
+            }],
+          },
+        },
+      }],
+      ["RANKED", { interpretation: { hypotheses: { ordering: "RANKED", items: [] } } }],
+    ];
+    for (const [label, overrides] of cases) {
+      const result = syntheticPreCoreResult(fixture, overrides);
+      const caught = await assertRejects(() => run(result), SemanticViolationError, label);
+      assert.equal(caught.violationCode, "OUTPUT_SCHEMA_VIOLATION", label);
+    }
+
+    const qrefResult = syntheticPreCoreResult(fixture, {
+      claims: [
+        {
+          claimId: "CL-PC-001",
+          claimType: "DETERMINISTIC_FACT",
+          text: "A qref-bearing claim.",
+          refs: ["qref://engineSnapshot/engine/observations/0"],
+          contextRefs: [],
+        },
+        ...syntheticPreCoreResult(fixture).claims.slice(1),
+      ],
+    });
+    await assertRejects(() => run(qrefResult), SemanticViolationError, "qref");
+
+    for (const claimType of ["DIRECT_EVIDENCE", "BOUNDED_INTERPRETATION", "ALTERNATIVE_HYPOTHESIS", "WATCHPOINT"]) {
+      const result = syntheticPreCoreResult(fixture, {
+        claims: [
+          { ...syntheticPreCoreResult(fixture).claims[0], claimType },
+          ...syntheticPreCoreResult(fixture).claims.slice(1),
+        ],
+      });
+      await assertRejects(() => run(result), SemanticViolationError, claimType);
+    }
+
+    const missing = syntheticPreCoreResult(fixture, { uncertainty: { disclosures: [] } });
+    await assertRejects(() => run(missing), SemanticViolationError, "missing disclosure");
+
+    const extra = syntheticPreCoreResult(fixture);
+    const extraResult = deepFreezeValue((() => {
+      const clone = structuredClone(extra);
+      clone.uncertainty.disclosures.push({
+        uncertaintyId: extra.uncertainty.disclosures[0].uncertaintyId,
+        affects: "DETAIL",
+        clientStatement: "An extra unrelated disclosure.",
+        unresolvedEngineFacts: [],
+      });
+      return clone;
+    })());
+    await assertRejects(() => run(extraResult), SemanticViolationError, "extra disclosure");
+  });
+
+  await check("SV-PC4", "unsupported pair/environment/next-evidence meaning is enumerated and a FAIL verdict blocks semantic success", async () => {
+    const fixture = assembledPreCore("PAIR_SELECTION_AMBIGUOUS");
+    const pairMeaning = syntheticPreCoreResult(fixture, {
+      claims: [
+        {
+          ...syntheticPreCoreResult(fixture).claims[0],
+          text: "The likely pair is NT/STJ vs NT/STP and the organization is an NT environment.",
+        },
+        ...syntheticPreCoreResult(fixture).claims.slice(1),
+      ],
+    });
+    const nextEvidence = syntheticPreCoreResult(fixture, {
+      clientNarrative: {
+        language: "en",
+        sections: [{
+          sectionId: "S-PC-001",
+          text: "Collect Q4 from a senior internal respondent next; that discriminator will resolve the pair.",
+          derivedFromClaimIds: ["CL-PC-001", "CL-PC-002", "CL-PC-003"],
+        }],
+      },
+    });
+
+    const pairSet = buildSemanticCheckSet(fixture.request, pairMeaning);
+    const pairGrounding = pairSet.cSet.find((row) => (
+      row.semanticSubruleId === "V-04-SEM-GROUNDING" && row.targetLocator === "claims.CL-PC-001.text"
+    ));
+    const pairCaseA = pairSet.cSet.find((row) => (
+      row.semanticSubruleId === "V-24-SEM-CASE-A-LEAKAGE" && row.targetLocator === "claims.CL-PC-001.text"
+    ));
+    assert.ok(pairGrounding, "V-04 applies to the pair-meaning claim");
+    assert.ok(pairCaseA, "V-24 applies to the pair-meaning claim");
+    const pairFail = createMockSemanticJudge((check) => (
+      check.semanticSubruleId === "V-24-SEM-CASE-A-LEAKAGE" && check.targetLocator === "claims.CL-PC-001.text"
+        ? { verdict: "FAIL" }
+        : { verdict: "PASS" }
+    ));
+    const pairViolation = await assertRejects(
+      () => validateAgentInterpretationSemantics({
+        agentInterpretationRequest: fixture.request,
+        agentInterpretationResult: pairMeaning,
+        semanticJudge: pairFail,
+        maxChecksPerBatch: 20,
+      }),
+      SemanticViolationError,
+      "pair/environment meaning",
+    );
+    assert.equal(pairViolation.violationCode, "PROHIBITED_CLAIM_VIOLATION");
+
+    const nextSet = buildSemanticCheckSet(fixture.request, nextEvidence);
+    const narrativeScope = nextSet.cSet.find((row) => (
+      row.semanticSubruleId === "V-22-SEM-NARRATIVE-SCOPE"
+      && row.targetLocator === "clientNarrative.sections[0].text"
+    ));
+    assert.ok(narrativeScope, "V-22 applies to the next-evidence narrative");
+    const nextFail = createMockSemanticJudge((check) => (
+      check.semanticSubruleId === "V-22-SEM-NARRATIVE-SCOPE"
+        ? { verdict: "FAIL" }
+        : { verdict: "PASS" }
+    ));
+    const nextViolation = await assertRejects(
+      () => validateAgentInterpretationSemantics({
+        agentInterpretationRequest: fixture.request,
+        agentInterpretationResult: nextEvidence,
+        semanticJudge: nextFail,
+        maxChecksPerBatch: 20,
+      }),
+      SemanticViolationError,
+      "next-evidence narrative",
+    );
+    assert.equal(nextViolation.violationCode, "GROUNDING_VALIDATION_FAILURE");
   });
 }
 

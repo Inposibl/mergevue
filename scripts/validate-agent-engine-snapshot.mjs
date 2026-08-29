@@ -1165,8 +1165,8 @@ function assertProvenanceVerbatim(snapshot, coreOutput) {
   }
 }
 
-check("V1", "contract identity: schema engine-snapshot-2.0, D0_R0_CORR2_A2C1_CORR1_C5C1, Core dcbd937", () => {
-  assert.equal(AGENT_CONTRACT_VERSION, "D0_R0_CORR2_A2C1_CORR1_C5C1");
+check("V1", "contract identity: schema engine-snapshot-2.0, D0_R0_CORR2_A2C1_CORR1_C5C1_PC1, Core dcbd937", () => {
+  assert.equal(AGENT_CONTRACT_VERSION, "D0_R0_CORR2_A2C1_CORR1_C5C1_PC1");
   assert.equal(SNAPSHOT_SCHEMA_VERSION, "engine-snapshot-2.0");
   assert.equal(RUNTIME_CORE_COMMIT, "dcbd937e0135e790201ee5c8898c5b5f5a085298");
   assert.deepEqual(MATCHED_ACCESS_RULE_IDS, [
@@ -1527,7 +1527,7 @@ check("F2", "A1 source has no numeric-probability or withdrawn-classifier surfac
   }
 });
 
-console.log("Agent EngineSnapshot slice C5-C (D0_R0_CORR2_A2C1_CORR1_C5C1) cases passed:");
+console.log("Agent EngineSnapshot slice C5-C (D0_R0_CORR2_A2C1_CORR1_C5C1_PC1) cases passed:");
 for (const row of results) {
   console.log(`  ${row.id}. ${row.label}: ${row.status}`);
 }

@@ -22,6 +22,7 @@ const INTERPRETATION_STATUS_VALUES = Object.freeze([
   "INTERPRETATION_QUALIFIED",
   "INTERPRETATION_CONSTRAINED",
   "ABSTAINED_INSUFFICIENT_EVIDENCE",
+  "SELECTOR_BOUNDARY_EXPLANATION",
 ]);
 
 const ABSTENTION_REASON_VALUES = Object.freeze([
@@ -557,10 +558,12 @@ function resolveProjection(projection) {
     mrefDomains.get(ref).add(domain);
   }
   const uncertaintyIds = new Set();
+  const disclosureRequiredIds = new Set();
   for (const item of requireArray(uncertainty.items, "structuredUncertainty.items")) {
     const id = requirePlainObject(item, "uncertainty item").uncertaintyId;
     if (typeof id !== "string" || id.length === 0) fail("projection uncertainty item lacks an uncertaintyId");
     uncertaintyIds.add(id);
+    if (item.disclosureRequired === true) disclosureRequiredIds.add(id);
   }
   const claimBoundaryIds = new Set();
   for (const boundary of requireArray(uncertainty.claimBoundaries, "structuredUncertainty.claimBoundaries")) {
@@ -580,12 +583,14 @@ function resolveProjection(projection) {
 
   return {
     outcome,
+    outcomeSource: engineSnapshot.outcomeSource,
     originBranch: uncertainty.originBranch,
     permittedOutputScope: projection.permittedOutputScope,
     qrefs,
     factrefs,
     mrefDomains,
     uncertaintyIds,
+    disclosureRequiredIds,
     claimBoundaryIds,
     blockedClaimIds,
     unavailableQrefs: new Set(requireArray(
@@ -681,11 +686,102 @@ function sameRefSet(left, right) {
   return right.every((ref) => set.has(ref));
 }
 
+const PRE_CORE_CLAIM_TYPES = Object.freeze([
+  "DETERMINISTIC_FACT",
+  "UNCERTAINTY_DISCLOSURE",
+  "SCOPE_LIMITATION_DISCLOSURE",
+]);
+
+function assertPreCoreCandidateContract(candidate, state) {
+  if (state.outcomeSource !== "PRE_CORE_SELECTOR") {
+    if (candidate.interpretationStatus === "SELECTOR_BOUNDARY_EXPLANATION") {
+      fail("SELECTOR_BOUNDARY_EXPLANATION is lawful only for PRE_CORE_SELECTOR");
+    }
+    return;
+  }
+
+  if (candidate.interpretationStatus !== "SELECTOR_BOUNDARY_EXPLANATION") {
+    fail("PRE_CORE_SELECTOR requires interpretationStatus SELECTOR_BOUNDARY_EXPLANATION");
+  }
+  if (candidate.abstentionReason !== null) {
+    fail("PRE_CORE_SELECTOR requires abstentionReason null");
+  }
+
+  const interpretation = candidate.interpretation;
+  const hypotheses = interpretation.hypotheses;
+  if (hypotheses.ordering !== "CO_EQUAL") {
+    fail("PRE_CORE_SELECTOR requires hypotheses.ordering CO_EQUAL");
+  }
+  if (hypotheses.items.length !== 0) {
+    fail("PRE_CORE_SELECTOR requires hypotheses.items to be empty");
+  }
+  for (const key of [
+    "decisiveEvidence",
+    "conflictingEvidence",
+    "missingEvidence",
+    "changeConditions",
+    "affectedResources",
+    "watchpoints",
+  ]) {
+    if (interpretation[key].length !== 0) {
+      fail(`PRE_CORE_SELECTOR requires interpretation.${key} to be empty`);
+    }
+  }
+  for (const key of ["transitionPattern", "frictionMechanism", "scenarioInterpretation"]) {
+    if (Object.hasOwn(interpretation, key)) {
+      fail(`PRE_CORE_SELECTOR prohibits interpretation.${key}`);
+    }
+  }
+
+  const seenTypes = new Set();
+  for (const [index, claim] of candidate.claims.entries()) {
+    const label = `claims[${index}]`;
+    if (!PRE_CORE_CLAIM_TYPES.includes(claim.claimType)) {
+      fail(`${label}.claimType is not lawful on PRE_CORE_SELECTOR: ${JSON.stringify(claim.claimType)}`);
+    }
+    seenTypes.add(claim.claimType);
+    if (claim.contextRefs.length !== 0) {
+      fail(`${label}.contextRefs must be empty on PRE_CORE_SELECTOR`);
+    }
+    for (const [refIndex, ref] of claim.refs.entries()) {
+      if (isQref(ref) || isMref(ref)) {
+        fail(`${label}.refs[${refIndex}] is not lawful on PRE_CORE_SELECTOR: ${JSON.stringify(ref)}`);
+      }
+    }
+  }
+  for (const requiredType of PRE_CORE_CLAIM_TYPES) {
+    if (!seenTypes.has(requiredType)) {
+      fail(`PRE_CORE_SELECTOR requires at least one ${requiredType} claim`);
+    }
+  }
+
+  const disclosed = candidate.uncertainty.disclosures.map((row) => row.uncertaintyId);
+  const required = [...state.disclosureRequiredIds];
+  if (disclosed.length !== required.length || new Set(disclosed).size !== disclosed.length) {
+    fail("PRE_CORE_SELECTOR requires a 1:1 disclosure for each disclosureRequired uncertainty item");
+  }
+  const disclosedSet = new Set(disclosed);
+  for (const id of required) {
+    if (!disclosedSet.has(id)) {
+      fail("PRE_CORE_SELECTOR requires a 1:1 disclosure for each disclosureRequired uncertainty item");
+    }
+  }
+}
+
 function validateHypotheses(candidate, state) {
   const interpretation = candidate.interpretation;
   const status = candidate.interpretationStatus;
   const hypotheses = interpretation.hypotheses;
   const items = hypotheses.items;
+  if (status === "SELECTOR_BOUNDARY_EXPLANATION") {
+    if (hypotheses.ordering !== "CO_EQUAL") {
+      fail("SELECTOR_BOUNDARY_EXPLANATION requires hypotheses.ordering CO_EQUAL");
+    }
+    if (items.length !== 0) {
+      fail("SELECTOR_BOUNDARY_EXPLANATION requires empty hypotheses.items");
+    }
+    return;
+  }
   if (status !== "ABSTAINED_INSUFFICIENT_EVIDENCE" && items.length < 1) {
     fail("interpretation.hypotheses.items must not be empty outside abstention");
   }
@@ -998,6 +1094,7 @@ export function validateProviderSemanticCandidate(candidate, providerProjection)
 
   assertCaseAStructuralGate(candidate, state);
   assertP1BStructuralGate(candidate, state);
+  assertPreCoreCandidateContract(candidate, state);
 
   validateInterpretation(candidate, state);
   validateUncertaintyDisclosures(candidate, state);

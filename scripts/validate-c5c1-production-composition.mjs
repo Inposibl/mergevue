@@ -90,14 +90,14 @@ const NO_PAIR_PRE_STATUSES = Object.freeze([
   "PAIR_SELECTION_AMBIGUOUS",
 ]);
 const NO_PAIR_CONSTRAINT_ID = "C-NO-AGENT-PAIR-SELECTION";
-const NO_PAIR_PROVIDER_RULE = "Do not choose, infer, rank, narrow, resolve, or fabricate a candidate pair, and do not treat matched-pair or selector audit material as pair authority; state only that no candidate pair was established and describe the resulting uncertainty.";
-const ADMISSIBILITY_SYSTEM_INSTRUCTION_SHA256 = "87764971daece6b5e1208091737e5bdee0fc5fcbee966ff63cec1dba892cab87";
-const ADMISSIBILITY_SYSTEM_INSTRUCTION_BYTES = 4961;
+const NO_PAIR_PROVIDER_RULE = "Never choose, infer, name, rank, narrow, or reconstruct a candidate pair. Do not treat matched-pair or selector audit material as pair authority. Describe only the canonical selector-boundary fact supplied in this projection.";
+const ADMISSIBILITY_SYSTEM_INSTRUCTION_SHA256 = "4ae5e31214ba2991393748c0c25a3c97b441a82d72d82162bdaaa156e24098a5";
+const ADMISSIBILITY_SYSTEM_INSTRUCTION_BYTES = 5867;
 const SENTINELS = Object.freeze({
   "src/flow/candidatePairSelector.js": "9aa93625d3a3f19b9fbc002504b97d0acf284d084a9c91f3f0dc119ad3404d43",
   "src/flow/dualRespondentComparison.js": "5b730d53df647ddf12f58a0f4e8bf1bcb294e852b4f080ed5a038103b79ba2e3",
   "scripts/validate-c5b-candidate-pair-selector.mjs": "a7a6d95e829645f396aea3718300c38ecbb64406ed41d4669f7df850a89995a6",
-  "scripts/validate-agent-semantic-conformance-offline.mjs": "70d369c6adb615ce5815993e4805d62f1540a8d02b37a9e254584ed62c9f9e00",
+  "scripts/validate-agent-semantic-conformance-offline.mjs": "3cc5ba4aa57fc0f2002cc59a54a9a25b98d9fb6e8d5e900535dd0ad6f2d30bbb",
 });
 const J5_FORBIDDEN_IMPORT_FRAGMENTS = Object.freeze([
   "src/flow/",
@@ -973,7 +973,11 @@ await check("C5C1-72E", "no-pair provider material contains no materialized cand
     assert.equal(row.snapshot.identity.candidatePair, null, status);
     assert.equal(row.snapshot.identity.candidatePairNormalized, null, status);
     assert.equal(row.projection.engineSnapshot.identity.candidatePair, null, status);
-    assert.equal(row.projection.engineSnapshot.identity.candidatePairNormalized, null, status);
+    assert.equal(
+      Object.hasOwn(row.projection.engineSnapshot.identity, "candidatePairNormalized"),
+      false,
+      status,
+    );
     for (const matchedPair of row.selectorResult.audit?.matchedPairs ?? []) {
       assert.equal(JSON.stringify(row.prompt).includes(matchedPair), false, `${status}: ${matchedPair}`);
     }

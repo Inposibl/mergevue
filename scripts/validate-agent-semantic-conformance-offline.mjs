@@ -1132,16 +1132,16 @@ async function main() {
   for (const record of byCategory("INTEGRATION")) await check(record.caseId, "INTEGRATION", () => executeRecord(record, fixtures));
   for (const record of byCategory("PRIVACY")) await check(record.caseId, "PRIVACY", () => executeRecord(record, fixtures));
   const gates = [
-    ["RG-01", "validate:agent-semantic-validator-core-offline", "PASS 20/20"],
+    ["RG-01", "validate:agent-semantic-validator-core-offline", "PASS 24/24"],
     ["RG-02", "validate:agent-semantic-judge-transport-offline", "PASS 73/73"],
     ["RG-03", "validate:agent-semantic-system-failure-offline", "PASS 57/57"],
-    ["RG-04", "validate:agent-interpretation-result-offline", "PASS 14/14"],
+    ["RG-04", "validate:agent-interpretation-result-offline", "PASS 16/16"],
     ["RG-05", "validate:agent-provider-execution-offline", "PASS 32/32"],
-    ["RG-06", "validate:agent-provider-boundary-offline", "PASS 52/52"],
-    ["RG-07", "validate:agent-interpretation-request", "PASS 22/22"],
-    ["RG-08", "validate:agent-context-pack", "PASS 17/17"],
-    ["RG-09", "validate:agent-structured-uncertainty", "PASS 27/27"],
-    ["RG-10", "validate:agent-engine-snapshot", "PASS 41/41"],
+    ["RG-06", "validate:agent-provider-boundary-offline", "PASS 60/60"],
+    ["RG-07", "validate:agent-interpretation-request", "PASS 28/28"],
+    ["RG-08", "validate:agent-context-pack", "PASS 22/22"],
+    ["RG-09", "validate:agent-structured-uncertainty", "PASS 31/31"],
+    ["RG-10", "validate:agent-engine-snapshot", "PASS 42/42"],
     ["RG-11", "validate:observation-scope-runtime", "PASS 131/131"],
     ["RG-12", "validate:questionnaire-bindings", null],
   ];

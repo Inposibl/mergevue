@@ -1,3 +1,4 @@
+import { PRE_CORE_OUTCOME_CODES } from "./agentContractConstants.js";
 import { evaluateDeterministicChecks } from "./semanticLocalEvaluator.js";
 import { buildSemanticCheckSet } from "./semanticCheckEnumerator.js";
 import { buildSemanticJudgePackets } from "./semanticJudgePacket.js";
@@ -69,7 +70,22 @@ function assertInputPreconditions(agentInterpretationRequest, agentInterpretatio
   const engine = requirePlainObject(snapshot.engine, "engineSnapshot.engine");
   requirePlainObject(engine.outcome, "engineSnapshot.engine.outcome");
   requireArray(engine.observations, "engineSnapshot.engine.observations");
-  requirePlainObject(engine.comparison, "engineSnapshot.engine.comparison");
+  const outcomeSource = snapshot.outcomeSource;
+  if (outcomeSource === "DUAL_CORE") {
+    requirePlainObject(engine.comparison, "engineSnapshot.engine.comparison");
+  } else if (outcomeSource === "PRE_CORE_SELECTOR") {
+    if (Object.hasOwn(engine, "comparison")) {
+      preconditionFail("PRE_CORE_SELECTOR engine.comparison must be physically absent");
+    }
+    if (engine.observations.length !== 0) {
+      preconditionFail("PRE_CORE_SELECTOR observations must be empty");
+    }
+    if (!PRE_CORE_OUTCOME_CODES.includes(engine.outcome.engineOutcomeCode)) {
+      preconditionFail("PRE_CORE_SELECTOR engineOutcomeCode must be a lawful S_* code");
+    }
+  } else {
+    preconditionFail("engineSnapshot.outcomeSource is not a lawful closed source");
+  }
 
   const uncertainty = requirePlainObject(request.structuredUncertainty, "structuredUncertainty");
   for (const key of ["items", "known", "withheldOutputs", "survivingEvidenceRefs", "claimBoundaries"]) {
@@ -108,6 +124,109 @@ function assertInputPreconditions(agentInterpretationRequest, agentInterpretatio
     preconditionFail("result.interpretationStatus must be a string");
   }
   return { request, result };
+}
+
+const PRE_CORE_LAWFUL_CLAIM_TYPES = Object.freeze([
+  "DETERMINISTIC_FACT",
+  "UNCERTAINTY_DISCLOSURE",
+  "SCOPE_LIMITATION_DISCLOSURE",
+]);
+
+function collectQrefs(value, into = []) {
+  if (typeof value === "string") {
+    if (value.startsWith("qref://")) into.push(value);
+    return into;
+  }
+  if (Array.isArray(value)) {
+    for (const item of value) collectQrefs(item, into);
+    return into;
+  }
+  if (value !== null && typeof value === "object") {
+    for (const child of Object.values(value)) collectQrefs(child, into);
+  }
+  return into;
+}
+
+function preCoreStructuralFail(detail) {
+  throw new SemanticViolationError({
+    violationCode: "OUTPUT_SCHEMA_VIOLATION",
+    detail,
+    findings: Object.freeze([]),
+  });
+}
+
+function assertPreCoreStructuralLaw(request, result) {
+  if (request.engineSnapshot.outcomeSource !== "PRE_CORE_SELECTOR") return;
+
+  if (result.interpretationStatus !== "SELECTOR_BOUNDARY_EXPLANATION") {
+    preCoreStructuralFail("PRE_CORE_SELECTOR requires interpretationStatus SELECTOR_BOUNDARY_EXPLANATION");
+  }
+  if (result.abstentionReason !== null) {
+    preCoreStructuralFail("PRE_CORE_SELECTOR requires abstentionReason null");
+  }
+
+  const interpretation = result.interpretation;
+  const hypotheses = interpretation.hypotheses;
+  if (hypotheses.ordering !== "CO_EQUAL") {
+    preCoreStructuralFail("PRE_CORE_SELECTOR requires hypotheses.ordering CO_EQUAL");
+  }
+  if (hypotheses.items.length !== 0) {
+    preCoreStructuralFail("PRE_CORE_SELECTOR requires hypotheses.items to be empty");
+  }
+  for (const key of [
+    "decisiveEvidence",
+    "conflictingEvidence",
+    "missingEvidence",
+    "changeConditions",
+    "affectedResources",
+    "watchpoints",
+  ]) {
+    if (interpretation[key].length !== 0) {
+      preCoreStructuralFail(`PRE_CORE_SELECTOR requires interpretation.${key} to be empty`);
+    }
+  }
+  for (const key of ["transitionPattern", "frictionMechanism", "scenarioInterpretation"]) {
+    if (Object.hasOwn(interpretation, key)) {
+      preCoreStructuralFail(`PRE_CORE_SELECTOR prohibits interpretation.${key}`);
+    }
+  }
+
+  const seenTypes = new Set();
+  for (const [index, claim] of result.claims.entries()) {
+    if (!PRE_CORE_LAWFUL_CLAIM_TYPES.includes(claim.claimType)) {
+      preCoreStructuralFail(
+        `PRE_CORE_SELECTOR forbids claimType ${JSON.stringify(claim.claimType)} at claims[${index}]`,
+      );
+    }
+    seenTypes.add(claim.claimType);
+    if (Array.isArray(claim.contextRefs) && claim.contextRefs.length !== 0) {
+      preCoreStructuralFail(`PRE_CORE_SELECTOR requires claims[${index}].contextRefs to be empty`);
+    }
+  }
+  for (const requiredType of PRE_CORE_LAWFUL_CLAIM_TYPES) {
+    if (!seenTypes.has(requiredType)) {
+      preCoreStructuralFail(`PRE_CORE_SELECTOR requires at least one ${requiredType} claim`);
+    }
+  }
+
+  const qrefs = collectQrefs(result);
+  if (qrefs.length > 0) {
+    preCoreStructuralFail("PRE_CORE_SELECTOR forbids qref grounding");
+  }
+
+  const requiredIds = request.structuredUncertainty.items
+    .filter((item) => item.disclosureRequired === true)
+    .map((item) => item.uncertaintyId);
+  const disclosedIds = result.uncertainty.disclosures.map((row) => row.uncertaintyId);
+  if (disclosedIds.length !== requiredIds.length || new Set(disclosedIds).size !== disclosedIds.length) {
+    preCoreStructuralFail("PRE_CORE_SELECTOR requires a 1:1 disclosure for each disclosureRequired uncertainty item");
+  }
+  const disclosedSet = new Set(disclosedIds);
+  for (const id of requiredIds) {
+    if (!disclosedSet.has(id)) {
+      preCoreStructuralFail("PRE_CORE_SELECTOR requires a 1:1 disclosure for each disclosureRequired uncertainty item");
+    }
+  }
 }
 
 function assertMaxChecksPerBatch(maxChecksPerBatch) {
@@ -205,6 +324,7 @@ export async function validateAgentInterpretationSemantics({
   const { request, result } = assertInputPreconditions(agentInterpretationRequest, agentInterpretationResult);
   assertSemanticJudgeInterface(semanticJudge);
   assertMaxChecksPerBatch(maxChecksPerBatch);
+  assertPreCoreStructuralLaw(request, result);
 
   // D-set: J1-owned deterministic checks run first, in fixed order.
   const dSet = evaluateDeterministicChecks(request, result);

@@ -43,7 +43,11 @@ import {
 import { precedenceRawCondition } from "../src/agent/contextAuthorityRegistry.js";
 import { compareDualRespondents } from "../src/flow/dualRespondentComparison.js";
 import { isAuthorizedDualModule } from "../src/flow/observationScopeResolver.js";
-import { buildC5CSelectedSelectorProvenance } from "./fixtures/c5c-selected-session.mjs";
+import { assemblePreCoreSelectorSnapshot } from "../src/agent/preCoreSelectorSnapshot.js";
+import {
+  buildC5CPreCoreSelectorProvenance,
+  buildC5CSelectedSelectorProvenance,
+} from "./fixtures/c5c-selected-session.mjs";
 
 // ---------------------------------------------------------------------------
 // Canonical upstream fixtures (same construction as the A3-B request validator)
@@ -383,7 +387,7 @@ const CONSTRAINT_RULE_TEXTS = Object.freeze({
   "C-CONTEXT-BOUND-INTERPRETATION": "Make MergeVue-specific interpretation only within permittedInterpretationDomains and only with resolving mref context.",
   "C-NO-SHADOW-SCORING": "Do not create counts, weights, scores, thresholds, bands, or arithmetic rules not already established by the Engine.",
   "C-ELIGIBILITY-UNRESOLVED": "Preserve unresolved eligibility and its exact unresolvedReason; do not assign a replacement UseClass.",
-  "C-NO-AGENT-PAIR-SELECTION": "Do not choose, infer, rank, narrow, resolve, or fabricate a candidate pair, and do not treat matched-pair or selector audit material as pair authority; state only that no candidate pair was established and describe the resulting uncertainty.",
+  "C-NO-AGENT-PAIR-SELECTION": "Never choose, infer, name, rank, narrow, or reconstruct a candidate pair. Do not treat matched-pair or selector audit material as pair authority. Describe only the canonical selector-boundary fact supplied in this projection.",
   "C-COVERAGE-SUPPRESSED": "Use only survivingEvidenceRefs; do not reconstruct suppressed comparator output or use unavailableEvidenceRefs as signal.",
   "C-1B-SUPPRESSION": "Do not assert, imply, rank, or hypothesize the blocked CLAIM_NF_SFP_DETERMINATION.",
   "C-1B-NO-BROADENING": "Describe P_1B only as the exact both-discriminator OBSERVATION_GAP condition supplied by T-BP-1B; do not generalize it to other unavailability.",
@@ -397,7 +401,7 @@ const CONSTRAINT_RULE_TEXTS = Object.freeze({
 
 // Independent copy of the accepted system-instruction template.
 const SYSTEM_TEMPLATE = [
-  "MERGEVUE_PROVIDER_PROMPT provider-prompt-1.0",
+  "MERGEVUE_PROVIDER_PROMPT provider-prompt-1.1",
   "",
   "[ROLE]",
   "You are the bounded interpretation stage of the MergeVue FREE diagnostic. Produce a best-effort structured interpretation from the supplied provider projection. You are not an Engine, classifier, methodology author, reviewer, renderer, or source of organizational facts.",
@@ -418,7 +422,7 @@ const SYSTEM_TEMPLATE = [
   "Use ordering RANKED only when adjacent hypotheses have distinct, exposed decisiveEvidenceRefs that justify ordinal ordering without arithmetic. RANKED means evidentiary ordering, never probability or likelihood. Use ordering CO_EQUAL when the supplied evidence does not support an ordering. Under CO_EQUAL omit rank from every hypothesis. A suppressed deterministic claim may never be reintroduced as a hypothesis, leaning, or most-likely statement.",
   "",
   "[OUTPUT]",
-  "Return exactly one JSON object conforming to provider-semantic-candidate-1.0. Return no Markdown, prose wrapper, code fence, commentary, citations outside schema fields, or additional key. Author only fields permitted by the candidate schema. Do not author result versions, request identity, Engine identity, canonical provenance, validation state, provider identity, model identity, or execution metadata.",
+  "Return exactly one JSON object conforming to provider-semantic-candidate-1.1. Return no Markdown, prose wrapper, code fence, commentary, citations outside schema fields, or additional key. Author only fields permitted by the candidate schema. Do not author result versions, request identity, Engine identity, canonical provenance, validation state, provider identity, model identity, or execution metadata.",
 ].join("\n");
 
 const EXPECTED_SECTIONS = Object.freeze([
@@ -555,6 +559,95 @@ function fixtureRequest(branch, packInput = {}) {
 function projectionFor(branch, packInput = {}) {
   const built = fixtureRequest(branch, packInput);
   return { ...built, projection: projectProviderProjection(built.request) };
+}
+
+function assemblePreCoreRequest(status, mutateProvenance) {
+  const provenance = structuredClone(buildC5CPreCoreSelectorProvenance(status));
+  if (mutateProvenance) mutateProvenance(provenance);
+  const snapshot = assemblePreCoreSelectorSnapshot({
+    identityContext: {
+      diagnosticId: `diag-pre-core-${status}`,
+      projectId: null,
+      moduleId: "acquirerEnvironment",
+      candidatePair: null,
+      candidatePairNormalized: null,
+    },
+    selectorProvenance: provenance,
+  });
+  const uncertainty = buildStructuredUncertainty(snapshot);
+  const pack = buildInterpretationContextPack({
+    engineSnapshot: snapshot,
+    structuredUncertainty: uncertainty,
+  });
+  const request = buildAgentInterpretationRequest({
+    engineSnapshot: snapshot,
+    structuredUncertainty: uncertainty,
+    interpretationContextPack: pack,
+  });
+  const projection = projectProviderProjection(request);
+  return { snapshot, uncertainty, pack, request, projection };
+}
+
+function lawfulPreCoreCandidate(projection, overrides = {}) {
+  const known = projection.structuredUncertainty.known;
+  const fact = (suffix) => known.find((row) => row.factRef.endsWith(suffix))?.factRef;
+  const stateFact = fact("/engine/outcome/state") ?? known[0].factRef;
+  const pairFact = fact("/identity/candidatePair") ?? stateFact;
+  const comparatorFact = fact("/engine/outcome/suppression/comparatorDidNotRun") ?? stateFact;
+  const uncertaintyId = projection.structuredUncertainty.items[0].uncertaintyId;
+  const candidate = {
+    interpretationStatus: "SELECTOR_BOUNDARY_EXPLANATION",
+    abstentionReason: null,
+    interpretation: {
+      hypotheses: { ordering: "CO_EQUAL", items: [] },
+      decisiveEvidence: [],
+      conflictingEvidence: [],
+      missingEvidence: [],
+      changeConditions: [],
+      affectedResources: [],
+      watchpoints: [],
+    },
+    uncertainty: {
+      disclosures: [{
+        uncertaintyId,
+        affects: "STATE_IDENTITY",
+        clientStatement: "The selector did not establish a deterministic Environment pair from the current admissible signals.",
+        unresolvedEngineFacts: ["CLAIM_ENGINE_STATE_IDENTITY"],
+      }],
+    },
+    claims: [
+      {
+        claimId: "CL-PC-001",
+        claimType: "DETERMINISTIC_FACT",
+        text: "The engine did not establish a deterministic state identity, no candidate pair was established, and the comparator did not run.",
+        refs: [stateFact, pairFact, comparatorFact],
+        contextRefs: [],
+      },
+      {
+        claimId: "CL-PC-002",
+        claimType: "UNCERTAINTY_DISCLOSURE",
+        text: "Selector-boundary uncertainty remains because the current signals could not lawfully finalise a pair.",
+        refs: [`uref://${uncertaintyId}`],
+        contextRefs: [],
+      },
+      {
+        claimId: "CL-PC-003",
+        claimType: "SCOPE_LIMITATION_DISCLOSURE",
+        text: "This result explains only the current knowledge boundary and does not interpret the organization.",
+        refs: [],
+        contextRefs: [],
+      },
+    ],
+    clientNarrative: {
+      language: "en",
+      sections: [{
+        sectionId: "S-PC-001",
+        text: "The engine did not establish a deterministic state identity, no candidate pair was established, and the comparator did not run. Selector-boundary uncertainty remains because the current signals could not lawfully finalise a pair. This result explains only the current knowledge boundary and does not interpret the organization.",
+        derivedFromClaimIds: ["CL-PC-001", "CL-PC-002", "CL-PC-003"],
+      }],
+    },
+  };
+  return deepMerge(candidate, overrides);
 }
 
 function emptyPackSyntheticRequest() {
@@ -809,10 +902,10 @@ function expectCandidateReject(candidate, projection, label) {
 // ---------------------------------------------------------------------------
 
 check("V0", "exact version literals", () => {
-  assert.equal(PROVIDER_PROJECTION_VERSION, "provider-projection-1.1");
-  assert.equal(PROVIDER_PROMPT_VERSION, "provider-prompt-1.0");
-  assert.equal(PROVIDER_CANDIDATE_SCHEMA_VERSION, "provider-semantic-candidate-1.0");
-  assert.equal(providerSemanticCandidateSchema.$id, "provider-semantic-candidate-1.0");
+  assert.equal(PROVIDER_PROJECTION_VERSION, "provider-projection-1.2");
+  assert.equal(PROVIDER_PROMPT_VERSION, "provider-prompt-1.1");
+  assert.equal(PROVIDER_CANDIDATE_SCHEMA_VERSION, "provider-semantic-candidate-1.1");
+  assert.equal(providerSemanticCandidateSchema.$id, "provider-semantic-candidate-1.1");
 });
 
 // ---------------------------------------------------------------------------
@@ -847,7 +940,7 @@ check("PRJ1", "exact top-level keys and copied request-level fields", () => {
       [...PROJECTION_ROOT_KEYS].sort(),
       branch,
     );
-    assert.equal(projection.providerProjectionVersion, "provider-projection-1.1", branch);
+    assert.equal(projection.providerProjectionVersion, "provider-projection-1.2", branch);
     assert.equal(projection.agentContractVersion, AGENT_CONTRACT_VERSION, branch);
     assert.equal(projection.agentContractVersion, request.agentContractVersion, branch);
     assert.equal(projection.outputSchemaVersion, request.outputSchemaVersion, branch);
@@ -1132,8 +1225,8 @@ check("PM0", "prompt builds for all branches with exactly two messages", () => {
     const { projection } = projectionFor(branch);
     const prompt = buildProviderPrompt(projection);
     assert.equal(Object.isFrozen(prompt), true, branch);
-    assert.equal(prompt.promptVersion, "provider-prompt-1.0", branch);
-    assert.equal(prompt.providerProjectionVersion, "provider-projection-1.1", branch);
+    assert.equal(prompt.promptVersion, "provider-prompt-1.1", branch);
+    assert.equal(prompt.providerProjectionVersion, "provider-projection-1.2", branch);
     assert.equal(prompt.agentContractVersion, projection.agentContractVersion, branch);
     assert.equal(prompt.messages.length, 2, branch);
     assert.equal(prompt.messages[0].role, "system", branch);
@@ -1167,7 +1260,7 @@ check("PM2", "exact section order and corrected uref sentence", () => {
     previous = at;
   }
   assert.equal(system.includes(UREF_SENTENCE), true);
-  assert.equal(system.startsWith("MERGEVUE_PROVIDER_PROMPT provider-prompt-1.0\n"), true);
+  assert.equal(system.startsWith("MERGEVUE_PROVIDER_PROMPT provider-prompt-1.1\n"), true);
   assert.equal(system.includes("uref://{uncertaintyId}"), true);
 });
 
@@ -1274,6 +1367,7 @@ check("SCH2", "exact enums and unauthorable mechanical fields", () => {
     "INTERPRETATION_QUALIFIED",
     "INTERPRETATION_CONSTRAINED",
     "ABSTAINED_INSUFFICIENT_EVIDENCE",
+    "SELECTOR_BOUNDARY_EXPLANATION",
   ]);
   assert.deepEqual([...properties.abstentionReason.enum], [
     null,
@@ -1396,6 +1490,209 @@ check("CAND3", "abstention structural coupling fails closed on a DUAL_CORE proje
   );
 });
 
+const PRE_CORE_STATUSES = Object.freeze([
+  ["ADMISSIBILITY_UNRESOLVED", "S_ADMISSIBILITY_UNRESOLVED", "ELIGIBILITY_UNRESOLVED_RESPONDENT_VANTAGE_NOT_ESTABLISHED"],
+  ["NO_LAWFUL_PAIR", "S_NO_LAWFUL_PAIR", "SELECTOR_NO_LAWFUL_CANDIDATE_PAIR"],
+  ["PAIR_SELECTION_AMBIGUOUS", "S_PAIR_SELECTION_AMBIGUOUS", "SELECTOR_CANDIDATE_PAIR_AMBIGUOUS"],
+]);
+
+const PRE_CORE_FORBIDDEN_KEYS = Object.freeze([
+  "moduleId",
+  "questionUniverse",
+  "candidatePairNormalized",
+  "classificationOutcome",
+  "outcomeClass",
+  "engineRoutingMetadata",
+  "engineOutput",
+  "finality",
+  "selector",
+  "matchedPairs",
+  "positiveEnvironmentSet",
+  "contributions",
+  "semanticBindings",
+]);
+
+function assertPreCoreProjectionSurface(projection, outcomeCode) {
+  assert.equal(projection.engineSnapshot.outcomeSource, "PRE_CORE_SELECTOR");
+  assert.deepEqual(Object.keys(projection.engineSnapshot.identity), ["candidatePair"]);
+  assert.equal(projection.engineSnapshot.identity.candidatePair, null);
+  assert.deepEqual(
+    Object.keys(projection.engineSnapshot.engine.outcome),
+    ["engineOutcomeCode", "state", "deterministicStateEstablished", "suppression"],
+  );
+  assert.equal(projection.engineSnapshot.engine.outcome.engineOutcomeCode, outcomeCode);
+  assert.equal(projection.engineSnapshot.engine.outcome.state, null);
+  assert.equal(projection.engineSnapshot.engine.outcome.deterministicStateEstablished, false);
+  assert.equal(Object.hasOwn(projection.engineSnapshot.engine, "comparison"), false);
+  assert.deepEqual(projection.engineSnapshot.engine.observations, []);
+  const keys = allKeysAnywhere(projection);
+  for (const forbidden of PRE_CORE_FORBIDDEN_KEYS) {
+    assert.equal(keys.has(forbidden), false, forbidden);
+  }
+  const bytes = canonicalSerialize(projection);
+  for (const leak of [
+    "unknown_seniority",
+    "roleCode_unspecified",
+    "practitioner_access_review",
+    "Practitioner access review",
+    "NF/SFP",
+    "NF/SFJ",
+    "matchedPairs",
+    "positiveEnvironmentSet",
+    "contributions",
+  ]) {
+    assert.equal(bytes.includes(leak), false, leak);
+  }
+}
+
+check("PC-PRJ1", "PRE_CORE provider projection is the minimal accepted authority surface", () => {
+  for (const [status, outcomeCode, reasonCode] of PRE_CORE_STATUSES) {
+    const { projection, request } = assemblePreCoreRequest(status);
+    assertPreCoreProjectionSurface(projection, outcomeCode);
+    assert.equal(projection.structuredUncertainty.items[0].reasonCode, reasonCode);
+    assert.equal(request.activeConstraints.some((row) => row.constraintId === "C-NO-AGENT-PAIR-SELECTION"), true);
+    assert.equal(projection.interpretationContextPack.selectedContextItems.length, 0);
+    assert.equal(projection.interpretationContextPack.packScopeVerdict, "FACTUAL_EXPLANATION_ONLY");
+    assert.deepEqual(projection.permittedInterpretationDomains, []);
+  }
+});
+
+check("PC-PRJ2", "external vantage PRE_CORE projection uses canonical eligibility reason only", () => {
+  const { projection } = assemblePreCoreRequest("ADMISSIBILITY_UNRESOLVED", (provenance) => {
+    provenance.unresolvedReason = null;
+    provenance.respondentVantage = {
+      ...provenance.respondentVantage,
+      canonicalSeniorityLevel: "external",
+      canonicalSeniorityTier: "external",
+    };
+  });
+  assert.equal(projection.structuredUncertainty.items[0].reasonCode, "ELIGIBILITY_UNRESOLVED_EXTERNAL_VANTAGE");
+  assert.equal(canonicalSerialize(projection).includes("unknown_seniority"), false);
+  assert.equal(canonicalSerialize(projection).includes("external_advisor"), false);
+});
+
+check("PC-PRJ3", "DUAL provider projection remains the existing identity/outcome surface", () => {
+  const { projection } = projectionFor("P_5A");
+  assert.deepEqual(Object.keys(projection.engineSnapshot.identity), [...EXPECTED_IDENTITY_KEYS]);
+  assert.deepEqual(Object.keys(projection.engineSnapshot.engine.outcome), [...EXPECTED_OUTCOME_KEYS]);
+  assert.equal(Object.hasOwn(projection.engineSnapshot.engine, "comparison"), true);
+});
+
+check("PC-PM1", "PRE_CORE prompt carries the terminal rule and canonical eligibility wording", () => {
+  const { projection, request } = assemblePreCoreRequest("ADMISSIBILITY_UNRESOLVED");
+  const system = buildProviderSystemInstruction(projection);
+  assert.equal(system.includes("[PRE_CORE_SELECTOR]"), true);
+  assert.equal(system.includes("SELECTOR_BOUNDARY_EXPLANATION"), true);
+  assert.equal(system.includes("Preserve the canonical eligibility reason supplied in StructuredUncertainty"), true);
+  assert.equal(system.includes("exact unresolvedReason"), false);
+  assert.equal(system.includes("Never choose, infer, name, rank, narrow, or reconstruct a candidate pair"), true);
+  assert.equal(system.includes("state only that no candidate pair was established"), false);
+  assert.equal(request.activeConstraints.some((row) => row.constraintId === "C-ELIGIBILITY-UNRESOLVED"), true);
+});
+
+check("PC-PM2", "DUAL P_0C eligibility prompt still preserves exact unresolvedReason", () => {
+  const { projection } = projectionFor("P_0C");
+  const system = buildProviderSystemInstruction(projection);
+  assert.equal(system.includes("Preserve unresolved eligibility and its exact unresolvedReason"), true);
+  assert.equal(system.includes("[PRE_CORE_SELECTOR]"), false);
+});
+
+check("PC-CAND1", "lawful PRE_CORE SELECTOR_BOUNDARY_EXPLANATION candidates pass on all three outcomes", () => {
+  for (const [status] of PRE_CORE_STATUSES) {
+    const { projection } = assemblePreCoreRequest(status);
+    const candidate = lawfulPreCoreCandidate(projection);
+    const validated = expectCandidateAccept(candidate, projection, status);
+    assert.equal(validated.interpretationStatus, "SELECTOR_BOUNDARY_EXPLANATION", status);
+    assert.equal(validated.abstentionReason, null, status);
+    assert.deepEqual(validated.interpretation.hypotheses.items, [], status);
+  }
+});
+
+check("PC-CAND2", "PRE_CORE structural negatives reject forbidden statuses, hypotheses, qrefs, and claim types", () => {
+  const { projection } = assemblePreCoreRequest("NO_LAWFUL_PAIR");
+  const lawful = lawfulPreCoreCandidate(projection);
+  expectCandidateReject(
+    lawfulPreCoreCandidate(projection, { interpretationStatus: "ABSTAINED_INSUFFICIENT_EVIDENCE", abstentionReason: "COMPARATOR_DID_NOT_RUN" }),
+    projection,
+    "PRE_CORE + ABSTAINED",
+  );
+  expectCandidateReject(
+    lawfulPreCoreCandidate(projection, { interpretationStatus: "INTERPRETATION_CONSTRAINED" }),
+    projection,
+    "PRE_CORE + INTERPRETATION_CONSTRAINED",
+  );
+  expectCandidateReject(
+    lawfulPreCoreCandidate(projection, { interpretationStatus: "INTERPRETATION_SUPPORTED" }),
+    projection,
+    "PRE_CORE + INTERPRETATION_SUPPORTED",
+  );
+  expectCandidateReject(
+    lawfulPreCoreCandidate(projection, { interpretationStatus: "INTERPRETATION_QUALIFIED" }),
+    projection,
+    "PRE_CORE + INTERPRETATION_QUALIFIED",
+  );
+  expectCandidateReject(
+    lawfulPreCoreCandidate(projection, { abstentionReason: "COMPARATOR_DID_NOT_RUN" }),
+    projection,
+    "PRE_CORE + non-null abstentionReason",
+  );
+  expectCandidateReject(
+    lawfulPreCoreCandidate(projection, {
+      interpretation: {
+        hypotheses: {
+          ordering: "CO_EQUAL",
+          items: [{
+            hypothesisId: "H1",
+            statement: "A fabricated hypothesis.",
+            evidenceBasis: PLAIN_EVIDENCE_BASIS,
+            decisiveEvidenceRefs: [],
+            conflictingEvidenceRefs: [],
+            contextRefs: [],
+            requiresEngineFactNotEstablished: [],
+          }],
+        },
+      },
+    }),
+    projection,
+    "PRE_CORE + non-empty hypotheses",
+  );
+  expectCandidateReject(
+    lawfulPreCoreCandidate(projection, {
+      interpretation: { hypotheses: { ordering: "RANKED", items: [] } },
+    }),
+    projection,
+    "PRE_CORE + RANKED hypotheses",
+  );
+  const withQref = structuredClone(lawful);
+  withQref.claims[0].refs.push("qref://engineSnapshot/engine/observations/0");
+  expectCandidateReject(withQref, projection, "PRE_CORE + qref");
+  for (const claimType of ["DIRECT_EVIDENCE", "BOUNDED_INTERPRETATION", "ALTERNATIVE_HYPOTHESIS", "WATCHPOINT"]) {
+    const mutated = structuredClone(lawful);
+    mutated.claims[0].claimType = claimType;
+    expectCandidateReject(mutated, projection, `PRE_CORE + ${claimType}`);
+  }
+  const missingDisclosure = structuredClone(lawful);
+  missingDisclosure.uncertainty.disclosures = [];
+  expectCandidateReject(missingDisclosure, projection, "PRE_CORE missing required disclosure");
+  const extraDisclosure = structuredClone(lawful);
+  extraDisclosure.uncertainty.disclosures.push({
+    uncertaintyId: lawful.uncertainty.disclosures[0].uncertaintyId,
+    affects: "DETAIL",
+    clientStatement: "An extra unrelated disclosure.",
+    unresolvedEngineFacts: [],
+  });
+  expectCandidateReject(extraDisclosure, projection, "PRE_CORE extra disclosure");
+});
+
+check("PC-CAND3", "SELECTOR_BOUNDARY_EXPLANATION is not lawful on DUAL", () => {
+  const { projection } = projectionFor("P_5A");
+  expectCandidateReject(
+    lawfulCandidate(projection, { interpretationStatus: "SELECTOR_BOUNDARY_EXPLANATION" }),
+    projection,
+    "DUAL + SELECTOR_BOUNDARY_EXPLANATION",
+  );
+});
+
 // ---------------------------------------------------------------------------
 // Candidate structural validation — negative cases
 // ---------------------------------------------------------------------------
@@ -1403,7 +1700,7 @@ check("CAND3", "abstention structural coupling fails closed on a DUAL_CORE proje
 check("CAND4", "mechanical Result fields are structurally unauthorable", () => {
   const { projection } = projectionFor("P_1");
   for (const field of [
-    { resultSchemaVersion: "agent-result-1.2" },
+    { resultSchemaVersion: "agent-result-1.3" },
     { interpretationId: "00000000-0000-4000-8000-000000000000" },
     { engineFactsRef: {} },
     { provenance: {} },
@@ -1438,7 +1735,7 @@ check("CAND4", "mechanical Result fields are structurally unauthorable", () => {
   );
   expectCandidateReject(
     lawfulCandidate(projection, {
-      uncertainty: { disclosures: [], uncertaintySchemaVersion: "structured-uncertainty-1.2" },
+      uncertainty: { disclosures: [], uncertaintySchemaVersion: "structured-uncertainty-1.3" },
     }),
     projection,
     "candidate may not author uncertainty schema versions",

@@ -36,7 +36,11 @@ import {
 } from "../src/agent/agentInterpretationResult.js";
 import { compareDualRespondents } from "../src/flow/dualRespondentComparison.js";
 import { isAuthorizedDualModule } from "../src/flow/observationScopeResolver.js";
-import { buildC5CSelectedSelectorProvenance } from "./fixtures/c5c-selected-session.mjs";
+import { assemblePreCoreSelectorSnapshot } from "../src/agent/preCoreSelectorSnapshot.js";
+import {
+  buildC5CPreCoreSelectorProvenance,
+  buildC5CSelectedSelectorProvenance,
+} from "./fixtures/c5c-selected-session.mjs";
 
 // ---------------------------------------------------------------------------
 // Canonical upstream fixtures (same construction as the upstream validators)
@@ -105,6 +109,92 @@ function requestFor(coreInput) {
     interpretationContextPack: pack,
   });
   return { input, coreOutput, snapshot, uncertainty, pack, request };
+}
+
+function assemblePreCoreRequest(status) {
+  const snapshot = assemblePreCoreSelectorSnapshot({
+    identityContext: {
+      diagnosticId: `diag-result-pre-core-${status}`,
+      projectId: null,
+      moduleId: "acquirerEnvironment",
+      candidatePair: null,
+      candidatePairNormalized: null,
+    },
+    selectorProvenance: buildC5CPreCoreSelectorProvenance(status),
+  });
+  const uncertainty = buildStructuredUncertainty(snapshot);
+  const pack = buildInterpretationContextPack({
+    engineSnapshot: snapshot,
+    structuredUncertainty: uncertainty,
+  });
+  const request = buildAgentInterpretationRequest({
+    engineSnapshot: snapshot,
+    structuredUncertainty: uncertainty,
+    interpretationContextPack: pack,
+  });
+  const projection = projectProviderProjection(request);
+  return { snapshot, uncertainty, pack, request, projection };
+}
+
+function lawfulPreCoreCandidate(projection) {
+  const known = projection.structuredUncertainty.known;
+  const fact = (suffix) => known.find((row) => row.factRef.endsWith(suffix))?.factRef;
+  const stateFact = fact("/engine/outcome/state") ?? known[0].factRef;
+  const pairFact = fact("/identity/candidatePair") ?? stateFact;
+  const comparatorFact = fact("/engine/outcome/suppression/comparatorDidNotRun") ?? stateFact;
+  const uncertaintyId = projection.structuredUncertainty.items[0].uncertaintyId;
+  return {
+    interpretationStatus: "SELECTOR_BOUNDARY_EXPLANATION",
+    abstentionReason: null,
+    interpretation: {
+      hypotheses: { ordering: "CO_EQUAL", items: [] },
+      decisiveEvidence: [],
+      conflictingEvidence: [],
+      missingEvidence: [],
+      changeConditions: [],
+      affectedResources: [],
+      watchpoints: [],
+    },
+    uncertainty: {
+      disclosures: [{
+        uncertaintyId,
+        affects: "STATE_IDENTITY",
+        clientStatement: "The selector did not establish a deterministic Environment pair from the current admissible signals.",
+        unresolvedEngineFacts: ["CLAIM_ENGINE_STATE_IDENTITY"],
+      }],
+    },
+    claims: [
+      {
+        claimId: "CL-PC-001",
+        claimType: "DETERMINISTIC_FACT",
+        text: "The engine did not establish a deterministic state identity, no candidate pair was established, and the comparator did not run.",
+        refs: [stateFact, pairFact, comparatorFact],
+        contextRefs: [],
+      },
+      {
+        claimId: "CL-PC-002",
+        claimType: "UNCERTAINTY_DISCLOSURE",
+        text: "Selector-boundary uncertainty remains because the current signals could not lawfully finalise a pair.",
+        refs: [`uref://${uncertaintyId}`],
+        contextRefs: [],
+      },
+      {
+        claimId: "CL-PC-003",
+        claimType: "SCOPE_LIMITATION_DISCLOSURE",
+        text: "This result explains only the current knowledge boundary and does not interpret the organization.",
+        refs: [],
+        contextRefs: [],
+      },
+    ],
+    clientNarrative: {
+      language: "en",
+      sections: [{
+        sectionId: "S-PC-001",
+        text: "The engine did not establish a deterministic state identity, no candidate pair was established, and the comparator did not run. Selector-boundary uncertainty remains because the current signals could not lawfully finalise a pair. This result explains only the current knowledge boundary and does not interpret the organization.",
+        derivedFromClaimIds: ["CL-PC-001", "CL-PC-002", "CL-PC-003"],
+      }],
+    },
+  };
 }
 
 const P5A_INPUT = {
@@ -444,7 +534,7 @@ async function main() {
 
   await check("RA0", "exact canonical constants and closed frozen schemas", () => {
     assert.equal(FAILURE_SCHEMA_VERSION, "system-failure-1.0");
-    assert.equal(OUTPUT_SCHEMA_VERSION, "agent-result-1.2");
+    assert.equal(OUTPUT_SCHEMA_VERSION, "agent-result-1.3");
     assert.deepEqual([...SYSTEM_FAILURE_CLASSES], [
       "PROVIDER_UNAVAILABLE",
       "PROVIDER_TIMEOUT",
@@ -473,7 +563,7 @@ async function main() {
     }
     assert.equal(SYSTEM_FAILURE_CLIENT_DISCLOSURE, "SYSTEM_LEVEL_ONLY");
 
-    assert.equal(agentInterpretationResultSchema.$id, "agent-result-1.2");
+    assert.equal(agentInterpretationResultSchema.$id, "agent-result-1.3");
     assert.equal(systemFailureSchema.$id, "system-failure-1.0");
     assert.equal(Object.isFrozen(agentInterpretationResultSchema), true);
     assert.equal(Object.isFrozen(systemFailureSchema), true);
@@ -552,7 +642,7 @@ async function main() {
       Object.is(agentInterpretationResultSchema.properties.interpretation, providerSemanticCandidateSchema.properties.interpretation),
       true,
     );
-    assert.equal(PROVIDER_CANDIDATE_SCHEMA_VERSION, "provider-semantic-candidate-1.0");
+    assert.equal(PROVIDER_CANDIDATE_SCHEMA_VERSION, "provider-semantic-candidate-1.1");
   });
 
   // --- Success assembly / mirrors -------------------------------------------
@@ -574,7 +664,7 @@ async function main() {
         "uncertainty",
       ]);
       assert.equal(result.resultSchemaVersion, request.outputSchemaVersion);
-      assert.equal(result.resultSchemaVersion, "agent-result-1.2");
+      assert.equal(result.resultSchemaVersion, "agent-result-1.3");
       assert.equal(result.agentContractVersion, request.agentContractVersion);
       assert.equal(result.interpretationId, request.interpretationId);
       assert.equal(result.engineFactsRef.diagnosticId, request.engineSnapshot.identity.diagnosticId);
@@ -1199,6 +1289,40 @@ async function main() {
         assert.ok(allowed.has(importPath[1]), `${path}: unexpected import ${importPath[1]}`);
       }
     }
+  });
+
+  await check("RA-PC1", "lawful PRE_CORE SELECTOR_BOUNDARY_EXPLANATION candidates assemble on all three outcomes", async () => {
+    for (const status of ["ADMISSIBILITY_UNRESOLVED", "NO_LAWFUL_PAIR", "PAIR_SELECTION_AMBIGUOUS"]) {
+      const built = assemblePreCoreRequest(status);
+      const candidate = lawfulPreCoreCandidate(built.projection);
+      const output = await offlineExecutionFor(built.projection, candidate);
+      const result = assembleAgentInterpretationResult({
+        agentInterpretationRequest: built.request,
+        providerExecutionOutput: output,
+      });
+      assert.equal(result.interpretationStatus, "SELECTOR_BOUNDARY_EXPLANATION", status);
+      assert.equal(result.abstentionReason, null, status);
+      assert.deepEqual(result.interpretation.hypotheses.items, [], status);
+      assert.equal(result.engineFactsRef.branchCode, null, status);
+      assert.equal(result.engineFactsRef.stateAsserted, null, status);
+    }
+  });
+
+  await check("RA-PC2", "PRE_CORE forbidden candidate statuses fail result assembly", async () => {
+    const built = assemblePreCoreRequest("NO_LAWFUL_PAIR");
+    const candidate = lawfulPreCoreCandidate(built.projection);
+    candidate.interpretationStatus = "INTERPRETATION_SUPPORTED";
+    const caught = await assembleRejected(
+      {
+        request: built.request,
+        output: {
+          candidate,
+          executionMetadata: p5a.output.executionMetadata,
+        },
+      },
+      "OUTPUT_SCHEMA_VIOLATION",
+    );
+    assert.match(String(caught.detail), /SELECTOR_BOUNDARY_EXPLANATION/);
   });
 
   await check("RA12", "this validator performs no network, environment-secret, or SDK initialization", () => {

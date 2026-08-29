@@ -480,9 +480,9 @@ async function main() {
       "model constant pinned exactly in source",
     );
     for (const versionLiteral of [
-      "provider-projection-1.1",
-      "provider-prompt-1.0",
-      "provider-semantic-candidate-1.0",
+      "provider-projection-1.2",
+      "provider-prompt-1.1",
+      "provider-semantic-candidate-1.1",
     ]) {
       assert.equal(
         constantsSource.includes(versionLiteral),
@@ -592,7 +592,7 @@ async function main() {
     assert.equal(first.calls.length, 0, "no HTTP call may occur on version mismatch");
 
     const tamperedPrompt = structuredClone(p5aPrompt);
-    tamperedPrompt.promptVersion = "provider-prompt-1.1";
+    tamperedPrompt.promptVersion = "provider-prompt-1.0";
     const second = await executeRejected(
       { projection: p5aProjection, prompt: tamperedPrompt, responder: jsonResponse(successPayload(p5aCandidateJson)) },
       "PROVIDER_CONFIGURATION_FAILURE",
@@ -1153,9 +1153,9 @@ async function main() {
     assert.equal(typeof metadata.durationMs, "number");
     assert.ok(metadata.durationMs >= 0);
     assert.equal(ISO_PATTERN.test(metadata.executedAt), true);
-    assert.equal(metadata.promptVersion, "provider-prompt-1.0");
-    assert.equal(metadata.providerProjectionVersion, "provider-projection-1.1");
-    assert.equal(metadata.providerCandidateSchemaVersion, "provider-semantic-candidate-1.0");
+    assert.equal(metadata.promptVersion, "provider-prompt-1.1");
+    assert.equal(metadata.providerProjectionVersion, "provider-projection-1.2");
+    assert.equal(metadata.providerCandidateSchemaVersion, "provider-semantic-candidate-1.1");
     assert.deepEqual(metadata.observedProvider, {
       requestId: "req-123-offline",
       modelVersion: "models/gemini-3.7-flash",

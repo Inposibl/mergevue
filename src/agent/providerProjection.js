@@ -120,6 +120,10 @@ const SNAPSHOT_IDENTITY_PROJECTED_KEYS = Object.freeze([
   "questionUniverse",
 ]);
 
+const PRE_CORE_IDENTITY_PROJECTED_KEYS = Object.freeze([
+  "candidatePair",
+]);
+
 const DUAL_ENGINE_KEYS = Object.freeze(["outcome", "observations", "comparison"]);
 const PRE_CORE_ENGINE_KEYS = Object.freeze(["outcome", "observations"]);
 
@@ -174,16 +178,9 @@ const DUAL_OUTCOME_PROJECTED_KEYS = Object.freeze([
 
 const PRE_CORE_OUTCOME_PROJECTED_KEYS = Object.freeze([
   "engineOutcomeCode",
-  "outcomeClass",
-  "classificationOutcome",
   "state",
   "deterministicStateEstablished",
-  "provisionalState",
-  "engineOutput",
-  "contradictionCandidates",
-  "genericContradictionEngineInvoked",
   "suppression",
-  "finality",
 ]);
 
 const SELECTOR_FIXED_KEYS = Object.freeze([
@@ -1241,7 +1238,10 @@ function projectEngineSnapshot(snapshot) {
   }
 
   const projectedIdentity = {};
-  for (const key of SNAPSHOT_IDENTITY_PROJECTED_KEYS) {
+  const projectedIdentityKeys = snapshot.outcomeSource === "DUAL_CORE"
+    ? SNAPSHOT_IDENTITY_PROJECTED_KEYS
+    : PRE_CORE_IDENTITY_PROJECTED_KEYS;
+  for (const key of projectedIdentityKeys) {
     projectedIdentity[key] = identity[key];
   }
   const projectedOutcome = {};
