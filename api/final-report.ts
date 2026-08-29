@@ -1,7 +1,10 @@
+import { createHiddenUserAnswersSnapshot } from "../src/reporting/hiddenUserAnswersSnapshot.js";
+
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const DEFAULT_REPORT_HIDDEN_COPY_TO = "n.petyaev@gmail.com";
 const MERGEVUE_PUBLIC_REPORT_PDF_FILE_NAME = "mergevue-forecast-brief.pdf";
 const MERGEVUE_REPORT_EMAIL_SUBJECT = "Mergevue Forecast Brief: Post-Deal Behavior Forecast";
+const INVALID_HIDDEN_AUDIT_ERROR = "Authoritative hidden audit could not be reconstructed";
 
 type NodeRequest = {
   body?: unknown;
@@ -157,6 +160,53 @@ function cleanHiddenAuditArtifact(value: unknown): string {
   const text = cleanString(value);
   if (!text) return "";
   return text.replace(/\u0000/g, "");
+}
+
+function isReconstructionInput(value: unknown): value is Record<string, unknown> {
+  return Boolean(value) && typeof value === "object" && !Array.isArray(value);
+}
+
+const INVALID_HIDDEN_AUDIT = Object.freeze({
+  ok: false as const,
+  status: 400 as const,
+  code: "invalid-hidden-audit" as const,
+  error: INVALID_HIDDEN_AUDIT_ERROR,
+});
+
+export function resolveAuthoritativeHiddenAudit(body: unknown):
+  | { ok: true; json: string; summary: string }
+  | { ok: false; status: 400; code: "invalid-hidden-audit"; error: string } {
+  const record = isReconstructionInput(body) ? body : {};
+  const session = record.session;
+  const deliverable = record.deliverable;
+
+  if (!isReconstructionInput(session) || Object.keys(session).length === 0) {
+    return { ...INVALID_HIDDEN_AUDIT };
+  }
+
+  if (!isReconstructionInput(deliverable) || Object.keys(deliverable).length === 0) {
+    return { ...INVALID_HIDDEN_AUDIT };
+  }
+
+  let snapshot: { json?: unknown; summary?: unknown };
+  try {
+    snapshot = createHiddenUserAnswersSnapshot(session, deliverable);
+  } catch {
+    return { ...INVALID_HIDDEN_AUDIT };
+  }
+
+  const json = cleanHiddenAuditArtifact(snapshot?.json);
+  const summary = cleanHiddenAuditArtifact(snapshot?.summary);
+
+  if (!json || !summary) {
+    return { ...INVALID_HIDDEN_AUDIT };
+  }
+
+  return {
+    ok: true,
+    json,
+    summary,
+  };
 }
 function normalizeReportEmailCopy(value: any): ReportEmailCopy {
   const textLines = Array.isArray(value?.textLines)
@@ -508,6 +558,100 @@ async function sendFinalReport(request: NodeRequest, response: NodeResponse) {
   });
 }
 
+const HIDDEN_COPY_ENDPOINT = "/api/final-report?action=send-final-report-hidden-copy";
+
+export function evaluateHiddenCopyRequest(
+  body: unknown,
+  env: { [key: string]: string | undefined } = process.env,
+):
+  | {
+    ready: false;
+    status: number;
+    body: { endpoint: string; status: string; error: string };
+  }
+  | {
+    ready: true;
+    status: 200;
+    reportId: string;
+    fileName: string;
+    pdfBase64: string;
+    reportEmailCopy: unknown;
+    from: string;
+    hiddenCopyTo: string;
+    apiKey: string;
+    audit: { json: string; summary: string };
+  } {
+  const record = isReconstructionInput(body) ? body : {};
+  const reportId = cleanString(record.reportId);
+  const fileName = MERGEVUE_PUBLIC_REPORT_PDF_FILE_NAME;
+  const pdfBase64 = cleanString(record.pdfBase64);
+
+  if (!reportId || !validPdfFileName(fileName) || !validPdfBase64(pdfBase64)) {
+    return {
+      ready: false,
+      status: 400,
+      body: {
+        endpoint: HIDDEN_COPY_ENDPOINT,
+        status: "invalid-final-report",
+        error: "A valid reportId, PDF fileName, and PDF attachment are required",
+      },
+    };
+  }
+
+  const audit = resolveAuthoritativeHiddenAudit(body);
+  if (!audit.ok) {
+    return {
+      ready: false,
+      status: audit.status,
+      body: {
+        endpoint: HIDDEN_COPY_ENDPOINT,
+        status: audit.code,
+        error: audit.error,
+      },
+    };
+  }
+
+  const apiKey = cleanString(env?.RESEND_API_KEY);
+  const from = firstConfiguredString(
+    env?.REPORT_FROM_EMAIL,
+    env?.REPORT_COPY_FROM,
+    env?.AUTHORIZED_LINK_FROM_EMAIL,
+    env?.AUTHORIZED_LINK_FROM,
+  );
+  const hiddenCopyTo = normalizeEmail(firstConfiguredString(
+    env?.REPORT_HIDDEN_COPY_TO,
+    DEFAULT_REPORT_HIDDEN_COPY_TO,
+  ));
+
+  if (!apiKey || !from || !EMAIL_PATTERN.test(hiddenCopyTo)) {
+    return {
+      ready: false,
+      status: 503,
+      body: {
+        endpoint: HIDDEN_COPY_ENDPOINT,
+        status: "email-service-not-configured",
+        error: "RESEND_API_KEY, sender e-mail, and hidden-copy recipient environment variables are required",
+      },
+    };
+  }
+
+  return {
+    ready: true,
+    status: 200,
+    reportId,
+    fileName,
+    pdfBase64,
+    reportEmailCopy: record.reportEmailCopy,
+    from,
+    hiddenCopyTo,
+    apiKey,
+    audit: {
+      json: audit.json,
+      summary: audit.summary,
+    },
+  };
+}
+
 async function sendFinalReportHiddenCopy(request: NodeRequest, response: NodeResponse) {
   if (request.method !== "POST") {
     sendMethodNotAllowed(response, request.method, ["POST"]);
@@ -515,81 +659,42 @@ async function sendFinalReportHiddenCopy(request: NodeRequest, response: NodeRes
   }
 
   const body = await parseBody(request);
-  const reportId = cleanString(body?.reportId);
-  const fileName = MERGEVUE_PUBLIC_REPORT_PDF_FILE_NAME;
-  const pdfBase64 = cleanString(body?.pdfBase64);
-
-  if (!reportId || !validPdfFileName(fileName) || !validPdfBase64(pdfBase64)) {
-    sendJson(response, 400, {
-      endpoint: "/api/final-report?action=send-final-report-hidden-copy",
-      status: "invalid-final-report",
-      error: "A valid reportId, PDF fileName, and PDF attachment are required",
-    });
-    return;
-  }
-
-  const apiKey = process.env.RESEND_API_KEY;
-  const from = firstConfiguredString(
-    process.env.REPORT_FROM_EMAIL,
-    process.env.REPORT_COPY_FROM,
-    process.env.AUTHORIZED_LINK_FROM_EMAIL,
-    process.env.AUTHORIZED_LINK_FROM,
-  );
-  const hiddenCopyTo = normalizeEmail(firstConfiguredString(
-    process.env.REPORT_HIDDEN_COPY_TO,
-    DEFAULT_REPORT_HIDDEN_COPY_TO,
-  ));
-
-  if (!apiKey || !from || !EMAIL_PATTERN.test(hiddenCopyTo)) {
-    sendJson(response, 503, {
-      endpoint: "/api/final-report?action=send-final-report-hidden-copy",
-      status: "email-service-not-configured",
-      error: "RESEND_API_KEY, sender e-mail, and hidden-copy recipient environment variables are required",
-    });
+  const decision = evaluateHiddenCopyRequest(body);
+  if (!decision.ready) {
+    sendJson(response, decision.status, decision.body);
     return;
   }
 
   const reportMessage = buildHiddenFinalReportCopyMessage(
-    reportId,
-    body?.reportEmailCopy,
-    body?.hiddenAuditSummary,
+    decision.reportId,
+    decision.reportEmailCopy,
+    decision.audit.summary,
   );
-  const hiddenAuditJson = cleanHiddenAuditArtifact(body?.hiddenAuditJson);
-  const hiddenAuditSummary = cleanHiddenAuditArtifact(body?.hiddenAuditSummary);
-
-  if (!hiddenAuditJson || !hiddenAuditSummary) {
-    sendJson(response, 400, {
-      endpoint: "/api/final-report?action=send-final-report-hidden-copy",
-      status: "invalid-hidden-audit",
-      error: "Both hidden audit artifacts are required",
-    });
-    return;
-  }
 
   const providerResponse = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
-      authorization: `Bearer ${apiKey}`,
+      authorization: `Bearer ${decision.apiKey}`,
       "content-type": "application/json",
     },
     body: JSON.stringify({
-      from,
-      to: [hiddenCopyTo],
+      from: decision.from,
+      to: [decision.hiddenCopyTo],
       subject: reportMessage.subject,
       text: reportMessage.text,
       html: reportMessage.html,
       attachments: [
         {
-          filename: fileName,
-          content: pdfBase64,
+          filename: decision.fileName,
+          content: decision.pdfBase64,
         },
         {
           filename: "mergevue-hidden-user-answers.json",
-          content: Buffer.from(hiddenAuditJson, "utf8").toString("base64"),
+          content: Buffer.from(decision.audit.json, "utf8").toString("base64"),
         },
         {
           filename: "mergevue-hidden-user-answers.txt",
-          content: Buffer.from(hiddenAuditSummary, "utf8").toString("base64"),
+          content: Buffer.from(decision.audit.summary, "utf8").toString("base64"),
         },
       ],
     }),

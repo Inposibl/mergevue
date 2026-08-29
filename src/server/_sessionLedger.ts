@@ -15,6 +15,8 @@ import { validateEvidenceClassifiedAnswers } from "../flow/evidenceClassificatio
 import { TARGET_DIAGNOSTIC_DATA } from "../data/targetDiagnosticData.js";
 
 const TARGET_INVITE_TTL_HOURS = 72;
+export const TARGET_CODE_MAX_FAILED_ATTEMPTS = 5;
+export const TARGET_CODE_LOCKOUT_MS = 15 * 60 * 1000;
 const TARGET_OBSERVATION_SESSION_TTL_SECONDS = 259200;
 const REDIS_REST_TIMEOUT_MS = 4000;
 
@@ -66,6 +68,8 @@ type TargetInviteRecord = {
   revokedAt?: string;
   revokedReason?: string;
   targetSelfAssessment?: unknown;
+  failedVerifyAttempts?: number;
+  lockedUntil?: string | null;
 };
 
 function ledger() {
@@ -221,6 +225,38 @@ export function getSession(sessionId: string) {
   const session = emptySessionRecord(sessionId);
   store.set(sessionId, session);
   return session;
+}
+
+export function peekSession(sessionId: string): SessionRecord | null {
+  if (!sessionId) return null;
+  return ledger().get(sessionId) ?? null;
+}
+
+function hasStoredTrack1AndPreliminaryProof(sessionRecord: SessionRecord | null | undefined): boolean {
+  if (!sessionRecord || typeof sessionRecord !== "object") {
+    return false;
+  }
+
+  // SessionRecord persists observation setup/answers, target 2B, and invites only.
+  // Track 1 (score-2a) and preliminary assessment are not stored on this ledger.
+  // Those existing fields are not Track 1 / preliminary admission proof.
+  return false;
+}
+
+export function evaluateCreateTargetSessionPrerequisites(
+  sessionRecord: SessionRecord | null | undefined,
+  requestBody: unknown = null,
+): { ok: true } | { ok: false; status: "track-1-or-preliminary-incomplete" } {
+  void requestBody;
+
+  if (!hasStoredTrack1AndPreliminaryProof(sessionRecord)) {
+    return {
+      ok: false,
+      status: "track-1-or-preliminary-incomplete",
+    };
+  }
+
+  return { ok: true };
 }
 
 export function mergeTargetObservationSetupRecords(
@@ -512,19 +548,20 @@ function findInvite(targetSessionId: string) {
 export function createServerTargetSession(input: {
   assessmentSessionId: string;
   preliminaryAssessmentId: string;
-  track1Complete: boolean;
-  preliminaryAssessmentCreated: boolean;
   reportBinding?: unknown;
   baseUrl?: string;
+  track1Complete?: boolean;
+  preliminaryAssessmentCreated?: boolean;
 }) {
-  if (!input.track1Complete || !input.preliminaryAssessmentCreated) {
+  const session = peekSession(input.assessmentSessionId);
+  const prerequisites = evaluateCreateTargetSessionPrerequisites(session, input);
+  if (!prerequisites.ok || !session) {
     return {
       ok: false,
       status: "track-1-or-preliminary-incomplete",
     };
   }
 
-  const session = getSession(input.assessmentSessionId);
   const now = new Date().toISOString();
   const digitalCode = sixDigitCode();
   const targetSessionId = `tgt-${randomUUID()}`;
@@ -570,23 +607,135 @@ export function createServerTargetSession(input: {
   };
 }
 
+type TargetCodeAttemptResult =
+  | {
+    ok: false;
+    status: "not-found" | "revoked" | "completed" | "expired" | "invalid-format" | "wrong-code" | "locked";
+    nextInvite: TargetInviteRecord | null;
+  }
+  | {
+    ok: true;
+    status: "verified";
+    nextInvite: TargetInviteRecord;
+  };
+
+function failedAttemptCount(invite: TargetInviteRecord) {
+  const count = Number(invite.failedVerifyAttempts);
+  return Number.isFinite(count) && count > 0 ? count : 0;
+}
+
+function lockoutExpiryIso(invite: TargetInviteRecord, nowIso: string) {
+  const nowMs = Date.parse(nowIso);
+  const lockMs = nowMs + TARGET_CODE_LOCKOUT_MS;
+  const expiresMs = Date.parse(invite.expiresAt);
+  const lockedUntilMs = Number.isFinite(expiresMs) ? Math.min(lockMs, expiresMs) : lockMs;
+  return new Date(lockedUntilMs).toISOString();
+}
+
+function registerFailedTargetCodeAttempt(
+  invite: TargetInviteRecord,
+  status: "invalid-format" | "wrong-code",
+  nowIso: string,
+): TargetCodeAttemptResult {
+  const failedVerifyAttempts = failedAttemptCount(invite) + 1;
+  if (failedVerifyAttempts >= TARGET_CODE_MAX_FAILED_ATTEMPTS) {
+    return {
+      ok: false,
+      status: "locked",
+      nextInvite: {
+        ...invite,
+        failedVerifyAttempts,
+        lockedUntil: lockoutExpiryIso(invite, nowIso),
+      },
+    };
+  }
+
+  return {
+    ok: false,
+    status,
+    nextInvite: {
+      ...invite,
+      failedVerifyAttempts,
+      lockedUntil: null,
+    },
+  };
+}
+
+export function evaluateTargetCodeAttempt(
+  invite: TargetInviteRecord | null | undefined,
+  code: string,
+  now = new Date().toISOString(),
+): TargetCodeAttemptResult {
+  if (!invite) {
+    return { ok: false, status: "not-found", nextInvite: null };
+  }
+
+  if (invite.revoked) {
+    return { ok: false, status: "revoked", nextInvite: null };
+  }
+
+  if (invite.completed) {
+    return { ok: false, status: "completed", nextInvite: null };
+  }
+
+  const nowMs = Date.parse(now);
+  if (nowMs > Date.parse(invite.expiresAt)) {
+    return { ok: false, status: "expired", nextInvite: null };
+  }
+
+  const lockedUntilMs = invite.lockedUntil ? Date.parse(invite.lockedUntil) : NaN;
+  if (Number.isFinite(lockedUntilMs) && nowMs < lockedUntilMs) {
+    return { ok: false, status: "locked", nextInvite: null };
+  }
+
+  const currentInvite = Number.isFinite(lockedUntilMs) && nowMs >= lockedUntilMs
+    ? { ...invite, failedVerifyAttempts: 0, lockedUntil: null }
+    : invite;
+
+  const normalizedCode = typeof code === "string" ? code.trim() : "";
+  if (!/^\d{6}$/.test(normalizedCode)) {
+    return registerFailedTargetCodeAttempt(currentInvite, "invalid-format", now);
+  }
+
+  if (codeHash(normalizedCode, invite.targetSessionId, invite.preliminaryAssessmentId) !== invite.codeHash) {
+    return registerFailedTargetCodeAttempt(currentInvite, "wrong-code", now);
+  }
+
+  return {
+    ok: true,
+    status: "verified",
+    nextInvite: {
+      ...currentInvite,
+      failedVerifyAttempts: 0,
+      lockedUntil: null,
+    },
+  };
+}
+
 export function verifyServerTargetCode(targetSessionId: string, code: string, now = new Date().toISOString()) {
   const found = findInvite(targetSessionId);
-  const normalizedCode = typeof code === "string" ? code.trim() : "";
-  if (!found) return { ok: false, status: "not-found" };
-  const { invite } = found;
-  if (invite.revoked) return { ok: false, status: "revoked" };
-  if (invite.completed) return { ok: false, status: "completed" };
-  if (new Date(now).getTime() > new Date(invite.expiresAt).getTime()) return { ok: false, status: "expired" };
-  if (!/^\d{6}$/.test(normalizedCode)) return { ok: false, status: "invalid-format" };
-  if (codeHash(normalizedCode, targetSessionId, invite.preliminaryAssessmentId) !== invite.codeHash) {
-    return { ok: false, status: "wrong-code" };
+  const evaluation = evaluateTargetCodeAttempt(found?.invite ?? null, code, now);
+
+  if (found && evaluation.nextInvite) {
+    ledger().set(found.session.sessionId, {
+      ...found.session,
+      updatedAt: now,
+      targetInvite: evaluation.nextInvite,
+    });
   }
+
+  if (!evaluation.ok) {
+    return {
+      ok: false,
+      status: evaluation.status,
+    };
+  }
+
   return {
     ok: true,
     status: "verified",
     targetSessionId,
-    verificationToken: createHash("sha256").update(`${targetSessionId}:${invite.codeHash}:verified`).digest("hex"),
+    verificationToken: createHash("sha256").update(`${targetSessionId}:${evaluation.nextInvite.codeHash}:verified`).digest("hex"),
   };
 }
 

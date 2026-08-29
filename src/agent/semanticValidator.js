@@ -129,6 +129,39 @@ function dFinding(dCheck) {
   });
 }
 
+function localFinding(finding) {
+  return Object.freeze({
+    ruleId: finding.ruleId,
+    semanticSubruleId: finding.semanticSubruleId,
+    targetFamily: finding.targetFamily,
+    targetLocator: finding.targetLocator,
+    violationCode: finding.violationCode,
+    reasonCode: finding.reasonCode,
+    supportingAuthorityIds: Object.freeze([...(finding.supportingAuthorityIds ?? [])]),
+  });
+}
+
+export function assertNoLocalSemanticReject(dFailures = [], localFails = []) {
+  const deterministic = Array.isArray(dFailures) ? dFailures : [];
+  const local = Array.isArray(localFails) ? localFails : [];
+
+  if (deterministic.length > 0) {
+    throw new SemanticViolationError({
+      violationCode: deterministic[0].violationCode,
+      detail: deterministic[0].detail,
+      findings: deterministic.map(dFinding),
+    });
+  }
+
+  if (local.length > 0) {
+    throw new SemanticViolationError({
+      violationCode: local[0].violationCode,
+      detail: local[0].detail,
+      findings: local.map(localFinding),
+    });
+  }
+}
+
 // Findings are ordered by canonical semantic evaluation order
 // (rule → semanticSubrule → targetFamily → instance), realized as the
 // C-set index of the underlying check. checkId lexical order is never used.
@@ -176,31 +209,11 @@ export async function validateAgentInterpretationSemantics({
   // D-set: J1-owned deterministic checks run first, in fixed order.
   const dSet = evaluateDeterministicChecks(request, result);
   const dFailures = dSet.filter((dCheck) => dCheck.outcome === "FAIL");
-  if (dFailures.length > 0) {
-    throw new SemanticViolationError({
-      violationCode: dFailures[0].violationCode,
-      detail: dFailures[0].detail,
-      findings: dFailures.map(dFinding),
-    });
-  }
+  assertNoLocalSemanticReject(dFailures, []);
 
   // T-set + C-set: complete matrix expansion with local three-way evaluation.
   const { tSet, cSet, localFails } = buildSemanticCheckSet(request, result);
-  if (localFails.length > 0) {
-    throw new SemanticViolationError({
-      violationCode: localFails[0].violationCode,
-      detail: localFails[0].detail,
-      findings: localFails.map((finding) => Object.freeze({
-        ruleId: finding.ruleId,
-        semanticSubruleId: finding.semanticSubruleId,
-        targetFamily: finding.targetFamily,
-        targetLocator: finding.targetLocator,
-        violationCode: finding.violationCode,
-        reasonCode: finding.reasonCode,
-        supportingAuthorityIds: Object.freeze([...finding.supportingAuthorityIds]),
-      })),
-    });
-  }
+  assertNoLocalSemanticReject(dFailures, localFails);
 
   // Zero-check case: no judge invocation is lawful and the same Result
   // identity returns immediately after the completeness proof.
@@ -211,9 +224,11 @@ export async function validateAgentInterpretationSemantics({
       dSet,
       tSet,
       cSet,
+      localFails,
       partitions: [],
       processedPartitions: [],
     });
+    assertNoLocalSemanticReject(dFailures, localFails);
     return agentInterpretationResult;
   }
 
@@ -273,10 +288,13 @@ export async function validateAgentInterpretationSemantics({
     dSet,
     tSet,
     cSet,
+    localFails,
     partitions,
     processedPartitions,
   });
 
-  // PASS: the exact same Result object identity, unchanged.
+  // PASS: the exact same Result object identity, unchanged, and only when
+  // local/deterministic evaluation did not already reject.
+  assertNoLocalSemanticReject(dFailures, localFails);
   return agentInterpretationResult;
 }

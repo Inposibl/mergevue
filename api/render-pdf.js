@@ -1,11 +1,15 @@
-import chromium from "@sparticuz/chromium";
-import puppeteer from "puppeteer-core";
+import { timingSafeEqual } from "node:crypto";
 
 const MAX_HTML_BYTES = 5 * 1024 * 1024;
 const MIN_HTML_CHARS = 1000;
 const MIN_RENDERED_TEXT_CHARS = 100;
 const MIN_RENDERED_HTML_CHARS = 1000;
 const MIN_PDF_BYTES = 10_000;
+
+export const SET_CONTENT_OPTIONS = Object.freeze({
+  waitUntil: "domcontentloaded",
+  timeout: 15_000,
+});
 
 function sanitizeFilename(value) {
   const raw = String(value || "mergevue-forecast-brief.pdf").trim();
@@ -76,24 +80,113 @@ function extractHtml(body) {
   return "";
 }
 
-function checkApiKey(req) {
-  const requiredKey = process.env.PDF_RENDER_API_KEY;
+function headerString(headers, name) {
+  const value = headers?.[name];
+  if (Array.isArray(value)) return String(value[0] ?? "");
+  if (value == null) return "";
+  return String(value);
+}
 
-  if (!requiredKey) {
-    return true;
+function timingSafeStringEqual(provided, required) {
+  const left = Buffer.from(String(provided ?? ""), "utf8");
+  const right = Buffer.from(String(required ?? ""), "utf8");
+
+  if (left.length !== right.length) {
+    timingSafeEqual(left, left);
+    return false;
   }
 
-  const auth = req.headers.authorization || "";
+  if (left.length === 0) {
+    return false;
+  }
+
+  return timingSafeEqual(left, right);
+}
+
+function extractProvidedCredentials(headers = {}) {
+  const auth = headerString(headers, "authorization");
   const bearer = auth.startsWith("Bearer ") ? auth.slice("Bearer ".length).trim() : "";
 
-  const xApiKey = req.headers["x-api-key"];
-  const xPdfRenderKey = req.headers["x-pdf-render-key"];
+  return {
+    bearer,
+    xApiKey: headerString(headers, "x-api-key"),
+    xPdfRenderKey: headerString(headers, "x-pdf-render-key"),
+  };
+}
 
-  return (
-    bearer === requiredKey ||
-    xApiKey === requiredKey ||
-    xPdfRenderKey === requiredKey
-  );
+export function resolveConfiguredPdfRenderApiKey(rawValue) {
+  if (rawValue == null) return "";
+  return String(rawValue).trim();
+}
+
+export function evaluatePdfRenderAuthorization({ requiredKey, headers } = {}) {
+  const configuredKey = resolveConfiguredPdfRenderApiKey(requiredKey);
+
+  // Fail-closed: missing/blank PDF_RENDER_API_KEY never reaches Chromium.
+  if (!configuredKey) {
+    return {
+      allowed: false,
+      status: 503,
+      error: "PDF renderer is not configured",
+      wouldLaunchBrowser: false,
+    };
+  }
+
+  const provided = extractProvidedCredentials(headers);
+  const matched =
+    timingSafeStringEqual(provided.bearer, configuredKey) ||
+    timingSafeStringEqual(provided.xApiKey, configuredKey) ||
+    timingSafeStringEqual(provided.xPdfRenderKey, configuredKey);
+
+  if (!matched) {
+    return {
+      allowed: false,
+      status: 401,
+      error: "Unauthorized",
+      wouldLaunchBrowser: false,
+    };
+  }
+
+  return {
+    allowed: true,
+    status: null,
+    error: null,
+    wouldLaunchBrowser: true,
+  };
+}
+
+export function isAllowedRendererRequestUrl(rawUrl) {
+  if (rawUrl == null) return false;
+
+  const text = String(rawUrl).trim();
+  if (!text) return false;
+
+  let parsed;
+  try {
+    parsed = new URL(text);
+  } catch {
+    return false;
+  }
+
+  const protocol = String(parsed.protocol || "").toLowerCase();
+  return protocol === "about:" || protocol === "data:";
+}
+
+export function shouldAbortRendererRequest(rawUrl) {
+  return !isAllowedRendererRequestUrl(rawUrl);
+}
+
+export async function applyRendererNetworkPolicy(page) {
+  await page.setRequestInterception(true);
+  page.on("request", (request) => {
+    const action = isAllowedRendererRequestUrl(request.url())
+      ? request.continue()
+      : request.abort();
+
+    if (action && typeof action.catch === "function") {
+      action.catch(() => {});
+    }
+  });
 }
 
 function setCorsHeaders(res) {
@@ -125,8 +218,13 @@ export default async function handler(req, res) {
     return jsonError(res, 405, "Method not allowed");
   }
 
-  if (!checkApiKey(req)) {
-    return jsonError(res, 401, "Unauthorized");
+  const authorization = evaluatePdfRenderAuthorization({
+    requiredKey: process.env.PDF_RENDER_API_KEY,
+    headers: req.headers,
+  });
+
+  if (!authorization.allowed) {
+    return jsonError(res, authorization.status, authorization.error);
   }
 
   let browser;
@@ -164,6 +262,11 @@ export default async function handler(req, res) {
       });
     }
 
+    const [{ default: chromium }, { default: puppeteer }] = await Promise.all([
+      import("@sparticuz/chromium"),
+      import("puppeteer-core"),
+    ]);
+
     browser = await puppeteer.launch({
       args: chromium.args,
       defaultViewport: {
@@ -176,11 +279,9 @@ export default async function handler(req, res) {
     });
 
     const page = await browser.newPage();
+    await applyRendererNetworkPolicy(page);
 
-    await page.setContent(html, {
-      waitUntil: "networkidle0",
-      timeout: 45000,
-    });
+    await page.setContent(html, SET_CONTENT_OPTIONS);
 
     await page.evaluate(async () => {
       if (document.fonts && document.fonts.ready) {

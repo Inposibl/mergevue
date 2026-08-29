@@ -7801,6 +7801,8 @@ async function sendHiddenFinalDeliverablesReportCopy(deliverable, session, exist
       mimeType: "application/pdf",
       pdfBase64,
       reportEmailCopy,
+      session,
+      deliverable,
       hiddenAuditJson: hiddenAudit.json,
       hiddenAuditSummary: hiddenAudit.summary,
     }),

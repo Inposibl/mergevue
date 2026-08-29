@@ -163,9 +163,14 @@ export function proveSemanticCompleteness({
   dSet,
   tSet,
   cSet,
+  localFails = [],
   partitions,
   processedPartitions,
 }) {
+  if (Array.isArray(localFails) && localFails.length > 0) {
+    proofFail("local deterministic semantic FAILs exist; completeness cannot authorize PASS");
+  }
+
   proveSemanticProtocolIntegrity({
     agentInterpretationRequest,
     agentInterpretationResult,

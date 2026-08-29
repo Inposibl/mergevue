@@ -10,8 +10,6 @@ export default async function handler(request: Request) {
   const result = createServerTargetSession({
     assessmentSessionId: typeof body?.assessmentSessionId === "string" ? body.assessmentSessionId : "",
     preliminaryAssessmentId: typeof body?.preliminaryAssessmentId === "string" ? body.preliminaryAssessmentId : "",
-    track1Complete: body?.track1Complete === true,
-    preliminaryAssessmentCreated: body?.preliminaryAssessmentCreated === true,
     reportBinding: body?.reportBinding ?? null,
     baseUrl: typeof body?.baseUrl === "string" ? body.baseUrl : "",
   });
