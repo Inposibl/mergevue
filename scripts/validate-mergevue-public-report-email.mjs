@@ -12,6 +12,7 @@ import {
 } from "../src/reporting/mergevuePublicReportModel.js";
 import { buildFinalDeliverable } from "../src/flow/finalDeliverableFlow.js";
 import { createHiddenUserAnswersSnapshot } from "../src/reporting/hiddenUserAnswersSnapshot.js";
+import { readAssessmentSession } from "../src/server/_sessionLedger.ts";
 import {
   createReadyAssessment,
   installMockExternalProviders,
@@ -79,10 +80,20 @@ async function assertServerAuthorityDeliveryBoundary() {
     assert.equal(ready.executed.body.status, "report-ready", JSON.stringify(ready.executed.body));
     const { sessionId } = ready;
     const { authorityId } = ready.executed.body;
+    const browserProjection = ready.executed.body.projection;
+    assert.equal(browserProjection.html, undefined, "browser EXECUTE must not receive server html");
+    assert.equal(browserProjection.reportEmailCopy, undefined, "browser EXECUTE must not receive reportEmailCopy");
+    assert.equal(browserProjection.session, undefined, "browser EXECUTE must not receive internal session");
+    const internal = (await readAssessmentSession(sessionId)).reportAuthority.projection;
+    assert.equal(typeof internal.html, "string");
+    assert.ok(internal.html.trim());
+    assert.equal(typeof internal.reportEmailCopy?.subject, "string");
 
     for (const [action, body] of [
       ["download-final-report", { sessionId, authorityId, pdfBase64: "JVBERi0x" }],
+      ["download-final-report", { sessionId, authorityId, html: "<p>forged</p>" }],
       ["send-final-report", { sessionId, authorityId, recipientEmail: "owner@example.com", firstName: "Owner", reportEmailCopy: { subject: "forged" } }],
+      ["send-final-report", { sessionId, authorityId, recipientEmail: "owner@example.com", firstName: "Owner", html: "<p>forged</p>" }],
       ["send-final-report-hidden-copy", { sessionId, authorityId, hiddenAuditJson: '{"forged":true}' }],
       ["send-final-report-hidden-copy", { sessionId, authorityId, hiddenAuditSummary: "forged" }],
     ]) {
@@ -110,8 +121,8 @@ async function assertServerAuthorityDeliveryBoundary() {
     });
     assert.equal(visible.statusCode, 200, JSON.stringify(visible.body));
     assert.equal(visible.body.status, "sent");
-    assert.equal(providerCalls.pdf.at(-1).html, ready.executed.body.projection.html);
-    assert.equal(providerCalls.email.at(-1).subject, ready.executed.body.projection.reportEmailCopy.subject);
+    assert.equal(providerCalls.pdf.at(-1).html, internal.html);
+    assert.equal(providerCalls.email.at(-1).subject, internal.reportEmailCopy.subject);
 
     const hidden = await invokeFinalReport("send-final-report-hidden-copy", { sessionId, authorityId });
     assert.equal(hidden.statusCode, 200, JSON.stringify(hidden.body));

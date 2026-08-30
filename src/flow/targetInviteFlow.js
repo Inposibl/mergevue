@@ -27,6 +27,7 @@ export function buildTargetSurveyLink({
   basePath = "/screen-9a-target-code-gate",
   targetSessionId,
   assessmentId,
+  assessmentSessionId,
   codeHash,
   createdAt,
   expiresAt,
@@ -34,6 +35,7 @@ export function buildTargetSurveyLink({
   const params = new URLSearchParams();
   params.set("targetSessionId", targetSessionId);
   params.set("assessmentId", assessmentId);
+  if (assessmentSessionId) params.set("assessmentSessionId", assessmentSessionId);
   params.set("codeHash", codeHash);
   params.set("createdAt", createdAt);
   params.set("expiresAt", expiresAt);
@@ -43,16 +45,26 @@ export function buildTargetSurveyLink({
 export function targetInviteFromLinkParams(params, basePath = "/screen-9a-target-code-gate") {
   const targetSessionId = params?.get("targetSessionId") ?? "";
   const assessmentId = params?.get("assessmentId") ?? "";
+  const assessmentSessionId = params?.get("assessmentSessionId") ?? "";
   const codeHash = params?.get("codeHash") ?? "";
   const createdAt = params?.get("createdAt") ?? "";
   const expiresAt = params?.get("expiresAt") ?? "";
 
-  if (!targetSessionId || !assessmentId || !codeHash || !createdAt || !expiresAt) return null;
+  if (!targetSessionId || !assessmentId || !assessmentSessionId || !codeHash || !createdAt || !expiresAt) return null;
 
   return Object.freeze({
     targetSessionId,
     assessmentId,
-    surveyLink: buildTargetSurveyLink({ basePath, targetSessionId, assessmentId, codeHash, createdAt, expiresAt }),
+    assessmentSessionId,
+    surveyLink: buildTargetSurveyLink({
+      basePath,
+      targetSessionId,
+      assessmentId,
+      assessmentSessionId,
+      codeHash,
+      createdAt,
+      expiresAt,
+    }),
     digitalCode: "",
     codeHash,
     createdAt,
@@ -117,14 +129,24 @@ export function createTargetInvite(session, options = {}) {
   const digitalCode = options.digitalCode ?? generateSixDigitCode(options.random);
   const targetSessionId = options.targetSessionId ?? `tgt-${Date.parse(createdAt)}-${digitalCode}`;
   const assessmentId = session.preliminaryAssessment.assessmentId;
+  const assessmentSessionId = options.assessmentSessionId ?? session.sessionId ?? "";
   const expiresAt = options.expiresAt ?? addHours(createdAt, TARGET_INVITE_TTL_HOURS);
   const basePath = options.basePath ?? "/screen-9a-target-code-gate";
   const codeHash = hashDigitalCode(digitalCode, targetSessionId, assessmentId);
-  const surveyLink = buildTargetSurveyLink({ basePath, targetSessionId, assessmentId, codeHash, createdAt, expiresAt });
+  const surveyLink = buildTargetSurveyLink({
+    basePath,
+    targetSessionId,
+    assessmentId,
+    assessmentSessionId,
+    codeHash,
+    createdAt,
+    expiresAt,
+  });
 
   const invite = Object.freeze({
     targetSessionId,
     assessmentId,
+    assessmentSessionId,
     surveyLink,
     digitalCode,
     codeHash,

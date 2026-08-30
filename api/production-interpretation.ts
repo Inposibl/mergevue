@@ -4,6 +4,7 @@ import {
   attachAcquirerVerificationCompletion,
   attachDealContext,
   completeAcquirerVerificationInvite,
+  isResolvedAcquirerVerificationRespondentContext,
 } from "../src/flow/acquirerTrackFlow.js";
 import { buildFinalDeliverable } from "../src/flow/finalDeliverableFlow.js";
 import { buildTargetSelfAssessmentRecord } from "../src/flow/targetSelfAssessmentFlow.js";
@@ -218,6 +219,46 @@ function buildServerReportProjection(session: any) {
   });
 }
 
+function publicScoreView(score: any) {
+  if (!isPlainObject(score)) return null;
+  return Object.freeze({
+    verificationIncluded: score.verificationIncluded === true,
+    signalStrength: typeof score.signalStrength === "string" ? score.signalStrength : null,
+    coPresence: score.coPresence === true,
+    primaryEnvironmentCode: typeof score.primaryEnvironmentCode === "string" ? score.primaryEnvironmentCode : null,
+    secondaryEnvironmentCode: typeof score.secondaryEnvironmentCode === "string" ? score.secondaryEnvironmentCode : null,
+  });
+}
+
+function toBrowserAuthorizedProjection(internal: any) {
+  if (!isPlainObject(internal) || !isPlainObject(internal.deliverable) || !isPlainObject(internal.report)) return null;
+  const session = isPlainObject(internal.session) ? internal.session : {};
+  const acquirerScore = publicScoreView(session.acquirer2A?.score);
+  const targetSelfScore = publicScoreView(session.targetSelfAssessment?.score);
+  const target2bScore = publicScoreView(session.target2B?.finalScore);
+  return Object.freeze({
+    deliverable: internal.deliverable,
+    report: internal.report,
+    boundedSession: Object.freeze({
+      sessionId: typeof session.sessionId === "string" ? session.sessionId : null,
+      acquirer2A: Object.freeze({
+        completed: session.acquirer2A?.completed === true,
+        ...(acquirerScore ? { score: acquirerScore } : {}),
+      }),
+      acquirerVerification: Object.freeze({
+        completed: session.acquirerVerification?.completed === true,
+      }),
+      target2B: target2bScore ? Object.freeze({ finalScore: target2bScore }) : null,
+      targetSelfAssessment: session.targetSelfAssessment?.completed === true
+        ? Object.freeze({
+          completed: true,
+          ...(targetSelfScore ? { score: targetSelfScore } : {}),
+        })
+        : null,
+    }),
+  });
+}
+
 export async function executeCurrentAssessment(sessionId: string) {
   const record = await readAssessmentSession(sessionId);
   if (!record) return { statusCode: 404, body: publicFailure("unknown-session", "Assessment session was not found.") };
@@ -288,7 +329,7 @@ export async function executeCurrentAssessment(sessionId: string) {
       authorityId,
       reportReady,
       terminalKind,
-      ...(reportReady ? { projection } : {}),
+      ...(reportReady ? { projection: toBrowserAuthorizedProjection(projection) } : {}),
     },
   };
 }
@@ -316,13 +357,37 @@ async function saveMutation(action: string, body: Record<string, any>) {
       || (body.respondentContext !== null && !isPlainObject(body.respondentContext))) {
       return { statusCode: 400, body: publicFailure("invalid-request", "Completed raw R2 evidence and context are required.") };
     }
-    next = { ...raw, r2: { completed: true, answers: body.answers, respondentContext: body.respondentContext, respondentId: typeof body.respondentId === "string" ? body.respondentId : null } };
+    if (!raw.r1?.answers) {
+      return { statusCode: 409, body: publicFailure("r2-before-r1", "R2 cannot be stored until server-side R1 exists.") };
+    }
+    const respondentId = typeof body.respondentId === "string" ? body.respondentId : null;
+    const invite = {
+      assessmentSessionId: sessionId,
+      acquirerVerificationSessionId: respondentId || `acqv-${sessionId}`,
+      completed: false,
+      revoked: false,
+    };
+    const completed = completeAcquirerVerificationInvite(invite, body.answers, current.updatedAt, body.respondentContext);
+    if (!completed.ok || !isResolvedAcquirerVerificationRespondentContext(completed.invite)) {
+      return { statusCode: 400, body: publicFailure("invalid-request", "Completed raw R2 evidence and context are required.") };
+    }
+    next = { ...raw, r2: { completed: true, answers: body.answers, respondentContext: body.respondentContext, respondentId } };
   } else {
     if (!hasOnlyKeys(body, ["action", "sessionId", "completed", "answers", "positioning", "respondentId"])
       || body.completed !== true || !isPlainObject(body.answers) || !isPlainObject(body.positioning)) {
       return { statusCode: 400, body: publicFailure("invalid-request", "Completed raw Target Self-Assessment input is required.") };
     }
-    next = { ...raw, targetSelf: { completed: true, answers: body.answers, positioning: body.positioning, respondentId: typeof body.respondentId === "string" ? body.respondentId : null } };
+    const respondentId = typeof body.respondentId === "string" ? body.respondentId : null;
+    const targetSelfAssessment = buildTargetSelfAssessmentRecord(
+      body.positioning,
+      body.answers,
+      current.updatedAt,
+      { targetSessionId: respondentId },
+    );
+    if (!targetSelfAssessment.completed) {
+      return { statusCode: 400, body: publicFailure("invalid-request", "Completed raw Target Self-Assessment input is required.") };
+    }
+    next = { ...raw, targetSelf: { completed: true, answers: body.answers, positioning: body.positioning, respondentId } };
   }
   const saved = await saveRawAssessmentState(sessionId, next);
   if (!saved) return { statusCode: 404, body: publicFailure("unknown-session", "Assessment session was not found.") };
@@ -360,7 +425,7 @@ export async function handleProductionInterpretationAction(body: unknown) {
   if (body.authorityId && body.authorityId !== authority.authorityId) {
     return { statusCode: 409, body: publicFailure("stale-authority", "Authority no longer matches the current assessment revision.") };
   }
-  return { statusCode: 200, body: { status: "report-ready", sessionId, inputRevision: record.inputRevision, authorityId: authority.authorityId, reportReady: true, projection: record.reportAuthority.projection } };
+  return { statusCode: 200, body: { status: "report-ready", sessionId, inputRevision: record.inputRevision, authorityId: authority.authorityId, reportReady: true, projection: toBrowserAuthorizedProjection(record.reportAuthority.projection) } };
 }
 
 export default async function handler(request: NodeRequest, response: NodeResponse) {

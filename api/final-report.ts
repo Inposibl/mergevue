@@ -869,10 +869,10 @@ const REDIS_REST_TIMEOUT_MS = 4000;
 type TargetSelfCompletionRecord = {
   targetSessionId: string;
   assessmentId: string;
+  assessmentSessionId?: string;
   codeHash?: string;
   completed: true;
   completedAt: string;
-  targetSelfAssessment: unknown;
 };
 
 type TargetSelfCompletionGlobal = typeof globalThis & {
@@ -942,16 +942,16 @@ async function targetSelfRedisCommand(command: unknown[]) {
 }
 
 function normalizeTargetSelfCompletion(value: unknown): TargetSelfCompletionRecord | null {
-  const record = typeof value === "object" && value ? value as Partial<TargetSelfCompletionRecord> : null;
+  const record = typeof value === "object" && value ? value as Record<string, unknown> : null;
 
   if (
     !record
     || !cleanString(record.targetSessionId)
     || !cleanString(record.assessmentId)
     || record.completed !== true
-    || !record.targetSelfAssessment
-    || typeof record.targetSelfAssessment !== "object"
-    || (record.targetSelfAssessment as { completed?: unknown }).completed !== true
+    || record.targetSelfAssessment != null
+    || record.answers != null
+    || record.positioning != null
   ) {
     return null;
   }
@@ -959,10 +959,10 @@ function normalizeTargetSelfCompletion(value: unknown): TargetSelfCompletionReco
   return {
     targetSessionId: cleanString(record.targetSessionId),
     assessmentId: cleanString(record.assessmentId),
+    assessmentSessionId: cleanString(record.assessmentSessionId) || undefined,
     codeHash: cleanString(record.codeHash),
     completed: true,
     completedAt: cleanString(record.completedAt) || new Date().toISOString(),
-    targetSelfAssessment: record.targetSelfAssessment,
   };
 }
 
@@ -1011,7 +1011,7 @@ async function saveTargetSelfCompletion(request: NodeRequest, response: NodeResp
     sendJson(response, 400, {
       endpoint: "/api/final-report?action=save-target-self-completion",
       status: "invalid-target-self-completion",
-      error: "A completed Target Self-Assessment record with targetSessionId and assessmentId is required.",
+      error: "A bounded Target Self-Assessment completion with targetSessionId and assessmentId is required.",
     });
     return;
   }
@@ -1024,6 +1024,7 @@ async function saveTargetSelfCompletion(request: NodeRequest, response: NodeResp
       completed: true,
       targetSessionId: record.targetSessionId,
       assessmentId: record.assessmentId,
+      assessmentSessionId: record.assessmentSessionId ?? null,
       completedAt: record.completedAt,
     });
   } catch (error) {
@@ -1074,9 +1075,9 @@ async function readTargetSelfCompletion(request: NodeRequest, response: NodeResp
       completed: true,
       targetSessionId: record.targetSessionId,
       assessmentId: record.assessmentId,
+      assessmentSessionId: record.assessmentSessionId ?? null,
       codeHash: record.codeHash,
       completedAt: record.completedAt,
-      targetSelfAssessment: record.targetSelfAssessment,
     });
   } catch (error) {
     sendJson(response, 503, {

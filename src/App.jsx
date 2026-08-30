@@ -22,7 +22,6 @@ import {
   acquisitionMotiveForDealType,
   acquirerVerificationInviteFromLinkParams,
   attachAcquirerModuleResult,
-  attachAcquirerVerificationCompletion,
   attachAcquisitionMotive,
   attachDealContext,
   canContinueToTargetObservationSetup,
@@ -194,6 +193,20 @@ const AUTHORIZED_OBSERVATION_COMPLETION_CHANNEL = "st-authorized-observation-com
 const TARGET_SELF_COMPLETION_EVENT = "st:target-self-assessment-completion";
 const TARGET_SELF_COMPLETION_CHANNEL = "st-target-self-assessment-completion";
 
+function hasForbiddenCrossPartyEvidence(value) {
+  if (!value || typeof value !== "object") return false;
+  return [
+    "answers",
+    "respondentMetadata",
+    "respondentSeniority",
+    "respondentRole",
+    "canonicalRespondentContext",
+    "acquirerVerification",
+    "targetSelfAssessment",
+    "positioning",
+  ].some((key) => value[key] != null);
+}
+
 function parseAcquirerVerificationCompletion(value) {
   if (!value) return null;
 
@@ -202,18 +215,17 @@ function parseAcquirerVerificationCompletion(value) {
     if (
       !payload?.assessmentSessionId
       || !payload?.acquirerVerificationSessionId
-      || !payload?.completed
-      || !payload?.acquirerVerification?.completed
+      || payload?.completed !== true
+      || hasForbiddenCrossPartyEvidence(payload)
     ) {
       return null;
     }
-    // Live production admission: legacy low-level completions without the full
-    // resolved respondent context are LEGACY_INTERNAL_ONLY and must not
-    // materialize production R2-complete state in any receiver tab.
-    if (!isResolvedAcquirerVerificationRespondentContext(payload)) {
-      return null;
-    }
-    return payload;
+    return Object.freeze({
+      assessmentSessionId: payload.assessmentSessionId,
+      acquirerVerificationSessionId: payload.acquirerVerificationSessionId,
+      completed: true,
+      completedAt: payload.completedAt ?? new Date().toISOString(),
+    });
   } catch {
     return null;
   }
@@ -223,10 +235,8 @@ function publishAcquirerVerificationCompletion(completedInvite) {
   const payload = parseAcquirerVerificationCompletion({
     assessmentSessionId: completedInvite?.assessmentSessionId,
     acquirerVerificationSessionId: completedInvite?.acquirerVerificationSessionId,
-    codeHash: completedInvite?.codeHash,
     completed: true,
-    completedAt: completedInvite?.completedAt ?? completedInvite?.acquirerVerification?.storedAt ?? new Date().toISOString(),
-    acquirerVerification: completedInvite?.acquirerVerification,
+    completedAt: completedInvite?.completedAt ?? new Date().toISOString(),
   });
 
   if (typeof window === "undefined" || !payload) return null;
@@ -306,12 +316,19 @@ function parseTargetSelfCompletion(value) {
     if (
       !payload?.targetSessionId
       || !payload?.assessmentId
-      || !payload?.completed
-      || !payload?.targetSelfAssessment?.completed
+      || payload?.completed !== true
+      || hasForbiddenCrossPartyEvidence(payload)
     ) {
       return null;
     }
-    return payload;
+    return Object.freeze({
+      targetSessionId: payload.targetSessionId,
+      assessmentId: payload.assessmentId,
+      assessmentSessionId: payload.assessmentSessionId ?? null,
+      codeHash: payload.codeHash ?? "",
+      completed: true,
+      completedAt: payload.completedAt ?? new Date().toISOString(),
+    });
   } catch {
     return null;
   }
@@ -321,10 +338,10 @@ function publishTargetSelfCompletion(completedInvite) {
   const payload = parseTargetSelfCompletion({
     targetSessionId: completedInvite?.targetSessionId,
     assessmentId: completedInvite?.assessmentId,
+    assessmentSessionId: completedInvite?.assessmentSessionId ?? null,
     codeHash: completedInvite?.codeHash,
     completed: true,
     completedAt: completedInvite?.completedAt ?? new Date().toISOString(),
-    targetSelfAssessment: completedInvite?.targetSelfAssessment,
   });
 
   if (typeof window === "undefined" || !payload) return null;
@@ -350,10 +367,10 @@ async function persistTargetSelfCompletion(completedInvite) {
   const payload = parseTargetSelfCompletion({
     targetSessionId: completedInvite?.targetSessionId,
     assessmentId: completedInvite?.assessmentId,
+    assessmentSessionId: completedInvite?.assessmentSessionId ?? null,
     codeHash: completedInvite?.codeHash,
     completed: true,
     completedAt: completedInvite?.completedAt ?? new Date().toISOString(),
-    targetSelfAssessment: completedInvite?.targetSelfAssessment,
   });
 
   if (!payload) {
@@ -395,44 +412,79 @@ async function persistTargetSelfCompletion(completedInvite) {
   }
 }
 
+function attachBoundedAcquirerVerificationCompletion(currentSession, envelope) {
+  const parsed = parseAcquirerVerificationCompletion(envelope);
+  if (!parsed) return currentSession;
+  if (currentSession?.sessionId !== parsed.assessmentSessionId) return currentSession;
+  const currentInvite = currentSession?.acquirerVerificationInvite;
+  if (currentInvite?.acquirerVerificationSessionId
+    && currentInvite.acquirerVerificationSessionId !== parsed.acquirerVerificationSessionId) {
+    return currentSession;
+  }
+  return Object.freeze({
+    ...currentSession,
+    acquirerVerificationInvite: Object.freeze({
+      ...(currentInvite ?? {}),
+      assessmentSessionId: parsed.assessmentSessionId,
+      acquirerVerificationSessionId: parsed.acquirerVerificationSessionId,
+      completed: true,
+      completedAt: parsed.completedAt,
+      digitalCode: currentInvite?.digitalCode ?? "",
+    }),
+    acquirerVerification: Object.freeze({
+      completed: true,
+      completedAt: parsed.completedAt,
+    }),
+  });
+}
+
 function attachTargetSelfCompletion(currentSession, completedInvite) {
-  if (!completedInvite?.completed || !completedInvite.targetSelfAssessment?.completed) return currentSession;
+  const parsed = parseTargetSelfCompletion(completedInvite);
+  if (!parsed) return currentSession;
 
   const currentInvite = currentSession?.targetInvite;
   if (!currentInvite) return currentSession;
-  if (currentInvite.targetSessionId !== completedInvite.targetSessionId) return currentSession;
-  if (currentInvite.assessmentId !== completedInvite.assessmentId) return currentSession;
-  if (currentInvite.codeHash && completedInvite.codeHash && currentInvite.codeHash !== completedInvite.codeHash) return currentSession;
+  if (currentInvite.targetSessionId !== parsed.targetSessionId) return currentSession;
+  if (currentInvite.assessmentId !== parsed.assessmentId) return currentSession;
+  if (currentInvite.codeHash && parsed.codeHash && currentInvite.codeHash !== parsed.codeHash) return currentSession;
 
   const mergedInvite = Object.freeze({
     ...currentInvite,
-    ...completedInvite,
+    targetSessionId: parsed.targetSessionId,
+    assessmentId: parsed.assessmentId,
+    assessmentSessionId: parsed.assessmentSessionId ?? currentInvite.assessmentSessionId,
+    codeHash: parsed.codeHash || currentInvite.codeHash,
+    completed: true,
+    completedAt: parsed.completedAt,
     digitalCode: currentInvite.digitalCode ?? "",
   });
 
   const nextSession = {
     ...currentSession,
     targetInvite: mergedInvite,
-    targetSelfAssessment: completedInvite.targetSelfAssessment,
+    targetSelfAssessment: Object.freeze({
+      completed: true,
+      completedAt: parsed.completedAt,
+    }),
   };
   if (currentSession?.preliminaryAssessment?.completed) {
     const contradictionReport = buildContradictionReport(nextSession, {
-      generatedAt: completedInvite.completedAt ?? new Date().toISOString(),
+      generatedAt: parsed.completedAt,
     });
     nextSession.preliminaryAssessment = Object.freeze({
       ...currentSession.preliminaryAssessment,
-      targetSelfAssessmentCompletedAt: completedInvite.completedAt ?? completedInvite.targetSelfAssessment.submittedAt ?? null,
-      targetSelfEnvironmentCode: completedInvite.targetSelfAssessment.score?.primaryEnvironmentCode ?? null,
+      targetSelfAssessmentCompletedAt: parsed.completedAt,
+      targetSelfEnvironmentCode: null,
       contradictionReport,
       triageReport: buildTriageReport(nextSession, {
-        generatedAt: completedInvite.completedAt ?? new Date().toISOString(),
+        generatedAt: parsed.completedAt,
         contradictionReport,
       }),
     });
   }
   if (currentSession?.analystWorksheet) {
     nextSession.analystWorksheet = buildAnalystWorksheet(nextSession, currentSession.analystWorksheet, {
-      generatedAt: completedInvite.completedAt ?? new Date().toISOString(),
+      generatedAt: parsed.completedAt,
     });
   }
 
@@ -2387,11 +2439,7 @@ function AcquirerSubmitScreen({ session, setSession }) {
 
     function applyCompletion(completedInvite) {
       if (cancelled || !completedInvite) return;
-      setSession((current) => attachAcquirerVerificationCompletion(current, {
-        ...invite,
-        ...completedInvite,
-        completed: true,
-      }));
+      setSession((current) => attachBoundedAcquirerVerificationCompletion(current, completedInvite));
     }
 
     function handleCompletionEvent(event) {
@@ -2428,7 +2476,7 @@ function AcquirerSubmitScreen({ session, setSession }) {
   const score = session.acquirer2A.score;
   const originalScore = session.acquirer2A.originalScore;
   const verificationRecommended = requiresAcquirerVerification(session);
-  const verificationComplete = isAcquirerVerificationComplete(session);
+  const verificationComplete = Boolean(session.acquirerVerification?.completed || isAcquirerVerificationComplete(session));
   const nextReady = canContinueToTargetObservationSetup(session);
   const fullLink = invite ? `${window.location.origin}${invite.surveyLink}` : "";
 
@@ -2458,6 +2506,7 @@ function AcquirerSubmitScreen({ session, setSession }) {
           {verificationComplete ? (
             <>
               <p>Authorized acquirer response received. Continue to Target Observation Setup when ready. The Preliminary Assessment will use the merged acquirer signal, so the acquirer environment type and its relationship with the Target environment are calculated from both acquirer responses.</p>
+              {score.verificationIncluded ? (
               <div className="range-table">
                 <div className="range-row">
                   <span>Original acquirer signal</span>
@@ -2470,6 +2519,7 @@ function AcquirerSubmitScreen({ session, setSession }) {
                   <em>{score.signalBadge}</em>
                 </div>
               </div>
+              ) : null}
             </>
           ) : (
             <>
@@ -2747,7 +2797,7 @@ function AuthorizedAcquirerVerificationScreen({ setSession }) {
   return (
     <main className="target-only-screen">
       <AcquirerVerificationQuestionnaire
-        onComplete={(completedAnswers) => {
+        onComplete={async (completedAnswers) => {
           const completion = completeAcquirerVerificationInvite(invite, completedAnswers, undefined, {
             firmTenure,
             respondentSeniority,
@@ -2757,8 +2807,32 @@ function AuthorizedAcquirerVerificationScreen({ setSession }) {
             setError("Acquirer verification could not be completed. Check that all questions were answered and the link is still active.");
             return;
           }
-          publishAcquirerVerificationCompletion(completion.invite);
-          setSession?.((current) => attachAcquirerVerificationCompletion(current, completion.invite));
+          if (!isServerAssessmentSessionId(invite.assessmentSessionId)) {
+            setError("This verification link is not bound to a server assessment session.");
+            return;
+          }
+          const { response, payload } = await productionAuthorityRequest({
+            action: "SAVE_R2",
+            sessionId: invite.assessmentSessionId,
+            completed: true,
+            answers: completedAnswers,
+            respondentContext: { firmTenure, respondentSeniority, respondentRole },
+            respondentId: invite.acquirerVerificationSessionId,
+          });
+          if (!response.ok || payload?.status !== "input-saved") {
+            setError(payload?.status === "r2-before-r1"
+              ? "The acquirer module is not yet saved. Keep this page open and try again."
+              : (payload?.error || "Acquirer verification could not be saved. Please try again."));
+            return;
+          }
+          const envelope = {
+            assessmentSessionId: invite.assessmentSessionId,
+            acquirerVerificationSessionId: invite.acquirerVerificationSessionId,
+            completed: true,
+            completedAt: completion.invite.completedAt,
+          };
+          publishAcquirerVerificationCompletion(envelope);
+          setSession?.((current) => attachBoundedAcquirerVerificationCompletion(current, envelope));
           setReceipt(true);
         }}
       />
@@ -4205,19 +4279,52 @@ function TargetSelfAssessmentSurvey({ session, setSession, invite = null }) {
         setError("This target survey is no longer active.");
         return;
       }
+      if (!isServerAssessmentSessionId(invite.assessmentSessionId)) {
+        setError("This target survey is not bound to a server assessment session.");
+        return;
+      }
 
-      const persistence = await persistTargetSelfCompletion(completedInvite.invite);
+      const { response, payload } = await productionAuthorityRequest({
+        action: "SAVE_REPORT_INPUT",
+        sessionId: invite.assessmentSessionId,
+        completed: true,
+        answers: completedAnswers,
+        positioning,
+        respondentId: invite.targetSessionId,
+      });
+      if (!response.ok || payload?.status !== "input-saved") {
+        setError(payload?.error || "Target Self-Assessment could not be saved. Please try again.");
+        return;
+      }
+
+      const envelope = {
+        targetSessionId: invite.targetSessionId,
+        assessmentId: invite.assessmentId,
+        assessmentSessionId: invite.assessmentSessionId,
+        codeHash: invite.codeHash,
+        completed: true,
+        completedAt: targetSelfAssessment.submittedAt,
+      };
+      const persistence = await persistTargetSelfCompletion(envelope);
       if (!persistence.ok) {
         setError(persistence.error ?? "Target Self-Assessment completion could not be saved. Please try again.");
         return;
       }
 
-      publishTargetSelfCompletion(completedInvite.invite);
-      nextSession = Object.freeze({
-        ...session,
-        targetInvite: completedInvite.invite,
-        targetSelfAssessment,
-      });
+      publishTargetSelfCompletion(envelope);
+      const originatingAcquirer = isServerAssessmentSessionId(session.sessionId)
+        && session.sessionId === invite.assessmentSessionId;
+      nextSession = originatingAcquirer
+        ? attachTargetSelfCompletion(session, envelope)
+        : Object.freeze({
+          ...session,
+          targetInvite: Object.freeze({
+            ...invite,
+            completed: true,
+            completedAt: envelope.completedAt,
+          }),
+          targetSelfAssessment,
+        });
     } else {
       nextSession = Object.freeze({
         ...session,
@@ -5116,10 +5223,10 @@ function PreliminaryTargetGateScreen({ session, setSession }) {
         const completedInvite = parseTargetSelfCompletion({
           targetSessionId: body.targetSessionId,
           assessmentId: body.assessmentId,
+          assessmentSessionId: body.assessmentSessionId,
           codeHash: body.codeHash,
           completed: true,
           completedAt: body.completedAt,
-          targetSelfAssessment: body.targetSelfAssessment,
         });
 
         if (!completedInvite) return;
@@ -7812,7 +7919,9 @@ async function sendHiddenFinalDeliverablesReportCopy(deliverable, session, exist
 }
 
 function PaidOfferScreen({ session, setSession, variant }) {
-  const deliverable = buildFinalDeliverable(session);
+  const deliverable = session.serverReportProjection?.deliverable?.ready
+    ? session.serverReportProjection.deliverable
+    : { ready: false };
   const isHomogeneous = variant === "homogeneous";
   const offer = buildPaidOffer(variant, {
     alias: isHomogeneous && deliverable.ready && deliverable.screen === "screen-10b" ? deliverable.acquirerAlias : undefined,
@@ -7886,7 +7995,7 @@ function EmailCaptureScreen({ session, setSession }) {
           <span>Reference: {delivery.reportId}</span>
         </section>
         <div className="button-row">
-          <button type="button" onClick={() => navigate(paidOfferRouteForDeliverable(buildFinalDeliverable(session)))}>Open paid offer</button>
+          <button type="button" onClick={() => navigate(paidOfferRouteForDeliverable(session.serverReportProjection?.deliverable))}>Open paid offer</button>
           <button type="button" onClick={() => navigate("/")}>Start new diagnostic</button>
         </div>
       </main>
@@ -8110,8 +8219,12 @@ function FinalDeliverablesScreen({ session, setSession }) {
   }
 
   const deliverable = authorityState.projection.deliverable;
+  const boundedSession = authorityState.projection.boundedSession && typeof authorityState.projection.boundedSession === "object"
+    ? authorityState.projection.boundedSession
+    : {};
   const serverSession = Object.freeze({
-    ...authorityState.projection.session,
+    sessionId: session.sessionId,
+    ...boundedSession,
     productionAuthority: Object.freeze({ authorityId: authorityState.authorityId, reportReady: true }),
     serverReportProjection: authorityState.projection,
   });
@@ -8139,7 +8252,7 @@ export default function App() {
   const screen = useCurrentRoute();
   const targetSessionId = targetSessionIdFromLocation();
   const acquirerVerificationInvite = session.acquirerVerificationInvite;
-  const authoritySyncRef = useRef({ sessionId: null, fingerprints: {} });
+  const authoritySyncRef = useRef({ sessionId: null, fingerprints: {}, executeKey: null });
   const isTargetStandaloneRoute = (screen.id === "screen-9a-target-code-gate" && Boolean(targetSessionId))
     || screen.id === "screen-2c-target-self-assessment"
     || screen.id === "screen-6-acquirer-verification"
@@ -8151,7 +8264,7 @@ export default function App() {
     productionAuthorityRequest({ action: "CREATE_SESSION", projectId: null }, controller.signal)
       .then(({ response, payload }) => {
         if (!response.ok || payload?.status !== "session-created" || !isServerAssessmentSessionId(payload.sessionId)) return;
-        authoritySyncRef.current = { sessionId: payload.sessionId, fingerprints: {} };
+        authoritySyncRef.current = { sessionId: payload.sessionId, fingerprints: {}, executeKey: null };
         setSession((current) => Object.freeze({
           ...current,
           sessionId: payload.sessionId,
@@ -8166,7 +8279,7 @@ export default function App() {
   useEffect(() => {
     if (isTargetStandaloneRoute || !isServerAssessmentSessionId(session.sessionId)) return undefined;
     if (authoritySyncRef.current.sessionId !== session.sessionId) {
-      authoritySyncRef.current = { sessionId: session.sessionId, fingerprints: {} };
+      authoritySyncRef.current = { sessionId: session.sessionId, fingerprints: {}, executeKey: null };
     }
     const controller = new AbortController();
     const candidates = [];
@@ -8176,36 +8289,15 @@ export default function App() {
     if (session.acquirer2A?.completed && session.acquirer2A?.answers) {
       candidates.push({ key: "r1", payload: { action: "SAVE_R1", sessionId: session.sessionId, answers: session.acquirer2A.answers } });
     }
-    if (session.acquirerVerification?.completed && session.acquirerVerification?.answers) {
-      candidates.push({
-        key: "r2",
-        payload: {
-          action: "SAVE_R2",
-          sessionId: session.sessionId,
-          completed: true,
-          answers: session.acquirerVerification.answers,
-          respondentContext: session.acquirerVerification.respondentMetadata ?? null,
-          respondentId: session.acquirerVerificationInvite?.acquirerVerificationSessionId ?? null,
-        },
-      });
-    }
-    if (session.targetSelfAssessment?.completed && session.targetSelfAssessment?.answers && session.targetSelfAssessment?.positioning) {
-      candidates.push({
-        key: "targetSelf",
-        payload: {
-          action: "SAVE_REPORT_INPUT",
-          sessionId: session.sessionId,
-          completed: true,
-          answers: session.targetSelfAssessment.answers,
-          positioning: session.targetSelfAssessment.positioning,
-          respondentId: session.targetInvite?.targetSessionId ?? null,
-        },
-      });
-    }
     const pending = candidates.filter((candidate) => (
       authoritySyncRef.current.fingerprints[candidate.key] !== JSON.stringify(candidate.payload)
     ));
-    if (pending.length === 0) return () => controller.abort();
+    const r2Complete = Boolean(session.acquirerVerification?.completed || session.acquirerVerificationInvite?.completed);
+    const targetComplete = Boolean(session.targetInvite?.completed || session.targetSelfAssessment?.completed);
+    const executeKey = `${session.sessionId}|r2:${r2Complete}|target:${targetComplete}`;
+    if (pending.length === 0 && (!targetComplete || authoritySyncRef.current.executeKey === executeKey)) {
+      return () => controller.abort();
+    }
 
     (async () => {
       let latestRevision = null;
@@ -8218,8 +8310,7 @@ export default function App() {
       }
       if (controller.signal.aborted) return;
 
-      const localProjectionCandidate = buildFinalDeliverable(session);
-      if (!localProjectionCandidate.ready) {
+      if (!targetComplete) {
         setSession((current) => Object.freeze({
           ...current,
           productionAuthority: latestRevision === null ? current.productionAuthority : { inputRevision: latestRevision, reportReady: false },
@@ -8229,6 +8320,7 @@ export default function App() {
       }
 
       const { response, payload } = await productionAuthorityRequest({ action: "EXECUTE", sessionId: session.sessionId }, controller.signal);
+      authoritySyncRef.current.executeKey = executeKey;
       if (!response.ok || payload?.status !== "report-ready" || payload?.reportReady !== true || !payload?.projection) {
         setSession((current) => Object.freeze({
           ...current,
@@ -8267,11 +8359,7 @@ export default function App() {
 
     function applyCompletion(completedInvite) {
       if (cancelled || !completedInvite) return;
-      setSession((current) => attachAcquirerVerificationCompletion(current, {
-        ...acquirerVerificationInvite,
-        ...completedInvite,
-        completed: true,
-      }));
+      setSession((current) => attachBoundedAcquirerVerificationCompletion(current, completedInvite));
     }
 
     function handleCompletionEvent(event) {

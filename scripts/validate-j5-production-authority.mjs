@@ -185,6 +185,21 @@ async function action(body, expectedStatus = null) {
   return result;
 }
 
+function assertBrowserAuthorizedProjection(projection) {
+  assert.ok(projection && typeof projection === "object", "browser projection is required");
+  assert.equal(projection.session, undefined, "browser projection must not expose internal session");
+  assert.equal(projection.html, undefined, "browser projection must not expose server html");
+  assert.equal(projection.reportEmailCopy, undefined, "browser projection must not expose reportEmailCopy");
+  assert.equal(projection.deliverable?.ready, true, "browser projection must carry a ready deliverable");
+  assert.ok(projection.report && typeof projection.report === "object", "browser projection must carry the public report");
+  assert.ok(projection.boundedSession && typeof projection.boundedSession === "object", "browser projection must carry boundedSession");
+  assert.equal(projection.boundedSession.acquirer2A?.completed, true, "boundedSession must retain derived acquirer completion");
+  assert.equal(projection.boundedSession.answers, undefined);
+  assert.equal(projection.boundedSession.acquirerVerification?.answers, undefined);
+  assert.equal(projection.boundedSession.targetSelfAssessment?.answers, undefined);
+  assert.equal(projection.boundedSession.targetSelfAssessment?.positioning, undefined);
+}
+
 export async function createReadyAssessment({ includeR2 = false, r2AnswerOverrides = {} } = {}) {
   const created = await action({ action: "CREATE_SESSION", projectId: null }, 201);
   const sessionId = created.body.sessionId;
@@ -241,8 +256,14 @@ export async function runValidator() {
     await check("PA-07", "execute reconstructs canonical session server-side", async () => {
       const result = await action({ action: "EXECUTE", sessionId: ready.sessionId });
       assert.equal(result.body.status, "report-ready", JSON.stringify(result.body));
+      assert.equal(result.body.reportReady, true);
+      assert.match(result.body.authorityId, /^auth-[0-9a-f-]{36}$/i);
       ready.executed = result;
-      assert.equal(result.body.projection.session.acquirer2A.completed, true);
+      assertBrowserAuthorizedProjection(result.body.projection);
+      const record = await readAssessmentSession(ready.sessionId);
+      assert.equal(record.reportAuthority.projection.session.acquirer2A.completed, true);
+      assert.equal(typeof record.reportAuthority.projection.html, "string");
+      assert.ok(record.reportAuthority.projection.reportEmailCopy?.subject);
     });
     await check("PA-08", "derived Engine and Agent request fields are rejected", async () => {
       await action({ action: "SAVE_R1", sessionId: ready.sessionId, answers: ready.fixture.acquirer2A.answers, engineSnapshotDigest: "forged" }, 400);
@@ -319,13 +340,19 @@ export async function runValidator() {
       assert.equal(result.body.status, "report-ready", JSON.stringify(result.body));
       assert.equal(result.body.terminalKind, "agent-result");
       assert.notEqual(result.body.authorityId, singleToDual.executed.body.authorityId);
+      assertBrowserAuthorizedProjection(result.body.projection);
       singleToDual.executed = result;
     });
     await check("PA-18", "server projection exists only on current successful authority", async () => {
       const status = await action({ action: "STATUS", sessionId: singleToDual.sessionId, authorityId: singleToDual.executed.body.authorityId }, 200);
       assert.equal(status.body.reportReady, true);
-      assert.equal(status.body.projection.deliverable.ready, true);
-      assert.equal(typeof status.body.projection.html, "string");
+      assert.equal(status.body.authorityId, singleToDual.executed.body.authorityId);
+      assert.equal(status.body.inputRevision, singleToDual.executed.body.inputRevision);
+      assertBrowserAuthorizedProjection(status.body.projection);
+      const record = await readAssessmentSession(singleToDual.sessionId);
+      assert.equal(record.reportAuthority.authorityId, status.body.authorityId);
+      assert.equal(typeof record.reportAuthority.projection.html, "string");
+      assert.ok(record.reportAuthority.projection.reportEmailCopy?.subject);
     });
     await check("PA-19", "unknown session fails closed", async () => {
       const unknown = await action({ action: "STATUS", sessionId: "asmt-00000000-0000-4000-8000-000000000000" }, 404);
@@ -344,6 +371,7 @@ export async function runValidator() {
       await action({ action: "SAVE_REPORT_INPUT", sessionId, completed: true, answers: target.answers, positioning: target.positioning, respondentId: `target-${sessionId}` }, 200);
       const executed = await action({ action: "EXECUTE", sessionId }, 200);
       assert.equal(executed.body.terminalKind, "agent-result");
+      assertBrowserAuthorizedProjection(executed.body.projection);
       const record = await readAssessmentSession(sessionId);
       assert.equal(record.interpretationAuthority.outcomeSource, "DUAL_CORE");
       const q7 = executed.body.projection.deliverable.withinEnvironmentDifferentiation.rows.find((row) => row.questionId === "Q7");
