@@ -30,10 +30,54 @@ type SessionRecord = {
   sessionId: string;
   createdAt: string;
   updatedAt: string;
+  projectId: string | null;
+  inputRevision: number;
+  rawAssessment: RawAssessmentState | null;
+  interpretationAuthority: AssessmentAuthorityRecord | null;
+  reportAuthority: AssessmentReportAuthority | null;
   targetObservationSetup: TargetObservationSetupRecord | null;
   targetObservation: unknown | null;
   target2B: unknown | null;
   targetInvite?: TargetInviteRecord | null;
+};
+
+export type RawAssessmentState = {
+  dealContext: Record<string, unknown> | null;
+  r1: { answers: Record<string, unknown> } | null;
+  r2: {
+    completed: boolean;
+    answers: Record<string, unknown>;
+    respondentContext: Record<string, unknown> | null;
+    respondentId: string | null;
+  } | null;
+  targetSelf: {
+    completed: boolean;
+    answers: Record<string, unknown>;
+    positioning: Record<string, unknown>;
+    respondentId: string | null;
+  } | null;
+};
+
+export type AssessmentAuthorityRecord = {
+  authorityId: string;
+  sessionId: string;
+  inputRevision: number;
+  terminalKind: "agent-result" | "system-failure" | "production-interpretation-blocked";
+  outcomeSource: string | null;
+  engineSnapshotDigest: string | null;
+  result: unknown | null;
+  failure: unknown | null;
+  reportReady: boolean;
+  createdAt: string;
+};
+
+export type AssessmentReportAuthority = {
+  authorityId: string;
+  sessionId: string;
+  inputRevision: number;
+  reportReady: true;
+  projection: unknown;
+  createdAt: string;
 };
 
 type LedgerGlobal = typeof globalThis & {
@@ -111,6 +155,11 @@ function emptySessionRecord(sessionId: string, now = new Date().toISOString()): 
     sessionId,
     createdAt: now,
     updatedAt: now,
+    projectId: null,
+    inputRevision: 0,
+    rawAssessment: null,
+    interpretationAuthority: null,
+    reportAuthority: null,
     targetObservationSetup: null,
     targetObservation: null,
     target2B: null,
@@ -129,6 +178,19 @@ function normalizeSessionRecord(sessionId: string, value: unknown): SessionRecor
     sessionId,
     createdAt: typeof record.createdAt === "string" ? record.createdAt : now,
     updatedAt: typeof record.updatedAt === "string" ? record.updatedAt : now,
+    projectId: typeof record.projectId === "string" ? record.projectId : null,
+    inputRevision: Number.isInteger(record.inputRevision) && Number(record.inputRevision) >= 0
+      ? Number(record.inputRevision)
+      : 0,
+    rawAssessment: record.rawAssessment && typeof record.rawAssessment === "object"
+      ? record.rawAssessment as RawAssessmentState
+      : null,
+    interpretationAuthority: record.interpretationAuthority && typeof record.interpretationAuthority === "object"
+      ? record.interpretationAuthority as AssessmentAuthorityRecord
+      : null,
+    reportAuthority: record.reportAuthority && typeof record.reportAuthority === "object"
+      ? record.reportAuthority as AssessmentReportAuthority
+      : null,
     targetObservationSetup: record.targetObservationSetup ?? null,
     targetObservation: record.targetObservation ?? null,
     target2B: record.target2B ?? null,
@@ -217,6 +279,136 @@ async function writeLedgerSession(sessionId: string, session: SessionRecord) {
   return session;
 }
 
+function existingLocalSession(sessionId: string) {
+  return ledger().get(sessionId) ?? null;
+}
+
+async function readExistingLedgerSession(sessionId: string): Promise<SessionRecord | null> {
+  const config = storageConfig();
+  if (!config) return existingLocalSession(sessionId);
+
+  const raw = await redisCommand(["GET", targetObservationSessionKey(sessionId)], "persistent-storage-read-failed");
+  if (raw === null || raw === undefined) return null;
+  try {
+    const session = normalizeSessionRecord(sessionId, typeof raw === "string" ? JSON.parse(raw) : raw);
+    ledger().set(sessionId, session);
+    return session;
+  } catch {
+    throw new SessionLedgerStorageError(
+      "persistent-storage-invalid-record",
+      "Assessment persistent storage returned an invalid session record.",
+    );
+  }
+}
+
+export async function createAssessmentSession(projectId: string | null = null) {
+  for (let attempt = 0; attempt < 4; attempt += 1) {
+    const sessionId = `asmt-${randomUUID()}`;
+    const record = { ...emptySessionRecord(sessionId), projectId };
+    const config = storageConfig();
+    if (!config) {
+      ledger().set(sessionId, record);
+      return record;
+    }
+    const created = await redisCommand(
+      ["SET", targetObservationSessionKey(sessionId), JSON.stringify(record), "NX", "EX", String(TARGET_OBSERVATION_SESSION_TTL_SECONDS)],
+      "persistent-storage-write-failed",
+    );
+    if (created === "OK") {
+      ledger().set(sessionId, record);
+      return record;
+    }
+  }
+  throw new SessionLedgerStorageError("assessment-session-mint-failed", "Assessment session identity could not be minted.");
+}
+
+export async function readAssessmentSession(sessionId: string) {
+  if (!/^asmt-[0-9a-f-]{36}$/i.test(sessionId)) return null;
+  return readExistingLedgerSession(sessionId);
+}
+
+function nextMeaningfulRevision(session: SessionRecord, updatedAt: string): SessionRecord {
+  return {
+    ...session,
+    inputRevision: session.inputRevision + 1,
+    updatedAt,
+    interpretationAuthority: null,
+    reportAuthority: null,
+  };
+}
+
+export async function saveRawAssessmentState(sessionId: string, rawAssessment: RawAssessmentState) {
+  const config = storageConfig();
+  if (config) {
+    const updatedAt = new Date().toISOString();
+    const raw = await redisCommand([
+      "EVAL",
+      "local v=redis.call('GET',KEYS[1]); if not v then return nil end; local r=cjson.decode(v); r.rawAssessment=cjson.decode(ARGV[1]); r.inputRevision=(tonumber(r.inputRevision) or 0)+1; r.interpretationAuthority=cjson.null; r.reportAuthority=cjson.null; r.updatedAt=ARGV[2]; local out=cjson.encode(r); redis.call('SET',KEYS[1],out,'EX',ARGV[3]); return out",
+      "1",
+      targetObservationSessionKey(sessionId),
+      JSON.stringify(rawAssessment),
+      updatedAt,
+      String(TARGET_OBSERVATION_SESSION_TTL_SECONDS),
+    ], "persistent-storage-write-failed");
+    if (raw === null || raw === undefined) return null;
+    const next = normalizeSessionRecord(sessionId, typeof raw === "string" ? JSON.parse(raw) : raw);
+    ledger().set(sessionId, next);
+    return next;
+  }
+  const current = await readAssessmentSession(sessionId);
+  if (!current) return null;
+  const updatedAt = new Date().toISOString();
+  const next = nextMeaningfulRevision({ ...current, rawAssessment }, updatedAt);
+  return writeLedgerSession(sessionId, next);
+}
+
+export async function commitAssessmentAuthority(
+  sessionId: string,
+  revisionAtStart: number,
+  interpretationAuthority: AssessmentAuthorityRecord,
+  reportAuthority: AssessmentReportAuthority | null,
+) {
+  const config = storageConfig();
+  if (config) {
+    const updatedAt = new Date().toISOString();
+    const raw = await redisCommand([
+      "EVAL",
+      "local v=redis.call('GET',KEYS[1]); if not v then return nil end; local r=cjson.decode(v); if tonumber(r.inputRevision)~=tonumber(ARGV[1]) then return nil end; r.interpretationAuthority=cjson.decode(ARGV[2]); r.reportAuthority=ARGV[3]=='null' and cjson.null or cjson.decode(ARGV[3]); r.updatedAt=ARGV[4]; local out=cjson.encode(r); redis.call('SET',KEYS[1],out,'EX',ARGV[5]); return out",
+      "1",
+      targetObservationSessionKey(sessionId),
+      String(revisionAtStart),
+      JSON.stringify(interpretationAuthority),
+      reportAuthority ? JSON.stringify(reportAuthority) : "null",
+      updatedAt,
+      String(TARGET_OBSERVATION_SESSION_TTL_SECONDS),
+    ], "persistent-storage-write-failed");
+    if (raw === null || raw === undefined) return null;
+    const next = normalizeSessionRecord(sessionId, typeof raw === "string" ? JSON.parse(raw) : raw);
+    ledger().set(sessionId, next);
+    return next;
+  }
+  const current = await readAssessmentSession(sessionId);
+  if (!current || current.inputRevision !== revisionAtStart) return null;
+  const next: SessionRecord = {
+    ...current,
+    updatedAt: new Date().toISOString(),
+    interpretationAuthority,
+    reportAuthority,
+  };
+  return writeLedgerSession(sessionId, next);
+}
+
+export function currentAssessmentAuthority(session: SessionRecord | null) {
+  if (!session?.interpretationAuthority) return null;
+  const authority = session.interpretationAuthority;
+  if (authority.sessionId !== session.sessionId || authority.inputRevision !== session.inputRevision) return null;
+  if (session.reportAuthority && (
+    session.reportAuthority.authorityId !== authority.authorityId
+    || session.reportAuthority.inputRevision !== session.inputRevision
+  )) return null;
+  return authority;
+}
+
 export function getSession(sessionId: string) {
   const store = ledger();
   const existing = store.get(sessionId);
@@ -276,11 +468,10 @@ async function persistTargetObservationSetupRecord(
   setup: TargetObservationSetupBaseRecord,
 ) {
   const session = await readLedgerSession(sessionId);
-  const nextSession: SessionRecord = {
+  const nextSession = nextMeaningfulRevision({
     ...session,
-    updatedAt: new Date().toISOString(),
     targetObservationSetup: mergeTargetObservationSetupRecords(session.targetObservationSetup, setup),
-  };
+  }, new Date().toISOString());
   return writeLedgerSession(sessionId, nextSession);
 }
 
@@ -505,13 +696,12 @@ export async function saveTargetObservationCompletion(input: {
   });
 
   const session = await readLedgerSession(input.assessmentSessionId);
-  const nextSession: SessionRecord = {
+  const nextSession = nextMeaningfulRevision({
     ...session,
-    updatedAt: now,
     targetObservationSetup: setupRecord,
     targetObservation,
     target2B: targetDiagnostic.target2B,
-  };
+  }, now);
   await writeLedgerSession(input.assessmentSessionId, nextSession);
 
   return {

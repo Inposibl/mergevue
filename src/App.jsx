@@ -154,7 +154,36 @@ const INITIAL_SESSION = Object.freeze({
   reportDelivery: null,
   consultationRequest: null,
   consultationEmailDelivery: null,
+  productionAuthority: null,
+  serverReportProjection: null,
 });
+
+function isServerAssessmentSessionId(value) {
+  return typeof value === "string" && /^asmt-[0-9a-f-]{36}$/i.test(value);
+}
+
+function authoritativeReportReady(session) {
+  return Boolean(
+    isServerAssessmentSessionId(session?.sessionId)
+      && session?.productionAuthority?.reportReady === true
+      && session?.productionAuthority?.authorityId,
+  );
+}
+
+function authoritativeReportRoute(session) {
+  return session?.serverReportProjection?.deliverable?.route ?? "/screen-10-reveal";
+}
+
+async function productionAuthorityRequest(body, signal) {
+  const response = await fetch("/api/production-interpretation", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(body),
+    signal,
+  });
+  const payload = await response.json().catch(() => null);
+  return { response, payload };
+}
 
 const BACK_NAVIGATION_WARNING = "Progress will be lost if you go back. Continue?";
 const NAVIGATE_EVENT = "st:navigate";
@@ -1490,8 +1519,8 @@ function AcquisitionMotiveScreen({ session, setSession }) {
 
         {error ? <p className="form-error">{error}</p> : null}
         <div className="button-row">
-          {finalDeliverable.ready ? (
-            <button className="final-report-cta" type="button" onClick={() => navigate(finalDeliverable.route)}>Go to final report page</button>
+          {authoritativeReportReady(session) ? (
+            <button className="final-report-cta" type="button" onClick={() => navigate(authoritativeReportRoute(session))}>Go to final report page</button>
           ) : null}
           <button className="primary-flow-action" disabled={!canContinue} type="submit">{submitLabel}</button>
         </div>
@@ -4061,9 +4090,9 @@ function TargetReceiptScreen({ invited = false, session = null }) {
         <p>{TARGET_SELF_ASSESSMENT_DATA.receipt.body}</p>
         {invited ? <p className="source-note">When the original assessment tab is still open in this browser, it is notified automatically. If that tab does not update, return to it and open the forecast report.</p> : null}
         <strong>{TARGET_SELF_ASSESSMENT_DATA.receipt.close}</strong>
-        {finalDeliverable.ready ? (
+        {authoritativeReportReady(session) ? (
           <div className="button-row">
-            <button className="final-report-cta" type="button" onClick={() => navigate(finalDeliverable.route)}>Go to final report page</button>
+            <button className="final-report-cta" type="button" onClick={() => navigate(authoritativeReportRoute(session))}>Go to final report page</button>
           </div>
         ) : null}
       </section>
@@ -4202,11 +4231,6 @@ function TargetSelfAssessmentSurvey({ session, setSession, invite = null }) {
     }
 
     setSession(nextSession);
-    const finalDeliverable = buildFinalDeliverable(nextSession);
-    if (finalDeliverable.ready) {
-      navigate(finalDeliverable.route);
-      return;
-    }
     setReceipt(true);
   }
 
@@ -4827,9 +4851,9 @@ function PreliminaryAssessmentReport({ session }) {
             <p>{publicReportText(nextStepText)}</p>
           </article>
         </div>
-        {finalDeliverable.ready ? (
+        {authoritativeReportReady(session) ? (
           <div className="button-row">
-            <button className="final-report-cta" type="button" onClick={() => navigate(finalDeliverable.route)}>Go to final report page</button>
+            <button className="final-report-cta" type="button" onClick={() => navigate(authoritativeReportRoute(session))}>Go to final report page</button>
           </div>
         ) : null}
       </section>
@@ -6247,11 +6271,11 @@ function ForecastLedPublicReport({ report }) {
   );
 }
 
-function HeterogeneousRevealScreen({ session, setSession, deliverable }) {
+function HeterogeneousRevealScreen({ session, setSession, deliverable, report }) {
   const [downloadState, setDownloadState] = useState("");
   const [savingReport, setSavingReport] = useState(false);
   const offer = buildPaidOffer("heterogeneous", { deliverable });
-  const forecastReport = buildMergevuePublicReportModel(session, { deliverable });
+  const forecastReport = report;
 
    async function saveReportPdf() {
     if (savingReport) return;
@@ -6311,11 +6335,11 @@ function HeterogeneousRevealScreen({ session, setSession, deliverable }) {
   );
 }
 
-function HomogeneousRevealScreen({ session, deliverable }) {
+function HomogeneousRevealScreen({ session, deliverable, report }) {
   const [downloadState, setDownloadState] = useState("");
   const [savingReport, setSavingReport] = useState(false);
   const offer = buildPaidOffer("homogeneous", { alias: deliverable.acquirerAlias, deliverable });
-  const forecastReport = buildMergevuePublicReportModel(session, { deliverable });
+  const forecastReport = report;
 
     async function saveReportPdf() {
     if (savingReport) return;
@@ -7697,30 +7721,17 @@ function createForecastBriefVisualHtml(deliverable, session) {
   return html;
 }
 
-function forecastBriefPdfServiceConfig() {
-  const serviceUrl = String(import.meta.env.VITE_PDF_RENDER_SERVICE_URL || "").trim();
-  const apiKey = String(import.meta.env.VITE_PDF_RENDER_API_KEY || "").trim();
-
-  if (!serviceUrl) {
-    throw new Error("PDF render service is not configured. Set VITE_PDF_RENDER_SERVICE_URL.");
+async function createForecastBriefVisualPdfBlob(deliverable, session) {
+  if (!deliverable?.ready || !authoritativeReportReady(session)) {
+    throw new Error("Current server report authority is required.");
   }
 
-  return { serviceUrl, apiKey };
-}
-
-async function createForecastBriefVisualPdfBlob(deliverable, session) {
-  const html = createForecastBriefVisualHtml(deliverable, session);
-  const { serviceUrl, apiKey } = forecastBriefPdfServiceConfig();
-
-  const response = await fetch(serviceUrl, {
+  const response = await fetch("/api/final-report?action=download-final-report", {
     method: "POST",
-    headers: {
-      "content-type": "application/json",
-      ...(apiKey ? { "x-pdf-render-key": apiKey } : {}),
-    },
+    headers: { "content-type": "application/json" },
     body: JSON.stringify({
-      html,
-      filename: MERGEVUE_FORECAST_BRIEF_PDF_FILE_NAME,
+      sessionId: session.sessionId,
+      authorityId: session.productionAuthority.authorityId,
     }),
   });
 
@@ -7743,9 +7754,8 @@ async function createForecastBriefVisualPdfBlob(deliverable, session) {
 }
 
 async function downloadFinalDeliverablesReportPdf(deliverable, offer, session, existingPdf = null) {
-  const blob = existingPdf instanceof Blob
-    ? existingPdf
-    : await createForecastBriefVisualPdfBlob(deliverable, session);
+  void offer;
+  const blob = existingPdf instanceof Blob ? existingPdf : await createForecastBriefVisualPdfBlob(deliverable, session);
 
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
@@ -7782,29 +7792,16 @@ function blobToBase64(blob) {
 }
 
 async function sendHiddenFinalDeliverablesReportCopy(deliverable, session, existingPdf = null) {
-  if (!deliverable?.ready) {
-    throw new Error("Forecast report is not ready.");
-  }
-
-  const pdf = existingPdf ?? createFinalDeliverablesReportPdf(deliverable, session);
-  const pdfBase64 = pdf instanceof Blob ? await blobToBase64(pdf) : window.btoa(pdf);
-  const reportEmailCopy = createFinalDeliverablesReportEmailCopy(deliverable, session);
-  const hiddenAudit = createHiddenUserAnswersSnapshot(session, deliverable);
+  void existingPdf;
+  if (!deliverable?.ready || !authoritativeReportReady(session)) throw new Error("Current server report authority is required.");
   const response = await fetch("/api/final-report?action=send-final-report-hidden-copy", {
     method: "POST",
     headers: {
       "content-type": "application/json",
     },
     body: JSON.stringify({
-      reportId: finalReportCopyId(session),
-      fileName: MERGEVUE_FORECAST_BRIEF_PDF_FILE_NAME,
-      mimeType: "application/pdf",
-      pdfBase64,
-      reportEmailCopy,
-      session,
-      deliverable,
-      hiddenAuditJson: hiddenAudit.json,
-      hiddenAuditSummary: hiddenAudit.summary,
+      sessionId: session.sessionId,
+      authorityId: session.productionAuthority.authorityId,
     }),
   });
   const payload = await response.json().catch(() => null);
@@ -7905,8 +7902,8 @@ function EmailCaptureScreen({ session, setSession }) {
     event.preventDefault();
     if (sending) return;
 
-    const deliverable = buildFinalDeliverable(session);
-    if (!deliverable.ready) {
+    const deliverable = session.serverReportProjection?.deliverable;
+    if (!deliverable?.ready || !authoritativeReportReady(session)) {
       setError("Final report is not ready yet.");
       return;
     }
@@ -7926,20 +7923,16 @@ function EmailCaptureScreen({ session, setSession }) {
     setError("");
 
     try {
-      const pdf = createSimplePdf(buildFinalDeliverablesReportLines(deliverable, result.session));
       const response = await fetch("/api/final-report?action=send-final-report", {
         method: "POST",
         headers: {
           "content-type": "application/json",
         },
         body: JSON.stringify({
+          sessionId: session.sessionId,
+          authorityId: session.productionAuthority.authorityId,
           recipientEmail: result.emailCapture.email,
           firstName: result.emailCapture.firstName,
-          reportId: result.reportDelivery.reportId,
-          fileName: MERGEVUE_FORECAST_BRIEF_PDF_FILE_NAME,
-          mimeType: "application/pdf",
-          pdfBase64: window.btoa(pdf),
-          reportEmailCopy: createFinalDeliverablesReportEmailCopy(deliverable, result.session),
         }),
       });
       const payload = await response.json().catch(() => null);
@@ -8076,14 +8069,39 @@ function ConsultationRequestScreen({ session, setSession }) {
 }
 
 function FinalDeliverablesScreen({ session, setSession }) {
-  const deliverable = buildFinalDeliverable(session);
+  const [authorityState, setAuthorityState] = useState({ status: "checking", projection: null, authorityId: null });
   const preliminaryAssessmentAvailable = Boolean(session?.acquirer2A?.completed && hasSessionTargetObserverSubmission(session));
-  if (!deliverable.ready) {
+
+  useEffect(() => {
+    if (!isServerAssessmentSessionId(session?.sessionId)) {
+      setAuthorityState({ status: "locked", projection: null, authorityId: null });
+      return undefined;
+    }
+    const controller = new AbortController();
+    productionAuthorityRequest({
+      action: "STATUS",
+      sessionId: session.sessionId,
+      ...(session.productionAuthority?.authorityId ? { authorityId: session.productionAuthority.authorityId } : {}),
+    }, controller.signal)
+      .then(({ response, payload }) => {
+        if (!response.ok || payload?.status !== "report-ready" || payload?.reportReady !== true || !payload?.projection) {
+          setAuthorityState({ status: payload?.status ?? "locked", projection: null, authorityId: null });
+          return;
+        }
+        setAuthorityState({ status: "report-ready", projection: payload.projection, authorityId: payload.authorityId });
+      })
+      .catch((error) => {
+        if (error?.name !== "AbortError") setAuthorityState({ status: "unavailable", projection: null, authorityId: null });
+      });
+    return () => controller.abort();
+  }, [session?.sessionId, session?.productionAuthority?.authorityId]);
+
+  if (authorityState.status !== "report-ready" || !authorityState.projection) {
     return (
       <main className="screen-shell flow-screen compact-flow">
         <p className="eyebrow">Final deliverables</p>
         <h1>Final deliverables are locked</h1>
-        <p className="lead">Complete the Acquirer path and verified Target self-assessment before opening Screen 10.</p>
+        <p className="lead">The current assessment has not received server report authority.</p>
         {preliminaryAssessmentAvailable ? (
           <button type="button" onClick={() => navigate("/screen-9a-target-code-gate")}>Open Preliminary Assessment</button>
         ) : null}
@@ -8091,11 +8109,18 @@ function FinalDeliverablesScreen({ session, setSession }) {
     );
   }
 
+  const deliverable = authorityState.projection.deliverable;
+  const serverSession = Object.freeze({
+    ...authorityState.projection.session,
+    productionAuthority: Object.freeze({ authorityId: authorityState.authorityId, reportReady: true }),
+    serverReportProjection: authorityState.projection,
+  });
+
   if (deliverable.screen === "screen-10b") {
-    return <HomogeneousRevealScreen session={session} deliverable={deliverable} />;
+    return <HomogeneousRevealScreen session={serverSession} deliverable={deliverable} report={authorityState.projection.report} />;
   }
 
-  return <HeterogeneousRevealScreen session={session} setSession={setSession} deliverable={deliverable} />;
+  return <HeterogeneousRevealScreen session={serverSession} setSession={setSession} deliverable={deliverable} report={authorityState.projection.report} />;
 }
 
 function PlaceholderScreen({ screen }) {
@@ -8114,6 +8139,125 @@ export default function App() {
   const screen = useCurrentRoute();
   const targetSessionId = targetSessionIdFromLocation();
   const acquirerVerificationInvite = session.acquirerVerificationInvite;
+  const authoritySyncRef = useRef({ sessionId: null, fingerprints: {} });
+  const isTargetStandaloneRoute = (screen.id === "screen-9a-target-code-gate" && Boolean(targetSessionId))
+    || screen.id === "screen-2c-target-self-assessment"
+    || screen.id === "screen-6-acquirer-verification"
+    || screen.id === "screen-6a-target-observation-authorized";
+
+  useEffect(() => {
+    if (isTargetStandaloneRoute || isServerAssessmentSessionId(session.sessionId)) return undefined;
+    const controller = new AbortController();
+    productionAuthorityRequest({ action: "CREATE_SESSION", projectId: null }, controller.signal)
+      .then(({ response, payload }) => {
+        if (!response.ok || payload?.status !== "session-created" || !isServerAssessmentSessionId(payload.sessionId)) return;
+        authoritySyncRef.current = { sessionId: payload.sessionId, fingerprints: {} };
+        setSession((current) => Object.freeze({
+          ...current,
+          sessionId: payload.sessionId,
+          productionAuthority: null,
+          serverReportProjection: null,
+        }));
+      })
+      .catch(() => {});
+    return () => controller.abort();
+  }, [isTargetStandaloneRoute, session.sessionId]);
+
+  useEffect(() => {
+    if (isTargetStandaloneRoute || !isServerAssessmentSessionId(session.sessionId)) return undefined;
+    if (authoritySyncRef.current.sessionId !== session.sessionId) {
+      authoritySyncRef.current = { sessionId: session.sessionId, fingerprints: {} };
+    }
+    const controller = new AbortController();
+    const candidates = [];
+    if (session.dealContext?.completed && session.dealContext?.data) {
+      candidates.push({ key: "deal", payload: { action: "SAVE_DEAL_CONTEXT", sessionId: session.sessionId, dealContext: session.dealContext.data } });
+    }
+    if (session.acquirer2A?.completed && session.acquirer2A?.answers) {
+      candidates.push({ key: "r1", payload: { action: "SAVE_R1", sessionId: session.sessionId, answers: session.acquirer2A.answers } });
+    }
+    if (session.acquirerVerification?.completed && session.acquirerVerification?.answers) {
+      candidates.push({
+        key: "r2",
+        payload: {
+          action: "SAVE_R2",
+          sessionId: session.sessionId,
+          completed: true,
+          answers: session.acquirerVerification.answers,
+          respondentContext: session.acquirerVerification.respondentMetadata ?? null,
+          respondentId: session.acquirerVerificationInvite?.acquirerVerificationSessionId ?? null,
+        },
+      });
+    }
+    if (session.targetSelfAssessment?.completed && session.targetSelfAssessment?.answers && session.targetSelfAssessment?.positioning) {
+      candidates.push({
+        key: "targetSelf",
+        payload: {
+          action: "SAVE_REPORT_INPUT",
+          sessionId: session.sessionId,
+          completed: true,
+          answers: session.targetSelfAssessment.answers,
+          positioning: session.targetSelfAssessment.positioning,
+          respondentId: session.targetInvite?.targetSessionId ?? null,
+        },
+      });
+    }
+    const pending = candidates.filter((candidate) => (
+      authoritySyncRef.current.fingerprints[candidate.key] !== JSON.stringify(candidate.payload)
+    ));
+    if (pending.length === 0) return () => controller.abort();
+
+    (async () => {
+      let latestRevision = null;
+      for (const candidate of pending) {
+        const fingerprint = JSON.stringify(candidate.payload);
+        const { response, payload } = await productionAuthorityRequest(candidate.payload, controller.signal);
+        if (!response.ok || payload?.status !== "input-saved") throw new Error("production input save failed");
+        authoritySyncRef.current.fingerprints[candidate.key] = fingerprint;
+        latestRevision = payload.inputRevision;
+      }
+      if (controller.signal.aborted) return;
+
+      const localProjectionCandidate = buildFinalDeliverable(session);
+      if (!localProjectionCandidate.ready) {
+        setSession((current) => Object.freeze({
+          ...current,
+          productionAuthority: latestRevision === null ? current.productionAuthority : { inputRevision: latestRevision, reportReady: false },
+          serverReportProjection: null,
+        }));
+        return;
+      }
+
+      const { response, payload } = await productionAuthorityRequest({ action: "EXECUTE", sessionId: session.sessionId }, controller.signal);
+      if (!response.ok || payload?.status !== "report-ready" || payload?.reportReady !== true || !payload?.projection) {
+        setSession((current) => Object.freeze({
+          ...current,
+          productionAuthority: { inputRevision: payload?.inputRevision ?? latestRevision, reportReady: false, status: payload?.status ?? "system-failure" },
+          serverReportProjection: null,
+        }));
+        return;
+      }
+      setSession((current) => Object.freeze({
+        ...current,
+        productionAuthority: Object.freeze({
+          authorityId: payload.authorityId,
+          inputRevision: payload.inputRevision,
+          reportReady: true,
+          terminalKind: payload.terminalKind,
+        }),
+        serverReportProjection: payload.projection,
+      }));
+      navigate(payload.projection.deliverable.route);
+    })().catch((error) => {
+      if (error?.name === "AbortError") return;
+      setSession((current) => Object.freeze({
+        ...current,
+        productionAuthority: { reportReady: false, status: "authority-unavailable" },
+        serverReportProjection: null,
+      }));
+    });
+    return () => controller.abort();
+  }, [isTargetStandaloneRoute, session]);
 
   useEffect(() => {
     if (!acquirerVerificationInvite || acquirerVerificationInvite.completed) return undefined;
@@ -8223,11 +8367,6 @@ export default function App() {
     }
     return <PlaceholderScreen screen={screen} />;
   }
-
-  const isTargetStandaloneRoute = (screen.id === "screen-9a-target-code-gate" && Boolean(targetSessionId))
-    || screen.id === "screen-2c-target-self-assessment"
-    || screen.id === "screen-6-acquirer-verification"
-    || screen.id === "screen-6a-target-observation-authorized";
 
   if (isTargetStandaloneRoute) {
     return renderScreen();

@@ -1,4 +1,9 @@
 import { createHiddenUserAnswersSnapshot } from "../src/reporting/hiddenUserAnswersSnapshot.js";
+import {
+  currentAssessmentAuthority,
+  isSessionLedgerStorageError,
+  readAssessmentSession,
+} from "../src/server/_sessionLedger.ts";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const DEFAULT_REPORT_HIDDEN_COPY_TO = "n.petyaev@gmail.com";
@@ -18,7 +23,7 @@ type NodeResponse = {
   json?: (body: unknown) => void;
   status?: (statusCode: number) => NodeResponse;
   setHeader: (name: string, value: string) => void;
-  end: (body: string) => void;
+  end: (body: any) => void;
 };
 
 type ReportEmailCopy = {
@@ -460,6 +465,100 @@ async function sendSurveyLink(
   });
 }
 
+type AuthorizedReportProjection = {
+  session: Record<string, unknown>;
+  deliverable: Record<string, unknown>;
+  reportEmailCopy?: unknown;
+  html: string;
+};
+
+async function resolveCurrentReportAuthority(body: unknown, allowedKeys: string[]): Promise<
+  | { ok: true; authorityId: string; projection: AuthorizedReportProjection }
+  | { ok: false; statusCode: number; status: string; error: string }
+> {
+  if (!isReconstructionInput(body) || !Object.keys(body).every((key) => allowedKeys.includes(key))) {
+    return { ok: false, statusCode: 400, status: "invalid-request", error: "Only bounded report-authority inputs are accepted." };
+  }
+  const sessionId = cleanString(body.sessionId);
+  const authorityId = cleanString(body.authorityId);
+  if (!/^asmt-[0-9a-f-]{36}$/i.test(sessionId) || !/^auth-[0-9a-f-]{36}$/i.test(authorityId)) {
+    return { ok: false, statusCode: 400, status: "invalid-request", error: "A server-issued sessionId and authorityId are required." };
+  }
+  const record = await readAssessmentSession(sessionId);
+  if (!record) {
+    return { ok: false, statusCode: 404, status: "unknown-session", error: "Assessment session was not found." };
+  }
+  const authority = currentAssessmentAuthority(record);
+  if (!authority || authority.authorityId !== authorityId || authority.reportReady !== true || !record.reportAuthority) {
+    return { ok: false, statusCode: 409, status: "stale-authority", error: "Current report authority is missing or stale." };
+  }
+  const projection = record.reportAuthority.projection;
+  if (!isReconstructionInput(projection)
+    || !isReconstructionInput(projection.session)
+    || !isReconstructionInput(projection.deliverable)
+    || typeof projection.html !== "string"
+    || !projection.html.trim()) {
+    return { ok: false, statusCode: 409, status: "not-report-ready", error: "Current server report projection is unavailable." };
+  }
+  return { ok: true, authorityId, projection: projection as AuthorizedReportProjection };
+}
+
+function pdfRendererConfig(request: NodeRequest) {
+  const explicit = firstConfiguredString(process.env.PDF_RENDER_SERVICE_URL);
+  const vercelHost = firstConfiguredString(process.env.VERCEL_URL);
+  const requestUrl = cleanString(request.url);
+  let serviceUrl = explicit;
+  if (!serviceUrl && vercelHost) serviceUrl = `https://${vercelHost.replace(/^https?:\/\//, "").replace(/\/$/, "")}/api/render-pdf`;
+  if (!serviceUrl && /^https?:\/\//i.test(requestUrl)) serviceUrl = new URL("/api/render-pdf", requestUrl).toString();
+  const apiKey = firstConfiguredString(process.env.PDF_RENDER_API_KEY);
+  if (!serviceUrl || !apiKey) throw new Error("PDF renderer is not configured");
+  return { serviceUrl, apiKey };
+}
+
+async function renderAuthorizedPdf(request: NodeRequest, projection: AuthorizedReportProjection) {
+  const { serviceUrl, apiKey } = pdfRendererConfig(request);
+  const rendererResponse = await fetch(serviceUrl, {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+      "x-pdf-render-key": apiKey,
+    },
+    body: JSON.stringify({
+      html: projection.html,
+      filename: MERGEVUE_PUBLIC_REPORT_PDF_FILE_NAME,
+    }),
+  });
+  if (!rendererResponse.ok) throw new Error(`PDF renderer returned ${rendererResponse.status}`);
+  const contentType = rendererResponse.headers.get("content-type") ?? "";
+  if (!contentType.toLowerCase().includes("application/pdf")) throw new Error("PDF renderer returned a non-PDF artifact");
+  const pdf = Buffer.from(await rendererResponse.arrayBuffer());
+  if (pdf.length < 10_000) throw new Error("PDF renderer returned an unexpectedly small artifact");
+  return pdf;
+}
+
+async function downloadFinalReport(request: NodeRequest, response: NodeResponse) {
+  if (request.method !== "POST") {
+    sendMethodNotAllowed(response, request.method, ["POST"]);
+    return;
+  }
+  const body = await parseBody(request);
+  const authorized = await resolveCurrentReportAuthority(body, ["sessionId", "authorityId"]);
+  if (!authorized.ok) {
+    sendJson(response, authorized.statusCode, { endpoint: "/api/final-report?action=download-final-report", status: authorized.status, error: authorized.error });
+    return;
+  }
+  try {
+    const pdf = await renderAuthorizedPdf(request, authorized.projection);
+    response.statusCode = 200;
+    response.setHeader("content-type", "application/pdf");
+    response.setHeader("content-disposition", `attachment; filename="${MERGEVUE_PUBLIC_REPORT_PDF_FILE_NAME}"`);
+    response.setHeader("content-length", String(pdf.length));
+    response.end(pdf);
+  } catch {
+    sendJson(response, 503, { endpoint: "/api/final-report?action=download-final-report", status: "report-render-unavailable", error: "The authorized report artifact could not be rendered." });
+  }
+}
+
 async function sendFinalReport(request: NodeRequest, response: NodeResponse) {
   if (request.method !== "POST") {
     sendMethodNotAllowed(response, request.method, ["POST"]);
@@ -469,9 +568,7 @@ async function sendFinalReport(request: NodeRequest, response: NodeResponse) {
   const body = await parseBody(request);
   const recipientEmail = normalizeEmail(body?.recipientEmail);
   const firstName = cleanString(body?.firstName);
-  const reportId = cleanString(body?.reportId);
-  const fileName = MERGEVUE_PUBLIC_REPORT_PDF_FILE_NAME;
-  const pdfBase64 = cleanString(body?.pdfBase64);
+  const authorized = await resolveCurrentReportAuthority(body, ["sessionId", "authorityId", "recipientEmail", "firstName"]);
 
   if (!EMAIL_PATTERN.test(recipientEmail) || !firstName) {
     sendJson(response, 400, {
@@ -482,11 +579,11 @@ async function sendFinalReport(request: NodeRequest, response: NodeResponse) {
     return;
   }
 
-  if (!reportId || !validPdfFileName(fileName) || !validPdfBase64(pdfBase64)) {
-    sendJson(response, 400, {
+  if (!authorized.ok) {
+    sendJson(response, authorized.statusCode, {
       endpoint: "/api/final-report?action=send-final-report",
-      status: "invalid-final-report",
-      error: "A valid reportId, PDF fileName, and PDF attachment are required",
+      status: authorized.status,
+      error: authorized.error,
     });
     return;
   }
@@ -513,7 +610,20 @@ async function sendFinalReport(request: NodeRequest, response: NodeResponse) {
     return;
   }
 
-  const reportMessage = buildFinalReportEmailMessage(firstName, reportId, body?.reportEmailCopy);
+  let pdfBase64: string;
+  try {
+    pdfBase64 = (await renderAuthorizedPdf(request, authorized.projection)).toString("base64");
+  } catch {
+    sendJson(response, 503, {
+      endpoint: "/api/final-report?action=send-final-report",
+      status: "report-render-unavailable",
+      error: "The authorized report artifact could not be rendered.",
+    });
+    return;
+  }
+  const reportId = authorized.authorityId;
+  const fileName = MERGEVUE_PUBLIC_REPORT_PDF_FILE_NAME;
+  const reportMessage = buildFinalReportEmailMessage(firstName, reportId, authorized.projection.reportEmailCopy);
 
   const providerResponse = await fetch("https://api.resend.com/emails", {
     method: "POST",
@@ -659,42 +769,75 @@ async function sendFinalReportHiddenCopy(request: NodeRequest, response: NodeRes
   }
 
   const body = await parseBody(request);
-  const decision = evaluateHiddenCopyRequest(body);
-  if (!decision.ready) {
-    sendJson(response, decision.status, decision.body);
+  const authorized = await resolveCurrentReportAuthority(body, ["sessionId", "authorityId"]);
+  if (!authorized.ok) {
+    sendJson(response, authorized.statusCode, {
+      endpoint: HIDDEN_COPY_ENDPOINT,
+      status: authorized.status,
+      error: authorized.error,
+    });
+    return;
+  }
+
+  const apiKey = cleanString(process.env.RESEND_API_KEY);
+  const from = firstConfiguredString(
+    process.env.REPORT_FROM_EMAIL,
+    process.env.REPORT_COPY_FROM,
+    process.env.AUTHORIZED_LINK_FROM_EMAIL,
+    process.env.AUTHORIZED_LINK_FROM,
+  );
+  const hiddenCopyTo = normalizeEmail(firstConfiguredString(process.env.REPORT_HIDDEN_COPY_TO, DEFAULT_REPORT_HIDDEN_COPY_TO));
+  if (!apiKey || !from || !EMAIL_PATTERN.test(hiddenCopyTo)) {
+    sendJson(response, 503, {
+      endpoint: HIDDEN_COPY_ENDPOINT,
+      status: "email-service-not-configured",
+      error: "RESEND_API_KEY, sender e-mail, and hidden-copy recipient environment variables are required",
+    });
+    return;
+  }
+  const audit = resolveAuthoritativeHiddenAudit(authorized.projection);
+  if (!audit.ok) {
+    sendJson(response, audit.status, { endpoint: HIDDEN_COPY_ENDPOINT, status: audit.code, error: audit.error });
+    return;
+  }
+  let pdfBase64: string;
+  try {
+    pdfBase64 = (await renderAuthorizedPdf(request, authorized.projection)).toString("base64");
+  } catch {
+    sendJson(response, 503, { endpoint: HIDDEN_COPY_ENDPOINT, status: "report-render-unavailable", error: "The authorized report artifact could not be rendered." });
     return;
   }
 
   const reportMessage = buildHiddenFinalReportCopyMessage(
-    decision.reportId,
-    decision.reportEmailCopy,
-    decision.audit.summary,
+    authorized.authorityId,
+    authorized.projection.reportEmailCopy,
+    audit.summary,
   );
 
   const providerResponse = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
-      authorization: `Bearer ${decision.apiKey}`,
+        authorization: `Bearer ${apiKey}`,
       "content-type": "application/json",
     },
     body: JSON.stringify({
-      from: decision.from,
-      to: [decision.hiddenCopyTo],
+      from,
+      to: [hiddenCopyTo],
       subject: reportMessage.subject,
       text: reportMessage.text,
       html: reportMessage.html,
       attachments: [
         {
-          filename: decision.fileName,
-          content: decision.pdfBase64,
+          filename: MERGEVUE_PUBLIC_REPORT_PDF_FILE_NAME,
+          content: pdfBase64,
         },
         {
           filename: "mergevue-hidden-user-answers.json",
-          content: Buffer.from(decision.audit.json, "utf8").toString("base64"),
+          content: Buffer.from(audit.json, "utf8").toString("base64"),
         },
         {
           filename: "mergevue-hidden-user-answers.txt",
-          content: Buffer.from(decision.audit.summary, "utf8").toString("base64"),
+          content: Buffer.from(audit.summary, "utf8").toString("base64"),
         },
       ],
     }),
@@ -946,6 +1089,19 @@ async function readTargetSelfCompletion(request: NodeRequest, response: NodeResp
 
 export default async function handler(request: NodeRequest, response: NodeResponse) {
   const requestUrl = new URL(request.url ?? "/api/final-report", "https://st.local");
+
+  if (requestUrl.searchParams.get("action") === "download-final-report") {
+    try {
+      await downloadFinalReport(request, response);
+    } catch (error) {
+      sendJson(response, 503, {
+        endpoint: "/api/final-report?action=download-final-report",
+        status: isSessionLedgerStorageError(error) ? error.status : "system-failure",
+        error: "Final report authority is unavailable.",
+      });
+    }
+    return;
+  }
   
   if (requestUrl.searchParams.get("action") === "save-target-self-completion") {
     await saveTargetSelfCompletion(request, response);
@@ -958,12 +1114,28 @@ export default async function handler(request: NodeRequest, response: NodeRespon
   }
 
   if (requestUrl.searchParams.get("action") === "send-final-report-hidden-copy") {
-    await sendFinalReportHiddenCopy(request, response);
+    try {
+      await sendFinalReportHiddenCopy(request, response);
+    } catch (error) {
+      sendJson(response, 503, {
+        endpoint: HIDDEN_COPY_ENDPOINT,
+        status: isSessionLedgerStorageError(error) ? error.status : "system-failure",
+        error: "Final report authority is unavailable.",
+      });
+    }
     return;
   }
 
   if (requestUrl.searchParams.get("action") === "send-final-report") {
-    await sendFinalReport(request, response);
+    try {
+      await sendFinalReport(request, response);
+    } catch (error) {
+      sendJson(response, 503, {
+        endpoint: "/api/final-report?action=send-final-report",
+        status: isSessionLedgerStorageError(error) ? error.status : "system-failure",
+        error: "Final report authority is unavailable.",
+      });
+    }
     return;
   }
 
@@ -999,5 +1171,3 @@ export default async function handler(request: NodeRequest, response: NodeRespon
     message: "Returns final report only after Acquirer and verified Target completion.",
   });
 }
-
-

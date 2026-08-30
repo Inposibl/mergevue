@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
+import finalReportHandler from "../api/final-report.ts";
 import { TARGET_DIAGNOSTIC_DATA } from "../src/data/targetDiagnosticData.js";
 import { TARGET_OBSERVATION_DIAGNOSTIC } from "../src/data/targetObservedEnvironmentDiagnostic.js";
 import { TARGET_SELF_ASSESSMENT_DATA } from "../src/data/targetSelfAssessmentData.js";
@@ -11,11 +12,125 @@ import {
 } from "../src/reporting/mergevuePublicReportModel.js";
 import { buildFinalDeliverable } from "../src/flow/finalDeliverableFlow.js";
 import { createHiddenUserAnswersSnapshot } from "../src/reporting/hiddenUserAnswersSnapshot.js";
+import {
+  createReadyAssessment,
+  installMockExternalProviders,
+} from "./validate-j5-production-authority.mjs";
 
 const APP_SOURCE = readFileSync(new URL("../src/App.jsx", import.meta.url), "utf8");
 const API_SOURCE = readFileSync(new URL("../api/final-report.ts", import.meta.url), "utf8");
 const PDF_VALIDATOR_SOURCE = readFileSync(new URL("./validate-mergevue-public-report-pdf.mjs", import.meta.url), "utf8");
 const MODEL_VALIDATOR_SOURCE = readFileSync(new URL("./validate-mergevue-public-report-model.mjs", import.meta.url), "utf8");
+
+async function invokeFinalReport(action, body) {
+  const headers = new Map();
+  let ended;
+  const response = {
+    statusCode: 200,
+    setHeader(name, value) { headers.set(String(name).toLowerCase(), String(value)); },
+    end(value) { ended = value; },
+  };
+  await finalReportHandler({
+    method: "POST",
+    url: `https://mergevue.test/api/final-report?action=${action}`,
+    body,
+  }, response);
+  const contentType = headers.get("content-type") ?? "";
+  return {
+    statusCode: response.statusCode,
+    headers,
+    body: contentType.includes("application/json") ? JSON.parse(String(ended)) : ended,
+  };
+}
+
+async function assertServerAuthorityDeliveryBoundary() {
+  const providers = installMockExternalProviders();
+  const originalFetch = globalThis.fetch;
+  const previousEnv = {
+    pdfUrl: process.env.PDF_RENDER_SERVICE_URL,
+    pdfKey: process.env.PDF_RENDER_API_KEY,
+    resendKey: process.env.RESEND_API_KEY,
+    reportFrom: process.env.REPORT_FROM_EMAIL,
+    hiddenTo: process.env.REPORT_HIDDEN_COPY_TO,
+  };
+  const providerCalls = { pdf: [], email: [] };
+  const pdf = Buffer.concat([Buffer.from("%PDF-1.7\n"), Buffer.alloc(10_500, 0x20), Buffer.from("\n%%EOF")]);
+
+  process.env.PDF_RENDER_SERVICE_URL = "https://pdf.test/render";
+  process.env.PDF_RENDER_API_KEY = "email-validator-pdf-key";
+  process.env.RESEND_API_KEY = "email-validator-resend-key";
+  process.env.REPORT_FROM_EMAIL = "report@mergevue.test";
+  process.env.REPORT_HIDDEN_COPY_TO = "audit@mergevue.test";
+  globalThis.fetch = async (url, options = {}) => {
+    const target = String(url);
+    if (target === "https://pdf.test/render") {
+      providerCalls.pdf.push(JSON.parse(String(options.body)));
+      return new Response(pdf, { status: 200, headers: { "content-type": "application/pdf" } });
+    }
+    if (target === "https://api.resend.com/emails") {
+      providerCalls.email.push(JSON.parse(String(options.body)));
+      return new Response(JSON.stringify({ id: `email-${providerCalls.email.length}` }), { status: 200, headers: { "content-type": "application/json" } });
+    }
+    return originalFetch(url, options);
+  };
+
+  try {
+    const ready = await createReadyAssessment();
+    assert.equal(ready.executed.body.status, "report-ready", JSON.stringify(ready.executed.body));
+    const { sessionId } = ready;
+    const { authorityId } = ready.executed.body;
+
+    for (const [action, body] of [
+      ["download-final-report", { sessionId, authorityId, pdfBase64: "JVBERi0x" }],
+      ["send-final-report", { sessionId, authorityId, recipientEmail: "owner@example.com", firstName: "Owner", reportEmailCopy: { subject: "forged" } }],
+      ["send-final-report-hidden-copy", { sessionId, authorityId, hiddenAuditJson: '{"forged":true}' }],
+      ["send-final-report-hidden-copy", { sessionId, authorityId, hiddenAuditSummary: "forged" }],
+    ]) {
+      const rejected = await invokeFinalReport(action, body);
+      assert.equal(rejected.statusCode, 400, `${action} must reject client-authored authority artifacts`);
+      assert.equal(rejected.body.status, "invalid-request");
+    }
+
+    const missingAuthority = await invokeFinalReport("download-final-report", { sessionId });
+    assert.equal(missingAuthority.statusCode, 400);
+    assert.equal(missingAuthority.body.status, "invalid-request");
+
+    const staleAuthority = await invokeFinalReport("download-final-report", {
+      sessionId,
+      authorityId: "auth-00000000-0000-4000-8000-000000000000",
+    });
+    assert.equal(staleAuthority.statusCode, 409);
+    assert.equal(staleAuthority.body.status, "stale-authority");
+
+    const visible = await invokeFinalReport("send-final-report", {
+      sessionId,
+      authorityId,
+      recipientEmail: "owner@example.com",
+      firstName: "Owner",
+    });
+    assert.equal(visible.statusCode, 200, JSON.stringify(visible.body));
+    assert.equal(visible.body.status, "sent");
+    assert.equal(providerCalls.pdf.at(-1).html, ready.executed.body.projection.html);
+    assert.equal(providerCalls.email.at(-1).subject, ready.executed.body.projection.reportEmailCopy.subject);
+
+    const hidden = await invokeFinalReport("send-final-report-hidden-copy", { sessionId, authorityId });
+    assert.equal(hidden.statusCode, 200, JSON.stringify(hidden.body));
+    const auditAttachment = providerCalls.email.at(-1).attachments.find((item) => item.filename === "mergevue-hidden-user-answers.json");
+    assert.ok(auditAttachment, "Hidden delivery must attach reconstructed canonical audit JSON");
+    const auditJson = Buffer.from(auditAttachment.content, "base64").toString("utf8");
+    assert.ok(auditJson.includes(sessionId), "Reconstructed hidden audit must retain the authoritative session tree");
+    assert.equal(auditJson.includes("forged"), false, "Reconstructed hidden audit must not contain client forgery");
+  } finally {
+    globalThis.fetch = originalFetch;
+    providers.restore();
+    const restore = (key, value) => { if (value === undefined) delete process.env[key]; else process.env[key] = value; };
+    restore("PDF_RENDER_SERVICE_URL", previousEnv.pdfUrl);
+    restore("PDF_RENDER_API_KEY", previousEnv.pdfKey);
+    restore("RESEND_API_KEY", previousEnv.resendKey);
+    restore("REPORT_FROM_EMAIL", previousEnv.reportFrom);
+    restore("REPORT_HIDDEN_COPY_TO", previousEnv.hiddenTo);
+  }
+}
 
 const ENVIRONMENT_CODES = Object.freeze([
   "NT/STJ", "NT/STP", "NF/NT", "NF/SFJ", "NF/SFP", "SFJ/SFP", "STJ/STP", "STP/STJ", "SFP/SFJ",
@@ -240,29 +355,28 @@ for (const forbidden of FORBIDDEN_EMAIL_STRINGS) {
   assert.equal(hiddenCopyText.includes(forbidden), false, `Forbidden hidden-copy output string found: ${forbidden}`);
 }
 
-assert.ok(
-  APP_SOURCE.includes("buildMergevuePublicReportModel(session, { deliverable })"),
-  "Email path must build the Mergevue adapter model from the current session and deliverable",
+assert.equal(APP_SOURCE.includes("reportEmailCopy:"), false, "App must not send client-authored reportEmailCopy");
+assert.equal(APP_SOURCE.includes("hiddenAuditJson:"), false, "App must not send client-authored hidden audit JSON");
+assert.equal(APP_SOURCE.includes("hiddenAuditSummary:"), false, "App must not send client-authored hidden audit summary");
+assert.match(
+  APP_SOURCE,
+  /action=send-final-report[\s\S]*?sessionId: session\.sessionId,[\s\S]*?authorityId: session\.productionAuthority\.authorityId,[\s\S]*?recipientEmail: result\.emailCapture\.email,[\s\S]*?firstName: result\.emailCapture\.firstName,/,
+  "Visible final delivery must send only server-issued identity plus bounded recipient data",
 );
-assert.ok(
-  APP_SOURCE.includes("buildMergevuePublicReportEmailCopy(report)"),
-  "Email path must create adapter-derived report copy",
+assert.match(
+  APP_SOURCE,
+  /action=send-final-report-hidden-copy[\s\S]*?sessionId: session\.sessionId,[\s\S]*?authorityId: session\.productionAuthority\.authorityId,/,
+  "Hidden final delivery must send server-issued identity only",
 );
-assert.ok(
-  (APP_SOURCE.match(/reportEmailCopy/g) ?? []).length >= 3,
-  "App must send adapter-derived reportEmailCopy to visible and hidden delivery endpoints",
-);
-assert.ok(
-  API_SOURCE.includes("body?.reportEmailCopy"),
-  "API delivery path must consume reportEmailCopy payload fields",
-);
-assert.ok(APP_SOURCE.includes("createHiddenUserAnswersSnapshot"), "App must build both hidden audit artifacts from one envelope");
-assert.ok(APP_SOURCE.includes("hiddenAuditJson: hiddenAudit.json"), "App must send the canonical JSON artifact to hidden delivery");
-assert.ok(APP_SOURCE.includes("hiddenAuditSummary: hiddenAudit.summary"), "App must send the human audit summary to hidden delivery");
+assert.ok(API_SOURCE.includes("readAssessmentSession(sessionId)"), "Final-report endpoint must read the current server session ledger");
+assert.ok(API_SOURCE.includes("currentAssessmentAuthority(record)"), "Final-report endpoint must resolve current server authority");
+assert.ok(API_SOURCE.includes("authority.reportReady !== true"), "Final-report endpoint must require report-ready current authority");
+assert.ok(API_SOURCE.includes("record.reportAuthority.projection"), "Final-report endpoint must use the server-produced report projection");
+assert.ok(API_SOURCE.includes('resolveCurrentReportAuthority(body, ["sessionId", "authorityId"])'), "PDF and hidden endpoints must accept only server-issued identifiers");
+assert.ok(API_SOURCE.includes('resolveCurrentReportAuthority(body, ["sessionId", "authorityId", "recipientEmail", "firstName"])'), "Visible endpoint must bound client input to identity and recipient data");
 assert.equal(APP_SOURCE.includes("createHiddenUserAnswersTablesText"), false, "Lossy flattened snapshot generator must be retired");
 assert.equal(APP_SOURCE.includes("userAnswersTablesText"), false, "Legacy flattened snapshot payload must be retired");
-assert.ok(API_SOURCE.includes("body?.hiddenAuditJson"), "API hidden-copy endpoint must consume hiddenAuditJson");
-assert.ok(API_SOURCE.includes("body?.hiddenAuditSummary"), "API hidden-copy endpoint must consume hiddenAuditSummary");
+assert.ok(API_SOURCE.includes("createHiddenUserAnswersSnapshot(session, deliverable)"), "Hidden audit must reconstruct from the server-owned session and deliverable");
 assert.ok(API_SOURCE.includes("mergevue-hidden-user-answers.json"), "Hidden-copy email must attach canonical JSON");
 assert.ok(API_SOURCE.includes("mergevue-hidden-user-answers.txt"), "Hidden-copy email must attach the human summary");
 assert.equal(API_SOURCE.includes("HIDDEN_USER_ANSWERS_MAX_CHARS"), false, "Hidden audit artifacts must not be silently truncated");
@@ -366,5 +480,7 @@ assert.equal(
   false,
   "Generated report copy must not print or embed secret/config variable names",
 );
+
+await assertServerAuthorityDeliveryBoundary();
 
 console.log("Mergevue public report email validation passed");

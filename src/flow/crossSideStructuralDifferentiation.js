@@ -22,6 +22,7 @@ const DIVERGENT = "divergent";
 const COMPARABLE_SEMANTIC_CLASSES = new Set(["EXTERNAL_OR_PERSONAL_CAUSE", "SUBSTANTIVE_SIGNAL"]);
 const SUBSTANTIVE_OPTION_PATTERN = /^[A-D]$/;
 const WORKBOOK_QUESTION_ID_PATTERN = /^Q([1-9]|1[01])$/;
+const CANONICAL_MODULE_QUESTION_ID_PATTERN = /^[A-Z0-9]+(?:-[A-Z0-9]+)*-Q[1-9][0-9]*$/i;
 const WORKBOOK_QUESTION_IDS = Object.freeze(
   Array.from({ length: 11 }, (_unused, index) => `Q${index + 1}`),
 );
@@ -151,11 +152,29 @@ function optionComparable(questionRef, selectedOption) {
   return COMPARABLE_SEMANTIC_CLASSES.has(semanticClass);
 }
 
-function selectedLetterByQuestion(responses, questions, sideLabel) {
+function responseQuestionRef(response, sideLabel) {
+  const workbookQuestionId = text(response?.workbookQuestionId);
+  if (workbookQuestionId) {
+    if (WORKBOOK_QUESTION_ID_PATTERN.test(workbookQuestionId)) return workbookQuestionId;
+    throw new CrossSideStructuralDifferentiationConfigError(
+      `malformed ${sideLabel} workbook question id: ${workbookQuestionId}`,
+    );
+  }
+  const canonicalQuestionId = text(response?.questionId);
+  if (WORKBOOK_QUESTION_ID_PATTERN.test(canonicalQuestionId)) return canonicalQuestionId;
+  if (CANONICAL_MODULE_QUESTION_ID_PATTERN.test(canonicalQuestionId)) return null;
+  throw new CrossSideStructuralDifferentiationConfigError(
+    `malformed ${sideLabel} response question id: ${canonicalQuestionId || "<missing>"}`,
+  );
+}
+
+// TSAM remains a one-response-per-question source. Duplicate target observations are
+// malformed input and must continue to fail closed.
+function singleResponseLetterByQuestion(responses, questions, sideLabel) {
   const selected = new Map();
   for (const response of Array.isArray(responses) ? responses : []) {
-    const questionRef = text(response?.workbookQuestionId ?? response?.questionId);
-    if (!WORKBOOK_QUESTION_ID_PATTERN.test(questionRef)) continue;
+    const questionRef = responseQuestionRef(response, sideLabel);
+    if (questionRef === null) continue;
     if (selected.has(questionRef)) {
       throw new CrossSideStructuralDifferentiationConfigError(
         `duplicate ${sideLabel} response for ${questionRef}`,
@@ -164,6 +183,33 @@ function selectedLetterByQuestion(responses, questions, sideLabel) {
     selected.set(questionRef, response?.missing === true || response == null ? null : text(response.selectedOption).toUpperCase() || null);
   }
   void questions;
+  return selected;
+}
+
+// DUAL AEM contains respondent-level R1 and R2 observations. This projection is only
+// for AEM↔TSAM structural differentiation: one distinct lawful value is canonical;
+// absent or divergent lawful values are unresolved. It does not adjudicate R1↔R2.
+function acquirerProjectedLetterByQuestion(responses) {
+  const observationsByQuestion = new Map();
+  for (const response of Array.isArray(responses) ? responses : []) {
+    const questionRef = responseQuestionRef(response, "AEM");
+    if (questionRef === null) continue;
+    const observations = observationsByQuestion.get(questionRef) ?? [];
+    observations.push(response);
+    observationsByQuestion.set(questionRef, observations);
+  }
+
+  const selected = new Map();
+  for (const [questionRef, observations] of observationsByQuestion) {
+    const lawfulValues = new Set();
+    for (const observation of observations) {
+      if (observation?.missing === true || observation?.excludedFromPrimaryScoring === true) continue;
+      const letter = text(observation?.selectedOption).toUpperCase();
+      if (!letter || !optionComparable(questionRef, letter)) continue;
+      lawfulValues.add(letter);
+    }
+    selected.set(questionRef, lawfulValues.size === 1 ? [...lawfulValues][0] : null);
+  }
   return selected;
 }
 
@@ -176,8 +222,8 @@ function comparisonStatus(acquirerLetter, targetLetter, questionRef) {
 }
 
 export function buildCrossSideStructuralDifferentiation(acquirerResponses, targetResponses) {
-  const acquirerLetters = selectedLetterByQuestion(acquirerResponses, AEM_QUESTIONS, "AEM");
-  const targetLetters = selectedLetterByQuestion(targetResponses, TSAM_QUESTIONS, "TSAM");
+  const acquirerLetters = acquirerProjectedLetterByQuestion(acquirerResponses);
+  const targetLetters = singleResponseLetterByQuestion(targetResponses, TSAM_QUESTIONS, "TSAM");
 
   const rows = [];
   let agreeCount = 0;
