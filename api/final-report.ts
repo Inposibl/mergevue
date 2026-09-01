@@ -1,4 +1,6 @@
 import { createHiddenUserAnswersSnapshot } from "../src/reporting/hiddenUserAnswersSnapshot.js";
+import { createNativeSafetyEnvelopeArtifact } from "../src/reporting/nse/envelope.ts";
+import type { SemanticKernelProviderV1 } from "../src/reporting/nse/kernel.ts";
 import {
   currentAssessmentAuthority,
   isSessionLedgerStorageError,
@@ -762,7 +764,11 @@ export function evaluateHiddenCopyRequest(
   };
 }
 
-async function sendFinalReportHiddenCopy(request: NodeRequest, response: NodeResponse) {
+export async function sendFinalReportHiddenCopy(
+  request: NodeRequest,
+  response: NodeResponse,
+  kernelProvider?: SemanticKernelProviderV1,
+) {
   if (request.method !== "POST") {
     sendMethodNotAllowed(response, request.method, ["POST"]);
     return;
@@ -795,9 +801,13 @@ async function sendFinalReportHiddenCopy(request: NodeRequest, response: NodeRes
     });
     return;
   }
-  const audit = resolveAuthoritativeHiddenAudit(authorized.projection);
-  if (!audit.ok) {
-    sendJson(response, audit.status, { endpoint: HIDDEN_COPY_ENDPOINT, status: audit.code, error: audit.error });
+  let audit: { json: string; summary: string };
+  try {
+    audit = kernelProvider
+      ? createNativeSafetyEnvelopeArtifact(authorized.projection, { kernelProvider })
+      : createNativeSafetyEnvelopeArtifact(authorized.projection);
+  } catch {
+    sendJson(response, 400, { endpoint: HIDDEN_COPY_ENDPOINT, status: "invalid-hidden-audit", error: INVALID_HIDDEN_AUDIT_ERROR });
     return;
   }
   let pdfBase64: string;
