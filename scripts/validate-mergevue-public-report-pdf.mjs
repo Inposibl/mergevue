@@ -72,17 +72,22 @@ const REQUIRED_PDF_STRINGS = Object.freeze([
   "WATCHPOINT 03",
   "Review window",
   "Suggested control action",
-  "preserve named relationship holders, map informal coordination paths",
   "17-resource",
-  "selected exposed resources",
-  "ECS is a compatibility score",
-  "Resource scores are contestation-intensity scores",
+  "17 canonical resources",
+  "Derivation: ECS = 100",
+  "This derivation is separate from the resource priority map",
+  "priority map orders integration attention and is not a decomposition of the ECS calculation",
+  "Categorical priority order",
+  "canonical Net Effect and ERI tier",
   "ARTIFACT-REVIEWED ENVIRONMENT CODING",
   "paid workflow is designed to",
   "where inputs are sufficient",
   "track record strengthens as sealed predictions mature",
   "Next step: scope a single-deal pilot to decompose ECS drivers, review the operating-environment coding against available artifacts, and convert watchpoints into role-level integration controls.",
-  "Economic exposure",
+  "Economic Exposure Triage",
+  "Exposure channels are generic integration-risk categories",
+  "assigns no per-deal severity, posture, or score",
+  "governed economic methodology is deferred to the engagement tier",
   "USD 500 million",
   "Directional triage only. Not a valuation or loss estimate.",
   "Quantified modelling requires deal-room economics, role-level evidence, integration milestones, and analyst review.",
@@ -96,8 +101,6 @@ const REQUIRED_PDF_STRINGS = Object.freeze([
   "High",
   "moderate",
   "Competitive consolidation",
-  "standalone integration-priority view",
-  "not yet reconciled against a single canonical source",
 ]);
 
 const FORBIDDEN_PDF_STRINGS = Object.freeze([
@@ -149,6 +152,11 @@ const FORBIDDEN_PDF_STRINGS = Object.freeze([
   "ref: forecast-pr",
   "ref: forecast-prev",
   "Force providing enforcement for sacred narrative",
+  "Resource scores are contestation-intensity scores",
+  "selected exposed resources",
+  "standalone integration-priority view",
+  "not yet reconciled against a single canonical source",
+  "preserve named relationship holders, map informal coordination paths",
 ]);
 
 // Deliberately catches leaked sign algebra with or without parentheses.
@@ -170,7 +178,7 @@ const APPROVED_AUTHORITY_PHRASES = Object.freeze({
   "SFP/SFJ": "authority embedded in the standardised system itself, with compliance secured through engineered incentives",
 });
 const EXPECTED_PAIR_CORE_MISMATCH = "The core mismatch is between authority earned through measurable results and symmetric accountability, and authority held through proximity to the founding mission and collective purpose. The sharpest contested resource is Energy: amplified on the acquirer side, suppressed on the target side.";
-const EXPECTED_PAIR_FP2_RATIONALE = "Treat Energy as a protected integration resource during Days 30–60: it is amplified on the acquirer side and suppressed on the target side, which makes it the most likely early contestation zone. Separating preservation from simplification gives the integration team time to identify which Mission Field-linked routines protect cohesion, where Performance Arena accountability should apply, and which changes should wait until the Day 60 review.";
+const EXPECTED_PAIR_FP2_RATIONALE = "Treat Energy as a protected integration resource during Days 30–60: it is amplified on the acquirer side and suppressed on the target side, which makes it an early priority area for integration control. Separating preservation from simplification gives the integration team time to identify which Mission Field-linked routines protect cohesion, where Performance Arena accountability should apply, and which changes should wait until the Day 60 review.";
 
 function score(primaryEnvironmentCode, overrides = {}) {
   return Object.freeze({
@@ -224,6 +232,43 @@ function registeredDesignValues(designModel) {
       value: item?.[field],
     })))
   )).filter(({ value }) => typeof value === "string" && value.trim());
+}
+
+function escapeExpectedHtml(value) {
+  return String(value ?? "").replace(/[&<>"']/g, (char) => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    "\"": "&quot;",
+    "'": "&#39;",
+  }[char]));
+}
+
+function requiredFixtureText(value, fieldName) {
+  const text = String(value ?? "").trim();
+  assert.ok(text, `PDF resource fixture must provide a non-empty ${fieldName}.`);
+  return text;
+}
+
+function resourceRowHtml(renderedHtml, resourceName) {
+  const label = requiredFixtureText(resourceName, "unique resource label");
+  const labelMarker = `<span class="rn">${escapeExpectedHtml(label)}</span>`;
+  const labelOccurrences = renderedHtml.split(labelMarker).length - 1;
+  assert.equal(labelOccurrences, 1, `PDF resource fixture label must identify exactly one rendered row: ${label}`);
+
+  const labelIndex = renderedHtml.indexOf(labelMarker);
+  const rowStart = renderedHtml.lastIndexOf('<div class="rbar">', labelIndex);
+  assert.notEqual(rowStart, -1, `PDF output must render ${label} inside a resource row.`);
+
+  const divTag = /<\/?div\b[^>]*>/gi;
+  divTag.lastIndex = rowStart;
+  let depth = 0;
+  for (let match = divTag.exec(renderedHtml); match; match = divTag.exec(renderedHtml)) {
+    depth += /^<\/div\b/i.test(match[0]) ? -1 : 1;
+    if (depth === 0) return renderedHtml.slice(rowStart, divTag.lastIndex);
+  }
+
+  assert.fail(`PDF output contains an unterminated resource row for ${label}.`);
 }
 
 const demoTargetAnswers = targetFixtureAnswersFor("NT/STJ");
@@ -691,13 +736,55 @@ assert.equal(publicCompatibilityBand(38.2), "MODERATE-LOW", "Public model must r
 assert.equal(pdfText.includes(" - "), false, "PDF text must use em dash semantics instead of ASCII dash separators.");
 assert.ok(pdfModel.humanSignOffNote.includes("human sign-off"), "Section appendix toggles must carry human sign-off note.");
 
-const firstResource = pdfModel.sections[5].zones[0];
-assert.ok(pdfText.includes(firstResource.name), "PDF output must preserve resource name.");
-assert.ok(pdfText.includes(firstResource.category), "PDF output must preserve resource category.");
-assert.ok(pdfText.includes(firstResource.direction), "PDF output must preserve resource direction.");
-assert.ok(pdfText.includes(String(firstResource.intensity)), "PDF output must preserve conflict intensity.");
-assert.ok(pdfText.includes(firstResource.band), "PDF output must preserve conflict band.");
-assert.ok(pdfText.includes(firstResource.explanation), "PDF output must preserve resource explanation.");
+const firstResource = pdfModel.sections[5].zones.find((resource) => (
+  [
+    resource.name,
+    resource.category,
+    resource.direction,
+    resource.band,
+    resource.priorityOrder,
+    resource.acquirerNetEffect,
+    resource.targetNetEffect,
+    resource.acquirerEriTier,
+    resource.targetEriTier,
+    resource.whyItMatters,
+  ].every((value) => String(value ?? "").trim())
+  && Array.isArray(resource.drivers)
+  && resource.drivers.length > 0
+  && (
+    resource.acquirerNetEffect !== resource.targetNetEffect
+    || resource.acquirerEriTier !== resource.targetEriTier
+  )
+));
+assert.ok(firstResource, "PDF validator must select a complete heterogeneous resource fixture with distinguishable Acquirer and Target values.");
+const firstResourceRow = resourceRowHtml(pdfHtml, firstResource.name);
+const firstResourceName = requiredFixtureText(firstResource.name, "resource name");
+const firstResourceCategory = requiredFixtureText(firstResource.category, "resource category");
+assert.ok(firstResourceRow.includes(`<span class="rn">${escapeExpectedHtml(firstResourceName)}</span>`), "PDF resource row must preserve its own resource name.");
+assert.ok(firstResourceRow.includes(`<div class="rd">${escapeExpectedHtml(firstResourceCategory)}</div>`), "PDF resource row must preserve its own resource category.");
+const firstResourceDirection = requiredFixtureText(firstResource.direction, "resource direction");
+assert.ok(pdfText.includes(firstResourceDirection), "PDF output must preserve resource direction.");
+assert.equal(Object.hasOwn(firstResource, "intensity"), false, "PDF resource model must not synthesize an ungoverned contestation intensity.");
+const firstResourcePriority = requiredFixtureText(firstResource.priorityOrder, "categorical priority order");
+assert.ok(firstResourceRow.includes(`<span class="rv tnum">Priority ${escapeExpectedHtml(firstResourcePriority)}</span>`), "PDF resource row must preserve its own categorical priority order.");
+const acquirerNetEffect = requiredFixtureText(firstResource.acquirerNetEffect, "acquirer Net Effect");
+const targetNetEffect = requiredFixtureText(firstResource.targetNetEffect, "target Net Effect");
+const acquirerEriTier = requiredFixtureText(firstResource.acquirerEriTier, "acquirer ERI tier");
+const targetEriTier = requiredFixtureText(firstResource.targetEriTier, "target ERI tier");
+const expectedNetEffectLine = `Acquirer: ${acquirerNetEffect} (${acquirerEriTier}) · Target: ${targetNetEffect} (${targetEriTier})`;
+assert.ok(firstResourceRow.includes(`<div class="rd">${escapeExpectedHtml(expectedNetEffectLine)}</div>`), "PDF resource row must preserve the correctly oriented Acquirer/Target Net Effect and ERI line.");
+assert.ok(Array.isArray(firstResource.drivers), "PDF resource fixture must provide a drivers array.");
+assert.ok(firstResource.drivers.length > 0, "PDF resource fixture must provide non-empty conflict drivers.");
+const firstResourceDrivers = firstResource.drivers.map((driver) => requiredFixtureText(driver, "conflict driver"));
+assert.ok(firstResourceRow.includes(`<div class="rd">Drivers: ${escapeExpectedHtml(firstResourceDrivers.join(" · "))}</div>`), "PDF resource row must preserve its own conflict drivers.");
+const firstResourceBand = requiredFixtureText(firstResource.band, "conflict band");
+assert.ok(pdfText.includes(firstResourceBand), "PDF output must preserve conflict band.");
+const firstResourceExplanation = String(firstResource.explanation ?? "").trim();
+if (firstResourceExplanation) {
+  assert.ok(firstResourceRow.includes(`<div class="rd">${escapeExpectedHtml(firstResourceExplanation)}</div>`), "PDF resource row must preserve its own non-empty explanation.");
+}
+const firstResourceWhyItMatters = requiredFixtureText(firstResource.whyItMatters, "why-it-matters narrative");
+assert.ok(firstResourceRow.includes(`<div class="rd">${escapeExpectedHtml(firstResourceWhyItMatters)}</div>`), "PDF resource row must preserve its own distinct why-it-matters narrative.");
 
 for (const prediction of pdfModel.sections[1].predictions) {
   assert.ok(pdfText.includes(prediction.windowLabel), "PDF output must preserve combined prediction FP/window label.");

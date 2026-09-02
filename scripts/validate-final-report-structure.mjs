@@ -410,8 +410,8 @@ const evOnlyEconomicsReport = buildDealEconomicsReport({
   },
 }, { baseEcsScore: 38 });
 assert.equal(evOnlyEconomicsReport.calculated, false);
-assert.ok(evOnlyEconomicsReport.lines.includes("Enterprise value / deal value provided: USD 500,000,000 (estimated)."));
-assert.ok(evOnlyEconomicsReport.lines.includes("ECS valuation band: MODERATE-LOW (38)."));
+assert.ok(evOnlyEconomicsReport.lines.includes("Enterprise value / deal value provided: USD 500 million (estimated)."));
+assert.ok(evOnlyEconomicsReport.lines.includes("ECS valuation band: MODERATE-LOW (38; rounded to 38 / 100)."));
 assert.ok(evOnlyEconomicsReport.lines.includes("EV Discount: Low USD 75M / High USD 125M."));
 assert.ok(evOnlyEconomicsReport.lines.includes("Earn-Out Exposure: Low USD 40M / High USD 100M."));
 assert.ok(evOnlyEconomicsReport.lines.includes("Talent Cost: requires personnel-at-risk and per-person compensation."));
@@ -447,10 +447,10 @@ const completeEconomicsReport = buildDealEconomicsReport({
 }, { baseEcsScore: 38 });
 assert.equal(completeEconomicsReport.calculated, true);
 assert.equal(completeEconomicsReport.bandName, "MODERATE-LOW");
-assert.ok(completeEconomicsReport.lines.includes("Enterprise value / deal value provided: USD 500,000,000 (confirmed)."));
+assert.ok(completeEconomicsReport.lines.includes("Enterprise value / deal value provided: USD 500 million (confirmed)."));
 assert.ok(completeEconomicsReport.lines.includes("Average annual compensation per key person provided: USD 1,000,000 (estimated)."));
 assert.ok(completeEconomicsReport.lines.includes("Key personnel at risk: 4."));
-assert.ok(completeEconomicsReport.lines.includes("ECS valuation band: MODERATE-LOW (38)."));
+assert.ok(completeEconomicsReport.lines.includes("ECS valuation band: MODERATE-LOW (38; rounded to 38 / 100)."));
 assert.ok(completeEconomicsReport.lines.includes("EV Discount: Low USD 75M / High USD 125M."));
 assert.ok(completeEconomicsReport.lines.includes("Earn-Out Exposure: Low USD 40M / High USD 100M."));
 assert.ok(completeEconomicsReport.lines.includes("Talent Cost: Low USD 8M / High USD 16M."));
@@ -520,7 +520,7 @@ const highRiskEconomicsReport = buildDealEconomicsReport({
   },
 }, { baseEcsScore: 20 });
 assert.equal(highRiskEconomicsReport.calculated, true);
-assert.ok(highRiskEconomicsReport.lines.includes("ECS valuation band: HIGH RISK (20)."));
+assert.ok(highRiskEconomicsReport.lines.includes("ECS valuation band: HIGH RISK (20; rounded to 20 / 100)."));
 assert.ok(highRiskEconomicsReport.lines.includes("EV Discount: Low USD 175M / High >= USD 300M."));
 assert.ok(highRiskEconomicsReport.lines.includes("Earn-Out Exposure: Low USD 100M / High >= USD 400M."));
 assert.ok(highRiskEconomicsReport.lines.includes("Total Risk Envelope: Low USD 283M / High >= USD 716M."));

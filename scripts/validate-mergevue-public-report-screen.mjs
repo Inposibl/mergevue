@@ -21,12 +21,12 @@ const REQUIRED_OUTPUT_STRINGS = Object.freeze([
   "Structural Watchpoints",
   "This public preview is not a scored forecast ledger.",
   "Directional triage only. Not a valuation or loss estimate.",
-  "The main risk is translation failure: the acquirer may impose its standard integration logic before it understands which target routines preserve loyalty, trust, knowledge flow, execution quality, or deal-critical continuity after close.",
+  "The main risk is false alignment: a high compatibility score can make the integration path look settled while important differences in authority, routines, and control expectations remain latent. Those differences may become material only when post-close integration decisions begin.",
   "before Day 30",
   "Days 30-60",
   "Day 60",
   "Competitive consolidation",
-  "preserve named relationship holders, map informal coordination paths",
+  "This derivation is separate from the resource priority map",
   "paid workflow is designed to",
   "where inputs are sufficient",
   "track record strengthens as sealed predictions mature",
@@ -239,6 +239,12 @@ for (const label of BLOCK_LABELS) {
 for (const required of REQUIRED_OUTPUT_STRINGS) {
   assert.ok(screenText.includes(required), `Required screen output missing: ${required}`);
 }
+
+assert.equal(
+  screenText.includes("preserve named relationship holders, map informal coordination paths"),
+  false,
+  "Demo screen must not attach the unrelated Connections control insight to a different resource action by list position.",
+);
 
 for (const forbidden of FORBIDDEN_SCREEN_STRINGS) {
   assert.equal(screenText.includes(forbidden), false, `Forbidden string found in rendered screen text: ${forbidden}`);

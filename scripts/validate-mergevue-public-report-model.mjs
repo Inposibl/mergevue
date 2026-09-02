@@ -45,7 +45,7 @@ const REQUIRED_FIELDS = Object.freeze({
   collisionThesis: ["collisionHeadline", "collisionSummary", "primaryTension", "whyItMatters", "postCloseFailureMode"],
   resourceConflictMap: ["overwriteRiskExplanation", "resources"],
   timelineOfExpectedFriction: ["timingLogic", "phases"],
-  economicRiskTranslation: ["enterpriseValueBand", "valuationDisclaimer", "economicRiskPosture", "engagementTierRequirement"],
+  economicRiskTranslation: ["enterpriseValueBand", "valuationDisclaimer", "economicTriageJudgement", "economicChannelNote", "economicTriageChannels", "evUse", "whatThisPreviewCanSay", "whatThisPreviewCannotSay", "requiredForQuantifiedModelling", "economicRiskLines", "engagementTierRequirement"],
   evidenceBasisAndLimits: ["dataQualityLevel", "inputCompleteness", "knownLimits", "methodLimitations", "whatThisReportCanSay", "whatThisReportCannotSay"],
   whatTheFullEngagementAdds: ["benefits", "cta", "contactEmail"],
   auditFooter: ["reportId", "generatedAt", "reportVersion", "scenarioId", "brand", "contactEmail", "publicUrlPattern", "trackRecordUrl"],
@@ -152,7 +152,9 @@ const APPROVED_CONFLICT_DIRECTIONS = Object.freeze({
   "-|-": Object.freeze({ class: "convergent", acquirer: "suppressed on both sides", target: "", connector: "" }),
 });
 const EXPECTED_PAIR_CORE_MISMATCH = "The core mismatch is between authority earned through measurable results and symmetric accountability, and authority held through proximity to the founding mission and collective purpose. The sharpest contested resource is Energy: amplified on the acquirer side, suppressed on the target side.";
-const EXPECTED_PAIR_FP2_RATIONALE = "Treat Energy as a protected integration resource during Days 30–60: it is amplified on the acquirer side and suppressed on the target side, which makes it the most likely early contestation zone. Separating preservation from simplification gives the integration team time to identify which Mission Field-linked routines protect cohesion, where Performance Arena accountability should apply, and which changes should wait until the Day 60 review.";
+const EXPECTED_PAIR_FP2_RATIONALE = "Treat Energy as a protected integration resource during Days 30–60: it is amplified on the acquirer side and suppressed on the target side, which makes it an early priority area for integration control. Separating preservation from simplification gives the integration team time to identify which Mission Field-linked routines protect cohesion, where Performance Arena accountability should apply, and which changes should wait until the Day 60 review.";
+const EXPECTED_CONCEALED_CONFLICT_RISK_EXPLANATION = "The main risk is false alignment: a high compatibility score can make the integration path look settled while important differences in authority, routines, and control expectations remain latent. Those differences may become material only when post-close integration decisions begin.";
+const EXPECTED_ECONOMIC_CHANNEL_NOTE = "Exposure channels are generic integration-risk categories. This public preview assigns no per-deal severity, posture, or score to any channel; governed economic methodology is deferred to the engagement tier.";
 
 
 
@@ -406,7 +408,9 @@ assert.ok(approvedPairModel.recommendedActions[2].actionReason.split(/[.!?]+/).f
 assert.equal(RAW_RESOURCE_NOTATION.test(JSON.stringify(approvedPairModel)), false, "Approved pair public model must not expose raw resource notation.");
 assert.equal(DUPLICATE_ADJACENT_LABEL.test(JSON.stringify(approvedPairModel)), false, "Approved pair public model must not contain adjacent duplicate labels.");
 assert.equal(DUPLICATE_ID_PREFIX.test(JSON.stringify(approvedPairModel)), false, "Approved pair public model must not duplicate the Mergevue ID prefix.");
-assert.equal(approvedPairModel.economicRiskTranslation.economicTriageRule.startsWith("Posture rule:"), false);
+assert.equal(Object.hasOwn(approvedPairModel.economicRiskTranslation, "economicRiskPosture"), false, "Public economic triage must not expose an ungoverned per-deal posture.");
+assert.equal(Object.hasOwn(approvedPairModel.economicRiskTranslation, "economicTriageRule"), false, "Public economic triage must not expose an unexecuted severity aggregation rule.");
+assert.equal(approvedPairModel.economicRiskTranslation.economicChannelNote, EXPECTED_ECONOMIC_CHANNEL_NOTE);
 const approvedPairModelAnalyticalValues = registeredModelValues(approvedPairModel);
 for (const { value } of approvedPairModelAnalyticalValues) {
   assert.equal(RAW_RESOURCE_NOTATION.test(value), false, `Raw resource notation found in analytical copy: ${value}`);
@@ -440,7 +444,9 @@ const precedenceModel = buildMergevuePublicReportModel(demoSession, {
 });
 assert.equal(precedenceModel.compatibilityScoreAndDealScenario.compatibilityScore, 88.2);
 assert.equal(precedenceModel.metadata.doctrineClass, "concealed_conflict");
-assert.equal(precedenceModel.metadata.doctrineCopyReview.required, true);
+assert.equal(precedenceModel.metadata.doctrineCopyReview.required, false);
+assert.ok(precedenceModel.metadata.doctrineCopyReview.reason.includes("Owner-approved concealed-conflict copy applied"));
+assert.deepEqual(precedenceModel.metadata.doctrineCopyReview.surfaces, ["resourceConflictMap", "collisionThesis", "recommendedActions"]);
 assert.deepEqual(
   precedenceModel.metadata.sourceBinding.consistencyLog,
   [],
@@ -448,7 +454,7 @@ assert.deepEqual(
 );
 assert.equal(
   precedenceModel.recommendedActions[2].actionReason,
-  "Treat Decisiveness as a protected integration resource during Days 30\u201360: it is treated as background on the acquirer side while actively amplified on the target side, which makes it the most likely early contestation zone. Separating preservation from simplification gives the integration team time to identify which Disruption Lab-linked routines protect cohesion, where Idea Lab accountability should apply, and which changes should wait until the Day 60 review.",
+  "Treat Decisiveness as a protected integration resource during Days 30\u201360: it is treated as background on the acquirer side while actively amplified on the target side, which makes it an early priority area for integration control. Separating preservation from simplification gives the integration team time to identify which Disruption Lab-linked routines protect cohesion, where Idea Lab accountability should apply, and which changes should wait until the Day 60 review.",
 );
 const precedenceFrictionDefectModel = buildPairDeliverable({
   acquirerEnvironmentCode: "NF/NT",
@@ -591,15 +597,16 @@ assert.equal(model.economicRiskTranslation.engagementTierRequirement, "Quantifie
 
 assert.equal(
   model.resourceConflictMap.overwriteRiskExplanation,
-  "The main risk is translation failure: the acquirer may impose its standard integration logic before it understands which target routines preserve loyalty, trust, knowledge flow, execution quality, or deal-critical continuity after close.",
+  EXPECTED_CONCEALED_CONFLICT_RISK_EXPLANATION,
 );
 assert.ok(Array.isArray(model.resourceConflictMap.resources));
 assert.ok(model.resourceConflictMap.resources.length > 0);
 
 for (const resource of model.resourceConflictMap.resources) {
-  for (const field of ["resourceName", "resourceCategory", "conflictIntensity", "conflictBand", "direction", "explanation"]) {
+  for (const field of ["resourceName", "resourceCategory", "priorityOrder", "conflictBand", "direction", "acquirerNetEffect", "targetNetEffect", "acquirerEriTier", "targetEriTier", "conflictDrivers", "whyItMatters", "explanation"]) {
     assert.ok(Object.hasOwn(resource, field), `Missing resource field: ${field}`);
   }
+  assert.equal(Object.hasOwn(resource, "conflictIntensity"), false, "Heterogeneous public resources must use categorical priority rather than an ungoverned intensity numeral.");
 }
 
 assert.deepEqual(model.timelineOfExpectedFriction.timingLogic, {
@@ -656,11 +663,11 @@ for (const forbidden of FORBIDDEN_OUTPUT_STRINGS) {
 assert.equal(serialized.includes("McDonald's"), true);
 assert.equal(JSON.parse(serialized).brand.name, "Mergevue");
 
-const CANONICAL_ECONOMIC_POSTURE_RULE = "Posture equals the highest assessed channel severity. When no channel is High but two or more channels are Medium, posture is raised one band.";
+const RETIRED_STATIC_ECONOMIC_POSTURE_RULE = "Posture equals the highest assessed channel severity. When no channel is High but two or more channels are Medium, posture is raised one band.";
 const FORBIDDEN_ECONOMIC_POSTURE_RULE = "Read the posture as a prioritisation signal: the strongest exposure channel sets the headline risk, and clustered Medium channels are treated as an attention area before they become value leakage.";
 assert(
-  serialized.includes(CANONICAL_ECONOMIC_POSTURE_RULE),
-  "Economic exposure triage must include the approved auditable posture rule."
+  !serialized.includes(RETIRED_STATIC_ECONOMIC_POSTURE_RULE),
+  "Economic exposure triage must not expose the retired static severity aggregation rule."
 );
 assert(
   !serialized.includes(FORBIDDEN_ECONOMIC_POSTURE_RULE),
@@ -670,25 +677,21 @@ assert(
 const EXPECTED_ECONOMIC_TRIAGE_CHANNELS = Object.freeze([
   {
     label: "Talent continuity",
-    severity: "High",
     meaning: "Risk that deal-critical people disengage, slow down, or leave before the integration model stabilises.",
     testFirst: "Map critical role categories, role-level dependencies, retention exposure windows, and the first 90-day decision points that depend on them.",
   },
   {
     label: "Earn-out credibility",
-    severity: "Medium",
     meaning: "Risk that behavioural friction makes performance milestones harder to deliver, putting contingent value and seller-management incentives under pressure.",
     testFirst: "Compare earn-out milestones with the operating routines and decision rights needed to hit them.",
   },
   {
     label: "Decision delay",
-    severity: "Medium",
     meaning: "Risk that approvals, escalation paths, and authority conflicts slow value capture after close.",
     testFirst: "Identify decisions that must not wait for a full integration redesign.",
   },
   {
     label: "Knowledge continuity",
-    severity: "Medium",
     meaning: "Risk that informal know-how, customer context, or execution memory stops moving through the combined organisation.",
     testFirst: "Identify critical knowledge-holder categories, handover routines, and early warning signs of information blockage.",
   },
@@ -697,8 +700,11 @@ const EXPECTED_ECONOMIC_TRIAGE_CHANNELS = Object.freeze([
 assert.deepEqual(
   model.economicRiskTranslation.economicTriageChannels,
   EXPECTED_ECONOMIC_TRIAGE_CHANNELS,
-  "Economic exposure channel glosses and Test first lines are a static authored baseline and must not drift without sign-off."
+  "Economic exposure channel glosses and Test first lines are a static authored baseline and must not drift or acquire ungoverned per-deal severity without sign-off."
 );
+for (const channel of model.economicRiskTranslation.economicTriageChannels) {
+  assert.equal(Object.hasOwn(channel, "severity"), false, `Economic exposure channel must not expose an ungoverned per-deal severity: ${channel.label}`);
+}
 
 const sourceNarratives = FINAL_DELIVERABLE_DATA.narratives || [];
 const narrativesWithCoreMismatch = sourceNarratives.filter((narrative) => String(narrative.coreMismatch || "").trim());
