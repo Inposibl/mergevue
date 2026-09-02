@@ -87,15 +87,6 @@ function sentenceParts(value) {
   return text.match(/[^.!?]+[.!?]+|[^.!?]+$/g)?.map((part) => part.trim()).filter(Boolean) ?? [];
 }
 
-function firstSentence(value) {
-  return sentenceParts(value)[0] ?? cleanText(value);
-}
-
-function bodyAfterFirstSentence(value) {
-  const parts = sentenceParts(value);
-  return parts.length > 1 ? parts.slice(1).join(" ") : firstSentence(value);
-}
-
 function distinctText(value, compareValue) {
   const text = cleanText(value);
   if (!text) return "";
@@ -138,49 +129,8 @@ function publicEnvironmentName(name, code) {
   return displayName;
 }
 
-function resourceBandLookup(groups = []) {
-  const lookup = new Map();
-  for (const group of Array.isArray(groups) ? groups : []) {
-    const band = cleanText(group?.band);
-    const rows = Array.isArray(group?.rows) ? group.rows : [];
-    for (const row of rows) {
-      const name = cleanText(row?.label || row?.name);
-      if (name && band) lookup.set(name.toLowerCase(), { band, direction: cleanText(row?.direction) });
-    }
-  }
-  return lookup;
-}
 
-function actionResourceName(actionTitle, rationale) {
-  const text = `${cleanText(actionTitle)} ${cleanText(rationale)}`.toLowerCase();
-  const resourceNames = ["Health", "Energy", "Knowledge", "Trust", "Connections", "Information", "Creativity", "Decisiveness", "Attention", "Organisation / system", "Organization / system"];
-  return resourceNames.find((name) => text.includes(name.toLowerCase())) || "";
-}
 
-function alignedActionRationale(actionTitle, rationale, resourceGroups) {
-  const resourceName = actionResourceName(actionTitle, rationale);
-  if (!resourceName) return rationale;
-  const lookup = resourceBandLookup(resourceGroups);
-  const normalizedName = resourceName.toLowerCase();
-  const entry = lookup.get(normalizedName) || (normalizedName.includes("organization") ? lookup.get("organisation / system") : null);
-  const band = entry?.band || "";
-  if (band !== "aligned") return rationale;
-  if (alignedResourceKind(entry?.direction) !== "asset") return rationale;
-  const key = resourceName.toLowerCase();
-
-  if (key.includes("health")) return "Health is an alignment asset. The risk is not current health conflict; the risk is damaging sustainable pace if integration pressure turns endurance into burnout.";
-  if (key.includes("energy")) return "Energy is an alignment asset. The risk is not current energy conflict; the risk is damaging execution capacity through excessive integration load or poorly paced change.";
-  if (key.includes("knowledge")) return "Knowledge is an alignment asset. The risk is not current knowledge conflict; the risk is losing access to know-how if ownership, routines, or knowledge holders are changed too early.";
-  if (key.includes("trust")) return "Trust is an alignment asset. The risk is not current trust conflict; the risk is damaging disclosure quality, credibility, or psychological safety through careless integration decisions.";
-  if (key.includes("connections")) return "Connections are an alignment asset. The risk is not current connections conflict; the risk is weakening informal coordination or isolating key relationship holders during governance redesign.";
-  if (key.includes("information")) return "Information is an alignment asset. The risk is not current information conflict; the risk is disrupting signal flow or access to operating data during reporting-line changes.";
-  if (key.includes("creativity")) return "Creativity is an alignment asset. The risk is not current creativity conflict; the risk is suppressing local problem-solving before integration problems are understood.";
-  if (key.includes("decisiveness")) return "Decisiveness is an alignment asset. The risk is not current decisiveness conflict; the risk is slowing clear ownership and escalation paths during the transition.";
-  if (key.includes("attention")) return "Attention is an alignment asset. The risk is not current attention conflict; the risk is fragmenting leadership focus and missing critical post-close signals.";
-  if (key.includes("organisation") || key.includes("organization") || key.includes("system")) return "Organisation / system is an alignment asset. The risk is not current system conflict; the risk is damaging routines and cadence that already support stable execution.";
-
-  return `${resourceName} is an alignment asset. The risk is not current conflict; the risk is damaging this strength through careless integration pressure.`;
-}
 function actionBuckets(actions) {
   const normalizedActions = (actions ?? []).map((action, sourceIndex) => Object.freeze({
     actionTitle: cleanText(action.actionTitle),
@@ -210,34 +160,15 @@ function actionBuckets(actions) {
   };
 }
 
-function conflictBandFromIntensity(intensity) {
-  if (intensity >= 70) return "high";
-  if (intensity >= 40) return "moderate";
-  return "aligned";
+function categoricalBandKey(conflictBand) {
+  const band = cleanText(conflictBand).toLowerCase();
+  if (band === "high") return "high";
+  if (band === "low") return "aligned";
+  return "moderate";
 }
 
-function clampScore(value) {
-  const number = Number(value);
-  if (!Number.isFinite(number)) return 0;
-  return Math.max(0, Math.min(100, Math.round(number)));
-}
 
-function averageScore(values) {
-  const valid = values.map(Number).filter(Number.isFinite);
-  if (!valid.length) return 0;
-  return valid.reduce((sum, value) => sum + value, 0) / valid.length;
-}
 
-function resourceScore(resources, names) {
-  const wanted = names.map((name) => name.toLowerCase());
-  const matches = resources.filter((resource) => {
-    const label = String(resource.name || resource.label || resource.resourceName || "").toLowerCase();
-    return wanted.some((name) => label.includes(name));
-  });
-
-  const selected = matches.length ? matches : resources;
-  return averageScore(selected.map((resource) => resource.conflictIntensity ?? resource.intensity ?? 0));
-}
 
 
 function publicResourceDirection(text) {
@@ -251,32 +182,30 @@ function publicResourceDirection(text) {
   return cleanText(text).replace(/\b(IGN|LOW|MID|TOP)\b/g, (token) => RESOURCE_TIER_DISPLAY_LABELS[token] ?? token);
 }
 
+// Heterogeneous resource map (OD-RR2-2): categorical bands only. Rows keep the
+// governed priority order from the report model; no contestation numeral is computed.
 function archiveResourceGroups(resources = []) {
   const groups = [
-    { band: "high", label: "High-risk | 70-100", rows: [] },
-    { band: "moderate", label: "Moderate | 40-69", rows: [] },
-    { band: "aligned", label: "Aligned | 0-39", rows: [] },
+    { band: "high", label: "High priority", rows: [] },
+    { band: "moderate", label: "Monitor", rows: [] },
+    { band: "aligned", label: "Lower priority", rows: [] },
   ];
 
-  const rows = resources.map((resource) => {
-    const intensity = Math.max(0, Math.min(100, Number(resource.conflictIntensity) || 0));
-    const band = conflictBandFromIntensity(intensity);
-    return Object.freeze({
-      label: cleanText(resource.resourceName),
-      category: cleanText(resource.resourceCategory),
-      direction: publicResourceDirection(resource.direction),
-      explanation: cleanText(resource.explanation),
-      intensity,
-      band,
-      sourceBand: cleanText(resource.conflictBand),
-    });
-  });
+  const rows = resources.map((resource) => Object.freeze({
+    label: cleanText(resource.resourceName),
+    category: cleanText(resource.resourceCategory),
+    priorityOrder: resource.priorityOrder,
+    acquirerNetEffect: cleanText(resource.acquirerNetEffect),
+    targetNetEffect: cleanText(resource.targetNetEffect),
+    acquirerEriTier: cleanText(resource.acquirerEriTier),
+    targetEriTier: cleanText(resource.targetEriTier),
+    drivers: Array.isArray(resource.conflictDrivers) ? resource.conflictDrivers.map(cleanText).filter(Boolean) : [],
+    explanation: cleanText(resource.explanation),
+    whyItMatters: cleanText(resource.whyItMatters),
+    band: categoricalBandKey(resource.conflictBand),
+  }));
 
-  const selectedRows = rows
-    .sort((a, b) => b.intensity - a.intensity || a.label.localeCompare(b.label))
-    .slice(0, 5);
-
-  for (const row of selectedRows) {
+  for (const row of rows) {
     const group = groups.find((item) => item.band === row.band);
     if (group) group.rows.push(row);
   }
@@ -318,32 +247,6 @@ function structuralResourceGroups(resources = []) {
     .map((group) => Object.freeze({ ...group, count: group.rows.length })));
 }
 
-function actionForPrediction(actions, index) {
-  const allActions = [...(actions.beforeClose ?? []), ...(actions.afterClose ?? [])];
-  const timingText = (action) => cleanText(action?.actionTiming).toLowerCase();
-
-  if (index === 0) {
-    return allActions.find((action) => /before/.test(timingText(action)))
-      ?? allActions.find((action) => /30/.test(timingText(action)) && !/60/.test(timingText(action)))
-      ?? allActions[0];
-  }
-
-  if (index === 1) {
-    return allActions.find((action) => /30/.test(timingText(action)) && /60/.test(timingText(action)))
-      ?? allActions.find((action) => /days/.test(timingText(action)) && !/^day\s*60$/.test(timingText(action)))
-      ?? allActions[1]
-      ?? allActions[0];
-  }
-
-  if (index === 2) {
-    return allActions.find((action) => /^day\s*60$/.test(timingText(action)))
-      ?? allActions.find((action) => /day/.test(timingText(action)) && /60/.test(timingText(action)))
-      ?? allActions[2]
-      ?? allActions[allActions.length - 1];
-  }
-
-  return allActions[index];
-}
 
 function inferEvidenceFamily(...parts) {
   const text = parts.map(cleanText).join(" ").toLowerCase();
@@ -418,7 +321,7 @@ function dynamicEvidenceRequired(prediction, actionTitle, rationale, index, fall
   return EVIDENCE_REQUIRED_BY_FAMILY[family]?.[index] || cleanText(fallback);
 }
 
-function predictionCard(prediction, index, actions = {}) {
+function predictionCard(prediction, index, context = {}) {
   const statement = cleanText(prediction.predictionClaim);
   const observableSignal = distinctText(prediction.observableSignal, statement);
   const verification = distinctText(prediction.verificationMethod, observableSignal || statement);
@@ -430,16 +333,17 @@ function predictionCard(prediction, index, actions = {}) {
     evidenceRequired: observableSignal,
     falsificationCondition: verification,
   }, index);
-  const action = actionForPrediction(actions, index);
-  const actionTitle = cleanText(action?.actionTitle || recommendedAction);
-  const actionTiming = cleanText(action?.actionTiming || prediction.predictionWindow);
-  const actionOwner = cleanText(action?.actionOwner);
-  const actionExpectedEffect = cleanText(action?.actionExpectedEffect);
+  // Referential integrity (RR-3 item 8): title, timing, owner, reason, and expected
+  // effect all come from the single action object the report model bound to this
+  // watchpoint window — never a positional or keyword-inferred pairing.
+  const actionTitle = cleanText(prediction.actionTitle || recommendedAction);
+  const actionTiming = cleanText(prediction.actionTiming || prediction.predictionWindow);
+  const actionOwner = cleanText(prediction.actionOwner);
+  const actionExpectedEffect = cleanText(prediction.actionExpectedEffect);
   const actionMeta = [actionTiming, actionOwner, actionExpectedEffect ? `expected effect: ${actionExpectedEffect}` : ""]
     .filter(Boolean)
     .join(" | ");
-  const rawRationale = cleanText(action?.actionReason || recommendedAction);
-  const rationale = alignedActionRationale(actionTitle, rawRationale, actions.resourceGroups);
+  const rationale = cleanText(prediction.actionReason || recommendedAction);
   const displayStatement = index === 2 && observableSignal ? observableSignal : statement;
   const displayEvidence = index === 2
     ? (statement || verification)
@@ -551,24 +455,6 @@ export function buildMergevueForecastBriefDesignModel(report, options = {}) {
   const acquirerPattern = publicEnvironmentName(environments.acquirerEnvironmentName, environments.acquirerEnvironmentCode);
   const targetPattern = publicEnvironmentName(environments.targetEnvironmentName, environments.targetEnvironmentCode);
   const resourceList = Array.isArray(resources.resources) ? resources.resources : [];
-  const averageResourceIntensity = averageScore(resourceList.map((resource) => resource.conflictIntensity ?? resource.intensity ?? 0));
-  const compatibilityFriction = Number.isFinite(score) ? 100 - score : averageResourceIntensity;
-  // Homogeneous reports carry no pairwise contestation intensities, so the derived
-  // numeric exposure categories are omitted rather than computed from absent inputs.
-  const economicCategories = isHomogeneous ? [] : [
-    {
-      label: "Operating drift",
-      value: clampScore(0.55 * averageResourceIntensity + 0.45 * compatibilityFriction),
-    },
-    {
-      label: "Knowledge leakage",
-      value: clampScore(0.65 * resourceScore(resourceList, ["knowledge", "information", "trust", "connections"]) + 0.35 * averageResourceIntensity),
-    },
-    {
-      label: "Decision delay",
-      value: clampScore(0.65 * resourceScore(resourceList, ["authority", "organisation", "organization", "system", "decisiveness", "information"]) + 0.35 * compatibilityFriction),
-    },
-  ];
 
   const sections = [
     {
@@ -665,10 +551,12 @@ export function buildMergevueForecastBriefDesignModel(report, options = {}) {
           differentiation: scenario.withinEnvironmentDifferentiation ?? null,
           caveats: Array.isArray(resources.structuralCaveats) ? resources.structuralCaveats : [],
         }
-        : {}),
+        : {
+          priorityConclusion: Array.isArray(resources.priorityConclusion) ? resources.priorityConclusion : [],
+        }),
       legend: isHomogeneous
         ? ["Shared amplified structural state", "Shared neutral structural state", "Shared suppressed structural state"]
-        : ["High-risk | 70-100", "Moderate | 40-69", "Aligned | 0-39"],
+        : ["High priority", "Monitor", "Lower priority"],
       scanned: resources.resources.length,
       scannedLabel: isHomogeneous
         ? `${resources.resources.length} CANONICAL RESOURCES · SHARED STRUCTURAL STATE`
@@ -688,10 +576,16 @@ export function buildMergevueForecastBriefDesignModel(report, options = {}) {
           id: `R${index + 1}`,
           name: resource.resourceName,
           category: resource.resourceCategory,
-          intensity: Number(resource.conflictIntensity) || 0,
-          band: resource.conflictBand,
-          direction: resource.direction,
-          explanation: resource.explanation,
+          band: categoricalBandKey(resource.conflictBand),
+          priorityOrder: resource.priorityOrder,
+          direction: cleanText(resource.direction),
+          acquirerNetEffect: cleanText(resource.acquirerNetEffect),
+          targetNetEffect: cleanText(resource.targetNetEffect),
+          acquirerEriTier: cleanText(resource.acquirerEriTier),
+          targetEriTier: cleanText(resource.targetEriTier),
+          drivers: Array.isArray(resource.conflictDrivers) ? resource.conflictDrivers.map(cleanText).filter(Boolean) : [],
+          explanation: cleanText(resource.explanation),
+          whyItMatters: cleanText(resource.whyItMatters),
         })),
     },
     {
@@ -705,10 +599,8 @@ export function buildMergevueForecastBriefDesignModel(report, options = {}) {
       title: MERGEVUE_PUBLIC_REPORT_BLOCKS[7],
       enterpriseValueBand: cleanText(economics.enterpriseValueBand).replace(/^Enterprise value \/ deal value provided:\s*/, ""),
       valuationDisclaimer: economics.valuationDisclaimer,
-      economicRiskPosture: economics.economicRiskPosture,
       economicTriageJudgement: economics.economicTriageJudgement,
-      economicTriageRule: economics.economicTriageRule,
-      economicTriageReason: economics.economicTriageReason,
+      economicChannelNote: economics.economicChannelNote,
       economicTriageChannels: Array.isArray(economics.economicTriageChannels) ? economics.economicTriageChannels : [],
       evUse: economics.evUse,
       whatThisPreviewCanSay: economics.whatThisPreviewCanSay,
@@ -716,7 +608,6 @@ export function buildMergevueForecastBriefDesignModel(report, options = {}) {
       requiredForQuantifiedModelling: economics.requiredForQuantifiedModelling,
       economicRiskLines: Array.isArray(economics.economicRiskLines) ? economics.economicRiskLines : [],
       engagementTierRequirement: economics.engagementTierRequirement,
-      categories: economicCategories,
     },
     {
       id: SECTION_IDS[8],
@@ -733,6 +624,7 @@ export function buildMergevueForecastBriefDesignModel(report, options = {}) {
       methodLimitations: evidence.methodLimitations,
       canSay: evidence.whatThisReportCanSay,
       cannotSay: evidence.whatThisReportCannotSay,
+      integrity: Array.isArray(evidence.integrity?.rows) ? evidence.integrity.rows : [],
     },
     {
       id: SECTION_IDS[10],
@@ -788,7 +680,6 @@ export function buildMergevueForecastBriefDesignModel(report, options = {}) {
       target: Object.freeze({ company: scenario.targetName, pattern: targetPattern }),
       dealType: scenario.dealType,
       enterpriseValue: stripLabel(scenario.enterpriseValueBand, "Enterprise value band"),
-      economicPosture: cleanText(economics?.economicRiskPosture || "Directional"),
       predictionsSummary: Object.freeze(predictions.map((prediction) => Object.freeze({
         windowLabel: prediction.window,
         verifyBy: prediction.verifyBy,
@@ -817,7 +708,7 @@ export function buildMergevueForecastBriefDesignModel(report, options = {}) {
     resourceConflictMap: Object.freeze({
       legend: isHomogeneous
         ? "Shared structural state | canonical Net Effect \u00d7 ERI resource priority tier \u2014 not a pairwise resource-conflict score"
-        : "Score = structural contestation intensity | 0 aligned -> 100 maximal conflict",
+        : "Categorical priority order from the governed 17-resource scan \u00d7 canonical Net Effect and ERI tier \u2014 not a contestation score",
       scanned: resources.resources.length,
       scannedLabel: isHomogeneous
         ? `${resources.resources.length} CANONICAL RESOURCES \u00b7 SHARED STRUCTURAL STATE`
@@ -906,7 +797,7 @@ export function renderMergevueForecastBriefHtml(model) {
   .prediction-stack{ gap:12px; } .prediction-banner{ margin-bottom:12px; } .window-label{ font-family:var(--mono); font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); margin-bottom:7px; } .prediction-bottom{ display:grid; grid-template-columns:1fr 1.15fr 1fr; border-top:var(--card-border); } .evidence-block,.action-block,.decision-output{ padding:12px 16px; break-inside:avoid; page-break-inside:avoid; } .action-block{ background:var(--accent-soft); border-left:var(--card-border); border-right:var(--card-border); } .decision-output{ background:var(--surface-2); } .evidence-block .pmv,.decision-output .pmv{ font-size:12px; color:var(--ink-2); line-height:1.34; } .prediction-bottom .pml{ font-family:var(--mono); font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); margin-bottom:5px; } .action-block .act-title{ font-size:12px; font-weight:650; } .action-block .act-meta{ font-size:12px; line-height:1.32; color:var(--ink-3); } .action-block .act-reason{ font-size:12px; line-height:1.34; color:var(--ink-2); }
   .tracker{ display:flex; align-items:center; gap:22px; padding:20px 24px; border:var(--card-border); border-radius:var(--r); background:var(--accent-soft); margin-top:16px; break-inside: avoid; } .qr,.audit-qr .qr{ width:96px; height:96px; flex:none; display:block; border:8px solid var(--ink); background:repeating-linear-gradient(45deg,#fff 0 4px,var(--ink) 4px 8px); } .tracker h4{ font-size:14px; font-weight:600; margin:0; } .tracker p{ font-size:12.5px; color:var(--ink-2); margin:6px 0 0; max-width:52ch; line-height:1.5; } .tk-url{ font-family:var(--mono); font-size:12px; color:var(--accent); margin-top:9px; font-weight:500; }
   .envs{ display:grid; grid-template-columns:1fr 1fr; gap:16px; } .env,.panel{ border:var(--card-border); border-radius:var(--r); background:var(--surface); padding:22px; box-shadow:var(--card-shadow); break-inside: avoid; } .env .role{ font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3); } .env .co{ font-size:15px; font-weight:600; margin-top:4px; } .env .arc{ font-size:18px; font-weight:600; margin-top:10px; color:var(--accent); } .env p,.panel p{ font-size:13px; color:var(--ink-2); line-height:1.55; margin:10px 0 0; } .eng-benefit-head{ color:#008c95; font-weight:800; text-transform:uppercase; } .eng-next-step{ color:var(--ink); font-weight:800; } .collide{ margin-top:16px; border:var(--card-border); border-radius:var(--r); overflow:hidden; } .collide-row{ display:grid; grid-template-columns:210px 1fr; } .collide-row+.collide-row{ border-top:var(--card-border); } .collide-row .cl{ padding:14px 18px; background:var(--surface-2); font-size:12px; font-weight:600; border-right:var(--card-border); } .collide-row .cr{ padding:14px 18px; font-size:12.5px; color:var(--ink-2); line-height:1.5; background:var(--surface); } .collision-finding{ display:block; } .finding-resource-line{ display:block; } .finding-rule{ height:1px; background:var(--line); margin:10px 0; } .finding-meaning,.finding-interpretation{ display:block; } .finding-meaning-title{ font-weight:600; color:var(--ink); margin-bottom:4px; } .finding-line{ display:block; }
-  .legend{ display:flex; flex-wrap:wrap; gap:8px 18px; align-items:center; margin-bottom:18px; font-family:var(--mono); font-size:10.5px; color:var(--ink-2); } .legend .lg{ display:flex; align-items:center; gap:7px; } .legend .sw{ width:11px; height:11px; border-radius:2px; } .legend .anchor{ margin-left:auto; color:var(--ink-3); } .zone{ margin-bottom:14px; } .zone-head{ display:flex; align-items:center; gap:10px; margin-bottom:8px; } .zone-dot{ width:9px; height:9px; border-radius:50%; } .zone-name{ font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; font-weight:500; } .zone-count{ font-family:var(--mono); font-size:10px; color:var(--ink-3); } .rbars{ border:var(--card-border); border-radius:var(--r); overflow:hidden; background:var(--surface); } .rbar{ display:grid; grid-template-columns:160px 1fr 46px; align-items:center; gap:14px; padding:9px 16px; } .rbar+.rbar{ border-top:var(--card-border); } .rn{ font-size:12px; font-weight:500; } .rd{ font-size:11px; color:var(--ink-3); margin-top:2px; } .rt{ height:7px; border-radius:4px; background:var(--surface-2); position:relative; overflow:hidden; } .rf{ position:absolute; left:0; top:0; bottom:0; border-radius:4px; } .rv{ font-family:var(--mono); font-size:11px; text-align:right; color:var(--ink-2); }
+  .legend{ display:flex; flex-wrap:wrap; gap:8px 18px; align-items:center; margin-bottom:18px; font-family:var(--mono); font-size:10.5px; color:var(--ink-2); } .legend .lg{ display:flex; align-items:center; gap:7px; } .legend .sw{ width:11px; height:11px; border-radius:2px; } .legend .anchor{ margin-left:auto; color:var(--ink-3); } .zone{ margin-bottom:14px; } .zone-head{ display:flex; align-items:center; gap:10px; margin-bottom:8px; } .zone-dot{ width:9px; height:9px; border-radius:50%; } .zone-name{ font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; font-weight:500; } .zone-count{ font-family:var(--mono); font-size:10px; color:var(--ink-3); } .rbars{ border:var(--card-border); border-radius:var(--r); overflow:hidden; background:var(--surface); } .rbar{ display:grid; grid-template-columns:160px minmax(0,1fr) auto; align-items:center; gap:14px; padding:9px 16px; } .rbar+.rbar{ border-top:var(--card-border); } .rn{ font-size:12px; font-weight:500; } .rd{ font-size:11px; color:var(--ink-3); margin-top:2px; } .rt{ height:7px; border-radius:4px; background:var(--surface-2); position:relative; overflow:hidden; } .rf{ position:absolute; left:0; top:0; bottom:0; border-radius:4px; } .rv{ font-family:var(--mono); font-size:11px; text-align:right; color:var(--ink-2); } .rbar>span{ min-width:0; } .rbar .rv{ white-space:normal; overflow-wrap:break-word; } .rbar .rd{ overflow-wrap:anywhere; }
   .tl{ display:grid; grid-template-columns:repeat(3,1fr); gap:0; border:var(--card-border); border-radius:var(--r); overflow:hidden; background:var(--surface); break-inside: avoid; } .tl-col+.tl-col{ border-left:var(--card-border); } .tl-progress{ display:flex; height:4px; } .tl-progress span{ flex:1; background:var(--accent); } .tl-when{ padding:14px 18px; background:var(--surface-2); border-bottom:var(--card-border); display:flex; align-items:baseline; justify-content:space-between; } .tl-when .ph{ font-family:var(--mono); font-size:11px; color:var(--accent); font-weight:500; } .tl-when .win{ font-family:var(--mono); font-size:10px; color:var(--ink-3); } .tl-body{ padding:16px 18px; } .tl-body .h{ font-size:13.5px; font-weight:600; line-height:1.3; } .tl-body p{ font-size:12px; color:var(--ink-2); line-height:1.5; margin-top:9px; } .tl-marker{ margin-top:14px; padding-top:12px; border-top:var(--card-border); } .tl-marker .ml{ font-family:var(--mono); font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); margin-bottom:5px; } .tl-marker .mv{ font-size:11.5px; line-height:1.4; }
   .env-total{ display:flex; align-items:flex-end; justify-content:space-between; gap:24px; padding:22px 24px; border:var(--card-border); border-radius:var(--r); background:var(--surface); box-shadow:var(--card-shadow); margin-bottom:14px; } .et-l .lab{ font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); } .rng{ font-size:38px; font-weight:var(--display-weight); margin-top:6px; } .economic-label{ font-size:18px; line-height:1.08; font-weight:var(--display-weight); letter-spacing:.035em; text-transform:uppercase; white-space:nowrap; margin-top:6px; } .et-r{ text-align:right; font-family:var(--mono); font-size:11px; color:var(--ink-2); line-height:1.7; } .cats{ display:flex; flex-direction:column; gap:10px; } .cat{ border:var(--card-border); border-radius:var(--r); background:var(--surface); padding:14px 18px; break-inside: avoid; } .cat-top{ display:flex; justify-content:space-between; align-items:baseline; gap:16px; } .cn{ font-size:13px; font-weight:600; } .cr{ font-family:var(--mono); font-size:13px; font-weight:500; } .cat p{ font-size:12px; color:var(--ink-2); line-height:1.5; margin-top:6px; } .cat-bar,.bar{ height:6px; border-radius:4px; background:var(--surface-2); margin-top:10px; position:relative; overflow:hidden; } .cat-bar span,.bar i{ position:absolute; top:0; bottom:0; left:0; border-radius:4px; background:var(--accent); }
   .acts,.split2{ display:grid; grid-template-columns:1fr 1fr; gap:16px; } .acts-single{ grid-template-columns:1fr; } .timeline-actions{ margin-top:20px; padding-top:16px; border-top:var(--card-border); } .timeline-actions-title{ font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); margin:0 0 12px; } .act{ border:var(--card-border); border-radius:var(--r); background:var(--surface); padding:20px 22px; } .act h4,.panel h4{ font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); margin:0 0 14px; } .act-item{ padding:10px 0; border-top:var(--card-border); } .act-item:first-of-type{ border-top:0; } .act-title{ font-size:12.8px; font-weight:600; } .act-meta{ font-family:var(--mono); font-size:10px; color:var(--ink-3); margin-top:5px; } .act-reason{ font-size:12px; color:var(--ink-2); line-height:1.45; margin-top:6px; } .cta{ margin-top:16px; display:flex; align-items:center; gap:20px; padding:22px 26px; border-radius:var(--r); background:var(--ink); color:var(--bg); break-inside: avoid; } .cta .cl{ font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:#c8d0d8; } .cta .ct{ font-size:17px; font-weight:600; margin-top:6px; line-height:1.3; } .cta .cbtn{ margin-left:auto; padding:11px 20px; border-radius:100px; background:var(--accent); color:white; font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; font-weight:600; white-space:normal; overflow-wrap:anywhere; text-align:center; } #engagement .cta{ margin-top:12px; padding:14px 18px; gap:14px; align-items:flex-start; } #engagement .cta .ct{ font-size:14px; line-height:1.25; margin-top:4px; } #engagement .cta .cbtn{ white-space:nowrap; overflow-wrap:normal; word-break:normal; }
@@ -918,7 +809,12 @@ export function renderMergevueForecastBriefHtml(model) {
   html,body{ margin:0; padding:0; }
   html[data-variant="institute"],body{ background:var(--bg); }
   body{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  .page{ width:210mm; min-height:297mm; margin:0 auto; padding:13mm 16mm 12mm; page-break-after:always; break-after:page; background:var(--bg); overflow:hidden; }
+  /* CORR3-B: logical report sections no longer force one-section-per-physical-sheet.
+     Sections flow continuously; the forced break after every logical page wrapper was
+     the cause of mechanically sparse continuation sheets (a short overflow tail alone
+     on its own physical page before the next forced section start). Section hierarchy,
+     order, and content are unchanged; page count is not a contract. */
+  .page{ width:210mm; margin:0 auto; padding:13mm 16mm 12mm; page-break-after:auto; break-after:auto; background:var(--bg); }
   .page:last-child{ page-break-after:auto; break-after:auto; }
   .page>.sheet{ width:100%!important; max-width:100%!important; margin:0!important; padding:0!important; }
   .cover-page{ padding:5mm 13mm 5mm; }
@@ -1021,7 +917,7 @@ export function renderMergevueForecastBriefHtml(model) {
   .env p{ font-size:12px; line-height:1.45; }
   .collide-row{ grid-template-columns:185px 1fr; }
   .collide-row .cl,.collide-row .cr{ padding:10px 14px; }
-  .rbar{ padding:8px 14px; grid-template-columns:190px 1fr 46px; min-width:0; }
+  .rbar{ padding:8px 14px; grid-template-columns:190px minmax(0,1fr) auto; min-width:0; }
   .rbar .rn{ font-size:11.6px; }
   .rbar .rd{ font-family:var(--mono); font-size:9px; color:var(--ink-3); margin-top:2px; line-height:1.3; overflow-wrap:anywhere; }
   .rbar .rt{ height:8px!important; background:#E7EAE7!important; }
@@ -1093,7 +989,7 @@ export function renderMergevueForecastBriefHtml(model) {
   #resources .zone-head{ margin-bottom:5px; gap:7px; }
   #resources .zone-name{ font-size:9px; letter-spacing:.08em; }
   #resources .zone-count{ font-size:8.5px; }
-  #resources .rbar{ grid-template-columns:135px 1fr 34px; gap:9px; padding:6px 10px; }
+  #resources .rbar{ grid-template-columns:135px minmax(0,1fr) auto; gap:9px; padding:6px 10px; }
   #resources .rn{ font-size:10.5px; }
   #resources .rd{ font-size:9px; line-height:1.18; }
   #resources .rv{ font-size:9.2px; }
@@ -1154,19 +1050,7 @@ export function renderMergevueForecastBriefHtml(model) {
   .evidence-page .ql,
   .evidence-page .audit-foot{ font-size:7pt!important; line-height:1.18!important; color:#8b929a!important; }
   .evidence-page .audit-foot{ margin-top:6px!important; padding-top:5px!important; }
-  .evidence-page{ position:relative; padding-bottom:9mm!important; }
-  .evidence-page .audit-foot{
-    position:absolute!important;
-    left:13mm!important;
-    right:13mm!important;
-    bottom:3mm!important;
-    margin-top:0!important;
-    padding-top:0!important;
-    border-top:0!important;
-    font-size:6.5pt!important;
-    line-height:1!important;
-    opacity:.55!important;
-  }
+  .evidence-page{ padding-bottom:9mm!important; }
   .evidence-page .audit-qr .qr{ width:48px!important; height:48px!important; border-width:4px!important; opacity:.65; }
 
   .environments-page #environments{ min-height:0; display:block; }
@@ -1179,7 +1063,7 @@ export function renderMergevueForecastBriefHtml(model) {
   .environments-page .env-bridge{ margin-top:10px; padding:12px 16px; }
 
   .predictions-page{ padding:8mm 12mm 8mm; }
-  .predictions-page #predictions{ min-height:257mm; display:flex; flex-direction:column; }
+  .predictions-page #predictions{ display:flex; flex-direction:column; }
   .predictions-page #predictions .sec{ padding-top:10px; }
   .predictions-page #predictions .sec-head{ gap:8px; margin-bottom:8px; padding-bottom:6px; }
   .predictions-page #predictions .sec-note{ display:none; }
@@ -1206,9 +1090,9 @@ export function renderMergevueForecastBriefHtml(model) {
   .predictions-page #predictions .action-block .act-reason{ margin-top:2px; }
   .predictions-page #predictions .tracker{ display:none!important; }
 
-  .timeline-page #timeline{ min-height:244mm; display:flex; flex-direction:column; }
+  .timeline-page #timeline{ display:flex; flex-direction:column; }
   .timeline-page #timeline .legend{ margin-bottom:12px; }
-  .timeline-page .tl{ flex:1; min-height:96mm; }
+  .timeline-page .tl{ }
   .timeline-page .timeline-actions{ margin-top:auto; }
 
   .collision-resources-page{ padding-top:9mm; padding-bottom:9mm; }
@@ -1225,7 +1109,7 @@ export function renderMergevueForecastBriefHtml(model) {
   .collision-resources-page #resources .zone-head{ margin-bottom:5px; }
   .collision-resources-page #resources .zone-name{ font-size:9.2px; }
   .collision-resources-page #resources .zone-count{ font-size:8.4px; }
-  .collision-resources-page #resources .rbar{ padding:5px 9px; grid-template-columns:138px 1fr 30px; gap:7px; }
+  .collision-resources-page #resources .rbar{ padding:5px 9px; grid-template-columns:138px minmax(0,1fr) auto; gap:7px; }
   .collision-resources-page #resources .rn{ font-size:9.3px; }
   .collision-resources-page #resources .rd{ font-size:7.6px; line-height:1.12; }
   .collision-resources-page #resources .rt{ height:5px!important; }
@@ -1294,6 +1178,16 @@ export function renderMergevueForecastBriefHtml(model) {
   .prediction-collision-page #collision .collide-row .cr{ padding:6px 9px; line-height:1.16; }
   .prediction-collision-page #collision .finding-rule{ margin:5px 0; }
   .collide-row{ break-inside:avoid; page-break-inside:avoid; }
+  .sec-head{ break-after:avoid; page-break-after:avoid; }
+  .resources-page #resources .zone{ margin-bottom:6px; }
+  #resources.homogeneous-profile .rbar{ grid-template-columns:minmax(0,1fr) auto; }
+  .resources-page #resources .rbar{ padding:3px 10px; }
+  .resources-page #resources .rd{ margin-top:1px; }
+  .resources-page #resources .resource-summary p{ margin:0 0 5px; }
+  .rbar,.tl-col,.act-item,.act,.panel,.env,.pred,.tracker,.cat,.env-total,.econ-line,.evrow{ break-inside:avoid; page-break-inside:avoid; }
+  .resource-summary > p,.resource-summary-row{ break-inside:avoid; page-break-inside:avoid; }
+  .score-expl,.exec-action,.cover-executive-summary,.doc-title-wrap{ break-inside:avoid; page-break-inside:avoid; }
+  .evidence-gate-row{ break-inside:avoid; page-break-inside:avoid; }
 
   .audit{ margin-top:28px; }
   .full-list p{ margin:0 0 10px; font-size:12px; line-height:1.45; }
@@ -1405,82 +1299,50 @@ function renderFirstPageEvidenceGate(model) {
   return `<div class="gate evidence-gate"><div class="evidence-gate-head"><div class="evidence-gate-title">EVIDENCE BASIS & CONFIDENCE GATE</div><span class="pips">${renderPips(model.compatibility.confidence)}</span></div>${rows.map(([label, value]) => `<div class="evidence-gate-row"><div class="evidence-gate-label">${escapeHtml(label)}</div><div class="evidence-gate-copy">${escapeHtml(value)}</div></div>`).join("")}</div>`;
 }
 
-function renderCoverHeadline(model) {
-  const acquirerCompany = cleanText(model?.forecast?.acquirer?.company || "The acquirer");
-  const targetCompany = cleanText(model?.forecast?.target?.company || "the target");
-  const acquirerPattern = String(model?.forecast?.acquirer?.pattern ?? "").trim();
-  const targetPattern = String(model?.forecast?.target?.pattern ?? "").trim();
-  const possessive = (value) => /s$/i.test(value) ? `${value}'` : `${value}'s`;
-  if (model?.pairMode === "homogeneous" && acquirerPattern && targetPattern) {
-    // Governed Screen 10b Block 2 copy (ST_UI_Track_Coder_Agent_Specification_v1.xlsx).
-    return `${possessive(acquirerCompany)} ${acquirerPattern} operating logic is being combined with the same operating logic at ${targetCompany}. This pair is structurally low-friction at the environment level — the operating logic is shared. The risk shifts from cultural collision to internal hierarchy and individual differentiation.`;
-  }
-  return `${possessive(acquirerCompany)} ${acquirerPattern || "identified"} operating logic is being combined with ${possessive(targetCompany)} ${targetPattern || "identified"} operating logic. The risk may appear stable at first but can compound as integration pressure increases.`;
-}
 
-function renderCoverEconomicExposure(model) {
-  const enterpriseValue = cleanText(model?.forecast?.enterpriseValue);
-  const posture = cleanText(model?.forecast?.economicPosture || "Directional");
-  const limitation = "Directional triage only. Not a valuation or loss estimate.";
-  const dealValueContext = enterpriseValue
-    ? `<span class="k economic-range-note">Deal value context: ${escapeHtml(enterpriseValue.replace(/^Enterprise value \/ deal value provided:\s*/, ""))}</span>`
-    : "";
-  return `<div class="deal-cell economic-cover-cell"><span class="k">Economic exposure posture</span><span class="v tnum">${escapeHtml(posture)}</span><span class="k economic-range-k">Preview limitation</span><span class="v economic-range-v">${escapeHtml(limitation)}</span>${dealValueContext}</div>`;
-}
 
-function renderCoverExecutiveSummary(model) {
-  const band = cleanText(model?.compatibility?.bandLabel || "current compatibility band").toLowerCase();
-  const acquirerPattern = cleanText(model?.forecast?.acquirer?.pattern || "the acquirer environment");
-  const targetPattern = cleanText(model?.forecast?.target?.pattern || "the target environment");
-  const isHomogeneous = model?.pairMode === "homogeneous";
-  const summary = isHomogeneous
-    ? `The result indicates ${band} because both organisations resolve to the same structural operating environment. Their structural compatibility score is canonically derived, and evidence quality may make this classification provisional. Same-environment classification does not mean identical answer patterns.`
-    : `The result indicates ${band} across two different operating environments: ${acquirerPattern} and ${targetPattern}. The executive risk is translation failure: integration decisions may damage the routines, authority patterns, or trust mechanisms that currently protect deal value.`;
-  return `<div class="cover-executive-summary"><div class="cover-executive-summary-title">Executive summary</div><p>${escapeHtml(summary)}</p></div>`;
-}
 
-function renderCoverControlMove(model) {
-  if (model?.pairMode === "homogeneous") {
-    // Governed homogeneous next step (Screen 10b Block 6). No unsourced per-resource
-    // controls and no alignment-asset language for the homogeneous branch.
-    return cleanText(model?.forecast?.recommendedAction);
-  }
-  const groups = Array.isArray(model?.resourceConflictMap?.groups) ? model.resourceConflictMap.groups : [];
-  const items = resourceSummaryItems({ groups });
-  const watch = items.filter((resource) => resource.band === "high" || resource.band === "moderate").map((resource) => resource.name);
-  const alignedAll = items.filter((resource) => resource.band === "aligned");
-  const aligned = alignedAll.filter((resource) => alignedResourceKind(resource.direction) === "asset").map((resource) => resource.name);
-  const blindSpots = alignedAll.filter((resource) => alignedResourceKind(resource.direction) !== "asset").map((resource) => resource.name);
-  const listText = (items) => items.length <= 1 ? (items[0] || "") : `${items.slice(0, -1).join(", ")} and ${items[items.length - 1]}`;
-  const watchText = watch.length ? `Track friction around ${listText(watch)}.` : "No primary low-match resource zone is visible in this preview.";
-  const alignedText = aligned.length ? `Protect ${listText(aligned)} as alignment assets.` : "";
-  const blindSpotText = blindSpots.length ? `Treat ${listText(blindSpots)} as shared blind spots, not assets.` : "";
-  return `${watchText} ${alignedText} ${blindSpotText} Freeze irreversible operating-model changes until Day 60 before deciding what to integrate, simplify, or preserve.`.replace(/\s+/g, " ").trim();
-}
 function renderArchiveExecutive(model) {
-  const score = model.compatibility.score;
-  const scoreDisplay = Number.isFinite(score) ? Math.round(score) : null;
-  const scoreText = scoreDisplay === null ? "NA" : String(scoreDisplay);
+  const hero = model.sections[0]?.hero ?? {};
+  // Governed ECS derivation explanation (RR-3 item 4): the scenario section is not a
+  // standalone PDF page, so its explanation is transmitted here with the score.
+  const scenarioExplanation = cleanText(model.sections.find((section) => section.id === "scenario")?.explanation);
+  const canonicalScore = model.compatibility.score;
+  const roundedScore = Number.isFinite(canonicalScore) ? Math.round(canonicalScore) : null;
+  // RR3-CORR1-IV-06 (CORR2): the headline may round for presentation, but a rounded
+  // headline is explicitly marked approximate (≈) so it can never contradict the
+  // canonical decimal or its band. Band authority always uses the canonical value.
+  const approximate = roundedScore !== null && roundedScore !== Number(canonicalScore);
+  const scorePrefix = approximate ? "\u2248" : "";
+  const scoreText = roundedScore === null ? "NA" : String(roundedScore);
+  const scoreAria = `Environment Compatibility Score ${scorePrefix}${scoreText} of 100${approximate ? `, rounded from canonical ${canonicalScore}` : ""}`;
   const bandClass = `band-${model.compatibility.bandKey}`;
+  const enterpriseValue = cleanText(model.forecast.enterpriseValue);
+  const previewLimitation = "Directional triage only. Not a valuation or loss estimate.";
   return `<section class="sec" id="exec" style="padding-top:0" data-screen-label="Executive Summary"><div class="exec">
     <div class="exec-score">
       <div class="kicker">Environment Compatibility Score | ECS</div>
-      <div class="score-readout tnum" aria-label="Environment Compatibility Score ${escapeHtml(scoreText)} of 100"><span class="score-num">${escapeHtml(scoreText)}</span><span class="score-of">&nbsp;of 100</span></div>
+      <div class="score-readout tnum" aria-label="${escapeHtml(scoreAria)}"><span class="score-num">${escapeHtml(scorePrefix)}${escapeHtml(scoreText)}</span><span class="score-of">&nbsp;of 100</span></div>
       <div class="score-expl">ECS estimates structural compatibility between the two identified operating environments. Higher scores indicate stronger alignment; lower scores indicate higher friction risk.</div>
       <div class="band-pill ${bandClass}">${escapeHtml(model.compatibility.bandLabel)}</div>
-      <div class="score-scale" aria-label="0-100 scale"><div class="scale-track"><div class="scale-mark" style="left:${Math.max(0, Math.min(100, Number(score) || 0))}%"></div></div><div class="scale-ends"><span>0 | ${escapeHtml(model.compatibility.scaleLow)}</span><span>100 | ${escapeHtml(model.compatibility.scaleHigh)}</span></div></div>
+      <div class="score-scale" aria-label="0-100 scale"><div class="scale-track"><div class="scale-mark" style="left:${Math.max(0, Math.min(100, Number(canonicalScore) || 0))}%"></div></div><div class="scale-ends"><span>0 | ${escapeHtml(model.compatibility.scaleLow)}</span><span>100 | ${escapeHtml(model.compatibility.scaleHigh)}</span></div></div>
+      ${scenarioExplanation ? `<div class="score-expl">${escapeHtml(scenarioExplanation)}</div>` : ""}
       ${renderFirstPageEvidenceGate(model)}
     </div>
     <div class="exec-body">
-      <p class="exec-thesis">${escapeHtml(renderCoverHeadline(model))}</p>
+      <p class="exec-thesis">${escapeHtml(hero.headline)}</p>
+      <p class="exec-summary">${escapeHtml(hero.thesis)}</p>
       <div class="exec-deal deal-grid">
         <div class="deal-cell"><span class="k">Acquirer</span><span class="v">${escapeHtml(model.forecast.acquirer.company)} <small>- ${escapeHtml(model.forecast.acquirer.pattern)}</small></span></div>
         <div class="deal-cell"><span class="k">Target</span><span class="v">${escapeHtml(model.forecast.target.company)} <small>- ${escapeHtml(model.forecast.target.pattern)}</small></span></div>
         <div class="deal-cell"><span class="k">Deal type</span><span class="v">${escapeHtml(model.forecast.dealType)}</span></div>
-        ${renderCoverEconomicExposure(model)}
+        <div class="deal-cell economic-cover-cell"><span class="k">Deal value context</span><span class="v">${escapeHtml(enterpriseValue)}</span><span class="k economic-range-k">Preview limitation</span><span class="v economic-range-v">${escapeHtml(previewLimitation)}</span></div>
       </div>
-      ${renderCoverExecutiveSummary(model)}
-      <div class="exec-action"><span class="lab">First integration control move</span><span class="txt">${escapeHtml(renderCoverControlMove(model))}</span></div>
+      <div class="exec-deal deal-grid">
+        <div class="deal-cell"><span class="k">Decision implication</span><span class="v">${escapeHtml(hero.decisionImplication)}</span></div>
+        <div class="deal-cell"><span class="k">Main risk</span><span class="v">${escapeHtml(hero.mainRisk)}</span></div>
+      </div>
+      <div class="exec-action"><span class="lab">First integration control move</span><span class="txt">${escapeHtml(hero.recommendedAction)}</span></div>
     </div>
   </div></section>`;
 }
@@ -1509,9 +1371,23 @@ function renderPredictionCards(section) {
 
 function renderResourceZones(section) {
   return section.groups.filter((group) => group.count > 0).map((group) => {
-    const rows = group.rows.map((row) => `<div class="rbar"><span><span class="rn">${escapeHtml(row.label)}</span><div class="rd">${escapeHtml(row.category)} | ${escapeHtml(row.direction)}</div></span><span class="rt"><span class="rf" style="width:${row.intensity}%; background-color:${bandColor(row.band)} !important; background:${bandColor(row.band)} !important;"></span></span><span class="rv tnum">${escapeHtml(row.intensity)}</span></div>`).join("");
+    const rows = group.rows.map((row) => {
+      const netEffects = `Acquirer: ${cleanText(row.acquirerNetEffect)} (${cleanText(row.acquirerEriTier)}) · Target: ${cleanText(row.targetNetEffect)} (${cleanText(row.targetEriTier)})`;
+      const drivers = row.drivers.length ? `<div class="rd">Drivers: ${escapeHtml(row.drivers.join(" · "))}</div>` : "";
+      const explanation = cleanText(row.explanation) ? `<div class="rd">${escapeHtml(row.explanation)}</div>` : "";
+      const whyItMatters = cleanText(row.whyItMatters) ? `<div class="rd">${escapeHtml(row.whyItMatters)}</div>` : "";
+      return `<div class="rbar"><span><span class="rn">${escapeHtml(row.label)}</span><div class="rd">${escapeHtml(row.category)}</div></span><span>${`<div class="rd">${escapeHtml(netEffects)}</div>`}${drivers}${explanation}${whyItMatters}</span><span class="rv tnum">Priority ${escapeHtml(row.priorityOrder)}</span></div>`;
+    }).join("");
     return `<div class="zone"><div class="zone-head"><span class="zone-dot" style="background:${bandColor(group.band)} !important"></span><span class="zone-name" style="color:${bandColor(group.band)} !important">${escapeHtml(group.label)}</span><span class="zone-count">${group.count} of ${escapeHtml(section.scannedLabel || `${section.scanned} DISPLAYED EXPOSED RESOURCES`)}</span></div><div class="rbars">${rows}</div></div>`;
   }).join("");
+}
+
+// Existing governed 17-resource scan conclusion copy from the deliverable
+// (restored RR-3 item 1); the renderer never re-authors this analysis.
+function renderResourcePriorityConclusion(section) {
+  const lines = (Array.isArray(section.priorityConclusion) ? section.priorityConclusion : []).map(cleanText).filter(Boolean);
+  if (!lines.length) return "";
+  return `<div class="resource-summary"><h4>What this means in practice</h4>${lines.map((line) => `<p>${escapeHtml(line)}</p>`).join("")}</div>`;
 }
 
 // Homogeneous structural resource profile rendering: categorical shared-state rows in
@@ -1539,148 +1415,21 @@ function renderActionPanel(title, actions) {
   return `<div class="act"><h4>${escapeHtml(title)}</h4>${actions.map((action) => `<div class="act-item"><div class="act-title">${escapeHtml(action.actionTitle)}</div><div class="act-meta">${escapeHtml(action.actionTiming)} | ${escapeHtml(action.actionOwner)} | expected effect: ${escapeHtml(action.actionExpectedEffect)}</div><div class="act-reason">${escapeHtml(action.actionReason)}</div></div>`).join("")}</div>`;
 }
 
-function collisionFindingHumanText(section, isHomogeneous = false) {
-  if (isHomogeneous) {
-    const differentiation = section?.differentiation;
-    if (differentiation?.status === "available") {
-      return cleanText(`Both organisations resolve to the same structural environment; ${differentiation.summary}.`);
-    }
-    return "Both organisations resolve to the same structural environment; comparable AEM/TSAM answer evidence is insufficient to state how many structural dimensions differ, so no within-environment differentiation count is issued.";
+// Homogeneous collision finding: governed differentiation copy only (OD-RMP3).
+function collisionFindingHumanText(section) {
+  const differentiation = section?.differentiation;
+  if (differentiation?.status === "available") {
+    return cleanText(`Both organisations resolve to the same structural environment; ${differentiation.summary}.`);
   }
-
-  const resources = Array.isArray(section.zones)
-    ? section.zones.slice(0, 3).filter((resource) => cleanText(resource.name))
-    : [];
-
-  if (!resources.length) {
-    return "The main friction is concentrated around the operating resources where the two environments rely on different behaviours. In practice, the integration team should protect these areas before making irreversible operating-model changes.";
-  }
-
-  const names = resources.map((resource) => cleanText(resource.name));
-  const resourceList = names.length === 1
-    ? names[0]
-    : names.length === 2
-      ? `${names[0]} and ${names[1]}`
-      : `${names.slice(0, -1).join(", ")}, and ${names[names.length - 1]}`;
-
-  return cleanText(`The main friction is around ${resourceList}. The acquirer needs these resources to become visible, transferable, and governable during integration. The target is more likely to protect local routines, limit disclosure, or keep control over how these resources move. In practice, the risk is that integration does not create transparency. It may instead make critical routines harder to access, govern, or preserve.`);
+  return "Both organisations resolve to the same structural environment; comparable AEM/TSAM answer evidence is insufficient to state how many structural dimensions differ, so no within-environment differentiation count is issued.";
 }
 
-function isTechnicalResourceDirection(text) {
-  const value = cleanText(text);
-  return /[+~-].+\bvs\b/i.test(value) || /\(.+\bvs\b.+\)/i.test(value);
-}
 
-function alignedResourceKind(direction) {
-  const parts = cleanText(direction).split("/").map((s) => s.trim().split(/\s+/)[0].toLowerCase());
-  const verbs = parts.filter((v) => v === "suppresses" || v === "amplifies" || v === "neutral");
-  if (verbs.includes("suppresses")) return "suppression";
-  if (verbs.includes("amplifies")) return "asset";
-  return "neutral";
-}
 
-function explainResourceInPractice(resource, band = "moderate") {
-  const name = cleanText(resource.name || resource.label);
-  const key = name.toLowerCase();
-  const status = band === "high"
-    ? "a low-match risk area"
-    : band === "moderate"
-      ? "a partial-match watch area"
-      : "an alignment asset";
 
-  if (band === "aligned") {
-    const alignedKind = alignedResourceKind(resource.direction);
-    if (alignedKind === "suppression") return `${name} reads as aligned only because both sides suppress it the same way. This is a shared blind spot, not a protected asset — low contestation here means neither side is investing in it. Watch for it to surface as a gap once integration begins.`;
-    if (alignedKind === "neutral") return `${name} shows low current salience for both sides. It is neither a contested zone nor an active strength — monitor it rather than treating it as an alignment asset.`;
-    if (key.includes("health")) return "Health is currently an alignment asset. Protect sustainable pace and avoid integration pressure that turns endurance into burnout.";
-    if (key.includes("connections")) return "Connections are currently an alignment asset. Preserve informal coordination and key relationship holders while formal governance is redesigned.";
-    if (key.includes("trust")) return "Trust is currently an alignment asset. Protect disclosure quality, credibility, and psychological safety during integration decisions.";
-    if (key.includes("knowledge")) return "Knowledge is currently an alignment asset. Preserve the routines and people that keep know-how accessible before changing ownership of expertise.";
-    if (key.includes("information")) return "Information is currently an alignment asset. Preserve signal flow and access to operating data while reporting lines are redesigned.";
-    if (key.includes("creativity")) return "Creativity is currently an alignment asset. Preserve local problem-solving capacity while integration rules are being installed.";
-    if (key.includes("decisiveness")) return "Decisiveness is currently an alignment asset. Preserve clear ownership and fast escalation paths during the transition.";
-    if (key.includes("attention")) return "Attention is currently an alignment asset. Preserve leadership focus and keep critical post-close signals visible.";
-    if (key.includes("organisation") || key.includes("organization") || key.includes("system")) return "Organisation / system is currently an alignment asset. Preserve the routines and cadence that already support stable execution.";
-    return `${name} is currently an alignment asset. Protect it during integration rather than treating it as a present conflict zone.`;
-  }
 
-  if (key.includes("health")) return `Health is ${status}. Health conflict can raise burnout risk, reduce sustainable pace, and make the combined organisation dependent on short-term overextension.`;
-  if (key.includes("connections")) return `Connections are ${status}. Connections conflict can weaken informal coordination, isolate key relationship holders, and increase dependency on a small number of brokers.`;
-  if (key.includes("trust")) return `Trust is ${status}. Trust conflict can trigger defensive behaviour, reduce disclosure quality, and make even technically sound integration decisions feel unsafe.`;
-  if (key.includes("knowledge")) return `Knowledge is ${status}. Knowledge conflict can block transfer of know-how, make expertise harder to access, and increase the chance that critical operating memory leaves with key people.`;
-  if (key.includes("information")) return `Information is ${status}. Information conflict can weaken signal flow, delay issue detection, and make integration decisions depend on incomplete or protected data.`;
-  if (key.includes("creativity")) return `Creativity is ${status}. Creativity conflict can suppress useful adaptation, make new operating ideas feel unsafe, and reduce the target's ability to solve integration problems locally.`;
-  if (key.includes("decisiveness")) return `Decisiveness is ${status}. Decisiveness conflict can create decision stalls, repeated escalation, and unclear ownership when integration tradeoffs need fast resolution.`;
-  if (key.includes("attention")) return `Attention is ${status}. Attention conflict can fragment leadership focus, slow issue detection, and make critical post-close signals easier to miss.`;
-  if (key.includes("organisation") || key.includes("organization") || key.includes("system")) return `Organisation / system is ${status}. Organisation / system conflict can make routines, ownership, and operating cadence harder to stabilise after close.`;
 
-  return `${name} is ${status}. Monitor it during integration and avoid changing the target operating rhythm before the Day 60 review.`;
-}
 
-function resourceSummaryItems(section) {
-  const groups = Array.isArray(section.groups) ? section.groups : [];
-  const items = [];
-  for (const band of ["high", "moderate", "aligned"]) {
-    const group = groups.find((entry) => entry.band === band);
-    const rows = Array.isArray(group?.rows) ? group.rows : [];
-    for (const row of rows) {
-      const name = cleanText(row.label || row.name);
-      if (name) items.push({ ...row, name, band });
-    }
-  }
-  return items;
-}
-
-function renderResourceConflictSummary(section) {
-  const items = resourceSummaryItems(section);
-  if (!items.length) return "";
-
-  const watchItems = items.filter((resource) => resource.band === "high" || resource.band === "moderate");
-  const alignedItems = items.filter((resource) => resource.band === "aligned");
-  const displayItems = watchItems.length
-    ? watchItems.slice(0, 3).concat(alignedItems.slice(0, Math.max(0, 3 - Math.min(3, watchItems.length))))
-    : alignedItems.slice(0, 3);
-
-  const watchNames = watchItems.map((resource) => resource.name).join(", ");
-  const assetItems = alignedItems.filter((resource) => alignedResourceKind(resource.direction) === "asset");
-  const blindItems = alignedItems.filter((resource) => alignedResourceKind(resource.direction) !== "asset");
-  const assetNames = assetItems.map((resource) => resource.name).join(", ");
-  const blindNames = blindItems.map((resource) => resource.name).join(", ");
-  const alignedSentence = assetItems.length && blindItems.length
-    ? `${assetNames} are genuine alignment assets to protect; ${blindNames} read as aligned only because both sides suppress or under-invest in them the same way, so treat them as shared blind spots rather than strengths.`
-    : assetItems.length
-      ? `${assetNames} are genuine alignment assets: they should be protected during integration, not treated as current conflict zones.`
-      : `${blindNames} read as aligned only because both sides suppress or under-invest in them the same way. That low contestation is a shared blind spot, not a strength: protect against silent gaps rather than assuming these resources are safe.`;
-  const intro = watchItems.length && alignedItems.length
-    ? `The map does not say that the deal will fail. It separates current watch areas from alignment signals. In this case, the main watch areas are ${watchNames}. ${alignedSentence}`
-    : watchItems.length
-      ? `The map does not say that the deal will fail. It shows where the two operating environments have low or partial structural match. In this case, the main watch areas are ${watchNames}. These are the places where integration decisions need the most control.`
-      : `The map does not say that the deal will fail. ${alignedSentence}`;
-
-  const rows = displayItems.map((resource) => {
-    const explanation = explainResourceInPractice(resource, resource.band);
-    return `<div class="resource-summary-row"><span>${escapeHtml(resource.name)}</span><p>${escapeHtml(explanation)}</p></div>`;
-  }).join("");
-
-  const ecsClarifier = "ECS is a compatibility score: higher means stronger alignment. Resource scores are contestation-intensity scores: higher means greater integration pressure. The two scales are related but intentionally read in opposite directions. ECS is a compatibility score computed across the full 17-resource canonical model. The resource map is a standalone integration-priority view: it highlights where post-close integration pressure is most likely to concentrate, and is not a decomposition of the ECS calculation. Public preview displays selected exposed resources. The resource scores are expert-coded from the structural environment model and are not yet reconciled against a single canonical source; the paid workflow performs that reconciliation against operating artifacts."; return `<div class="resource-summary"><h4>What this means in practice</h4><p>${escapeHtml(intro)} ${escapeHtml(ecsClarifier)}</p><div class="resource-summary-grid">${rows}</div></div>`;
-}
-
-function explainEconomicCategory(label) {
-  const text = cleanText(label).toLowerCase();
-  if (text.includes("operating drift")) return "Risk that post-close working rhythm, management discipline, and operating process start drifting away from the integration plan.";
-  if (text.includes("knowledge leakage")) return "Risk that critical know-how is lost, blocked, or made inaccessible as people leave, protect local practices, or stop transferring expertise.";
-  if (text.includes("decision delay")) return "Risk that decisions slow down because governance, authority, documentation, and escalation logic do not match across the combined organisation.";
-  return "Risk indicator showing where economic exposure may appear if behavioural friction persists after close.";
-}
-
-function explainEconomicScore(label, value) {
-  const score = Math.max(0, Math.min(100, Number(value) || 0));
-  const text = cleanText(label).toLowerCase();
-  if (text.includes("operating drift")) return "";
-  if (text.includes("knowledge leakage")) return "";
-  if (text.includes("decision delay")) return "";
-  return "";
-}
 
 
 function renderEngagementBenefit(benefit) {
@@ -1723,9 +1472,12 @@ function renderHtmlSection(section, number, context = {}) {
         ["What you can do", cleanText(section.nextStep) || "Run the Hierarchy Depth & Type Distribution Assessment.", false],
       ].filter(([, value]) => cleanText(value))
       : [
-        ["Core thesis", "The deal risk is premature translation of the target operating system into the acquirer's management language.", false],
-        ["What we found", humanFinding, false],
-        ["Why it matters", section.postCloseFailureMode || section.whyItMatters || section.summary, false],
+        // Pair-derived collision content (RR-3): the report model's pair narrative and
+        // governed friction copy carry every finding; no universal finding narrative
+        // is synthesized in the renderer.
+        ["Core thesis", cleanText(section.headline), false],
+        ["What we found", [section.summary, section.primaryTension].map(cleanText).filter(Boolean).join(" "), false],
+        ["Why it matters", [section.whyItMatters, section.postCloseFailureMode].map(cleanText).filter(Boolean).join(" "), false],
         ["What you can do", "Protect the affected operating resources first; delay irreversible integration changes until the Day 60 early-checkpoint review indicates which routines should be preserved, simplified, or integrated.", false],
       ].filter(([, value]) => cleanText(value));
 
@@ -1733,9 +1485,9 @@ function renderHtmlSection(section, number, context = {}) {
   }
   if (section.id === "resources") {
     if (context.pairMode === "homogeneous") {
-      return `<section class="sec" id="resources" data-screen-label="Structural Resource Profile">${sectionHead(number, section.title, `${section.scanned} canonical resources scanned`)}<p class="thresholds">${escapeHtml(section.explanation)}</p><div class="legend"><span class="lg">Shared structural state</span><span class="lg"><span class="sw"></span>Shared amplified structural state</span><span class="lg"><span class="sw"></span>Shared neutral structural state</span><span class="lg"><span class="sw"></span>Shared suppressed structural state</span><span class="anchor">Canonical Net Effect \u00d7 ERI tier</span></div>${renderStructuralResourceZones(section)}${renderStructuralResourceSummary(section)}</section>`;
+      return `<section class="sec homogeneous-profile" id="resources" data-screen-label="Structural Resource Profile">${sectionHead(number, section.title, `${section.scanned} canonical resources scanned`)}<p class="thresholds">${escapeHtml(section.explanation)}</p><div class="legend"><span class="lg">Shared structural state</span><span class="lg"><span class="sw"></span>Shared amplified structural state</span><span class="lg"><span class="sw"></span>Shared neutral structural state</span><span class="lg"><span class="sw"></span>Shared suppressed structural state</span><span class="anchor">Canonical Net Effect \u00d7 ERI tier</span></div>${renderStructuralResourceZones(section)}${renderStructuralResourceSummary(section)}</section>`;
     }
-    return `<section class="sec" id="resources" data-screen-label="Resource Map">${sectionHead(number, section.title, `${section.scanned} resources scanned`)}<p class="thresholds">${escapeHtml(section.explanation)}</p><div class="legend"><span class="lg">Legend</span><span class="lg"><span class="sw" style="background:var(--sig-risk)"></span>High-risk | 70-100</span><span class="lg"><span class="sw" style="background:var(--sig-mod)"></span>Moderate | 40-69</span><span class="lg"><span class="sw" style="background:var(--sig-high)"></span>Aligned | 0-39</span><span class="anchor">Score = structural contestation intensity</span></div>${renderResourceZones(section)}${renderResourceConflictSummary(section)}</section>`;
+    return `<section class="sec" id="resources" data-screen-label="Resource Map">${sectionHead(number, section.title, `${section.scanned} resources scanned`)}<p class="thresholds">${escapeHtml(section.explanation)}</p><div class="legend"><span class="lg">Legend</span><span class="lg"><span class="sw" style="background:var(--sig-risk)"></span>High priority</span><span class="lg"><span class="sw" style="background:var(--sig-mod)"></span>Monitor</span><span class="lg"><span class="sw" style="background:var(--sig-high)"></span>Lower priority</span><span class="anchor">Categorical priority order \u00d7 canonical Net Effect and ERI tier</span></div>${renderResourceZones(section)}${renderResourcePriorityConclusion(section)}</section>`;
   }
   if (section.id === "timeline") {
     const actions = context.actions ?? {};
@@ -1761,11 +1513,11 @@ function renderHtmlSection(section, number, context = {}) {
   }
   if (section.id === "economics") {
     const channels = Array.isArray(section.economicTriageChannels) ? section.economicTriageChannels : [];
-    const channelRows = channels.map((channel) => `<div class="evrow exposure-channel"><span class="ek"><b>${escapeHtml(channel.label)}</b>${channel.meaning ? `<small>${escapeHtml(channel.meaning)}</small>` : ""}</span><span class="ev"><b>${escapeHtml(channel.severity)}</b>${channel.testFirst ? `<small>Test first: ${escapeHtml(channel.testFirst)}</small>` : ""}</span></div>`).join("");
+    const channelRows = channels.map((channel) => `<div class="evrow exposure-channel"><span class="ek"><b>${escapeHtml(channel.label)}</b>${channel.meaning ? `<small>${escapeHtml(channel.meaning)}</small>` : ""}</span><span class="ev">${channel.testFirst ? `<small>Test first: ${escapeHtml(channel.testFirst)}</small>` : ""}</span></div>`).join("");
     const dealValueRow = cleanText(section.enterpriseValueBand)
       ? `<div class="collide-row"><div class="cl">Deal value context</div><div class="cr">${escapeHtml(section.enterpriseValueBand)}</div></div>`
       : "";
-    return `<section class="sec" id="economic" data-screen-label="Economic Exposure Triage">${sectionHead(number, "Economic Exposure Triage", ARCHIVE_SECTION_NOTES.economics)}<div class="panel economic-message"><strong>Preview judgement.</strong> ${escapeHtml(section.economicTriageJudgement)}</div><div class="env-total"><div class="et-l"><div class="lab">Economic posture</div><div class="economic-label">${escapeHtml(section.economicRiskPosture)}</div></div><div class="et-r">${escapeHtml(section.valuationDisclaimer)}<br>${escapeHtml(section.evUse)}</div></div><div class="collide"><div class="collide-row"><div class="cl">Posture rule</div><div class="cr">${escapeHtml(section.economicTriageRule)}</div></div><div class="collide-row"><div class="cl">Why this is High</div><div class="cr">${escapeHtml(section.economicTriageReason)}</div></div>${dealValueRow}</div><div class="panel decision-gap"><h4>Exposure channels</h4><div class="decision-gap-grid">${channelRows}</div></div><div class="collide"><div class="collide-row"><div class="cl">What this preview can say</div><div class="cr">${escapeHtml(section.whatThisPreviewCanSay)}</div></div><div class="collide-row"><div class="cl">What it cannot say</div><div class="cr">${escapeHtml(section.whatThisPreviewCannotSay)}</div></div><div class="collide-row"><div class="cl">Required for quantified modelling</div><div class="cr">${escapeHtml(section.requiredForQuantifiedModelling)}</div></div></div></section>`;
+    return `<section class="sec" id="economic" data-screen-label="Economic Exposure Triage">${sectionHead(number, "Economic Exposure Triage", ARCHIVE_SECTION_NOTES.economics)}<div class="panel economic-message"><strong>Preview judgement.</strong> ${escapeHtml(section.economicTriageJudgement)}</div><p class="thresholds">${escapeHtml(section.economicChannelNote)}</p><div class="collide">${dealValueRow}<div class="collide-row"><div class="cl">Preview limitation</div><div class="cr">${escapeHtml(section.valuationDisclaimer)} ${escapeHtml(section.evUse)}</div></div></div><div class="panel decision-gap"><h4>Exposure channels to test first</h4><div class="decision-gap-grid">${channelRows}</div></div><div class="collide"><div class="collide-row"><div class="cl">What this preview can say</div><div class="cr">${escapeHtml(section.whatThisPreviewCanSay)}</div></div><div class="collide-row"><div class="cl">What it cannot say</div><div class="cr">${escapeHtml(section.whatThisPreviewCannotSay)}</div></div><div class="collide-row"><div class="cl">Required for quantified modelling</div><div class="cr">${escapeHtml(section.requiredForQuantifiedModelling)}</div></div></div></section>`;
   }
   if (section.id === "actions") {
     return `<section class="sec" id="actions" data-screen-label="Recommended Actions">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.actions)}<div class="acts">${renderActionPanel("Before close", section.beforeClose)}${renderActionPanel("After close", section.afterClose)}</div><div class="cta"><div><div class="cl">Recommended next action</div><div class="ct">${escapeHtml(section.beforeClose[0]?.actionTitle || section.afterClose[0]?.actionTitle)}</div></div><div class="cbtn">Book practitioner session</div></div></section>`;
@@ -1774,9 +1526,21 @@ function renderHtmlSection(section, number, context = {}) {
     const gaps = [
       ["Who carries the risk", "Which role categories, leadership functions, operating dependencies, or teams are most exposed to disengagement, resistance, or knowledge loss."],
       ["What must be protected", "Which decision rights, knowledge flows, routines, or trust mechanisms should be preserved before integration changes begin."],
-      ["Which value pools are actually exposed", "The preview provides a directional economic triage posture; the full engagement allocates exposure to actual value pools, owners, time windows, and mitigation levers."],
+      ["Which value pools are actually exposed", "The preview provides a directional economic triage; the full engagement allocates exposure to actual value pools, owners, time windows, and mitigation levers."],
     ];
-    return `<section class="sec" id="evidence" data-screen-label="Decision Gap">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.evidence)}<div class="panel decision-gap"><h4>What this preview cannot decide for you</h4><p>This brief identifies the likely post-close fault lines and gives a directional economic triage posture, but it does not yet allocate risk across role categories, protected routines, governance layers, value pools, or mitigation levers.</p><div class="decision-gap-grid">${gaps.map(([label, value]) => `<div class="evrow"><span class="ek">${escapeHtml(label)}</span><span class="ev">${escapeHtml(value)}</span></div>`).join("")}</div><p><strong>The full engagement converts this preview into an executable integration-control plan.</strong></p></div></section>`;
+    const integrityRows = (Array.isArray(section.integrity) ? section.integrity : [])
+      .filter((row) => cleanText(row?.label) && cleanText(row?.value))
+      .map((row) => `<div class="evrow"><span class="ek">${escapeHtml(row.label)}</span><span class="ev">${escapeHtml(row.value)}</span></div>`)
+      .join("");
+    const limitRows = [
+      ["Known limits", section.knownLimits],
+      ["Method limitations", section.methodLimitations],
+      ["What this report can say", section.canSay],
+      ["What this report cannot say", section.cannotSay],
+    ].filter(([, value]) => cleanText(value))
+      .map(([label, value]) => `<div class="evrow"><span class="ek">${escapeHtml(label)}</span><span class="ev">${escapeHtml(value)}</span></div>`)
+      .join("");
+    return `<section class="sec" id="evidence" data-screen-label="Decision Gap">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.evidence)}${integrityRows ? `<div class="panel"><h4>Evidence integrity</h4><div class="decision-gap-grid">${integrityRows}</div></div>` : ""}<div class="panel"><h4>What this preview can and cannot say</h4><div class="decision-gap-grid">${limitRows}</div></div><div class="panel decision-gap"><h4>What this preview cannot decide for you</h4><p>This brief identifies the likely post-close fault lines and gives a directional economic triage, but it does not yet allocate risk across role categories, protected routines, governance layers, value pools, or mitigation levers.</p><div class="decision-gap-grid">${gaps.map(([label, value]) => `<div class="evrow"><span class="ek">${escapeHtml(label)}</span><span class="ev">${escapeHtml(value)}</span></div>`).join("")}</div><p><strong>The full engagement converts this preview into an executable integration-control plan.</strong></p></div></section>`;
   }
   if (section.id === "engagement") {
     return `<section class="sec" id="engagement" data-screen-label="Full Engagement Adds">${sectionHead(number, section.title, ARCHIVE_SECTION_NOTES.engagement)}<div class="panel">${section.benefits.map(renderEngagementBenefit).join("")}</div><div class="cta"><div><div class="cl">Engagement contact</div><div class="ct">${escapeHtml(section.cta)}</div></div><a class="cbtn" href="mailto:${escapeHtml(section.contactEmail)}">${escapeHtml(section.contactEmail)}</a></div></section>`;

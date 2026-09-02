@@ -1,6 +1,7 @@
 import { ENVIRONMENTS } from "../data/environments.js";
 import {
   buildFinalDeliverable,
+  canonicalStructuralEcs,
   FINAL_ENVIRONMENT_CODES,
   publicText,
 } from "../flow/finalDeliverableFlow.js";
@@ -66,7 +67,9 @@ const APPROVED_ENTERPRISE_VALUE_BAND = "Valuation risk band: $50M-$500M EV";
 const APPROVED_VALUATION_DISCLAIMER = "Illustrative posture, not a valuation.";
 const APPROVED_ENGAGEMENT_TIER_REQUIREMENT = "Absolute risk figures require the engagement-tier economic model.";
 const APPROVED_OVERWRITE_RISK_EXPLANATION = "The main risk is translation failure: the acquirer may impose its standard integration logic before it understands which target routines preserve loyalty, trust, knowledge flow, execution quality, or deal-critical continuity after close.";
-const APPROVED_CONCEALED_CONFLICT_RISK_EXPLANATION = "The main risk is false alignment: the shared operating environment can make integration look settled while duplicated authority, routine overwrite, or control expectations become visible only after close.";
+// OD-RR3-1: the only Owner-approved concealed-conflict public copy. Replaces the
+// previous concealed-conflict literals, which are no longer controlling authority.
+const APPROVED_CONCEALED_CONFLICT_RISK_EXPLANATION = "The main risk is false alignment: a high compatibility score can make the integration path look settled while important differences in authority, routines, and control expectations remain latent. Those differences may become material only when post-close integration decisions begin.";
 // RMP-3 authorized factual homogeneous templates (OD-RMP3-5/16/26). The homogeneous
 // resource layer is a structural resource profile, never a pairwise contestation score.
 const HOMOGENEOUS_STRUCTURAL_RESOURCE_QUALIFIER = "Shared structural state; this is not a pairwise resource-conflict score.";
@@ -133,6 +136,22 @@ export const PUBLIC_CONFLICT_DIRECTION_COPY = Object.freeze({
     connector: "while",
   }),
 });
+
+// Public display vocabulary for canonical resource effects and ERI tiers
+// (mirrors RESOURCE_EFFECT_LABELS / tier labels already exposed by the resource map).
+const PUBLIC_RESOURCE_EFFECT_LABELS = Object.freeze({
+  "+": "Amplifies",
+  "-": "Suppresses",
+  "~": "Neutral",
+});
+const PUBLIC_RESOURCE_TIER_LABELS = Object.freeze({
+  IGN: "Baseline",
+  LOW: "Low",
+  MID: "Medium",
+  TOP: "High",
+});
+
+const EVIDENCE_INTEGRITY_NOT_ASSESSED = "NOT ASSESSED";
 
 function publicPairKey(deliverable) {
   return `${deliverable?.acquirerEnvironmentCode ?? ""}->${deliverable?.targetEnvironmentCode ?? ""}`;
@@ -240,12 +259,12 @@ function conflictDirectionPhrase(rawPattern, expectedPair, format = "long") {
 function conflictCausalClause(rawPattern, expectedPair) {
   const direction = conflictDirectionParts(rawPattern, expectedPair);
   if (direction.class === "direct" || direction.class === "partial") {
-    return ", which makes it the most likely early contestation zone.";
+    return ", which makes it an early priority area for integration control.";
   }
   if (direction.acquirerSign === "+") {
-    return " — both organisations actively rely on it, which makes ownership of it the most likely early contestation point.";
+    return " — both organisations actively rely on it, which makes ownership of it an early control point.";
   }
-  return " — neither organisation actively manages it, which makes it the most likely blind spot once integration load arrives.";
+  return " — neither organisation actively manages it, which makes it a monitoring blind spot once integration load arrives.";
 }
 
 function canonicalConflictRows(deliverable) {
@@ -343,7 +362,7 @@ function branchAwareOverwriteRiskExplanation(doctrineClass, resource, isHomogene
   return cleanString(resource?.explanation ?? APPROVED_OVERWRITE_RISK_EXPLANATION);
 }
 const APPROVED_CONCEALED_CONFLICT_POST_CLOSE_FAILURE_MODE =
-  "The shared operating environment can make post-close alignment look stronger than it is. The main failure mode is delayed control friction: duplicated authority, routine overwrite, or unclear preservation choices become visible only after integration decisions begin.";
+  "High structural compatibility can make post-close alignment appear stronger than it is. The main failure mode is delayed control friction: differences in authority, routine preservation, or control expectations may become material as integration decisions are implemented.";
 
 function branchAwarePostCloseFailureMode(doctrineClass, narrative, isHomogeneous = false) {
   if (isHomogeneous) {
@@ -496,6 +515,235 @@ function countLabel(count, singular, plural = null) {
   return String(count) + " " + (count === 1 ? singular : pluralLabel);
 }
 
+function notAssessedEvidenceIntegrity(source) {
+  return Object.freeze({
+    status: "not-assessed",
+    value: EVIDENCE_INTEGRITY_NOT_ASSESSED,
+    source,
+  });
+}
+
+// RR3-F02: governed R1/R2 (primary vs verification acquirer respondent)
+// agreement/divergence aggregate. The governed comparison itself runs inside the
+// server production-authority path (api/production-interpretation.ts), which computes
+// a bounded public-safe summary through the existing dual-respondent comparator and
+// injects it here; the report model stays browser-safe. The cross-side contradiction
+// engine is never used as a substitute. Missing or absent summary fails closed to
+// NOT ASSESSED.
+function buildR1R2AgreementSummary(session, precomputed) {
+  const verificationIncluded = session?.acquirer2A?.score?.verificationIncluded;
+  if (verificationIncluded !== true) {
+    return notAssessedEvidenceIntegrity("governed R1/R2 comparison (no verification respondent)");
+  }
+  if (precomputed && typeof precomputed.value === "string" && precomputed.value.trim()) {
+    return Object.freeze({
+      status: String(precomputed.status ?? "assessed"),
+      value: cleanString(precomputed.value),
+      source: String(precomputed.source ?? "server-authoritative governed R1/R2 comparison (aggregate only)"),
+    });
+  }
+  return notAssessedEvidenceIntegrity("governed R1/R2 comparison (production-authority summary absent)");
+}
+
+// RR3-F08: one authoritative provisional/evidence-limited qualification for the
+// whole report. Only already-governed states qualify: acquirer-partial,
+// target-partial, the governed homogeneous evidence gate, and the existing
+// calibration trigger set. No new evidence threshold is introduced.
+function provisionalQualification(deliverable, calibration) {
+  const isHomogeneous = isHomogeneousDeliverable(deliverable);
+  const outcomeKey = deliverable?.outcomeKey ?? "";
+  const partialOutcome = outcomeKey === "acquirer-partial" || outcomeKey === "target-partial";
+  const homogeneousProvisional = isHomogeneous
+    && deliverable?.structuralCompatibility?.evidenceGate?.status === "provisional";
+  const calibrated = calibration?.triggered === true;
+  if (!partialOutcome && !homogeneousProvisional && !calibrated) {
+    return Object.freeze({ status: "none", basis: "", reliance: "" });
+  }
+  const condition = cleanString(deliverable?.outcomeGuide?.condition ?? "");
+  const homogeneousQualification = cleanString(deliverable?.structuralCompatibility?.evidenceGate?.publicQualification ?? "");
+  const basis = homogeneousProvisional
+    ? (homogeneousQualification || "Weak or co-present same-environment evidence (governed homogeneous evidence gate).")
+    : (condition || "Governed evidence qualification applies.");
+  return Object.freeze({
+    status: "provisional",
+    basis,
+    // Existing governed reliance vocabulary (EstimationAccuracyNotice): the
+    // report remains usable but is qualified, never fully confirmed.
+    reliance: "The final report can still be used, but compatibility, resource-risk emphasis, and integration-control priorities should be treated as preliminary rather than high-confidence until additional evidence is available.",
+  });
+}
+
+function governedValue(value) {
+  const text = cleanString(value, "");
+  return text || EVIDENCE_INTEGRITY_NOT_ASSESSED;
+}
+
+function coveragePairText(score) {
+  if (!score) return null;
+  const effective = Number(score.effectiveAnswerCount);
+  const eligible = Number(score.questionCount ?? score.answeredQuestionCount);
+  if (!Number.isFinite(effective) || !Number.isFinite(eligible)) return null;
+  return `${effective} of ${eligible}`;
+}
+
+function supportedShareText(score) {
+  const share = Number(score?.evidenceQuality?.evidenceSupportedShare);
+  if (!Number.isFinite(share)) return null;
+  return `${Math.round(share * 100)}%`;
+}
+
+// OD-RR2-5 aggregate public evidence-integrity surface. Reads only authoritative
+// score/evidence fields. Raw answers, question IDs, per-question evidence, respondent
+// attribution, and internal weights are never exposed. A missing source renders
+// "NOT ASSESSED" — never a fallback zero.
+function buildEvidenceIntegrity(session, deliverable, calibration, r1r2Agreement, crossSideEvidence) {
+  const acquirerScore = session?.acquirer2A?.score ?? null;
+  const observationScore = session?.targetObservation?.score ?? null;
+  const diagnosticScore = session?.target2B?.finalScore ?? null;
+  const selfScore = session?.targetSelfAssessment?.score ?? null;
+  const rows = [];
+
+  rows.push(Object.freeze({
+    label: "Acquirer evidence confidence",
+    value: governedValue(acquirerScore?.confidence),
+    source: "acquirer2A.score.confidence",
+  }));
+
+  const targetConfidenceParts = [
+    observationScore?.confidence ? `Observation: ${cleanString(observationScore.confidence)}` : "",
+    diagnosticScore?.confidence ? `Diagnostic: ${cleanString(diagnosticScore.confidence)}` : "",
+    selfScore?.confidence ? `Self-assessment: ${cleanString(selfScore.confidence)}` : "",
+  ].filter(Boolean);
+  rows.push(Object.freeze({
+    label: "Target evidence confidence",
+    value: targetConfidenceParts.length ? targetConfidenceParts.join(" · ") : EVIDENCE_INTEGRITY_NOT_ASSESSED,
+    source: "targetObservation.score / target2B.finalScore / targetSelfAssessment.score confidence",
+  }));
+
+  const coverageParts = [
+    acquirerScore ? `Acquirer: ${coveragePairText(acquirerScore) ?? EVIDENCE_INTEGRITY_NOT_ASSESSED}` : "",
+    observationScore ? `Target observation: ${coveragePairText(observationScore) ?? EVIDENCE_INTEGRITY_NOT_ASSESSED}` : "",
+    diagnosticScore ? `Target diagnostic: ${coveragePairText(diagnosticScore) ?? EVIDENCE_INTEGRITY_NOT_ASSESSED}` : "",
+    selfScore ? `Target self-assessment: ${coveragePairText(selfScore) ?? EVIDENCE_INTEGRITY_NOT_ASSESSED}` : "",
+  ].filter(Boolean);
+  rows.push(Object.freeze({
+    label: "Effective answers vs eligible questions",
+    value: coverageParts.length ? coverageParts.join(" · ") : EVIDENCE_INTEGRITY_NOT_ASSESSED,
+    source: "score.effectiveAnswerCount / score.questionCount",
+  }));
+
+  const supportParts = [
+    acquirerScore ? `Acquirer: ${supportedShareText(acquirerScore) ?? EVIDENCE_INTEGRITY_NOT_ASSESSED}` : "",
+    diagnosticScore ? `Target diagnostic: ${supportedShareText(diagnosticScore) ?? EVIDENCE_INTEGRITY_NOT_ASSESSED}` : "",
+    selfScore ? `Target self-assessment: ${supportedShareText(selfScore) ?? EVIDENCE_INTEGRITY_NOT_ASSESSED}` : "",
+  ].filter(Boolean);
+  rows.push(Object.freeze({
+    label: "Evidence-supported answer share",
+    value: supportParts.length ? supportParts.join(" · ") : EVIDENCE_INTEGRITY_NOT_ASSESSED,
+    source: "score.evidenceQuality.evidenceSupportedShare",
+  }));
+
+  const flagSources = [acquirerScore, diagnosticScore, selfScore]
+    .filter((score) => score?.evidenceQuality && Number.isFinite(Number(score.evidenceQuality.reliabilityFlagCount)));
+  const flagCount = flagSources.reduce((sum, score) => sum + Number(score.evidenceQuality.reliabilityFlagCount), 0);
+  rows.push(Object.freeze({
+    label: "Reliability flags (aggregate)",
+    value: flagSources.length ? String(flagCount) : EVIDENCE_INTEGRITY_NOT_ASSESSED,
+    source: "score.evidenceQuality.reliabilityFlagCount",
+  }));
+
+  // RR3-F06 absence semantics: a missing participation source is NOT ASSESSED;
+  // an authoritative false is "not included"; a missing respondentCount is
+  // never invented as a number.
+  const verificationIncluded = acquirerScore?.verificationIncluded;
+  const respondentCount = Number(acquirerScore?.respondentCount);
+  const acquirerVerificationText = verificationIncluded === true
+    ? `included${Number.isFinite(respondentCount) ? ` (${respondentCount} respondents)` : " (respondent count not assessed)"}`
+    : verificationIncluded === false
+      ? "not included"
+      : EVIDENCE_INTEGRITY_NOT_ASSESSED;
+  const targetObserverText = session?.targetObservation
+    ? (session.targetObservation.completed === true ? "completed" : "not completed")
+    : EVIDENCE_INTEGRITY_NOT_ASSESSED;
+  const targetSelfText = session?.targetSelfAssessment
+    ? (session.targetSelfAssessment.completed === true ? "completed" : "not completed")
+    : EVIDENCE_INTEGRITY_NOT_ASSESSED;
+  rows.push(Object.freeze({
+    label: "Verification participation",
+    value: [
+      `Acquirer verification: ${acquirerVerificationText}`,
+      `Target observer session: ${targetObserverText}`,
+      `Target self-assessment: ${targetSelfText}`,
+    ].join(" · "),
+    source: "acquirer2A.score.verificationIncluded / respondentCount; targetObservation.completed; targetSelfAssessment.completed",
+  }));
+
+  // RR3-F02: governed R1/R2 (primary vs verification acquirer respondent)
+  // agreement/divergence — aggregate only, never the cross-side contradiction
+  // engine as a substitute.
+  const r1r2Summary = buildR1R2AgreementSummary(session, r1r2Agreement);
+  rows.push(Object.freeze({
+    label: "R1/R2 verification agreement",
+    value: r1r2Summary.value,
+    source: r1r2Summary.source,
+  }));
+
+  // RR3-CORR1-IV-01 (CORR2): the server-computed cross-side aggregate takes
+  // precedence. An assessed zero is an explicit zero; a missing or non-assessed
+  // source stays NOT ASSESSED — never conflated.
+  const calibratedContradictionCount = Number(calibration?.contradictionSummary?.contradictionCount);
+  const crossSideCount = crossSideEvidence?.assessed === true ? Number(crossSideEvidence.contradictionCount) : NaN;
+  const authoritativeContradictionCount = Number.isFinite(crossSideCount)
+    ? crossSideCount
+    : (Number.isFinite(calibratedContradictionCount) ? calibratedContradictionCount : null);
+  rows.push(Object.freeze({
+    label: "Cross-side material agreement / divergence",
+    value: authoritativeContradictionCount === null
+      ? EVIDENCE_INTEGRITY_NOT_ASSESSED
+      : `${authoritativeContradictionCount} contradiction${authoritativeContradictionCount === 1 ? "" : "s"} recorded across evidence sources (aggregate)`,
+    source: "buildContradictionReport (governed deterministic contradiction engine) / preliminaryAssessment.triageReport.contradictionSummary",
+  }));
+
+  const resolution = deliverable?.targetResolutionSource;
+  if (resolution) {
+    const contributors = Array.isArray(resolution.contributors)
+      ? resolution.contributors.map((contributor) => cleanString(contributor)).filter(Boolean).join(", ")
+      : "";
+    rows.push(Object.freeze({
+      label: "Environment resolution",
+      value: `The reported target environment is an adjudicated outcome of the governed target-side merge${contributors ? ` (contributors: ${contributors})` : ""}.`,
+      source: "deliverable.targetResolutionSource",
+    }));
+  }
+
+  const excludedSources = [acquirerScore, diagnosticScore, selfScore]
+    .filter((score) => Number.isFinite(Number(score?.excludedAnswerCount)));
+  const excludedCount = excludedSources.reduce((sum, score) => sum + Number(score.excludedAnswerCount), 0);
+  rows.push(Object.freeze({
+    label: "Observation gaps (aggregate)",
+    value: excludedSources.length
+      ? `${excludedCount} answer${excludedCount === 1 ? "" : "s"} excluded from primary scoring across scored modules (direct-observation-gap and comparable exclusions, aggregate only)`
+      : EVIDENCE_INTEGRITY_NOT_ASSESSED,
+    source: "score.excludedAnswerCount",
+  }));
+
+  const qualification = provisionalQualification(deliverable, calibration);
+  rows.push(Object.freeze({
+    label: "Provisional state",
+    value: qualification.status === "provisional" ? `Provisional — ${qualification.basis}` : "None",
+    source: "deliverable.outcomeKey / deliverable.structuralCompatibility.evidenceGate.status / existing calibration trigger set",
+  }));
+
+  return Object.freeze({
+    rows: Object.freeze(rows),
+    qualification: Object.freeze({
+      status: qualification.status,
+      basis: qualification.basis,
+      reliance: qualification.reliance,
+    }),
+  });
+}
+
 function calibratedDataQualityLabel(session, calibration) {
   const base = scoreQualityLabel(session);
   const contradictions = Number(calibration?.contradictionSummary?.contradictionCount) || 0;
@@ -512,17 +760,36 @@ function calibratedInputCompletenessLabel(session, deliverable, calibration) {
   return `${base.replace("Complete for public preview: deal context, acquirer environment, target environment.", "Complete for public preview;")} target-side confidence limited across ${countLabel(weakTargets.length, "weak/low-confidence target source")}.`;
 }
 
-function calibratedCanSayLabel(calibration) {
+// Alternative-read hardening (RR-3 item 11): a candidate range is rendered only when it
+// is fully lawful and resolvable. PENDING or empty range/band suppresses the alternative
+// cleanly instead of leaking a placeholder into client-visible text.
+function lawfulCandidateRange(row) {
+  if (!row) return false;
+  const range = cleanString(row.range);
+  const riskBand = cleanString(row.riskBand);
+  const score = Number(row.score);
+  return Number.isFinite(score)
+    && Boolean(range) && !/pending/i.test(range)
+    && Boolean(riskBand) && !/pending/i.test(riskBand);
+}
+
+function calibratedCanSayLabel(calibration, deliverable) {
+  // RR3-F08: one authoritative provisional qualification drives the reliance
+  // language; a provisional report never sounds fully confirmed.
+  const qualification = provisionalQualification(deliverable, calibration);
   const current = calibration?.currentRange;
   const alternative = calibration?.alternativeRanges?.[0];
-  if (!calibration?.triggered || !current) {
-    return "It can state the most likely post-close friction thesis, preview watchpoints, review windows, and control implications from the current inputs.";
+  if (qualification.status !== "provisional") {
+    return "It can state the post-close friction thesis for the identified environment pair, preview watchpoints, review windows, and control implications from the current inputs.";
   }
-  const routeLabel = cleanString(calibration?.routing?.label, "Analyst review required").replace(/\s+required$/i, " required");
-  const alternativeText = alternative
-    ? ` Alternative read: ${cleanString(alternative.targetAlias, alternative.targetEnvironmentCode)} ${alternative.score} (${alternative.range}, ${alternative.riskBand}).`
-    : "";
-  return `ECS is provisional: ${cleanString(current.targetAlias, current.targetEnvironmentCode)} ${current.score} (${current.range}, ${current.riskBand}). ${routeLabel} before treating as settled.${alternativeText}`;
+  if (calibration?.triggered && lawfulCandidateRange(current)) {
+    const routeLabel = cleanString(calibration?.routing?.label, "Analyst review required").replace(/\s+required$/i, " required");
+    const alternativeText = lawfulCandidateRange(alternative)
+      ? ` Alternative read: ${cleanString(alternative.targetAlias, alternative.targetEnvironmentCode)} ${alternative.score} (${alternative.range}, ${alternative.riskBand}).`
+      : "";
+    return `ECS is provisional: ${cleanString(current.targetAlias, current.targetEnvironmentCode)} ${current.score} (${current.range}, ${current.riskBand}). ${routeLabel} before treating as settled.${alternativeText} ${qualification.reliance}`;
+  }
+  return `This report is provisional: ${qualification.basis} ${qualification.reliance}`;
 }
 function dealTypeLabel(value) {
   if (value === "competitor_absorption" || value === "platform_acquisition" || value === "other_integration_sensitive") {
@@ -536,24 +803,6 @@ function fallbackPredictionText(deliverable) {
   if (deliverable?.friction?.earlyWarningSignal && !isPendingFrictionText(deliverable.friction.earlyWarningSignal)) return deliverable.friction.earlyWarningSignal;
   if (deliverable?.anchors?.[0]?.text && !isPendingFrictionText(deliverable.anchors[0].text)) return deliverable.anchors[0].text;
   return "Monitor whether the expected integration friction appears during the preview window.";
-}
-
-function clientFacingPredictionText(text, index) {
-  const value = cleanString(text);
-  if (!value) return "";
-  const lower = value.toLowerCase();
-  const looksTheoretical = lower.includes("ethics-mechanism")
-    || lower.includes("degradation path")
-    || lower.includes("began as")
-    || lower.includes("evolved when")
-    || lower.includes("ethical constraints")
-    || lower.includes("combined entity may slide");
-
-  if (index === 2 && looksTheoretical) {
-    return "Authority norms may harden under integration pressure. The target environment uses fast unilateral control, selective rule enforcement, and visible dominance to keep execution moving. The acquirer environment depends on evidence, accountability, and documented decision logic. By Day 60, the key test is whether integration pressure makes the combined team more disciplined or simply more forceful. If speed, pressure, or enforcement starts replacing documented reasoning, the acquirer is not absorbing the target's operating logic; it is being pulled toward it.";
-  }
-
-  return publicFrictionText(value);
 }
 
 function publicFrictionText(text) {
@@ -572,8 +821,22 @@ function publicFrictionText(text) {
     [/\btalent exodus\b/gi, "high-value talent departure"],
     [/\btalent flight\b/gi, "high-value talent departure"],
     [/\bextraction mechanism\b/gi, "value-capture mechanism"],
+    [/\bextraction mechanisms\b/gi, "value-capture mechanisms"],
+    [/\bextraction system\b/gi, "value-capture system"],
+    [/\bextraction environments\b/gi, "value-capture environments"],
+    [/\bextraction environment\b/gi, "value-capture environment"],
+    [/\bextraction positions\b/gi, "value-capture positions"],
     [/\bbelief extraction\b/gi, "belief-based retention pressure"],
     [/\bextraction pressure\b/gi, "value-capture pressure"],
+    [/\bextraction\b/gi, "value-capture"],
+    [/\bcomplicity\b/gi, "participation"],
+    [/\bprotection premium\b/gi, "protection pricing"],
+    [/\bcoercion\b/gi, "pressure-based control"],
+    [/\bdesire engineering\b/gi, "preference shaping"],
+    // RR3-CORR1: priority semantics, not probability semantics, for the resource map.
+    [/\bhigh-probability\b/gi, "high-priority"],
+    [/\bhigh probability\b/gi, "high priority"],
+    [/\blow probability\b/gi, "lower priority"],
     [/\bpsychological safety has already been eliminated\b/gi, "psychological safety has materially weakened"],
     [/\bdestroying\b/gi, "weakening"],
     [/\bdestroys\b/gi, "weakens"],
@@ -611,8 +874,31 @@ function isHomogeneousDeliverable(deliverable) {
 function homogeneousCompatibilityExplanation(deliverable, compatibilityBand) {
   const structural = deliverable?.structuralCompatibility;
   const qualification = String(structural?.evidenceGate?.publicQualification ?? "").trim();
-  const base = `Structural compatibility is canonically derived (ECS = 100 × (1 − C / 34) over the 17 canonical resources) for the shared environment: ${compatibilityBand} (${structural?.canonicalScore}, ${structural?.canonicalRange} · ${structural?.canonicalBand}).`;
+  const base = `Structural compatibility is canonically derived for the shared environment: C = 0 because the Net Effect of every one of the 17 canonical resources is identical on both sides, so ECS = 100 × (1 − C / 34) = 100 mechanically. Result: ${compatibilityBand} (${structural?.canonicalScore}, ${structural?.canonicalRange} · ${structural?.canonicalBand}). An ECS of 100 does not imply zero integration risk: the operating logic is shared, and the remaining risk shifts to internal hierarchy depth and type distribution.`;
   return qualification ? `${base} ${qualification}` : base;
+}
+
+function heterogeneousCompatibilityExplanation(deliverable, compatibilityBand) {
+  const derivation = canonicalStructuralEcs(
+    deliverable?.acquirerEnvironmentCode,
+    deliverable?.targetEnvironmentCode,
+  );
+  const contributing = (derivation?.perResource ?? []).filter((entry) => entry.conflictPoints > 0);
+  const identities = contributing.map((entry) => (
+    `${entry.resource} (${PUBLIC_RESOURCE_EFFECT_LABELS[entry.acquirerNetEffect] ?? "Neutral"} on the acquirer side, ${PUBLIC_RESOURCE_EFFECT_LABELS[entry.targetNetEffect] ?? "Neutral"} on the target side)`
+  ));
+  const identityList = identities.length === 1
+    ? identities[0]
+    : identities.length === 2
+      ? `${identities[0]} and ${identities[1]}`
+      : identities.length > 2
+        ? `${identities.slice(0, -1).join(", ")}, and ${identities[identities.length - 1]}`
+        : "";
+  const score = Number(deliverable?.compatibilityScore);
+  const scoreText = Number.isFinite(score) ? String(score) : "";
+  const range = cleanString(deliverable?.compatibilityRange);
+  const governedRange = range && range !== "PENDING" && range !== "Not available" ? `, governed range ${range}` : "";
+  return `ECS is ${scoreText} (${compatibilityBand}${governedRange}). Derivation: ${derivation.formula}, where C = ${derivation.conflictPoints} conflict points across ${contributing.length} of the 17 canonical resources (denominator 34 = 17 resources × 2 maximum points). Contributing resources: ${identityList || "none"}. This derivation is separate from the resource priority map: the priority map orders integration attention and is not a decomposition of the ECS calculation.`;
 }
 
 function homogeneousDifferentiationSummary(deliverable) {
@@ -629,7 +915,12 @@ function homogeneousDifferentiationSummary(deliverable) {
   });
 }
 function homogeneousClaim(anchor, window) {
+  return windowedPairClaim(anchor, window);
+}
+
+function windowedPairClaim(anchor, window) {
   const text = cleanString(anchor?.text);
+  if (!text) return "";
   const firstSentence = text.split(/(?<=\.)\s/)[0] || text;
   const clause = firstSentence.replace(/\.$/, "");
   const phase = window === TIMING_LOGIC.signalSetup ? "In the first 30 days"
@@ -637,6 +928,7 @@ function homogeneousClaim(anchor, window) {
     : "By Day 60";
   return `${phase}: ${clause}.`;
 }
+
 function buildPredictions(deliverable, doctrineClass) {
   if (!hasCanonicalFrictionContent(deliverable) && !hasUsableAnchors(deliverable)) return [];
   const isHomogeneous = isHomogeneousDeliverable(deliverable);
@@ -644,36 +936,72 @@ function buildPredictions(deliverable, doctrineClass) {
     isPendingFrictionText(anchor?.text) ? null : anchor
   ));
   const actions = recommendedActions(deliverable, doctrineClass);
-  const actionCopy = (index, fallback) => {
-    const action = actions[index];
-    if (!action) return fallback;
-    return cleanString(`${action.actionTitle}. ${action.actionExpectedEffect} ${action.actionReason}`);
+  // Referential integrity (RR-3 item 8): each watchpoint binds to the single action
+  // whose governed timing window matches the watchpoint window. The action title,
+  // reason, and expected effect below come from that same action object — never from
+  // a positional index.
+  const actionBinding = (index) => {
+    const pattern = isHomogeneous
+      ? (index === 2 ? /\bday\s*60\b/i : /next step/i)
+      : (index === 0 ? /before day 30/i
+        : index === 1 ? /days 30/i
+        : /\bday\s*60\b/i);
+    const action = actions.find((candidate) => pattern.test(String(candidate?.actionTiming ?? "")));
+    if (!action) return null;
+    return Object.freeze({
+      actionTitle: cleanString(action.actionTitle),
+      actionTiming: cleanString(action.actionTiming),
+      actionOwner: cleanString(action.actionOwner),
+      actionReason: cleanString(action.actionReason),
+      actionExpectedEffect: cleanString(action.actionExpectedEffect),
+      recommendedAction: cleanString(`${action.actionTitle}. ${action.actionExpectedEffect} ${action.actionReason}`),
+    });
+  };
+
+  const pairClaim = (index, window) => {
+    const claim = windowedPairClaim(anchors[index], window);
+    if (claim) return publicFrictionText(claim);
+    if (index === 1) {
+      // Existing generic fixed-cadence copy for pairs whose governed FP2 source row is absent.
+      return "During Days 30-60: review whether the friction described above repeats across planning, authority, information flow, or resource allocation.";
+    }
+    if (index === 2) {
+      // Existing generic fixed-cadence checkpoint copy for pairs whose governed FP3 source row is absent.
+      return "By Day 60: review retention exposure, delivery confidence, knowledge continuity, operating rhythm, knowledge-transfer logs, early departures or disengagement signals, and whether systematised knowledge is becoming harder to preserve under integration pressure.";
+    }
+    return publicFrictionText(fallbackPredictionText(deliverable));
+  };
+  const pairSignal = (index, fallback) => {
+    const signal = publicFrictionText(anchors[index]?.text ?? "");
+    return signal || cleanString(fallback);
   };
 
   return [
     {
       predictionTitle: "Signal setup",
       predictionWindow: TIMING_LOGIC.signalSetup,
-      predictionClaim: isHomogeneous ? homogeneousClaim(anchors[0], TIMING_LOGIC.signalSetup) : clientFacingPredictionText("Within Day 0–30: review whether mission-linked communication forums, decision meetings, or governance routines begin using acquirer-side authority signals, or whether acquirer-side management forums adopt target-side mission language. The direction of language adoption indicates which integration mechanism is becoming dominant.", 0),
-      observableSignal: clientFacingPredictionText(anchors[0]?.text ?? fallbackPredictionText(deliverable), 0),
-      verificationMethod: isHomogeneous ? "Review Day 0–30 communication-forum notes, decision-meeting records, governance routines, and decision logs for early signs that the two same-environment leadership groups are competing for the same decision authority." : "Review Day 0–30 communication-forum notes, decision-meeting records, governance routines, management forum language, decision logs, and examples of acquirer-side authority signals or target-side mission language moving across the integration boundary.",
-      recommendedAction: actionCopy(0, "Protect the highest-risk operating resource before irreversible integration changes begin."),
+      predictionClaim: pairClaim(0, TIMING_LOGIC.signalSetup),
+      observableSignal: pairSignal(0, fallbackPredictionText(deliverable)),
+      verificationMethod: isHomogeneous
+        ? "Review Day 0–30 communication-forum notes, decision-meeting records, governance routines, and decision logs for early signs that the two same-environment leadership groups are competing for the same decision authority."
+        : "Review Day 0–30 communication-forum notes, decision-meeting records, governance routines, management forum language, decision logs, and examples of acquirer-side authority signals moving across the integration boundary.",
+      ...(actionBinding(0) ?? { recommendedAction: "Protect the highest-risk operating resource before irreversible integration changes begin." }),
     },
     {
       predictionTitle: "Observation window",
       predictionWindow: TIMING_LOGIC.observationWindow,
-      predictionClaim: isHomogeneous ? homogeneousClaim(anchors[1], TIMING_LOGIC.observationWindow) : clientFacingPredictionText("During Days 30–60: review whether mission-linked authority loses decision visibility, or whether decision rights move into acquirer-controlled enforcement routines before the target’s trust-preserving routines are understood.", 1),
-      observableSignal: clientFacingPredictionText(anchors[1]?.text ?? "Repeated friction in planning, authority, information flow, or resource allocation.", 1),
+      predictionClaim: pairClaim(1, TIMING_LOGIC.observationWindow),
+      observableSignal: pairSignal(1, "Repeated friction in planning, authority, information flow, or resource allocation."),
       verificationMethod: "Review Days 30–60 operating meeting notes, escalation records, handoff documents, decision-rights updates, planning-cycle changes, and examples where trust-preserving routines are bypassed before their value is understood.",
-      recommendedAction: actionCopy(2, "Separate preservation from simplification while the repeated friction pattern is tested."),
+      ...(actionBinding(1) ?? { recommendedAction: "Separate preservation from simplification while the repeated friction pattern is tested." }),
     },
     {
       predictionTitle: "Early checkpoint",
       predictionWindow: TIMING_LOGIC.verificationDeadline,
-      predictionClaim: isHomogeneous ? homogeneousClaim(anchors[2], TIMING_LOGIC.verificationDeadline) : clientFacingPredictionText("Review Day 60 evidence on retention exposure, delivery confidence, knowledge continuity, operating rhythm, knowledge-transfer logs, early departures or disengagement signals, and whether systematised knowledge is becoming harder to preserve under integration pressure.", 2),
-      observableSignal: clientFacingPredictionText("Day 60 is the escalation checkpoint. If retention exposure, delivery confidence, knowledge continuity, or operating rhythm show early stress, the preview should convert into the paid workflow for ECS decomposition, artifact review, and role-level control design.", 2),
+      predictionClaim: pairClaim(2, TIMING_LOGIC.verificationDeadline),
+      observableSignal: pairSignal(2, "Day 60 is the escalation checkpoint. If retention exposure, delivery confidence, knowledge continuity, or operating rhythm show early stress, the preview should convert into the paid workflow for ECS decomposition, artifact review, and role-level control design."),
       verificationMethod: "Use the Day 60 review to decide whether early retention, delivery-confidence, knowledge-continuity, or operating-rhythm signals require escalation into the paid workflow.",
-      recommendedAction: actionCopy(1, "Run the Day 60 early-checkpoint review and decide whether the risk should be escalated into full engagement monitoring, revised, or lowered."),
+      ...(actionBinding(2) ?? { recommendedAction: "Run the Day 60 early-checkpoint review and decide whether the risk should be escalated into full engagement monitoring, revised, or lowered." }),
     },
   ];
 }
@@ -686,6 +1014,8 @@ function resourceRows(deliverable) {
     return structuralRows.map((row) => ({
       resourceName: cleanString(row.resource),
       resourceCategory: cleanString(row.resourceTypeLabel ?? row.resourceType),
+      // RMP-3 governed invariant: homogeneous rows carry no contestation intensity;
+      // explicit null is the canonical absence representation (never a numeral).
       conflictIntensity: null,
       conflictBand: "",
       direction: cleanString(row.canonicalEffectLabel),
@@ -705,20 +1035,32 @@ function resourceRows(deliverable) {
 
   const hasCanonicalPairCopy = Boolean(safeApprovedPairCopy(deliverable));
   const expectedPair = expectedPairFrom(deliverable);
-  return rows.map((row) => ({
+  return rows.map((row, index) => ({
     resourceName: cleanString(row.resource),
     resourceCategory: cleanString(row.resourceTypeLabel ?? row.resourceType),
-    conflictIntensity: Number.isFinite(row.environmentInteractionScore)
-      ? Math.max(0, Math.min(100, 100 - Math.round(row.environmentInteractionScore)))
-      : null,
+    // OD-RR2-2: no ungoverned contestation numeral. Priority is the ordered position
+    // of the governed resource-conflict scan; the band is categorical.
+    priorityOrder: index + 1,
     conflictBand: cleanString(row.probability ?? "Monitor"),
     direction: cleanString(`${row.acquirerImpact?.label ?? "Acquirer"} / ${row.targetImpact?.label ?? "Target"}`),
+    acquirerNetEffect: PUBLIC_RESOURCE_EFFECT_LABELS[row.acquirerImpact?.effect] ?? "",
+    targetNetEffect: PUBLIC_RESOURCE_EFFECT_LABELS[row.targetImpact?.effect] ?? "",
+    acquirerEriTier: PUBLIC_RESOURCE_TIER_LABELS[row.acquirerImpact?.tier] ?? "",
+    targetEriTier: PUBLIC_RESOURCE_TIER_LABELS[row.targetImpact?.tier] ?? "",
+    conflictDrivers: Object.freeze((row.conflictDrivers ?? []).map((driver) => cleanString(driver)).filter(Boolean)),
+    whyItMatters: cleanString(row.potentialRisk),
+    // CORR4: explanation carries only content with independent meaning — the
+    // canonical direction phrase or the raw friction assertion. It never falls
+    // back to row.potentialRisk, which whyItMatters already carries; that
+    // fallback produced byte-identical duplicate public sentences in one row.
     explanation: hasCanonicalPairCopy && String(row.sourceSignal ?? "").trim() && !isPendingFrictionText(row.sourceSignal)
       ? renderPublicTemplate(PUBLIC_COPY_TEMPLATES.resourceExplanation, {
         resource: cleanString(row.resource),
         conflict_direction_phrase: conflictDirectionPhrase(row.sourceSignal, expectedPair),
       })
-      : cleanString((!isPendingFrictionText(row.sourceSignal) && row.sourceSignal) || row.potentialRisk || "Monitor this resource for overwrite or underuse after close."),
+      : (String(row.sourceSignal ?? "").trim() && !isPendingFrictionText(row.sourceSignal)
+        ? cleanString(row.sourceSignal)
+        : ""),
   }));
 }
 
@@ -789,15 +1131,27 @@ function recommendedActions(deliverable, doctrineClass) {
   const dealInsights = cleanArray(
     deliverable?.protocol?.dealInsights?.map((insight) => `${insight.title}: ${insight.text}`),
     [],
-  ).slice(0, 2);
+  );
 
   const firstResource = resource?.resourceName ?? "the highest-risk operating resource";
+  // Referential integrity (RR-3 item 8): a control insight is attached only when it
+  // names the same causal resource as the action title — never by list position.
+  const insightFor = (resourceName) => dealInsights.find((insight) => {
+    const name = cleanString(resourceName);
+    return Boolean(name) && insight.toLowerCase().startsWith(name.toLowerCase());
+  }) ?? "";
+  const protectReason = (() => {
+    const insight = insightFor(resource?.resourceName);
+    if (insight) return publicFrictionText(insight);
+    return branchAwareOverwriteRiskExplanation(doctrineClass, resource);
+  })();
+
   const actions = [
     {
       actionTitle: `Protect ${firstResource}`,
       actionTiming: "Before Day 30",
       actionOwner: "Integration lead",
-      actionReason: branchAwareOverwriteRiskExplanation(doctrineClass, resource),
+      actionReason: protectReason,
       actionExpectedEffect: "Preserves the target operating capability while the preview signal is tested.",
     },
     {
@@ -816,12 +1170,9 @@ function recommendedActions(deliverable, doctrineClass) {
     },
   ];
 
-  return actions.map((action, index) => ({
+  return actions.map((action) => ({
     ...action,
-    actionReason:
-      doctrineClass === "concealed_conflict"
-        ? publicFrictionText(action.actionReason)
-        : publicFrictionText(dealInsights[index] ?? action.actionReason),
+    actionReason: publicFrictionText(action.actionReason),
     actionExpectedEffect: publicFrictionText(action.actionExpectedEffect),
   }));
 }
@@ -867,6 +1218,8 @@ export function publicCompatibilityBand(score) {
 
 export function buildMergevuePublicReportModel(session = {}, options = {}) {
   const deliverable = options.deliverable ?? buildFinalDeliverable(session);
+  const r1r2Agreement = options.r1r2Agreement ?? null;
+  const crossSideEvidence = options.crossSideEvidence ?? null;
   const dealContext = session?.dealContext?.data ?? {};
   const scenarioId = buildScenarioId(session, dealContext);
   const generatedAt = generatedAtValue(session, options);
@@ -896,16 +1249,16 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
     : pairSourceClass === "heterogeneous" && Number.isFinite(compatibilityScore)
       ? (compatibilityScore >= 80 ? "concealed_conflict" : "collision")
       : "low_information";
-  const copyDoctrineClass = pairSourceClass === "homogeneous"
-    ? HOMOGENEOUS_DOCTRINE_CLASS
-    : pairSourceClass === "heterogeneous"
-      ? "collision"
-      : "low_information";
-  const doctrineCopyReview = doctrineClass === "concealed_conflict" && copyDoctrineClass !== doctrineClass
+  // OD-RR2-3: high-ECS heterogeneous pairs are routed through concealed-conflict copy.
+  // The only physically approved concealed-conflict authority in the repository is the
+  // two APPROVED_CONCEALED_CONFLICT_* constants in this file; no new concealed-conflict
+  // copy is invented. Existing pair narratives (friction/narrative) carry every other
+  // analytical surface.
+  const doctrineCopyReview = doctrineClass === "concealed_conflict"
     ? Object.freeze({
-      required: true,
-      reason: "Owner-approved concealed-conflict copy for heterogeneous high-ECS pairs is pending.",
-      surfaces: Object.freeze(["executiveDecisionSummary", "collisionThesis", "sealedPredictions", "economicRiskTranslation"]),
+      required: false,
+      reason: "Owner-approved concealed-conflict copy applied (OD-RR2-3): APPROVED_CONCEALED_CONFLICT_RISK_EXPLANATION and APPROVED_CONCEALED_CONFLICT_POST_CLOSE_FAILURE_MODE.",
+      surfaces: Object.freeze(["resourceConflictMap", "collisionThesis", "recommendedActions"]),
     })
     : Object.freeze({ required: false, reason: "", surfaces: Object.freeze([]) });
   const consistencyLog = Object.freeze(canonicalConsistencyLog(deliverable));
@@ -950,34 +1303,33 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
   const publicEnterpriseValueLabel = hasDealEconomicsInputs
     ? (dealEconomicsReport?.enterpriseValue?.line || "")
     : "";
+  // OD-RR2-1: Economic Exposure triage is generic directional framing only. This public
+  // preview produces no static per-deal severities, no posture value, no unexecuted
+  // posture aggregation rule, and no fabricated deal-specific reason. Governed economic
+  // methodology is deferred to the engagement tier.
   const economicTriageChannels = [
     {
       label: "Talent continuity",
-      severity: "High",
       meaning: "Risk that deal-critical people disengage, slow down, or leave before the integration model stabilises.",
       testFirst: "Map critical role categories, role-level dependencies, retention exposure windows, and the first 90-day decision points that depend on them.",
     },
     {
       label: "Earn-out credibility",
-      severity: "Medium",
       meaning: "Risk that behavioural friction makes performance milestones harder to deliver, putting contingent value and seller-management incentives under pressure.",
       testFirst: "Compare earn-out milestones with the operating routines and decision rights needed to hit them.",
     },
     {
       label: "Decision delay",
-      severity: "Medium",
       meaning: "Risk that approvals, escalation paths, and authority conflicts slow value capture after close.",
       testFirst: "Identify decisions that must not wait for a full integration redesign.",
     },
     {
       label: "Knowledge continuity",
-      severity: "Medium",
       meaning: "Risk that informal know-how, customer context, or execution memory stops moving through the combined organisation.",
       testFirst: "Identify critical knowledge-holder categories, handover routines, and early warning signs of information blockage.",
     },
   ];
-  const economicTriagePosture = "High";
-  const economicTriageReason = "This is High because talent continuity is already the most exposed channel: if critical people slow down, disengage, or leave, speed, knowledge transfer, and earn-out confidence become harder to protect.";
+  const economicChannelNote = "Exposure channels are generic integration-risk categories. This public preview assigns no per-deal severity, posture, or score to any channel; governed economic methodology is deferred to the engagement tier.";
 
   return {
     brand: { ...BRAND },
@@ -1001,7 +1353,7 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
     },
     executiveDecisionSummary: {
       headline: cleanString(narrative.headline ?? deliverable?.headline ?? "Post-close behavior risk preview"),
-      oneParagraphSummary: cleanString(narrative.situation ?? deliverable?.body ?? "This brief summarizes the most likely post-close behavior friction visible from the current diagnostic inputs."),
+      oneParagraphSummary: cleanString(narrative.situation ?? deliverable?.body ?? "This brief summarizes the post-close behavior friction visible from the current diagnostic inputs."),
       decisionImplication: publicFrictionText(narrative.implication ?? "Use this brief to decide what must be observed before the integration plan hardens."),
       mainRisk: isHomogeneous
         ? publicFrictionText(fallbackPredictionText(deliverable))
@@ -1011,7 +1363,7 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
     sealedPredictions: {
       statusTitle: "Structural Watchpoints",
       statusDescription: "This public preview is not a scored forecast ledger.",
-      predictions: buildPredictions(deliverable, copyDoctrineClass),
+      predictions: buildPredictions(deliverable, doctrineClass),
     },
     compatibilityScoreAndDealScenario: {
       acquirerName,
@@ -1023,7 +1375,7 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
       compatibilityBand,
       compatibilityExplanation: isHomogeneous
         ? homogeneousCompatibilityExplanation(deliverable, compatibilityBand)
-        : `${compatibilityBand} compatibility based on the current environment-pair score.`,
+        : heterogeneousCompatibilityExplanation(deliverable, compatibilityBand),
       ...(isHomogeneous
         ? { withinEnvironmentDifferentiation: homogeneousDifferentiationSummary(deliverable) }
         : {}),
@@ -1062,11 +1414,19 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
       whyItMatters: isHomogeneous
         ? publicFrictionText(`Two ${cleanString(deliverable?.acquirerAlias)} organisations may share an operating logic and still produce a leadership clash if their internal type distributions differ markedly.`)
         : publicFrictionText(narrative.implication ?? "The risk matters because early operating assumptions can become permanent integration defaults."),
-      postCloseFailureMode: branchAwarePostCloseFailureMode(copyDoctrineClass, narrative, isHomogeneous),
+      postCloseFailureMode: branchAwarePostCloseFailureMode(doctrineClass, narrative, isHomogeneous),
     },
     resourceConflictMap: {
-      overwriteRiskExplanation: branchAwareOverwriteRiskExplanation(copyDoctrineClass, undefined, isHomogeneous),
+      overwriteRiskExplanation: branchAwareOverwriteRiskExplanation(doctrineClass, undefined, isHomogeneous),
       resources,
+      // Existing governed resource-analysis conclusion copy from the deliverable
+      // (restored RR-3 item 1): the verified 17-resource scan summary and the
+      // categorical priority statement. Never re-authored in the renderer.
+      priorityConclusion: isHomogeneous
+        ? Object.freeze([])
+        // publicFrictionText (not cleanString) so the governed conclusion copy also
+        // receives the RR3-CORR1 priority-vocabulary mapping.
+        : Object.freeze((deliverable?.resourceConflictProfile?.conclusion ?? []).map((line) => publicFrictionText(line)).filter(Boolean)),
       ...(isHomogeneous
         ? {
           structuralCaveats: Object.freeze([
@@ -1091,28 +1451,28 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
     economicRiskTranslation: {
       enterpriseValueBand: publicEnterpriseValueLabel,
       valuationDisclaimer: "Directional triage only. Not a valuation or loss estimate.",
-      economicRiskPosture: economicTriagePosture,
-      economicTriageJudgement: pairSourceClass === "homogeneous" 
-      ? "Directional triage only. The main risk is integration drag. Observe speed, decision quality, and knowledge continuity without asserting target logic compression." 
-      : "The main economic risk is not immediate value destruction. It is integration drag: the deal may lose speed, decision quality, or knowledge continuity if the target operating logic is compressed too quickly.",      
-      economicTriageRule: "Posture equals the highest assessed channel severity. When no channel is High but two or more channels are Medium, posture is raised one band.",
-      economicTriageReason,
+      economicTriageJudgement: pairSourceClass === "homogeneous"
+      ? "Directional triage only. The main risk is integration drag. Observe speed, decision quality, and knowledge continuity without asserting target logic compression."
+      : "Directional triage only. The main economic risk is not immediate value destruction. It is integration drag: the deal may lose speed, decision quality, or knowledge continuity if the target operating logic is compressed too quickly.",
+      economicChannelNote,
       economicTriageChannels,
       evUse: "Deal value is used only to understand materiality. It is not scored in this public preview and does not produce a valuation-impact estimate.",
-      whatThisPreviewCanSay: "This preview identifies where economic leakage is most likely to appear and which exposure channels should be tested first.",
+      // RR3-F07: no deal-specific likelihood model exists. Generic monitoring framing only.
+      whatThisPreviewCanSay: "These channels provide a generic management framework for where integration-related economic effects may be monitored; the current report does not assign deal-specific likelihood or severity.",
       whatThisPreviewCannotSay: "This is not a valuation, loss estimate, impairment opinion, damages calculation, or investment-committee financial model.",
       requiredForQuantifiedModelling: "EV, earn-out terms, retention costs, leadership role map, integration milestones, role criticality, and post-close governance evidence.",
       engagementTierRequirement: "Quantified modelling requires deal-room economics, role-level evidence, integration milestones, and analyst review.",
       economicRiskLines: [],
     },
-    recommendedActions: recommendedActions(deliverable, copyDoctrineClass),
+    recommendedActions: recommendedActions(deliverable, doctrineClass),
     evidenceBasisAndLimits: {
       dataQualityLevel: calibratedDataQualityLabel(session, evidenceCalibration),
       inputCompleteness: calibratedInputCompletenessLabel(session, deliverable, evidenceCalibration),
       knownLimits: "Public preview output uses environment-level signals and does not verify person-specific role fit, leadership hierarchy, or documentary evidence depth.",
       methodLimitations: "This brief can identify likely behavior friction and observation windows; it cannot replace engagement-tier diligence or analyst review.",
-      whatThisReportCanSay: calibratedCanSayLabel(evidenceCalibration),
+      whatThisReportCanSay: calibratedCanSayLabel(evidenceCalibration, deliverable),
       whatThisReportCannotSay: "It cannot state a valuation, a quantified loss estimate, a final integration plan, or a verified role-level exposure conclusion.",
+      integrity: buildEvidenceIntegrity(session, deliverable, evidenceCalibration, r1r2Agreement, crossSideEvidence),
       calibration: evidenceCalibration,
     },
 whatTheFullEngagementAdds: {
@@ -1162,10 +1522,17 @@ function resourceLines(resource, index) {
   return [
     `Resource ${index + 1}: ${resource.resourceName}`,
     line("Category", resource.resourceCategory),
-    line("Conflict intensity", resource.conflictIntensity),
-    line("Conflict band", resource.conflictBand),
-    line("Direction", resource.direction),
-    line("Explanation", resource.explanation),
+    line("Priority (categorical order)", resource.priorityOrder),
+    line("Conflict band (categorical)", resource.conflictBand),
+    line("Acquirer Net Effect", resource.acquirerNetEffect),
+    line("Target Net Effect", resource.targetNetEffect),
+    line("Acquirer ERI tier", resource.acquirerEriTier),
+    line("Target ERI tier", resource.targetEriTier),
+    line("Conflict drivers", (resource.conflictDrivers ?? []).join(", ")),
+    ...(String(resource.explanation ?? "").trim()
+      ? [line("Explanation", resource.explanation)]
+      : []),
+    line("Why it matters", resource.whyItMatters),
   ];
 }
 
@@ -1277,6 +1644,7 @@ export function buildMergevuePublicReportPdfTextModel(report) {
       pdfSection(isHomogeneous ? "Structural Resource Profile" : MERGEVUE_PUBLIC_REPORT_BLOCKS[5], [
         resourceMap.overwriteRiskExplanation,
         ...(isHomogeneous ? (resourceMap.structuralCaveats ?? []) : []),
+        ...(isHomogeneous ? [] : (resourceMap.priorityConclusion ?? [])),
         ...resourceMap.resources.flatMap(isHomogeneous ? structuralResourceLines : resourceLines),
       ]),
       pdfSection(MERGEVUE_PUBLIC_REPORT_BLOCKS[6], [
@@ -1288,13 +1656,14 @@ export function buildMergevuePublicReportPdfTextModel(report) {
       pdfSection(MERGEVUE_PUBLIC_REPORT_BLOCKS[7], [
         economics.enterpriseValueBand,
         economics.valuationDisclaimer,
-        economics.economicRiskPosture,
+        economics.economicChannelNote,
         economics.engagementTierRequirement,
       ]),
       pdfSection(MERGEVUE_PUBLIC_REPORT_BLOCKS[8], report.recommendedActions.flatMap(actionLines)),
       pdfSection(MERGEVUE_PUBLIC_REPORT_BLOCKS[9], [
         line("Data quality level", evidence.dataQualityLevel),
         line("Input completeness", evidence.inputCompleteness),
+        ...(evidence.integrity?.rows ?? []).map((row) => line(row.label, row.value)),
         line("Known limits", evidence.knownLimits),
         line("Method limitations", evidence.methodLimitations),
         line("What this report can say", evidence.whatThisReportCanSay),
@@ -1327,6 +1696,22 @@ export function buildMergevuePublicReportEmailCopy(report) {
   const evidence = report.evidenceBasisAndLimits;
   const engagement = report.whatTheFullEngagementAdds;
 
+  // RR3-CORR1-IV-03 (CORR2): compact evidence-integrity summary from the same
+  // authoritative integrity source as screen/PDF. Aggregate-only, no raw
+  // evidence; NOT ASSESSED is carried verbatim (never invented certainty).
+  const integrityRows = Array.isArray(evidence.integrity?.rows) ? evidence.integrity.rows : [];
+  const integrityLine = (label) => {
+    const row = integrityRows.find((entry) => entry.label === label);
+    return row && row.value ? `${label}: ${row.value}` : "";
+  };
+  const qualification = evidence.integrity?.qualification;
+  const integrityLines = [
+    integrityLine("Verification participation"),
+    integrityLine("R1/R2 verification agreement"),
+    integrityLine("Cross-side material agreement / divergence"),
+    qualification?.status === "provisional" ? `Provisional state: Provisional — ${qualification.basis}` : "",
+  ].filter(Boolean);
+
   return Object.freeze({
     subject: MERGEVUE_PUBLIC_REPORT_EMAIL_SUBJECT,
     attachmentFileName: MERGEVUE_PUBLIC_REPORT_PDF_FILE_NAME,
@@ -1345,6 +1730,7 @@ export function buildMergevuePublicReportEmailCopy(report) {
       economics.valuationDisclaimer,
       economics.engagementTierRequirement,
       "",
+      ...(integrityLines.length ? ["Evidence integrity:", ...integrityLines] : []),
       `Evidence basis: ${evidence.dataQualityLevel}`,
       `Engagement contact: ${engagement.contactEmail}`,
     ]),
