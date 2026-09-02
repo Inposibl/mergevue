@@ -252,7 +252,14 @@ function lawfulCandidate(projection, overrides = {}) {
       ...(caseB ? [{ claimId: "CL-005", claimType: "WATCHPOINT", text: "A friction-related watchpoint.", refs: [refs.qrefA], contextRefs: [refs.mref] }] : []),
       { claimId: "CL-006", claimType: "SCOPE_LIMITATION_DISCLOSURE", text: "A MergeVue-specific reading was not offered where the methodology domain was absent.", refs: [], contextRefs: [] },
     ],
-    clientNarrative: { language: "en", sections: [] },
+    clientNarrative: {
+      language: "en",
+      sections: [
+        { sectionId: "headline", text: "A bounded headline rendered from the established claims.", derivedFromClaimIds: ["CL-001"] },
+        { sectionId: "situation", text: "A cohesive explanation of the observed operating interaction.", derivedFromClaimIds: ["CL-001", "CL-002"] },
+        { sectionId: "implication", text: "Why the supported interaction matters for integration decisions.", derivedFromClaimIds: ["CL-006"] },
+      ],
+    },
   };
   return deepMerge(candidate, overrides);
 }

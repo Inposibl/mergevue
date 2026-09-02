@@ -259,6 +259,22 @@ function targetFixtureAnswersFor(environmentCode) {
 }
 
 const demoTargetAnswers = targetFixtureAnswersFor("NT/STJ");
+
+// LLM-NARRATIVE-1C: Owner-accepted lawful verified narrative fixture. The email
+// fixture must supply the mandatory three ordered sections so the email copy is
+// built from a real verified-narrative report model.
+const VERIFIED_NARRATIVE_OPTIONS = Object.freeze({
+  interpretationStatus: "INTERPRETATION_SUPPORTED",
+  clientNarrative: Object.freeze({
+    language: "en",
+    sections: Object.freeze([
+      Object.freeze({ sectionId: "headline", text: "Post-close authority friction is visible from current evidence.", derivedFromClaimIds: Object.freeze(["CL-N-1"]) }),
+      Object.freeze({ sectionId: "situation", text: "The acquirer and target operating patterns differ on authority and resource control.", derivedFromClaimIds: Object.freeze(["CL-N-1", "CL-N-2"]) }),
+      Object.freeze({ sectionId: "implication", text: "Early integration decisions should protect contested resources before Day 60.", derivedFromClaimIds: Object.freeze(["CL-N-3"]) }),
+    ]),
+  }),
+});
+
 const demoSession = Object.freeze({
   sessionId: "mergevue-public-report-email-smoke",
   dealContext: Object.freeze({
@@ -323,6 +339,7 @@ const demoSession = Object.freeze({
 
 const model = buildMergevuePublicReportModel(demoSession, {
   generatedAt: "2026-05-30T00:00:00.000Z",
+  ...VERIFIED_NARRATIVE_OPTIONS,
 });
 const emailCopy = buildMergevuePublicReportEmailCopy(model);
 const auditSession = Object.freeze({

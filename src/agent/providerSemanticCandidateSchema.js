@@ -1,4 +1,5 @@
 import {
+  CLIENT_NARRATIVE_SECTION_IDS,
   CLAIM_IDS,
   ENGINE_STATE_BY_BRANCH,
   PROVIDER_CANDIDATE_SCHEMA_VERSION,
@@ -1057,6 +1058,19 @@ function validateClientNarrative(candidate, claimIds) {
       }
     }
   }
+
+  const reportNarrativeRequired = candidate.interpretationStatus !== "ABSTAINED_INSUFFICIENT_EVIDENCE"
+    && candidate.interpretationStatus !== "SELECTOR_BOUNDARY_EXPLANATION";
+  if (!reportNarrativeRequired) return;
+  if (candidate.clientNarrative.sections.length !== CLIENT_NARRATIVE_SECTION_IDS.length) {
+    fail(`clientNarrative.sections must contain exactly ${CLIENT_NARRATIVE_SECTION_IDS.length} report sections`);
+  }
+  candidate.clientNarrative.sections.forEach((section, index) => {
+    const expectedSectionId = CLIENT_NARRATIVE_SECTION_IDS[index];
+    if (section.sectionId !== expectedSectionId) {
+      fail(`clientNarrative.sections[${index}].sectionId must be ${JSON.stringify(expectedSectionId)}`);
+    }
+  });
 }
 
 // Case A structural gate: no explicit context-dependent structured section may

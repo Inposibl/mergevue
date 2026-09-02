@@ -402,7 +402,7 @@ const CONSTRAINT_RULE_TEXTS = Object.freeze({
 
 // Independent copy of the accepted system-instruction template.
 const SYSTEM_TEMPLATE = [
-  "MERGEVUE_PROVIDER_PROMPT provider-prompt-1.2",
+  "MERGEVUE_PROVIDER_PROMPT provider-prompt-1.4",
   "",
   "[ROLE]",
   "You are the bounded interpretation stage of the MergeVue FREE diagnostic. Produce a best-effort structured interpretation from the supplied provider projection. You are not an Engine, classifier, methodology author, reviewer, renderer, or source of organizational facts.",
@@ -422,9 +422,17 @@ const SYSTEM_TEMPLATE = [
   "[HYPOTHESES]",
   "Use ordering RANKED only when adjacent hypotheses have distinct, exposed decisiveEvidenceRefs that justify ordinal ordering without arithmetic. RANKED means evidentiary ordering, never probability or likelihood. Use ordering CO_EQUAL when the supplied evidence does not support an ordering. Under CO_EQUAL omit rank from every hypothesis. A suppressed deterministic claim may never be reintroduced as a hypothesis, leaning, or most-likely statement.",
   "",
-  "[OUTPUT]",
-  "Return exactly one JSON object conforming to provider-semantic-candidate-1.2. Return no Markdown, prose wrapper, code fence, commentary, citations outside schema fields, or additional key. Author only fields permitted by the candidate schema. Do not author result versions, request identity, Engine identity, canonical provenance, validation state, provider identity, model identity, or execution metadata.",
+  "{{CLIENT_NARRATIVE_BLOCK}}[OUTPUT]",
+  "Return exactly one JSON object conforming to provider-semantic-candidate-1.4. Return no Markdown, prose wrapper, code fence, commentary, citations outside schema fields, or additional key. Author only fields permitted by the candidate schema. Do not author result versions, request identity, Engine identity, canonical provenance, validation state, provider identity, model identity, or execution metadata.",
 ].join("\n");
+
+// Independent copy of the accepted client-narrative block. It is a
+// branch-scoped expansion of the shared template: PRE_CORE_SELECTOR receives
+// an empty expansion, every other outcomeSource receives this block verbatim.
+const CLIENT_NARRATIVE_BLOCK = `[CLIENT_NARRATIVE]
+Outside ABSTAINED_INSUFFICIENT_EVIDENCE, clientNarrative.sections must contain exactly three sections in this exact order and with these exact sectionId values: headline, situation, implication. headline is the concise deal-specific explanatory headline. situation is the cohesive explanation of the observed operating interaction. implication explains why the supported interaction matters for integration decisions. Each section remains a rendering only of its derivedFromClaimIds and may not introduce a fact, score, identity, value, time window, or methodology not established by its attached authorities. ABSTAINED_INSUFFICIENT_EVIDENCE preserves its existing constrained or absence semantics and is not required to emit these three report sections.
+
+`;
 
 const EXPECTED_SECTIONS = Object.freeze([
   "[ROLE]",
@@ -433,6 +441,7 @@ const EXPECTED_SECTIONS = Object.freeze([
   "[PROHIBITIONS]",
   "[ACTIVE_CONSTRAINTS]",
   "[HYPOTHESES]",
+  "[CLIENT_NARRATIVE]",
   "[OUTPUT]",
 ]);
 
@@ -550,7 +559,9 @@ function expectedSystemInstruction(activeConstraints) {
   const lines = activeConstraints
     .map((row) => `- ${row.constraintId}: ${CONSTRAINT_RULE_TEXTS[row.constraintId]}`)
     .join("\n");
-  return SYSTEM_TEMPLATE.split("{{ACTIVE_CONSTRAINT_LINES}}").join(lines);
+  return SYSTEM_TEMPLATE
+    .split("{{ACTIVE_CONSTRAINT_LINES}}").join(lines)
+    .split("{{CLIENT_NARRATIVE_BLOCK}}").join(CLIENT_NARRATIVE_BLOCK);
 }
 
 function fixtureRequest(branch, packInput = {}) {
@@ -861,7 +872,11 @@ function lawfulCandidate(projection, overrides = {}) {
     ],
     clientNarrative: {
       language: "en",
-      sections: [],
+      sections: [
+        { sectionId: "headline", text: "A bounded headline rendered from the established claims.", derivedFromClaimIds: ["CL-001"] },
+        { sectionId: "situation", text: "A cohesive explanation of the observed operating interaction.", derivedFromClaimIds: ["CL-001", "CL-002"] },
+        { sectionId: "implication", text: "Why the supported interaction matters for integration decisions.", derivedFromClaimIds: ["CL-006"] },
+      ],
     },
   };
   return deepMerge(candidate, overrides);
@@ -904,9 +919,9 @@ function expectCandidateReject(candidate, projection, label) {
 
 check("V0", "exact version literals", () => {
   assert.equal(PROVIDER_PROJECTION_VERSION, "provider-projection-1.3");
-  assert.equal(PROVIDER_PROMPT_VERSION, "provider-prompt-1.2");
-  assert.equal(PROVIDER_CANDIDATE_SCHEMA_VERSION, "provider-semantic-candidate-1.2");
-  assert.equal(providerSemanticCandidateSchema.$id, "provider-semantic-candidate-1.2");
+  assert.equal(PROVIDER_PROMPT_VERSION, "provider-prompt-1.4");
+  assert.equal(PROVIDER_CANDIDATE_SCHEMA_VERSION, "provider-semantic-candidate-1.4");
+  assert.equal(providerSemanticCandidateSchema.$id, "provider-semantic-candidate-1.4");
 });
 
 // ---------------------------------------------------------------------------
@@ -1226,7 +1241,7 @@ check("PM0", "prompt builds for all branches with exactly two messages", () => {
     const { projection } = projectionFor(branch);
     const prompt = buildProviderPrompt(projection);
     assert.equal(Object.isFrozen(prompt), true, branch);
-    assert.equal(prompt.promptVersion, "provider-prompt-1.2", branch);
+    assert.equal(prompt.promptVersion, "provider-prompt-1.4", branch);
     assert.equal(prompt.providerProjectionVersion, "provider-projection-1.3", branch);
     assert.equal(prompt.agentContractVersion, projection.agentContractVersion, branch);
     assert.equal(prompt.messages.length, 2, branch);
@@ -1261,7 +1276,7 @@ check("PM2", "exact section order and corrected uref sentence", () => {
     previous = at;
   }
   assert.equal(system.includes(UREF_SENTENCE), true);
-  assert.equal(system.startsWith("MERGEVUE_PROVIDER_PROMPT provider-prompt-1.2\n"), true);
+  assert.equal(system.startsWith("MERGEVUE_PROVIDER_PROMPT provider-prompt-1.4\n"), true);
   assert.equal(system.includes("uref://{uncertaintyId}"), true);
 });
 
@@ -1931,6 +1946,14 @@ check("CAND9", "uncertainty reference grammar: raw ids vs uref claims", () => {
     claims: [
       { claimId: "CL-U", claimType: "UNCERTAINTY_DISCLOSURE", text: "Open uncertainty with supporting observation.", refs: [`uref://${refs.uncertaintyId}`, refs.unavailableQref], contextRefs: [] },
     ],
+    clientNarrative: {
+      language: "en",
+      sections: [
+        { sectionId: "headline", text: "An uncertainty headline.", derivedFromClaimIds: ["CL-U"] },
+        { sectionId: "situation", text: "An uncertainty situation.", derivedFromClaimIds: ["CL-U"] },
+        { sectionId: "implication", text: "An uncertainty implication.", derivedFromClaimIds: ["CL-U"] },
+      ],
+    },
   }), projection, "uref plus unavailable qref inside an uncertainty disclosure claim");
 
   expectCandidateReject(lawfulCandidate(projection, {
@@ -1961,26 +1984,64 @@ check("CAND10", "claim-type grounding rules", () => {
   }), projection, "candidate claimId spoofing an Engine claim identity");
 });
 
-check("CAND11", "narrative traceability", () => {
+check("CAND11", "narrative traceability and the mandatory three-section contract", () => {
   const { projection } = projectionFor("P_5A");
+  const threeSections = (text) => [
+    { sectionId: "headline", text, derivedFromClaimIds: ["CL-001"] },
+    { sectionId: "situation", text, derivedFromClaimIds: ["CL-001"] },
+    { sectionId: "implication", text, derivedFromClaimIds: ["CL-001"] },
+  ];
   expectCandidateReject(lawfulCandidate(projection, {
     clientNarrative: {
       language: "en",
-      sections: [{ sectionId: "S1", text: "Unbacked narrative.", derivedFromClaimIds: ["CL-999"] }],
+      sections: threeSections("Unbacked narrative.").map((row, index) => (
+        index === 0 ? { ...row, derivedFromClaimIds: ["CL-999"] } : row
+      )),
     },
   }), projection, "narrative section with unresolvable claim");
   expectCandidateReject(lawfulCandidate(projection, {
     clientNarrative: {
       language: "en",
-      sections: [{ sectionId: "S1", text: "Unbacked narrative.", derivedFromClaimIds: [] }],
+      sections: threeSections("Unbacked narrative.").map((row, index) => (
+        index === 0 ? { ...row, derivedFromClaimIds: [] } : row
+      )),
     },
   }), projection, "narrative section without claims");
   expectCandidateAccept(lawfulCandidate(projection, {
     clientNarrative: {
       language: "en",
-      sections: [{ sectionId: "S1", text: "A narrative rendering of the claims.", derivedFromClaimIds: ["CL-001"] }],
+      sections: threeSections("A narrative rendering of the claims."),
     },
-  }), projection, "traceable narrative section");
+  }), projection, "traceable three-section narrative");
+
+  // Mandatory three-section contract: wrong sectionId, wrong order, a missing
+  // section, and a fourth section must all fail closed.
+  expectCandidateReject(lawfulCandidate(projection, {
+    clientNarrative: {
+      language: "en",
+      sections: threeSections("Text.").map((row, index) => (
+        index === 1 ? { ...row, sectionId: "situation-x" } : row
+      )),
+    },
+  }), projection, "wrong sectionId must fail");
+  expectCandidateReject(lawfulCandidate(projection, {
+    clientNarrative: {
+      language: "en",
+      sections: [threeSections("Text.")[1], threeSections("Text.")[0], threeSections("Text.")[2]],
+    },
+  }), projection, "out-of-order sections must fail");
+  expectCandidateReject(lawfulCandidate(projection, {
+    clientNarrative: {
+      language: "en",
+      sections: threeSections("Text.").slice(0, 2),
+    },
+  }), projection, "missing section must fail");
+  expectCandidateReject(lawfulCandidate(projection, {
+    clientNarrative: {
+      language: "en",
+      sections: [...threeSections("Text."), { sectionId: "prediction", text: "An unauthorable fourth section.", derivedFromClaimIds: ["CL-001"] }],
+    },
+  }), projection, "fourth prediction section must fail");
 });
 
 check("CAND12", "structural numeric prohibition: schema types allow numeric values only as lawful RANKED rank (prose semantics DEFERRED TO FUTURE SEMANTIC VALIDATOR V-13/V-28/V-29)", () => {
@@ -2026,7 +2087,11 @@ check("CAND12D", "NON-AUTHORITATIVE DEFENSE-IN-DEPTH lexical probes: limited ban
   expectCandidateReject(lawfulCandidate(projection, {
     clientNarrative: {
       language: "en",
-      sections: [{ sectionId: "S1", text: "This outcome has high likelihood.", derivedFromClaimIds: ["CL-001"] }],
+      sections: [
+        { sectionId: "headline", text: "This outcome has high likelihood.", derivedFromClaimIds: ["CL-001"] },
+        { sectionId: "situation", text: "A situation rendering.", derivedFromClaimIds: ["CL-001"] },
+        { sectionId: "implication", text: "An implication rendering.", derivedFromClaimIds: ["CL-001"] },
+      ],
     },
   }), projection, "likelihood fragment (NON-AUTHORITATIVE DEFENSE-IN-DEPTH)");
   expectCandidateReject(lawfulCandidate(projection, {
@@ -2161,10 +2226,26 @@ check("EMPT2", "Case A structural gate: no contextRefs, no transitionPattern, no
   // string passes this structural layer under Case A.
   expectCandidateAccept(lawfulCandidate(emptyProjection, {
     claims: [{ claimId: "CL-ADV", claimType: "DIRECT_EVIDENCE", text: "The acquirer behaves like a centralized hierarchy that concentrates decision authority at the top.", refs: [refs.qrefA], contextRefs: [] }],
+    clientNarrative: {
+      language: "en",
+      sections: [
+        { sectionId: "headline", text: "A headline rendered from the adversarial claim.", derivedFromClaimIds: ["CL-ADV"] },
+        { sectionId: "situation", text: "A situation rendered from the adversarial claim.", derivedFromClaimIds: ["CL-ADV"] },
+        { sectionId: "implication", text: "An implication rendered from the adversarial claim.", derivedFromClaimIds: ["CL-ADV"] },
+      ],
+    },
   }), emptyProjection, "adversarial organizational prose passes the structural layer — DEFERRED TO FUTURE SEMANTIC VALIDATOR V-23/V-24");
 
   expectCandidateAccept(lawfulCandidate(emptyProjection, {
     claims: [{ claimId: "CL-S", claimType: "SCOPE_LIMITATION_DISCLOSURE", text: "A MergeVue-specific reading was not offered.", refs: [], contextRefs: [] }],
+    clientNarrative: {
+      language: "en",
+      sections: [
+        { sectionId: "headline", text: "A headline rendered from the scope limitation.", derivedFromClaimIds: ["CL-S"] },
+        { sectionId: "situation", text: "A situation rendered from the scope limitation.", derivedFromClaimIds: ["CL-S"] },
+        { sectionId: "implication", text: "An implication rendered from the scope limitation.", derivedFromClaimIds: ["CL-S"] },
+      ],
+    },
   }), emptyProjection, "scope-limitation disclosure under Case A");
 });
 

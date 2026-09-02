@@ -97,7 +97,14 @@ function singleCandidate(projection) {
       { claimId: "CL-4", claimType: "UNCERTAINTY_DISCLOSURE", text: "No independent R2 comparison occurred.", refs: [`uref://${refs.uncertaintyId}`], contextRefs: [] },
       { claimId: "CL-5", claimType: "SCOPE_LIMITATION_DISCLOSURE", text: "This constrained interpretation does not supply an R1-versus-R2 comparison.", refs: [], contextRefs: [] },
     ],
-    clientNarrative: { language: "en", sections: [{ sectionId: "S-1", text: "The sealed R1 facts support bounded co-equal readings, while no independent R2 comparison occurred.", derivedFromClaimIds: ["CL-1", "CL-3", "CL-4"] }] },
+    clientNarrative: {
+      language: "en",
+      sections: [
+        { sectionId: "headline", text: "A constrained headline rendered from the sealed R1 claims.", derivedFromClaimIds: ["CL-1"] },
+        { sectionId: "situation", text: "The sealed R1 facts support bounded co-equal readings, while no independent R2 comparison occurred.", derivedFromClaimIds: ["CL-1", "CL-3"] },
+        { sectionId: "implication", text: "This constrained interpretation does not supply an R1-versus-R2 comparison.", derivedFromClaimIds: ["CL-5"] },
+      ],
+    },
   };
 }
 
@@ -132,7 +139,14 @@ function dualCandidate(projection) {
       ...(contextRefs.length ? [{ claimId: "CL-005", claimType: "WATCHPOINT", text: "A friction-related watchpoint.", refs: [refs.qrefA], contextRefs }] : []),
       { claimId: "CL-006", claimType: "SCOPE_LIMITATION_DISCLOSURE", text: "This interpretation remains bounded by supplied evidence.", refs: [], contextRefs: [] },
     ],
-    clientNarrative: { language: "en", sections: [] },
+    clientNarrative: {
+      language: "en",
+      sections: [
+        { sectionId: "headline", text: "A bounded headline rendered from the established claims.", derivedFromClaimIds: ["CL-001"] },
+        { sectionId: "situation", text: "A cohesive explanation of the observed operating interaction.", derivedFromClaimIds: ["CL-001", "CL-002"] },
+        { sectionId: "implication", text: "This interpretation remains bounded by supplied evidence.", derivedFromClaimIds: ["CL-006"] },
+      ],
+    },
   };
 }
 

@@ -63,6 +63,16 @@ const session = Object.freeze({
   }),
 });
 
+const VERIFIED_NARRATIVE_OPTIONS = Object.freeze({
+  clientNarrative: Object.freeze({
+    sections: Object.freeze([
+      Object.freeze({ sectionId: "headline", text: "Same-environment pairs share one structural resource profile." }),
+      Object.freeze({ sectionId: "situation", text: "The acquirer and target sides operate inside the same environment, so their structural states align." }),
+      Object.freeze({ sectionId: "implication", text: "Integration controls focus on preserving the shared structural state instead of managing cross-side friction." }),
+    ]),
+  }),
+});
+
 function readZipEntries(filePath) {
   const buffer = fs.readFileSync(filePath);
   let eocd = -1;
@@ -219,6 +229,7 @@ function publicSurfaces(code, overrides = {}) {
     targetSelfQuestionResponses: overrides.targetSelfQuestionResponses,
   });
   const model = buildMergevuePublicReportModel(session, {
+    ...VERIFIED_NARRATIVE_OPTIONS,
     deliverable,
     generatedAt: "2026-08-28T00:00:00.000Z",
   });
@@ -497,6 +508,7 @@ for (const acquirer of ENV_CODES) {
       targetEnvironmentCode: target,
     });
     const model = buildMergevuePublicReportModel(session, {
+      ...VERIFIED_NARRATIVE_OPTIONS,
       deliverable,
       generatedAt: "2026-08-28T00:00:00.000Z",
     });

@@ -608,8 +608,8 @@ check("C5C-61", "dualRespondentComparison remains byte-identical", () => {
 });
 
 check("C5C-62", "provider prompt and candidate-schema versions remain unchanged", () => {
-  assert.equal(PROVIDER_PROMPT_VERSION, "provider-prompt-1.2");
-  assert.equal(PROVIDER_CANDIDATE_SCHEMA_VERSION, "provider-semantic-candidate-1.2");
+  assert.equal(PROVIDER_PROMPT_VERSION, "provider-prompt-1.4");
+  assert.equal(PROVIDER_CANDIDATE_SCHEMA_VERSION, "provider-semantic-candidate-1.4");
 });
 
 check("C5C-63", "ADMISSIBILITY owns routing/unresolvedReason while other PRE statuses do not", () => {

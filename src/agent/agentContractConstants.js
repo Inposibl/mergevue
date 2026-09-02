@@ -1,4 +1,4 @@
-export const AGENT_CONTRACT_VERSION = "D0_R0_CORR2_A2C1_CORR1_C5C1_PC1_SR1";
+export const AGENT_CONTRACT_VERSION = "D0_R0_CORR2_A2C1_CORR1_C5C1_PC1_SR1_CN1A_CN1B";
 export const SNAPSHOT_SCHEMA_VERSION = "engine-snapshot-2.0";
 
 export const RUNTIME_CORE_COMMIT = "dcbd937e0135e790201ee5c8898c5b5f5a085298";
@@ -610,11 +610,20 @@ export const DERIVATION_METHOD_ALLOWLIST_FIELDS = Object.freeze(["2", "3"]);
 export const XP1_SOURCE_ROW = 9;
 
 export const REQUEST_SCHEMA_VERSION = "agent-request-1.2";
-export const OUTPUT_SCHEMA_VERSION = "agent-result-1.4";
+export const OUTPUT_SCHEMA_VERSION = "agent-result-1.6";
 
 export const PROVIDER_PROJECTION_VERSION = "provider-projection-1.3";
-export const PROVIDER_PROMPT_VERSION = "provider-prompt-1.2";
-export const PROVIDER_CANDIDATE_SCHEMA_VERSION = "provider-semantic-candidate-1.2";
+export const PROVIDER_PROMPT_VERSION = "provider-prompt-1.4";
+export const PROVIDER_CANDIDATE_SCHEMA_VERSION = "provider-semantic-candidate-1.4";
+
+// LLM-NARRATIVE-1B (Owner Decision 2): the mandatory client narrative is exactly
+// three sections. `prediction` was removed from the mandatory LLM contract; forecast,
+// prediction, and timing stay in the existing deterministic governed path.
+export const CLIENT_NARRATIVE_SECTION_IDS = Object.freeze([
+  "headline",
+  "situation",
+  "implication",
+]);
 
 export const CONSTRAINT_SCOPE_REQUEST_WIDE = "REQUEST_WIDE";
 export const CONSTRAINT_SCOPE_BRANCH = "BRANCH";

@@ -203,10 +203,15 @@ function serverDerivedInterpretationContext(session: any, hasCompletedR2: boolea
   };
 }
 
-function buildServerReportProjection(session: any) {
+function buildServerReportProjection(session: any, acceptedResult: any) {
   const deliverable = buildFinalDeliverable(session);
   if (!deliverable.ready) return null;
-  const report = buildMergevuePublicReportModel(session, { deliverable });
+  const report = buildMergevuePublicReportModel(session, {
+    deliverable,
+    clientNarrative: acceptedResult.clientNarrative,
+    interpretationStatus: acceptedResult.interpretationStatus,
+  });
+  if (!report) return null;
   const designModel = buildMergevueForecastBriefDesignModel(report);
   const html = renderMergevueForecastBriefHtml(designModel);
   if (typeof html !== "string" || !html.trim()) return null;
@@ -293,7 +298,7 @@ export async function executeCurrentAssessment(sessionId: string) {
     terminalKind = "agent-result";
     digest = result.engineFactsRef.engineSnapshotDigest;
     acceptedResult = result;
-    projection = buildServerReportProjection(reconstructed.session);
+    projection = buildServerReportProjection(reconstructed.session, result);
   } else if (canonicalSystemFailure(result)) {
     terminalKind = "system-failure";
     digest = result.engineSnapshotDigest;

@@ -156,6 +156,22 @@ const EXPECTED_PAIR_FP2_RATIONALE = "Treat Energy as a protected integration res
 const EXPECTED_CONCEALED_CONFLICT_RISK_EXPLANATION = "The main risk is false alignment: a high compatibility score can make the integration path look settled while important differences in authority, routines, and control expectations remain latent. Those differences may become material only when post-close integration decisions begin.";
 const EXPECTED_ECONOMIC_CHANNEL_NOTE = "Exposure channels are generic integration-risk categories. This public preview assigns no per-deal severity, posture, or score to any channel; governed economic methodology is deferred to the engagement tier.";
 
+// LLM-NARRATIVE-1C: Owner-accepted lawful verified narrative fixture. The public
+// report model binds the verified Agent client narrative for every
+// narrative-applicable state; the fixture must supply exactly the mandatory
+// three ordered sections (headline, situation, implication).
+const VERIFIED_NARRATIVE_OPTIONS = Object.freeze({
+  interpretationStatus: "INTERPRETATION_SUPPORTED",
+  clientNarrative: Object.freeze({
+    language: "en",
+    sections: Object.freeze([
+      Object.freeze({ sectionId: "headline", text: "Post-close authority friction is visible from current evidence.", derivedFromClaimIds: Object.freeze(["CL-N-1"]) }),
+      Object.freeze({ sectionId: "situation", text: "The acquirer and target operating patterns differ on authority and resource control.", derivedFromClaimIds: Object.freeze(["CL-N-1", "CL-N-2"]) }),
+      Object.freeze({ sectionId: "implication", text: "Early integration decisions should protect contested resources before Day 60.", derivedFromClaimIds: Object.freeze(["CL-N-3"]) }),
+    ]),
+  }),
+});
+
 
 
 function collectStringValues(value, out = []) {
@@ -280,6 +296,7 @@ const demoSession = Object.freeze({
 
 const model = buildMergevuePublicReportModel(demoSession, {
   generatedAt: "2026-05-30T00:00:00.000Z",
+  ...VERIFIED_NARRATIVE_OPTIONS,
 });
 
 const approvedPairTargetAnswers = targetFixtureAnswersFor("NF/SFJ");
@@ -314,6 +331,7 @@ const approvedPairSession = Object.freeze({
 });
 const approvedPairModel = buildMergevuePublicReportModel(approvedPairSession, {
   generatedAt: "2026-06-12T00:00:00.000Z",
+  ...VERIFIED_NARRATIVE_OPTIONS,
 });
 
 const calibrationDeliverable = buildPairDeliverable({
@@ -374,6 +392,7 @@ const calibrationSession = Object.freeze({
 const calibrationModel = buildMergevuePublicReportModel(calibrationSession, {
   deliverable: calibrationDeliverable,
   generatedAt: "2026-06-14T00:00:00.000Z",
+  ...VERIFIED_NARRATIVE_OPTIONS,
 });
 assert.equal(calibrationModel.compatibilityScoreAndDealScenario.compatibilityScore, 14.7);
 assert.equal(calibrationModel.compatibilityScoreAndDealScenario.compatibilityBand, "HIGH RISK");
@@ -425,7 +444,7 @@ for (const friction of FINAL_DELIVERABLE_DATA.frictionPoints) {
     acquirerEnvironmentCode: friction.acquirerEnvironmentCode,
     targetEnvironmentCode: friction.targetEnvironmentCode,
   });
-  const pairModel = buildMergevuePublicReportModel(demoSession, { deliverable, generatedAt: "2026-06-12T00:00:00.000Z" });
+  const pairModel = buildMergevuePublicReportModel(demoSession, { deliverable, generatedAt: "2026-06-12T00:00:00.000Z", ...VERIFIED_NARRATIVE_OPTIONS });
   const pairKey = `${friction.acquirerEnvironmentCode}->${friction.targetEnvironmentCode}`;
   assert.equal(isCanonicalEcsScore(friction.ecs), true, `Off-lattice ECS provenance failure for ${pairKey}: ${friction.ecs}`);
   assert.equal(RAW_RESOURCE_NOTATION.test(JSON.stringify(pairModel)), false, `Raw resource notation found in public model for ${pairKey}.`);
@@ -441,6 +460,7 @@ const precedenceDeliverable = buildPairDeliverable({
 const precedenceModel = buildMergevuePublicReportModel(demoSession, {
   deliverable: precedenceDeliverable,
   generatedAt: "2026-06-12T00:00:00.000Z",
+  ...VERIFIED_NARRATIVE_OPTIONS,
 });
 assert.equal(precedenceModel.compatibilityScoreAndDealScenario.compatibilityScore, 88.2);
 assert.equal(precedenceModel.metadata.doctrineClass, "concealed_conflict");
@@ -463,6 +483,7 @@ const precedenceFrictionDefectModel = buildPairDeliverable({
 const precedenceFrictionDefectReport = buildMergevuePublicReportModel(demoSession, {
   deliverable: precedenceFrictionDefectModel,
   generatedAt: "2026-06-12T00:00:00.000Z",
+  ...VERIFIED_NARRATIVE_OPTIONS,
 });
 assert.deepEqual(
   precedenceFrictionDefectReport.metadata.sourceBinding.consistencyLog,
@@ -477,6 +498,7 @@ const recoveredStpDeliverable = buildPairDeliverable({
 const recoveredStpModel = buildMergevuePublicReportModel(demoSession, {
   deliverable: recoveredStpDeliverable,
   generatedAt: "2026-06-12T00:00:00.000Z",
+  ...VERIFIED_NARRATIVE_OPTIONS,
 });
 assert.equal(recoveredStpModel.compatibilityScoreAndDealScenario.compatibilityScore, 64.7);
 assert.equal(recoveredStpModel.metadata.frictionContentStatus.available, true);
@@ -557,6 +579,34 @@ assert.equal(
 );
 
 assert.deepEqual(Object.keys(model), TOP_LEVEL_KEYS);
+
+// LLM-NARRATIVE-1C: the verified client narrative must bind the public model's
+// executive summary — expected values come from the fixture, never from the output.
+const verifiedSections = VERIFIED_NARRATIVE_OPTIONS.clientNarrative.sections;
+assert.equal(model.executiveDecisionSummary.headline, verifiedSections[0].text);
+assert.equal(model.executiveDecisionSummary.oneParagraphSummary, verifiedSections[1].text);
+assert.equal(model.executiveDecisionSummary.decisionImplication, verifiedSections[2].text);
+assert.equal(model.metadata.sourceBinding.narrativeSource, "AgentInterpretationResult.clientNarrative");
+
+// Fail-closed: a narrative-applicable report without a verified narrative must
+// yield a detected null model, never a random downstream TypeError.
+assert.equal(
+  buildMergevuePublicReportModel(demoSession, { generatedAt: "2026-05-30T00:00:00.000Z" }),
+  null,
+  "missing required narrative must fail closed to a null model",
+);
+const partiallyVerified = Object.freeze({
+  interpretationStatus: "INTERPRETATION_SUPPORTED",
+  clientNarrative: Object.freeze({
+    language: "en",
+    sections: Object.freeze(VERIFIED_NARRATIVE_OPTIONS.clientNarrative.sections.slice(0, 2)),
+  }),
+});
+assert.equal(
+  buildMergevuePublicReportModel(demoSession, { generatedAt: "2026-05-30T00:00:00.000Z", ...partiallyVerified }),
+  null,
+  "a two-section narrative must fail closed to a null model",
+);
 
 for (const [section, fields] of Object.entries(REQUIRED_FIELDS)) {
   assert.ok(model[section], `Missing section: ${section}`);
@@ -741,6 +791,7 @@ for (const code of FINAL_ENVIRONMENT_CODES) {
   const homogeneousModel = buildMergevuePublicReportModel(demoSession, {
     deliverable,
     generatedAt: "2026-05-30T00:00:00.000Z",
+    ...VERIFIED_NARRATIVE_OPTIONS,
   });
 
   assert.equal(

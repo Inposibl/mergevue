@@ -369,7 +369,11 @@ function lawfulCandidate(projection, overrides = {}) {
     ],
     clientNarrative: {
       language: "en",
-      sections: [],
+      sections: [
+        { sectionId: "headline", text: "A bounded headline rendered from the established claims.", derivedFromClaimIds: ["CL-001"] },
+        { sectionId: "situation", text: "A cohesive explanation of the observed operating interaction.", derivedFromClaimIds: ["CL-001", "CL-002"] },
+        { sectionId: "implication", text: "Why the supported interaction matters for integration decisions.", derivedFromClaimIds: ["CL-006"] },
+      ],
     },
   };
   return deepMerge(candidate, overrides);
@@ -534,7 +538,7 @@ async function main() {
 
   await check("RA0", "exact canonical constants and closed frozen schemas", () => {
     assert.equal(FAILURE_SCHEMA_VERSION, "system-failure-1.0");
-    assert.equal(OUTPUT_SCHEMA_VERSION, "agent-result-1.4");
+    assert.equal(OUTPUT_SCHEMA_VERSION, "agent-result-1.6");
     assert.deepEqual([...SYSTEM_FAILURE_CLASSES], [
       "PROVIDER_UNAVAILABLE",
       "PROVIDER_TIMEOUT",
@@ -563,7 +567,7 @@ async function main() {
     }
     assert.equal(SYSTEM_FAILURE_CLIENT_DISCLOSURE, "SYSTEM_LEVEL_ONLY");
 
-    assert.equal(agentInterpretationResultSchema.$id, "agent-result-1.4");
+    assert.equal(agentInterpretationResultSchema.$id, "agent-result-1.6");
     assert.equal(systemFailureSchema.$id, "system-failure-1.0");
     assert.equal(Object.isFrozen(agentInterpretationResultSchema), true);
     assert.equal(Object.isFrozen(systemFailureSchema), true);
@@ -642,7 +646,7 @@ async function main() {
       Object.is(agentInterpretationResultSchema.properties.interpretation, providerSemanticCandidateSchema.properties.interpretation),
       true,
     );
-    assert.equal(PROVIDER_CANDIDATE_SCHEMA_VERSION, "provider-semantic-candidate-1.2");
+    assert.equal(PROVIDER_CANDIDATE_SCHEMA_VERSION, "provider-semantic-candidate-1.4");
   });
 
   // --- Success assembly / mirrors -------------------------------------------
@@ -664,7 +668,7 @@ async function main() {
         "uncertainty",
       ]);
       assert.equal(result.resultSchemaVersion, request.outputSchemaVersion);
-      assert.equal(result.resultSchemaVersion, "agent-result-1.4");
+      assert.equal(result.resultSchemaVersion, "agent-result-1.6");
       assert.equal(result.agentContractVersion, request.agentContractVersion);
       assert.equal(result.interpretationId, request.interpretationId);
       assert.equal(result.engineFactsRef.diagnosticId, request.engineSnapshot.identity.diagnosticId);
@@ -876,6 +880,14 @@ async function main() {
           contextRefs: [mrefA],
         },
       ],
+      clientNarrative: {
+        language: "en",
+        sections: [
+          { sectionId: "headline", text: "A headline rendered from the reordered claims.", derivedFromClaimIds: ["CL-001"] },
+          { sectionId: "situation", text: "A situation rendered from the reordered claims.", derivedFromClaimIds: ["CL-003"] },
+          { sectionId: "implication", text: "An implication rendered from the reordered claims.", derivedFromClaimIds: ["CL-005"] },
+        ],
+      },
     });
     assert.deepEqual(reordered.result.provenance.contextRefsUsed, [idB, idA]);
   });

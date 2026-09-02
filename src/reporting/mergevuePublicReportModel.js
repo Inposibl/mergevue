@@ -1,4 +1,5 @@
 import { ENVIRONMENTS } from "../data/environments.js";
+import { CLIENT_NARRATIVE_SECTION_IDS } from "../agent/agentContractConstants.js";
 import {
   buildFinalDeliverable,
   canonicalStructuralEcs,
@@ -798,8 +799,7 @@ function dealTypeLabel(value) {
   return cleanString(DEAL_TYPE_LABELS[value] ?? value ?? "Deal type not specified");
 }
 
-function fallbackPredictionText(deliverable) {
-  if (deliverable?.narrative?.prediction) return deliverable.narrative.prediction;
+function fallbackPredictionText(deliverable, narrative = {}) {
   if (deliverable?.friction?.earlyWarningSignal && !isPendingFrictionText(deliverable.friction.earlyWarningSignal)) return deliverable.friction.earlyWarningSignal;
   if (deliverable?.anchors?.[0]?.text && !isPendingFrictionText(deliverable.anchors[0].text)) return deliverable.anchors[0].text;
   return "Monitor whether the expected integration friction appears during the preview window.";
@@ -929,7 +929,7 @@ function windowedPairClaim(anchor, window) {
   return `${phase}: ${clause}.`;
 }
 
-function buildPredictions(deliverable, doctrineClass) {
+function buildPredictions(deliverable, doctrineClass, narrative) {
   if (!hasCanonicalFrictionContent(deliverable) && !hasUsableAnchors(deliverable)) return [];
   const isHomogeneous = isHomogeneousDeliverable(deliverable);
   const anchors = (deliverable?.anchors ?? []).map((anchor) => (
@@ -969,7 +969,7 @@ function buildPredictions(deliverable, doctrineClass) {
       // Existing generic fixed-cadence checkpoint copy for pairs whose governed FP3 source row is absent.
       return "By Day 60: review retention exposure, delivery confidence, knowledge continuity, operating rhythm, knowledge-transfer logs, early departures or disengagement signals, and whether systematised knowledge is becoming harder to preserve under integration pressure.";
     }
-    return publicFrictionText(fallbackPredictionText(deliverable));
+    return publicFrictionText(fallbackPredictionText(deliverable, narrative));
   };
   const pairSignal = (index, fallback) => {
     const signal = publicFrictionText(anchors[index]?.text ?? "");
@@ -981,7 +981,7 @@ function buildPredictions(deliverable, doctrineClass) {
       predictionTitle: "Signal setup",
       predictionWindow: TIMING_LOGIC.signalSetup,
       predictionClaim: pairClaim(0, TIMING_LOGIC.signalSetup),
-      observableSignal: pairSignal(0, fallbackPredictionText(deliverable)),
+      observableSignal: pairSignal(0, fallbackPredictionText(deliverable, narrative)),
       verificationMethod: isHomogeneous
         ? "Review Day 0–30 communication-forum notes, decision-meeting records, governance routines, and decision logs for early signs that the two same-environment leadership groups are competing for the same decision authority."
         : "Review Day 0–30 communication-forum notes, decision-meeting records, governance routines, management forum language, decision logs, and examples of acquirer-side authority signals moving across the integration boundary.",
@@ -1064,7 +1064,7 @@ function resourceRows(deliverable) {
   }));
 }
 
-function timelinePhases(deliverable) {
+function timelinePhases(deliverable, narrative) {
   if (!hasCanonicalFrictionContent(deliverable)) return [];
   const anchors = (deliverable?.anchors ?? []).map((anchor) => (
     isPendingFrictionText(anchor?.text) ? null : anchor
@@ -1073,7 +1073,7 @@ function timelinePhases(deliverable) {
     {
       phaseName: "Signal setup",
       timeWindow: TIMING_LOGIC.signalSetup,
-      expectedFriction: publicFrictionText(anchors[0]?.text ?? fallbackPredictionText(deliverable)),
+      expectedFriction: publicFrictionText(anchors[0]?.text ?? fallbackPredictionText(deliverable, narrative)),
       observableSignal: publicFrictionText(anchors[0]?.text ?? "First visible mismatch in operating assumptions."),
       recommendedCheck: "Confirm whether the first signal appears before Day 30.",
     },
@@ -1216,6 +1216,40 @@ export function publicCompatibilityBand(score) {
   return "HIGH RISK";
 }
 
+function verifiedNarrativeBySection(clientNarrative) {
+  if (!clientNarrative || typeof clientNarrative !== "object" || Array.isArray(clientNarrative)) return null;
+  const sections = clientNarrative.sections;
+  if (!Array.isArray(sections) || sections.length !== CLIENT_NARRATIVE_SECTION_IDS.length) return null;
+  const narrative = {};
+  for (const [index, expectedSectionId] of CLIENT_NARRATIVE_SECTION_IDS.entries()) {
+    const section = sections[index];
+    if (!section || typeof section !== "object" || Array.isArray(section)) return null;
+    if (section.sectionId !== expectedSectionId || typeof section.text !== "string" || !section.text.trim()) return null;
+    narrative[expectedSectionId] = section.text;
+  }
+  return Object.freeze(narrative);
+}
+
+// LLM-NARRATIVE-1B (Owner Decision 3): narrative applicability is read only from the
+// canonical accepted-result interpretationStatus. SELECTOR_BOUNDARY_EXPLANATION and
+// ABSTAINED_INSUFFICIENT_EVIDENCE are the two lawful narrative-not-applicable states;
+// any other (or absent) status is treated as narrative-applicable and fails closed on
+// narrative absence.
+const NARRATIVE_NOT_APPLICABLE_STATUSES = Object.freeze([
+  "SELECTOR_BOUNDARY_EXPLANATION",
+  "ABSTAINED_INSUFFICIENT_EVIDENCE",
+]);
+
+function narrativeApplicable(interpretationStatus) {
+  return !NARRATIVE_NOT_APPLICABLE_STATUSES.includes(interpretationStatus);
+}
+
+const NARRATIVE_FALLBACK = Object.freeze({
+  headline: "Post-close behavior risk preview",
+  situation: "This brief summarizes the post-close behavior friction visible from the current diagnostic inputs.",
+  implication: "Use this brief to decide what must be observed before the integration plan hardens.",
+});
+
 export function buildMergevuePublicReportModel(session = {}, options = {}) {
   const deliverable = options.deliverable ?? buildFinalDeliverable(session);
   const r1r2Agreement = options.r1r2Agreement ?? null;
@@ -1233,11 +1267,19 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
     ? Number(deliverable.compatibilityScore)
     : null;
   const compatibilityBand = publicCompatibilityBand(compatibilityScore);
-  const narrative = deliverable?.narrative ?? {};
+  const isHomogeneous = isHomogeneousDeliverable(deliverable);
+  const narrativeRequired = narrativeApplicable(options.interpretationStatus);
+  const narrative = verifiedNarrativeBySection(options.clientNarrative);
+  // LLM-NARRATIVE-1B (Owner Decisions 1 and 3): the verified client narrative binds
+  // homogeneous and heterogeneous reports alike; the homogeneous static screenCopy
+  // prose and the legacy FINAL_DELIVERABLE_DATA.narratives are never narrative
+  // authority for covered slots. Narrative-applicable states fail closed on
+  // narrative absence; the two lawful narrative-not-applicable statuses keep the
+  // existing deterministic report and receive no narrative fallback of any kind.
+  if (narrativeRequired && narrative === null) return null;
   const friction = deliverable?.friction ?? {};
   const resources = resourceRows(deliverable);
   const pairCopy = safeApprovedPairCopy(deliverable);
-  const isHomogeneous = isHomogeneousDeliverable(deliverable);
   // One homogeneity identity (OD-RMP3-23): explicit upstream semantic mode only.
   const pairSourceClass = isHomogeneous
     ? "homogeneous"
@@ -1252,8 +1294,8 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
   // OD-RR2-3: high-ECS heterogeneous pairs are routed through concealed-conflict copy.
   // The only physically approved concealed-conflict authority in the repository is the
   // two APPROVED_CONCEALED_CONFLICT_* constants in this file; no new concealed-conflict
-  // copy is invented. Existing pair narratives (friction/narrative) carry every other
-  // analytical surface.
+  // copy is invented. Existing governed friction and the verified client narrative
+  // carry every other analytical surface.
   const doctrineCopyReview = doctrineClass === "concealed_conflict"
     ? Object.freeze({
       required: false,
@@ -1279,7 +1321,7 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
     ecsSource: Number.isFinite(Number(deliverable?.compatibilityScore)) ? Number(deliverable.compatibilityScore) : null,
     riskBandSource: cleanString(deliverable?.riskBand),
     compatibilityRangeSource: cleanString(deliverable?.compatibilityRange),
-    narrativeSource: Object.keys(narrative).length ? "deliverable.narrative" : "",
+    narrativeSource: narrativeRequired ? "AgentInterpretationResult.clientNarrative" : "",
     frictionSource: Object.keys(friction).length ? "deliverable.friction" : "",
     resourceProfileSource: Object.freeze({
       source: isHomogeneous ? "deliverable.structuralResourceProfile" : "deliverable.resourceConflictProfile",
@@ -1352,18 +1394,18 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
       },
     },
     executiveDecisionSummary: {
-      headline: cleanString(narrative.headline ?? deliverable?.headline ?? "Post-close behavior risk preview"),
-      oneParagraphSummary: cleanString(narrative.situation ?? deliverable?.body ?? "This brief summarizes the post-close behavior friction visible from the current diagnostic inputs."),
-      decisionImplication: publicFrictionText(narrative.implication ?? "Use this brief to decide what must be observed before the integration plan hardens."),
+      headline: cleanString(narrative?.headline ?? NARRATIVE_FALLBACK.headline),
+      oneParagraphSummary: cleanString(narrative?.situation ?? NARRATIVE_FALLBACK.situation),
+      decisionImplication: publicFrictionText(narrative?.implication ?? NARRATIVE_FALLBACK.implication),
       mainRisk: isHomogeneous
-        ? publicFrictionText(fallbackPredictionText(deliverable))
+        ? publicFrictionText(fallbackPredictionText(deliverable, narrative))
         : publicFrictionText(!isPendingFrictionText(friction.fp1) ? friction.fp1 : `${leadResource} may become the first visible post-close friction point.`),
       recommendedAction: firstIntegrationControlMove(deliverable),
     },
     sealedPredictions: {
       statusTitle: "Structural Watchpoints",
       statusDescription: "This public preview is not a scored forecast ledger.",
-      predictions: buildPredictions(deliverable, doctrineClass),
+      predictions: buildPredictions(deliverable, doctrineClass, narrative),
     },
     compatibilityScoreAndDealScenario: {
       acquirerName,
@@ -1403,17 +1445,15 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
       targetSystemicRole: cleanString(targetEnvironment?.systemicRole),
     },
     collisionThesis: {
-      collisionHeadline: cleanString(narrative.headline ?? deliverable?.headline ?? "Operating systems may collide after close"),
+      collisionHeadline: cleanString(narrative?.headline ?? "Operating systems may collide after close"),
       coreMismatch: pairCopy?.coreMismatch ?? "",
       collisionSummary: isHomogeneous
-        ? publicFrictionText("This pair is structurally low-friction at the environment level — the operating logic is shared. The risk shifts from cultural collision to internal hierarchy and individual differentiation.")
-        : publicFrictionText(!isPendingFrictionText(friction.fp1) ? (friction.fp1 ?? narrative.situation) : (narrative.situation ?? "The collision thesis is based on the current environment-pair result.")),
+        ? publicFrictionText(narrative?.situation ?? "The collision thesis is based on the current environment-pair result.")
+        : publicFrictionText(!isPendingFrictionText(friction.fp1) ? (friction.fp1 ?? narrative?.situation) : (narrative?.situation ?? "The collision thesis is based on the current environment-pair result.")),
       primaryTension: isHomogeneous
         ? cleanString(homogeneousDifferentiationSummary(deliverable)?.summary ?? HOMOGENEOUS_STRUCTURAL_RESOURCE_QUALIFIER)
         : pairCopy?.conflictSummary ?? cleanString(!isPendingFrictionText(friction.primaryConflictedResources) ? (friction.primaryConflictedResources ?? `${leadResource} is the primary tension to monitor.`) : `${leadResource} is the primary tension to monitor.`),
-      whyItMatters: isHomogeneous
-        ? publicFrictionText(`Two ${cleanString(deliverable?.acquirerAlias)} organisations may share an operating logic and still produce a leadership clash if their internal type distributions differ markedly.`)
-        : publicFrictionText(narrative.implication ?? "The risk matters because early operating assumptions can become permanent integration defaults."),
+      whyItMatters: publicFrictionText(narrative?.implication ?? "The risk matters because early operating assumptions can become permanent integration defaults."),
       postCloseFailureMode: branchAwarePostCloseFailureMode(doctrineClass, narrative, isHomogeneous),
     },
     resourceConflictMap: {
@@ -1446,7 +1486,7 @@ export function buildMergevuePublicReportModel(session = {}, options = {}) {
     },
     timelineOfExpectedFriction: {
       timingLogic: { ...TIMING_LOGIC },
-      phases: timelinePhases(deliverable),
+      phases: timelinePhases(deliverable, narrative),
     },
     economicRiskTranslation: {
       enterpriseValueBand: publicEnterpriseValueLabel,

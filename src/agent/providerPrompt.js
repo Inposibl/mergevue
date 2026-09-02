@@ -1,4 +1,6 @@
 import {
+  CLIENT_NARRATIVE_SECTION_IDS,
+  PROVIDER_CANDIDATE_SCHEMA_VERSION,
   PROVIDER_PROJECTION_VERSION,
   PROVIDER_PROMPT_VERSION,
 } from "./agentContractConstants.js";
@@ -16,7 +18,7 @@ function fail(detail) {
   throw new ProviderPromptError(detail);
 }
 
-const SYSTEM_INSTRUCTION_TEMPLATE = `MERGEVUE_PROVIDER_PROMPT provider-prompt-1.2
+const SYSTEM_INSTRUCTION_TEMPLATE = `MERGEVUE_PROVIDER_PROMPT ${PROVIDER_PROMPT_VERSION}
 
 [ROLE]
 You are the bounded interpretation stage of the MergeVue FREE diagnostic. Produce a best-effort structured interpretation from the supplied provider projection. You are not an Engine, classifier, methodology author, reviewer, renderer, or source of organizational facts.
@@ -36,8 +38,19 @@ Do not alter, recompute, override, soften, promote, or replace an Engine fact. D
 [HYPOTHESES]
 Use ordering RANKED only when adjacent hypotheses have distinct, exposed decisiveEvidenceRefs that justify ordinal ordering without arithmetic. RANKED means evidentiary ordering, never probability or likelihood. Use ordering CO_EQUAL when the supplied evidence does not support an ordering. Under CO_EQUAL omit rank from every hypothesis. A suppressed deterministic claim may never be reintroduced as a hypothesis, leaning, or most-likely statement.
 
-[OUTPUT]
-Return exactly one JSON object conforming to provider-semantic-candidate-1.2. Return no Markdown, prose wrapper, code fence, commentary, citations outside schema fields, or additional key. Author only fields permitted by the candidate schema. Do not author result versions, request identity, Engine identity, canonical provenance, validation state, provider identity, model identity, or execution metadata.`;
+{{CLIENT_NARRATIVE_BLOCK}}[OUTPUT]
+Return exactly one JSON object conforming to ${PROVIDER_CANDIDATE_SCHEMA_VERSION}. Return no Markdown, prose wrapper, code fence, commentary, citations outside schema fields, or additional key. Author only fields permitted by the candidate schema. Do not author result versions, request identity, Engine identity, canonical provenance, validation state, provider identity, model identity, or execution metadata.`;
+
+// LLM-NARRATIVE-1B: the narrative instruction is a branch-scoped expansion of the
+// shared template, not part of its byte-pinned core. PRE_CORE_SELECTOR receives an
+// empty expansion (no narrative obligation); ABSTAINED_INSUFFICIENT_EVIDENCE keeps
+// its existing constrained/absence semantics and is self-exempted inside the block.
+const CLIENT_NARRATIVE_BLOCK = `[CLIENT_NARRATIVE]
+Outside ABSTAINED_INSUFFICIENT_EVIDENCE, clientNarrative.sections must contain exactly three sections in this exact order and with these exact sectionId values: ${CLIENT_NARRATIVE_SECTION_IDS.join(", ")}. headline is the concise deal-specific explanatory headline. situation is the cohesive explanation of the observed operating interaction. implication explains why the supported interaction matters for integration decisions. Each section remains a rendering only of its derivedFromClaimIds and may not introduce a fact, score, identity, value, time window, or methodology not established by its attached authorities. ABSTAINED_INSUFFICIENT_EVIDENCE preserves its existing constrained or absence semantics and is not required to emit these three report sections.
+
+`;
+
+const CLIENT_NARRATIVE_BLOCK_PLACEHOLDER = "{{CLIENT_NARRATIVE_BLOCK}}";
 
 const ACTIVE_CONSTRAINT_RULES = Object.freeze({
   "C-NO-FACT-MUTATION": "Copy or reference Engine facts without changing their value, scope, finality, branch, state, or null status.",
@@ -134,12 +147,15 @@ export function buildProviderSystemInstruction(providerProjection) {
     : outcomeSource === "SINGLE_R1_ONLY"
       ? SYSTEM_INSTRUCTION_TEMPLATE.replace("[ACTIVE_CONSTRAINTS]", `${SINGLE_R1_TERMINAL_BLOCK}[ACTIVE_CONSTRAINTS]`)
       : SYSTEM_INSTRUCTION_TEMPLATE;
+  const narrativeBlock = outcomeSource === "PRE_CORE_SELECTOR" ? "" : CLIENT_NARRATIVE_BLOCK;
   // Function replacement keeps the expansion byte-deterministic: a string
   // replacement would reinterpret "$"-sequences inside the expanded lines.
-  return template.replace(
-    ACTIVE_CONSTRAINT_LINES_PLACEHOLDER,
-    () => expanded,
-  );
+  return template
+    .replace(CLIENT_NARRATIVE_BLOCK_PLACEHOLDER, () => narrativeBlock)
+    .replace(
+      ACTIVE_CONSTRAINT_LINES_PLACEHOLDER,
+      () => expanded,
+    );
 }
 
 export function buildProviderUserMessage(providerProjection) {

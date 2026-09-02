@@ -236,11 +236,9 @@ function lawfulCandidate(request, hypothesisStatement) {
     clientNarrative: {
       language: "en",
       sections: [
-        {
-          sectionId: "S-001",
-          text: "The assessment established the recorded outcome; a bounded reading follows.",
-          derivedFromClaimIds: ["CL-001", "CL-003"],
-        },
+        { sectionId: "headline", text: "A bounded headline rendered from the established claims.", derivedFromClaimIds: ["CL-001"] },
+        { sectionId: "situation", text: "A cohesive explanation of the observed operating interaction.", derivedFromClaimIds: ["CL-001", "CL-002"] },
+        { sectionId: "implication", text: "Why the supported interaction matters for integration decisions.", derivedFromClaimIds: ["CL-006"] },
       ],
     },
   };

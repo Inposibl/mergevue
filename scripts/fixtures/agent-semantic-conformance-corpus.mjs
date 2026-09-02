@@ -2240,7 +2240,11 @@ export async function loadObservedFixtures() {
       ],
       clientNarrative: {
         language: "en",
-        sections: [{ sectionId: "S-001", text: "The assessment established the recorded outcome; a bounded reading follows.", derivedFromClaimIds: ["CL-001", "CL-003"] }],
+        sections: [
+          { sectionId: "headline", text: "The recorded branch outcome is established by the engine.", derivedFromClaimIds: ["CL-001"] },
+          { sectionId: "situation", text: "The recorded branch outcome is established, and a respondent supplied a directly observed answer.", derivedFromClaimIds: ["CL-001", "CL-002"] },
+          { sectionId: "implication", text: "No MergeVue-specific reading is offered where the methodology domain is absent.", derivedFromClaimIds: ["CL-006"] },
+        ],
       },
     };
     return deepMerge(candidate, overrides);

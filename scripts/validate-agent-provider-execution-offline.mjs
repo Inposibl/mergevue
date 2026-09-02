@@ -290,7 +290,11 @@ function lawfulCandidate(projection, overrides = {}) {
     ],
     clientNarrative: {
       language: "en",
-      sections: [],
+      sections: [
+        { sectionId: "headline", text: "A bounded headline rendered from the established claims.", derivedFromClaimIds: ["CL-001"] },
+        { sectionId: "situation", text: "A cohesive explanation of the observed operating interaction.", derivedFromClaimIds: ["CL-001", "CL-002"] },
+        { sectionId: "implication", text: "Why the supported interaction matters for integration decisions.", derivedFromClaimIds: ["CL-006"] },
+      ],
     },
   };
   return deepMerge(candidate, overrides);
@@ -481,8 +485,8 @@ async function main() {
     );
     for (const versionLiteral of [
       "provider-projection-1.3",
-      "provider-prompt-1.2",
-      "provider-semantic-candidate-1.2",
+      "provider-prompt-1.4",
+      "provider-semantic-candidate-1.4",
     ]) {
       assert.equal(
         constantsSource.includes(versionLiteral),
@@ -1153,9 +1157,9 @@ async function main() {
     assert.equal(typeof metadata.durationMs, "number");
     assert.ok(metadata.durationMs >= 0);
     assert.equal(ISO_PATTERN.test(metadata.executedAt), true);
-    assert.equal(metadata.promptVersion, "provider-prompt-1.2");
+    assert.equal(metadata.promptVersion, "provider-prompt-1.4");
     assert.equal(metadata.providerProjectionVersion, "provider-projection-1.3");
-    assert.equal(metadata.providerCandidateSchemaVersion, "provider-semantic-candidate-1.2");
+    assert.equal(metadata.providerCandidateSchemaVersion, "provider-semantic-candidate-1.4");
     assert.deepEqual(metadata.observedProvider, {
       requestId: "req-123-offline",
       modelVersion: "models/gemini-3.7-flash",

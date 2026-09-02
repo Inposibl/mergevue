@@ -210,11 +210,11 @@ function lawfulCandidate(fixture) {
     ],
     clientNarrative: {
       language: "en",
-      sections: [{
-        sectionId: "S-1",
-        text: "The sealed R1 facts support bounded co-equal readings, while no independent R2 comparison occurred.",
-        derivedFromClaimIds: ["CL-1", "CL-3", "CL-4"],
-      }],
+      sections: [
+        { sectionId: "headline", text: "A constrained headline rendered from the sealed R1 claims.", derivedFromClaimIds: ["CL-1"] },
+        { sectionId: "situation", text: "The sealed R1 facts support bounded co-equal readings, while no independent R2 comparison occurred.", derivedFromClaimIds: ["CL-1", "CL-3"] },
+        { sectionId: "implication", text: "This constrained interpretation does not supply an R1-versus-R2 comparison.", derivedFromClaimIds: ["CL-5"] },
+      ],
     },
   };
 }

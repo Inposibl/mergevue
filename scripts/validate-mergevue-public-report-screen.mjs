@@ -106,8 +106,7 @@ function targetFixtureAnswersFor(environmentCode) {
 
 function demoSession() {
   const targetAnswers = targetFixtureAnswersFor("NT/STJ");
-  return Object.freeze({
-    sessionId: "mergevue-screen-smoke",
+  return Object.freeze({    sessionId: "mergevue-screen-smoke",
     dealContext: Object.freeze({
       completed: true,
       data: Object.freeze({
@@ -146,6 +145,21 @@ function demoSession() {
     }),
   });
 }
+
+// LLM-NARRATIVE-1C: Owner-accepted lawful verified narrative fixture. The screen
+// fixture must supply the mandatory three ordered sections so the screen-facing
+// report is built from a real verified narrative.
+const VERIFIED_NARRATIVE_OPTIONS = Object.freeze({
+  interpretationStatus: "INTERPRETATION_SUPPORTED",
+  clientNarrative: Object.freeze({
+    language: "en",
+    sections: Object.freeze([
+      Object.freeze({ sectionId: "headline", text: "Post-close authority friction is visible from current evidence.", derivedFromClaimIds: Object.freeze(["CL-N-1"]) }),
+      Object.freeze({ sectionId: "situation", text: "The acquirer and target operating patterns differ on authority and resource control.", derivedFromClaimIds: Object.freeze(["CL-N-1", "CL-N-2"]) }),
+      Object.freeze({ sectionId: "implication", text: "Early integration decisions should protect contested resources before Day 60.", derivedFromClaimIds: Object.freeze(["CL-N-3"]) }),
+    ]),
+  }),
+});
 
 function screenTextForModel(model) {
   const parts = [
@@ -226,8 +240,16 @@ for (const forbidden of FORBIDDEN_SCREEN_STRINGS) {
 
 const model = buildMergevuePublicReportModel(demoSession(), {
   generatedAt: "2026-05-30T00:00:00.000Z",
+  ...VERIFIED_NARRATIVE_OPTIONS,
 });
 const screenText = screenTextForModel(model);
+
+// LLM-NARRATIVE-1C: the verified-backed narrative must be present in the
+// screen-facing report — expected text comes from the fixture, not from output.
+const verifiedSections = VERIFIED_NARRATIVE_OPTIONS.clientNarrative.sections;
+for (const section of verifiedSections) {
+  assert.ok(screenText.includes(section.text), `Screen report must carry verified narrative section ${section.sectionId}`);
+}
 
 let previousIndex = -1;
 for (const label of BLOCK_LABELS) {

@@ -340,13 +340,22 @@ assert.equal(
 // ── Production parser behaviour: identity binding, no positional fallback ──
 const SESSION_STUB = Object.freeze({});
 const GENERATED_AT = "2026-08-28T00:00:00.000Z";
+const VERIFIED_NARRATIVE_OPTIONS = Object.freeze({
+  clientNarrative: Object.freeze({
+    sections: Object.freeze([
+      Object.freeze({ sectionId: "headline", text: "Integration friction is the dominant post-close risk signal." }),
+      Object.freeze({ sectionId: "situation", text: "The diagnostic evidence shows measurable operating-environment friction between the two sides." }),
+      Object.freeze({ sectionId: "implication", text: "Prioritize governance controls on the highest-conflict resources before committing to an integration plan." }),
+    ]),
+  }),
+});
 
 for (const row of frictionRows) {
   const deliverable = buildPairDeliverable({
     acquirerEnvironmentCode: row.acquirer,
     targetEnvironmentCode: row.target,
   });
-  const report = buildMergevuePublicReportModel(SESSION_STUB, { deliverable, generatedAt: GENERATED_AT });
+  const report = buildMergevuePublicReportModel(SESSION_STUB, { ...VERIFIED_NARRATIVE_OPTIONS, deliverable, generatedAt: GENERATED_AT });
   assert.deepEqual(
     report.metadata.sourceBinding.consistencyLog,
     [],
@@ -373,6 +382,7 @@ function syntheticFrictionReadings(pair, signals) {
   return signals.map((signal) => {
     const deliverable = buildPairDeliverable(pair);
     const report = buildMergevuePublicReportModel(SESSION_STUB, {
+      ...VERIFIED_NARRATIVE_OPTIONS,
       deliverable: withSyntheticSourceSignals(deliverable, signal),
       generatedAt: GENERATED_AT,
     });
@@ -404,6 +414,7 @@ assert.deepEqual(
   "NT/STJ -> NF/NT synthetic-signal-bearing resources must be exactly Trust, Creativity, Knowledge",
 );
 const reversedReport = buildMergevuePublicReportModel(SESSION_STUB, {
+  ...VERIFIED_NARRATIVE_OPTIONS,
   deliverable: withSyntheticSourceSignals(reversedDeliverable, "~NF/NT vs +NT/STJ"),
   generatedAt: GENERATED_AT,
 });
@@ -444,6 +455,7 @@ for (const [label, signal] of FAIL_CLOSED_SIGNALS) {
   const deliverable = buildPairDeliverable({ acquirerEnvironmentCode: "NT/STJ", targetEnvironmentCode: "NF/NT" });
   assert.throws(
     () => buildMergevuePublicReportModel(SESSION_STUB, {
+      ...VERIFIED_NARRATIVE_OPTIONS,
       deliverable: withSyntheticSourceSignals(deliverable, signal),
       generatedAt: GENERATED_AT,
     }),

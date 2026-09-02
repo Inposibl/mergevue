@@ -413,9 +413,9 @@ function constraintIdsOf(request) {
 function assertEnvelopeShape(request, upstream, outcomeCode) {
   assert.deepEqual(Object.keys(request), [...ROOT_KEYS], outcomeCode);
   assert.equal(request.requestSchemaVersion, "agent-request-1.2", outcomeCode);
-  assert.equal(request.outputSchemaVersion, "agent-result-1.4", outcomeCode);
+  assert.equal(request.outputSchemaVersion, "agent-result-1.6", outcomeCode);
   assert.equal(request.agentContractVersion, AGENT_CONTRACT_VERSION, outcomeCode);
-  assert.equal(AGENT_CONTRACT_VERSION, "D0_R0_CORR2_A2C1_CORR1_C5C1_PC1_SR1", outcomeCode);
+  assert.equal(AGENT_CONTRACT_VERSION, "D0_R0_CORR2_A2C1_CORR1_C5C1_PC1_SR1_CN1A_CN1B", outcomeCode);
   assert.match(request.interpretationId, UUID_V4, outcomeCode);
   assert.equal(request.engineSnapshot, upstream.snapshot, outcomeCode);
   assert.equal(request.structuredUncertainty, upstream.uncertainty, outcomeCode);

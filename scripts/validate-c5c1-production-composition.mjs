@@ -92,7 +92,13 @@ const NO_PAIR_PRE_STATUSES = Object.freeze([
 ]);
 const NO_PAIR_CONSTRAINT_ID = "C-NO-AGENT-PAIR-SELECTION";
 const NO_PAIR_PROVIDER_RULE = "Never choose, infer, name, rank, narrow, or reconstruct a candidate pair. Do not treat matched-pair or selector audit material as pair authority. Describe only the canonical selector-boundary fact supplied in this projection.";
-const ADMISSIBILITY_SYSTEM_INSTRUCTION_SHA256 = "bf3acb2be67b7f27a9f182619d9f2b16e0b221a922dba56d690d008518d53bec";
+// LLM-NARRATIVE-1C repin: fixed expected oracle obtained once from the
+// Owner-accepted POST-1B production bytes. Independent 1C verification proved
+// the PRE-1A accepted bytes and the POST-1B bytes differ only by the two
+// lawful version digits (provider-prompt-1.2→1.4, provider-semantic-candidate-1.2→1.4);
+// byte length is unchanged. This literal must never be recomputed from the
+// current prompt inside the validator at runtime.
+const ADMISSIBILITY_SYSTEM_INSTRUCTION_SHA256 = "c565ce4637e877438c60c4b5c78ee5a73e36ada9b4c4b6693c9b35997aee239c";
 const ADMISSIBILITY_SYSTEM_INSTRUCTION_BYTES = 5867;
 const SENTINELS = Object.freeze({
   "src/flow/candidatePairSelector.js": "9aa93625d3a3f19b9fbc002504b97d0acf284d084a9c91f3f0dc119ad3404d43",

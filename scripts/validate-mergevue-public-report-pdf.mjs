@@ -180,6 +180,21 @@ const APPROVED_AUTHORITY_PHRASES = Object.freeze({
 const EXPECTED_PAIR_CORE_MISMATCH = "The core mismatch is between authority earned through measurable results and symmetric accountability, and authority held through proximity to the founding mission and collective purpose. The sharpest contested resource is Energy: amplified on the acquirer side, suppressed on the target side.";
 const EXPECTED_PAIR_FP2_RATIONALE = "Treat Energy as a protected integration resource during Days 30–60: it is amplified on the acquirer side and suppressed on the target side, which makes it an early priority area for integration control. Separating preservation from simplification gives the integration team time to identify which Mission Field-linked routines protect cohesion, where Performance Arena accountability should apply, and which changes should wait until the Day 60 review.";
 
+// LLM-NARRATIVE-1C: Owner-accepted lawful verified narrative fixture. The PDF
+// fixtures must supply the mandatory three ordered sections so the renderer
+// exercises the real verified-narrative report path.
+const VERIFIED_NARRATIVE_OPTIONS = Object.freeze({
+  interpretationStatus: "INTERPRETATION_SUPPORTED",
+  clientNarrative: Object.freeze({
+    language: "en",
+    sections: Object.freeze([
+      Object.freeze({ sectionId: "headline", text: "Post-close authority friction is visible from current evidence.", derivedFromClaimIds: Object.freeze(["CL-N-1"]) }),
+      Object.freeze({ sectionId: "situation", text: "The acquirer and target operating patterns differ on authority and resource control.", derivedFromClaimIds: Object.freeze(["CL-N-1", "CL-N-2"]) }),
+      Object.freeze({ sectionId: "implication", text: "Early integration decisions should protect contested resources before Day 60.", derivedFromClaimIds: Object.freeze(["CL-N-3"]) }),
+    ]),
+  }),
+});
+
 function score(primaryEnvironmentCode, overrides = {}) {
   return Object.freeze({
     valid: true,
@@ -317,6 +332,7 @@ const demoSession = Object.freeze({
 
 const model = buildMergevuePublicReportModel(demoSession, {
   generatedAt: "2026-05-30T00:00:00.000Z",
+  ...VERIFIED_NARRATIVE_OPTIONS,
 });
 const pdfModel = buildMergevueForecastBriefDesignModel(model);
 const pdfHtml = renderMergevueForecastBriefHtml(pdfModel);
@@ -353,6 +369,7 @@ const approvedPairSession = Object.freeze({
 });
 const approvedPairModel = buildMergevuePublicReportModel(approvedPairSession, {
   generatedAt: "2026-06-12T00:00:00.000Z",
+  ...VERIFIED_NARRATIVE_OPTIONS,
 });
 const approvedPairDesignModel = buildMergevueForecastBriefDesignModel(approvedPairModel);
 const approvedPairHtml = renderMergevueForecastBriefHtml(approvedPairDesignModel);
@@ -399,6 +416,7 @@ for (const friction of FINAL_DELIVERABLE_DATA.frictionPoints) {
   const pairModel = buildMergevuePublicReportModel(demoSession, {
     deliverable,
     generatedAt: "2026-06-12T00:00:00.000Z",
+    ...VERIFIED_NARRATIVE_OPTIONS,
   });
   const pairDesignModel = buildMergevueForecastBriefDesignModel(pairModel);
   const pairValues = registeredDesignValues(pairDesignModel);
