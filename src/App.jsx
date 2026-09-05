@@ -130,7 +130,6 @@ import {
   buildMergevueForecastBriefDesignModel,
   renderMergevueForecastBriefHtml,
 } from "./reporting/mergevueForecastBriefDesignRenderer.js";
-import { createHiddenUserAnswersSnapshot } from "./reporting/hiddenUserAnswersSnapshot.js";
 import { screenByRoute } from "./screenRegistry.js";
 import "./styles.css";
 
@@ -657,7 +656,7 @@ const DIAGNOSTIC_GATE_RECEIVE_ITEMS = Object.freeze([
   Object.freeze({
     title: "5. Directional economic exposure triage",
     paragraphs: Object.freeze([
-      "The report provides a directional view of where economic leakage is most likely to appear first — for example through talent continuity, decision delay, earn-out credibility, or knowledge continuity.",
+      "The report provides a generic management framework for monitoring potential integration-related economic effects — for example through talent continuity, decision delay, earn-out credibility, or knowledge continuity. The current report does not assign deal-specific likelihood or severity.",
       "This is a decision posture, not a valuation.",
     ]),
   }),
@@ -953,7 +952,7 @@ function AboutMethodologyScreen() {
         <section className="framework-section">
           <h2>The Environment Compatibility Score (ECS)</h2>
           <p>
-            The ECS is computed across 17 behavioural resources - Authority, Trust, Reputation, Information, Influence, Will/Discipline, Energy, Attention, Time, Health, Money, Imagination, Relationships, Status, Territory, Meaning, and Security. Each resource is scored 0-100 for a given environment pair. The composite score predicts the probability of post-close resource collapse and determines the integration protocol.
+            The ECS is computed across 17 behavioural resources - Authority, Trust, Reputation, Information, Influence, Will/Discipline, Energy, Attention, Time, Health, Money, Imagination, Relationships, Status, Territory, Meaning, and Security. For a given environment pair, each resource carries a canonical Net Effect on each side; pairwise comparisons of those effects produce conflict points that determine the composite ECS and the integration protocol.
           </p>
           <div className="ecs-card-stack" aria-label="ECS score bands">
             {ECS_SCORE_BANDS.map((band) => (
@@ -4902,11 +4901,11 @@ function PreliminaryAssessmentReport({ session }) {
           ) : resourcePanel.hasProfile ? (
             <div className="resource-conflict-panel">
               <div className="resource-conflict-summary">
-                <strong>High-probability resource conflict types</strong>
-                <p>When a resource appears in this conflict zone, it marks a resource that is likely to create operational friction after close unless it is explicitly protected, governed, or sequenced during integration.</p>
+                <strong>High-priority resource conflict types</strong>
+                <p>When a resource appears in this conflict zone, it marks a resource that should be protected, governed, or sequenced early during integration.</p>
               </div>
               {resourcePanel.highConflictRows.length > 0 ? (
-                <div className="resource-conflict-table" role="table" aria-label="High-probability resource conflicts">
+                <div className="resource-conflict-table" role="table" aria-label="High-priority resource conflicts">
                   <div className="resource-conflict-row resource-conflict-head" role="row">
                     <span role="columnheader">Resource type</span>
                     <span role="columnheader">Potential risks</span>
@@ -4922,7 +4921,7 @@ function PreliminaryAssessmentReport({ session }) {
                   ))}
                 </div>
               ) : (
-                <p>No high-probability resource conflict was detected across the 17-resource scan for this environment pair.</p>
+                <p>No high-priority resource conflict was detected across the 17-resource scan for this environment pair.</p>
               )}
               <div className="resource-analysis-conclusion" aria-label="Resource analysis conclusion">
                 <strong>Verified conclusion</strong>
@@ -5418,9 +5417,17 @@ function PreliminaryTargetGateScreen({ session, setSession }) {
 
 function CompatibilityRangeTable({ ranges }) {
   if (!ranges?.length) return null;
+  // Alternative-read hardening (RR-3 item 11): only fully lawful and resolvable
+  // alternative readings are displayed; PENDING or empty range/band suppresses
+  // the alternative cleanly.
+  const lawfulRanges = (ranges ?? []).filter((item) => (
+    Boolean(item.range) && item.range !== "PENDING"
+    && Boolean(item.riskBand) && item.riskBand !== "PENDING"
+  ));
+  if (!lawfulRanges.length) return null;
   return (
     <div className="range-table">
-      {ranges.map((item) => (
+      {lawfulRanges.map((item) => (
         <div className="range-row" key={`${item.acquirerEnvironmentCode}-${item.targetEnvironmentCode}`}>
           <span>{item.acquirerAlias} acquiring {item.targetAlias}</span>
           <strong>{item.range}</strong>
@@ -6332,10 +6339,13 @@ function ForecastLedPublicReport({ report }) {
             <article key={`${resource.resourceName}-${resource.conflictBand}`}>
               <strong>{resource.resourceName}</strong>
               <p><strong>Category:</strong> {resource.resourceCategory}</p>
-              <p><strong>Conflict intensity:</strong> {scoreDisplayValue(resource.conflictIntensity)}</p>
+              <p><strong>Priority (categorical order):</strong> {resource.priorityOrder} of {resourceMap.resources.length}</p>
               <p><strong>Conflict band:</strong> {resource.conflictBand}</p>
-              <p><strong>Direction:</strong> {resource.direction}</p>
-              <p>{resource.explanation}</p>
+              <p><strong>Net Effect — Acquirer:</strong> {resource.acquirerNetEffect} (ERI tier {resource.acquirerEriTier})</p>
+              <p><strong>Net Effect — Target:</strong> {resource.targetNetEffect} (ERI tier {resource.targetEriTier})</p>
+              {resource.conflictDrivers?.length ? <p><strong>Conflict drivers:</strong> {resource.conflictDrivers.join(", ")}</p> : null}
+              {resource.explanation ? <p>{resource.explanation}</p> : null}
+              {resource.whyItMatters ? <p><strong>Why it matters:</strong> {resource.whyItMatters}</p> : null}
             </article>
           )))}
         </div>
@@ -6362,7 +6372,8 @@ function ForecastLedPublicReport({ report }) {
       <ForecastReportSection number={nextSectionNumber()} title={MERGEVUE_PUBLIC_REPORT_BLOCKS[7]} variant="economics">
         <p>{economics.enterpriseValueBand}</p>
         <p>{economics.valuationDisclaimer}</p>
-        <p>{economics.economicRiskPosture}</p>
+        <p>{economics.economicTriageJudgement}</p>
+        <p>{economics.economicChannelNote}</p>
         <p>{economics.engagementTierRequirement}</p>
       </ForecastReportSection>
 
@@ -6373,6 +6384,9 @@ function ForecastLedPublicReport({ report }) {
       <ForecastReportSection number={nextSectionNumber()} title={MERGEVUE_PUBLIC_REPORT_BLOCKS[9]}>
         <p><strong>Data quality level:</strong> {evidence.dataQualityLevel}</p>
         <p><strong>Input completeness:</strong> {evidence.inputCompleteness}</p>
+        {evidence.integrity?.rows?.map((row) => (
+          <p key={row.label}><strong>{row.label}:</strong> {row.value}</p>
+        ))}
         <p><strong>Known limits:</strong> {evidence.knownLimits}</p>
         <p><strong>Method limitations:</strong> {evidence.methodLimitations}</p>
         <p><strong>What this report can say:</strong> {evidence.whatThisReportCanSay}</p>
@@ -7570,9 +7584,9 @@ function pdfBandInterpretation(score, riskBand) {
     return `A score of ${score} indicates relative structural safety. The forecast still names the non-obvious friction that can damage value if integration speed, authority, or decision rhythm is mishandled.`;
   }
   if (normalized.includes("HIGH RISK")) {
-    return `A score of ${score} indicates high integration risk. The forecast should not be softened: the operating systems are likely to misread each other under post-close pressure unless controls are set before routines are merged.`;
+    return `A score of ${score} indicates high integration risk. The forecast should not be softened: the operating systems can misread each other under post-close pressure unless controls are set before routines are merged.`;
   }
-  return `A score of ${score} is a specification, not a verdict. It identifies where integration pressure is most likely to surface and where management action should be focused first.`;
+  return `A score of ${score} is a specification, not a verdict. It identifies where integration pressure concentrates and where management action should be focused first.`;
 }
 
 function pdfAcquirerEnvironmentExplanation(environment) {
@@ -7714,9 +7728,17 @@ function addForecastBriefResourceMap(items, section) {
   addCaseStudyPdfParagraph(items, section.explanation, { size: 10, fill: PDF_BRAND.panelFill, stroke: PDF_BRAND.panelStroke, paddingY: 10, after: 8 });
   addCaseStudyPdfParagraph(items, `Legend: ${section.legend.join(" | ")}`, { size: 9, color: PDF_BRAND.muted, after: 8 });
   addForecastBriefTable(items, [
-    ["Zone", "Category", "Bar", "Direction", "Explanation"],
-    ...section.zones.map((zone) => [zone.name, zone.category, `${Math.round(zone.intensity)} / 100 ${zone.band}`, zone.direction, zone.explanation]),
-  ], [88, 88, 72, 92, 128]);
+    ["Zone", "Category", "Priority", "Net Effects", "Why it matters"],
+    ...section.zones.map((zone) => [
+      zone.name,
+      zone.category,
+      String(zone.priorityOrder ?? ""),
+      zone.acquirerNetEffect
+        ? `Acquirer: ${zone.acquirerNetEffect} (${zone.acquirerEriTier}) / Target: ${zone.targetNetEffect} (${zone.targetEriTier})`
+        : zone.direction,
+      zone.whyItMatters || zone.sharedStateLabel || zone.explanation,
+    ]),
+  ], [88, 88, 52, 130, 110]);
 }
 
 function addForecastBriefTimeline(items, section) {
@@ -7733,9 +7755,9 @@ function addForecastBriefTimeline(items, section) {
 function addForecastBriefEconomics(items, section) {
   addForecastBriefMetric(items, "Enterprise value band", section.enterpriseValueBand, { fill: PDF_BRAND.warningFill, stroke: PDF_BRAND.warningStroke, maxCharacters: 84 });
   addCaseStudyPdfParagraph(items, section.valuationDisclaimer, { size: 10, after: 5 });
-  addCaseStudyPdfParagraph(items, section.economicRiskPosture, { size: 10, after: 5 });
+  addCaseStudyPdfParagraph(items, section.economicTriageJudgement, { size: 10, after: 5 });
+  addCaseStudyPdfParagraph(items, section.economicChannelNote, { size: 10, after: 5 });
   addCaseStudyPdfParagraph(items, section.engagementTierRequirement, { size: 10, color: PDF_BRAND.red, after: 8 });
-  addForecastBriefTable(items, [["Category", "Bar"], ...section.categories.map((category) => [category.label, `${category.value} / 100`])], [220, 248]);
 }
 
 function addForecastBriefActions(items, section) {

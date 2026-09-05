@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
+import vm from "node:vm";
 import { TARGET_DIAGNOSTIC_DATA } from "../src/data/targetDiagnosticData.js";
 import { TARGET_OBSERVATION_DIAGNOSTIC } from "../src/data/targetObservedEnvironmentDiagnostic.js";
 import { TARGET_SELF_ASSESSMENT_DATA } from "../src/data/targetSelfAssessmentData.js";
@@ -811,5 +812,93 @@ for (const prediction of pdfModel.sections[1].predictions) {
   assert.ok(pdfText.includes(prediction.rationale), "PDF output must preserve combined prediction rationale.");
   assert.ok(pdfText.includes(prediction.decisionFocus), "PDF output must preserve combined prediction decision focus.");
 }
+
+// ── HYGIENE-2D.CORR1 runtime oracle ─────────────────────────────────────
+// The checks above prove the canonical renderer contract. They do NOT
+// execute the App-local PDF section adapters (addForecastBriefResourceMap /
+// addForecastBriefEconomics), which is why clean HEAD passed every prior
+// check while the App PDF path crashed on `section.categories.map` and
+// rendered `NaN / 100` from the obsolete `zone.intensity`. This oracle
+// extracts the real adapter functions from App.jsx and executes them
+// against the canonical design fixture built above, so those defects fail
+// here instead of only in the browser.
+function appSourceSlice(startMarker, endMarker, label) {
+  const start = APP_SOURCE.indexOf(startMarker);
+  assert.ok(start >= 0, `App.jsx missing ${label}`);
+  const end = endMarker ? APP_SOURCE.indexOf(endMarker, start + startMarker.length) : APP_SOURCE.length;
+  assert.ok(end > start, `App.jsx missing end marker after ${label}`);
+  return APP_SOURCE.slice(start, end);
+}
+
+const appPdfAdapterSource = [
+  appSourceSlice("const PDF_BRAND", "function createSimplePdf", "PDF_BRAND"),
+  appSourceSlice("function addCaseStudyPdfSection", "const ECONOMIC_RISK_TRANSLATION_INTRO", "case study helpers"),
+  appSourceSlice("function addForecastBriefMetric", "function buildFinalDeliverablesReportLines", "forecast brief adapters"),
+].join("\n\n");
+
+const oracleContext = vm.createContext({});
+vm.runInContext(appPdfAdapterSource, oracleContext, { filename: "app-pdf-adapters.vm.js" });
+const appAddForecastBriefDesignedSection = vm.runInContext("addForecastBriefDesignedSection", oracleContext);
+const appAddForecastBriefResourceMap = vm.runInContext("addForecastBriefResourceMap", oracleContext);
+const appAddForecastBriefEconomics = vm.runInContext("addForecastBriefEconomics", oracleContext);
+
+assert.equal(appPdfAdapterSource.includes("zone.intensity"), false, "App PDF resource adapter must not render the obsolete zone intensity.");
+assert.equal(appPdfAdapterSource.includes("section.categories"), false, "App PDF economics adapter must not require the obsolete section.categories.");
+assert.equal(appPdfAdapterSource.includes("economicRiskPosture"), false, "App PDF economics adapter must not depend on the obsolete economicRiskPosture.");
+assert.ok(
+  appPdfAdapterSource.includes("economicTriageJudgement") && appPdfAdapterSource.includes("economicChannelNote"),
+  "App PDF economics adapter must consume economicTriageJudgement and economicChannelNote.",
+);
+
+const oracleResourceSection = pdfModel.sections.find((section) => section.id === "resources");
+const oracleEconomicsSection = pdfModel.sections.find((section) => section.id === "economics");
+assert.ok(oracleResourceSection && oracleEconomicsSection, "Runtime oracle requires canonical resources and economics design sections.");
+
+const oracleResourceItems = [];
+appAddForecastBriefResourceMap(oracleResourceItems, oracleResourceSection);
+const oracleResourceCells = oracleResourceItems
+  .filter((item) => item.type === "table")
+  .flatMap((item) => item.rows.flat())
+  .map((cell) => String(cell));
+assert.deepEqual(
+  oracleResourceCells.filter((cell) => /\bNaN\b/.test(cell)),
+  [],
+  "App PDF resource adapter must not render NaN values.",
+);
+assert.deepEqual(
+  oracleResourceCells.filter((cell) => /\bundefined\b/i.test(cell)),
+  [],
+  "App PDF resource adapter must not render undefined values.",
+);
+assert.ok(
+  oracleResourceCells.some((cell) => cell.includes(firstResource.acquirerNetEffect) && cell.includes(firstResource.targetNetEffect)),
+  "App PDF resource adapter must render the canonical Net Effect and ERI presentation fields.",
+);
+assert.ok(
+  oracleResourceCells.includes(String(firstResource.priorityOrder)),
+  "App PDF resource adapter must render the categorical priority order.",
+);
+
+const oracleEconomicsItems = [];
+appAddForecastBriefEconomics(oracleEconomicsItems, oracleEconomicsSection);
+const oracleEconomicsText = oracleEconomicsItems.map((item) => String(item.text ?? "")).join("\n");
+assert.ok(oracleEconomicsText.includes(oracleEconomicsSection.economicTriageJudgement), "App PDF economics adapter must render economicTriageJudgement.");
+assert.ok(oracleEconomicsText.includes(oracleEconomicsSection.economicChannelNote), "App PDF economics adapter must render economicChannelNote.");
+
+// Full App-local adapter path: the dispatcher must complete over every
+// canonical design section without throwing.
+const oracleFullItems = [];
+pdfModel.sections.forEach((section, index) => {
+  appAddForecastBriefDesignedSection(oracleFullItems, index + 1, section);
+});
+const oracleFullText = oracleFullItems.map((item) => (item.type === "table"
+  ? item.rows.flat().map((cell) => String(cell)).join(" | ")
+  : String(item.text ?? ""))).join("\n");
+assert.equal(/\bNaN\b/.test(oracleFullText), false, "Full App PDF adapter path must not render NaN.");
+assert.equal(/\bundefined\b/i.test(oracleFullText), false, "Full App PDF adapter path must not render undefined.");
+assert.ok(
+  oracleFullText.includes("Signal setup") && oracleFullText.includes("Verification deadline"),
+  "Full App PDF adapter path must render the timeline timing rows.",
+);
 
 console.log("Mergevue public report PDF validation passed");

@@ -234,6 +234,32 @@ for (const label of BLOCK_LABELS) {
   );
 }
 
+// ── HYGIENE-2D.CORR1 timeline oracle ────────────────────────────────────
+// The label loop above cannot notice a missing block, because
+// `screenSource.includes("MERGEVUE_PUBLIC_REPORT_BLOCKS")` matches while any
+// block reference exists anywhere. The accepted Timeline of Expected
+// Friction block must be rendered by ForecastLedPublicReport exactly once
+// and must consume the canonical report model's timeline, so a silent
+// screen/PDF divergence fails here.
+assert.equal(
+  (APP_SOURCE.match(/MERGEVUE_PUBLIC_REPORT_BLOCKS\[6\]/g) ?? []).length,
+  1,
+  "Web report must reference the canonical Timeline of Expected Friction block exactly once.",
+);
+const forecastLedSource = functionSource("ForecastLedPublicReport", "HeterogeneousRevealScreen");
+assert.ok(
+  forecastLedSource.includes("const timeline = report.timelineOfExpectedFriction"),
+  "ForecastLedPublicReport must derive the timeline from the canonical report model.",
+);
+assert.ok(
+  forecastLedSource.includes("title={MERGEVUE_PUBLIC_REPORT_BLOCKS[6]}"),
+  "ForecastLedPublicReport must render the canonical timeline block.",
+);
+assert.ok(
+  forecastLedSource.includes("timeline.timingLogic.signalSetup") && forecastLedSource.includes("timeline.phases.map"),
+  "Timeline presentation must consume upstream timingLogic rows and timeline phases.",
+);
+
 for (const forbidden of FORBIDDEN_SCREEN_STRINGS) {
   assert.equal(screenSource.includes(forbidden), false, `Forbidden string found in on-screen report source: ${forbidden}`);
 }
