@@ -155,6 +155,11 @@ const INITIAL_SESSION = Object.freeze({
   consultationEmailDelivery: null,
   productionAuthority: null,
   serverReportProjection: null,
+  mutationCapability: null,
+  r2MutationCapability: null,
+  r2RespondentId: null,
+  targetMutationCapability: null,
+  targetRespondentId: null,
 });
 
 function isServerAssessmentSessionId(value) {
@@ -2481,7 +2486,11 @@ function AcquirerSubmitScreen({ session, setSession }) {
   const fullLink = invite ? `${window.location.origin}${invite.surveyLink}` : "";
 
   function createVerificationInvite() {
-    const result = createAcquirerVerificationInvite(session);
+    const result = createAcquirerVerificationInvite(session, {
+      assessmentSessionId: session.sessionId,
+      acquirerVerificationSessionId: session.r2RespondentId ?? undefined,
+      mutationCapability: session.r2MutationCapability ?? undefined,
+    });
     if (result.ok) {
       setSession(result.session);
       setEmailState("");
@@ -2814,6 +2823,7 @@ function AuthorizedAcquirerVerificationScreen({ setSession }) {
           const { response, payload } = await productionAuthorityRequest({
             action: "SAVE_R2",
             sessionId: invite.assessmentSessionId,
+            mutationCapability: invite.mutationCapability,
             completed: true,
             answers: completedAnswers,
             respondentContext: { firmTenure, respondentSeniority, respondentRole },
@@ -4287,6 +4297,7 @@ function TargetSelfAssessmentSurvey({ session, setSession, invite = null }) {
       const { response, payload } = await productionAuthorityRequest({
         action: "SAVE_REPORT_INPUT",
         sessionId: invite.assessmentSessionId,
+        mutationCapability: invite.mutationCapability,
         completed: true,
         answers: completedAnswers,
         positioning,
@@ -5156,11 +5167,19 @@ function PreliminaryTargetGateScreen({ session, setSession }) {
 
   useAuthorizedObservationCompletionRefresh(authorizedObservationInvite, setSession);
 
+  function targetInviteMintOptions(sourceSession) {
+    return {
+      assessmentSessionId: sourceSession.sessionId,
+      targetSessionId: sourceSession.targetRespondentId ?? undefined,
+      mutationCapability: sourceSession.targetMutationCapability ?? undefined,
+    };
+  }
+
   function createPreliminary() {
     if (!track1Ready) return;
     const result = attachPreliminaryAssessment(session);
     if (result.preliminaryAssessment?.completed && !result.session.targetInvite && !result.session.targetSelfAssessment?.completed) {
-      const inviteResult = createTargetInvite(result.session);
+      const inviteResult = createTargetInvite(result.session, targetInviteMintOptions(result.session));
       setSession(inviteResult.ok ? inviteResult.session : result.session);
       return;
     }
@@ -5168,7 +5187,7 @@ function PreliminaryTargetGateScreen({ session, setSession }) {
   }
 
   function generateInvite() {
-    const result = createTargetInvite(session);
+    const result = createTargetInvite(session, targetInviteMintOptions(session));
     if (result.ok) {
       setSession(result.session);
       setEmailState("");
@@ -5184,7 +5203,11 @@ function PreliminaryTargetGateScreen({ session, setSession }) {
 
   useEffect(() => {
     if (!preliminary?.completed || invite || targetSelfComplete) return;
-    const result = createTargetInvite(session);
+    const result = createTargetInvite(session, {
+      assessmentSessionId: session.sessionId,
+      targetSessionId: session.targetRespondentId ?? undefined,
+      mutationCapability: session.targetMutationCapability ?? undefined,
+    });
     if (result.ok) {
       setSession(result.session);
     }
@@ -8268,6 +8291,11 @@ export default function App() {
         setSession((current) => Object.freeze({
           ...current,
           sessionId: payload.sessionId,
+          mutationCapability: payload.mutationCapability ?? null,
+          r2MutationCapability: payload.r2MutationCapability ?? null,
+          r2RespondentId: payload.r2RespondentId ?? null,
+          targetMutationCapability: payload.targetMutationCapability ?? null,
+          targetRespondentId: payload.targetRespondentId ?? null,
           productionAuthority: null,
           serverReportProjection: null,
         }));
@@ -8284,10 +8312,10 @@ export default function App() {
     const controller = new AbortController();
     const candidates = [];
     if (session.dealContext?.completed && session.dealContext?.data) {
-      candidates.push({ key: "deal", payload: { action: "SAVE_DEAL_CONTEXT", sessionId: session.sessionId, dealContext: session.dealContext.data } });
+      candidates.push({ key: "deal", payload: { action: "SAVE_DEAL_CONTEXT", sessionId: session.sessionId, mutationCapability: session.mutationCapability, dealContext: session.dealContext.data } });
     }
     if (session.acquirer2A?.completed && session.acquirer2A?.answers) {
-      candidates.push({ key: "r1", payload: { action: "SAVE_R1", sessionId: session.sessionId, answers: session.acquirer2A.answers } });
+      candidates.push({ key: "r1", payload: { action: "SAVE_R1", sessionId: session.sessionId, mutationCapability: session.mutationCapability, answers: session.acquirer2A.answers } });
     }
     const pending = candidates.filter((candidate) => (
       authoritySyncRef.current.fingerprints[candidate.key] !== JSON.stringify(candidate.payload)

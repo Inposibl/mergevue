@@ -31,6 +31,7 @@ export function buildTargetSurveyLink({
   codeHash,
   createdAt,
   expiresAt,
+  mutationCapability,
 }) {
   const params = new URLSearchParams();
   params.set("targetSessionId", targetSessionId);
@@ -39,6 +40,7 @@ export function buildTargetSurveyLink({
   params.set("codeHash", codeHash);
   params.set("createdAt", createdAt);
   params.set("expiresAt", expiresAt);
+  if (mutationCapability) params.set("mutationCapability", mutationCapability);
   return `${basePath}?${params.toString()}`;
 }
 
@@ -49,6 +51,7 @@ export function targetInviteFromLinkParams(params, basePath = "/screen-9a-target
   const codeHash = params?.get("codeHash") ?? "";
   const createdAt = params?.get("createdAt") ?? "";
   const expiresAt = params?.get("expiresAt") ?? "";
+  const mutationCapability = params?.get("mutationCapability") ?? "";
 
   if (!targetSessionId || !assessmentId || !assessmentSessionId || !codeHash || !createdAt || !expiresAt) return null;
 
@@ -64,6 +67,7 @@ export function targetInviteFromLinkParams(params, basePath = "/screen-9a-target
       codeHash,
       createdAt,
       expiresAt,
+      mutationCapability,
     }),
     digitalCode: "",
     codeHash,
@@ -73,6 +77,7 @@ export function targetInviteFromLinkParams(params, basePath = "/screen-9a-target
     codeDigits: TARGET_DIGITAL_CODE_DIGITS,
     completed: false,
     revoked: false,
+    ...(mutationCapability ? { mutationCapability } : {}),
   });
 }
 
@@ -132,6 +137,7 @@ export function createTargetInvite(session, options = {}) {
   const assessmentSessionId = options.assessmentSessionId ?? session.sessionId ?? "";
   const expiresAt = options.expiresAt ?? addHours(createdAt, TARGET_INVITE_TTL_HOURS);
   const basePath = options.basePath ?? "/screen-9a-target-code-gate";
+  const mutationCapability = typeof options.mutationCapability === "string" ? options.mutationCapability : "";
   const codeHash = hashDigitalCode(digitalCode, targetSessionId, assessmentId);
   const surveyLink = buildTargetSurveyLink({
     basePath,
@@ -141,6 +147,7 @@ export function createTargetInvite(session, options = {}) {
     codeHash,
     createdAt,
     expiresAt,
+    mutationCapability,
   });
 
   const invite = Object.freeze({
@@ -156,6 +163,7 @@ export function createTargetInvite(session, options = {}) {
     codeDigits: TARGET_DIGITAL_CODE_DIGITS,
     completed: false,
     revoked: false,
+    ...(mutationCapability ? { mutationCapability } : {}),
   });
 
   return Object.freeze({

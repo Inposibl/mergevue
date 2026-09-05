@@ -781,6 +781,7 @@ export function buildAcquirerVerificationSurveyLink({
   codeHash,
   createdAt,
   expiresAt,
+  mutationCapability,
 }) {
   const params = new URLSearchParams();
   params.set("acquirerVerificationSessionId", acquirerVerificationSessionId);
@@ -788,6 +789,7 @@ export function buildAcquirerVerificationSurveyLink({
   params.set("codeHash", codeHash);
   params.set("createdAt", createdAt);
   params.set("expiresAt", expiresAt);
+  if (mutationCapability) params.set("mutationCapability", mutationCapability);
   return `${basePath}?${params.toString()}`;
 }
 
@@ -797,13 +799,22 @@ export function acquirerVerificationInviteFromLinkParams(params, basePath = "/sc
   const codeHash = params?.get("codeHash") ?? "";
   const createdAt = params?.get("createdAt") ?? "";
   const expiresAt = params?.get("expiresAt") ?? "";
+  const mutationCapability = params?.get("mutationCapability") ?? "";
 
   if (!acquirerVerificationSessionId || !assessmentSessionId || !codeHash || !createdAt || !expiresAt) return null;
 
   return Object.freeze({
     acquirerVerificationSessionId,
     assessmentSessionId,
-    surveyLink: buildAcquirerVerificationSurveyLink({ basePath, acquirerVerificationSessionId, assessmentSessionId, codeHash, createdAt, expiresAt }),
+    surveyLink: buildAcquirerVerificationSurveyLink({
+      basePath,
+      acquirerVerificationSessionId,
+      assessmentSessionId,
+      codeHash,
+      createdAt,
+      expiresAt,
+      mutationCapability,
+    }),
     digitalCode: "",
     codeHash,
     createdAt,
@@ -812,6 +823,7 @@ export function acquirerVerificationInviteFromLinkParams(params, basePath = "/sc
     codeDigits: ACQUIRER_VERIFICATION_DIGITAL_CODE_DIGITS,
     completed: false,
     revoked: false,
+    ...(mutationCapability ? { mutationCapability } : {}),
   });
 }
 
@@ -830,8 +842,17 @@ export function createAcquirerVerificationInvite(session, options = {}) {
   const acquirerVerificationSessionId = options.acquirerVerificationSessionId ?? `acqv-${Date.parse(createdAt)}-${digitalCode}`;
   const expiresAt = options.expiresAt ?? addHours(createdAt, ACQUIRER_VERIFICATION_INVITE_TTL_HOURS);
   const basePath = options.basePath ?? "/screen-6-acquirer-verification";
+  const mutationCapability = typeof options.mutationCapability === "string" ? options.mutationCapability : "";
   const codeHash = hashAcquirerVerificationCode(digitalCode, acquirerVerificationSessionId, assessmentSessionId);
-  const surveyLink = buildAcquirerVerificationSurveyLink({ basePath, acquirerVerificationSessionId, assessmentSessionId, codeHash, createdAt, expiresAt });
+  const surveyLink = buildAcquirerVerificationSurveyLink({
+    basePath,
+    acquirerVerificationSessionId,
+    assessmentSessionId,
+    codeHash,
+    createdAt,
+    expiresAt,
+    mutationCapability,
+  });
   const invite = Object.freeze({
     acquirerVerificationSessionId,
     assessmentSessionId,
@@ -844,6 +865,7 @@ export function createAcquirerVerificationInvite(session, options = {}) {
     codeDigits: ACQUIRER_VERIFICATION_DIGITAL_CODE_DIGITS,
     completed: false,
     revoked: false,
+    ...(mutationCapability ? { mutationCapability } : {}),
   });
 
   return Object.freeze({

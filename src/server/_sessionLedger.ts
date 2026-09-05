@@ -1,4 +1,5 @@
-import { createHash, randomInt, randomUUID } from "node:crypto";
+import { createHash, randomBytes, randomInt, randomUUID, timingSafeEqual } from "node:crypto";
+import { canonicalSerialize, CanonicalSerializeError, sha256Hex } from "../agent/canonicalDigest.js";
 import {
   buildTargetObservationSetupRecord,
   canStartTargetObservation,
@@ -26,10 +27,33 @@ type TargetObservationSetupRecord = TargetObservationSetupBaseRecord & {
   rejectedSetupMetadataProvenance?: TargetObservationSetupMetadataProvenance;
 };
 
+export type MutationCapabilityRole = "OWNER" | "R2" | "TARGET";
+export type MutationCapabilityLifecycle = "unused" | "consumed" | "expired" | "revoked";
+export type AuthorizedSaveAction = "SAVE_DEAL_CONTEXT" | "SAVE_R1" | "SAVE_R2" | "SAVE_REPORT_INPUT";
+
+export type MutationCapabilityRecord = {
+  role: MutationCapabilityRole;
+  verifier: string;
+  respondentId: string | null;
+  lifecycle: MutationCapabilityLifecycle;
+  expiresAt: string;
+  consumedAt: string | null;
+  acceptedPayloadDigestByAction: Record<string, string>;
+};
+
+export type MintedMutationSecrets = {
+  owner: string;
+  r2: string;
+  r2RespondentId: string;
+  target: string;
+  targetRespondentId: string;
+};
+
 type SessionRecord = {
   sessionId: string;
   createdAt: string;
   updatedAt: string;
+  storageRevision: number;
   projectId: string | null;
   inputRevision: number;
   rawAssessment: RawAssessmentState | null;
@@ -39,7 +63,18 @@ type SessionRecord = {
   targetObservation: unknown | null;
   target2B: unknown | null;
   targetInvite?: TargetInviteRecord | null;
+  mutationCapabilities: MutationCapabilityRecord[];
 };
+
+const MUTATION_CAPABILITY_TOKEN_PATTERN = /^mvc_[0-9a-f]{64}$/;
+const OWNER_SAVE_ACTIONS = new Set<AuthorizedSaveAction>(["SAVE_DEAL_CONTEXT", "SAVE_R1"]);
+const ROLE_SAVE_ACTIONS: Record<MutationCapabilityRole, Set<AuthorizedSaveAction>> = {
+  OWNER: OWNER_SAVE_ACTIONS,
+  R2: new Set(["SAVE_R2"]),
+  TARGET: new Set(["SAVE_REPORT_INPUT"]),
+};
+
+const localSessionWriteChains = new Map<string, Promise<unknown>>();
 
 export type RawAssessmentState = {
   dealContext: Record<string, unknown> | null;
@@ -155,6 +190,7 @@ function emptySessionRecord(sessionId: string, now = new Date().toISOString()): 
     sessionId,
     createdAt: now,
     updatedAt: now,
+    storageRevision: 0,
     projectId: null,
     inputRevision: 0,
     rawAssessment: null,
@@ -164,7 +200,368 @@ function emptySessionRecord(sessionId: string, now = new Date().toISOString()): 
     targetObservation: null,
     target2B: null,
     targetInvite: null,
+    mutationCapabilities: [],
   };
+}
+
+export function isMutationCapabilityToken(value: unknown): value is string {
+  return typeof value === "string" && MUTATION_CAPABILITY_TOKEN_PATTERN.test(value);
+}
+
+function issueMutationCapabilityToken() {
+  return `mvc_${randomBytes(32).toString("hex")}`;
+}
+
+function hashMutationCapability(token: string) {
+  return createHash("sha256").update(token).digest("hex");
+}
+
+function capabilityExpiryIso(nowIso: string) {
+  return new Date(new Date(nowIso).getTime() + TARGET_INVITE_TTL_HOURS * 60 * 60 * 1000).toISOString();
+}
+
+function storedMutationCapability(
+  role: MutationCapabilityRole,
+  verifier: string,
+  respondentId: string | null,
+  expiresAt: string,
+): MutationCapabilityRecord {
+  return {
+    role,
+    verifier,
+    respondentId,
+    lifecycle: "unused",
+    expiresAt,
+    consumedAt: null,
+    acceptedPayloadDigestByAction: {},
+  };
+}
+
+function cloneCapability(capability: MutationCapabilityRecord): MutationCapabilityRecord {
+  return {
+    ...capability,
+    acceptedPayloadDigestByAction: { ...capability.acceptedPayloadDigestByAction },
+  };
+}
+
+function normalizeMutationCapabilities(value: unknown): MutationCapabilityRecord[] {
+  if (!Array.isArray(value)) return [];
+  return value.flatMap((entry) => {
+    if (!entry || typeof entry !== "object") return [];
+    const record = entry as Partial<MutationCapabilityRecord>;
+    if (record.role !== "OWNER" && record.role !== "R2" && record.role !== "TARGET") return [];
+    if (typeof record.verifier !== "string" || !/^[0-9a-f]{64}$/i.test(record.verifier)) return [];
+    const accepted = record.acceptedPayloadDigestByAction && typeof record.acceptedPayloadDigestByAction === "object"
+      ? Object.fromEntries(
+        Object.entries(record.acceptedPayloadDigestByAction).filter((item): item is [string, string] => typeof item[1] === "string"),
+      )
+      : {};
+    const lifecycle = record.lifecycle === "consumed" || record.lifecycle === "expired" || record.lifecycle === "revoked"
+      ? record.lifecycle
+      : "unused";
+    return [{
+      role: record.role,
+      verifier: record.verifier.toLowerCase(),
+      respondentId: typeof record.respondentId === "string" ? record.respondentId : null,
+      lifecycle,
+      expiresAt: typeof record.expiresAt === "string" ? record.expiresAt : new Date(0).toISOString(),
+      consumedAt: typeof record.consumedAt === "string" ? record.consumedAt : null,
+      acceptedPayloadDigestByAction: accepted,
+    }];
+  });
+}
+
+function mintMutationCapabilitySet(nowIso: string): { stored: MutationCapabilityRecord[]; secrets: MintedMutationSecrets } {
+  const expiresAt = capabilityExpiryIso(nowIso);
+  const owner = issueMutationCapabilityToken();
+  const r2 = issueMutationCapabilityToken();
+  const target = issueMutationCapabilityToken();
+  const r2RespondentId = `acqv-${randomUUID()}`;
+  const targetRespondentId = `tgt-${randomUUID()}`;
+  return {
+    stored: [
+      storedMutationCapability("OWNER", hashMutationCapability(owner), null, expiresAt),
+      storedMutationCapability("R2", hashMutationCapability(r2), r2RespondentId, expiresAt),
+      storedMutationCapability("TARGET", hashMutationCapability(target), targetRespondentId, expiresAt),
+    ],
+    secrets: { owner, r2, r2RespondentId, target, targetRespondentId },
+  };
+}
+
+function verifiersMatch(storedVerifier: string, presentedVerifier: string) {
+  if (storedVerifier.length !== presentedVerifier.length) return false;
+  return timingSafeEqual(Buffer.from(storedVerifier), Buffer.from(presentedVerifier));
+}
+
+function findCapabilityIndex(capabilities: MutationCapabilityRecord[], token: string) {
+  if (!isMutationCapabilityToken(token)) return -1;
+  const presented = hashMutationCapability(token);
+  let matched = -1;
+  for (let index = 0; index < capabilities.length; index += 1) {
+    if (verifiersMatch(capabilities[index].verifier, presented)) matched = index;
+  }
+  return matched;
+}
+
+function emptyRawAssessmentState(): RawAssessmentState {
+  return { dealContext: null, r1: null, r2: null, targetSelf: null };
+}
+
+function roleAllowsAction(role: MutationCapabilityRole, action: AuthorizedSaveAction) {
+  return ROLE_SAVE_ACTIONS[role].has(action);
+}
+
+function capabilityIsExpired(capability: MutationCapabilityRecord, nowIso: string) {
+  if (capability.lifecycle === "expired") return true;
+  return Date.parse(nowIso) > Date.parse(capability.expiresAt);
+}
+
+type AuthorizedMutationApplication =
+  | { status: "saved" | "idempotent"; session: SessionRecord }
+  | { status: "idempotent-upgrade"; session: SessionRecord }
+  | { status: "forbidden" }
+  | { status: "gone" }
+  | { status: "sequencing"; reason: string };
+
+// Semantic mutation digest versioning.
+// CURRENT format is "v2:<sha256 hex of canonicalSerialize>"; any bare
+// 64-hex sha256 value is a pre-CORR3 LEGACY order-sensitive digest.
+// Anything else is an unknown version and fails closed.
+const CURRENT_SEMANTIC_DIGEST_PREFIX = "v2:";
+const LEGACY_SEMANTIC_DIGEST_PATTERN = /^[a-f0-9]{64}$/i;
+const CURRENT_SEMANTIC_DIGEST_PATTERN = /^v2:[a-f0-9]{64}$/i;
+
+// JSON numeric -0 and 0 share one semantic value, matching the prior
+// JSON.stringify transport semantics. Every other value is passed through
+// untouched so canonicalSerialize keeps rejecting NaN, Infinity, BigInt,
+// Date, Map, Set, functions, symbols, class instances, sparse arrays and
+// circular graphs. Caller values are never mutated; object graphs (including
+// cycles) are preserved so downstream fail-closed detection still applies.
+function normalizeNegativeZeroJson(value: unknown, seen = new WeakMap()): unknown {
+  if (typeof value === "number" && Object.is(value, -0)) return 0;
+  if (value === null || typeof value !== "object") return value;
+  if (seen.has(value)) return seen.get(value);
+  if (Array.isArray(value)) {
+    const copy: unknown[] = [];
+    seen.set(value, copy);
+    for (let index = 0; index < value.length; index += 1) {
+      copy.push(normalizeNegativeZeroJson(value[index], seen));
+    }
+    return copy;
+  }
+  const prototype = Object.getPrototypeOf(value);
+  if (prototype !== Object.prototype && prototype !== null) return value;
+  // Symbol-keyed properties are non-JSON and must stay detectable: copying
+  // with Object.keys() would silently erase them and make a symbol payload
+  // semantically equal to the same object without the symbol. Fail closed
+  // before copying, exactly like the shared canonical serializer does.
+  if (Object.getOwnPropertySymbols(value).length > 0) {
+    throw new CanonicalSerializeError("symbol key");
+  }
+  const copy: Record<string, unknown> = {};
+  seen.set(value, copy);
+  for (const key of Object.keys(value)) {
+    copy[key] = normalizeNegativeZeroJson((value as Record<string, unknown>)[key], seen);
+  }
+  return copy;
+}
+
+export function currentSemanticMutationDigest(action: string, payload: unknown) {
+  const canonical = canonicalSerialize(normalizeNegativeZeroJson({ action, payload }));
+  return `${CURRENT_SEMANTIC_DIGEST_PREFIX}${sha256Hex(canonical)}`;
+}
+
+type StoredSemanticDigestKind = "legacy" | "current" | "unknown";
+
+function classifyStoredSemanticDigest(digest: string): StoredSemanticDigestKind {
+  if (CURRENT_SEMANTIC_DIGEST_PATTERN.test(digest)) return "current";
+  if (LEGACY_SEMANTIC_DIGEST_PATTERN.test(digest)) return "legacy";
+  return "unknown";
+}
+
+// Derives the previously accepted semantic digest payload for one action from
+// the authoritative server-held rawAssessment state. The reconstructed shape
+// is exactly the digest payload the API hashes for that action; server-bound
+// respondent identity is never part of the digest domain.
+function acceptedSemanticDigestPayload(
+  action: AuthorizedSaveAction,
+  rawAssessment: RawAssessmentState | null,
+): unknown | null {
+  if (!rawAssessment) return null;
+  if (action === "SAVE_DEAL_CONTEXT") return rawAssessment.dealContext;
+  if (action === "SAVE_R1") return rawAssessment.r1 ? { answers: rawAssessment.r1.answers } : null;
+  if (action === "SAVE_R2") {
+    return rawAssessment.r2
+      ? { answers: rawAssessment.r2.answers, respondentContext: rawAssessment.r2.respondentContext, completed: true }
+      : null;
+  }
+  return rawAssessment.targetSelf
+    ? { answers: rawAssessment.targetSelf.answers, positioning: rawAssessment.targetSelf.positioning, completed: true }
+    : null;
+}
+
+function applyAuthorizedRawMutation(
+  session: SessionRecord,
+  input: {
+    action: AuthorizedSaveAction;
+    mutationCapability: string;
+    payloadDigest: string;
+    patch: Record<string, unknown>;
+    presentedRespondentId?: string | null;
+    nowIso: string;
+  },
+): AuthorizedMutationApplication {
+  const capabilities = (session.mutationCapabilities ?? []).map(cloneCapability);
+  const index = findCapabilityIndex(capabilities, input.mutationCapability);
+  if (index < 0) return { status: "forbidden" };
+  const capability = capabilities[index];
+  if (!roleAllowsAction(capability.role, input.action)) return { status: "forbidden" };
+  if (
+    (input.action === "SAVE_R2" || input.action === "SAVE_REPORT_INPUT")
+    && typeof input.presentedRespondentId === "string"
+    && input.presentedRespondentId.length > 0
+    && input.presentedRespondentId !== capability.respondentId
+  ) {
+    return { status: "forbidden" };
+  }
+  if (capability.lifecycle === "revoked" || capabilityIsExpired(capability, input.nowIso)) {
+    return { status: "gone" };
+  }
+
+  const acceptedDigest = capability.acceptedPayloadDigestByAction[input.action];
+  if (acceptedDigest) {
+    const storedKind = classifyStoredSemanticDigest(acceptedDigest);
+    if (storedKind === "unknown") {
+      throw new SessionLedgerStorageError(
+        "unknown-digest-version",
+        "Stored semantic mutation digest uses a digest version current code cannot interpret.",
+      );
+    }
+    if (storedKind === "current") {
+      if (acceptedDigest === input.payloadDigest) return { status: "idempotent", session };
+    } else {
+      const acceptedPayload = acceptedSemanticDigestPayload(input.action, session.rawAssessment);
+      if (acceptedPayload === null) {
+        throw new SessionLedgerStorageError(
+          "legacy-digest-state-missing",
+          "Legacy semantic mutation digest has no authoritative accepted state to reconstruct.",
+        );
+      }
+      const currentAcceptedDigest = currentSemanticMutationDigest(input.action, acceptedPayload);
+      if (currentAcceptedDigest === input.payloadDigest) {
+        capability.acceptedPayloadDigestByAction[input.action] = currentAcceptedDigest;
+        capabilities[index] = capability;
+        return {
+          status: "idempotent-upgrade",
+          session: {
+            ...session,
+            mutationCapabilities: capabilities,
+            storageRevision: session.storageRevision + 1,
+          },
+        };
+      }
+    }
+    if (capability.role !== "OWNER") return { status: "gone" };
+  }
+  if (capability.lifecycle === "consumed" && capability.role !== "OWNER") return { status: "gone" };
+
+  const raw = session.rawAssessment ?? emptyRawAssessmentState();
+  if (input.action === "SAVE_R2" && !raw.r1?.answers) {
+    return { status: "sequencing", reason: "r2-before-r1" };
+  }
+
+  const nextRaw: RawAssessmentState = { ...raw };
+  if (input.action === "SAVE_DEAL_CONTEXT") {
+    nextRaw.dealContext = input.patch as Record<string, unknown>;
+  } else if (input.action === "SAVE_R1") {
+    nextRaw.r1 = { answers: input.patch.answers as Record<string, unknown> };
+  } else if (input.action === "SAVE_R2") {
+    nextRaw.r2 = {
+      completed: true,
+      answers: input.patch.answers as Record<string, unknown>,
+      respondentContext: (input.patch.respondentContext as Record<string, unknown> | null) ?? null,
+      respondentId: capability.respondentId,
+    };
+  } else {
+    nextRaw.targetSelf = {
+      completed: true,
+      answers: input.patch.answers as Record<string, unknown>,
+      positioning: input.patch.positioning as Record<string, unknown>,
+      respondentId: capability.respondentId,
+    };
+  }
+
+  capability.acceptedPayloadDigestByAction[input.action] = input.payloadDigest;
+  if (capability.role === "OWNER") {
+    capability.lifecycle = "unused";
+    capability.consumedAt = null;
+  } else {
+    capability.lifecycle = "consumed";
+    capability.consumedAt = input.nowIso;
+  }
+  capabilities[index] = capability;
+
+  return {
+    status: "saved",
+    session: {
+      ...nextMeaningfulRevision({ ...session, rawAssessment: nextRaw }, input.nowIso),
+      mutationCapabilities: capabilities,
+    },
+  };
+}
+
+async function withLocalSessionWriteChain<T>(sessionId: string, work: () => Promise<T>): Promise<T> {
+  const previous = localSessionWriteChains.get(sessionId) ?? Promise.resolve();
+  let release!: () => void;
+  const gate = new Promise<void>((resolve) => {
+    release = resolve;
+  });
+  const chained = previous.catch(() => undefined).then(() => gate);
+  localSessionWriteChains.set(sessionId, chained);
+  await previous.catch(() => undefined);
+  try {
+    return await work();
+  } finally {
+    release();
+    if (localSessionWriteChains.get(sessionId) === chained) localSessionWriteChains.delete(sessionId);
+  }
+}
+
+async function compareAndSwapSession(
+  sessionId: string,
+  expectedRevision: number,
+  expectedUpdatedAt: string,
+  expectedStorageRevision: number,
+  next: SessionRecord,
+): Promise<SessionRecord | "CAS_FAIL" | null> {
+  const config = storageConfig();
+  if (!config) {
+    const current = existingLocalSession(sessionId);
+    if (!current) return null;
+    if (
+      current.inputRevision !== expectedRevision
+      || current.updatedAt !== expectedUpdatedAt
+      || current.storageRevision !== expectedStorageRevision
+    ) return "CAS_FAIL";
+    return writeLedgerSession(sessionId, next);
+  }
+
+  const raw = await redisCommand([
+    "EVAL",
+    "local v=redis.call('GET',KEYS[1]); if not v then return nil end; local r=cjson.decode(v); if tonumber(r.inputRevision)~=tonumber(ARGV[1]) or tostring(r.updatedAt)~=ARGV[2] or tonumber(r.storageRevision or 0)~=tonumber(ARGV[3]) then return 'CAS_FAIL' end; redis.call('SET',KEYS[1],ARGV[4],'EX',ARGV[5]); return ARGV[4]",
+    "1",
+    targetObservationSessionKey(sessionId),
+    String(expectedRevision),
+    expectedUpdatedAt,
+    String(expectedStorageRevision),
+    JSON.stringify(next),
+    String(TARGET_OBSERVATION_SESSION_TTL_SECONDS),
+  ], "persistent-storage-write-failed");
+  if (raw === null || raw === undefined) return null;
+  if (raw === "CAS_FAIL") return "CAS_FAIL";
+  const stored = normalizeSessionRecord(sessionId, typeof raw === "string" ? JSON.parse(raw) : raw);
+  ledger().set(sessionId, stored);
+  return stored;
 }
 
 function targetObservationSessionKey(sessionId: string) {
@@ -178,6 +575,9 @@ function normalizeSessionRecord(sessionId: string, value: unknown): SessionRecor
     sessionId,
     createdAt: typeof record.createdAt === "string" ? record.createdAt : now,
     updatedAt: typeof record.updatedAt === "string" ? record.updatedAt : now,
+    storageRevision: Number.isInteger(record.storageRevision) && Number(record.storageRevision) >= 0
+      ? Number(record.storageRevision)
+      : 0,
     projectId: typeof record.projectId === "string" ? record.projectId : null,
     inputRevision: Number.isInteger(record.inputRevision) && Number(record.inputRevision) >= 0
       ? Number(record.inputRevision)
@@ -195,6 +595,7 @@ function normalizeSessionRecord(sessionId: string, value: unknown): SessionRecor
     targetObservation: record.targetObservation ?? null,
     target2B: record.target2B ?? null,
     targetInvite: record.targetInvite ?? null,
+    mutationCapabilities: normalizeMutationCapabilities(record.mutationCapabilities),
   };
 }
 
@@ -301,14 +702,20 @@ async function readExistingLedgerSession(sessionId: string): Promise<SessionReco
   }
 }
 
-export async function createAssessmentSession(projectId: string | null = null) {
+export async function createAssessmentSession(projectId: string | null = null): Promise<SessionRecord & { mintedMutationSecrets: MintedMutationSecrets }> {
   for (let attempt = 0; attempt < 4; attempt += 1) {
     const sessionId = `asmt-${randomUUID()}`;
-    const record = { ...emptySessionRecord(sessionId), projectId };
+    const now = new Date().toISOString();
+    const minted = mintMutationCapabilitySet(now);
+    const record: SessionRecord = {
+      ...emptySessionRecord(sessionId, now),
+      projectId,
+      mutationCapabilities: minted.stored,
+    };
     const config = storageConfig();
     if (!config) {
       ledger().set(sessionId, record);
-      return record;
+      return { ...record, mintedMutationSecrets: minted.secrets };
     }
     const created = await redisCommand(
       ["SET", targetObservationSessionKey(sessionId), JSON.stringify(record), "NX", "EX", String(TARGET_OBSERVATION_SESSION_TTL_SECONDS)],
@@ -316,7 +723,7 @@ export async function createAssessmentSession(projectId: string | null = null) {
     );
     if (created === "OK") {
       ledger().set(sessionId, record);
-      return record;
+      return { ...record, mintedMutationSecrets: minted.secrets };
     }
   }
   throw new SessionLedgerStorageError("assessment-session-mint-failed", "Assessment session identity could not be minted.");
@@ -331,10 +738,129 @@ function nextMeaningfulRevision(session: SessionRecord, updatedAt: string): Sess
   return {
     ...session,
     inputRevision: session.inputRevision + 1,
+    storageRevision: session.storageRevision + 1,
     updatedAt,
     interpretationAuthority: null,
     reportAuthority: null,
   };
+}
+
+export type AuthorizedSaveResult =
+  | { status: "saved" | "idempotent"; session: SessionRecord }
+  | { status: "forbidden" }
+  | { status: "gone" }
+  | { status: "sequencing"; reason: string }
+  | { status: "missing" };
+
+export async function authorizeAndSaveRawAssessment(input: {
+  sessionId: string;
+  action: AuthorizedSaveAction;
+  mutationCapability: string;
+  payloadDigest: string;
+  patch: Record<string, unknown>;
+  presentedRespondentId?: string | null;
+}): Promise<AuthorizedSaveResult> {
+  const run = async (): Promise<AuthorizedSaveResult> => {
+    for (let attempt = 0; attempt < 16; attempt += 1) {
+      const current = await readAssessmentSession(input.sessionId);
+      if (!current) return { status: "missing" };
+      const applied = applyAuthorizedRawMutation(current, {
+        action: input.action,
+        mutationCapability: input.mutationCapability,
+        payloadDigest: input.payloadDigest,
+        patch: input.patch,
+        presentedRespondentId: input.presentedRespondentId,
+        nowIso: new Date().toISOString(),
+      });
+      if (applied.status !== "saved" && applied.status !== "idempotent-upgrade") return applied;
+      const swapped = await compareAndSwapSession(
+        input.sessionId,
+        current.inputRevision,
+        current.updatedAt,
+        current.storageRevision,
+        applied.session,
+      );
+      if (swapped === null) return { status: "missing" };
+      if (swapped === "CAS_FAIL") continue;
+      return applied.status === "idempotent-upgrade"
+        ? { status: "idempotent", session: swapped }
+        : { status: "saved", session: swapped };
+    }
+    throw new SessionLedgerStorageError(
+      "persistent-storage-write-failed",
+      "Authorized assessment mutation could not be committed atomically.",
+    );
+  };
+
+  if (storageConfig()) return run();
+  return withLocalSessionWriteChain(input.sessionId, run);
+}
+
+export async function mintInviteMutationCapability(input: {
+  sessionId: string;
+  ownerMutationCapability: string;
+  role: "R2" | "TARGET";
+}): Promise<
+  | { status: "minted"; respondentId: string; mutationCapability: string; session: SessionRecord }
+  | { status: "forbidden" }
+  | { status: "gone" }
+  | { status: "missing" }
+  | { status: "already-consumed" }
+> {
+  const run = async () => {
+    for (let attempt = 0; attempt < 16; attempt += 1) {
+      const current = await readAssessmentSession(input.sessionId);
+      if (!current) return { status: "missing" as const };
+      const nowIso = new Date().toISOString();
+      const capabilities = (current.mutationCapabilities ?? []).map(cloneCapability);
+      const ownerIndex = findCapabilityIndex(capabilities, input.ownerMutationCapability);
+      if (ownerIndex < 0) return { status: "forbidden" as const };
+      const owner = capabilities[ownerIndex];
+      if (owner.role !== "OWNER") return { status: "forbidden" as const };
+      if (owner.lifecycle === "revoked" || capabilityIsExpired(owner, nowIso)) return { status: "gone" as const };
+
+      const existingIndex = capabilities.findIndex((capability) => capability.role === input.role && capability.lifecycle !== "revoked");
+      if (existingIndex >= 0) {
+        const existing = capabilities[existingIndex];
+        if (existing.lifecycle === "consumed" || existing.acceptedPayloadDigestByAction[input.role === "R2" ? "SAVE_R2" : "SAVE_REPORT_INPUT"]) {
+          return { status: "already-consumed" as const };
+        }
+        existing.lifecycle = "revoked";
+        capabilities[existingIndex] = existing;
+      }
+
+      const token = issueMutationCapabilityToken();
+      const respondentId = input.role === "R2" ? `acqv-${randomUUID()}` : `tgt-${randomUUID()}`;
+      capabilities.push(storedMutationCapability(
+        input.role,
+        hashMutationCapability(token),
+        respondentId,
+        capabilityExpiryIso(nowIso),
+      ));
+      const next: SessionRecord = {
+        ...current,
+        updatedAt: nowIso,
+        storageRevision: current.storageRevision + 1,
+        mutationCapabilities: capabilities,
+      };
+      const swapped = await compareAndSwapSession(input.sessionId, current.inputRevision, current.updatedAt, current.storageRevision, next);
+      if (swapped === null) return { status: "missing" as const };
+      if (swapped === "CAS_FAIL") continue;
+      return {
+        status: "minted" as const,
+        respondentId,
+        mutationCapability: token,
+        session: swapped,
+      };
+    }
+    throw new SessionLedgerStorageError(
+      "persistent-storage-write-failed",
+      "Invite mutation capability could not be minted atomically.",
+    );
+  };
+
+  if (storageConfig()) return run();
+  return withLocalSessionWriteChain(input.sessionId, run);
 }
 
 export async function saveRawAssessmentState(sessionId: string, rawAssessment: RawAssessmentState) {
@@ -362,6 +888,14 @@ export async function saveRawAssessmentState(sessionId: string, rawAssessment: R
   return writeLedgerSession(sessionId, next);
 }
 
+// A narrow field-patch authority write: the EVAL reads the CURRENT record at
+// script time, checks the business inputRevision guard, patches only the
+// authority fields plus updatedAt, and atomically advances storageRevision so
+// any stale whole-record CAS created before this commit cannot pass. One
+// script execution = one authoritative SET: there is no patch-then-increment
+// window. updatedAt is refreshed but never carries correctness; a stale
+// writer is rejected because the storage generation changed, even when the
+// timestamp lands on the same millisecond.
 export async function commitAssessmentAuthority(
   sessionId: string,
   revisionAtStart: number,
@@ -373,7 +907,7 @@ export async function commitAssessmentAuthority(
     const updatedAt = new Date().toISOString();
     const raw = await redisCommand([
       "EVAL",
-      "local v=redis.call('GET',KEYS[1]); if not v then return nil end; local r=cjson.decode(v); if tonumber(r.inputRevision)~=tonumber(ARGV[1]) then return nil end; r.interpretationAuthority=cjson.decode(ARGV[2]); r.reportAuthority=ARGV[3]=='null' and cjson.null or cjson.decode(ARGV[3]); r.updatedAt=ARGV[4]; local out=cjson.encode(r); redis.call('SET',KEYS[1],out,'EX',ARGV[5]); return out",
+      "local v=redis.call('GET',KEYS[1]); if not v then return nil end; local r=cjson.decode(v); if tonumber(r.inputRevision)~=tonumber(ARGV[1]) then return nil end; r.interpretationAuthority=cjson.decode(ARGV[2]); r.reportAuthority=ARGV[3]=='null' and cjson.null or cjson.decode(ARGV[3]); r.updatedAt=ARGV[4]; r.storageRevision=(tonumber(r.storageRevision) or 0)+1; local out=cjson.encode(r); redis.call('SET',KEYS[1],out,'EX',ARGV[5]); return out",
       "1",
       targetObservationSessionKey(sessionId),
       String(revisionAtStart),
@@ -387,15 +921,36 @@ export async function commitAssessmentAuthority(
     ledger().set(sessionId, next);
     return next;
   }
-  const current = await readAssessmentSession(sessionId);
-  if (!current || current.inputRevision !== revisionAtStart) return null;
-  const next: SessionRecord = {
-    ...current,
-    updatedAt: new Date().toISOString(),
-    interpretationAuthority,
-    reportAuthority,
+
+  const run = async () => {
+    for (let attempt = 0; attempt < 16; attempt += 1) {
+      const current = await readAssessmentSession(sessionId);
+      if (!current || current.inputRevision !== revisionAtStart) return null;
+      const next: SessionRecord = {
+        ...current,
+        updatedAt: new Date().toISOString(),
+        interpretationAuthority,
+        reportAuthority,
+        storageRevision: current.storageRevision + 1,
+      };
+      const swapped = await compareAndSwapSession(
+        sessionId,
+        current.inputRevision,
+        current.updatedAt,
+        current.storageRevision,
+        next,
+      );
+      if (swapped === null) return null;
+      if (swapped === "CAS_FAIL") continue;
+      return swapped;
+    }
+    throw new SessionLedgerStorageError(
+      "persistent-storage-write-failed",
+      "Assessment authority could not be committed atomically.",
+    );
   };
-  return writeLedgerSession(sessionId, next);
+
+  return withLocalSessionWriteChain(sessionId, run);
 }
 
 export function currentAssessmentAuthority(session: SessionRecord | null) {
@@ -463,16 +1018,56 @@ export function mergeTargetObservationSetupRecords(
   });
 }
 
+// Creation path for writers that historically created a session record on
+// first write (readLedgerSession yields an empty record for a missing key).
+// SET NX preserves that create-on-missing contract without ever overwriting
+// an existing record; a lost NX race returns null so the caller re-reads and
+// retries through the generation-aware CAS.
+async function createSessionRecordIfMissing(sessionId: string, record: SessionRecord): Promise<SessionRecord | null> {
+  const config = storageConfig();
+  if (!config) return writeLedgerSession(sessionId, record);
+  const created = await redisCommand(
+    ["SET", targetObservationSessionKey(sessionId), JSON.stringify(record), "NX", "EX", String(TARGET_OBSERVATION_SESSION_TTL_SECONDS)],
+    "persistent-storage-write-failed",
+  );
+  if (created !== "OK") return null;
+  ledger().set(sessionId, record);
+  return record;
+}
+
+// Unified Target Observation setup persistence: generation-aware CAS loop.
+// A stale setup write can no longer perform an unconditional whole-record
+// SET; it re-reads, re-merges against the CURRENT record, and retries, so a
+// concurrent digest upgrade or authority commit is never clobbered.
 async function persistTargetObservationSetupRecord(
   sessionId: string,
   setup: TargetObservationSetupBaseRecord,
 ) {
-  const session = await readLedgerSession(sessionId);
-  const nextSession = nextMeaningfulRevision({
-    ...session,
-    targetObservationSetup: mergeTargetObservationSetupRecords(session.targetObservationSetup, setup),
-  }, new Date().toISOString());
-  return writeLedgerSession(sessionId, nextSession);
+  for (let attempt = 0; attempt < 16; attempt += 1) {
+    const session = await readLedgerSession(sessionId);
+    const nextSession = nextMeaningfulRevision({
+      ...session,
+      targetObservationSetup: mergeTargetObservationSetupRecords(session.targetObservationSetup, setup),
+    }, new Date().toISOString());
+    const swapped = await compareAndSwapSession(
+      sessionId,
+      session.inputRevision,
+      session.updatedAt,
+      session.storageRevision,
+      nextSession,
+    );
+    if (swapped === "CAS_FAIL") continue;
+    if (swapped === null) {
+      const created = await createSessionRecordIfMissing(sessionId, nextSession);
+      if (created === null) continue;
+      return created;
+    }
+    return swapped;
+  }
+  throw new SessionLedgerStorageError(
+    "persistent-storage-write-failed",
+    "Target Observation setup could not be committed atomically.",
+  );
 }
 
 export async function saveTargetObservationSetup(sessionId: string, setupInput: Record<string, unknown>) {
@@ -618,6 +1213,46 @@ function buildTargetDiagnosticRecord(input: {
   };
 }
 
+// Unified Target Observation completion persistence: same generation-aware
+// CAS discipline as setup. The completion payload is constant per call; each
+// retry re-reads the CURRENT SessionRecord so no stale snapshot can replay
+// unrelated fields.
+async function persistTargetObservationCompletion(
+  sessionId: string,
+  setupRecord: TargetObservationSetupBaseRecord,
+  targetObservation: unknown,
+  target2B: unknown,
+  nowIso: string,
+) {
+  for (let attempt = 0; attempt < 16; attempt += 1) {
+    const session = await readLedgerSession(sessionId);
+    const nextSession = nextMeaningfulRevision({
+      ...session,
+      targetObservationSetup: setupRecord,
+      targetObservation,
+      target2B,
+    }, nowIso);
+    const swapped = await compareAndSwapSession(
+      sessionId,
+      session.inputRevision,
+      session.updatedAt,
+      session.storageRevision,
+      nextSession,
+    );
+    if (swapped === "CAS_FAIL") continue;
+    if (swapped === null) {
+      const created = await createSessionRecordIfMissing(sessionId, nextSession);
+      if (created === null) continue;
+      return created;
+    }
+    return swapped;
+  }
+  throw new SessionLedgerStorageError(
+    "persistent-storage-write-failed",
+    "Target Observation completion could not be committed atomically.",
+  );
+}
+
 export async function saveTargetObservationCompletion(input: {
   assessmentSessionId: string;
   observationSessionId: string;
@@ -695,14 +1330,13 @@ export async function saveTargetObservationCompletion(input: {
     }),
   });
 
-  const session = await readLedgerSession(input.assessmentSessionId);
-  const nextSession = nextMeaningfulRevision({
-    ...session,
-    targetObservationSetup: setupRecord,
+  await persistTargetObservationCompletion(
+    input.assessmentSessionId,
+    setupRecord,
     targetObservation,
-    target2B: targetDiagnostic.target2B,
-  }, now);
-  await writeLedgerSession(input.assessmentSessionId, nextSession);
+    targetDiagnostic.target2B,
+    now,
+  );
 
   return {
     ok: true,

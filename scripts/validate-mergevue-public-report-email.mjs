@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import finalReportHandler from "../api/final-report.ts";
+import { handleProductionInterpretationAction } from "../api/production-interpretation.ts";
 import { TARGET_DIAGNOSTIC_DATA } from "../src/data/targetDiagnosticData.js";
 import { TARGET_OBSERVATION_DIAGNOSTIC } from "../src/data/targetObservedEnvironmentDiagnostic.js";
 import { TARGET_SELF_ASSESSMENT_DATA } from "../src/data/targetSelfAssessmentData.js";
@@ -42,6 +43,12 @@ async function invokeFinalReport(action, body) {
     headers,
     body: contentType.includes("application/json") ? JSON.parse(String(ended)) : ended,
   };
+}
+
+async function productionAction(body, expectedStatus = null) {
+  const result = await handleProductionInterpretationAction(body);
+  if (expectedStatus !== null) assert.equal(result.statusCode, expectedStatus, JSON.stringify(result.body));
+  return result;
 }
 
 async function assertServerAuthorityDeliveryBoundary() {
@@ -131,6 +138,44 @@ async function assertServerAuthorityDeliveryBoundary() {
     const auditJson = Buffer.from(auditAttachment.content, "base64").toString("utf8");
     assert.ok(auditJson.includes(sessionId), "Reconstructed hidden audit must retain the authoritative session tree");
     assert.equal(auditJson.includes("forged"), false, "Reconstructed hidden audit must not contain client forgery");
+
+    const beforeReject = await readAssessmentSession(sessionId);
+    const rejectedMutation = await productionAction({ action: "SAVE_DEAL_CONTEXT", sessionId, dealContext: { targetName: "capability-rejection-probe" } }, 403);
+    assert.equal(rejectedMutation.body.status, "forbidden-capability");
+    const afterReject = await readAssessmentSession(sessionId);
+    assert.equal(afterReject.inputRevision, beforeReject.inputRevision, "rejected sessionId-only mutation must not bump inputRevision");
+    assert.equal(afterReject.reportAuthority.authorityId, authorityId, "rejected mutation must not invalidate current report authority");
+    const stillCurrent = await productionAction({ action: "STATUS", sessionId, authorityId }, 200);
+    assert.equal(stillCurrent.body.reportReady, true, "rejected mutation must leave current authority current");
+
+    assert.equal(/mvc_[0-9a-f]{64}/.test(JSON.stringify(ready.executed.body)), false, "EXECUTE response must not carry raw mutation capabilities");
+    assert.equal(/mvc_[0-9a-f]{64}/.test(JSON.stringify(browserProjection)), false, "browser projection must not carry raw mutation capabilities");
+    assert.equal(/mvc_[0-9a-f]{64}/.test(internal.html), false, "report HTML must not carry raw mutation capabilities");
+    assert.equal(/mvc_[0-9a-f]{64}/.test(JSON.stringify(providerCalls)), false, "PDF/email provider payloads must not carry raw mutation capabilities");
+    const deliveredAudits = providerCalls.email.flatMap((email) => (email.attachments ?? []))
+      .filter((item) => item.filename === "mergevue-hidden-user-answers.json")
+      .map((item) => Buffer.from(item.content, "base64").toString("utf8"));
+    assert.ok(deliveredAudits.length > 0, "hidden audit delivery must have occurred");
+    for (const deliveredAudit of deliveredAudits) {
+      assert.equal(/mvc_[0-9a-f]{64}/.test(deliveredAudit), false, "hidden audit must not carry raw mutation capabilities");
+    }
+
+    const dual = await createReadyAssessment({ includeR2: true, r2AnswerOverrides: { Q7: "A" } });
+    assert.equal(dual.executed.body.status, "report-ready", JSON.stringify(dual.executed.body));
+    const dualProjection = JSON.stringify(dual.executed.body.projection);
+    assert.equal(dualProjection.includes("more_than_3_years"), false, "raw R2 verification respondent context must not reach the acquirer browser projection");
+    const dualBounded = dual.executed.body.projection.boundedSession;
+    assert.equal(dualBounded.acquirerVerification?.answers, undefined, "raw R2 verification answers must not reach the acquirer browser projection");
+    assert.equal(dualBounded.acquirerVerification?.respondentContext, undefined, "raw R2 verification context must not reach the acquirer browser projection");
+    assert.equal(dualBounded.targetSelfAssessment?.answers, undefined, "raw Target Self answers must not reach the acquirer browser projection");
+    assert.equal(dualBounded.targetSelfAssessment?.positioning, undefined, "raw Target Self positioning must not reach the acquirer browser projection");
+    const dualHidden = await invokeFinalReport("send-final-report-hidden-copy", { sessionId: dual.sessionId, authorityId: dual.executed.body.authorityId });
+    assert.equal(dualHidden.statusCode, 200, JSON.stringify(dualHidden.body));
+    const dualAuditAttachment = providerCalls.email.at(-1).attachments.find((item) => item.filename === "mergevue-hidden-user-answers.json");
+    assert.ok(dualAuditAttachment, "hidden copy for the DUAL assessment must attach the canonical audit JSON");
+    const dualAudit = Buffer.from(dualAuditAttachment.content, "base64").toString("utf8");
+    assert.ok(dualAudit.includes("more_than_3_years"), "hidden audit must retain raw R2 respondent context server-side");
+    assert.equal(/mvc_[0-9a-f]{64}/.test(dualAudit), false, "hidden audit must not carry raw mutation capabilities");
   } finally {
     globalThis.fetch = originalFetch;
     providers.restore();
