@@ -1,0 +1,461 @@
+
+========================================================================
+[C-01] Attainability of the exact figure 77.77% on a finite unit count
+========================================================================
+target 7/9                       = 0.7777777778
+Exact 7/9 (not literal 77.77%=0.7777) is attainable only when n satisfies
+n = 0 (mod 9), since 7/9 in lowest terms has denominator 9.
+
+  n=   9  exact 7/9 attainable: YES   k giving exactly 7/9: [7]
+  n=  10  exact 7/9 attainable: NO    k giving exactly 7/9: []
+  n=  18  exact 7/9 attainable: YES   k giving exactly 7/9: [14]
+  n=  20  exact 7/9 attainable: NO    k giving exactly 7/9: []
+  n=  27  exact 7/9 attainable: YES   k giving exactly 7/9: [21]
+  n=  90  exact 7/9 attainable: YES   k giving exactly 7/9: [70]
+  n= 180  exact 7/9 attainable: YES   k giving exactly 7/9: [140]
+
+Attainable accuracies at n=10 nearest the target:
+  k=7/10 = 0.7000  (delta from target = -0.0778)
+  k=8/10 = 0.8000  (delta from target = +0.0222)
+
+========================================================================
+[C-02] THEOREM 1 — non-demonstrability of >=77.77% on the frozen corpus n=10
+========================================================================
+Best possible case: k = n = 10 (a perfect score).
+Exact one-sided 95% lower bound = alpha^(1/n) = 0.05^(1/10)
+                                         = 0.741134
+Target                                    = 0.777778
+lower bound > target ?                     False
+
+Monotonicity: the CP lower bound is strictly increasing in k, so k<n is worse.
+  k= 6/10  point=0.600  one-sided95% LCB=0.3035   two-sided95% CI=[0.2624, 0.8784]
+  k= 7/10  point=0.700  one-sided95% LCB=0.3934   two-sided95% CI=[0.3475, 0.9333]
+  k= 8/10  point=0.800  one-sided95% LCB=0.4931   two-sided95% CI=[0.4439, 0.9748]
+  k= 9/10  point=0.900  one-sided95% LCB=0.6058   two-sided95% CI=[0.5550, 0.9975]
+  k=10/10  point=1.000  one-sided95% LCB=0.7411   two-sided95% CI=[0.6915, 1.0000]
+
+CONCLUSION: on n=10 deal-level units the claim 'accuracy >= 77.77%' cannot be
+established by this exact one-sided binomial procedure, even at k=n.
+This assumes independent Bernoulli correctness with a common theta; it is not
+an impossibility theorem for Bayesian claims or different estimands.
+
+========================================================================
+[C-03] Minimum unit count n for the claim to be establishable at all
+========================================================================
+Smallest n with a perfect score certifying theta > 0.7778 at one-sided 95%:
+  n_min = 12   (alpha^(1/n) = 0.779078 > 0.777778)
+  check n=11: 0.761596 <= 0.777778  -> insufficient
+
+Required successes k for a range of n (one-sided 95%):
+  n=  12  k_req=  12  (1.0000 of units)  LCB=0.7791
+  n=  18  k_req=  18  (1.0000 of units)  LCB=0.8467
+  n=  20  k_req=  19  (0.9500 of units)  LCB=0.7839
+  n=  27  k_req=  25  (0.9259 of units)  LCB=0.7847
+  n=  30  k_req=  28  (0.9333 of units)  LCB=0.8047
+  n=  40  k_req=  36  (0.9000 of units)  LCB=0.7856
+  n=  50  k_req=  45  (0.9000 of units)  LCB=0.8012
+  n=  60  k_req=  53  (0.8833 of units)  LCB=0.7920
+  n=  90  k_req=  77  (0.8556 of units)  LCB=0.7802
+  n= 120  k_req= 102  (0.8500 of units)  LCB=0.7857
+  n= 180  k_req= 150  (0.8333 of units)  LCB=0.7808
+
+========================================================================
+[C-04] Power: n needed to have a real chance of certifying the target
+========================================================================
+Probability of certifying theta > 77.77% at one-sided 95%, by true accuracy:
+
+   n    theta=0.80  theta=0.85  theta=0.90  theta=0.95
+   12       0.069      0.142      0.282      0.540
+   18       0.018      0.054      0.150      0.397
+   20       0.069      0.176      0.392      0.736
+   27       0.072      0.207      0.485      0.850
+   30       0.044      0.151      0.411      0.812
+   40       0.076      0.263      0.629      0.952
+   50       0.048      0.219      0.616      0.962
+   60       0.067      0.305      0.752      0.990
+   80       0.101      0.452      0.900      0.999
+  100       0.129      0.568      0.960      1.000
+  150       0.129      0.684      0.992      1.000
+  180       0.152      0.771      0.998      1.000
+
+Smallest n reaching 80% power (power is not monotone in n for exact tests;
+reported n is the smallest n from which power stays >= 0.80 for all larger n
+up to the scan cap N_CAP):
+  true accuracy 0.80 -> first n with power>=0.80: None;  stably >=0.80 from n = None
+  true accuracy 0.85 -> first n with power>=0.80: 183;  stably >=0.80 from n = 203
+  true accuracy 0.90 -> first n with power>=0.80: 56;  stably >=0.80 from n = 68
+  true accuracy 0.95 -> first n with power>=0.80: 27;  stably >=0.80 from n = 33
+
+========================================================================
+[C-05] Clustering: sides are not independent units
+========================================================================
+If the scored unit is the SIDE (2 per deal) then n_nominal = 20 but the two
+sides of one deal share the deal-level environment collision.
+Design effect for clusters of size m with intracluster correlation rho:
+  DEFF = 1 + (m-1)*rho ;  n_eff = n_nominal / DEFF
+
+  side-level, 10 deals x 2 sides:
+    rho=0.0  DEFF=  1.00  n_eff=   20.00
+    rho=0.1  DEFF=  1.10  n_eff=   18.18
+    rho=0.2  DEFF=  1.20  n_eff=   16.67
+    rho=0.3  DEFF=  1.30  n_eff=   15.38
+    rho=0.5  DEFF=  1.50  n_eff=   13.33
+    rho=0.8  DEFF=  1.80  n_eff=   11.11
+
+  side x environment, 10 deals x 18:
+    rho=0.0  DEFF=  1.00  n_eff=  180.00
+    rho=0.1  DEFF=  2.70  n_eff=   66.67
+    rho=0.2  DEFF=  4.40  n_eff=   40.91
+    rho=0.3  DEFF=  6.10  n_eff=   29.51
+    rho=0.5  DEFF=  9.50  n_eff=   18.95
+    rho=0.8  DEFF= 14.60  n_eff=   12.33
+
+NOTE: the 9 environment rows per side are NOT 9 independent binary decisions.
+They form ONE 9-class choice. The honest nominal unit count is therefore 20,
+not 180. DEFF is a variance adjustment under the specified assumptions;
+it does not license exact CP with an effective trial count.
+
+========================================================================
+[C-06] Chance baselines the target must be compared against
+========================================================================
+Accuracy alone is meaningless without the baseline it must beat.
+
+  9-class environment identification, uniform guess : 0.1111  (1/9)
+  9-class, majority-class guess (unknown prior)     : NOT DETERMINABLE from corpus
+  binary outcome, coin flip                         : 0.5000
+  binary outcome, majority-class guess at base rate p: max(p, 1-p)
+
+If the binary base rate is p, a 'predict the majority always' rule scores max(p,1-p).
+  base rate p=0.5000 -> trivial baseline 0.5000   target beats it: True
+  base rate p=0.6000 -> trivial baseline 0.6000   target beats it: True
+  base rate p=0.7000 -> trivial baseline 0.7000   target beats it: True
+  base rate p=0.7777 -> trivial baseline 0.7777   target beats it: True
+  base rate p=0.8000 -> trivial baseline 0.8000   target beats it: False
+
+CRITICAL: if the true failure base rate is ~70-90% (the figure quoted in the
+MergeVue reports), then a constant 'this deal will have integration failure'
+predictor already scores 70-90% accuracy with zero model. The 77.77% target is
+not necessarily above that baseline. The base rate of the specified Y is unknown;
+a broad M&A failure statistic cannot supply it. Metric choice remains unsealed.
+
+========================================================================
+[C-07] Selective prediction: accuracy is conditional on coverage
+========================================================================
+Historical source-analyst report about CASE-3.5 prediction seal (not re-read here):
+  fullMaterialPredictiveClaims   = 0
+  conditionalPredictiveClaims    = 1  (WEAK, antecedent UNRESOLVED)
+  explicitNonPredictions         = 20
+  pairLevelPredictiveClaimAvailable = false
+
+Let c = coverage = fraction of units on which a prediction is emitted,
+    a = conditional accuracy among emitted predictions.
+Effective scored n is c*N, so the certifiable lower bound degrades with c.
+
+  With N=10 deals, one-sided 95% LCB assuming a PERFECT score on emitted units:
+    coverage=1.0  n_eff=10  LCB=0.7411   beats target: False
+    coverage=0.9  n_eff= 9  LCB=0.7169   beats target: False
+    coverage=0.8  n_eff= 8  LCB=0.6877   beats target: False
+    coverage=0.5  n_eff= 5  LCB=0.5493   beats target: False
+    coverage=0.3  n_eff= 3  LCB=0.3684   beats target: False
+    coverage=0.2  n_eff= 2  LCB=0.2236   beats target: False
+    coverage=0.1  n_eff= 1  LCB=0.0500   beats target: False
+
+At the coverage actually observed on CASE-3.5 (0 material claims of ~7 possible
+prediction elements), the accuracy denominator is zero and no accuracy figure
+of any value -- including 77.77% -- is definable.
+
+========================================================================
+[C-08] Split conformal: finite order statistic versus full outcome space
+========================================================================
+Assume exchangeable calibration/test scores and a predictor fixed without
+using calibration outcomes. Rank k = ceil((n+1)*(1-alpha)).
+If k>n, qhat=+infinity: C(X) is the full outcome space, coverage=1.
+Thus 1/(n+1) is the alpha floor for a FINITE empirical threshold, not validity.
+  n=  5 finite-threshold alpha floor=0.1667
+  n=  9 finite-threshold alpha floor=0.1000
+  n= 10 finite-threshold alpha floor=0.0909
+  n= 12 finite-threshold alpha floor=0.0769
+  n= 19 finite-threshold alpha floor=0.0500
+  n= 20 finite-threshold alpha floor=0.0476
+  n= 39 finite-threshold alpha floor=0.0250
+  n= 49 finite-threshold alpha floor=0.0200
+  n= 99 finite-threshold alpha floor=0.0100
+At n_cal=10 the largest finite rank is 10 and its marginal coverage floor
+is 10/11=0.9091. Smaller alpha yields the full set, not INFEASIBLE.
+These are set-coverage guarantees, not point accuracy or conditional coverage.
+
+========================================================================
+[C-09] Haken static model: parameter counts do not prove sample-size bounds
+========================================================================
+Polynomial coefficient counts (assuming unrestricted distinct monomials):
+  N_q= 4 order4=   69 order2=  14
+  N_q= 5 order4=  125 order2=  20
+  N_q= 6 order4=  209 order2=  27
+  N_q= 9 order4=  714 order2=  54
+  N_q=10 order4= 1000 order2=  65
+  N_q=14 order4= 3059 order2= 119
+  N_q=18 order4= 7314 order2= 189
+An observation is a VECTOR, not one scalar parameter constraint.
+Population identifiability, existence of an estimator, and precision differ.
+Counterexample: a 9D Gaussian has 54 mean/covariance parameters; its MLE
+exists for 20 independent vectors in general position (n>d suffices).
+  sample covariance rank=9; minimum eigenvalue=0.153091
+A normalizable quadratic density on R^d has negative definite quadratic
+part; positive unstable modes need stabilizing higher terms/domain constraints.
+
+========================================================================
+[C-10] Haken Ch.9 dynamic model: what panel depth is required
+========================================================================
+Ch.9 eqs (9.21)-(9.31): drift K_i[q] and diffusion G_kl[q] are fixed by the
+FIRST and SECOND conditional moments of q(t+tau) given q(t).
+Per state dimension N_q, at each conditioning point:
+  N_q= 3:  K has 3 components, G has 6 independent components  -> 9 functions of q to estimate
+  N_q= 5:  K has 5 components, G has 15 independent components  -> 20 functions of q to estimate
+  N_q= 9:  K has 9 components, G has 45 independent components  -> 54 functions of q to estimate
+
+Minimum observation structure: >=2 time points per deal for K,
+>=3 for any check on the Markov/stationarity assumption Ch.9 requires (eq 9.3).
+A static T0-only snapshot does not identify dynamic K and G; no panel is read here.
+
+========================================================================
+[C-11] Chernavsky value-of-information as an admissible feature weight
+========================================================================
+V = log2(P/p); V_Korogodin = (P-p)/(1-p), in [0,1] only if 0<=p<=P<=1, p<1.
+p = P(correct identification BEFORE the fact); P = AFTER.
+
+For a 9-class environment identification with a uniform prior, p = 1/9:
+  P=0.1111  V=log2(P/p)=+0.0000 bits   V_Korogodin=0.0000
+  P=0.2000  V=log2(P/p)=+0.8480 bits   V_Korogodin=0.1000
+  P=0.3333  V=log2(P/p)=+1.5850 bits   V_Korogodin=0.2500
+  P=0.5000  V=log2(P/p)=+2.1699 bits   V_Korogodin=0.4375
+  P=0.7777  V=log2(P/p)=+2.8072 bits   V_Korogodin=0.7499
+  P=0.9000  V=log2(P/p)=+3.0179 bits   V_Korogodin=0.8875
+  P=1.0000  V=log2(P/p)=+3.1699 bits   V_Korogodin=1.0000
+
+V_max = log2(9) = 3.1699 bits  (Chernavsky: V_max = log2 n)
+V<=0 means no gain or counterevidence relative to a specified goal and prior.
+It does not justify deleting counterevidence. P and p are not estimated here;
+the formula alone does not define operational evidence weights.
+
+========================================================================
+[C-15] Split conformal on the OBSERVABLE outcome Y (resolution of P4)
+========================================================================
+The environment E(u) is LATENT: no ground truth exists for any deal, so no
+calibration set (x_i, E_i) can be formed and conformal prediction cannot be
+run on E at all. It CAN be run on the observable outcome Y.
+Question: does it degenerate on a BINARY Y at n=10?
+
+Simulation: classifier emits p_hat(true class); nonconformity s = 1 - p_hat.
+A set of size 2 = {0,1} = no information = abstention.
+
+ n_cal    alpha  k idx  coverage  singleton (decisive)
+    10   0.0909     10    0.9097                0.5640
+    10   0.1000     10    0.9105                0.5809
+    10   0.2000      9    0.8147                0.7948
+    10   0.3000      8    0.7226                0.7897
+
+    20   0.0476     20    0.9510                0.4354
+    20   0.1000     19    0.9059                0.6963
+    20   0.2000     17    0.8174                0.8724
+    20   0.3000     15    0.7072                0.7849
+
+    36   0.0270     36    0.9719                0.2777
+    36   0.1000     34    0.9195                0.6874
+    36   0.2000     30    0.8108                0.8842
+    36   0.3000     26    0.6993                0.7770
+
+    50   0.0196     50    0.9790                0.2078
+    50   0.1000     46    0.9040                0.7911
+    50   0.2000     41    0.8056                0.8911
+    50   0.3000     36    0.7110                0.7898
+
+   100   0.0099    100    0.9904                0.0963
+   100   0.1000     91    0.9029                0.8646
+   100   0.2000     81    0.8061                0.8957
+   100   0.3000     71    0.7009                0.7787
+
+   200   0.0050    200    0.9948                0.0513
+   200   0.1000    181    0.9003                0.9034
+   200   0.2000    161    0.8057                0.8951
+   200   0.3000    141    0.7079                0.7864
+
+At n=10, alpha=1/11 the theoretical marginal coverage floor is 10/11.
+This synthetic simulation gives about 56% singletons; this is not corpus evidence.
+This is a synthetic illustration, not a corpus estimate or guarantee of utility.
+Each row averages 200 independent calibrations with 20000 test draws each.
+A binomial CI treating 0.564 as a proportion from 10 trials is not justified.
+For alpha<1/(n+1), the implementation returns the full binary set.
+
+========================================================================
+[C-16] Repeated fixed-n testing: exact crossing probability
+========================================================================
+  checkpoints= 1 up to n=10 exact false-positive probability=0.000000
+  checkpoints= 2 up to n=10 exact false-positive probability=0.000000
+  checkpoints= 4 up to n=20 exact false-positive probability=0.051186
+  checkpoints= 8 up to n=40 exact false-positive probability=0.080504
+  checkpoints=16 up to n=80 exact false-positive probability=0.119019
+
+========================================================================
+[C-17] One-sided anytime-valid mixture; correction of the two-sided null error
+========================================================================
+E_n = integral[t0,1] q^k(1-q)^(n-k)dq /
+      [(1-t0)*t0^k*(1-t0)^(n-k)]. Reject only if E_n>=20.
+For fixed q>=t0 the expected next likelihood-ratio factor is <=1
+under E[X_t|past]<=t0. Integrating preserves this; Ville applies.
+This conditional null is stronger than a bound on a retrospective average.
+  discarded unrestricted mixture E(0,3)=22.781250 (false direction)
+  corrected one-sided mixture E(0,3)=0.250000
+  perfect run: corrected uniform one-sided mixture n=18
+  pre-specified point alternative q=1: n=12; E becomes zero after the first failure
+No universal 25-trial price exists: threshold depends on the chosen mixture.
+      n  k_fixed  k_anytime
+     12       12       None
+     18       18         18
+     20       19         20
+     25       24         25
+     30       28         29
+     36       33         35
+     50       45         47
+     80       69         72
+    120      102        106
+
+========================================================================
+[C-18] Exact power of the corrected one-sided sequential test
+========================================================================
+P(ever reject by n), iid alternatives only; no Monte Carlo error:
+   n_max  theta=0.85  theta=0.90  theta=0.95
+      25      0.054      0.150      0.397
+      36      0.087      0.255      0.623
+      50      0.139      0.420      0.855
+      80      0.241      0.694      0.988
+     120      0.345      0.868      1.000
+  fixed n=36, theta=.90 power=0.508511
+  fixed n=40, theta=.90 power=0.629018
+Refitting can preserve predictability, but does not establish a constant iid
+accuracy or prove E[X_t|past]<=t0; the estimand/null must be specified.
+
+========================================================================
+[C-13] THEOREM 2 corrected: dimension bound only
+========================================================================
+For a symmetric N_q x N_q matrix, the positive eigenspace dimension N_u<=N_q.
+This does not identify a discrete environment label with a coordinate/mode.
+The 20-vector Gaussian counterexample [C-09] refutes the proposed N_q<=4.
+No requirement of 55 sides or 28/36 deals follows from parameter counting.
+Whether nine environments exist or are testable here remains unestablished.
+
+========================================================================
+[C-14] No joint corpus-size certificate from the present premises
+========================================================================
+Fixed-n binomial sample sizes concern independent correctness trials, not
+automatically sides, people, weighted units, or latent environment parameters.
+Do not divide by two to infer required deals, or combine with discarded T2.
+  iid scored units n=36: power at theta=.90=0.508511
+  iid scored units n=40: power at theta=.90=0.629018
+  iid scored units n=68: power at theta=.90=0.861466
+A corpus requirement needs a defined estimand, dependence model, and design.
+
+========================================================================
+[C-19] Observation level: variance equivalents are not exact trial counts
+========================================================================
+DEFF=1+(m-1)*rho assumes equal-size independent clusters and common
+Bernoulli marginal variance/correlation of CORRECTNESS, not just of Y.
+n_eff is a variance equivalent; no CP k_req or feasibility flag is justified.
+  deals=10 cohort= 1 rho=0.0 nominal= 10 n_eff= 10.00
+  deals=10 cohort= 2 rho=0.2 nominal= 20 n_eff= 16.67
+  deals=10 cohort= 2 rho=0.3 nominal= 20 n_eff= 15.38
+  deals=10 cohort= 2 rho=0.5 nominal= 20 n_eff= 13.33
+  deals=10 cohort= 5 rho=0.2 nominal= 50 n_eff= 27.78
+  deals=10 cohort= 5 rho=0.3 nominal= 50 n_eff= 22.73
+  deals=10 cohort= 5 rho=0.5 nominal= 50 n_eff= 16.67
+  deals=10 cohort= 8 rho=0.2 nominal= 80 n_eff= 33.33
+  deals=10 cohort= 8 rho=0.3 nominal= 80 n_eff= 25.81
+  deals=10 cohort= 8 rho=0.5 nominal= 80 n_eff= 17.78
+  deals=10 cohort=12 rho=0.2 nominal=120 n_eff= 37.50
+  deals=10 cohort=12 rho=0.3 nominal=120 n_eff= 27.91
+  deals=10 cohort=12 rho=0.5 nominal=120 n_eff= 18.46
+Changing from deal to person/commitment changes the estimand; it is not
+the same outcome replicated. Predefine weights, eligibility, and missingness.
+Unknown outcomes reduce observable coverage and may select the scored sample.
+
+========================================================================
+[C-20] Deal-type conditioning, composition, and metric boundaries
+========================================================================
+TEAM/MARKET/KPI/ABSORB can require different observation rules.
+A counterexample to executive departure as universal failure does not prove
+that every common outcome is impossible. Type-aware Y is the current proposal.
+If correctness is defined against the same true endpoint:
+  a_retro = p_type*a_correct + (1-p_type)*a_wrong.
+User declaration alone does not prove p_type=1 in production.
+Transport requires comparable distributions and a_correct>=a_wrong;
+p_type<1 alone implies neither a product advantage nor a lower bound.
+  p_type   a_wrong=0.30   a_wrong=0.50   a_wrong=0.60
+    1.00        0.7778        0.7778        0.7778
+    0.95        0.8029        0.7924        0.7871
+    0.90        0.8309        0.8086        0.7975
+    0.85        0.8621        0.8268        0.8092
+    0.80        0.8972        0.8472        0.8222
+    0.70        0.9825        0.8968        0.8540
+At three iid deal-level trials, perfect-score LCB=0.368403.
+10/4=2.5 is an average, not the observed allocation or an upper bound.
+Pooling is optional and needs a target population and predeclared weights.
+Raw, weighted, and balanced accuracy have different uncertainty procedures.
+For unequal clusters and common variance/rho:
+  n_eff = M^2 / [M + rho*sum_d m_d*(m_d-1)] (variance only).
+
+========================================================================
+[C-21] Rater agreement is not correctness or an upper bound on it
+========================================================================
+No numeric p_type is identified by the available evidence.
+Values .85-.95 in [C-20] are sensitivity scenarios, not an adopted range.
+  illustrative agreement 10/10: CI=[0.692,1.000]
+  illustrative agreement 9/10: CI=[0.555,0.997]
+  illustrative agreement 8/10: CI=[0.444,0.975]
+  illustrative agreement 30/30: CI=[0.884,1.000]
+  illustrative agreement 28/30: CI=[0.779,0.992]
+  illustrative agreement 26/30: CI=[0.693,0.962]
+  illustrative agreement 47/50: CI=[0.835,0.987]
+These binomial intervals require independent agreements with a common rate.
+Counterexample: two raters each make one error on different items out of 10:
+  accuracy_A=accuracy_B=.90, agreement=.80; agreement is not an upper bound.
+Conversely raters can agree perfectly and both be wrong. A shadow set measures
+reproducibility only, unless an independent valid correctness reference exists.
+Post-T0 conduct may be evidence, but is not automatically ground truth of T0 intent.
+Outcome access remains quarantined; no shadow-set work is performed here.
+
+========================================================================
+[C-22] Jurisdiction, observation validity, and a clustered counterexample
+========================================================================
+7 clean / 2 coarse / 1 without source is an UNVERIFIED documentary hypothesis.
+No jurisdictional blocker is closed by that profile or by n_eff.
+Item 5.02 became effective on 2004-08-23; historical rules must match the window.
+NEO lists concern executive compensation; absence does not prove lost authority.
+For an illustrative seven independent clusters only:
+  g=7 m= 5 rho=0.3 n_eff=15.9091 (variance only)
+  g=7 m= 5 rho=0.5 n_eff=11.6667 (variance only)
+  g=7 m= 8 rho=0.3 n_eff=18.0645 (variance only)
+  g=7 m= 8 rho=0.5 n_eff=12.4444 (variance only)
+  g=7 m=12 rho=0.3 n_eff=19.5349 (variance only)
+  g=7 m=12 rho=0.5 n_eff=12.9231 (variance only)
+Exact counterexample to CP(floor(n_eff)) even with known rho:
+  iid clusters; S=2,3,8 with probabilities (100,312,803)/1215;
+  choose the S correct persons uniformly inside each eight-person cluster.
+  marginal correctness=7/9, ICC=1/2
+  floor(n_eff)=12; CP(12,12) LCB=0.779078
+  P(56/56 correct)=0.05507758 > .05 under theta=7/9.
+Hence the advertised 95% certification is invalid, independently of ICC estimation.
+Illustrative iid international 2/2: one-sided LCB=0.223607; two-sided CI=[0.158114,1.000000].
+This is limited information, not zero information or proof of international validity.
+
+========================================================================
+[C-12] Corrected boundaries and executable self-checks
+========================================================================
+SELF_CHECKS: PASS (author self-validation; not independent verification)
+  n=10 best binomial LCB=0.741134
+  theta=.80, n=2200 fixed power=0.810754
+  no exact clustered, weighted, balanced-accuracy, or transport guarantee established
+  no environments identified; no corpus outcomes read; no product behavior claimed
+  P8 illustration, iid Bernoulli likelihood and hypothetical 10/10:
+    Beta(1,1) posterior P(theta>7/9)=0.936990
+    Beta(2,1) posterior P(theta>7/9)=0.950992
+    prior must be justified before outcomes; these are not frequentist certificates
+END OF VERIFICATION RUN
