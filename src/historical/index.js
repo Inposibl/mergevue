@@ -1,0 +1,18 @@
+export { CANONICAL_SERIALIZATION_VERSION, DOMAIN_TAG, REGION, EXECUTION_CLASS, OUTPUT_KIND, RULE_REF, MATH_BLOCK_ID, COLLECTION_STATUS, CERTIFICATION_DISPOSITION, CERTIFICATION_RESULT, CERTIFYING_ACTIVITY, AUTHORIZATION_DECISION, RETRIEVAL_ROLE, REQUEST_KIND, ITEM_CHANNEL, ANCHOR_KIND, XPI_PURPOSE, STOPPING_RULE_AUTHORITY, G0_LIMB_A_FIELDS } from "./constants.js";
+export { HistoricalIngressError, failClosed } from "./errors.js";
+export { canonicalSerialize, recanonicalize, digestCanonical, sortUniqueStrings } from "./canonical.js";
+export { computeIdentity } from "./identity.js";
+export { createHistoricalRuntime, deepFreeze, freezeRecord } from "./runtime.js";
+export { createRenderedContentArtifact, createRenderingDerivation, recoverRenderedContent, renderedContentRecoverable } from "./rendering.js";
+export { commitEmim, getCommittedEmim, assertEmimImmutable, rejectEmimAmendment, modelVisibleRenderedItems, historicalAnchorSet, buildCommitmentSurface } from "./emim.js";
+export { invokeCommittedEmim, hlxConforming } from "./invocation.js";
+export { createPrePcmOutputRecords, verifyOutputLineage, getOutput, reconstructLineageFromOutput, assertTypedRetrievalRequest } from "./output.js";
+export { authorizeRetrieval, resolveR0Mandate, replayAuthorization } from "./authorization.js";
+export { executeRetrieval, fanOutFromDiscovery, fanOutDerivationLawful, xrPermitsBound, retrievalLawfullyAuthorized, retrievalCompleted, methodCreditEligible, rejectLateAuthorization, rejectFreeFormExecution, allocateRetrievalOccurrence } from "./retrieval.js";
+export { certifyResolution, g0Establishable, g0RequiredFieldSet, resolutionCertificationValid, conflictingCertification, rejectCandidateControlsG0Scope, canonicalCandidatePropositions } from "./certification.js";
+export { compileDemandBlueprint, freezeManifest, certifyStageBFact, assembleFactualBaseline, evaluateCollectionClosure, markResourceCap, independentPreSealVerification, acceptOwnerFactualSeal, compileSemanticBindings, mbEnvSlotType, documentaryFactSlotType, assertMbEnvUninstantiated, rejectEnvironmentInstantiation, rejectCoreConsumption, rejectRawLlmToCore, recordManifestExecution } from "./hmir.js";
+export { beginXpiExecution, accessProtectedMaterial, completeXpiExecution, renderProtectedItemForEmim, rejectUnauthorizedAccess, assertExactXpiAccessReference, assertNoXpiBypass, xpiAccessSet } from "./xpi.js";
+export { createCaseSession, currentRegion, activateR0, transitionR0toR1, compileStageA, transitionR1toR2, transitionR2toR3, invokeInSession, renderR0SourceForEmim, renderR1QualificationForEmim, instructionItem, historicalItemFromDerivation, offerR0SourceAsStageBEvidence, offerRawLlmToCore, instantiateEnvironmentSlot, markCoreConsumable, assertSemanticBoundary } from "./pipeline.js";
+export { had1Surface, had2Surfaces, xad1Surfaces, had1Match, xad1StayedOnPath } from "./evidenceSurfaces.js";
+export { AUTHORITY_TRACEABILITY } from "./traceability.js";
+export { allocateGovernedEvent } from "./occurrences.js";
