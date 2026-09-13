@@ -1,0 +1,103 @@
+{
+  "act": "ROOT-DEFINITIONAL-E9-CARD-CONSTRUCTION-1.CORR3",
+  "package": "ROOT_DEFINITIONAL_E9_CARD_CONSTRUCTION_1_CORR3",
+  "actor": "Codex / GPT-5.6 Sol",
+  "role": "ANALYST / INTEGRATOR",
+  "date": "2026-09-12",
+  "status": "SFJ_SFP_OWNER_POSITIONING_RESTORED_REFROZEN_FOR_INDEPENDENT_VERIFICATION_NOT_GOVERNANCE_BOUND",
+  "terminal_status": "ROOT_DEFINITIONAL_E9_CARD_CONSTRUCTION_1_CORR3_OWNER_POSITIONING_RESTORED_REFROZEN",
+  "parent": {
+    "package": "ROOT_DEFINITIONAL_E9_CARD_CONSTRUCTION_1_CORR2",
+    "package_identity": "319f634d73bc5030911c127e315a7cb9d3b270fa7c922bbe7f007b33041cd9d5",
+    "integrity": "all 17 members listed in parent 14_SHA256SUMS.txt verified",
+    "preserved_frozen": true
+  },
+  "correction": {
+    "audit": "ROOT_DEFINITIONAL_E9_CARD_CONSTRUCTION_1_CORR2_IV1_PASS",
+    "finding": "M-1",
+    "semantic_delta": "Restore the Owner-approved SFJ/SFP baseline Everyday/Moral positioning statement to 08_CARD_SFJ_SFP.md",
+    "other_card_files_byte_identical": true
+  },
+  "owner_authority": {
+    "file": "FINAL_OWNER_AUTHORITY_RECORD_E9_CORR2.md",
+    "sha256": "c21795a2069b58bbfe8dd2a7492732ce69a090411a7b1a6124328a068e653354",
+    "semantic_authority": "DIRECT_POST_CORR1_OWNER_AUTHORITY"
+  },
+  "foundation_references": {
+    "NF/NT": {"file": "NF_NT_Environment_Reference.xlsx", "sha256": "86d1decd9b4c623fc9db05a95129cf936f1448b91b70a3492e6add911cf64c28"},
+    "NT/STJ": {"file": "NT_STJ_Environment_Reference.xlsx", "sha256": "6d0f72cf4da0f57c50c96ccc36f2d7423089b1201d1c948b7ab5e80374421e87"},
+    "NT/STP": {"file": "NT_STP_Environment_Reference.xlsx", "sha256": "db5a575bf9e23359cb952dc383de50e66e60229f1d22b4d1f91e4661c50a28c2"},
+    "NF/SFJ": {"file": "NF_SFJ_Environment_Reference.xlsx", "sha256": "97a31f7dbf07b1a25250ab9310a5acd1b119e83a4cea704967111f63f4174ce8"},
+    "NF/SFP": {"file": "NF_SFP_Environment_Reference.xlsx", "sha256": "90a793c2ed50d9d90fdc18f221f60b71f0f029486652e5ed499c6252d84395d8"},
+    "STJ/STP": {"file": "STJ_STP_Environment_Reference.xlsx", "sha256": "eb81ae5925ba20cf126d9be043951dd206e976b7b95db67f8165777062563485"},
+    "SFJ/SFP": {"file": "SFJ_SFP_Environment_Reference.xlsx", "sha256": "01e473c4bdf5b7675ed37bcf3b9e687deb7e42d6e6ac78655ec2aacbf3585cd3"},
+    "STP/STJ": {"file": "STP_STJ_Environment_Reference.xlsx", "sha256": "48198fe2e5932afac30916703f5f9c9581b165ac1554d72bb0113e6e4707d0f1"},
+    "SFP/SFJ": {"file": "SFP_SFJ_Environment_Reference.xlsx", "sha256": "6fe4239a5ca993aec370113c59b04e92046bc47a2c4e1b3a152b22afea9fad82"}
+  },
+  "reconciliation_counts": {
+    "total_cards": 9,
+    "OWNER_ACCEPTED_SEMANTIC_CONFLICT": 1,
+    "ALIGNED_WITH_BOUNDED_WORDING_DELTA": 2,
+    "MATERIAL_REFERENCE_DIVERGENCE": 6,
+    "owner_accepted_cards": 9,
+    "owner_input_required_shells": 0,
+    "unresolved_owner_semantic_decisions": 0,
+    "new_theory": 0,
+    "new_relation_library_rows": 0,
+    "scoring_or_probabilities": 0,
+    "environment_assignments": 0,
+    "git_writes": 0
+  },
+  "card_status": [
+    {"environment": "NF/NT", "file": "02_CARD_NF_NT.md", "owner_status": "ACCEPTED", "reconciliation": "OWNER_ACCEPTED_SEMANTIC_CONFLICT", "shell": false},
+    {"environment": "NT/STJ", "file": "03_CARD_NT_STJ.md", "owner_status": "ACCEPTED", "reconciliation": "ALIGNED_WITH_BOUNDED_WORDING_DELTA", "shell": false},
+    {"environment": "NT/STP", "file": "04_CARD_NT_STP.md", "owner_status": "ACCEPTED", "reconciliation": "MATERIAL_REFERENCE_DIVERGENCE", "shell": false},
+    {"environment": "NF/SFJ", "file": "05_CARD_NF_SFJ.md", "owner_status": "ACCEPTED", "reconciliation": "ALIGNED_WITH_BOUNDED_WORDING_DELTA", "shell": false},
+    {"environment": "NF/SFP", "file": "06_CARD_NF_SFP.md", "owner_status": "ACCEPTED", "reconciliation": "MATERIAL_REFERENCE_DIVERGENCE", "shell": false},
+    {"environment": "STJ/STP", "file": "07_CARD_STJ_STP.md", "owner_status": "ACCEPTED", "reconciliation": "MATERIAL_REFERENCE_DIVERGENCE", "shell": false},
+    {"environment": "SFJ/SFP", "file": "08_CARD_SFJ_SFP.md", "owner_status": "ACCEPTED", "reconciliation": "MATERIAL_REFERENCE_DIVERGENCE", "shell": false},
+    {"environment": "STP/STJ", "file": "09_CARD_STP_STJ.md", "owner_status": "ACCEPTED", "reconciliation": "MATERIAL_REFERENCE_DIVERGENCE", "shell": false},
+    {"environment": "SFP/SFJ", "file": "10_CARD_SFP_SFJ.md", "owner_status": "ACCEPTED", "reconciliation": "MATERIAL_REFERENCE_DIVERGENCE", "shell": false}
+  ],
+  "superseded_semantics": [
+    {"environment": "NT/STP", "material": "ST-6 fraud/pyramid/information-asymmetry/extraction/collapse block", "status": "LEGACY / SUPERSEDED — PROVENANCE ONLY"},
+    {"environment": "NF/SFP", "material": "ST-6 C-26B", "status": "PARTIALLY SUPERSEDED / RECLASSIFIED"},
+    {"environment": "STJ/STP", "material": "unfair", "status": "LEGACY EVALUATIVE WORDING — PROVENANCE ONLY"}
+  ],
+  "unresolved_owner_semantic_decisions": [],
+  "firewall": {
+    "self_audited": false,
+    "independent_verification_claimed": false,
+    "new_theory": false,
+    "scoring_or_probabilities_added": false,
+    "excludes_or_contrary_added": false,
+    "relation_library_modified": false,
+    "questionnaires_cases_or_outcomes_used": false,
+    "Pair_ECS_or_MB_ENV_touched": false,
+    "runtime_or_product_code_touched": false,
+    "git_used": false,
+    "governance_binding_claimed": false
+  },
+  "files": [
+    "00_EXECUTIVE_CONCLUSION.md",
+    "01_INTEGRATION_METHOD.md",
+    "02_CARD_NF_NT.md",
+    "03_CARD_NT_STJ.md",
+    "04_CARD_NT_STP.md",
+    "05_CARD_NF_SFJ.md",
+    "06_CARD_NF_SFP.md",
+    "07_CARD_STJ_STP.md",
+    "08_CARD_SFJ_SFP.md",
+    "09_CARD_STP_STJ.md",
+    "10_CARD_SFP_SFJ.md",
+    "11_OWNER_REVIEW_CLOSURE.md",
+    "12_CARD_TRACEABILITY_MATRIX.csv",
+    "13_MANIFEST.json",
+    "14_SHA256SUMS.txt",
+    "15_FOUNDATION_REFERENCE_RECONCILIATION_MATRIX.csv",
+    "16_OWNER_DECISION_INTEGRATION_RECORD.md",
+    "17_SUPERSEDED_SEMANTICS_PROVENANCE_RECORD.md"
+  ],
+  "package_identity_convention": "14_SHA256SUMS.txt contains SHA-256 for every other package member exactly once; package identity is SHA-256 of 14_SHA256SUMS.txt",
+  "next_step": "Fresh independent verification of the exact CORR3 refrozen package"
+}
