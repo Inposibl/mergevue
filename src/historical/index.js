@@ -16,3 +16,4 @@ export { createCaseSession, currentRegion, activateR0, transitionR0toR1, compile
 export { had1Surface, had2Surfaces, xad1Surfaces, had1Match, xad1StayedOnPath } from "./evidenceSurfaces.js";
 export { AUTHORITY_TRACEABILITY } from "./traceability.js";
 export { allocateGovernedEvent } from "./occurrences.js";
+export { executeMd2 } from "./md2.js";
