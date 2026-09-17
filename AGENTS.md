@@ -265,18 +265,21 @@ Do not "consider consulting relevant sources". Open these, by path.
 | Status map for every workstream | `docs/governance/MERGEVUE_CONTROL_TREE_v2.1_2026-09-04.md` (check for a later version first) |
 | Bound governance authorities | `docs/governance/*.md` with matching `.sha256` |
 | Accepted architecture contracts | `docs/contracts/*_ACCEPTED.md` — carry their own supersession order and schema versions |
+| Accepted product-design authority — **governance and behavior** | `docs/design-corpus/00-44/`, bounded by `docs/design-corpus/MERGEVUE_REMAINING_CORPUS_MANIFEST_v1.0.md` |
 | Methodology, primary | `NewLogic 03.05.2026` corpus and ST primary sources |
 | Mechanical truth | `src/`, `api/`, `scripts/`, validators, tests, produced output |
 | Accepted design authority — **visual only** | `docs/reference/print-canon/` and accepted print/Framer specs |
 | Candidate material, never authority | `MergeVue-M&A WORKBENCH/` |
 
-Four rules govern this table.
+Five rules govern this table.
 
 **Status rule.** Use the Control Tree legend: ✅ CLOSED (independently verified **and** Owner-accepted), ☑️ COMPLETED CANDIDATE (evidence, not authority), ⚠️ ACTIVE/OPEN, ❌ FUTURE. Never collapse the states the Tree separates: independent verification, Owner adoption, physical governance-artifact binding, production implementation.
 
 **Staleness rule.** A `docs/governance/` artifact is controlling only after checking its `.sha256` and its date against any later binding commit. A filename and a folder are not proof of binding. The repository history contains an erroneous authority binding that was reverted and re-bound.
 
 **Workbench rule.** Nothing under `MergeVue-M&A WORKBENCH/` is authority. `06_GOVERNANCE_INPUTS/` is an input queue, not governance.
+
+**Product-design corpus rule.** Only the repository-bound copies in `docs/design-corpus/00-44/` are controlling product-design authority. The corpus is frozen and closed at `00–44`; `45+` requires an explicit Owner Change Act. This authority governs design and product behavior only. It does not establish implementation, verification, deployment, security certification, or production readiness.
 
 **Design-canon rule.** Print and Framer references are **visual and layout authority only**. They are never methodology authority and never a source of current numeric semantics. A number rendered inside an old print reference is a historical rendering, not a canonical value — resolve numeric meaning from methodology and runtime instead. For example, an older homogeneous print reference renders ECS 88 while accepted methodology treats a same-Environment homogeneous pair as ECS = 100. A visually persuasive artifact is not a numeric oracle.
 
