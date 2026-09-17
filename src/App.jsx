@@ -133,6 +133,7 @@ import {
 import { handleRouteClick, navigate, useCurrentRoute } from "./routes/navigation.js";
 import { renderResolvedScreen } from "./screens/screenDispatch.js";
 import { HomeScreen } from "./screens/public/HomeScreen.jsx";
+import { HowItWorksProcess } from "./screens/public/HowItWorksProcess.jsx";
 import { HOME_MAIN_CONTENT_ID } from "./ui/public/PublicPage.jsx";
 import { ApplicationShell } from "./shell/ApplicationShell.jsx";
 import { resolveRouteShell, ROUTE_SHELL_IDS } from "./shell/routeShell.js";
@@ -816,6 +817,8 @@ function AboutMethodologyScreen() {
             <a href="/about-methodology/overview" onClick={handleRouteClick("/about-methodology/overview")}>Read the methodology paper</a>
           </p>
         </header>
+
+        <HowItWorksProcess />
 
         <section className="framework-section">
           <h2>The Environment Compatibility Score (ECS)</h2>
