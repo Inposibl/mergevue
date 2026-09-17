@@ -130,7 +130,10 @@ import {
   buildMergevueForecastBriefDesignModel,
   renderMergevueForecastBriefHtml,
 } from "./reporting/mergevueForecastBriefDesignRenderer.js";
-import { screenByRoute } from "./screenRegistry.js";
+import { handleRouteClick, navigate, useCurrentRoute } from "./routes/navigation.js";
+import { renderResolvedScreen } from "./screens/screenDispatch.js";
+import { ApplicationShell } from "./shell/ApplicationShell.jsx";
+import { resolveRouteShell, ROUTE_SHELL_IDS } from "./shell/routeShell.js";
 import "./styles.css";
 
 const INITIAL_SESSION = Object.freeze({
@@ -188,8 +191,6 @@ async function productionAuthorityRequest(body, signal) {
   return { response, payload };
 }
 
-const BACK_NAVIGATION_WARNING = "Progress will be lost if you go back. Continue?";
-const NAVIGATE_EVENT = "st:navigate";
 const ACQUIRER_VERIFICATION_COMPLETION_EVENT = "st:acquirer-verification-completion";
 const ACQUIRER_VERIFICATION_COMPLETION_CHANNEL = "st-acquirer-verification-completion";
 const AUTHORIZED_OBSERVATION_COMPLETION_EVENT = "st:authorized-observation-completion";
@@ -497,59 +498,6 @@ function attachTargetSelfCompletion(currentSession, completedInvite) {
   });
 }
 
-function currentRoutePath() {
-  return window.location.pathname === "/" ? "/" : window.location.pathname;
-}
-
-function useCurrentRoute() {
-  const [screen, setScreen] = useState(() => screenByRoute(currentRoutePath()));
-  const activeRouteRef = useRef(screen.route);
-
-  useEffect(() => {
-    activeRouteRef.current = screen.route;
-  }, [screen.route]);
-
-  useEffect(() => {
-    function syncScreen() {
-      const nextScreen = screenByRoute(currentRoutePath());
-      activeRouteRef.current = nextScreen.route;
-      setScreen(nextScreen);
-    }
-
-    function handleBrowserBack() {
-      const currentRoute = activeRouteRef.current;
-      if (currentRoute.startsWith("/screen-") && !window.confirm(BACK_NAVIGATION_WARNING)) {
-        window.history.pushState({}, "", currentRoute);
-        syncScreen();
-        return;
-      }
-      syncScreen();
-    }
-
-    window.addEventListener(NAVIGATE_EVENT, syncScreen);
-    window.addEventListener("popstate", handleBrowserBack);
-    return () => {
-      window.removeEventListener(NAVIGATE_EVENT, syncScreen);
-      window.removeEventListener("popstate", handleBrowserBack);
-    };
-  }, []);
-
-  return screen;
-}
-
-function navigate(route) {
-  window.history.pushState({}, "", route);
-  window.dispatchEvent(new CustomEvent(NAVIGATE_EVENT));
-}
-
-function handleRouteClick(route) {
-  return (event) => {
-    if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-    event.preventDefault();
-    navigate(route);
-  };
-}
-
 function targetSessionIdFromLocation() {
   return new URLSearchParams(window.location.search).get("targetSessionId");
 }
@@ -613,14 +561,6 @@ function TalkToUsParagraphs({ text }) {
       );
     });
 }
-
-const SIDEBAR_NAV_ITEMS = Object.freeze([
-  Object.freeze({ label: "Home", route: "/home", section: "home" }),
-  Object.freeze({ label: "About Methodology", route: "/about-methodology", section: "methodology" }),
-  Object.freeze({ label: "The 9 Interaction Environments", route: "/environments", section: "environments" }),
-  Object.freeze({ label: "Case Studies", route: "/case-studies", section: "case-studies" }),
-  Object.freeze({ label: "Start Diagnostic", route: "/start-diagnostic/before-you-begin", section: "diagnostic" }),
-]);
 
 const DIAGNOSTIC_GATE_RECEIVE_ITEMS = Object.freeze([
   Object.freeze({
@@ -761,41 +701,6 @@ const ENVIRONMENT_BLOCK_ORDER = Object.freeze([
 const ORDERED_ENVIRONMENTS = Object.freeze(
   ENVIRONMENT_BLOCK_ORDER.map((environmentId) => ENVIRONMENTS.find((environment) => environment.id === environmentId)).filter(Boolean),
 );
-
-function routeSection(route) {
-  if (route === "/" || route === "/home") return "home";
-  if (route === "/about-methodology" || route.startsWith("/about-methodology/")) return "methodology";
-  if (route === "/case-studies" || route.startsWith("/case-studies/")) return "case-studies";
-  if (route === "/start-diagnostic" || route.startsWith("/start-diagnostic/")) return "diagnostic";
-  if (route === "/environments" || route.startsWith("/environments/")) return "environments";
-  return "";
-}
-
-function SiteSidebar({ currentRoute }) {
-  const activeSection = routeSection(currentRoute);
-
-  return (
-    <aside className="site-sidebar" aria-label="Primary navigation">
-      <a className="sidebar-header" href="/home" onClick={handleRouteClick("/home")}>
-        <strong>MergeVue</strong>
-        <span>Diagnostic</span>
-      </a>
-      <nav className="sidebar-nav" aria-label="Site sections">
-        {SIDEBAR_NAV_ITEMS.map((item) => (
-          <a
-            aria-current={activeSection === item.section ? "page" : undefined}
-            className={activeSection === item.section ? "active" : ""}
-            href={item.route}
-            key={item.route}
-            onClick={handleRouteClick(item.route)}
-          >
-            {item.label}
-          </a>
-        ))}
-      </nav>
-    </aside>
-  );
-}
 
 function HomeScreen() {
   return (
@@ -8292,16 +8197,46 @@ function PlaceholderScreen({ screen }) {
   );
 }
 
+const APP_SCREEN_COMPONENTS = Object.freeze({
+  HomeScreen,
+  AboutMethodologyScreen,
+  MethodologyOverviewScreen,
+  CaseStudiesScreen,
+  CaseStudyDetailScreen,
+  EnvironmentsScreen,
+  DiagnosticGatePage,
+  AcquisitionMotiveScreen,
+  RefineEvidenceQualityScreen,
+  TransactionDetailsScreen,
+  PromiseScreen,
+  AcquirerModuleScreen,
+  AcquirerSubmitScreen,
+  AuthorizedAcquirerVerificationScreen,
+  TargetObservationSetupIntroScreen,
+  TargetObservationSetupScreen,
+  AuthorizedTargetObservationSetupScreen,
+  TargetObservationScreen,
+  Step2BLevel1Screen,
+  Step2BTransitionScreen,
+  Step2BLevel2Screen,
+  TargetSelfAssessmentDirectScreen,
+  PreliminaryTargetGateScreen,
+  TargetCodeEntryScreen,
+  FinalDeliverablesScreen,
+  PaidOfferScreen,
+  EmailCaptureScreen,
+  ConsultationRequestScreen,
+  PlaceholderScreen,
+});
+
 export default function App() {
   const [session, setSession] = useState(INITIAL_SESSION);
   const screen = useCurrentRoute();
   const targetSessionId = targetSessionIdFromLocation();
   const acquirerVerificationInvite = session.acquirerVerificationInvite;
   const authoritySyncRef = useRef({ sessionId: null, fingerprints: {}, executeKey: null });
-  const isTargetStandaloneRoute = (screen.id === "screen-9a-target-code-gate" && Boolean(targetSessionId))
-    || screen.id === "screen-2c-target-self-assessment"
-    || screen.id === "screen-6-acquirer-verification"
-    || screen.id === "screen-6a-target-observation-authorized";
+  const shellId = resolveRouteShell(screen, { targetSessionId });
+  const isTargetStandaloneRoute = shellId === ROUTE_SHELL_IDS.STANDALONE;
 
   useEffect(() => {
     if (isTargetStandaloneRoute || isServerAssessmentSessionId(session.sessionId)) return undefined;
@@ -8433,87 +8368,11 @@ export default function App() {
     };
   }, [acquirerVerificationInvite]);
 
-  function renderScreen() {
-    if (screen.id === "home") return <HomeScreen />;
-    if (screen.id === "about-methodology") return <AboutMethodologyScreen />;
-    if (screen.id === "methodology-overview") return <MethodologyOverviewScreen />;
-    if (screen.id === "case-studies") return <CaseStudiesScreen />;
-    if (screen.id === "case-study-detail") return <CaseStudyDetailScreen caseId={screen.caseId} />;
-    if (screen.id === "interaction-environments") {
-      return <EnvironmentsScreen environmentId={screen.environmentId} />;
-    }
-    if (screen.id === "diagnostic-before-you-begin") return <DiagnosticGatePage />;
-    if (screen.id === "deal-context-acquisition-motive") {
-      return <AcquisitionMotiveScreen session={session} setSession={setSession} />;
-    }
-    if (screen.id === "deal-context-refine-evidence-quality") {
-      return <RefineEvidenceQualityScreen session={session} setSession={setSession} />;
-    }
-    if (screen.id === "deal-context-transaction-details") {
-      return <TransactionDetailsScreen session={session} setSession={setSession} />;
-    }
-    if (screen.id === "screen-4-promise") return <PromiseScreen session={session} />;
-    if (screen.id === "screen-5-acquirer-module") {
-      return <AcquirerModuleScreen session={session} setSession={setSession} />;
-    }
-    if (screen.id === "screen-6-acquirer-submit") return <AcquirerSubmitScreen session={session} setSession={setSession} />;
-    if (screen.id === "screen-6-acquirer-verification") {
-      return <AuthorizedAcquirerVerificationScreen setSession={setSession} />;
-    }
-    if (screen.id === "screen-6a-target-observation-setup") {
-      return <TargetObservationSetupIntroScreen session={session} setSession={setSession} />;
-    }
-    if (screen.id === "screen-6a-target-observation-setup-details") {
-      return <TargetObservationSetupScreen session={session} setSession={setSession} />;
-    }
-    if (screen.id === "screen-6a-target-observation-authorized") {
-      return <AuthorizedTargetObservationSetupScreen setSession={setSession} />;
-    }
-    if (screen.id === "screen-6b-target-observation") {
-      return <TargetObservationScreen session={session} setSession={setSession} />;
-    }
-    if (screen.id === "screen-7-step-2b-level-1") {
-      return <Step2BLevel1Screen session={session} setSession={setSession} />;
-    }
-    if (screen.id === "screen-8-step-2b-transition") return <Step2BTransitionScreen session={session} />;
-    if (screen.id === "screen-9-step-2b-level-2") {
-      return <Step2BLevel2Screen session={session} setSession={setSession} />;
-    }
-    if (screen.id === "screen-2c-target-self-assessment") {
-      return <TargetSelfAssessmentDirectScreen session={session} setSession={setSession} />;
-    }
-    if (screen.id === "screen-9a-target-code-gate") {
-      if (targetSessionId) {
-        return <TargetCodeEntryScreen session={session} setSession={setSession} targetSessionId={targetSessionId} />;
-      }
-      return <PreliminaryTargetGateScreen session={session} setSession={setSession} />;
-    }
-    if (screen.id === "screen-10-reveal" || screen.id === "screen-10b-homogeneous") {
-      return <FinalDeliverablesScreen session={session} setSession={setSession} />;
-    }
-    if (screen.id === "screen-11-paid-offer") {
-      return <PaidOfferScreen session={session} setSession={setSession} variant="heterogeneous" />;
-    }
-    if (screen.id === "screen-11b-homogeneous-offer") {
-      return <PaidOfferScreen session={session} setSession={setSession} variant="homogeneous" />;
-    }
-    if (screen.id === "screen-12-email-capture") {
-      return <EmailCaptureScreen session={session} setSession={setSession} />;
-    }
-    if (screen.id === "screen-12-consultation-request") {
-      return <ConsultationRequestScreen session={session} setSession={setSession} />;
-    }
-    return <PlaceholderScreen screen={screen} />;
-  }
+  const content = renderResolvedScreen({
+    screen,
+    context: { session, setSession, targetSessionId },
+    components: APP_SCREEN_COMPONENTS,
+  });
 
-  if (isTargetStandaloneRoute) {
-    return renderScreen();
-  }
-
-  return (
-    <>
-      <SiteSidebar currentRoute={screen.route} />
-      {renderScreen()}
-    </>
-  );
+  return <ApplicationShell shellId={shellId} screen={screen}>{content}</ApplicationShell>;
 }
