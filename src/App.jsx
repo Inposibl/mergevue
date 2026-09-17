@@ -132,6 +132,8 @@ import {
 } from "./reporting/mergevueForecastBriefDesignRenderer.js";
 import { handleRouteClick, navigate, useCurrentRoute } from "./routes/navigation.js";
 import { renderResolvedScreen } from "./screens/screenDispatch.js";
+import { HomeScreen } from "./screens/public/HomeScreen.jsx";
+import { HOME_MAIN_CONTENT_ID } from "./ui/public/PublicPage.jsx";
 import { ApplicationShell } from "./shell/ApplicationShell.jsx";
 import { resolveRouteShell, ROUTE_SHELL_IDS } from "./shell/routeShell.js";
 import "./styles.css";
@@ -629,18 +631,6 @@ const DIAGNOSTIC_GATE_LIMIT_ITEMS = Object.freeze([
   }),
 ]);
 
-const HOME_COPY = Object.freeze({
-  title: "Post-Deal Behavior Forecast",
-  lead: "70% of M&A integrations that destroy value fail for the same reason.",
-  paragraphs: Object.freeze([
-    "M&A deals are pursued for different reasons: to acquire a team, enter a new market, hit strategic KPIs, or remove a competitor. But integration value is lost for the same reason: the organizations cannot operate together in reality.",
-    "The model may close. The strategy may look right. The transaction may satisfy the board. But after close, value breaks down when leaders clash over decisions, resources, speed, accountability, power, and conflict.",
-    "Our product identifies these risks before they become post-deal failures.",
-    "Whether the goal is to retain the acquired team, scale into a new market, protect KPI-driven deal value, or absorb a former competitor, we show where the integration will fracture and what must be changed before months 6 to 18, when the acquired management team often stops performing.",
-  ]),
-  closing: "Run the diagnostic in less than one hour. No account. No card.",
-});
-
 const METHODOLOGY_OVERVIEW_SECTIONS = Object.freeze([
   Object.freeze({
     title: "1. Purpose",
@@ -701,33 +691,6 @@ const ENVIRONMENT_BLOCK_ORDER = Object.freeze([
 const ORDERED_ENVIRONMENTS = Object.freeze(
   ENVIRONMENT_BLOCK_ORDER.map((environmentId) => ENVIRONMENTS.find((environment) => environment.id === environmentId)).filter(Boolean),
 );
-
-function HomeScreen() {
-  return (
-    <main className="landing-screen home-screen">
-      <section className="landing-inner home-inner">
-        <header className="home-brand-hero">
-          <p className="eyebrow">M&A Integration Risk Due Diligence</p>
-          <h1>{HOME_COPY.title}</h1>
-          <p className="home-lead">{HOME_COPY.lead}</p>
-          <div className="landing-copy home-copy">
-            {HOME_COPY.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-            <p className="home-closing">{HOME_COPY.closing}</p>
-          </div>
-        </header>
-
-        <section className="home-start-section" aria-labelledby="home-start-title">
-          <div>
-            <p className="eyebrow">Start Diagnostic</p>
-            <h2 id="home-start-title">Begin the integration-risk diagnostic</h2>
-            <p>Answer the deal-context questions first, then complete the environment modules required for the ECS read.</p>
-          </div>
-          <a href="/start-diagnostic/before-you-begin" onClick={handleRouteClick("/start-diagnostic/before-you-begin")}>Start Diagnostic</a>
-        </section>
-      </section>
-    </main>
-  );
-}
 
 function DiagnosticGatePage() {
   return (
@@ -8374,5 +8337,13 @@ export default function App() {
     components: APP_SCREEN_COMPONENTS,
   });
 
-  return <ApplicationShell shellId={shellId} screen={screen}>{content}</ApplicationShell>;
+  const skipNavigation = screen?.id === "home"
+    ? <a className="mv-public-skip" href={`#${HOME_MAIN_CONTENT_ID}`}>Skip to main content</a>
+    : null;
+
+  return (
+    <ApplicationShell shellId={shellId} screen={screen} skipNavigation={skipNavigation}>
+      {content}
+    </ApplicationShell>
+  );
 }
