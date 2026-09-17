@@ -132,6 +132,7 @@ import {
 } from "./reporting/mergevueForecastBriefDesignRenderer.js";
 import { handleRouteClick, navigate, useCurrentRoute } from "./routes/navigation.js";
 import { renderResolvedScreen } from "./screens/screenDispatch.js";
+import { DealEntryScreen } from "./screens/public/DealEntryScreen.jsx";
 import { HomeScreen } from "./screens/public/HomeScreen.jsx";
 import { HowItWorksProcess } from "./screens/public/HowItWorksProcess.jsx";
 import { HOME_MAIN_CONTENT_ID } from "./ui/public/PublicPage.jsx";
@@ -1315,145 +1316,8 @@ function DealContextButtonGroup({
   );
 }
 
-function AcquisitionMotiveScreen({ session, setSession }) {
-  const existingContext = session.dealContext?.data ?? {};
-  const [dealIdentity, setDealIdentity] = useState(() => initialDealIdentity(existingContext));
-  const [error, setError] = useState("");
-  const finalDeliverable = buildFinalDeliverable(session);
-  const dealIdentityComplete = Boolean(
-    dealIdentity.acquirerName
-      && dealIdentity.targetName
-      && dealIdentity.respondentSide
-      && dealIdentity.dealType,
-  );
-  const canContinue = Boolean(dealIdentityComplete);
-  const submitLabel = dealStartSubmitLabel(dealIdentity.respondentSide);
-  const derivedAcquisitionMotive = acquisitionMotiveForDealType(dealIdentity.dealType);
-  const motiveProfile = ACQUISITION_MOTIVE_OPTIONS.find((motive) => motive.value === derivedAcquisitionMotive);
-
-  function updateDealIdentity(fieldId, value) {
-    setDealIdentity((current) => {
-      const next = { ...current, [fieldId]: value };
-      if (fieldId === "respondentSide") {
-        const nextRoleOptions = roleOptionsForSide(value);
-        if (!nextRoleOptions.some((option) => option.value === current.respondentRole)) {
-          next.respondentRole = "";
-        }
-      }
-      return next;
-    });
-    setError("");
-  }
-
-  function submit(event) {
-    event.preventDefault();
-    const result = attachAcquisitionMotive(session, {
-      ...dealIdentity,
-      acquisitionMotive: derivedAcquisitionMotive,
-    });
-    if (!result.validation.valid) {
-      setError(`Required: ${result.validation.missing.map(dealContextFieldLabel).join(", ")}`);
-      return;
-    }
-    setSession(result.session);
-    setError("");
-    navigate("/start-diagnostic/deal-context/refine-evidence-quality");
-  }
-
-  return (
-    <main className="screen-shell flow-screen compact-flow deal-context-screen">
-      <p className="eyebrow">DEAL CONTEXT</p>
-      <form className="deal-context-form" onSubmit={submit}>
-        <section className="deal-context-intro">
-          <p className="section-label">Step 1 / Deal Context</p>
-          <h1>Identify the deal and respondent role.</h1>
-          <p className="lead">
-            The diagnostic keeps respondent perspective separate from deal facts so contradictions remain visible later in the workflow.
-          </p>
-        </section>
-
-        <section className="deal-identity-panel" aria-label="Deal and respondent context">
-          <div className="deal-identity-grid">
-            <label className="field-block">
-              <span>Acquirer <small>(enter buyer or investor name; identifies the organization being assessed as acquirer)</small></span>
-              <input
-                autoComplete="organization"
-                value={dealIdentity.acquirerName}
-                onChange={(event) => updateDealIdentity("acquirerName", event.target.value)}
-              />
-            </label>
-            <label className="field-block">
-              <span>Target <small>(enter acquired company name; identifies the organization being integrated)</small></span>
-              <input
-                autoComplete="organization"
-                value={dealIdentity.targetName}
-                onChange={(event) => updateDealIdentity("targetName", event.target.value)}
-              />
-            </label>
-            <DealContextButtonGroup
-              label="Respondent side"
-              helper="choose who you represent; keeps evidence separated by perspective"
-              options={RESPONDENT_SIDE_OPTIONS}
-              value={dealIdentity.respondentSide}
-              onChange={(value) => updateDealIdentity("respondentSide", value)}
-            />
-            <DealContextButtonGroup
-              label="Deal type"
-              helper="choose primary deal rationale; sets the integration-risk lens"
-              options={DEAL_TYPE_OPTIONS}
-              value={dealIdentity.dealType}
-              onChange={(value) => updateDealIdentity("dealType", value)}
-            />
-            <DealContextButtonGroup
-              label="How close are you to the deal room?"
-              helper="optional; adjusts confidence conservatively when skipped"
-              options={RESPONDENT_ACCESS_LEVEL_OPTIONS}
-              value={dealIdentity.respondentAccessLevel}
-              onChange={(value) => updateDealIdentity("respondentAccessLevel", value)}
-              allowClear
-              clearLabel="Clear access level"
-              className="deal-choice-field-wide"
-            />
-          </div>
-        </section>
-
-        <section className="deal-context-intro">
-          <p className="section-label">Acquisition motive information</p>
-          <h2>The deal type above sets the acquisition motive.</h2>
-          <p className="lead">
-            This block is informational only. The diagnostic derives the motive profile from Deal type so the same variable is not
-            requested twice.
-          </p>
-        </section>
-
-        <section className="motive-info-panel" aria-label="Acquisition motive information">
-          {motiveProfile ? (
-            <article className="motive-card motive-info-card active">
-              <span>Derived from Deal type</span>
-              <strong>{motiveProfile.title}</strong>
-              <em>{motiveProfile.demand}</em>
-              <p>{motiveProfile.description}</p>
-            </article>
-          ) : (
-            <article className="motive-card motive-info-card">
-              <span>Pending Deal type</span>
-              <strong>Select Deal type above</strong>
-              <em>No separate motive selection is required.</em>
-              <p>The acquisition motive profile will appear here after Deal type is selected.</p>
-            </article>
-          )}
-        </section>
-
-        {error ? <p className="form-error">{error}</p> : null}
-        <div className="button-row">
-          {authoritativeReportReady(session) ? (
-            <button className="final-report-cta" type="button" onClick={() => navigate(authoritativeReportRoute(session))}>Go to final report page</button>
-          ) : null}
-          <button className="primary-flow-action" disabled={!canContinue} type="submit">{submitLabel}</button>
-        </div>
-      </form>
-    </main>
-  );
+function AcquisitionMotiveScreen() {
+  return <DealEntryScreen />;
 }
 
 function RefineEvidenceQualityScreen({ session, setSession }) {

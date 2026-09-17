@@ -1,0 +1,121 @@
+.mv-deal-entry-page {
+  --mv-deal-entry-ink: #161616;
+  --mv-deal-entry-muted: #555d66;
+  --mv-deal-entry-line: #d9dde2;
+  --mv-deal-entry-accent: #2e75b6;
+  --mv-deal-entry-surface: #ffffff;
+  --mv-deal-entry-soft: #e8f2fb;
+  --mv-deal-entry-error: #8a1f1f;
+  --mv-deal-entry-radius: 8px;
+}
+
+.mv-deal-entry {
+  max-width: 640px;
+}
+
+.mv-deal-entry-card {
+  display: grid;
+  gap: 16px;
+  padding: 24px;
+}
+
+.mv-deal-entry-form-title {
+  color: var(--mv-deal-entry-ink);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.mv-deal-entry-form,
+.mv-deal-entry-fields {
+  display: grid;
+  gap: 14px;
+}
+
+.mv-deal-entry-field {
+  display: grid;
+  gap: 6px;
+}
+
+.mv-deal-entry-field label {
+  color: var(--mv-deal-entry-ink);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.mv-deal-entry-field input {
+  background: var(--mv-deal-entry-surface);
+  border: 1px solid var(--mv-deal-entry-line);
+  border-radius: var(--mv-deal-entry-radius);
+  color: var(--mv-deal-entry-ink);
+  font: inherit;
+  min-height: 44px;
+  padding: 10px 12px;
+  width: 100%;
+}
+
+.mv-deal-entry-field input:focus-visible,
+.mv-deal-entry-swap:focus-visible,
+.mv-deal-entry-actions button:focus-visible {
+  outline: 2px solid var(--mv-deal-entry-accent);
+  outline-offset: 3px;
+}
+
+.mv-deal-entry-swap {
+  background: var(--mv-deal-entry-surface);
+  border: 1px solid var(--mv-deal-entry-line);
+  border-radius: var(--mv-deal-entry-radius);
+  color: var(--mv-deal-entry-ink);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  justify-self: start;
+  min-height: 44px;
+  padding: 8px 14px;
+}
+
+.mv-deal-entry-error {
+  color: var(--mv-deal-entry-error);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.mv-deal-entry-capability {
+  background: var(--mv-deal-entry-soft);
+  border: 1px solid var(--mv-deal-entry-line);
+  border-radius: var(--mv-deal-entry-radius);
+  color: var(--mv-deal-entry-ink);
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+  padding: 12px 14px;
+}
+
+.mv-deal-entry-actions {
+  display: grid;
+  gap: 8px;
+  justify-items: start;
+}
+
+.mv-deal-entry-actions .mv-public-button:disabled {
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .mv-deal-entry-card {
+    padding: 20px;
+  }
+
+  .mv-deal-entry-actions .mv-public-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 390px) {
+  .mv-deal-entry-card {
+    padding: 16px;
+  }
+}
