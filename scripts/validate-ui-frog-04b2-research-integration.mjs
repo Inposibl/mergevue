@@ -624,14 +624,34 @@ async function runSourceChecks() {
     return { state: "absent", evidence: "research UI does not reuse resolve-pair" };
   });
 
-  await check("S-NO-ROUTE", "source", "no navigation /analyze", "deal-entry-only", async () => {
+  await check("S-NO-ROUTE", "source", "explicit result handoff only", "explicit-result-handoff", async () => {
+    const resultSource = await read("src/screens/public/PublicResearchResultScreen.jsx");
+    assert.match(entrySource, /View public research result/);
+    assert.match(entrySource, /openPublicResearchResult/);
+    assert.match(entrySource, /from "\.\/PublicResearchResultScreen\.jsx"/);
     assert.doesNotMatch(entrySource, /navigate\(/);
+    assert.doesNotMatch(entrySource, /useEffect\([\s\S]{0,500}openPublicResearchResult/);
+    assert.doesNotMatch(entrySource, /setTimeout/);
     assert.doesNotMatch(entrySource, /\/analyze/);
+    assert.doesNotMatch(entrySource, /\/screen-10/);
+    assert.doesNotMatch(entrySource, /\/screen-11/);
+    assert.doesNotMatch(entrySource, /\/screen-12/);
+    assert.match(resultSource, /navigate\(/);
+    assert.match(resultSource, /PUBLIC_RESEARCH_RESULT_ROUTE = "\/start-diagnostic\/deal-context\/result"/);
+    assert.match(resultSource, /\$\{PUBLIC_RESEARCH_RESULT_ROUTE\}\?acquirerCik=\$\{pair\.acquirerCik\}&targetCik=\$\{pair\.targetCik\}/);
+    assert.doesNotMatch(resultSource, /analysisRequestId/);
     assert.doesNotMatch(viteSource, /start-public-research/);
     assert.equal(resolveRoutePath("/analyze").isFallback, true);
+    assert.equal(resolveRoutePath("/analyze/context").isFallback, true);
     assert.equal(resolveRoutePath(DEAL_ENTRY_ROUTE).id, "deal-context-acquisition-motive");
+    assert.equal(resolveRoutePath("/start-diagnostic/deal-context/result").id, "deal-context-public-result");
+    assert.equal(resolveRoutePath("/start-diagnostic/deal-context/result").isFallback, false);
+    assert.equal(resolveRoutePath("/start-diagnostic/deal-context/result").rendererId, "PublicResearchResultScreen");
     assert.doesNotMatch(routeSource, /start-public-research/);
-    return { state: "deal-entry-only", evidence: "no route activation; vite proxy gap carried" };
+    return {
+      state: "explicit-result-handoff",
+      evidence: "research completion does not navigate; View public research result required; CIK-only result route; /analyze inactive",
+    };
   });
 
   await check("S-NO-FAKE-STATUS", "source", "local phase is not server researchStatus", "separated", async () => {
@@ -740,6 +760,8 @@ async function runBrowserChecks(server) {
       const analyze = await getButtonState(page, "Analyze this deal");
       assert.equal(analyze.disabled, false);
       assert.equal(tracker.posts.length, postsBeforeConfirm);
+      const view = await getButtonState(page, "View public research result");
+      assert.equal(view.present, false);
       const status = await statusText(page);
       assert.match(status, /Public-source research is ready to start/);
       const text = await bodyText(page);
@@ -768,6 +790,8 @@ async function runBrowserChecks(server) {
       assertCikOnlyBody(tracker.posts.at(-1).postData, APPLE_CIK, NVIDIA_CIK);
       const analyzePending = await getButtonState(page, "Analyze this deal");
       assert.equal(analyzePending.disabled, true);
+      const viewPending = await getButtonState(page, "View public research result");
+      assert.equal(viewPending.present, false);
       const text = await bodyText(page);
       assert.match(text, /Researching recent SEC filing metadata/);
       assert.doesNotMatch(text, /RESEARCH_AVAILABLE/);
@@ -783,6 +807,8 @@ async function runBrowserChecks(server) {
       assertCikOnlyBody(tracker.posts.at(-1).postData, APPLE_CIK, NVIDIA_CIK);
       const analyzeSettled = await getButtonState(page, "Analyze this deal");
       assert.equal(analyzeSettled.disabled, false);
+      const viewSettled = await getButtonState(page, "View public research result");
+      assert.equal(viewSettled.present, true);
       const text = await bodyText(page);
       const acquirerSide = await sideText(page, "acquirer");
       const targetSide = await sideText(page, "target");

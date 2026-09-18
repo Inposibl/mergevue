@@ -74,6 +74,7 @@ export const SCREEN_REGISTRY = Object.freeze([
   defineRoute({ id: "screen-11b-homogeneous-offer", title: "Homogeneous paid offer", route: "/screen-11b-homogeneous-offer", rendererId: "PaidOfferScreen", propsKind: PROPS_KINDS.PAID_OFFER_HOMOGENEOUS, navigationSection: "", targetLayer: TARGET_PRODUCT_LAYERS.PUBLIC_TO_DEEPER_TRANSITION }),
   defineRoute({ id: "screen-12-email-capture", title: "Email capture", route: "/screen-12-email-capture", rendererId: "EmailCaptureScreen", propsKind: PROPS_KINDS.SESSION_AND_SET_SESSION, navigationSection: "", targetLayer: TARGET_PRODUCT_LAYERS.PUBLIC_RESULT }),
   defineRoute({ id: "screen-12-consultation-request", title: "Consultation request", route: "/screen-12-consultation-request", rendererId: "ConsultationRequestScreen", propsKind: PROPS_KINDS.SESSION_AND_SET_SESSION, navigationSection: "", targetLayer: TARGET_PRODUCT_LAYERS.PUBLIC_TO_DEEPER_TRANSITION }),
+  defineRoute({ id: "deal-context-public-result", title: "Public Research Result", route: "/start-diagnostic/deal-context/result", rendererId: "PublicResearchResultScreen", propsKind: PROPS_KINDS.NONE, navigationSection: "", shellStrategy: ROUTE_SHELL_STRATEGIES.LEGACY_SITE, targetLayer: TARGET_PRODUCT_LAYERS.PUBLIC_RESULT, targetPath: null }),
 ]);
 
 const HOME_ROUTE = defineRoute({ id: "home", title: "Post-Deal Behavior Forecast", route: "/", rendererId: "HomeScreen", navigationSection: "home", targetLayer: TARGET_PRODUCT_LAYERS.PUBLIC_SITE, targetPath: "/" });
@@ -138,7 +139,7 @@ const ROUTE_MATCHERS = Object.freeze([
   }),
 ]);
 
-export const CURRENT_ROUTE_FAMILY_COUNT = 32;
+export const CURRENT_ROUTE_FAMILY_COUNT = 33;
 
 export function normalizeRoutePath(pathname) {
   return typeof pathname === "string" && pathname.length > 0 ? pathname : "/";

@@ -133,6 +133,7 @@ import {
 import { handleRouteClick, navigate, useCurrentRoute } from "./routes/navigation.js";
 import { renderResolvedScreen } from "./screens/screenDispatch.js";
 import { DealEntryScreen } from "./screens/public/DealEntryScreen.jsx";
+import { PublicResearchResultScreen } from "./screens/public/PublicResearchResultScreen.jsx";
 import { HomeScreen } from "./screens/public/HomeScreen.jsx";
 import { HowItWorksProcess } from "./screens/public/HowItWorksProcess.jsx";
 import { HOME_MAIN_CONTENT_ID } from "./ui/public/PublicPage.jsx";
@@ -8056,6 +8057,7 @@ const APP_SCREEN_COMPONENTS = Object.freeze({
   PaidOfferScreen,
   EmailCaptureScreen,
   ConsultationRequestScreen,
+  PublicResearchResultScreen,
   PlaceholderScreen,
 });
 

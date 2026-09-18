@@ -80,10 +80,10 @@ const INACTIVE_TARGET_ONLY_PATHS = Object.freeze([
   "/workspace",
 ]);
 
-assert.equal(SCREEN_REGISTRY.length, 23, "the legacy registry must retain 23 exact routes");
-assert.equal(CURRENT_ROUTE_FAMILY_COUNT, 32, "the current application must retain 32 route families");
-assert.equal(new Set(SCREEN_REGISTRY.map((screen) => screen.id)).size, 23, "route ids must remain unique");
-assert.equal(new Set(SCREEN_REGISTRY.map((screen) => screen.route)).size, 23, "exact routes must remain unique");
+assert.equal(SCREEN_REGISTRY.length, 24, "the registry must retain the 23 baseline routes plus the public research result");
+assert.equal(CURRENT_ROUTE_FAMILY_COUNT, 33, "the current application must retain 33 route families");
+assert.equal(new Set(SCREEN_REGISTRY.map((screen) => screen.id)).size, 24, "route ids must remain unique");
+assert.equal(new Set(SCREEN_REGISTRY.map((screen) => screen.route)).size, 24, "exact routes must remain unique");
 
 for (const [route, expectedId, expectedRoute] of routeCases) {
   const resolved = screenByRoute(route);
@@ -119,6 +119,17 @@ for (const [route, expectedSection] of BASELINE_ACTIVE_SECTION_CASES) {
 for (const route of INACTIVE_TARGET_ONLY_PATHS) {
   assert.equal(resolveRoutePath(route).isFallback, true, `${route} must remain inactive until a separate route act`);
 }
+
+const publicResearchResult = resolveRoutePath("/start-diagnostic/deal-context/result");
+assert.equal(publicResearchResult.id, "deal-context-public-result");
+assert.equal(publicResearchResult.rendererId, "PublicResearchResultScreen");
+assert.equal(publicResearchResult.propsKind, "none");
+assert.equal(publicResearchResult.targetLayer, "public-result");
+assert.equal(publicResearchResult.isFallback, false);
+assert.equal(publicResearchResult.canonicalRoute, "/start-diagnostic/deal-context/result");
+assert.equal(publicResearchResult.navigationSection, "");
+assert.equal(rendererIdForScreen(publicResearchResult), "PublicResearchResultScreen");
+assert.equal(resolveRoutePath("/start-diagnostic/deal-context/resul").isFallback, true);
 
 const pushedRoutes = [];
 const dispatchedEvents = [];
@@ -202,4 +213,4 @@ for (const finalRoute of ["/screen-10-reveal", "/screen-10b-homogeneous"]) {
 assert.match(appSource, /authorityState\.status !== "report-ready" \|\| !authorityState\.projection/, "final deliverables must remain fail-closed without server report authority");
 assert.match(appSource, /productionAuthorityRequest\(\{[\s\S]*?action: "STATUS",[\s\S]*?sessionId: session\.sessionId,[\s\S]*?\}, controller\.signal\)/, "final deliverables must still request server authority status");
 
-console.log("WEB-ARCH-01 characterization: 32 route families, sidebar baseline parity, and shell/dispatch behavior preserved");
+console.log("WEB-ARCH-01 characterization: 33 route families, sidebar baseline parity, and shell/dispatch behavior preserved");

@@ -3,6 +3,7 @@ import { PublicCard } from "../../ui/public/PublicCard.jsx";
 import { PublicHero } from "../../ui/public/PublicHero.jsx";
 import { PublicPage } from "../../ui/public/PublicPage.jsx";
 import { PublicSection } from "../../ui/public/PublicSection.jsx";
+import { openPublicResearchResult } from "./PublicResearchResultScreen.jsx";
 import "../../styles/public-deal-entry.css";
 
 export const DIFFERENT_COMPANY_ERROR = "Acquirer and target must be different companies.";
@@ -23,6 +24,7 @@ export const RESEARCH_AVAILABLE_COPY = "Recent SEC filing metadata is available 
 export const RESEARCH_PARTIAL_COPY = "Public-source coverage is partial.";
 export const RESEARCH_NO_COVERAGE_COPY = "No recent filing coverage was returned in this bounded SEC acquisition.";
 export const RESEARCH_SERVICE_UNAVAILABLE_COPY = "Public-source research is currently unavailable.";
+export const VIEW_PUBLIC_RESEARCH_RESULT_COPY = "View public research result";
 export const RESOLVE_COMPANY_PATH = "/api/resolve-company";
 export const START_PUBLIC_RESEARCH_PATH = "/api/start-public-research";
 
@@ -347,6 +349,17 @@ export function DealEntryScreen() {
   const error = sameCompany ? DIFFERENT_COMPANY_ERROR : "";
   const confirmEnabled = bothFilled && !resolving;
   const analyzeEnabled = companiesConfirmedForResearch && research.phase !== RESEARCH_REQUESTING;
+  const currentResearchSnapshot = companiesConfirmedForResearch
+    ? { acquirerCik: acquirerConfirmedCik, targetCik: targetConfirmedCik }
+    : null;
+  const canViewPublicResearchResult = Boolean(
+    research.phase === RESEARCH_RESULT
+    && research.payload
+    && research.snapshot
+    && currentResearchSnapshot
+    && snapshotEquals(research.snapshot, currentResearchSnapshot)
+    && validatePublicResearchPayload(research.payload, currentResearchSnapshot).ok,
+  );
 
   const pageStatus = research.phase === RESEARCH_REQUESTING
     ? RESEARCHING_COPY
@@ -545,6 +558,17 @@ export function DealEntryScreen() {
         localError: LOCAL_REQUEST_ERROR_COPY,
       });
     }
+  }
+
+  function viewPublicResearchResult(event) {
+    event.preventDefault();
+    const current = currentConfirmedSnapshot();
+    if (!current) return;
+    if (research.phase !== RESEARCH_RESULT || !research.payload || !research.snapshot) return;
+    if (!snapshotEquals(research.snapshot, current)) return;
+    const accepted = validatePublicResearchPayload(research.payload, current);
+    if (!accepted.ok) return;
+    openPublicResearchResult(current, accepted.payload);
   }
 
   function renderSideResolution(side, state, selectId) {
@@ -781,6 +805,15 @@ export function DealEntryScreen() {
               >
                 Analyze this deal
               </button>
+              {canViewPublicResearchResult ? (
+                <button
+                  className="mv-public-button mv-public-button-primary"
+                  onClick={viewPublicResearchResult}
+                  type="button"
+                >
+                  {VIEW_PUBLIC_RESEARCH_RESULT_COPY}
+                </button>
+              ) : null}
             </div>
           </form>
         </PublicCard>
