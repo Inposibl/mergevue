@@ -33,18 +33,31 @@
   gap: 14px;
 }
 
+.mv-deal-entry-status {
+  background: var(--mv-deal-entry-soft);
+  border: 1px solid var(--mv-deal-entry-line);
+  border-radius: var(--mv-deal-entry-radius);
+  color: var(--mv-deal-entry-ink);
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+  padding: 12px 14px;
+}
+
 .mv-deal-entry-field {
   display: grid;
   gap: 6px;
 }
 
-.mv-deal-entry-field label {
+.mv-deal-entry-field label,
+.mv-deal-entry-ambiguous label {
   color: var(--mv-deal-entry-ink);
   font-size: 14px;
   font-weight: 700;
 }
 
-.mv-deal-entry-field input {
+.mv-deal-entry-field input,
+.mv-deal-entry-ambiguous select {
   background: var(--mv-deal-entry-surface);
   border: 1px solid var(--mv-deal-entry-line);
   border-radius: var(--mv-deal-entry-radius);
@@ -57,9 +70,27 @@
 
 .mv-deal-entry-field input:focus-visible,
 .mv-deal-entry-swap:focus-visible,
-.mv-deal-entry-actions button:focus-visible {
+.mv-deal-entry-actions button:focus-visible,
+.mv-deal-entry-ambiguous select:focus-visible {
   outline: 2px solid var(--mv-deal-entry-accent);
   outline-offset: 3px;
+}
+
+.mv-deal-entry-identity,
+.mv-deal-entry-side-status {
+  color: var(--mv-deal-entry-ink);
+  font-size: 13px;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.mv-deal-entry-side-status {
+  color: var(--mv-deal-entry-muted);
+}
+
+.mv-deal-entry-ambiguous {
+  display: grid;
+  gap: 6px;
 }
 
 .mv-deal-entry-swap {
@@ -81,17 +112,6 @@
   font-weight: 700;
   line-height: 1.4;
   margin: 0;
-}
-
-.mv-deal-entry-capability {
-  background: var(--mv-deal-entry-soft);
-  border: 1px solid var(--mv-deal-entry-line);
-  border-radius: var(--mv-deal-entry-radius);
-  color: var(--mv-deal-entry-ink);
-  font-size: 14px;
-  line-height: 1.5;
-  margin: 0;
-  padding: 12px 14px;
 }
 
 .mv-deal-entry-actions {
@@ -117,5 +137,17 @@
 @media (max-width: 390px) {
   .mv-deal-entry-card {
     padding: 16px;
+  }
+}
+
+@media (max-width: 320px) {
+  .mv-deal-entry-card {
+    padding: 12px;
+  }
+
+  .mv-deal-entry-status,
+  .mv-deal-entry-identity,
+  .mv-deal-entry-side-status {
+    overflow-wrap: anywhere;
   }
 }
