@@ -1,10 +1,10 @@
-import { jsonResponse, methodNotAllowed, parseJsonBody } from "../src/server/_response.ts";
+import { jsonResponse, methodNotAllowed, parseJsonBody } from "../src/server/_response.js";
 import {
   RESOLVE_COMPANY_ENDPOINT,
   resolveCompanyQuery,
-} from "../src/server/_companyResolver.ts";
+} from "../src/server/_companyResolver.js";
 
-export default async function handler(request: Request) {
+async function handler(request: Request) {
   if (request.method !== "POST") {
     return methodNotAllowed(request.method, ["POST"]);
   }
@@ -25,3 +25,5 @@ export default async function handler(request: Request) {
     endpoint: RESOLVE_COMPANY_ENDPOINT,
   });
 }
+
+export default Object.assign(handler, { fetch: handler });

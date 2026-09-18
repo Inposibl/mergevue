@@ -1,10 +1,10 @@
-import { jsonResponse, methodNotAllowed, parseJsonBody } from "../src/server/_response.ts";
+import { jsonResponse, methodNotAllowed, parseJsonBody } from "../src/server/_response.js";
 import {
   START_PUBLIC_RESEARCH_ENDPOINT,
   startPublicResearch,
-} from "../src/server/_secResearch.ts";
+} from "../src/server/_secResearch.js";
 
-export default async function handler(request: Request) {
+async function handler(request: Request) {
   if (request.method !== "POST") {
     return methodNotAllowed(request.method, ["POST"]);
   }
@@ -16,3 +16,5 @@ export default async function handler(request: Request) {
     endpoint: START_PUBLIC_RESEARCH_ENDPOINT,
   });
 }
+
+export default Object.assign(handler, { fetch: handler });
