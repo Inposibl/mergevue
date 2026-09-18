@@ -3,13 +3,19 @@ import { readFile } from "node:fs/promises";
 import { resolveRoutePath } from "../src/routes/routeModel.js";
 
 /**
- * UI-FROG-03 deal-entry validator — evolved in UI-FROG-04A.
+ * UI-FROG-03 deal-entry validator — evolved in UI-FROG-04A and UI-FROG-04B2.
  *
  * SUPERSEDED (intentionally removed because UI-FROG-04A authorized real
  * SEC-backed entity resolution on this surface):
  * - prototype capability-note pin
  *   ("public company resolution and public-source analysis are not yet connected")
  * - absence of resolution UI ("Resolved", "ticker")
+ *
+ * SUPERSEDED by UI-FROG-04B2 (Analyze/research now connected on this screen):
+ * - no research integration / absence of "Researching" copy
+ *   (04B2 uses truthful in-flight copy: "Researching recent SEC filing metadata…")
+ * - Analyze this deal remains unavailable as an action / permanently disabled
+ * - research-not-connected copy
  *
  * PRESERVED UI-FROG-03 invariants:
  * - same route identity for /start-diagnostic/deal-context
@@ -19,8 +25,9 @@ import { resolveRoutePath } from "../src/routes/routeModel.js";
  * - no direct legacy-flow navigation
  * - downstream diagnostic helpers remain physically preserved
  * - scoped CSS
- * - no fake research/result ("Researching", "Result ready")
- * - Analyze this deal remains unavailable as an action
+ * - no fake "Result ready" terminal copy
+ * - empty-state still says Analyze this deal is not available yet
+ * - Analyze remains a native control that can be disabled when ineligible
  */
 
 const root = new URL("..", import.meta.url);
@@ -83,7 +90,7 @@ assert.match(entrySource, /type="button"/);
 assert.match(entrySource, /Acquirer and target must be different companies\./);
 assert.match(entrySource, /Analyze this deal/);
 assert.match(entrySource, /disabled/);
-assert.doesNotMatch(entrySource, /Researching/);
+assert.match(entrySource, /Researching recent SEC filing metadata/);
 assert.doesNotMatch(entrySource, /Result ready/);
 assert.doesNotMatch(entrySource, /headquarters/);
 assert.doesNotMatch(entrySource, /Public-source research would begin here/);
@@ -93,4 +100,4 @@ for (const pattern of FORBIDDEN_GLOBAL_SELECTORS) {
   assert.doesNotMatch(cssSource, pattern, `public-deal-entry.css must not restyle ${pattern}`);
 }
 
-console.log("UI-FROG-03 deal-entry validation: preserved front-door invariants; prototype resolution-absent pins superseded by UI-FROG-04A");
+console.log("UI-FROG-03 deal-entry validation: preserved front-door invariants; research-absent and permanently-disabled Analyze pins superseded by UI-FROG-04B2");

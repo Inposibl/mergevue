@@ -1,4 +1,4 @@
-import React, { useId, useRef, useState } from "react";
+import React, { useEffect, useId, useRef, useState } from "react";
 import { PublicCard } from "../../ui/public/PublicCard.jsx";
 import { PublicHero } from "../../ui/public/PublicHero.jsx";
 import { PublicPage } from "../../ui/public/PublicPage.jsx";
@@ -14,8 +14,17 @@ export const AMBIGUOUS_ACQUIRER_ACCESSIBLE_NAME = "Which company do you mean? (A
 export const AMBIGUOUS_TARGET_ACCESSIBLE_NAME = "Which company do you mean? (Target)";
 export const NOT_FOUND_COPY = "We couldn't identify that company from the current public identity source. Try the listed or legal company name.";
 export const SERVICE_UNAVAILABLE_COPY = "Company lookup is temporarily unavailable. Try again.";
-export const RESEARCH_NOT_CONNECTED_COPY = "Companies confirmed. Public-source analysis is not connected in this step yet.";
+export const RESEARCH_READY_COPY = "Companies confirmed. Public-source research is ready to start.";
+export const RESEARCH_SCOPE_COPY = "This step retrieves recent SEC filing metadata only.";
+export const RESEARCHING_COPY = "Researching recent SEC filing metadata…";
+export const LOCAL_REQUEST_ERROR_COPY = "The public-source research request could not be completed. No research result is shown.";
+export const RESEARCH_NOT_ASSESSMENT_COPY = "This is bounded public-source SEC metadata, not a final MergeVue M&A assessment.";
+export const RESEARCH_AVAILABLE_COPY = "Recent SEC filing metadata is available for both companies.";
+export const RESEARCH_PARTIAL_COPY = "Public-source coverage is partial.";
+export const RESEARCH_NO_COVERAGE_COPY = "No recent filing coverage was returned in this bounded SEC acquisition.";
+export const RESEARCH_SERVICE_UNAVAILABLE_COPY = "Public-source research is currently unavailable.";
 export const RESOLVE_COMPANY_PATH = "/api/resolve-company";
+export const START_PUBLIC_RESEARCH_PATH = "/api/start-public-research";
 
 const EMPTY = "EMPTY";
 const EDITING = "EDITING";
@@ -25,8 +34,31 @@ const AMBIGUOUS = "AMBIGUOUS";
 const NOT_FOUND = "NOT_FOUND";
 const SERVICE_UNAVAILABLE = "SERVICE_UNAVAILABLE";
 
+const RESEARCH_IDLE = "IDLE";
+const RESEARCH_REQUESTING = "REQUESTING";
+const RESEARCH_RESULT = "RESULT";
+const RESEARCH_REQUEST_ERROR = "REQUEST_ERROR";
+
+const SERVER_RESEARCH_AVAILABLE = "RESEARCH_AVAILABLE";
+const SERVER_PARTIAL = "PARTIAL";
+const SERVER_NO_COVERAGE = "NO_COVERAGE";
+const SERVER_SERVICE_UNAVAILABLE = "SERVICE_UNAVAILABLE";
+const SERVER_COVERAGE = "RECENT_FILING_HISTORY_ONLY";
+const SERVER_IDENTITY_SOURCE = "SEC_SUBMISSIONS_API";
+const SUBMISSIONS_RETRIEVED = "RETRIEVED";
+const SUBMISSIONS_NO_COVERAGE = "NO_COVERAGE";
+const SUBMISSIONS_NOT_RETRIEVABLE = "NOT_RETRIEVABLE";
+const MAX_RECENT_FILINGS = 10;
+
 function normalizedCompanyName(value) {
   return value.trim().replace(/\s+/g, " ").toLocaleLowerCase();
+}
+
+function comparableCik(value) {
+  if (typeof value !== "string") return null;
+  const trimmed = value.trim();
+  if (!/^\d{1,10}$/.test(trimmed)) return null;
+  return trimmed.padStart(10, "0");
 }
 
 function emptySide() {
@@ -35,6 +67,15 @@ function emptySide() {
     identity: null,
     candidates: [],
     selectedCik: "",
+  };
+}
+
+function emptyResearch() {
+  return {
+    phase: RESEARCH_IDLE,
+    snapshot: null,
+    payload: null,
+    localError: null,
   };
 }
 
@@ -62,6 +103,147 @@ function candidateLabel(candidate) {
   return candidate.canonicalName;
 }
 
+function snapshotEquals(left, right) {
+  return Boolean(
+    left
+    && right
+    && left.acquirerCik === right.acquirerCik
+    && left.targetCik === right.targetCik,
+  );
+}
+
+function isPlainObject(value) {
+  return Boolean(value) && typeof value === "object" && !Array.isArray(value);
+}
+
+function usableCanonicalName(value) {
+  return typeof value === "string" && Boolean(value.trim());
+}
+
+function isNonNegativeInteger(value) {
+  return typeof value === "number" && Number.isInteger(value) && value >= 0;
+}
+
+function isUsableFilingRow(row) {
+  return Boolean(
+    isPlainObject(row)
+    && typeof row.form === "string"
+    && row.form.trim()
+    && typeof row.filingDate === "string"
+    && row.filingDate.trim()
+    && typeof row.accessionNumber === "string"
+    && row.accessionNumber.trim(),
+  );
+}
+
+function validateFilingList(recentFilings) {
+  if (!Array.isArray(recentFilings)) return { ok: false };
+  if (recentFilings.length > MAX_RECENT_FILINGS) return { ok: false };
+  if (!recentFilings.every(isUsableFilingRow)) return { ok: false };
+  return { ok: true };
+}
+
+function validateCompanyEntry(entry, expectedSide, expectedCik) {
+  if (!isPlainObject(entry)) return { ok: false };
+  if (entry.side !== expectedSide) return { ok: false };
+  if (entry.side !== "acquirer" && entry.side !== "target") return { ok: false };
+  if (comparableCik(entry.cik) !== expectedCik) return { ok: false };
+
+  const submissionsStatus = entry.submissionsStatus;
+  if (
+    submissionsStatus !== SUBMISSIONS_RETRIEVED
+    && submissionsStatus !== SUBMISSIONS_NO_COVERAGE
+    && submissionsStatus !== SUBMISSIONS_NOT_RETRIEVABLE
+  ) {
+    return { ok: false };
+  }
+
+  if (submissionsStatus === SUBMISSIONS_RETRIEVED) {
+    if (!usableCanonicalName(entry.canonicalName)) return { ok: false };
+    if (!isNonNegativeInteger(entry.filingCount)) return { ok: false };
+    const filings = validateFilingList(entry.recentFilings);
+    if (!filings.ok) return { ok: false };
+    if (entry.recentFilings.length < 1) return { ok: false };
+    return { ok: true };
+  }
+
+  if (submissionsStatus === SUBMISSIONS_NO_COVERAGE) {
+    if (!usableCanonicalName(entry.canonicalName)) return { ok: false };
+    if (entry.filingCount !== 0) return { ok: false };
+    if (!Array.isArray(entry.recentFilings) || entry.recentFilings.length !== 0) return { ok: false };
+    return { ok: true };
+  }
+
+  if (entry.canonicalName != null && !usableCanonicalName(entry.canonicalName)) return { ok: false };
+  if (entry.filingCount != null && !isNonNegativeInteger(entry.filingCount)) return { ok: false };
+  if (entry.recentFilings != null) {
+    const filings = validateFilingList(entry.recentFilings);
+    if (!filings.ok) return { ok: false };
+  }
+  return { ok: true };
+}
+
+function validateCompaniesPair(companies, snapshot) {
+  if (!Array.isArray(companies) || companies.length !== 2) return { ok: false };
+  const sides = companies.map((entry) => entry && entry.side);
+  if (sides.includes("acquirer") === false || sides.includes("target") === false) return { ok: false };
+  if (sides.filter((side) => side === "acquirer").length !== 1) return { ok: false };
+  if (sides.filter((side) => side === "target").length !== 1) return { ok: false };
+  if (sides.some((side) => side !== "acquirer" && side !== "target")) return { ok: false };
+  const acquirer = companies.find((entry) => entry.side === "acquirer");
+  const target = companies.find((entry) => entry.side === "target");
+  const acquirerCheck = validateCompanyEntry(acquirer, "acquirer", snapshot.acquirerCik);
+  const targetCheck = validateCompanyEntry(target, "target", snapshot.targetCik);
+  if (!acquirerCheck.ok || !targetCheck.ok) return { ok: false };
+  return { ok: true, acquirer, target };
+}
+
+export function validatePublicResearchPayload(payload, snapshot) {
+  if (!isPlainObject(payload) || !snapshot) return { ok: false };
+  const researchStatus = payload.researchStatus;
+  if (
+    researchStatus !== SERVER_RESEARCH_AVAILABLE
+    && researchStatus !== SERVER_PARTIAL
+    && researchStatus !== SERVER_NO_COVERAGE
+    && researchStatus !== SERVER_SERVICE_UNAVAILABLE
+  ) {
+    return { ok: false };
+  }
+  if (payload.coverage !== SERVER_COVERAGE) return { ok: false };
+  if (payload.identitySource !== SERVER_IDENTITY_SOURCE) return { ok: false };
+
+  const hasCompanies = Object.prototype.hasOwnProperty.call(payload, "companies");
+
+  if (researchStatus === SERVER_SERVICE_UNAVAILABLE) {
+    if (!hasCompanies) return { ok: true, payload };
+    const pair = validateCompaniesPair(payload.companies, snapshot);
+    if (!pair.ok) return { ok: false };
+    if (pair.acquirer.submissionsStatus !== SUBMISSIONS_NOT_RETRIEVABLE) return { ok: false };
+    if (pair.target.submissionsStatus !== SUBMISSIONS_NOT_RETRIEVABLE) return { ok: false };
+    return { ok: true, payload };
+  }
+
+  if (!hasCompanies) return { ok: false };
+  const pair = validateCompaniesPair(payload.companies, snapshot);
+  if (!pair.ok) return { ok: false };
+  return { ok: true, payload };
+}
+
+function researchHeadline(researchStatus) {
+  if (researchStatus === SERVER_RESEARCH_AVAILABLE) return RESEARCH_AVAILABLE_COPY;
+  if (researchStatus === SERVER_PARTIAL) return RESEARCH_PARTIAL_COPY;
+  if (researchStatus === SERVER_NO_COVERAGE) return RESEARCH_NO_COVERAGE_COPY;
+  if (researchStatus === SERVER_SERVICE_UNAVAILABLE) return RESEARCH_SERVICE_UNAVAILABLE_COPY;
+  return LOCAL_REQUEST_ERROR_COPY;
+}
+
+function submissionsStatusCopy(status) {
+  if (status === SUBMISSIONS_RETRIEVED) return "Retrieved";
+  if (status === SUBMISSIONS_NO_COVERAGE) return "No recent filing coverage";
+  if (status === SUBMISSIONS_NOT_RETRIEVABLE) return "Not retrievable";
+  return status;
+}
+
 async function requestCompanyResolution(query, confirmCik, signal) {
   const body = confirmCik ? { query, confirmCik } : { query };
   const response = await fetch(RESOLVE_COMPANY_PATH, {
@@ -77,6 +259,25 @@ async function requestCompanyResolution(query, confirmCik, signal) {
     payload = null;
   }
   return { ok: response.ok, status: response.status, payload };
+}
+
+async function requestPublicResearch(snapshot, signal) {
+  const response = await fetch(START_PUBLIC_RESEARCH_PATH, {
+    method: "POST",
+    headers: { "content-type": "application/json; charset=utf-8" },
+    body: JSON.stringify({
+      acquirer: { cik: snapshot.acquirerCik },
+      target: { cik: snapshot.targetCik },
+    }),
+    signal,
+  });
+  let payload = null;
+  try {
+    payload = await response.json();
+  } catch {
+    payload = null;
+  }
+  return { status: response.status, payload };
 }
 
 function applyResolutionPayload(payload) {
@@ -107,14 +308,23 @@ export function DealEntryScreen() {
   const statusId = useId();
   const acquirerAmbiguousId = useId();
   const targetAmbiguousId = useId();
+  const researchHeadingId = useId();
   const [acquirerName, setAcquirerName] = useState("");
   const [targetName, setTargetName] = useState("");
   const [acquirer, setAcquirer] = useState(emptySide);
   const [target, setTarget] = useState(emptySide);
+  const [research, setResearch] = useState(emptyResearch);
   const acquirerAbort = useRef(null);
   const targetAbort = useRef(null);
   const acquirerGeneration = useRef(0);
   const targetGeneration = useRef(0);
+  const researchAbort = useRef(null);
+  const researchGeneration = useRef(0);
+  const researchLock = useRef(false);
+  const acquirerRef = useRef(acquirer);
+  const targetRef = useRef(target);
+  acquirerRef.current = acquirer;
+  targetRef.current = target;
 
   const bothFilled = Boolean(acquirerName.trim() && targetName.trim());
   const sameTypedCompany = bothFilled && normalizedCompanyName(acquirerName) === normalizedCompanyName(targetName);
@@ -125,32 +335,73 @@ export function DealEntryScreen() {
     && target.identity
     && acquirer.identity.cik === target.identity.cik,
   );
-  const companiesConfirmedForResearch = acquirer.status === CONFIRMED
-    && target.status === CONFIRMED
-    && Boolean(acquirer.identity && target.identity)
-    && acquirer.identity.cik !== target.identity.cik;
+  const acquirerConfirmedCik = acquirer.status === CONFIRMED ? comparableCik(acquirer.identity?.cik) : null;
+  const targetConfirmedCik = target.status === CONFIRMED ? comparableCik(target.identity?.cik) : null;
+  const companiesConfirmedForResearch = Boolean(
+    acquirerConfirmedCik
+    && targetConfirmedCik
+    && acquirerConfirmedCik !== targetConfirmedCik,
+  );
   const resolving = acquirer.status === RESOLVING || target.status === RESOLVING;
   const sameCompany = sameResolvedCompany || (sameTypedCompany && acquirer.status !== CONFIRMED && target.status !== CONFIRMED);
   const error = sameCompany ? DIFFERENT_COMPANY_ERROR : "";
   const confirmEnabled = bothFilled && !resolving;
+  const analyzeEnabled = companiesConfirmedForResearch && research.phase !== RESEARCH_REQUESTING;
 
-  const pageStatus = resolving
-    ? RESOLVING_COPY
-    : sameResolvedCompany
-      ? DIFFERENT_COMPANY_ERROR
-      : companiesConfirmedForResearch
-        ? RESEARCH_NOT_CONNECTED_COPY
-        : acquirer.status === SERVICE_UNAVAILABLE || target.status === SERVICE_UNAVAILABLE
-          ? SERVICE_UNAVAILABLE_COPY
-          : acquirer.status === NOT_FOUND || target.status === NOT_FOUND
-            ? NOT_FOUND_COPY
-            : acquirer.status === AMBIGUOUS || target.status === AMBIGUOUS
-              ? AMBIGUOUS_COPY
-              : acquirer.status === CONFIRMED || target.status === CONFIRMED
-                ? CONFIRMED_COPY
-                : DEFAULT_ENTRY_EXPLANATION;
+  const pageStatus = research.phase === RESEARCH_REQUESTING
+    ? RESEARCHING_COPY
+    : research.phase === RESEARCH_REQUEST_ERROR
+      ? LOCAL_REQUEST_ERROR_COPY
+      : research.phase === RESEARCH_RESULT && research.payload
+        ? researchHeadline(research.payload.researchStatus)
+        : resolving
+          ? RESOLVING_COPY
+          : sameResolvedCompany
+            ? DIFFERENT_COMPANY_ERROR
+            : companiesConfirmedForResearch
+              ? RESEARCH_READY_COPY
+              : acquirer.status === SERVICE_UNAVAILABLE || target.status === SERVICE_UNAVAILABLE
+                ? SERVICE_UNAVAILABLE_COPY
+                : acquirer.status === NOT_FOUND || target.status === NOT_FOUND
+                  ? NOT_FOUND_COPY
+                  : acquirer.status === AMBIGUOUS || target.status === AMBIGUOUS
+                    ? AMBIGUOUS_COPY
+                    : acquirer.status === CONFIRMED || target.status === CONFIRMED
+                      ? CONFIRMED_COPY
+                      : DEFAULT_ENTRY_EXPLANATION;
 
   const describedBy = [statusId, error ? errorId : null].filter(Boolean).join(" ") || undefined;
+
+  function currentConfirmedSnapshot() {
+    const currentAcquirer = acquirerRef.current;
+    const currentTarget = targetRef.current;
+    if (currentAcquirer.status !== CONFIRMED || currentTarget.status !== CONFIRMED) return null;
+    const nextAcquirerCik = comparableCik(currentAcquirer.identity?.cik);
+    const nextTargetCik = comparableCik(currentTarget.identity?.cik);
+    if (!nextAcquirerCik || !nextTargetCik || nextAcquirerCik === nextTargetCik) return null;
+    return { acquirerCik: nextAcquirerCik, targetCik: nextTargetCik };
+  }
+
+  function abortResearchRequest() {
+    researchGeneration.current += 1;
+    researchAbort.current?.abort();
+    researchAbort.current = null;
+    researchLock.current = false;
+  }
+
+  function clearResearchState() {
+    abortResearchRequest();
+    setResearch(emptyResearch());
+  }
+
+  useEffect(() => {
+    return () => {
+      researchGeneration.current += 1;
+      researchAbort.current?.abort();
+      researchAbort.current = null;
+      researchLock.current = false;
+    };
+  }, []);
 
   function invalidateSide(side, nextValue) {
     const trimmed = nextValue.trim();
@@ -159,6 +410,7 @@ export function DealEntryScreen() {
     const abortRef = side === "acquirer" ? acquirerAbort : targetAbort;
     abortRef.current?.abort();
     abortRef.current = null;
+    clearResearchState();
     const nextState = trimmed ? { ...emptySide(), status: EDITING } : emptySide();
     if (side === "acquirer") setAcquirer(nextState);
     else setTarget(nextState);
@@ -171,6 +423,7 @@ export function DealEntryScreen() {
     targetAbort.current?.abort();
     acquirerAbort.current = null;
     targetAbort.current = null;
+    clearResearchState();
     const nextAcquirerName = targetName;
     const nextTargetName = acquirerName;
     setAcquirerName(nextAcquirerName);
@@ -215,6 +468,7 @@ export function DealEntryScreen() {
     targetGeneration.current += 1;
     const acquirerGen = acquirerGeneration.current;
     const targetGen = targetGeneration.current;
+    clearResearchState();
     void resolveOne("acquirer", acquirerQuery, undefined, acquirerGen);
     void resolveOne("target", targetQuery, undefined, targetGen);
   }
@@ -222,6 +476,7 @@ export function DealEntryScreen() {
   function confirmCandidate(side, cik) {
     const query = side === "acquirer" ? acquirerName.trim() : targetName.trim();
     if (!query || !cik) return;
+    clearResearchState();
     if (side === "acquirer") {
       acquirerGeneration.current += 1;
       void resolveOne("acquirer", query, cik, acquirerGeneration.current);
@@ -229,6 +484,67 @@ export function DealEntryScreen() {
     }
     targetGeneration.current += 1;
     void resolveOne("target", query, cik, targetGeneration.current);
+  }
+
+  async function startPublicResearch(event) {
+    event.preventDefault();
+    if (researchLock.current) return;
+    if (research.phase === RESEARCH_REQUESTING) return;
+    const snapshot = {
+      acquirerCik: acquirerConfirmedCik,
+      targetCik: targetConfirmedCik,
+    };
+    if (!snapshot.acquirerCik || !snapshot.targetCik || snapshot.acquirerCik === snapshot.targetCik) return;
+
+    researchLock.current = true;
+    researchGeneration.current += 1;
+    const generation = researchGeneration.current;
+    researchAbort.current?.abort();
+    const controller = new AbortController();
+    researchAbort.current = controller;
+    setResearch({
+      phase: RESEARCH_REQUESTING,
+      snapshot,
+      payload: null,
+      localError: null,
+    });
+
+    try {
+      const result = await requestPublicResearch(snapshot, controller.signal);
+      if (researchGeneration.current !== generation) return;
+      const currentSnapshot = currentConfirmedSnapshot();
+      if (!snapshotEquals(currentSnapshot, snapshot)) return;
+      const accepted = validatePublicResearchPayload(result.payload, snapshot);
+      if (!accepted.ok) {
+        researchLock.current = false;
+        setResearch({
+          phase: RESEARCH_REQUEST_ERROR,
+          snapshot,
+          payload: null,
+          localError: LOCAL_REQUEST_ERROR_COPY,
+        });
+        return;
+      }
+      researchLock.current = false;
+      setResearch({
+        phase: RESEARCH_RESULT,
+        snapshot,
+        payload: accepted.payload,
+        localError: null,
+      });
+    } catch (error) {
+      if (error && typeof error === "object" && error.name === "AbortError") return;
+      if (researchGeneration.current !== generation) return;
+      const currentSnapshot = currentConfirmedSnapshot();
+      if (!snapshotEquals(currentSnapshot, snapshot)) return;
+      researchLock.current = false;
+      setResearch({
+        phase: RESEARCH_REQUEST_ERROR,
+        snapshot,
+        payload: null,
+        localError: LOCAL_REQUEST_ERROR_COPY,
+      });
+    }
   }
 
   function renderSideResolution(side, state, selectId) {
@@ -270,6 +586,65 @@ export function DealEntryScreen() {
     }
     return null;
   }
+
+  function renderResearchFilings(sideLabel, recentFilings) {
+    if (!Array.isArray(recentFilings) || recentFilings.length === 0) return null;
+    return (
+      <table className="mv-deal-entry-filings">
+        <caption className="mv-deal-entry-filings-caption">
+          Recent SEC filing metadata for {sideLabel}
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col">Form</th>
+            <th scope="col">Filing date</th>
+            <th scope="col">Accession number</th>
+          </tr>
+        </thead>
+        <tbody>
+          {recentFilings.map((row, index) => (
+            <tr key={`${row.accessionNumber}-${index}`}>
+              <td>{row.form}</td>
+              <td>{row.filingDate}</td>
+              <td>{row.accessionNumber}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    );
+  }
+
+  function renderResearchSide(side, label) {
+    const companies = Array.isArray(research.payload?.companies) ? research.payload.companies : null;
+    if (!companies) return null;
+    const entry = companies.find((item) => item.side === side);
+    if (!entry) return null;
+    const canonicalName = usableCanonicalName(entry.canonicalName) ? entry.canonicalName.trim() : null;
+    return (
+      <section className="mv-deal-entry-research-side" data-research-side={side}>
+        <h4 className="mv-deal-entry-research-side-title">{label}</h4>
+        <p className="mv-deal-entry-research-meta">
+          Submissions status: {submissionsStatusCopy(entry.submissionsStatus)} ({entry.submissionsStatus})
+        </p>
+        {canonicalName ? (
+          <p className="mv-deal-entry-research-name">Canonical name: {canonicalName}</p>
+        ) : (
+          <p className="mv-deal-entry-research-name">Canonical name was not returned by the server.</p>
+        )}
+        {entry.filingCount == null ? (
+          <p className="mv-deal-entry-research-meta">Filing count was not returned by the server.</p>
+        ) : (
+          <p className="mv-deal-entry-research-meta">Bounded filing count: {entry.filingCount}</p>
+        )}
+        {renderResearchFilings(label, entry.recentFilings)}
+      </section>
+    );
+  }
+
+  const showResearchRegion = research.phase === RESEARCH_REQUESTING
+    || research.phase === RESEARCH_REQUEST_ERROR
+    || research.phase === RESEARCH_RESULT
+    || (companiesConfirmedForResearch && research.phase === RESEARCH_IDLE);
 
   return (
     <PublicPage className="mv-deal-entry-page" mainId="mv-deal-entry-main">
@@ -343,6 +718,52 @@ export function DealEntryScreen() {
               <p className="mv-deal-entry-error" id={errorId} role="alert">{error}</p>
             ) : null}
 
+            {showResearchRegion ? (
+              <section
+                aria-busy={research.phase === RESEARCH_REQUESTING}
+                aria-labelledby={researchHeadingId}
+                className="mv-deal-entry-research"
+                data-research-phase={research.phase}
+              >
+                <h3 className="mv-deal-entry-research-title" id={researchHeadingId}>
+                  Public-source SEC research
+                </h3>
+                {research.phase === RESEARCH_IDLE ? (
+                  <>
+                    <p className="mv-deal-entry-research-copy">{RESEARCH_SCOPE_COPY}</p>
+                    <p className="mv-deal-entry-research-copy">{RESEARCH_NOT_ASSESSMENT_COPY}</p>
+                  </>
+                ) : null}
+                {research.phase === RESEARCH_REQUESTING ? (
+                  <p className="mv-deal-entry-research-copy">{RESEARCHING_COPY}</p>
+                ) : null}
+                {research.phase === RESEARCH_REQUEST_ERROR ? (
+                  <p className="mv-deal-entry-research-copy">{research.localError || LOCAL_REQUEST_ERROR_COPY}</p>
+                ) : null}
+                {research.phase === RESEARCH_RESULT && research.payload ? (
+                  <>
+                    <p className="mv-deal-entry-research-copy">
+                      {researchHeadline(research.payload.researchStatus)}
+                    </p>
+                    <p className="mv-deal-entry-research-meta">
+                      Research status: {research.payload.researchStatus}
+                    </p>
+                    <p className="mv-deal-entry-research-meta">
+                      Coverage: recent filing history only ({research.payload.coverage})
+                    </p>
+                    <p className="mv-deal-entry-research-meta">
+                      Identity source: SEC submissions API ({research.payload.identitySource})
+                    </p>
+                    <p className="mv-deal-entry-research-copy">{RESEARCH_NOT_ASSESSMENT_COPY}</p>
+                    <div className="mv-deal-entry-research-sides">
+                      {renderResearchSide("acquirer", "Acquirer")}
+                      {renderResearchSide("target", "Target")}
+                    </div>
+                  </>
+                ) : null}
+              </section>
+            ) : null}
+
             <div className="mv-deal-entry-actions">
               <button
                 className="mv-public-button mv-public-button-primary"
@@ -353,8 +774,9 @@ export function DealEntryScreen() {
               </button>
               <button
                 aria-describedby={describedBy}
-                className="mv-public-button mv-public-button-primary"
-                disabled
+                className="mv-public-button mv-public-button-primary mv-deal-entry-analyze"
+                disabled={!analyzeEnabled}
+                onClick={startPublicResearch}
                 type="button"
               >
                 Analyze this deal

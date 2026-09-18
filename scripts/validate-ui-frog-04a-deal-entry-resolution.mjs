@@ -586,28 +586,29 @@ async function runBrowserChecks(origin, resolver) {
     assert.equal(confirmReady.disabled, false);
 
     await clickButton(page, "Confirm companies");
-    await waitForStatus(page, "Companies confirmed. Public-source analysis is not connected in this step yet.");
+    await waitForStatus(page, "Companies confirmed. Public-source research is ready to start.");
     const confirmedAnalyze = await getButtonState(page, "Analyze this deal");
-    assert.equal(confirmedAnalyze.disabled, true);
+    assert.equal(confirmedAnalyze.disabled, false);
     const urlAfterConfirm = page.url();
-    await clickButton(page, "Analyze this deal");
-    assert.equal(page.url(), urlAfterConfirm);
+    assert.equal(urlAfterConfirm.includes("/start-diagnostic/deal-context"), true);
     assert.equal(requested.some((url) => url.includes("/api/resolve-company")), true);
+    assert.equal(requested.some((url) => url.includes("/api/start-public-research")), false);
     assert.equal(requested.some((url) => url.includes("/api/resolve-pair")), false);
     assert.equal(requested.some((url) => url.includes("sec.gov")), false);
     results.push({
       check_id: "FE-CONFIRM",
       area: "frontend",
       input_or_scenario: "Confirm companies Apple + NVIDIA",
-      expected_state: "both confirmed, Analyze unavailable, no research",
+      expected_state: "both confirmed, Analyze enabled, no automatic research",
       observed_state: await statusText(page),
       result: "PASS",
-      evidence: "POST /api/resolve-company only; Analyze remains disabled; no navigation",
-      notes: "",
+      evidence: "POST /api/resolve-company only; Analyze enabled; zero /api/start-public-research before click; no navigation",
+      notes: "UI-FROG-04B2 superseded Analyze-always-disabled and research-not-connected copy. Explicit Analyze click is proven by validate-ui-frog-04b2-research-integration.mjs.",
     });
 
     await fillLabeled(page, "Acquirer", "Apple Inc. x");
     const afterEdit = await page.evaluate(() => document.body.innerText);
+    assert.equal(afterEdit.includes("Companies confirmed. Public-source research is ready to start."), false);
     assert.equal(afterEdit.includes("Companies confirmed. Public-source analysis is not connected in this step yet."), false);
     results.push({
       check_id: "FE-EDIT",
@@ -636,7 +637,7 @@ async function runBrowserChecks(origin, resolver) {
       return node.value;
     });
     assert.ok(selectedCik);
-    await waitForStatus(page, "Companies confirmed. Public-source analysis is not connected in this step yet.");
+    await waitForStatus(page, "Companies confirmed. Public-source research is ready to start.");
     results.push({
       check_id: "FE-AMBIGUOUS",
       area: "frontend",
@@ -746,6 +747,7 @@ async function runBrowserChecks(origin, resolver) {
     await new Promise((resolve) => setTimeout(resolve, 400));
     const afterStale = await statusText(page);
     assert.equal(afterStale.includes("Company confirmed."), false);
+    assert.equal(afterStale.includes("Public-source research is ready to start"), false);
     assert.equal(afterStale.includes("Public-source analysis is not connected"), false);
     assert.equal(await resolvingCopyVisible(page), false);
     assert.equal(resolvePosts.length, postsWhileResolving, "stale in-flight responses must not spawn new resolve POSTs");
@@ -855,6 +857,15 @@ async function runBrowserChecks(origin, resolver) {
   return results;
 }
 
+// UI-FROG-04B2 supersession of obsolete 04A Analyze/research pins:
+// - Analyze no longer remains disabled after a valid distinct confirmed pair
+// - "Public-source analysis is not connected in this step yet." is replaced by ready-to-start copy
+// - absence of "Researching" copy is obsolete; 04B2 uses truthful in-flight research copy
+// - FE-CONFIRM no longer clicks Analyze while disabled; explicit Analyze click belongs to 04B2
+// Preserved: explicit company resolution, SEC-backed identity, ambiguity, same-CIK invalidity,
+// edit invalidation, Swap coherence, stale resolution-response protection, no auto-resolve after
+// Swap-while-RESOLVING, no /api/resolve-pair, no browser→SEC, server-derived resolution identity.
+
 const entrySource = await read("src/screens/public/DealEntryScreen.jsx");
 const cssSource = await read("src/styles/public-deal-entry.css");
 const resolverSource = await read("src/server/_companyResolver.ts");
@@ -876,7 +887,7 @@ assert.doesNotMatch(entrySource, /sec\.gov/);
 assert.doesNotMatch(entrySource, /resolve-pair/);
 assert.doesNotMatch(entrySource, /attachDealContext/);
 assert.doesNotMatch(entrySource, /attachAcquisitionMotive/);
-assert.doesNotMatch(entrySource, /Researching/);
+assert.match(entrySource, /Researching recent SEC filing metadata/);
 assert.doesNotMatch(entrySource, /Result ready/);
 assert.match(entrySource, /role="status"/);
 assert.match(entrySource, /aria-live="polite"/);
@@ -888,7 +899,12 @@ assert.match(entrySource, /Which company do you mean\? \(Acquirer\)/);
 assert.match(entrySource, /Which company do you mean\? \(Target\)/);
 assert.match(entrySource, /aria-label=\{side === "acquirer"/);
 assert.match(entrySource, /Analyze this deal/);
-assert.match(entrySource, /disabled/);
+assert.match(entrySource, /disabled=\{!analyzeEnabled\}/);
+assert.match(entrySource, /START_PUBLIC_RESEARCH_PATH = "\/api\/start-public-research"/);
+assert.match(entrySource, /Companies confirmed\. Public-source research is ready to start\./);
+assert.doesNotMatch(entrySource, /Public-source analysis is not connected in this step yet/);
+assert.doesNotMatch(entrySource, /navigate\(/);
+assert.doesNotMatch(entrySource, /\/analyze/);
 assert.match(cssSource, /\.mv-deal-entry-status/);
 assert.match(cssSource, /:focus-visible/);
 for (const pattern of FORBIDDEN_GLOBAL_SELECTORS) {
