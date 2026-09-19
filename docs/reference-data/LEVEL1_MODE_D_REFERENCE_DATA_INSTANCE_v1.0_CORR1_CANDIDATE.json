@@ -1,0 +1,1201 @@
+{
+  "artifact": "LEVEL1_MODE_D_REFERENCE_DATA_INSTANCE_v1.0_CORR1_CANDIDATE",
+  "version": "1.0-CORR1",
+  "status": "CANDIDATE (v1.0 CORR1) — NOT INDEPENDENTLY VERIFIED AFTER CORR1 — NOT OWNER-ACCEPTED — NOT IMPLEMENTED — NOT PRODUCTION AUTHORITY — ZERO CLOSURE AUTHORITY — NON-EXHAUSTIVE — DEFAULT DISPOSITION FOR ANY UNREGISTERED RAW VALUE IS UNMAPPED / UNRESOLVED",
+  "methodologyAuthority": {
+    "path": "docs/LEVEL1_MODE_D_METHODOLOGY_DELTA_v0.2_CORR1_CANDIDATE.md",
+    "sha256": "3dfe86b38628560f81bc566c19d5dc15b43fe0e5977e0c0249928edd0ff84f3c"
+  },
+  "authorityBoundary": {
+    "lifecycle": "CANDIDATE",
+    "independentlyVerified": false,
+    "ownerAccepted": false,
+    "implemented": false,
+    "productionAuthority": false,
+    "absenceAuthority": "NONE",
+    "referenceDataExhaustive": false,
+    "ownedByThisInstance": [
+      "exact raw source form values",
+      "canonical form identities",
+      "explicit alias relationships where independently evidenced as actually emitted raw source values",
+      "versioned dispositions under the RC definitions owned by the methodology",
+      "source and basis provenance for those dispositions"
+    ],
+    "ownedByMethodologyNotByThisInstance": [
+      "RC1-RC5 definitions",
+      "proposition semantics",
+      "positive mapping rules",
+      "OUT_OF_BOUND admissibility rule",
+      "exact-match rule",
+      "unknown handling",
+      "claim ceiling",
+      "closure policy"
+    ],
+    "mayInstantiateMethodology": true,
+    "mayRedefineMethodology": false,
+    "sourceUniverseEffect": "NONE — official SEC material cited here is reference-data authoring evidence only. It does not become a customer evidence source and does not alter the SLICE-1 ACTIVE SOURCE SUBSET."
+  },
+  "matchingPolicy": {
+    "matchType": "EXACT_STRING_EQUALITY",
+    "caseSensitive": true,
+    "whitespaceSensitive": true,
+    "normalizationRules": "NONE",
+    "prohibited": [
+      "fuzzy matching",
+      "normalization",
+      "case folding",
+      "whitespace normalization",
+      "prefix matching",
+      "suffix stripping",
+      "regex-family inference",
+      "resemblance or \"looks like\" judgment",
+      "model similarity",
+      "runtime resolution of one raw value into another"
+    ],
+    "aliasRule": "An alias exists only where two distinct raw strings are each independently evidenced as actually emitted and are listed as separate exact registry entries sharing one canonicalFormIdentity. Aliases are never produced by normalization."
+  },
+  "unknownPolicy": {
+    "unknownValuesDefaultTo": "UNMAPPED_UNRESOLVED",
+    "coverageEffect": "PARTIAL",
+    "unknownMustNotBecome": [
+      "OUT_OF_BOUND",
+      "any record class",
+      "any absence claim",
+      "any retraction, weakening or re-qualification of an established positive proposition"
+    ],
+    "notInTableRule": "A raw value absent from this instance is UNMAPPED / UNRESOLVED. It is never OUT_OF_BOUND by reason of absence from this table.",
+    "upstreamEvolution": "An unseen raw source form value is expected upstream evolution, not a product defect and not a methodology defect.",
+    "failSafeRule": "Where an entry could not be positively supported it was deliberately omitted so that execution defaults to UNMAPPED / UNRESOLVED."
+  },
+  "closureAuthority": "NONE",
+  "identities": {
+    "recordClassMappingVersion": "MD-L1-RCMAP-v1.0-CORR1",
+    "rawFormValueResolutionVersion": "MD-L1-RAWFORM-v1.0-CORR1",
+    "semanticTaxonomySnapshotId": "MD-L1-SEMTAX-2026-09-19-BOUNDED",
+    "semanticTaxonomySnapshotMeaning": "Provenance identifier for the bounded set of official SEC source documents and endpoints listed in sourceAuthorities, as retrieved on 2026-09-19. It identifies which official reference set was consulted. It is NOT a claim that the SEC form vocabulary was enumerated, sampled exhaustively, or closed.",
+    "semanticTaxonomySnapshotRetrievalDate": "2026-09-19"
+  },
+  "correctionProvenance": {
+    "correctionAct": "LEVEL1-MODE-D-REFERENCE-DATA-INSTANCE-1.CORR1",
+    "correctsArtifact": "LEVEL1_MODE_D_REFERENCE_DATA_INSTANCE_v1.0_CANDIDATE",
+    "correctsArtifactSha256": "627d1b03e1adb706d78f582525158ad2d3f6af1b29e2f9a927bf77f34d0ce8bb",
+    "trigger": "Independent verification IV1 returned FAIL local to the reference-data instance (0 BLOCKING, 2 MAJOR, 3 MINOR, 1 ADVISORY). The controlling methodology was not implicated, was not modified, and remains byte-identical.",
+    "changesApplied": [
+      "F-1 / F-2 (MAJOR): removed the four registered entries 20-F, 20-F/A, 40-F and 40-F/A. The same exact SEC raw form values are officially polysemous: 20-F may be used as a Section 12 registration statement, an annual report or a transition report, and 40-F may be used as a Section 12 registration statement or an annual report. The registration-statement use does not satisfy RC3 \"Annual periodic records\". The exact raw form value alone therefore cannot deterministically establish RC3 for every instance, so blanket registration was unsafe. No replacement mapping, no MULTI disposition, no OUT_OF_BOUND row, no conditional rule and no heuristic was substituted. These four values now behave exactly like any other unregistered value: UNMAPPED / UNRESOLVED, PARTIAL coverage, no record class, no OUT_OF_BOUND, no absence claim.",
+      "F-3 (MINOR): corrected the SEC-FULLINDEX-2026-QTR2 provenance annotation from \"342 distinct exact form-type strings\" to \"340 distinct exact form-type strings\". Provenance metadata only. The source identity, URL, edition, retrieval date, SHA-256 and the 353,245 indexed filing rows figure are unchanged, and nothing is inferred from the count.",
+      "F-4 (MINOR): corrected basisType on the entries that claimed OFFICIAL_SEC_SUBMISSION_TYPE_DEFINITION_PLUS_STRUCTURED_FIELD_CARRIAGE_OBSERVATION without attaching structured-field carriage evidence. Seven entries carried that over-claim in v1.0 (10-K, 10-Q, 11-K, 20-F, 40-F, F-4, S-4); two of them (20-F, 40-F) are removed by F-1 / F-2, so five were relabelled to the existing, smaller and truthful basisType OFFICIAL_SEC_SUBMISSION_TYPE_DEFINITION. No carriage evidence was fabricated and no new SEC research was performed. Only 8-K and 8-K/A attach STRUCTURED_FIELD_CARRIAGE evidence, and only they retain the carriage basisType. The affected entries keep their OFFICIAL_FORM_DOCUMENT_CORROBORATION evidence, which remains explicitly recorded under its own evidenceRole in sourceEvidence.",
+      "Mechanical identity update: artifact, version and status now identify v1.0 CORR1; recordClassMappingVersion and rawFormValueResolutionVersion carry distinct CORR1 identities because exact raw-value resolution behaviour changed for four values."
+    ],
+    "changesNotApplied": [
+      "No entry was added. The registry was not expanded and positive recall was not improved.",
+      "No mapping semantics were re-adjudicated for the 32 retained entries.",
+      "No methodology text, RC definition, proposition, unknown-handling rule, claim ceiling or closure rule was modified, reinterpreted or relied on differently.",
+      "No fresh SEC taxonomy search, form enumeration or vocabulary expansion was performed.",
+      "No record-level disambiguation, document parsing, cover-page reading, report-period inspection or transition-flag interpretation was introduced to rescue 20-F or 40-F. Any such disambiguation requires a separate authorized act.",
+      "semanticTaxonomySnapshotId is unchanged: the bounded official source reference set is unchanged, no source snapshot was added or removed, and only adjudication and metadata changed.",
+      "The SEC-FORM-20-F and SEC-FORM-40-F source authorities are retained although no entry now cites them. sourceAuthorities records the bounded set of official SEC documents actually consulted during authoring, which remains historically true, and retaining them keeps semanticTaxonomySnapshotId valid."
+    ],
+    "authorityEffect": "NONE. CORR1 creates no closure, no absence authority, no production authority and no implementation authority. It removes unsafe positive mappings and corrects metadata; it establishes nothing new."
+  },
+  "sourceAuthorities": [
+    {
+      "sourceId": "SEC-EFM2-INDEX-TO-FORMS",
+      "sourceTitle": "U.S. Securities and Exchange Commission — EDGAR Filer Manual (Volume II), Section 3 \"Index to Forms\"",
+      "url": "https://www.sec.gov/info/edgar/forms/edgform.pdf",
+      "officialEdition": "December 2020 (edition date printed in the document; retrieved live at the official SEC URL on the retrieval date)",
+      "retrievedDate": "2026-09-19",
+      "evidenceRole": "OFFICIAL SEC SUBMISSION-TYPE DEFINITIONS — official description text per EDGAR submission type",
+      "sha256AtRetrieval": "e881ccd048bb8ebe82b587e6cd2f9a93a2aa505949f92db38ac92c194ac167db"
+    },
+    {
+      "sourceId": "SEC-FULLINDEX-2026-QTR2",
+      "sourceTitle": "U.S. Securities and Exchange Commission — EDGAR full-index quarterly form index (form.idx), 2026 QTR2",
+      "url": "https://www.sec.gov/Archives/edgar/full-index/2026/QTR2/form.idx",
+      "officialEdition": "Quarterly dissemination index; \"Last Data Received: June 30, 2026\"",
+      "retrievedDate": "2026-09-19",
+      "evidenceRole": "RAW-VALUE EMISSION EVIDENCE — 353,245 indexed filing rows, 340 distinct exact form-type strings",
+      "sha256AtRetrieval": "e4d9b7dc2fe575e869806f3ae6762dc3ffa4a3597dd573b2649e96e1f31f7945"
+    },
+    {
+      "sourceId": "SEC-SUBMISSIONS-API",
+      "sourceTitle": "U.S. Securities and Exchange Commission — EDGAR structured submissions data (data.sec.gov)",
+      "url": "https://data.sec.gov/submissions/CIK{cik}.json",
+      "officialEdition": "Live structured endpoint",
+      "retrievedDate": "2026-09-19",
+      "evidenceRole": "RAW-VALUE EMISSION EVIDENCE and STRUCTURED ITEM-CODE FIELD CARRIAGE EVIDENCE",
+      "sha256AtRetrieval": "NOT_APPLICABLE — live per-filer endpoint, not a fixed document"
+    },
+    {
+      "sourceId": "SEC-FORM-8-K",
+      "sourceTitle": "U.S. Securities and Exchange Commission — Form 8-K",
+      "url": "https://www.sec.gov/files/form8-k.pdf",
+      "officialEdition": "SEC 0.00 (form as published at the official SEC URL on the retrieval date)",
+      "retrievedDate": "2026-09-19",
+      "evidenceRole": "OFFICIAL SEC FORM DOCUMENT — current-edition corroboration of the official form purpose",
+      "sha256AtRetrieval": "730ab1de5550870134639fff1ccad3385186c3a08eafd8bd387db44b8bac5d70"
+    },
+    {
+      "sourceId": "SEC-FORM-10-K",
+      "sourceTitle": "U.S. Securities and Exchange Commission — Form 10-K",
+      "url": "https://www.sec.gov/files/form10-k.pdf",
+      "officialEdition": "SEC 1673 (02-25)",
+      "retrievedDate": "2026-09-19",
+      "evidenceRole": "OFFICIAL SEC FORM DOCUMENT — current-edition corroboration of the official form purpose",
+      "sha256AtRetrieval": "65e8ce4f1364c7352124ed948c06826eed1e60520cd537310b2f858421d45307"
+    },
+    {
+      "sourceId": "SEC-FORM-10-Q",
+      "sourceTitle": "U.S. Securities and Exchange Commission — Form 10-Q",
+      "url": "https://www.sec.gov/files/form10-q.pdf",
+      "officialEdition": "OMB 3235-0070",
+      "retrievedDate": "2026-09-19",
+      "evidenceRole": "OFFICIAL SEC FORM DOCUMENT — current-edition corroboration of the official form purpose",
+      "sha256AtRetrieval": "4bd820819fa80a13cc3ff18e98b83db79917083c99edb63e0a49bb086aaf2dd7"
+    },
+    {
+      "sourceId": "SEC-FORM-S-4",
+      "sourceTitle": "U.S. Securities and Exchange Commission — Form S-4",
+      "url": "https://www.sec.gov/files/forms-4.pdf",
+      "officialEdition": "OMB 3235-0324",
+      "retrievedDate": "2026-09-19",
+      "evidenceRole": "OFFICIAL SEC FORM DOCUMENT — current-edition corroboration of the official form purpose",
+      "sha256AtRetrieval": "78dfd71ca9dca540670a4cd03a4448963face8e0abf9b70d09227a688bbff76c"
+    },
+    {
+      "sourceId": "SEC-FORM-F-4",
+      "sourceTitle": "U.S. Securities and Exchange Commission — Form F-4",
+      "url": "https://www.sec.gov/files/formf-4.pdf",
+      "officialEdition": "SEC 2078 (02-25)",
+      "retrievedDate": "2026-09-19",
+      "evidenceRole": "OFFICIAL SEC FORM DOCUMENT — current-edition corroboration of the official form purpose",
+      "sha256AtRetrieval": "18de013ca95a700e7db12effb42ea54db50a65577987d1aa6deeccbfd5e33929"
+    },
+    {
+      "sourceId": "SEC-FORM-20-F",
+      "sourceTitle": "U.S. Securities and Exchange Commission — Form 20-F",
+      "url": "https://www.sec.gov/files/form20-f.pdf",
+      "officialEdition": "SEC 1852 (07-24)",
+      "retrievedDate": "2026-09-19",
+      "evidenceRole": "OFFICIAL SEC FORM DOCUMENT — current-edition corroboration of the official form purpose",
+      "sha256AtRetrieval": "d607f0c5c67a29238c8a19fcc605153ed753e09b57ec3a00e0228fa16639f311"
+    },
+    {
+      "sourceId": "SEC-FORM-40-F",
+      "sourceTitle": "U.S. Securities and Exchange Commission — Form 40-F",
+      "url": "https://www.sec.gov/files/form40-f.pdf",
+      "officialEdition": "SEC 2285 (02-25)",
+      "retrievedDate": "2026-09-19",
+      "evidenceRole": "OFFICIAL SEC FORM DOCUMENT — current-edition corroboration of the official form purpose",
+      "sha256AtRetrieval": "2371ac1fe34ac09729027c1434b9cc9206e052ead851bc7527128acb3130b833"
+    },
+    {
+      "sourceId": "SEC-FORM-11-K",
+      "sourceTitle": "U.S. Securities and Exchange Commission — Form 11-K",
+      "url": "https://www.sec.gov/files/form11-k.pdf",
+      "officialEdition": "OMB 3235-0082",
+      "retrievedDate": "2026-09-19",
+      "evidenceRole": "OFFICIAL SEC FORM DOCUMENT — current-edition corroboration of the official form purpose",
+      "sha256AtRetrieval": "3b05d0e00d49f776c40bbea462da1841b799e4b78b129a9ec74bc8e5ceeb3af8"
+    }
+  ],
+  "entries": [
+    {
+      "rawFormValue": "10-K",
+      "canonicalFormIdentity": "10-K",
+      "formDisposition": "MAP_TO_RC3",
+      "recordClasses": [
+        "RC3"
+      ],
+      "basis": {
+        "basisType": "OFFICIAL_SEC_SUBMISSION_TYPE_DEFINITION",
+        "officialMeaning": "Annual report pursuant to Section 13 and 15(d).",
+        "methodologyMatch": "RC3 as written (accepted methodology §24.4): \"Annual periodic records\". The official SEC description identifies this submission type as an annual report. No narrowing of RC3 was applied to exclude it and no broadening was applied to include it.",
+        "confidencePosture": "DIRECT_OFFICIAL_MATCH"
+      },
+      "sourceEvidence": [
+        {
+          "sourceId": "SEC-EFM2-INDEX-TO-FORMS",
+          "evidenceRole": "SEMANTIC_DEFINITION",
+          "locator": "Section 3, Index to Forms — row for EDGAR submission type \"10-K, 10-K/A\"",
+          "officialFormDescription": "Annual report pursuant to Section 13 and 15(d)."
+        },
+        {
+          "sourceId": "SEC-FULLINDEX-2026-QTR2",
+          "evidenceRole": "RAW_VALUE_EMISSION",
+          "locator": "form.idx \"Form Type\" column, exact string match",
+          "observation": "Exact raw string \"10-K\" present in the official quarterly form index; 621 indexed filing rows carry it."
+        },
+        {
+          "sourceId": "SEC-FORM-10-K",
+          "evidenceRole": "OFFICIAL_FORM_DOCUMENT_CORROBORATION",
+          "locator": "Form cover page / General Instructions",
+          "officialFormDescription": "Cover page: \"FORM 10-K / ANNUAL REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934\"."
+        }
+      ],
+      "notes": "Core annual periodic record."
+    },
+    {
+      "rawFormValue": "10-K/A",
+      "canonicalFormIdentity": "10-K/A",
+      "formDisposition": "MAP_TO_RC3",
+      "recordClasses": [
+        "RC3"
+      ],
+      "basis": {
+        "basisType": "OFFICIAL_SEC_SUBMISSION_TYPE_DEFINITION",
+        "officialMeaning": "Annual report pursuant to Section 13 and 15(d).",
+        "methodologyMatch": "RC3 as written (accepted methodology §24.4): \"Annual periodic records\". The official SEC description identifies this submission type as an annual report. No narrowing of RC3 was applied to exclude it and no broadening was applied to include it.",
+        "confidencePosture": "DIRECT_OFFICIAL_MATCH"
+      },
+      "sourceEvidence": [
+        {
+          "sourceId": "SEC-EFM2-INDEX-TO-FORMS",
+          "evidenceRole": "SEMANTIC_DEFINITION",
+          "locator": "Section 3, Index to Forms — row for EDGAR submission type \"10-K, 10-K/A\"",
+          "officialFormDescription": "Annual report pursuant to Section 13 and 15(d)."
+        },
+        {
+          "sourceId": "SEC-FULLINDEX-2026-QTR2",
+          "evidenceRole": "RAW_VALUE_EMISSION",
+          "locator": "form.idx \"Form Type\" column, exact string match",
+          "observation": "Exact raw string \"10-K/A\" present in the official quarterly form index; 373 indexed filing rows carry it."
+        }
+      ],
+      "notes": "Adjudicated in its own right under accepted methodology C3 / Owner §10. The disposition is NOT derived from the \"/A\" suffix: the SEC's own Index to Forms carries this exact raw value on the same row as, and under the same official description as, the base submission type. Suffix syntax was not used as evidence."
+    },
+    {
+      "rawFormValue": "10-Q",
+      "canonicalFormIdentity": "10-Q",
+      "formDisposition": "MAP_TO_RC4",
+      "recordClasses": [
+        "RC4"
+      ],
+      "basis": {
+        "basisType": "OFFICIAL_SEC_SUBMISSION_TYPE_DEFINITION",
+        "officialMeaning": "Quarterly report pursuant to Section 13 or 15(d).",
+        "methodologyMatch": "RC4 as written (accepted methodology §24.4): \"Quarterly periodic records\". The official SEC description identifies this submission type as a quarterly report.",
+        "confidencePosture": "DIRECT_OFFICIAL_MATCH"
+      },
+      "sourceEvidence": [
+        {
+          "sourceId": "SEC-EFM2-INDEX-TO-FORMS",
+          "evidenceRole": "SEMANTIC_DEFINITION",
+          "locator": "Section 3, Index to Forms — row for EDGAR submission type \"10-Q, 10-Q/A\"",
+          "officialFormDescription": "Quarterly report pursuant to Section 13 or 15(d)."
+        },
+        {
+          "sourceId": "SEC-FULLINDEX-2026-QTR2",
+          "evidenceRole": "RAW_VALUE_EMISSION",
+          "locator": "form.idx \"Form Type\" column, exact string match",
+          "observation": "Exact raw string \"10-Q\" present in the official quarterly form index; 5473 indexed filing rows carry it."
+        },
+        {
+          "sourceId": "SEC-FORM-10-Q",
+          "evidenceRole": "OFFICIAL_FORM_DOCUMENT_CORROBORATION",
+          "locator": "Form cover page / General Instructions",
+          "officialFormDescription": "General Instruction A.1: \"Form 10-Q shall be used for quarterly reports under Section 13 or 15(d) of the Securities Exchange Act of 1934 ... filed pursuant to Rule 13a-13 or Rule 15d-13.\""
+        }
+      ],
+      "notes": "Core quarterly periodic record."
+    },
+    {
+      "rawFormValue": "10-Q/A",
+      "canonicalFormIdentity": "10-Q/A",
+      "formDisposition": "MAP_TO_RC4",
+      "recordClasses": [
+        "RC4"
+      ],
+      "basis": {
+        "basisType": "OFFICIAL_SEC_SUBMISSION_TYPE_DEFINITION",
+        "officialMeaning": "Quarterly report pursuant to Section 13 or 15(d).",
+        "methodologyMatch": "RC4 as written (accepted methodology §24.4): \"Quarterly periodic records\". The official SEC description identifies this submission type as a quarterly report.",
+        "confidencePosture": "DIRECT_OFFICIAL_MATCH"
+      },
+      "sourceEvidence": [
+        {
+          "sourceId": "SEC-EFM2-INDEX-TO-FORMS",
+          "evidenceRole": "SEMANTIC_DEFINITION",
+          "locator": "Section 3, Index to Forms — row for EDGAR submission type \"10-Q, 10-Q/A\"",
+          "officialFormDescription": "Quarterly report pursuant to Section 13 or 15(d)."
+        },
+        {
+          "sourceId": "SEC-FULLINDEX-2026-QTR2",
+          "evidenceRole": "RAW_VALUE_EMISSION",
+          "locator": "form.idx \"Form Type\" column, exact string match",
+          "observation": "Exact raw string \"10-Q/A\" present in the official quarterly form index; 53 indexed filing rows carry it."
+        }
+      ],
+      "notes": "Adjudicated in its own right under accepted methodology C3 / Owner §10. The disposition is NOT derived from the \"/A\" suffix: the SEC's own Index to Forms carries this exact raw value on the same row as, and under the same official description as, the base submission type. Suffix syntax was not used as evidence."
+    },
+    {
+      "rawFormValue": "11-K",
+      "canonicalFormIdentity": "11-K",
+      "formDisposition": "MAP_TO_RC3",
+      "recordClasses": [
+        "RC3"
+      ],
+      "basis": {
+        "basisType": "OFFICIAL_SEC_SUBMISSION_TYPE_DEFINITION",
+        "officialMeaning": "Annual report of employee stock purchase, savings and similar plans.",
+        "methodologyMatch": "RC3 as written (accepted methodology §24.4): \"Annual periodic records\". The official SEC description identifies this submission type as an annual report. No narrowing of RC3 was applied to exclude it and no broadening was applied to include it.",
+        "confidencePosture": "DIRECT_OFFICIAL_MATCH"
+      },
+      "sourceEvidence": [
+        {
+          "sourceId": "SEC-EFM2-INDEX-TO-FORMS",
+          "evidenceRole": "SEMANTIC_DEFINITION",
+          "locator": "Section 3, Index to Forms — row for EDGAR submission type \"11-K, 11-K/A\"",
+          "officialFormDescription": "Annual report of employee stock purchase, savings and similar plans."
+        },
+        {
+          "sourceId": "SEC-FULLINDEX-2026-QTR2",
+          "evidenceRole": "RAW_VALUE_EMISSION",
+          "locator": "form.idx \"Form Type\" column, exact string match",
+          "observation": "Exact raw string \"11-K\" present in the official quarterly form index; 750 indexed filing rows carry it."
+        },
+        {
+          "sourceId": "SEC-FORM-11-K",
+          "evidenceRole": "OFFICIAL_FORM_DOCUMENT_CORROBORATION",
+          "locator": "Form cover page / General Instructions",
+          "officialFormDescription": "Cover page: \"FORM 11-K / FOR ANNUAL REPORTS OF EMPLOYEE STOCK PURCHASE, SAVINGS AND SIMILAR PLANS PURSUANT TO SECTION 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934\"."
+        }
+      ],
+      "notes": "The official description begins \"Annual report of\". RC3 is a record-class test, not an issuer-identity test; no proposition about the filer's identity is created by this mapping."
+    },
+    {
+      "rawFormValue": "11-K/A",
+      "canonicalFormIdentity": "11-K/A",
+      "formDisposition": "MAP_TO_RC3",
+      "recordClasses": [
+        "RC3"
+      ],
+      "basis": {
+        "basisType": "OFFICIAL_SEC_SUBMISSION_TYPE_DEFINITION",
+        "officialMeaning": "Annual report of employee stock purchase, savings and similar plans.",
+        "methodologyMatch": "RC3 as written (accepted methodology §24.4): \"Annual periodic records\". The official SEC description identifies this submission type as an annual report. No narrowing of RC3 was applied to exclude it and no broadening was applied to include it.",
+        "confidencePosture": "DIRECT_OFFICIAL_MATCH"
+      },
+      "sourceEvidence": [
+        {
+          "sourceId": "SEC-EFM2-INDEX-TO-FORMS",
+          "evidenceRole": "SEMANTIC_DEFINITION",
+          "locator": "Section 3, Index to Forms — row for EDGAR submission type \"11-K, 11-K/A\"",
+          "officialFormDescription": "Annual report of employee stock purchase, savings and similar plans."
+        },
+        {
+          "sourceId": "SEC-FULLINDEX-2026-QTR2",
+          "evidenceRole": "RAW_VALUE_EMISSION",
+          "locator": "form.idx \"Form Type\" column, exact string match",
+          "observation": "Exact raw string \"11-K/A\" present in the official quarterly form index; 5 indexed filing rows carry it."
+        }
+      ],
+      "notes": "Adjudicated in its own right under accepted methodology C3 / Owner §10. The disposition is NOT derived from the \"/A\" suffix: the SEC's own Index to Forms carries this exact raw value on the same row as, and under the same official description as, the base submission type. Suffix syntax was not used as evidence."
+    },
+    {
+      "rawFormValue": "425",
+      "canonicalFormIdentity": "425",
+      "formDisposition": "MAP_TO_RC1",
+      "recordClasses": [
+        "RC1"
+      ],
+      "basis": {
+        "basisType": "OFFICIAL_SEC_SUBMISSION_TYPE_DEFINITION",
+        "officialMeaning": "Filing under Securities Act Rule 425 of certain prospectuses and communications in connection with business combination transactions.",
+        "methodologyMatch": "RC1 as written (accepted methodology §24.4): \"Business-combination registration / solicitation records\". The official SEC description names business combination transactions expressly; no RC definition was narrowed or broadened to reach this result.",
+        "confidencePosture": "DIRECT_OFFICIAL_MATCH"
+      },
+      "sourceEvidence": [
+        {
+          "sourceId": "SEC-EFM2-INDEX-TO-FORMS",
+          "evidenceRole": "SEMANTIC_DEFINITION",
+          "locator": "Section 3, Index to Forms — row for EDGAR submission type \"425\"",
+          "officialFormDescription": "Filing under Securities Act Rule 425 of certain prospectuses and communications in connection with business combination transactions."
+        },
+        {
+          "sourceId": "SEC-FULLINDEX-2026-QTR2",
+          "evidenceRole": "RAW_VALUE_EMISSION",
+          "locator": "form.idx \"Form Type\" column, exact string match",
+          "observation": "Exact raw string \"425\" present in the official quarterly form index; 1546 indexed filing rows carry it."
+        }
+      ],
+      "notes": "Rule 425 communications are the solicitation/communication limb of RC1. RC1 covers registration AND solicitation records; this entry rests on the solicitation limb."
+    },
+    {
+      "rawFormValue": "8-K",
+      "canonicalFormIdentity": "8-K",
+      "formDisposition": "MAP_TO_RC2",
+      "recordClasses": [
+        "RC2"
+      ],
+      "basis": {
+        "basisType": "OFFICIAL_SEC_SUBMISSION_TYPE_DEFINITION_PLUS_STRUCTURED_FIELD_CARRIAGE_OBSERVATION",
+        "officialMeaning": "Current report filing.",
+        "methodologyMatch": "RC2 as written (accepted methodology §24.4): \"Current event-disclosure records carrying structured item codes\". Both prongs are established positively and separately: (a) the official SEC description makes this a current report; (b) the official Form 8-K is organised into numbered Items and the official SEC structured submissions dataset publishes those item codes for this exact raw form value. Prong (b) is established from the adjudicated form's own official structure, NOT from a structured field merely being non-empty (§24.7.2).",
+        "confidencePosture": "DIRECT_OFFICIAL_MATCH"
+      },
+      "sourceEvidence": [
+        {
+          "sourceId": "SEC-EFM2-INDEX-TO-FORMS",
+          "evidenceRole": "SEMANTIC_DEFINITION",
+          "locator": "Section 3, Index to Forms — row for EDGAR submission type \"8-K, 8-K/A\"",
+          "officialFormDescription": "Current report filing."
+        },
+        {
+          "sourceId": "SEC-FULLINDEX-2026-QTR2",
+          "evidenceRole": "RAW_VALUE_EMISSION",
+          "locator": "form.idx \"Form Type\" column, exact string match",
+          "observation": "Exact raw string \"8-K\" present in the official quarterly form index; 18300 indexed filing rows carry it."
+        },
+        {
+          "sourceId": "SEC-FORM-8-K",
+          "evidenceRole": "STRUCTURED_ITEM_CODE_DEFINITION",
+          "locator": "Form 8-K, Items 1.01 through 9.01",
+          "officialFormDescription": "Form 8-K is organised into numbered Items (for example Item 1.01 Entry into a Material Definitive Agreement; Item 2.01 Completion of Acquisition or Disposition of Assets; Item 5.02 Departure of Directors or Certain Officers)."
+        },
+        {
+          "sourceId": "SEC-SUBMISSIONS-API",
+          "evidenceRole": "STRUCTURED_FIELD_CARRIAGE",
+          "locator": "filings.recent.items, aligned to filings.recent.form, CIK0000320193",
+          "observation": "Filings carrying this exact raw form value were observed with populated structured item-code values (for example \"2.02,9.01\", \"5.02\", \"5.07,9.01\"), matching the Item numbering of the official Form 8-K."
+        }
+      ],
+      "notes": "Item-code carriage was verified against the official Form 8-K Item numbering before mapping, so the mapping is driven by adjudicated form semantics rather than by field-name resemblance."
+    },
+    {
+      "rawFormValue": "8-K/A",
+      "canonicalFormIdentity": "8-K/A",
+      "formDisposition": "MAP_TO_RC2",
+      "recordClasses": [
+        "RC2"
+      ],
+      "basis": {
+        "basisType": "OFFICIAL_SEC_SUBMISSION_TYPE_DEFINITION_PLUS_STRUCTURED_FIELD_CARRIAGE_OBSERVATION",
+        "officialMeaning": "Current report filing.",
+        "methodologyMatch": "RC2 as written (accepted methodology §24.4): \"Current event-disclosure records carrying structured item codes\". Both prongs are established positively and separately: (a) the official SEC description makes this a current report; (b) the official Form 8-K is organised into numbered Items and the official SEC structured submissions dataset publishes those item codes for this exact raw form value. Prong (b) is established from the adjudicated form's own official structure, NOT from a structured field merely being non-empty (§24.7.2).",
+        "confidencePosture": "DIRECT_OFFICIAL_MATCH"
+      },
+      "sourceEvidence": [
+        {
+          "sourceId": "SEC-EFM2-INDEX-TO-FORMS",
+          "evidenceRole": "SEMANTIC_DEFINITION",
+          "locator": "Section 3, Index to Forms — row for EDGAR submission type \"8-K, 8-K/A\"",
+          "officialFormDescription": "Current report filing."
+        },
+        {
+          "sourceId": "SEC-FULLINDEX-2026-QTR2",
+          "evidenceRole": "RAW_VALUE_EMISSION",
+          "locator": "form.idx \"Form Type\" column, exact string match",
+          "observation": "Exact raw string \"8-K/A\" present in the official quarterly form index; 364 indexed filing rows carry it."
+        },
+        {
+          "sourceId": "SEC-FORM-8-K",
+          "evidenceRole": "STRUCTURED_ITEM_CODE_DEFINITION",
+          "locator": "Form 8-K, Items 1.01 through 9.01",
+          "officialFormDescription": "Form 8-K is organised into numbered Items (for example Item 1.01 Entry into a Material Definitive Agreement; Item 2.01 Completion of Acquisition or Disposition of Assets; Item 5.02 Departure of Directors or Certain Officers)."
+        },
+        {
+          "sourceId": "SEC-SUBMISSIONS-API",
+          "evidenceRole": "STRUCTURED_FIELD_CARRIAGE",
+          "locator": "filings.recent.items, aligned to filings.recent.form, CIK0000320193",
+          "observation": "Filings carrying this exact raw form value were observed with populated structured item-code values (for example \"5.02\", \"8.01\")."
+        }
+      ],
+      "notes": "Adjudicated in its own right under accepted methodology C3 / Owner §10. The disposition is NOT derived from the \"/A\" suffix: the SEC's own Index to Forms carries this exact raw value on the same row as, and under the same official description as, the base submission type. Suffix syntax was not used as evidence. Item-code carriage was separately observed for this exact raw value."
+    },
+    {
+      "rawFormValue": "ARS",
+      "canonicalFormIdentity": "ARS",
+      "formDisposition": "MAP_TO_RC3",
+      "recordClasses": [
+        "RC3"
+      ],
+      "basis": {
+        "basisType": "OFFICIAL_SEC_SUBMISSION_TYPE_DEFINITION",
+        "officialMeaning": "Annual report to security holders.",
+        "methodologyMatch": "RC3 as written (accepted methodology §24.4): \"Annual periodic records\". The official SEC description identifies this submission type as an annual report. No narrowing of RC3 was applied to exclude it and no broadening was applied to include it.",
+        "confidencePosture": "DIRECT_OFFICIAL_MATCH"
+      },
+      "sourceEvidence": [
+        {
+          "sourceId": "SEC-EFM2-INDEX-TO-FORMS",
+          "evidenceRole": "SEMANTIC_DEFINITION",
+          "locator": "Section 3, Index to Forms — row for EDGAR submission type \"ARS, ARS/A\"",
+          "officialFormDescription": "Annual report to security holders."
+        },
+        {
+          "sourceId": "SEC-FULLINDEX-2026-QTR2",
+          "evidenceRole": "RAW_VALUE_EMISSION",
+          "locator": "form.idx \"Form Type\" column, exact string match",
+          "observation": "Exact raw string \"ARS\" present in the official quarterly form index; 1879 indexed filing rows carry it."
+        }
+      ],
+      "notes": "INDEPENDENTLY RE-ADJUDICATED for this instance; the historical OUT_OF_BOUND disposition in the v0.1-CORR3 lineage was NOT used as authority and is not inherited. The official SEC description is \"Annual report to security holders\", and the official SEC note directs use of this submission type when furnishing the annual report to security holders for the information of the Commission pursuant to Rule 14a-3(c) or Rule 14c-3(b). That is a direct match to RC3 \"Annual periodic records\". No RC5 leg is asserted: the official description identifies an annual report, not a proxy statement or soliciting material, so a business-combination or proxy-solicitation reading is not supported by the official text relied on here."
+    },
+    {
+      "rawFormValue": "ARS/A",
+      "canonicalFormIdentity": "ARS/A",
+      "formDisposition": "MAP_TO_RC3",
+      "recordClasses": [
+        "RC3"
+      ],
+      "basis": {
+        "basisType": "OFFICIAL_SEC_SUBMISSION_TYPE_DEFINITION",
+        "officialMeaning": "Annual report to security holders.",
+        "methodologyMatch": "RC3 as written (accepted methodology §24.4): \"Annual periodic records\". The official SEC description identifies this submission type as an annual report. No narrowing of RC3 was applied to exclude it and no broadening was applied to include it.",
+        "confidencePosture": "DIRECT_OFFICIAL_MATCH"
+      },
+      "sourceEvidence": [
+        {
+          "sourceId": "SEC-EFM2-INDEX-TO-FORMS",
+          "evidenceRole": "SEMANTIC_DEFINITION",
+          "locator": "Section 3, Index to Forms — row for EDGAR submission type \"ARS, ARS/A\"",
+          "officialFormDescription": "Annual report to security holders."
+        },
+        {
+          "sourceId": "SEC-FULLINDEX-2026-QTR2",
+          "evidenceRole": "RAW_VALUE_EMISSION",
+          "locator": "form.idx \"Form Type\" column, exact string match",
+          "observation": "Exact raw string \"ARS/A\" present in the official quarterly form index; 4 indexed filing rows carry it."
+        }
+      ],
+      "notes": "Adjudicated in its own right under accepted methodology C3 / Owner §10. The disposition is NOT derived from the \"/A\" suffix: the SEC's own Index to Forms carries this exact raw value on the same row as, and under the same official description as, the base submission type. Suffix syntax was not used as evidence."
+    },
+    {
+      "rawFormValue": "DEF 14A",
+      "canonicalFormIdentity": "DEF 14A",
+      "formDisposition": "MAP_TO_RC5",
+      "recordClasses": [
+        "RC5"
+      ],
+      "basis": {
+        "basisType": "OFFICIAL_SEC_SUBMISSION_TYPE_DEFINITION",
+        "officialMeaning": "Definitive proxy statements.",
+        "methodologyMatch": "RC5 as written (accepted methodology §24.4): \"Proxy / solicitation records\", rationale \"Availability of §14 solicitation records (P3) — existence only\". The official SEC description identifies this submission type as a proxy statement or as proxy soliciting material. Existence only; no content, outcome or authorship proposition is created.",
+        "confidencePosture": "DIRECT_OFFICIAL_MATCH"
+      },
+      "sourceEvidence": [
+        {
+          "sourceId": "SEC-EFM2-INDEX-TO-FORMS",
+          "evidenceRole": "SEMANTIC_DEFINITION",
+          "locator": "Section 3, Index to Forms — row for EDGAR submission type \"DEF 14A\"",
+          "officialFormDescription": "Definitive proxy statements."
+        },
+        {
+          "sourceId": "SEC-FULLINDEX-2026-QTR2",
+          "evidenceRole": "RAW_VALUE_EMISSION",
+          "locator": "form.idx \"Form Type\" column, exact string match",
+          "observation": "Exact raw string \"DEF 14A\" present in the official quarterly form index; 2694 indexed filing rows carry it."
+        }
+      ],
+      "notes": "Core definitive proxy record."
+    },
+    {
+      "rawFormValue": "DEFA14A",
+      "canonicalFormIdentity": "DEFA14A",
+      "formDisposition": "MAP_TO_RC5",
+      "recordClasses": [
+        "RC5"
+      ],
+      "basis": {
+        "basisType": "OFFICIAL_SEC_SUBMISSION_TYPE_DEFINITION",
+        "officialMeaning": "Definitive additional proxy soliciting materials including Rule 14(a)(12) material.",
+        "methodologyMatch": "RC5 as written (accepted methodology §24.4): \"Proxy / solicitation records\", rationale \"Availability of §14 solicitation records (P3) — existence only\". The official SEC description identifies this submission type as a proxy statement or as proxy soliciting material. Existence only; no content, outcome or authorship proposition is created.",
+        "confidencePosture": "DIRECT_OFFICIAL_MATCH"
+      },
+      "sourceEvidence": [
+        {
+          "sourceId": "SEC-EFM2-INDEX-TO-FORMS",
+          "evidenceRole": "SEMANTIC_DEFINITION",
+          "locator": "Section 3, Index to Forms — row for EDGAR submission type \"DEFA14A\"",
+          "officialFormDescription": "Definitive additional proxy soliciting materials including Rule 14(a)(12) material."
+        },
+        {
+          "sourceId": "SEC-FULLINDEX-2026-QTR2",
+          "evidenceRole": "RAW_VALUE_EMISSION",
+          "locator": "form.idx \"Form Type\" column, exact string match",
+          "observation": "Exact raw string \"DEFA14A\" present in the official quarterly form index; 3042 indexed filing rows carry it."
+        }
+      ],
+      "notes": "Official description names proxy soliciting materials directly."
+    },
+    {
+      "rawFormValue": "DEFC14A",
+      "canonicalFormIdentity": "DEFC14A",
+      "formDisposition": "MAP_TO_RC5",
+      "recordClasses": [
+        "RC5"
+      ],
+      "basis": {
+        "basisType": "OFFICIAL_SEC_SUBMISSION_TYPE_DEFINITION",
+        "officialMeaning": "Definitive proxy statement in connection with contested solicitations.",
+        "methodologyMatch": "RC5 as written (accepted methodology §24.4): \"Proxy / solicitation records\", rationale \"Availability of §14 solicitation records (P3) — existence only\". The official SEC description identifies this submission type as a proxy statement or as proxy soliciting material. Existence only; no content, outcome or authorship proposition is created.",
+        "confidencePosture": "DIRECT_OFFICIAL_MATCH"
+      },
+      "sourceEvidence": [
+        {
+          "sourceId": "SEC-EFM2-INDEX-TO-FORMS",
+          "evidenceRole": "SEMANTIC_DEFINITION",
+          "locator": "Section 3, Index to Forms — row for EDGAR submission type \"DEFC14A\"",
+          "officialFormDescription": "Definitive proxy statement in connection with contested solicitations."
+        },
+        {
+          "sourceId": "SEC-FULLINDEX-2026-QTR2",
+          "evidenceRole": "RAW_VALUE_EMISSION",
+          "locator": "form.idx \"Form Type\" column, exact string match",
+          "observation": "Exact raw string \"DEFC14A\" present in the official quarterly form index; 52 indexed filing rows carry it."
+        }
+      ],
+      "notes": "Contested solicitation. RC5 is existence-only; no proposition about the contest, its subject matter or its outcome is created."
+    },
+    {
+      "rawFormValue": "DEFM14A",
+      "canonicalFormIdentity": "DEFM14A",
+      "formDisposition": "MAP_TO_MULTIPLE(RC1,RC5)",
+      "recordClasses": [
+        "RC1",
+        "RC5"
+      ],
+      "basis": {
+        "basisType": "OFFICIAL_SEC_SUBMISSION_TYPE_DEFINITION",
+        "officialMeaning": "Definitive proxy statement relating to a merger, acquisition, or disposition.",
+        "methodologyMatch": "Two accepted RC definitions are satisfied simultaneously and neither is narrowed to force a single winner (accepted methodology C4). RC5: the official SEC description identifies this submission type as a proxy statement, a §14 solicitation record. RC1: the same official description states that the proxy statement relates to a merger or acquisition, making it a business-combination solicitation record. Counted once per class; never counted as two physical records.",
+        "confidencePosture": "DIRECT_OFFICIAL_MATCH"
+      },
+      "sourceEvidence": [
+        {
+          "sourceId": "SEC-EFM2-INDEX-TO-FORMS",
+          "evidenceRole": "SEMANTIC_DEFINITION",
+          "locator": "Section 3, Index to Forms — row for EDGAR submission type \"DEFM14A\"",
+          "officialFormDescription": "Definitive proxy statement relating to a merger, acquisition, or disposition."
+        },
+        {
+          "sourceId": "SEC-FULLINDEX-2026-QTR2",
+          "evidenceRole": "RAW_VALUE_EMISSION",
+          "locator": "form.idx \"Form Type\" column, exact string match",
+          "observation": "Exact raw string \"DEFM14A\" present in the official quarterly form index; 67 indexed filing rows carry it."
+        }
+      ],
+      "notes": "Genuine C4 overlap. The RC1 leg rests on the express words \"merger, acquisition\" in the official SEC description; the RC5 leg rests on \"proxy statement\". No hidden secondary mapping exists: recordClasses lists every applicable RC."
+    },
+    {
+      "rawFormValue": "DEFR14A",
+      "canonicalFormIdentity": "DEFR14A",
+      "formDisposition": "MAP_TO_RC5",
+      "recordClasses": [
+        "RC5"
+      ],
+      "basis": {
+        "basisType": "OFFICIAL_SEC_SUBMISSION_TYPE_DEFINITION",
+        "officialMeaning": "Definitive revised proxy soliciting materials.",
+        "methodologyMatch": "RC5 as written (accepted methodology §24.4): \"Proxy / solicitation records\", rationale \"Availability of §14 solicitation records (P3) — existence only\". The official SEC description identifies this submission type as a proxy statement or as proxy soliciting material. Existence only; no content, outcome or authorship proposition is created.",
+        "confidencePosture": "DIRECT_OFFICIAL_MATCH"
+      },
+      "sourceEvidence": [
+        {
+          "sourceId": "SEC-EFM2-INDEX-TO-FORMS",
+          "evidenceRole": "SEMANTIC_DEFINITION",
+          "locator": "Section 3, Index to Forms — row for EDGAR submission type \"DEFR14A\"",
+          "officialFormDescription": "Definitive revised proxy soliciting materials."
+        },
+        {
+          "sourceId": "SEC-FULLINDEX-2026-QTR2",
+          "evidenceRole": "RAW_VALUE_EMISSION",
+          "locator": "form.idx \"Form Type\" column, exact string match",
+          "observation": "Exact raw string \"DEFR14A\" present in the official quarterly form index; 47 indexed filing rows carry it."
+        }
+      ],
+      "notes": "Official description names proxy soliciting materials directly."
+    },
+    {
+      "rawFormValue": "DFAN14A",
+      "canonicalFormIdentity": "DFAN14A",
+      "formDisposition": "MAP_TO_RC5",
+      "recordClasses": [
+        "RC5"
+      ],
+      "basis": {
+        "basisType": "OFFICIAL_SEC_SUBMISSION_TYPE_DEFINITION",
+        "officialMeaning": "Definitive additional proxy soliciting materials filed by non-management including Rule 14(a)(12) material.",
+        "methodologyMatch": "RC5 as written (accepted methodology §24.4): \"Proxy / solicitation records\", rationale \"Availability of §14 solicitation records (P3) — existence only\". The official SEC description identifies this submission type as a proxy statement or as proxy soliciting material. Existence only; no content, outcome or authorship proposition is created.",
+        "confidencePosture": "DIRECT_OFFICIAL_MATCH"
+      },
+      "sourceEvidence": [
+        {
+          "sourceId": "SEC-EFM2-INDEX-TO-FORMS",
+          "evidenceRole": "SEMANTIC_DEFINITION",
+          "locator": "Section 3, Index to Forms — row for EDGAR submission type \"DFAN14A\"",
+          "officialFormDescription": "Definitive additional proxy soliciting materials filed by non-management including Rule 14(a)(12) material."
+        },
+        {
+          "sourceId": "SEC-FULLINDEX-2026-QTR2",
+          "evidenceRole": "RAW_VALUE_EMISSION",
+          "locator": "form.idx \"Form Type\" column, exact string match",
+          "observation": "Exact raw string \"DFAN14A\" present in the official quarterly form index; 338 indexed filing rows carry it."
+        }
+      ],
+      "notes": "Non-management filer. RC5 membership does not establish issuer authorship."
+    },
+    {
+      "rawFormValue": "DFRN14A",
+      "canonicalFormIdentity": "DFRN14A",
+      "formDisposition": "MAP_TO_RC5",
+      "recordClasses": [
+        "RC5"
+      ],
+      "basis": {
+        "basisType": "OFFICIAL_SEC_SUBMISSION_TYPE_DEFINITION",
+        "officialMeaning": "Revised definitive proxy statement filed by non-management.",
+        "methodologyMatch": "RC5 as written (accepted methodology §24.4): \"Proxy / solicitation records\", rationale \"Availability of §14 solicitation records (P3) — existence only\". The official SEC description identifies this submission type as a proxy statement or as proxy soliciting material. Existence only; no content, outcome or authorship proposition is created.",
+        "confidencePosture": "DIRECT_OFFICIAL_MATCH"
+      },
+      "sourceEvidence": [
+        {
+          "sourceId": "SEC-EFM2-INDEX-TO-FORMS",
+          "evidenceRole": "SEMANTIC_DEFINITION",
+          "locator": "Section 3, Index to Forms — row for EDGAR submission type \"DFRN14A\"",
+          "officialFormDescription": "Revised definitive proxy statement filed by non-management."
+        },
+        {
+          "sourceId": "SEC-FULLINDEX-2026-QTR2",
+          "evidenceRole": "RAW_VALUE_EMISSION",
+          "locator": "form.idx \"Form Type\" column, exact string match",
+          "observation": "Exact raw string \"DFRN14A\" present in the official quarterly form index; 10 indexed filing rows carry it."
+        }
+      ],
+      "notes": "Non-management filer. RC5 membership does not establish issuer authorship."
+    },
+    {
+      "rawFormValue": "F-4",
+      "canonicalFormIdentity": "F-4",
+      "formDisposition": "MAP_TO_RC1",
+      "recordClasses": [
+        "RC1"
+      ],
+      "basis": {
+        "basisType": "OFFICIAL_SEC_SUBMISSION_TYPE_DEFINITION",
+        "officialMeaning": "Registration statement for securities issued by foreign private issuers in certain business combination transactions.",
+        "methodologyMatch": "RC1 as written (accepted methodology §24.4): \"Business-combination registration / solicitation records\". The official SEC description names business combination transactions expressly; no RC definition was narrowed or broadened to reach this result.",
+        "confidencePosture": "DIRECT_OFFICIAL_MATCH"
+      },
+      "sourceEvidence": [
+        {
+          "sourceId": "SEC-EFM2-INDEX-TO-FORMS",
+          "evidenceRole": "SEMANTIC_DEFINITION",
+          "locator": "Section 3, Index to Forms — row for EDGAR submission type \"F-4, F-4/A\"",
+          "officialFormDescription": "Registration statement for securities issued by foreign private issuers in certain business combination transactions."
+        },
+        {
+          "sourceId": "SEC-FULLINDEX-2026-QTR2",
+          "evidenceRole": "RAW_VALUE_EMISSION",
+          "locator": "form.idx \"Form Type\" column, exact string match",
+          "observation": "Exact raw string \"F-4\" present in the official quarterly form index; 20 indexed filing rows carry it."
+        },
+        {
+          "sourceId": "SEC-FORM-F-4",
+          "evidenceRole": "OFFICIAL_FORM_DOCUMENT_CORROBORATION",
+          "locator": "Form cover page / General Instructions",
+          "officialFormDescription": "Cover page: \"FORM F-4 / REGISTRATION STATEMENT UNDER THE SECURITIES ACT OF 1933\"."
+        }
+      ],
+      "notes": "Foreign-private-issuer counterpart of Form S-4."
+    },
+    {
+      "rawFormValue": "F-4/A",
+      "canonicalFormIdentity": "F-4/A",
+      "formDisposition": "MAP_TO_RC1",
+      "recordClasses": [
+        "RC1"
+      ],
+      "basis": {
+        "basisType": "OFFICIAL_SEC_SUBMISSION_TYPE_DEFINITION",
+        "officialMeaning": "Registration statement for securities issued by foreign private issuers in certain business combination transactions.",
+        "methodologyMatch": "RC1 as written (accepted methodology §24.4): \"Business-combination registration / solicitation records\". The official SEC description names business combination transactions expressly; no RC definition was narrowed or broadened to reach this result.",
+        "confidencePosture": "DIRECT_OFFICIAL_MATCH"
+      },
+      "sourceEvidence": [
+        {
+          "sourceId": "SEC-EFM2-INDEX-TO-FORMS",
+          "evidenceRole": "SEMANTIC_DEFINITION",
+          "locator": "Section 3, Index to Forms — row for EDGAR submission type \"F-4, F-4/A\"",
+          "officialFormDescription": "Registration statement for securities issued by foreign private issuers in certain business combination transactions."
+        },
+        {
+          "sourceId": "SEC-FULLINDEX-2026-QTR2",
+          "evidenceRole": "RAW_VALUE_EMISSION",
+          "locator": "form.idx \"Form Type\" column, exact string match",
+          "observation": "Exact raw string \"F-4/A\" present in the official quarterly form index; 41 indexed filing rows carry it."
+        }
+      ],
+      "notes": "Adjudicated in its own right under accepted methodology C3 / Owner §10. The disposition is NOT derived from the \"/A\" suffix: the SEC's own Index to Forms carries this exact raw value on the same row as, and under the same official description as, the base submission type. Suffix syntax was not used as evidence."
+    },
+    {
+      "rawFormValue": "N-14",
+      "canonicalFormIdentity": "N-14",
+      "formDisposition": "MAP_TO_RC1",
+      "recordClasses": [
+        "RC1"
+      ],
+      "basis": {
+        "basisType": "OFFICIAL_SEC_SUBMISSION_TYPE_DEFINITION",
+        "officialMeaning": "Initial registration statement filed on Form N-14 for open-end investment company, including those filed with automatic effectiveness under Rule 488 (business combinations).",
+        "methodologyMatch": "RC1 as written (accepted methodology §24.4): \"Business-combination registration / solicitation records\". The official SEC description names business combination transactions expressly; no RC definition was narrowed or broadened to reach this result.",
+        "confidencePosture": "DIRECT_OFFICIAL_MATCH"
+      },
+      "sourceEvidence": [
+        {
+          "sourceId": "SEC-EFM2-INDEX-TO-FORMS",
+          "evidenceRole": "SEMANTIC_DEFINITION",
+          "locator": "Section 3, Index to Forms — row for EDGAR submission type \"N-14, N-14/A\"",
+          "officialFormDescription": "Initial registration statement filed on Form N-14 for open-end investment company, including those filed with automatic effectiveness under Rule 488 (business combinations)."
+        },
+        {
+          "sourceId": "SEC-FULLINDEX-2026-QTR2",
+          "evidenceRole": "RAW_VALUE_EMISSION",
+          "locator": "form.idx \"Form Type\" column, exact string match",
+          "observation": "Exact raw string \"N-14\" present in the official quarterly form index; 23 indexed filing rows carry it."
+        }
+      ],
+      "notes": "Investment-company counterpart of Form S-4; the official description states \"(business combinations)\" expressly."
+    },
+    {
+      "rawFormValue": "N-14 8C",
+      "canonicalFormIdentity": "N-14 8C",
+      "formDisposition": "MAP_TO_RC1",
+      "recordClasses": [
+        "RC1"
+      ],
+      "basis": {
+        "basisType": "OFFICIAL_SEC_SUBMISSION_TYPE_DEFINITION",
+        "officialMeaning": "Initial registration statement filed on Form N-14 by closed-end investment company (business combinations).",
+        "methodologyMatch": "RC1 as written (accepted methodology §24.4): \"Business-combination registration / solicitation records\". The official SEC description names business combination transactions expressly; no RC definition was narrowed or broadened to reach this result.",
+        "confidencePosture": "DIRECT_OFFICIAL_MATCH"
+      },
+      "sourceEvidence": [
+        {
+          "sourceId": "SEC-EFM2-INDEX-TO-FORMS",
+          "evidenceRole": "SEMANTIC_DEFINITION",
+          "locator": "Section 3, Index to Forms — row for EDGAR submission type \"N-14 8C, N-14 8C/A\"",
+          "officialFormDescription": "Initial registration statement filed on Form N-14 by closed-end investment company (business combinations)."
+        },
+        {
+          "sourceId": "SEC-FULLINDEX-2026-QTR2",
+          "evidenceRole": "RAW_VALUE_EMISSION",
+          "locator": "form.idx \"Form Type\" column, exact string match",
+          "observation": "Exact raw string \"N-14 8C\" present in the official quarterly form index; 7 indexed filing rows carry it."
+        }
+      ],
+      "notes": "Raw value contains a single internal space and is registered with that exact spacing. No whitespace normalization is authorized."
+    },
+    {
+      "rawFormValue": "N-14 8C/A",
+      "canonicalFormIdentity": "N-14 8C/A",
+      "formDisposition": "MAP_TO_RC1",
+      "recordClasses": [
+        "RC1"
+      ],
+      "basis": {
+        "basisType": "OFFICIAL_SEC_SUBMISSION_TYPE_DEFINITION",
+        "officialMeaning": "Initial registration statement filed on Form N-14 by closed-end investment company (business combinations).",
+        "methodologyMatch": "RC1 as written (accepted methodology §24.4): \"Business-combination registration / solicitation records\". The official SEC description names business combination transactions expressly; no RC definition was narrowed or broadened to reach this result.",
+        "confidencePosture": "DIRECT_OFFICIAL_MATCH"
+      },
+      "sourceEvidence": [
+        {
+          "sourceId": "SEC-EFM2-INDEX-TO-FORMS",
+          "evidenceRole": "SEMANTIC_DEFINITION",
+          "locator": "Section 3, Index to Forms — row for EDGAR submission type \"N-14 8C, N-14 8C/A\"",
+          "officialFormDescription": "Initial registration statement filed on Form N-14 by closed-end investment company (business combinations)."
+        },
+        {
+          "sourceId": "SEC-FULLINDEX-2026-QTR2",
+          "evidenceRole": "RAW_VALUE_EMISSION",
+          "locator": "form.idx \"Form Type\" column, exact string match",
+          "observation": "Exact raw string \"N-14 8C/A\" present in the official quarterly form index; 8 indexed filing rows carry it."
+        }
+      ],
+      "notes": "Adjudicated in its own right under accepted methodology C3 / Owner §10. The disposition is NOT derived from the \"/A\" suffix: the SEC's own Index to Forms carries this exact raw value on the same row as, and under the same official description as, the base submission type. Suffix syntax was not used as evidence."
+    },
+    {
+      "rawFormValue": "N-14/A",
+      "canonicalFormIdentity": "N-14/A",
+      "formDisposition": "MAP_TO_RC1",
+      "recordClasses": [
+        "RC1"
+      ],
+      "basis": {
+        "basisType": "OFFICIAL_SEC_SUBMISSION_TYPE_DEFINITION",
+        "officialMeaning": "Initial registration statement filed on Form N-14 for open-end investment company, including those filed with automatic effectiveness under Rule 488 (business combinations).",
+        "methodologyMatch": "RC1 as written (accepted methodology §24.4): \"Business-combination registration / solicitation records\". The official SEC description names business combination transactions expressly; no RC definition was narrowed or broadened to reach this result.",
+        "confidencePosture": "DIRECT_OFFICIAL_MATCH"
+      },
+      "sourceEvidence": [
+        {
+          "sourceId": "SEC-EFM2-INDEX-TO-FORMS",
+          "evidenceRole": "SEMANTIC_DEFINITION",
+          "locator": "Section 3, Index to Forms — row for EDGAR submission type \"N-14, N-14/A\"",
+          "officialFormDescription": "Initial registration statement filed on Form N-14 for open-end investment company, including those filed with automatic effectiveness under Rule 488 (business combinations)."
+        },
+        {
+          "sourceId": "SEC-FULLINDEX-2026-QTR2",
+          "evidenceRole": "RAW_VALUE_EMISSION",
+          "locator": "form.idx \"Form Type\" column, exact string match",
+          "observation": "Exact raw string \"N-14/A\" present in the official quarterly form index; 7 indexed filing rows carry it."
+        }
+      ],
+      "notes": "Adjudicated in its own right under accepted methodology C3 / Owner §10. The disposition is NOT derived from the \"/A\" suffix: the SEC's own Index to Forms carries this exact raw value on the same row as, and under the same official description as, the base submission type. Suffix syntax was not used as evidence."
+    },
+    {
+      "rawFormValue": "PRE 14A",
+      "canonicalFormIdentity": "PRE 14A",
+      "formDisposition": "MAP_TO_RC5",
+      "recordClasses": [
+        "RC5"
+      ],
+      "basis": {
+        "basisType": "OFFICIAL_SEC_SUBMISSION_TYPE_DEFINITION",
+        "officialMeaning": "Preliminary proxy statement not related to a contested matter or merger/acquisition.",
+        "methodologyMatch": "RC5 as written (accepted methodology §24.4): \"Proxy / solicitation records\", rationale \"Availability of §14 solicitation records (P3) — existence only\". The official SEC description identifies this submission type as a proxy statement or as proxy soliciting material. Existence only; no content, outcome or authorship proposition is created.",
+        "confidencePosture": "DIRECT_OFFICIAL_MATCH"
+      },
+      "sourceEvidence": [
+        {
+          "sourceId": "SEC-EFM2-INDEX-TO-FORMS",
+          "evidenceRole": "SEMANTIC_DEFINITION",
+          "locator": "Section 3, Index to Forms — row for EDGAR submission type \"PRE 14A\"",
+          "officialFormDescription": "Preliminary proxy statement not related to a contested matter or merger/acquisition."
+        },
+        {
+          "sourceId": "SEC-FULLINDEX-2026-QTR2",
+          "evidenceRole": "RAW_VALUE_EMISSION",
+          "locator": "form.idx \"Form Type\" column, exact string match",
+          "observation": "Exact raw string \"PRE 14A\" present in the official quarterly form index; 480 indexed filing rows carry it."
+        }
+      ],
+      "notes": "The official description expressly excludes merger/acquisition subject matter, so no RC1 leg is asserted for this raw value."
+    },
+    {
+      "rawFormValue": "PREC14A",
+      "canonicalFormIdentity": "PREC14A",
+      "formDisposition": "MAP_TO_RC5",
+      "recordClasses": [
+        "RC5"
+      ],
+      "basis": {
+        "basisType": "OFFICIAL_SEC_SUBMISSION_TYPE_DEFINITION",
+        "officialMeaning": "Preliminary proxy statement in connection with contested solicitations.",
+        "methodologyMatch": "RC5 as written (accepted methodology §24.4): \"Proxy / solicitation records\", rationale \"Availability of §14 solicitation records (P3) — existence only\". The official SEC description identifies this submission type as a proxy statement or as proxy soliciting material. Existence only; no content, outcome or authorship proposition is created.",
+        "confidencePosture": "DIRECT_OFFICIAL_MATCH"
+      },
+      "sourceEvidence": [
+        {
+          "sourceId": "SEC-EFM2-INDEX-TO-FORMS",
+          "evidenceRole": "SEMANTIC_DEFINITION",
+          "locator": "Section 3, Index to Forms — row for EDGAR submission type \"PREC14A\"",
+          "officialFormDescription": "Preliminary proxy statement in connection with contested solicitations."
+        },
+        {
+          "sourceId": "SEC-FULLINDEX-2026-QTR2",
+          "evidenceRole": "RAW_VALUE_EMISSION",
+          "locator": "form.idx \"Form Type\" column, exact string match",
+          "observation": "Exact raw string \"PREC14A\" present in the official quarterly form index; 43 indexed filing rows carry it."
+        }
+      ],
+      "notes": "Contested solicitation. Existence only."
+    },
+    {
+      "rawFormValue": "PREM14A",
+      "canonicalFormIdentity": "PREM14A",
+      "formDisposition": "MAP_TO_MULTIPLE(RC1,RC5)",
+      "recordClasses": [
+        "RC1",
+        "RC5"
+      ],
+      "basis": {
+        "basisType": "OFFICIAL_SEC_SUBMISSION_TYPE_DEFINITION",
+        "officialMeaning": "Preliminary proxy statement relating to a merger, acquisition, or disposition.",
+        "methodologyMatch": "Two accepted RC definitions are satisfied simultaneously and neither is narrowed to force a single winner (accepted methodology C4). RC5: the official SEC description identifies this submission type as a proxy statement, a §14 solicitation record. RC1: the same official description states that the proxy statement relates to a merger or acquisition, making it a business-combination solicitation record. Counted once per class; never counted as two physical records.",
+        "confidencePosture": "DIRECT_OFFICIAL_MATCH"
+      },
+      "sourceEvidence": [
+        {
+          "sourceId": "SEC-EFM2-INDEX-TO-FORMS",
+          "evidenceRole": "SEMANTIC_DEFINITION",
+          "locator": "Section 3, Index to Forms — row for EDGAR submission type \"PREM14A\"",
+          "officialFormDescription": "Preliminary proxy statement relating to a merger, acquisition, or disposition."
+        },
+        {
+          "sourceId": "SEC-FULLINDEX-2026-QTR2",
+          "evidenceRole": "RAW_VALUE_EMISSION",
+          "locator": "form.idx \"Form Type\" column, exact string match",
+          "observation": "Exact raw string \"PREM14A\" present in the official quarterly form index; 39 indexed filing rows carry it."
+        }
+      ],
+      "notes": "Genuine C4 overlap, on the same official basis as DEFM14A at the preliminary stage."
+    },
+    {
+      "rawFormValue": "PREN14A",
+      "canonicalFormIdentity": "PREN14A",
+      "formDisposition": "MAP_TO_RC5",
+      "recordClasses": [
+        "RC5"
+      ],
+      "basis": {
+        "basisType": "OFFICIAL_SEC_SUBMISSION_TYPE_DEFINITION",
+        "officialMeaning": "Preliminary proxy statement filed by non-management.",
+        "methodologyMatch": "RC5 as written (accepted methodology §24.4): \"Proxy / solicitation records\", rationale \"Availability of §14 solicitation records (P3) — existence only\". The official SEC description identifies this submission type as a proxy statement or as proxy soliciting material. Existence only; no content, outcome or authorship proposition is created.",
+        "confidencePosture": "DIRECT_OFFICIAL_MATCH"
+      },
+      "sourceEvidence": [
+        {
+          "sourceId": "SEC-EFM2-INDEX-TO-FORMS",
+          "evidenceRole": "SEMANTIC_DEFINITION",
+          "locator": "Section 3, Index to Forms — row for EDGAR submission type \"PREN14A\"",
+          "officialFormDescription": "Preliminary proxy statement filed by non-management."
+        },
+        {
+          "sourceId": "SEC-FULLINDEX-2026-QTR2",
+          "evidenceRole": "RAW_VALUE_EMISSION",
+          "locator": "form.idx \"Form Type\" column, exact string match",
+          "observation": "Exact raw string \"PREN14A\" present in the official quarterly form index; 2 indexed filing rows carry it."
+        }
+      ],
+      "notes": "Non-management filer. RC5 membership does not establish issuer authorship."
+    },
+    {
+      "rawFormValue": "PRER14A",
+      "canonicalFormIdentity": "PRER14A",
+      "formDisposition": "MAP_TO_RC5",
+      "recordClasses": [
+        "RC5"
+      ],
+      "basis": {
+        "basisType": "OFFICIAL_SEC_SUBMISSION_TYPE_DEFINITION",
+        "officialMeaning": "Preliminary revised proxy soliciting materials.",
+        "methodologyMatch": "RC5 as written (accepted methodology §24.4): \"Proxy / solicitation records\", rationale \"Availability of §14 solicitation records (P3) — existence only\". The official SEC description identifies this submission type as a proxy statement or as proxy soliciting material. Existence only; no content, outcome or authorship proposition is created.",
+        "confidencePosture": "DIRECT_OFFICIAL_MATCH"
+      },
+      "sourceEvidence": [
+        {
+          "sourceId": "SEC-EFM2-INDEX-TO-FORMS",
+          "evidenceRole": "SEMANTIC_DEFINITION",
+          "locator": "Section 3, Index to Forms — row for EDGAR submission type \"PRER14A\"",
+          "officialFormDescription": "Preliminary revised proxy soliciting materials."
+        },
+        {
+          "sourceId": "SEC-FULLINDEX-2026-QTR2",
+          "evidenceRole": "RAW_VALUE_EMISSION",
+          "locator": "form.idx \"Form Type\" column, exact string match",
+          "observation": "Exact raw string \"PRER14A\" present in the official quarterly form index; 44 indexed filing rows carry it."
+        }
+      ],
+      "notes": "Official description names proxy soliciting materials directly."
+    },
+    {
+      "rawFormValue": "PRRN14A",
+      "canonicalFormIdentity": "PRRN14A",
+      "formDisposition": "MAP_TO_RC5",
+      "recordClasses": [
+        "RC5"
+      ],
+      "basis": {
+        "basisType": "OFFICIAL_SEC_SUBMISSION_TYPE_DEFINITION",
+        "officialMeaning": "Revised preliminary proxy statement filed by non-management.",
+        "methodologyMatch": "RC5 as written (accepted methodology §24.4): \"Proxy / solicitation records\", rationale \"Availability of §14 solicitation records (P3) — existence only\". The official SEC description identifies this submission type as a proxy statement or as proxy soliciting material. Existence only; no content, outcome or authorship proposition is created.",
+        "confidencePosture": "DIRECT_OFFICIAL_MATCH"
+      },
+      "sourceEvidence": [
+        {
+          "sourceId": "SEC-EFM2-INDEX-TO-FORMS",
+          "evidenceRole": "SEMANTIC_DEFINITION",
+          "locator": "Section 3, Index to Forms — row for EDGAR submission type \"PRRN14A\"",
+          "officialFormDescription": "Revised preliminary proxy statement filed by non-management."
+        },
+        {
+          "sourceId": "SEC-FULLINDEX-2026-QTR2",
+          "evidenceRole": "RAW_VALUE_EMISSION",
+          "locator": "form.idx \"Form Type\" column, exact string match",
+          "observation": "Exact raw string \"PRRN14A\" present in the official quarterly form index; 26 indexed filing rows carry it."
+        }
+      ],
+      "notes": "Non-management filer. RC5 membership does not establish issuer authorship."
+    },
+    {
+      "rawFormValue": "S-4",
+      "canonicalFormIdentity": "S-4",
+      "formDisposition": "MAP_TO_RC1",
+      "recordClasses": [
+        "RC1"
+      ],
+      "basis": {
+        "basisType": "OFFICIAL_SEC_SUBMISSION_TYPE_DEFINITION",
+        "officialMeaning": "Registration of securities issued in business combination transactions.",
+        "methodologyMatch": "RC1 as written (accepted methodology §24.4): \"Business-combination registration / solicitation records\". The official SEC description names business combination transactions expressly; no RC definition was narrowed or broadened to reach this result.",
+        "confidencePosture": "DIRECT_OFFICIAL_MATCH"
+      },
+      "sourceEvidence": [
+        {
+          "sourceId": "SEC-EFM2-INDEX-TO-FORMS",
+          "evidenceRole": "SEMANTIC_DEFINITION",
+          "locator": "Section 3, Index to Forms — row for EDGAR submission type \"S-4, S-4/A\"",
+          "officialFormDescription": "Registration of securities issued in business combination transactions."
+        },
+        {
+          "sourceId": "SEC-FULLINDEX-2026-QTR2",
+          "evidenceRole": "RAW_VALUE_EMISSION",
+          "locator": "form.idx \"Form Type\" column, exact string match",
+          "observation": "Exact raw string \"S-4\" present in the official quarterly form index; 80 indexed filing rows carry it."
+        },
+        {
+          "sourceId": "SEC-FORM-S-4",
+          "evidenceRole": "OFFICIAL_FORM_DOCUMENT_CORROBORATION",
+          "locator": "Form cover page / General Instructions",
+          "officialFormDescription": "General Instruction A.1: the form may be used to register securities to be issued in a transaction of the type specified in Rule 145(a), in a merger, or in an exchange offer."
+        }
+      ],
+      "notes": "Corroborated by the current Form S-4 itself, whose General Instruction A limits use to Rule 145(a) transactions, mergers and exchange offers."
+    },
+    {
+      "rawFormValue": "S-4/A",
+      "canonicalFormIdentity": "S-4/A",
+      "formDisposition": "MAP_TO_RC1",
+      "recordClasses": [
+        "RC1"
+      ],
+      "basis": {
+        "basisType": "OFFICIAL_SEC_SUBMISSION_TYPE_DEFINITION",
+        "officialMeaning": "Registration of securities issued in business combination transactions.",
+        "methodologyMatch": "RC1 as written (accepted methodology §24.4): \"Business-combination registration / solicitation records\". The official SEC description names business combination transactions expressly; no RC definition was narrowed or broadened to reach this result.",
+        "confidencePosture": "DIRECT_OFFICIAL_MATCH"
+      },
+      "sourceEvidence": [
+        {
+          "sourceId": "SEC-EFM2-INDEX-TO-FORMS",
+          "evidenceRole": "SEMANTIC_DEFINITION",
+          "locator": "Section 3, Index to Forms — row for EDGAR submission type \"S-4, S-4/A\"",
+          "officialFormDescription": "Registration of securities issued in business combination transactions."
+        },
+        {
+          "sourceId": "SEC-FULLINDEX-2026-QTR2",
+          "evidenceRole": "RAW_VALUE_EMISSION",
+          "locator": "form.idx \"Form Type\" column, exact string match",
+          "observation": "Exact raw string \"S-4/A\" present in the official quarterly form index; 147 indexed filing rows carry it."
+        }
+      ],
+      "notes": "Adjudicated in its own right under accepted methodology C3 / Owner §10. The disposition is NOT derived from the \"/A\" suffix: the SEC's own Index to Forms carries this exact raw value on the same row as, and under the same official description as, the base submission type. Suffix syntax was not used as evidence."
+    }
+  ],
+  "declaredLimitations": [
+    "This instance is NON-EXHAUSTIVE and cannot be made exhaustive. It observes an open, externally controlled, evolving vocabulary.",
+    "Any raw form value not registered here resolves to UNMAPPED / UNRESOLVED and degrades collection coverage to PARTIAL. It never becomes OUT_OF_BOUND, never becomes a record class, and never supports an absence claim.",
+    "This instance registers ZERO OUT_OF_BOUND entries. No form has been positively adjudicated as incapable of satisfying all five RC definitions. Nothing here may be read as establishing that any form is outside RC1-RC5.",
+    "Incomplete positive recall is a deliberate, disclosed cost. A record that exists in source reality and satisfies an RC definition may resolve to UNMAPPED here, leaving that class NOT_ESTABLISHED with PARTIAL coverage. That is a recall limit, not an absence finding and not a methodology defect.",
+    "Bounded candidate universe. Candidates were limited to forms in the historical v0.1-CORR3 mapping lineage, raw values surfaced by IV2-IV4 as mapping or boundary problems, and raw values observed in the official current SEC filing flow. The SEC vocabulary was deliberately NOT enumerated.",
+    "Candidates investigated and deliberately left unregistered include SD, F-6, F-3ASR, 424B7, D, S-1, S-1/A, POS AM, the Regulation 14C information-statement family, and the Schedule TO / tender-offer family (SC TO-T, SC TO-I, SC TO-C, SC 14D9, SC 13E3). Each defaults to UNMAPPED / UNRESOLVED. None is adjudicated as OUT_OF_BOUND.",
+    "20-F, 20-F/A, 40-F and 40-F/A were registered as RC3 in v1.0 and were REMOVED in CORR1 as unsafe. Each of those exact raw form values is officially polysemous — the same value covers a Section 12 registration-statement use as well as an annual-report use — so the raw value alone cannot deterministically establish RC3 \"Annual periodic records\" for every instance. They now resolve to UNMAPPED / UNRESOLVED and degrade coverage to PARTIAL. They are NOT adjudicated as OUT_OF_BOUND, and their removal asserts nothing about whether any particular filing is an annual periodic record. This is a deliberate, disclosed recall cost taken in preference to an unsafe blanket mapping.",
+    "POS AM specifically is polysemous in official SEC documentation: the SEC Index to Forms lists it as the post-effective amendment submission type for multiple base registration statements, including both business-combination forms (S-4, F-4) and non-business-combination forms (S-1, S-3, F-6, S-11, S-B). The raw value alone does not determine the base registration statement, so official evidence yields incompatible candidate dispositions and no entry was registered.",
+    "One source authority, the EDGAR Filer Manual (Volume II) Index to Forms, carries an internal edition date of December 2020 although it was retrieved live from the official SEC URL on 2026-09-19. Submission types introduced after that edition are not described by it. Staleness is visible only through UNMAPPED to PARTIAL, never silently.",
+    "No entry carries a numeric, percentage or probabilistic confidence score. confidencePosture is a categorical statement about the derivation, not a measurement.",
+    "This instance claims no completeness of the SEC form vocabulary, no record-class closure, no record absence and no source exhaustiveness. No quantity of mappings or dispositions could establish any of them.",
+    "This instance is a CANDIDATE. It has not been independently verified, has not been accepted by the Owner, and authorises no implementation, no production use and no Git closure."
+  ]
+}
