@@ -7,6 +7,9 @@ import {
   publicText,
 } from "../flow/finalDeliverableFlow.js";
 import { buildDealEconomicsReport } from "../flow/finalReportEngine.js";
+import { MERGEVUE_PUBLIC_REPORT_BLOCKS as CANONICAL_PUBLIC_REPORT_BLOCKS } from "./mergevueCanonicalPublicReportRegistry.js";
+
+export const MERGEVUE_PUBLIC_REPORT_BLOCKS = CANONICAL_PUBLIC_REPORT_BLOCKS;
 
 const BRAND = Object.freeze({
   name: "Mergevue",
@@ -46,20 +49,6 @@ export const authorityPhrases = Object.freeze({
   "STP/STJ": "authority derived from a sanctioned position in the hierarchy, accountable upward and contingent on delivery",
   "SFP/SFJ": "authority embedded in the standardised system itself, with compliance secured through engineered incentives",
 });
-export const MERGEVUE_PUBLIC_REPORT_BLOCKS = Object.freeze([
-  "Executive Decision Summary",
-  "Structural Watchpoints",
-  "Compatibility Score & Deal Scenario",
-  "Identified Environment Types",
-  "Collision Thesis",
-  "Resource Conflict Map",
-  "Timeline of Expected Friction",
-  "Economic Risk Translation",
-  "Recommended Actions",
-  "Decision Gap",
-  "What the Full Engagement Adds",
-  "Audit Footer",
-]);
 
 const REPORT_VERSION = "mergevue-public-forecast-brief-mvp-1";
 const FALLBACK = "Not available";

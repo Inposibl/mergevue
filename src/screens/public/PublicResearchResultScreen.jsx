@@ -36,6 +36,28 @@ const SUBMISSIONS_NO_COVERAGE = "NO_COVERAGE";
 const SUBMISSIONS_NOT_RETRIEVABLE = "NOT_RETRIEVABLE";
 const MAX_RECENT_FILINGS = 10;
 const CANONICAL_CIK = /^\d{10}$/;
+const PUBLIC_REPORT_SOURCE_MODE = "LEVEL1_MODE_D_SLICE1";
+const PUBLIC_REPORT_AVAILABILITY = new Set([
+  "AVAILABLE",
+  "LIMITED",
+  "INSUFFICIENT_PUBLIC_EVIDENCE",
+  "NOT_APPLICABLE",
+]);
+const CANONICAL_BLOCK_NAMES = Object.freeze([
+  "Executive Decision Summary",
+  "Structural Watchpoints",
+  "Compatibility Score & Deal Scenario",
+  "Identified Environment Types",
+  "Collision Thesis",
+  "Resource Conflict Map",
+  "Timeline of Expected Friction",
+  "Economic Risk Translation",
+  "Recommended Actions",
+  "Decision Gap",
+  "What the Full Engagement Adds",
+  "Audit Footer",
+]);
+const DISPLAY_METADATA_COPY = "The following SEC filing metadata is display-only. It is not analytical or report authority.";
 
 let publicResearchResultHandoff = null;
 
@@ -163,6 +185,46 @@ function validateCompaniesPair(companies, snapshot) {
   return { ok: true, acquirer, target };
 }
 
+function availabilityCopy(state) {
+  if (state === "AVAILABLE") return "Available";
+  if (state === "LIMITED") return "Limited";
+  if (state === "INSUFFICIENT_PUBLIC_EVIDENCE") return "Insufficient public evidence";
+  if (state === "NOT_APPLICABLE") return "Not applicable";
+  return state;
+}
+
+function validateServerLevel1(level1, snapshot) {
+  if (!isPlainObject(level1) || !snapshot) return { ok: false };
+  const sides = isPlainObject(level1.sides) ? level1.sides : null;
+  if (!sides) return { ok: false };
+  const acquirer = isPlainObject(sides.acquirer) ? sides.acquirer : null;
+  const target = isPlainObject(sides.target) ? sides.target : null;
+  if (!acquirer || !target) return { ok: false };
+  if (comparableCik(acquirer.cik) !== snapshot.acquirerCik) return { ok: false };
+  if (comparableCik(target.cik) !== snapshot.targetCik) return { ok: false };
+  return { ok: true };
+}
+
+function validateCanonicalPublicReport(publicReport, snapshot) {
+  if (!isPlainObject(publicReport) || !snapshot) return { ok: false };
+  if (publicReport.sourceMode !== PUBLIC_REPORT_SOURCE_MODE) return { ok: false };
+  if (typeof publicReport.schemaVersion !== "string" || !publicReport.schemaVersion.trim()) return { ok: false };
+  const metadata = publicReport.metadata;
+  if (!isPlainObject(metadata) || !isPlainObject(metadata.pair)) return { ok: false };
+  if (metadata.pair.acquirerCik !== snapshot.acquirerCik) return { ok: false };
+  if (metadata.pair.targetCik !== snapshot.targetCik) return { ok: false };
+  if (!Array.isArray(publicReport.blocks) || publicReport.blocks.length !== 12) return { ok: false };
+  for (let index = 0; index < 12; index += 1) {
+    const row = publicReport.blocks[index];
+    if (!isPlainObject(row)) return { ok: false };
+    if (row.number !== index + 1) return { ok: false };
+    if (row.canonicalName !== CANONICAL_BLOCK_NAMES[index]) return { ok: false };
+    if (!PUBLIC_REPORT_AVAILABILITY.has(row.availabilityState)) return { ok: false };
+    if (typeof row.blockId !== "string" || !row.blockId.trim()) return { ok: false };
+  }
+  return { ok: true, publicReport };
+}
+
 function validatePublicResearchResultPayload(payload, snapshot) {
   if (!isPlainObject(payload) || !snapshot) return { ok: false };
   const researchStatus = payload.researchStatus;
@@ -180,17 +242,26 @@ function validatePublicResearchResultPayload(payload, snapshot) {
   const hasCompanies = Object.prototype.hasOwnProperty.call(payload, "companies");
 
   if (researchStatus === SERVER_SERVICE_UNAVAILABLE) {
-    if (!hasCompanies) return { ok: true, payload };
-    const pair = validateCompaniesPair(payload.companies, snapshot);
-    if (!pair.ok) return { ok: false };
-    if (pair.acquirer.submissionsStatus !== SUBMISSIONS_NOT_RETRIEVABLE) return { ok: false };
-    if (pair.target.submissionsStatus !== SUBMISSIONS_NOT_RETRIEVABLE) return { ok: false };
+    if (hasCompanies) {
+      const pair = validateCompaniesPair(payload.companies, snapshot);
+      if (!pair.ok) return { ok: false };
+      if (pair.acquirer.submissionsStatus !== SUBMISSIONS_NOT_RETRIEVABLE) return { ok: false };
+      if (pair.target.submissionsStatus !== SUBMISSIONS_NOT_RETRIEVABLE) return { ok: false };
+    }
+    const report = validateCanonicalPublicReport(payload.publicReport, snapshot);
+    if (!report.ok) return { ok: false };
+    const level1 = validateServerLevel1(payload.level1, snapshot);
+    if (!level1.ok) return { ok: false };
     return { ok: true, payload };
   }
 
   if (!hasCompanies) return { ok: false };
   const pair = validateCompaniesPair(payload.companies, snapshot);
   if (!pair.ok) return { ok: false };
+  const report = validateCanonicalPublicReport(payload.publicReport, snapshot);
+  if (!report.ok) return { ok: false };
+  const level1 = validateServerLevel1(payload.level1, snapshot);
+  if (!level1.ok) return { ok: false };
   return { ok: true, payload };
 }
 
@@ -227,13 +298,20 @@ export function openPublicResearchResult(pair, payload) {
   if (!pair || !payload) return false;
   if (!CANONICAL_CIK.test(pair.acquirerCik || "") || !CANONICAL_CIK.test(pair.targetCik || "")) return false;
   if (pair.acquirerCik === pair.targetCik) return false;
+  const companiesAccepted = isPlainObject(payload)
+    && payload.coverage === SERVER_COVERAGE
+    && payload.identitySource === SERVER_IDENTITY_SOURCE;
+  if (!companiesAccepted) return false;
   const accepted = validatePublicResearchResultPayload(payload, pair);
-  if (!accepted.ok) return false;
-  storePublicResearchResultHandoff({
-    acquirerCik: pair.acquirerCik,
-    targetCik: pair.targetCik,
-    payload: accepted.payload,
-  });
+  if (accepted.ok) {
+    storePublicResearchResultHandoff({
+      acquirerCik: pair.acquirerCik,
+      targetCik: pair.targetCik,
+      payload: accepted.payload,
+    });
+  } else {
+    publicResearchResultHandoff = null;
+  }
   navigate(buildPublicResearchResultUrl(pair));
   return true;
 }
@@ -311,6 +389,189 @@ function renderFilings(sideLabel, recentFilings) {
         </tbody>
       </table>
     </div>
+  );
+}
+
+function renderFactList(items, emptyCopy) {
+  if (!Array.isArray(items) || items.length === 0) {
+    return <p className="mv-research-result-copy">{emptyCopy}</p>;
+  }
+  return (
+    <ul className="mv-research-result-fact-list">
+      {items.map((item, index) => (
+        <li key={`${item.side || "item"}-${item.publicRecordClass || item.statement || index}`}>
+          {item.side ? `${item.side === "acquirer" ? "Acquirer" : item.side === "target" ? "Target" : item.side}: ` : ""}
+          {item.statement || item.publicRecordClass}
+          {Array.isArray(item.exactRawValues) && item.exactRawValues.length > 0 ? (
+            <span> Exact raw values: {item.exactRawValues.join(", ")}</span>
+          ) : null}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function renderProvenance(bindings) {
+  if (!Array.isArray(bindings) || bindings.length === 0) return null;
+  return (
+    <ul className="mv-research-result-provenance">
+      {bindings.map((binding, index) => {
+        const locator = isPlainObject(binding.exactLocator) ? binding.exactLocator : {};
+        return (
+          <li key={`${binding.propositionId || binding.physicalRecordKey || index}`}>
+            {binding.filedOrPublishedDate ? `Filed ${binding.filedOrPublishedDate}. ` : ""}
+            {locator.accessionNumber ? `Accession ${locator.accessionNumber}. ` : ""}
+            {binding.retrievedAt ? `Retrieved ${binding.retrievedAt}.` : ""}
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
+function renderBlockContent(block) {
+  const content = isPlainObject(block.content) ? block.content : null;
+  if (block.availabilityState === "INSUFFICIENT_PUBLIC_EVIDENCE" || block.availabilityState === "NOT_APPLICABLE") {
+    return <p className="mv-research-result-copy">{block.availabilityReason}</p>;
+  }
+  if (!content) return <p className="mv-research-result-copy">{block.availabilityReason}</p>;
+
+  if (block.number === 1) {
+    const pair = isPlainObject(content.pair) ? content.pair : {};
+    const collection = isPlainObject(content.collection) ? content.collection : {};
+    const coverage = isPlainObject(collection.coverageBySide) ? collection.coverageBySide : {};
+    return (
+      <div className="mv-research-result-block-body">
+        <p className="mv-research-result-copy">{block.availabilityReason}</p>
+        <p className="mv-research-result-meta">
+          Ordered pair: Acquirer {pair.acquirer?.cik || "unknown"} → Target {pair.target?.cik || "unknown"}
+        </p>
+        {pair.acquirer?.sourceIdentity ? (
+          <p className="mv-research-result-meta">Acquirer published identity: {String(pair.acquirer.sourceIdentity)}</p>
+        ) : null}
+        {pair.target?.sourceIdentity ? (
+          <p className="mv-research-result-meta">Target published identity: {String(pair.target.sourceIdentity)}</p>
+        ) : null}
+        <p className="mv-research-result-meta">
+          Collection coverage: Acquirer {coverage.acquirer || "unknown"}; Target {coverage.target || "unknown"}
+        </p>
+        <p className="mv-research-result-meta">
+          Symmetric execution: {collection.symmetricExecution === true ? "true" : "false"}
+        </p>
+        {collection.evidenceCutoff ? (
+          <p className="mv-research-result-meta">Evidence cutoff: {collection.evidenceCutoff}</p>
+        ) : null}
+        {collection.sourceFamily ? (
+          <p className="mv-research-result-meta">Source family: {collection.sourceFamily}</p>
+        ) : null}
+        <h4 className="mv-research-result-block-subtitle">Established identities</h4>
+        {renderFactList(content.establishedIdentities, "No filer identity was established in this bound.")}
+        <h4 className="mv-research-result-block-subtitle">Established record classes</h4>
+        {Array.isArray(content.establishedRecordClasses) && content.establishedRecordClasses.length > 0 ? (
+          <ul className="mv-research-result-fact-list">
+            {content.establishedRecordClasses.map((item) => (
+              <li key={`${item.side}-${item.publicRecordClass}`}>
+                {item.side === "acquirer" ? "Acquirer" : "Target"}: {item.statement}
+                {renderProvenance(item.evidenceBindings)}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="mv-research-result-copy">No record class was positively established in this bound.</p>
+        )}
+        <h4 className="mv-research-result-block-subtitle">Established structured item codes</h4>
+        {renderFactList(content.establishedStructuredItemCodes, "No structured item-code value was established in this bound.")}
+      </div>
+    );
+  }
+
+  if (block.number === 10) {
+    return (
+      <div className="mv-research-result-block-body">
+        <p className="mv-research-result-copy">{block.availabilityReason}</p>
+        <h4 className="mv-research-result-block-subtitle">Established evidence</h4>
+        {renderFactList(content.established, "No record class was positively established in this bound.")}
+        <h4 className="mv-research-result-block-subtitle">Not established within bound</h4>
+        {renderFactList(content.notEstablishedWithinBound, "No NOT_ESTABLISHED_WITHIN_BOUND evidence gap is listed.")}
+        <h4 className="mv-research-result-block-subtitle">Collection limitations</h4>
+        {renderFactList(content.collectionLimitations, "No collection limitation is listed.")}
+        <h4 className="mv-research-result-block-subtitle">Unmapped or unresolved raw values</h4>
+        {renderFactList(content.unmappedOrUnresolved, "No unmapped or unresolved raw value is listed.")}
+        <p className="mv-research-result-meta">
+          Asymmetric execution: {content.asymmetricExecution === true ? "true" : "false"}
+        </p>
+        <p className="mv-research-result-meta">
+          Lawful evidence-acquisition channel: not authorized for the current Level-1 conditions.
+        </p>
+      </div>
+    );
+  }
+
+  if (block.number === 11) {
+    return (
+      <div className="mv-research-result-block-body">
+        <p className="mv-research-result-copy">{content.separator}</p>
+        {Array.isArray(content.benefits) ? content.benefits.map((line) => (
+          <p className="mv-research-result-copy" key={line}>{line}</p>
+        )) : null}
+        {content.cta ? <p className="mv-research-result-copy">{content.cta}</p> : null}
+      </div>
+    );
+  }
+
+  if (block.number === 12) {
+    const pair = isPlainObject(content.orderedPair) ? content.orderedPair : {};
+    const coverage = isPlainObject(content.coverageBySide) ? content.coverageBySide : {};
+    const versions = isPlainObject(content.referenceDataVersions) ? content.referenceDataVersions : {};
+    return (
+      <div className="mv-research-result-block-body">
+        <p className="mv-research-result-meta">Report version: {content.reportVersion}</p>
+        <p className="mv-research-result-meta">Schema version: {content.schemaVersion}</p>
+        <p className="mv-research-result-meta">Requested at: {content.requestedAt}</p>
+        <p className="mv-research-result-meta">Generated at: {content.generatedAt}</p>
+        <p className="mv-research-result-meta">Evidence cutoff: {content.evidenceCutoff}</p>
+        <p className="mv-research-result-meta">
+          Ordered pair: Acquirer {pair.acquirerCik} → Target {pair.targetCik}
+        </p>
+        <p className="mv-research-result-meta">Source family: {content.sourceFamily}</p>
+        <p className="mv-research-result-meta">Collection bound: {content.collectionBoundId}</p>
+        <p className="mv-research-result-meta">
+          Coverage: Acquirer {coverage.acquirer}; Target {coverage.target}
+        </p>
+        <p className="mv-research-result-meta">
+          Symmetric execution: {content.symmetricExecution === true ? "true" : "false"}
+        </p>
+        <p className="mv-research-result-meta">
+          Reference-data versions: {versions.recordClassMappingVersion}; {versions.rawFormValueResolutionVersion}; {versions.semanticTaxonomySnapshotId}
+        </p>
+      </div>
+    );
+  }
+
+  return <p className="mv-research-result-copy">{block.availabilityReason}</p>;
+}
+
+function renderCanonicalReport(publicReport) {
+  if (!isPlainObject(publicReport) || !Array.isArray(publicReport.blocks)) return null;
+  return (
+    <ol className="mv-research-result-report" data-public-report="canonical">
+      {publicReport.blocks.map((block) => (
+        <li
+          className="mv-research-result-block"
+          data-availability={block.availabilityState}
+          data-block-id={block.blockId}
+          key={block.blockId}
+        >
+          <h3 className="mv-research-result-block-title">
+            {block.number}. {block.canonicalName}
+          </h3>
+          <p className="mv-research-result-availability">
+            {availabilityCopy(block.availabilityState)}
+          </p>
+          {renderBlockContent(block)}
+        </li>
+      ))}
+    </ol>
   );
 }
 
@@ -518,10 +779,13 @@ export function PublicResearchResultScreen() {
               ) : null}
               <p className="mv-research-result-copy">{RESULT_NOT_ASSESSMENT_COPY}</p>
               <p className="mv-research-result-limitations">
-                Limitations: this surface shows only bounded public-source SEC filing metadata.
-                It is not a forecast, deal verdict, risk score, integration score, culture score,
+                Limitations: the canonical public result is the server-created twelve-block
+                projection below. Display-only SEC filing metadata is not report authority.
+                This is not a forecast, deal verdict, risk score, integration score, culture score,
                 synergy score, questionnaire result, or final MergeVue M&A assessment.
               </p>
+              {renderCanonicalReport(payload.publicReport)}
+              <p className="mv-research-result-copy">{DISPLAY_METADATA_COPY}</p>
               <div className="mv-research-result-sides">
                 {renderSide(payload, "acquirer", "Acquirer")}
                 {renderSide(payload, "target", "Target")}

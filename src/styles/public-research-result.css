@@ -60,9 +60,63 @@
 
 .mv-research-result-body,
 .mv-research-result-empty,
-.mv-research-result-sides {
+.mv-research-result-sides,
+.mv-research-result-report,
+.mv-research-result-block-body,
+.mv-research-result-fact-list,
+.mv-research-result-provenance {
   display: grid;
   gap: 12px;
+}
+
+.mv-research-result-report {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.mv-research-result-block {
+  border: 1px solid var(--mv-research-result-line);
+  border-radius: var(--mv-research-result-radius);
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  padding: 12px;
+}
+
+.mv-research-result-block-title,
+.mv-research-result-block-subtitle {
+  color: var(--mv-research-result-ink);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.mv-research-result-block-subtitle {
+  font-size: 14px;
+}
+
+.mv-research-result-availability {
+  color: var(--mv-research-result-muted);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.mv-research-result-fact-list,
+.mv-research-result-provenance {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.mv-research-result-fact-list li,
+.mv-research-result-provenance li {
+  color: var(--mv-research-result-ink);
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 .mv-research-result-side {

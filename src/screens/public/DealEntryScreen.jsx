@@ -51,6 +51,8 @@ const SUBMISSIONS_RETRIEVED = "RETRIEVED";
 const SUBMISSIONS_NO_COVERAGE = "NO_COVERAGE";
 const SUBMISSIONS_NOT_RETRIEVABLE = "NOT_RETRIEVABLE";
 const MAX_RECENT_FILINGS = 10;
+const DEAL_ENTRY_SESSION_KEY = "mergevue.deal-entry.v1";
+const DEAL_ENTRY_SESSION_SCHEMA = "deal-entry-session-v1";
 
 function normalizedCompanyName(value) {
   return value.trim().replace(/\s+/g, " ").toLocaleLowerCase();
@@ -84,6 +86,73 @@ function emptyResearch() {
 function stateAfterInvalidatedSwap(incomingState, incomingName) {
   if (incomingState.status !== RESOLVING) return incomingState;
   return incomingName.trim() ? { ...emptySide(), status: EDITING } : emptySide();
+}
+
+function persistableIdentity(identity) {
+  if (!identity || typeof identity !== "object") return null;
+  const cik = comparableCik(identity.cik);
+  if (!cik) return null;
+  if (typeof identity.canonicalName !== "string" || !identity.canonicalName.trim()) return null;
+  return {
+    canonicalName: identity.canonicalName,
+    cik,
+    ticker: typeof identity.ticker === "string" ? identity.ticker : "",
+    exchange: typeof identity.exchange === "string" ? identity.exchange : "",
+  };
+}
+
+function persistableSide(typedName, state) {
+  const typed = typeof typedName === "string" ? typedName : "";
+  const confirmed = state && state.status === CONFIRMED ? persistableIdentity(state.identity) : null;
+  return { typedName: typed, confirmed };
+}
+
+function readDealEntrySession() {
+  try {
+    if (typeof sessionStorage === "undefined") return null;
+    const raw = sessionStorage.getItem(DEAL_ENTRY_SESSION_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (!parsed || parsed.schemaVersion !== DEAL_ENTRY_SESSION_SCHEMA) return null;
+    if (!parsed.acquirer || !parsed.target) return null;
+    if (typeof parsed.acquirer.typedName !== "string" || typeof parsed.target.typedName !== "string") return null;
+    const acquirerConfirmed = parsed.acquirer.confirmed ? persistableIdentity(parsed.acquirer.confirmed) : null;
+    const targetConfirmed = parsed.target.confirmed ? persistableIdentity(parsed.target.confirmed) : null;
+    if (parsed.acquirer.confirmed && !acquirerConfirmed) return null;
+    if (parsed.target.confirmed && !targetConfirmed) return null;
+    if (acquirerConfirmed && targetConfirmed && acquirerConfirmed.cik === targetConfirmed.cik) return null;
+    return {
+      acquirerName: parsed.acquirer.typedName,
+      targetName: parsed.target.typedName,
+      acquirer: acquirerConfirmed
+        ? { status: CONFIRMED, identity: acquirerConfirmed, candidates: [], selectedCik: acquirerConfirmed.cik }
+        : (parsed.acquirer.typedName.trim() ? { ...emptySide(), status: EDITING } : emptySide()),
+      target: targetConfirmed
+        ? { status: CONFIRMED, identity: targetConfirmed, candidates: [], selectedCik: targetConfirmed.cik }
+        : (parsed.target.typedName.trim() ? { ...emptySide(), status: EDITING } : emptySide()),
+    };
+  } catch {
+    return null;
+  }
+}
+
+function writeDealEntrySession(acquirerName, targetName, acquirer, target) {
+  try {
+    if (typeof sessionStorage === "undefined") return;
+    const acquirerSide = persistableSide(acquirerName, acquirer);
+    const targetSide = persistableSide(targetName, target);
+    if (acquirerSide.confirmed && targetSide.confirmed && acquirerSide.confirmed.cik === targetSide.confirmed.cik) {
+      sessionStorage.removeItem(DEAL_ENTRY_SESSION_KEY);
+      return;
+    }
+    sessionStorage.setItem(DEAL_ENTRY_SESSION_KEY, JSON.stringify({
+      schemaVersion: DEAL_ENTRY_SESSION_SCHEMA,
+      acquirer: acquirerSide,
+      target: targetSide,
+    }));
+  } catch {
+    // Convenience persistence only. Fail closed without crashing.
+  }
 }
 
 function identityFromPayload(payload) {
@@ -311,10 +380,11 @@ export function DealEntryScreen() {
   const acquirerAmbiguousId = useId();
   const targetAmbiguousId = useId();
   const researchHeadingId = useId();
-  const [acquirerName, setAcquirerName] = useState("");
-  const [targetName, setTargetName] = useState("");
-  const [acquirer, setAcquirer] = useState(emptySide);
-  const [target, setTarget] = useState(emptySide);
+  const [sessionSeed] = useState(() => readDealEntrySession());
+  const [acquirerName, setAcquirerName] = useState(() => sessionSeed?.acquirerName ?? "");
+  const [targetName, setTargetName] = useState(() => sessionSeed?.targetName ?? "");
+  const [acquirer, setAcquirer] = useState(() => sessionSeed?.acquirer ?? emptySide());
+  const [target, setTarget] = useState(() => sessionSeed?.target ?? emptySide());
   const [research, setResearch] = useState(emptyResearch);
   const acquirerAbort = useRef(null);
   const targetAbort = useRef(null);
@@ -415,6 +485,10 @@ export function DealEntryScreen() {
       researchLock.current = false;
     };
   }, []);
+
+  useEffect(() => {
+    writeDealEntrySession(acquirerName, targetName, acquirer, target);
+  }, [acquirerName, targetName, acquirer, target]);
 
   function invalidateSide(side, nextValue) {
     const trimmed = nextValue.trim();

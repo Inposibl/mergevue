@@ -31,6 +31,8 @@ const READY_COPY = "Companies confirmed. Public-source research is ready to star
 const INVALID_ROUTE_COPY = "This page cannot show a public research result from the current address.";
 const BACK_COPY = "Back to deal entry";
 const VIEW_COPY = "View public research result";
+const DEAL_ENTRY_SESSION_KEY = "mergevue.deal-entry.v1";
+const DEAL_ENTRY_SESSION_SCHEMA = "deal-entry-session-v1";
 
 const FORBIDDEN_GLOBAL_SELECTORS = [
   /^\s*body\b/m,
@@ -408,6 +410,99 @@ function lawfulCompany(side, cik, name, filings, submissionsStatus = "RETRIEVED"
   };
 }
 
+const CANONICAL_PUBLIC_REPORT_NAMES = Object.freeze([
+  "Executive Decision Summary",
+  "Structural Watchpoints",
+  "Compatibility Score & Deal Scenario",
+  "Identified Environment Types",
+  "Collision Thesis",
+  "Resource Conflict Map",
+  "Timeline of Expected Friction",
+  "Economic Risk Translation",
+  "Recommended Actions",
+  "Decision Gap",
+  "What the Full Engagement Adds",
+  "Audit Footer",
+]);
+const CANONICAL_PUBLIC_REPORT_IDS = Object.freeze([
+  "executive-decision-summary",
+  "structural-watchpoints",
+  "compatibility-score-and-deal-scenario",
+  "identified-environment-types",
+  "collision-thesis",
+  "resource-conflict-map",
+  "timeline-of-expected-friction",
+  "economic-risk-translation",
+  "recommended-actions",
+  "decision-gap",
+  "what-the-full-engagement-adds",
+  "audit-footer",
+]);
+const CANONICAL_PUBLIC_REPORT_STATES = Object.freeze([
+  "LIMITED",
+  "INSUFFICIENT_PUBLIC_EVIDENCE",
+  "INSUFFICIENT_PUBLIC_EVIDENCE",
+  "INSUFFICIENT_PUBLIC_EVIDENCE",
+  "INSUFFICIENT_PUBLIC_EVIDENCE",
+  "INSUFFICIENT_PUBLIC_EVIDENCE",
+  "INSUFFICIENT_PUBLIC_EVIDENCE",
+  "INSUFFICIENT_PUBLIC_EVIDENCE",
+  "NOT_APPLICABLE",
+  "LIMITED",
+  "AVAILABLE",
+  "AVAILABLE",
+]);
+
+function canonicalLevel1(acquirerCik, targetCik) {
+  return {
+    collectionBoundId: "SLICE1-BOUND-v0.4",
+    sourceFamily: "issuer-filed structured public filing index",
+    requestedAt: "2026-09-18T12:00:00.000Z",
+    evidenceCutoff: "2026-09-18T12:00:00.000Z",
+    sides: {
+      acquirer: { side: "acquirer", cik: acquirerCik, coverage: "COMPLETE_WITHIN_BOUND" },
+      target: { side: "target", cik: targetCik, coverage: "COMPLETE_WITHIN_BOUND" },
+    },
+    pair: {
+      symmetricExecution: true,
+      coverageBySide: { acquirer: "COMPLETE_WITHIN_BOUND", target: "COMPLETE_WITHIN_BOUND" },
+    },
+  };
+}
+
+function canonicalPublicReport(acquirerCik, targetCik) {
+  return {
+    schemaVersion: "mergevue-canonical-public-report-v1",
+    sourceMode: "LEVEL1_MODE_D_SLICE1",
+    metadata: {
+      generatedAt: "2026-09-18T12:00:00.000Z",
+      reportVersion: "mergevue-canonical-public-report-level1-mode-d-slice1-v1",
+      sourceField: "level1",
+      requestedAt: "2026-09-18T12:00:00.000Z",
+      evidenceCutoff: "2026-09-18T12:00:00.000Z",
+      collectionBoundId: "SLICE1-BOUND-v0.4",
+      pair: { acquirerCik, targetCik },
+      coverageBySide: { acquirer: "COMPLETE_WITHIN_BOUND", target: "COMPLETE_WITHIN_BOUND" },
+      symmetricExecution: true,
+      referenceDataVersions: {
+        recordClassMappingVersion: "MD-L1-RCMAP-v1.0-CORR1",
+        rawFormValueResolutionVersion: "MD-L1-RAWFORM-v1.0-CORR1",
+        semanticTaxonomySnapshotId: "MD-L1-SEMTAX-2026-09-19-BOUNDED",
+      },
+    },
+    blocks: CANONICAL_PUBLIC_REPORT_NAMES.map((canonicalName, index) => ({
+      number: index + 1,
+      blockId: CANONICAL_PUBLIC_REPORT_IDS[index],
+      canonicalName,
+      modelField: "canonical",
+      availabilityState: CANONICAL_PUBLIC_REPORT_STATES[index],
+      availabilityReason: "fixture",
+      content: index === 8 ? { actions: [] } : null,
+      provenance: null,
+    })),
+  };
+}
+
 function lawfulResearchBody({
   researchStatus = "RESEARCH_AVAILABLE",
   acquirerCik = APPLE_CIK,
@@ -429,6 +524,8 @@ function lawfulResearchBody({
       lawfulCompany("acquirer", acquirerCik, acquirerName, acquirerFilings, acquirerStatus),
       lawfulCompany("target", targetCik, targetName, targetFilings, targetStatus),
     ],
+    publicReport: canonicalPublicReport(acquirerCik, targetCik),
+    level1: canonicalLevel1(acquirerCik, targetCik),
   };
 }
 
@@ -451,6 +548,8 @@ function serviceUnavailableDual(acquirerCik, targetCik) {
     identitySource: "SEC_SUBMISSIONS_API",
     requestedAt: "2026-09-18T12:00:00.000Z",
     status: "service-unavailable",
+    publicReport: canonicalPublicReport(acquirerCik, targetCik),
+    level1: canonicalLevel1(acquirerCik, targetCik),
     companies: [
       {
         side: "acquirer",
@@ -590,6 +689,49 @@ async function confirmPair(page, acquirer, target) {
   await waitForButton(page, "Confirm companies", true);
   await clickButton(page, "Confirm companies");
   await waitForStatus(page, READY_COPY);
+}
+
+async function labeledInputValue(page, labelText) {
+  return page.evaluate((labelName) => {
+    const label = [...document.querySelectorAll("label")].find((node) => node.textContent.trim() === labelName);
+    const input = document.getElementById(label?.htmlFor);
+    return input ? input.value : "";
+  }, labelText);
+}
+
+async function readPersistedDealEntry(page) {
+  const raw = await page.evaluate((key) => sessionStorage.getItem(key), DEAL_ENTRY_SESSION_KEY);
+  if (!raw) return { raw: null, parsed: null };
+  try {
+    return { raw, parsed: JSON.parse(raw) };
+  } catch {
+    return { raw, parsed: null };
+  }
+}
+
+function lawfulDealEntrySession(overrides = {}) {
+  return {
+    schemaVersion: DEAL_ENTRY_SESSION_SCHEMA,
+    acquirer: {
+      typedName: "Apple Inc.",
+      confirmed: {
+        canonicalName: "Apple Inc.",
+        cik: APPLE_CIK,
+        ticker: "AAPL",
+        exchange: "Nasdaq",
+      },
+    },
+    target: {
+      typedName: "NVIDIA CORP",
+      confirmed: {
+        canonicalName: "NVIDIA CORP",
+        cik: NVIDIA_CIK,
+        ticker: "NVDA",
+        exchange: "Nasdaq",
+      },
+    },
+    ...overrides,
+  };
 }
 
 async function gotoDealEntry(page, origin) {
@@ -880,8 +1022,18 @@ async function runBrowserChecks(server) {
       assert.match(resultText, /SEC_SUBMISSIONS_API/);
       assert.match(resultText, /Requested at:/);
       assert.match(resultText, /not a final MergeVue M&A assessment/);
+      assert.match(resultText, /Executive Decision Summary/);
+      assert.match(resultText, /Identified Environment Types/);
+      assert.match(resultText, /Decision Gap/);
+      assert.match(resultText, /INSUFFICIENT PUBLIC EVIDENCE/i);
       assert.doesNotMatch(resultText, /Interaction Environment/);
-      assert.doesNotMatch(resultText, /\bECS\b/);
+      const analyticalBlocks = await page.evaluate(() => (
+        [...document.querySelectorAll("[data-block-id]")]
+          .filter((node) => node.getAttribute("data-block-id") !== "what-the-full-engagement-adds")
+          .map((node) => node.innerText)
+          .join("\n")
+      ));
+      assert.doesNotMatch(analyticalBlocks, /\bECS\b/);
       assertNoResultLeakage(tracker.requests);
       return { state: "handoff-zero-extra-post", evidence: "explicit View; exact two-CIK URL; renderer dispatched; no extra POST" };
     });
@@ -1098,16 +1250,42 @@ async function runBrowserChecks(server) {
       json: serviceUnavailableNoCompanies(),
     };
     await gotoResult(page, server.origin, APPLE_CIK, NVIDIA_CIK);
-    await waitForResultPhase(page, "RESULT");
-    await check("U-NO-COMPANIES", "status", "503 SERVICE_UNAVAILABLE without companies", "valid-unavailable", async () => {
-      assert.equal(await resultPhase(page), "RESULT");
+    await waitForResultPhase(page, "ERROR");
+    await check("U-NO-COMPANIES", "status", "503 SERVICE_UNAVAILABLE without publicReport", "local-error", async () => {
+      assert.equal(await resultPhase(page), "ERROR");
       const text = await bodyText(page);
-      assert.match(text, /Public-source research is currently unavailable/);
-      assert.match(text, /SERVICE_UNAVAILABLE/);
+      assert.match(text, new RegExp(LOCAL_ERROR_COPY));
       assert.doesNotMatch(text, /APPLE INC SUBMISSIONS CANONICAL/);
-      assert.equal(await sideText(page, "acquirer"), "");
-      return { state: "valid-unavailable", evidence: "503 without companies[] rendered as bounded result, not local error" };
+      assert.doesNotMatch(text, /Executive Decision Summary/);
+      return { state: "local-error", evidence: "503 without server-created publicReport fails closed" };
     });
+
+    const missingPublicReport = lawfulResearchBody();
+    delete missingPublicReport.publicReport;
+    server.overrideBox.current = { status: 200, json: missingPublicReport };
+    await gotoResult(page, server.origin, APPLE_CIK, NVIDIA_CIK);
+    await waitForResultPhase(page, "ERROR");
+    await check("P-MISSING-PUBLIC-REPORT", "authority", "matching pair without publicReport", "local-error", async () => {
+      const text = await bodyText(page);
+      assert.match(text, new RegExp(LOCAL_ERROR_COPY));
+      assert.doesNotMatch(text, /Executive Decision Summary/);
+      assert.doesNotMatch(text, /Identified Environment Types/);
+      assert.doesNotMatch(text, /data-public-report="canonical"/);
+      return { state: "local-error", evidence: "companies/recentFilings without publicReport cannot render the canonical report" };
+    });
+
+    const missingLevel1 = lawfulResearchBody();
+    delete missingLevel1.level1;
+    server.overrideBox.current = { status: 200, json: missingLevel1 };
+    await gotoResult(page, server.origin, APPLE_CIK, NVIDIA_CIK);
+    await waitForResultPhase(page, "ERROR");
+    await check("P-MISSING-LEVEL1", "authority", "matching pair without level1", "local-error", async () => {
+      const text = await bodyText(page);
+      assert.match(text, new RegExp(LOCAL_ERROR_COPY));
+      assert.doesNotMatch(text, /Executive Decision Summary/);
+      return { state: "local-error", evidence: "missing server level1 rejects handoff/result rendering" };
+    });
+    server.overrideBox.current = null;
 
     server.overrideBox.current = {
       status: 503,
@@ -1326,6 +1504,209 @@ async function runBrowserChecks(server) {
       });
     } finally {
       await fallbackPage.close();
+    }
+
+    const o4 = await browser.newPage();
+    await o4.setViewport({ width: 1440, height: 900 });
+    const o4Tracker = collectRequests(o4);
+    try {
+      installAssociationFixture(server.resolver);
+      installSuccessResearch(server.research);
+      await gotoDealEntry(o4, server.origin);
+      await fillLabeled(o4, "Acquirer", "Apple Inc.");
+      await fillLabeled(o4, "Target", "NVIDIA CORP");
+      await o4.reload({ waitUntil: "networkidle0", timeout: 30000 });
+      await check("O4-49", "session", "typed Acquirer name survives remount", "restored", async () => {
+        assert.equal(await labeledInputValue(o4, "Acquirer"), "Apple Inc.");
+        return { state: "restored", evidence: "Acquirer typed value restored after Deal Entry reload" };
+      });
+      await check("O4-50", "session", "typed Target name survives remount", "restored", async () => {
+        assert.equal(await labeledInputValue(o4, "Target"), "NVIDIA CORP");
+        return { state: "restored", evidence: "Target typed value restored after Deal Entry reload" };
+      });
+
+      await confirmPair(o4, "Apple Inc.", "NVIDIA CORP");
+      await o4.reload({ waitUntil: "networkidle0", timeout: 30000 });
+      await waitForStatus(o4, READY_COPY);
+      await check("O4-51", "session", "confirmed Acquirer identity survives refresh", "restored", async () => {
+        const text = await bodyText(o4);
+        assert.match(text, /Company confirmed\./);
+        assert.match(text, /Apple Inc\./);
+        return { state: "restored", evidence: "confirmed Acquirer identity restored after refresh" };
+      });
+      await check("O4-52", "session", "confirmed Target identity survives refresh", "restored", async () => {
+        const text = await bodyText(o4);
+        assert.match(text, /NVIDIA CORP/);
+        return { state: "restored", evidence: "confirmed Target identity restored after refresh" };
+      });
+      await check("O4-53", "session", "valid restored distinct pair re-enables Analyze", "enabled", async () => {
+        const analyze = await getButtonState(o4, "Analyze this deal");
+        assert.equal(analyze.present, true);
+        assert.equal(analyze.disabled, false);
+        return { state: "enabled", evidence: "Analyze this deal enabled after restored distinct confirmed pair" };
+      });
+
+      await clickButton(o4, "Analyze this deal");
+      await waitForStatus(o4, "Recent SEC filing metadata is available for both companies.");
+      await fillLabeled(o4, "Acquirer", "Apple Inc. edited");
+      await check("O4-54", "session", "editing Acquirer invalidates Acquirer confirmation", "invalidated", async () => {
+        const analyze = await getButtonState(o4, "Analyze this deal");
+        assert.equal(analyze.present === false || analyze.disabled === true, true);
+        return { state: "invalidated", evidence: "Acquirer edit clears confirmation so Analyze is not enabled" };
+      });
+
+      await confirmPair(o4, "Apple Inc.", "NVIDIA CORP");
+      await clickButton(o4, "Analyze this deal");
+      await waitForStatus(o4, "Recent SEC filing metadata is available for both companies.");
+      await fillLabeled(o4, "Target", "NVIDIA CORP edited");
+      await check("O4-55", "session", "editing Target invalidates Target confirmation", "invalidated", async () => {
+        const analyze = await getButtonState(o4, "Analyze this deal");
+        assert.equal(analyze.present === false || analyze.disabled === true, true);
+        return { state: "invalidated", evidence: "Target edit clears confirmation so Analyze is not enabled" };
+      });
+
+      await confirmPair(o4, "Apple Inc.", "NVIDIA CORP");
+      await clickButton(o4, "Analyze this deal");
+      await waitForStatus(o4, "Recent SEC filing metadata is available for both companies.");
+      await fillLabeled(o4, "Acquirer", "Alphabet Inc.");
+      await check("O4-56", "session", "editing either side invalidates dependent research state", "cleared", async () => {
+        const phase = await o4.evaluate(() => document.querySelector("[data-research-phase]")?.getAttribute("data-research-phase") ?? "");
+        assert.equal(phase === "RESULT", false);
+        const view = await getButtonState(o4, VIEW_COPY);
+        assert.equal(view.present, false);
+        return { state: "cleared", evidence: "research RESULT and View control do not survive an identity edit" };
+      });
+
+      await confirmPair(o4, "Apple Inc.", "NVIDIA CORP");
+      await clickButton(o4, "Analyze this deal");
+      await waitForStatus(o4, "Recent SEC filing metadata is available for both companies.");
+      await o4.evaluate(() => {
+        const button = [...document.querySelectorAll("button")].find((node) => node.getAttribute("aria-label") === "Swap acquirer and target");
+        button.click();
+      });
+      await check("O4-57", "session", "swap preserves identities under swapped roles", "swapped", async () => {
+        assert.equal(await labeledInputValue(o4, "Acquirer"), "NVIDIA CORP");
+        assert.equal(await labeledInputValue(o4, "Target"), "Apple Inc.");
+        const text = await bodyText(o4);
+        assert.match(text, /Company confirmed\./);
+        return { state: "swapped", evidence: "typed values and confirmed identities follow the swapped Acquirer/Target roles" };
+      });
+      await check("O4-58", "session", "swap invalidates pair-specific research result", "cleared", async () => {
+        const phase = await o4.evaluate(() => document.querySelector("[data-research-phase]")?.getAttribute("data-research-phase") ?? "");
+        assert.equal(phase === "RESULT", false);
+        const view = await getButtonState(o4, VIEW_COPY);
+        assert.equal(view.present, false);
+        return { state: "cleared", evidence: "ordered-pair research result does not survive Swap" };
+      });
+
+      await o4.evaluate((key) => sessionStorage.setItem(key, "{not-json"), DEAL_ENTRY_SESSION_KEY);
+      await o4.reload({ waitUntil: "networkidle0", timeout: 30000 });
+      await check("O4-59", "session", "malformed sessionStorage JSON is ignored safely", "ignored", async () => {
+        const heading = await o4.evaluate(() => document.querySelector("h1")?.textContent?.trim() ?? "");
+        assert.equal(heading, "Start with the two companies.");
+        assert.equal(await labeledInputValue(o4, "Acquirer"), "");
+        assert.equal(await labeledInputValue(o4, "Target"), "");
+        return { state: "ignored", evidence: "malformed JSON does not crash Deal Entry and is not restored" };
+      });
+
+      await o4.evaluate((key, value) => sessionStorage.setItem(key, value), DEAL_ENTRY_SESSION_KEY, JSON.stringify({
+        ...lawfulDealEntrySession(),
+        schemaVersion: "deal-entry-session-v9",
+      }));
+      await o4.reload({ waitUntil: "networkidle0", timeout: 30000 });
+      await check("O4-60", "session", "wrong schema/version is ignored safely", "ignored", async () => {
+        assert.equal(await labeledInputValue(o4, "Acquirer"), "");
+        const analyze = await getButtonState(o4, "Analyze this deal");
+        assert.equal(analyze.present === false || analyze.disabled === true, true);
+        return { state: "ignored", evidence: "unknown schemaVersion is discarded" };
+      });
+
+      await o4.evaluate((key, value) => sessionStorage.setItem(key, value), DEAL_ENTRY_SESSION_KEY, JSON.stringify(lawfulDealEntrySession({
+        acquirer: {
+          typedName: "Apple Inc.",
+          confirmed: { canonicalName: "Apple Inc.", cik: "not-a-cik", ticker: "AAPL", exchange: "Nasdaq" },
+        },
+      })));
+      await o4.reload({ waitUntil: "networkidle0", timeout: 30000 });
+      await check("O4-61", "session", "invalid CIK is ignored safely", "ignored", async () => {
+        const analyze = await getButtonState(o4, "Analyze this deal");
+        assert.equal(analyze.present === false || analyze.disabled === true, true);
+        return { state: "ignored", evidence: "invalid confirmed CIK is not restored as a confirmed identity" };
+      });
+
+      await o4.evaluate((key, value) => sessionStorage.setItem(key, value), DEAL_ENTRY_SESSION_KEY, JSON.stringify(lawfulDealEntrySession({
+        target: {
+          typedName: "Also Apple",
+          confirmed: { canonicalName: "Apple Inc.", cik: APPLE_CIK, ticker: "AAPL", exchange: "Nasdaq" },
+        },
+      })));
+      await o4.reload({ waitUntil: "networkidle0", timeout: 30000 });
+      await check("O4-62", "session", "same-CIK restored confirmed pair is rejected", "rejected", async () => {
+        const analyze = await getButtonState(o4, "Analyze this deal");
+        assert.equal(analyze.present === false || analyze.disabled === true, true);
+        return { state: "rejected", evidence: "same-CIK persisted confirmed pair fails closed" };
+      });
+
+      await confirmPair(o4, "Apple Inc.", "NVIDIA CORP");
+      await clickButton(o4, "Analyze this deal");
+      await waitForStatus(o4, "Recent SEC filing metadata is available for both companies.");
+      const persisted = await readPersistedDealEntry(o4);
+      await check("O4-63", "session", "persisted state contains no level1", "absent", async () => {
+        assert.equal(Boolean(persisted.raw), true);
+        assert.equal(Object.prototype.hasOwnProperty.call(persisted.parsed, "level1"), false);
+        assert.equal(JSON.stringify(persisted.parsed).includes('"level1"'), false);
+        return { state: "absent", evidence: "session payload has no level1 field" };
+      });
+      await check("O4-64", "session", "persisted state contains no publicReport", "absent", async () => {
+        assert.equal(Object.prototype.hasOwnProperty.call(persisted.parsed, "publicReport"), false);
+        assert.equal(JSON.stringify(persisted.parsed).includes("publicReport"), false);
+        return { state: "absent", evidence: "session payload has no publicReport field" };
+      });
+      await check("O4-65", "session", "persisted state contains no analytical report blocks", "absent", async () => {
+        const serialized = JSON.stringify(persisted.parsed);
+        assert.doesNotMatch(serialized, /executiveDecisionSummary/);
+        assert.doesNotMatch(serialized, /collisionThesis/);
+        assert.doesNotMatch(serialized, /availabilityState/);
+        assert.doesNotMatch(serialized, /researchStatus/);
+        assert.deepEqual(Object.keys(persisted.parsed).sort(), ["acquirer", "schemaVersion", "target"]);
+        return { state: "absent", evidence: "persisted keys are schemaVersion + typed/confirmed company sides only" };
+      });
+    } finally {
+      o4Tracker.stop();
+      await o4.close();
+    }
+
+    const o4Throw = await browser.newPage();
+    try {
+      await o4Throw.evaluateOnNewDocument(() => {
+        const throwing = {
+          getItem() {
+            throw new Error("sessionStorage blocked");
+          },
+          setItem() {
+            throw new Error("sessionStorage blocked");
+          },
+          removeItem() {
+            throw new Error("sessionStorage blocked");
+          },
+        };
+        Object.defineProperty(window, "sessionStorage", {
+          configurable: true,
+          get() {
+            return throwing;
+          },
+        });
+      });
+      await o4Throw.goto(`${server.origin}${DEAL_ENTRY_ROUTE}`, { waitUntil: "networkidle0", timeout: 30000 });
+      await check("O4-66", "session", "sessionStorage throwing does not break Deal Entry", "survives", async () => {
+        const heading = await o4Throw.evaluate(() => document.querySelector("h1")?.textContent?.trim() ?? "");
+        assert.equal(heading, "Start with the two companies.");
+        await fillLabeled(o4Throw, "Acquirer", "Apple Inc.");
+        assert.equal(await labeledInputValue(o4Throw, "Acquirer"), "Apple Inc.");
+        return { state: "survives", evidence: "Deal Entry still renders and accepts typing when sessionStorage throws" };
+      });
+    } finally {
+      await o4Throw.close();
     }
 
     installSuccessResearch(server.research);

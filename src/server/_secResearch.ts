@@ -14,6 +14,11 @@ import {
   type SideCollectionInput,
   type SourcePageInput,
 } from "./_level1ModeDSlice1.js";
+import {
+  PROJECTION_FAILED,
+  PUBLIC_REPORT_RESPONSE_FIELD,
+  projectLevel1ToPublicReport,
+} from "./_level1ModeDPublicReportProjection.js";
 
 export const START_PUBLIC_RESEARCH_ENDPOINT = "/api/start-public-research";
 export const SEC_SUBMISSIONS_ORIGIN = "https://data.sec.gov";
@@ -81,7 +86,9 @@ export type StartPublicResearchBody = {
   companies?: CompanyResearchSide[];
   status?: string;
   level1?: unknown;
+  publicReport?: unknown;
   slice1BindingFailure?: Record<string, unknown>;
+  projectionFailure?: Record<string, unknown>;
 };
 
 export type StartPublicResearchResult = {
@@ -658,6 +665,18 @@ export async function startPublicResearch(body: unknown): Promise<StartPublicRes
     requestedAt,
   );
 
+  const projected = projectLevel1ToPublicReport(level1);
+  if (!projected.ok) {
+    return {
+      statusCode: 503,
+      body: {
+        ...unavailableBody(PROJECTION_FAILED, requestedAt),
+        projectionFailure: { reason: projected.reason },
+      },
+      outboundRequests,
+    };
+  }
+
   const pair = composePair(acquirerSide.submissionsStatus, targetSide.submissionsStatus);
   const companies = [acquirerSide, targetSide];
   if (pair.statusCode === 503) {
@@ -666,6 +685,7 @@ export async function startPublicResearch(body: unknown): Promise<StartPublicRes
       body: {
         ...unavailableBody("service-unavailable", requestedAt, companies),
         [LEVEL1_RESPONSE_FIELD]: level1,
+        [PUBLIC_REPORT_RESPONSE_FIELD]: projected.publicReport,
       },
       outboundRequests,
     };
@@ -681,6 +701,7 @@ export async function startPublicResearch(body: unknown): Promise<StartPublicRes
       requestedAt,
       companies,
       [LEVEL1_RESPONSE_FIELD]: level1,
+      [PUBLIC_REPORT_RESPONSE_FIELD]: projected.publicReport,
     },
     outboundRequests,
   };
