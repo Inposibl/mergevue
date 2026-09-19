@@ -1,3 +1,20 @@
+import {
+  LEVEL1_RESPONSE_FIELD,
+  SLICE1_BINDING_FAILED,
+  additionalSubmissionsFileName,
+  additionalSubmissionsUrl,
+  assembleLevel1Result,
+  bindAcceptedReferenceData,
+  evaluateSlice1Side,
+  extractExposedAdditionalFiles,
+  publishedFilingCount,
+  sha256Hex,
+  type BindReferenceDataInput,
+  type ReferenceDataIdentities,
+  type SideCollectionInput,
+  type SourcePageInput,
+} from "./_level1ModeDSlice1.js";
+
 export const START_PUBLIC_RESEARCH_ENDPOINT = "/api/start-public-research";
 export const SEC_SUBMISSIONS_ORIGIN = "https://data.sec.gov";
 export const SEC_SUBMISSIONS_PATH_PREFIX = "/submissions/CIK";
@@ -5,6 +22,7 @@ export const SEC_SUBMISSIONS_PATH_SUFFIX = ".json";
 export const IDENTITY_SOURCE = "SEC_SUBMISSIONS_API";
 export const COVERAGE = "RECENT_FILING_HISTORY_ONLY";
 export const RECENT_FILINGS_LIMIT = 10;
+export const MAX_ADDITIONAL_SUBMISSIONS_FILES = 128;
 
 /**
  * PROJECT FETCH TIMEOUT — NOT AN SEC REQUIREMENT.
@@ -29,6 +47,11 @@ type ResearchHarness = {
   userAgent?: string;
   nowMs?: () => number;
   timeoutMs?: number;
+  maxAdditionalFiles?: number;
+  referenceDataBytes?: Uint8Array | null;
+  referenceDataPath?: string | null;
+  expectedReferenceDataSha256?: string;
+  expectedReferenceDataIdentities?: ReferenceDataIdentities;
 };
 
 export type RecentFiling = {
@@ -57,6 +80,8 @@ export type StartPublicResearchBody = {
   requestedAt?: string;
   companies?: CompanyResearchSide[];
   status?: string;
+  level1?: unknown;
+  slice1BindingFailure?: Record<string, unknown>;
 };
 
 export type StartPublicResearchResult = {
@@ -118,6 +143,147 @@ function getFetch() {
 function recordOutbound(recorder: OutboundRecorder, entry: { url: string; headers: Record<string, string> }) {
   recorder.push(entry);
   if (harness) harnessOutbound.push(entry);
+}
+
+function maxAdditionalFiles() {
+  if (typeof harness?.maxAdditionalFiles === "number") return harness.maxAdditionalFiles;
+  return MAX_ADDITIONAL_SUBMISSIONS_FILES;
+}
+
+function referenceDataBindInput(): BindReferenceDataInput {
+  const input: BindReferenceDataInput = {};
+  if (harness && Object.prototype.hasOwnProperty.call(harness, "referenceDataBytes")) {
+    input.bytes = harness.referenceDataBytes ?? undefined;
+  }
+  if (harness && Object.prototype.hasOwnProperty.call(harness, "referenceDataPath")) {
+    input.path = harness.referenceDataPath ?? undefined;
+  }
+  if (harness?.expectedReferenceDataSha256) {
+    input.expectedSha256 = harness.expectedReferenceDataSha256;
+  }
+  if (harness?.expectedReferenceDataIdentities) {
+    input.expectedIdentities = harness.expectedReferenceDataIdentities;
+  }
+  return input;
+}
+
+async function readResponsePayload(response: { arrayBuffer?: () => Promise<ArrayBuffer>; json?: () => Promise<unknown> }) {
+  if (response && typeof response.arrayBuffer === "function") {
+    try {
+      const buffer = await response.arrayBuffer();
+      const bytes = new Uint8Array(buffer);
+      const payload = JSON.parse(new TextDecoder("utf-8").decode(bytes));
+      return { bytes, payload, contentIdentityMethod: "SHA256_EXACT_RESPONSE_BYTES" as const };
+    } catch {
+      return null;
+    }
+  }
+  if (response && typeof response.json === "function") {
+    try {
+      const payload = await response.json();
+      return {
+        bytes: null as Uint8Array | null,
+        payload,
+        contentIdentityMethod: "SERIALIZED_JSON_FALLBACK" as const,
+      };
+    } catch {
+      return null;
+    }
+  }
+  return null;
+}
+
+function artifactSha256(bytes: Uint8Array | null, payload: unknown) {
+  if (bytes) return sha256Hex(bytes);
+  return sha256Hex(new TextEncoder().encode(JSON.stringify(payload)));
+}
+
+async function fetchSubmissionsJson(
+  url: string,
+  recorder: OutboundRecorder,
+): Promise<{
+  httpStatus: number | null;
+  retrievedAt: string;
+  bytes: Uint8Array | null;
+  payload: unknown;
+  contentIdentityMethod: string;
+  artifactSha256: string | null;
+  error: string | null;
+}> {
+  const retrievedAt = isoNow();
+  const userAgent = configuredUserAgent();
+  const controller = new AbortController();
+  const timeoutMs = harness?.timeoutMs ?? SEC_FETCH_TIMEOUT_MS;
+  const timeout = setTimeout(() => controller.abort(), timeoutMs);
+  const headers = {
+    "User-Agent": userAgent,
+    "Accept-Encoding": "gzip, deflate",
+    Accept: "application/json",
+  };
+  recordOutbound(recorder, { url, headers: { ...headers } });
+
+  try {
+    const response = await getFetch()(url, {
+      method: "GET",
+      headers,
+      signal: controller.signal,
+    });
+    if (!response) {
+      return {
+        httpStatus: null,
+        retrievedAt,
+        bytes: null,
+        payload: null,
+        contentIdentityMethod: "NONE",
+        artifactSha256: null,
+        error: "EMPTY_RESPONSE",
+      };
+    }
+    if (response.status !== 200) {
+      return {
+        httpStatus: response.status,
+        retrievedAt,
+        bytes: null,
+        payload: null,
+        contentIdentityMethod: "NONE",
+        artifactSha256: null,
+        error: `HTTP_${response.status}`,
+      };
+    }
+    const read = await readResponsePayload(response);
+    if (!read) {
+      return {
+        httpStatus: response.status,
+        retrievedAt,
+        bytes: null,
+        payload: null,
+        contentIdentityMethod: "NONE",
+        artifactSha256: null,
+        error: "JSON_PARSE_FAILED",
+      };
+    }
+    return {
+      httpStatus: response.status,
+      retrievedAt,
+      bytes: read.bytes,
+      payload: read.payload,
+      contentIdentityMethod: read.contentIdentityMethod,
+      artifactSha256: artifactSha256(read.bytes, read.payload),
+      error: null,
+    };
+  } catch {
+    return {
+      httpStatus: null,
+      retrievedAt,
+      bytes: null,
+      payload: null,
+      contentIdentityMethod: "NONE",
+      artifactSha256: null,
+      error: "FETCH_FAILED",
+    };
+  } finally {
+    clearTimeout(timeout);
+  }
 }
 
 function malformedBody(status: string): StartPublicResearchBody {
@@ -265,45 +431,137 @@ function parseSubmissionsPayload(
   };
 }
 
+async function retrieveAdditionalPages(
+  payload: unknown,
+  recorder: OutboundRecorder,
+): Promise<{
+  additionalPages: SourcePageInput[];
+  engineeringTruncation: { truncated: boolean; reason?: string };
+}> {
+  const files = extractExposedAdditionalFiles(payload);
+  const additionalPages: SourcePageInput[] = [];
+  const cap = maxAdditionalFiles();
+  let truncated = false;
+  let truncationReason: string | undefined;
+
+  for (let index = 0; index < files.length; index += 1) {
+    const entry = files[index];
+    const fileName = additionalSubmissionsFileName(entry);
+    const publishedCount = publishedFilingCount(entry);
+    if (!fileName) {
+      additionalPages.push({
+        pageId: `additional:${index}`,
+        url: "",
+        retrievedAt: isoNow(),
+        consultStatus: "UNCONSULTED",
+        unconsultedReason: "INVALID_ADDITIONAL_FILE_NAME",
+        httpStatus: null,
+        artifactSha256: null,
+        publishedFilingCount: publishedCount,
+      });
+      continue;
+    }
+    if (additionalPages.filter((page) => page.consultStatus === "CONSULTED").length >= cap) {
+      truncated = true;
+      truncationReason = "MAX_ADDITIONAL_FILES";
+      additionalPages.push({
+        pageId: `additional:${index}:${fileName}`,
+        url: additionalSubmissionsUrl(SEC_SUBMISSIONS_ORIGIN, fileName),
+        retrievedAt: isoNow(),
+        consultStatus: "UNCONSULTED",
+        unconsultedReason: "ENGINEERING_GUARD_TRUNCATION",
+        httpStatus: null,
+        artifactSha256: null,
+        publishedFilingCount: publishedCount,
+      });
+      continue;
+    }
+    const url = additionalSubmissionsUrl(SEC_SUBMISSIONS_ORIGIN, fileName);
+    const fetched = await fetchSubmissionsJson(url, recorder);
+    if (fetched.error) {
+      additionalPages.push({
+        pageId: `additional:${index}:${fileName}`,
+        url,
+        retrievedAt: fetched.retrievedAt,
+        consultStatus: "UNCONSULTED",
+        unconsultedReason: fetched.error,
+        httpStatus: fetched.httpStatus,
+        artifactSha256: null,
+        publishedFilingCount: publishedCount,
+      });
+      continue;
+    }
+    additionalPages.push({
+      pageId: `additional:${index}:${fileName}`,
+      url,
+      retrievedAt: fetched.retrievedAt,
+      consultStatus: "CONSULTED",
+      httpStatus: fetched.httpStatus,
+      artifactSha256: fetched.artifactSha256,
+      contentIdentityMethod: fetched.contentIdentityMethod,
+      payload: fetched.payload,
+      publishedFilingCount: publishedCount,
+    });
+  }
+
+  return {
+    additionalPages,
+    engineeringTruncation: truncated
+      ? { truncated: true, reason: truncationReason }
+      : { truncated: false },
+  };
+}
+
 async function retrieveSubmissions(
   side: "acquirer" | "target",
   cik: string,
   recorder: OutboundRecorder,
-): Promise<CompanyResearchSide> {
-  const retrievedAt = isoNow();
+): Promise<{ displaySide: CompanyResearchSide; collection: SideCollectionInput }> {
   const url = secSubmissionsUrl(cik);
-  const userAgent = configuredUserAgent();
-  const controller = new AbortController();
-  const timeoutMs = harness?.timeoutMs ?? SEC_FETCH_TIMEOUT_MS;
-  const timeout = setTimeout(() => controller.abort(), timeoutMs);
-  const headers = {
-    "User-Agent": userAgent,
-    "Accept-Encoding": "gzip, deflate",
-    Accept: "application/json",
-  };
-  recordOutbound(recorder, { url, headers: { ...headers } });
-
-  try {
-    const response = await getFetch()(url, {
-      method: "GET",
-      headers,
-      signal: controller.signal,
-    });
-    if (!response || response.status !== 200) {
-      return notRetrievableSide(side, cik, retrievedAt);
-    }
-    let payload: unknown;
-    try {
-      payload = await response.json();
-    } catch {
-      return notRetrievableSide(side, cik, retrievedAt);
-    }
-    return parseSubmissionsPayload(side, cik, payload, retrievedAt);
-  } catch {
-    return notRetrievableSide(side, cik, retrievedAt);
-  } finally {
-    clearTimeout(timeout);
+  const fetched = await fetchSubmissionsJson(url, recorder);
+  if (fetched.error || fetched.payload == null) {
+    return {
+      displaySide: notRetrievableSide(side, cik, fetched.retrievedAt),
+      collection: {
+        side,
+        cik,
+        primaryRetrieved: false,
+        primary: {
+          pageId: "primary",
+          url,
+          retrievedAt: fetched.retrievedAt,
+          consultStatus: "UNCONSULTED",
+          unconsultedReason: fetched.error ?? "PRIMARY_NOT_RETRIEVED",
+          httpStatus: fetched.httpStatus,
+          artifactSha256: null,
+        },
+        additionalPages: [],
+      },
+    };
   }
+
+  const displaySide = parseSubmissionsPayload(side, cik, fetched.payload, fetched.retrievedAt);
+  const extra = await retrieveAdditionalPages(fetched.payload, recorder);
+  return {
+    displaySide,
+    collection: {
+      side,
+      cik,
+      primaryRetrieved: true,
+      primary: {
+        pageId: "primary",
+        url,
+        retrievedAt: fetched.retrievedAt,
+        consultStatus: "CONSULTED",
+        httpStatus: fetched.httpStatus,
+        artifactSha256: fetched.artifactSha256,
+        contentIdentityMethod: fetched.contentIdentityMethod,
+        payload: fetched.payload,
+      },
+      additionalPages: extra.additionalPages,
+      engineeringTruncation: extra.engineeringTruncation,
+    },
+  };
 }
 
 function composePair(acquirerStatus: string, targetStatus: string) {
@@ -364,17 +622,51 @@ export async function startPublicResearch(body: unknown): Promise<StartPublicRes
     };
   }
 
-  const [acquirerSide, targetSide] = await Promise.all([
+  const binding = bindAcceptedReferenceData(referenceDataBindInput());
+  if (!binding.ok) {
+    return {
+      statusCode: 503,
+      body: {
+        endpoint: START_PUBLIC_RESEARCH_ENDPOINT,
+        researchStatus: RESEARCH_SERVICE_UNAVAILABLE,
+        coverage: COVERAGE,
+        identitySource: IDENTITY_SOURCE,
+        requestedAt,
+        status: SLICE1_BINDING_FAILED,
+        slice1BindingFailure: {
+          reason: binding.reason,
+          ...binding.details,
+        },
+      },
+      outboundRequests,
+    };
+  }
+
+  const [acquirerRetrieved, targetRetrieved] = await Promise.all([
     retrieveSubmissions("acquirer", acquirer.cik, outboundRequests),
     retrieveSubmissions("target", target.cik, outboundRequests),
   ]);
+
+  const acquirerSide = acquirerRetrieved.displaySide;
+  const targetSide = targetRetrieved.displaySide;
+  const evidenceCutoff = isoNow();
+  const level1 = assembleLevel1Result(
+    evaluateSlice1Side(acquirerRetrieved.collection, binding, evidenceCutoff),
+    evaluateSlice1Side(targetRetrieved.collection, binding, evidenceCutoff),
+    binding,
+    evidenceCutoff,
+    requestedAt,
+  );
 
   const pair = composePair(acquirerSide.submissionsStatus, targetSide.submissionsStatus);
   const companies = [acquirerSide, targetSide];
   if (pair.statusCode === 503) {
     return {
       statusCode: 503,
-      body: unavailableBody("service-unavailable", requestedAt, companies),
+      body: {
+        ...unavailableBody("service-unavailable", requestedAt, companies),
+        [LEVEL1_RESPONSE_FIELD]: level1,
+      },
       outboundRequests,
     };
   }
@@ -388,6 +680,7 @@ export async function startPublicResearch(body: unknown): Promise<StartPublicRes
       identitySource: IDENTITY_SOURCE,
       requestedAt,
       companies,
+      [LEVEL1_RESPONSE_FIELD]: level1,
     },
     outboundRequests,
   };

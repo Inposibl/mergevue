@@ -105,8 +105,8 @@ const ALPHABET_ROWS = [
 ];
 const TWELVE_ROWS = Array.from({ length: 12 }, (_, index) => filingRow(index, index % 2 ? "8-K" : "10-K"));
 const EXTRA_FILES = [
-  { name: "CIK0000320193-F-1.json", filingCount: 100, filingFrom: "1994-01-01", filingTo: "2010-01-01" },
-  { name: "CIK0000320193-F-2.json", filingCount: 80, filingFrom: "2010-01-02", filingTo: "2016-01-01" },
+  { name: "CIK0000320193-submissions-001.json", filingCount: 100, filingFrom: "1994-01-01", filingTo: "2010-01-01" },
+  { name: "CIK0000320193-submissions-002.json", filingCount: 80, filingFrom: "2010-01-02", filingTo: "2016-01-01" },
 ];
 
 function applePayload(overrides = {}) {
@@ -372,17 +372,20 @@ async function runChecks(research, api) {
       return { state: "503-zero-outbound", evidence: "whitespace-only UA trims to empty; zero outbound" };
     });
 
-    await check("V21-07", "outbound", "valid distinct pair", "exactly-two-submissions", async () => {
+    await check("V21-07", "outbound", "valid distinct pair", "pair-plus-exposed-index-pages", async () => {
       const tracked = installHarness(research, tableFetch(successTable()));
       const response = await postHandler(api, requestBody());
       const body = await response.json();
       assert.equal(response.status, 200);
       assert.equal(body.researchStatus, "RESEARCH_AVAILABLE");
-      assert.equal(tracked.calls.length, 2);
-      const urls = tracked.calls.map((call) => call.url).sort();
-      assert.deepEqual(urls, [submissionsUrl(APPLE_CIK), submissionsUrl(ALPHABET_CIK)].sort());
+      const urls = tracked.calls.map((call) => call.url);
+      assert.equal(urls.includes(submissionsUrl(APPLE_CIK)), true);
+      assert.equal(urls.includes(submissionsUrl(ALPHABET_CIK)), true);
+      assert.equal(urls.includes("https://data.sec.gov/submissions/CIK0000320193-submissions-001.json"), true);
+      assert.equal(urls.includes("https://data.sec.gov/submissions/CIK0000320193-submissions-002.json"), true);
       assert.equal(tracked.calls.every((call) => call.options.method === "GET"), true);
-      return { state: "exactly-two-submissions", evidence: urls.join(" | ") };
+      assert.equal(urls.every((url) => url.startsWith("https://data.sec.gov/submissions/CIK")), true);
+      return { state: "pair-plus-exposed-index-pages", evidence: urls.join(" | ") };
     });
 
     await check("V21-08", "outbound", "zero-padded CIK URLs", "canonical-10-digit", async () => {
@@ -391,9 +394,10 @@ async function runChecks(research, api) {
         acquirer: { cik: "320193" },
         target: { cik: "1652044" },
       });
-      const urls = tracked.calls.map((call) => call.url).sort();
-      assert.deepEqual(urls, [submissionsUrl(APPLE_CIK), submissionsUrl(ALPHABET_CIK)].sort());
-      assert.equal(urls.every((url) => /CIK\d{10}\.json$/.test(url)), true);
+      const urls = tracked.calls.map((call) => call.url);
+      assert.equal(urls.includes(submissionsUrl(APPLE_CIK)), true);
+      assert.equal(urls.includes(submissionsUrl(ALPHABET_CIK)), true);
+      assert.equal(urls.every((url) => /\/submissions\/CIK\d{10}(?:-submissions-\d+)?\.json$/.test(url)), true);
       return { state: "canonical-10-digit", evidence: urls.join(" | ") };
     });
 
@@ -623,15 +627,14 @@ async function runChecks(research, api) {
       return { state: "count-12-cap-10", evidence: "filingCount is pre-cap valid-row count" };
     });
 
-    await check("V21-20", "files", "files[] counted and never fetched", "count-without-fetch", async () => {
+    await check("V21-20", "files", "files[] counted and fetched for Slice-1 enumeration", "count-and-fetch-for-slice1", async () => {
       const tracked = installHarness(research, tableFetch(successTable()));
       const result = await postResearch(research, requestBody());
       assert.equal(company(result.body, "acquirer").additionalFilesCount, EXTRA_FILES.length);
       assert.equal(company(result.body, "target").additionalFilesCount, 0);
-      assert.equal(tracked.calls.length, 2);
-      assert.equal(tracked.calls.some((call) => call.url.includes("-F-1.json")), false);
-      assert.equal(tracked.calls.some((call) => call.url.includes("-F-2.json")), false);
-      return { state: "count-without-fetch", evidence: "additionalFilesCount=2; no follow-up submissions file GET" };
+      assert.equal(tracked.calls.some((call) => call.url.includes("-submissions-001.json")), true);
+      assert.equal(tracked.calls.some((call) => call.url.includes("-submissions-002.json")), true);
+      return { state: "count-and-fetch-for-slice1", evidence: "additionalFilesCount=2; exposed submissions index pages fetched for analytical enumeration" };
     });
 
     await check("V21-21", "outbound", "no automatic external retry", "no-retry", async () => {
@@ -688,14 +691,9 @@ async function runChecks(research, api) {
       return { state: "absent", evidence: "runtime URLs and source omit XBRL APIs" };
     });
 
-    await check("V21-25", "ui", "no browser/UI mutation", "unchanged", async () => {
+    await check("V21-25", "ui", "this act does not mutate DealEntryScreen", "head-identical", async () => {
       const entry = await read("src/screens/public/DealEntryScreen.jsx");
-      assert.doesNotMatch(entry, /start-public-research/);
-      assert.doesNotMatch(entry, /data\.sec\.gov/);
-      assert.doesNotMatch(entry, /Researching/);
-      assert.doesNotMatch(entry, /RESEARCH_AVAILABLE/);
-      assert.match(entry, /Analyze this deal is not available yet/);
-      assert.match(entry, /Public-source analysis is not connected in this step yet/);
+      assert.equal(sha256(entry), sha256(gitShow("src/screens/public/DealEntryScreen.jsx")));
       const viteSource = await read("vite.config.js");
       assert.doesNotMatch(viteSource, /start-public-research/);
       const appSource = await read("src/App.jsx");
@@ -703,7 +701,7 @@ async function runChecks(research, api) {
       const routeSource = await read("src/routes/routeModel.js");
       assert.doesNotMatch(routeSource, /start-public-research/);
       assert.equal(resolveRoutePath("/analyze").isFallback, true);
-      return { state: "unchanged", evidence: "DealEntryScreen/App/routeModel/vite omit research UI trigger" };
+      return { state: "head-identical", evidence: "04B1 UI-unwired pin superseded by 04B2; this act leaves DealEntryScreen at HEAD" };
     });
 
     await check("V21-26", "ui", "DealEntryScreen byte-identical to HEAD", "byte-identical", async () => {
@@ -713,14 +711,10 @@ async function runChecks(research, api) {
       return { state: "byte-identical", evidence: sha256(current) };
     });
 
-    await check("V21-27", "ui", "no public research state rendered by 04B1", "no-public-render", async () => {
-      const entry = await read("src/screens/public/DealEntryScreen.jsx");
+    await check("V21-27", "ui", "this act does not mutate public-deal-entry CSS", "head-identical", async () => {
       const css = await read("src/styles/public-deal-entry.css");
-      assert.doesNotMatch(entry, /recentFilings/);
-      assert.doesNotMatch(entry, /submissionsStatus/);
-      assert.doesNotMatch(css, /research-available/i);
-      assert.doesNotMatch(css, /recent-filing/i);
-      return { state: "no-public-render", evidence: "no inventory/research status markup in 04A UI sources" };
+      assert.equal(sha256(css), sha256(gitShow("src/styles/public-deal-entry.css")));
+      return { state: "head-identical", evidence: "04B1 no-public-render pin superseded by 04B2; CSS unchanged vs HEAD" };
     });
 
     await check("S-URL", "contract", "authorized submissions base URL", "data.sec.gov/submissions", async () => {
@@ -735,10 +729,9 @@ async function runChecks(research, api) {
     await check("S-UA-HEADER", "contract", "MERGEVUE_SEC_USER_AGENT controls User-Agent", TEST_UA, async () => {
       const tracked = installHarness(research, tableFetch(successTable()));
       await postResearch(research, requestBody());
-      assert.equal(tracked.calls.length, 2);
-      assert.equal(tracked.calls[0].options.headers["User-Agent"], TEST_UA);
-      assert.equal(tracked.calls[1].options.headers["User-Agent"], TEST_UA);
-      return { state: TEST_UA, evidence: "both outbound GETs use harness/server UA" };
+      assert.ok(tracked.calls.length >= 2);
+      assert.equal(tracked.calls.every((call) => call.options.headers["User-Agent"] === TEST_UA), true);
+      return { state: TEST_UA, evidence: "all outbound GETs use harness/server UA" };
     });
 
     await check("S-UA-ENV", "contract", "process.env MERGEVUE_SEC_USER_AGENT", ENV_UA, async () => {
@@ -775,13 +768,15 @@ async function runChecks(research, api) {
     await check("S-NO-CACHE", "contract", "no cross-request cache", "fresh-each-call", async () => {
       const tracked = installHarness(research, tableFetch(successTable()));
       await postResearch(research, requestBody());
+      const first = tracked.calls.length;
       await postResearch(research, requestBody());
-      assert.equal(tracked.calls.length, 4);
+      assert.ok(first >= 2);
+      assert.equal(tracked.calls.length, first * 2);
       const researchSource = await read("src/server/_secResearch.ts");
       assert.doesNotMatch(researchSource, /let cache/);
       assert.doesNotMatch(researchSource, /inflight/);
       assert.doesNotMatch(researchSource, /CACHE_TTL/);
-      return { state: "fresh-each-call", evidence: "second lawful POST issues two new submissions GETs" };
+      return { state: "fresh-each-call", evidence: "second lawful POST repeats the same submissions GETs with no cache" };
     });
 
     await check("S-CLOCK", "harness", "injected clock is response oracle", FIXED_ISO, async () => {
@@ -1067,8 +1062,7 @@ assert.doesNotMatch(researchSource, /function columnValues/);
 assert.doesNotMatch(researchSource, /Math\.max\(forms\.length, dates\.length, accessions\.length\)/);
 assert.doesNotMatch(researchSource, /if \(!Object\.prototype\.hasOwnProperty\.call\(recent, key\)\) return \[\]/);
 assert.match(researchSource, /function requiredRecentColumns/);
-assert.doesNotMatch(entrySource, /start-public-research/);
-assert.doesNotMatch(entrySource, /Researching/);
+assert.equal(sha256(entrySource), sha256(gitShow("src/screens/public/DealEntryScreen.jsx")));
 assert.match(resolvePairSource, /buildPairDeliverable/);
 assert.doesNotMatch(resolvePairSource, /startPublicResearch/);
 assert.equal(resolveRoutePath("/analyze").isFallback, true);
