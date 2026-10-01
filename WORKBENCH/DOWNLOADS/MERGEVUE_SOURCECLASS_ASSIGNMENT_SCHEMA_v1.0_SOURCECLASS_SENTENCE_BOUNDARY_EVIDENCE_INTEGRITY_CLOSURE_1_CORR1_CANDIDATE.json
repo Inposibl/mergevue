@@ -1,0 +1,623 @@
+{
+ "artifact": "MERGEVUE_SOURCECLASS_ASSIGNMENT_SCHEMA_v1.0_SOURCECLASS_SENTENCE_BOUNDARY_EVIDENCE_INTEGRITY_CLOSURE_1_CORR1_CANDIDATE.json",
+ "act": "SOURCECLASS-SENTENCE-BOUNDARY-EVIDENCE-INTEGRITY-CLOSURE-1.CORR1",
+ "status": "CORRECTION / IMPLEMENTATION CANDIDATE - NOT INDEPENDENTLY VERIFIED - NOT OWNER-ACCEPTED - NOT CONTROLLING",
+ "boundaryModelSha256": "9c8011f743a76ca8b1bf94b699b54567d7f510bfb0e678a35f8f690f82a0c501",
+ "purpose": "Record shape for CORR4 section I sourceClass assignment provenance with physical evidence binding. One record per source-specific support record (fact x sourceRef); one computed segment per indivisible bounded segment. Enumerations are derived from boundaryModel (check S-7). The occurrence anchor block records the frame, the provisional occurrence, the anchor source, every failing condition and the unresolved reason (OA-12); the enumerations of frames, correspondence values and reasons are derived from boundaryModel (check S-7). The count block of an evaluation records, per count candidate, the B-2 basis-overlap diagnostics (basisOverlapRecord): component, members, overlap relations, support core, lawful-separation proofs and the count disposition; they are counting diagnostics, never states. The count block also records, for every non-overlapping pair of count candidates of one document, the touching-atom relation and its atom proof (touchingAtomRelation), and the SAME_INDIVISIBLE_ATOM_TOUCHING pairs with their lawful-separation proof (touchingAtomPair); they are counting diagnostics, never states. The SENTENCE evidence's continuation guard adds no field: a SENTENCE it does not prove rejects the record (SEPARATOR_EVIDENCE_FAILED) or leaves touching fragments to the touching-atom relation. A corpus may carry entityNameAuthority = {recordsSha256, records}: the frozen SEC entity-name authority candidate's records, read-only; the pilot replay names the RECORDS file by path and SHA-256. No segment-record field is added.",
+ "definitions": {
+  "assertion": {
+   "type": "object",
+   "required": [
+    "featureId",
+    "value",
+    "witness",
+    "assertionType",
+    "coderIdentity",
+    "sourceRef",
+    "segmentLocator"
+   ],
+   "properties": {
+    "featureId": {
+     "type": "string"
+    },
+    "witness": {
+     "type": "string"
+    },
+    "assertionType": {
+     "type": "string",
+     "enum": [
+      "QUOTED_WITNESS"
+     ]
+    },
+    "coderIdentity": {
+     "type": "string"
+    },
+    "sourceRef": {
+     "type": "string"
+    },
+    "segmentLocator": {
+     "type": "object",
+     "required": [
+      "artifactId",
+      "unitId",
+      "start",
+      "end"
+     ]
+    }
+   }
+  },
+  "unit": {
+   "type": "object",
+   "required": [
+    "unitId",
+    "separatorBefore",
+    "locatorKind",
+    "start",
+    "end",
+    "text",
+    "textSha256",
+    "assertions"
+   ],
+   "properties": {
+    "unitId": {
+     "type": "string"
+    },
+    "separatorBefore": {
+     "type": "string",
+     "enum": [
+      "EXHIBIT",
+      "HEADING",
+      "NONE",
+      "NUMBERED_CLAUSE",
+      "NUMBERED_SUBCLAUSE",
+      "PAGE_OR_SECTION_LABEL",
+      "SENTENCE",
+      "START",
+      "TABLE_ROW"
+     ]
+    },
+    "locatorKind": {
+     "type": "string",
+     "enum": [
+      "EXACT_HEADING",
+      "PARAGRAPH_WINDOW_UNDER_HEADING",
+      "TABLE_OR_ROW",
+      "NUMBERED_CLAUSE",
+      "EXHIBIT",
+      "RECORD_LEVEL_BINDING",
+      "SENTENCE"
+     ]
+    },
+    "start": {
+     "type": "integer"
+    },
+    "end": {
+     "type": "integer"
+    },
+    "text": {
+     "type": "string"
+    },
+    "textSha256": {
+     "type": "string",
+     "pattern": "^[0-9a-f]{64}$"
+    },
+    "assertions": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "required": [
+       "featureId",
+       "value",
+       "witness",
+       "assertionType",
+       "coderIdentity",
+       "sourceRef",
+       "segmentLocator"
+      ],
+      "properties": {
+       "featureId": {
+        "type": "string"
+       },
+       "witness": {
+        "type": "string"
+       },
+       "assertionType": {
+        "type": "string",
+        "enum": [
+         "QUOTED_WITNESS"
+        ]
+       },
+       "coderIdentity": {
+        "type": "string"
+       },
+       "sourceRef": {
+        "type": "string"
+       },
+       "segmentLocator": {
+        "type": "object",
+        "required": [
+         "artifactId",
+         "unitId",
+         "start",
+         "end"
+        ]
+       }
+      }
+     }
+    }
+   }
+  },
+  "segment": {
+   "type": "object",
+   "required": [
+    "segmentId",
+    "unitIds",
+    "underlyingDocumentIdentity",
+    "canonicalSegmentIdentity",
+    "csiComponents",
+    "sourceClassAssignmentState",
+    "sourceClass",
+    "assignmentRuleId",
+    "satisfiedClassIds",
+    "featureRecord",
+    "fullyInspected"
+   ],
+   "properties": {
+    "sourceClassAssignmentState": {
+     "type": "string",
+     "enum": [
+      "ASSIGNED",
+      "DUPLICATE_IDENTITY_UNRESOLVED",
+      "MULTIPLE_CLASS_PREDICATES_SATISFIED",
+      "NOT_DETERMINABLE",
+      "OUTSIDE_FROZEN_VOCABULARY"
+     ]
+    },
+    "sourceClass": {
+     "type": [
+      "string",
+      "null"
+     ],
+     "enum": [
+      "marketing/engagement materials",
+      "contracts/participation terms",
+      "compensation plans",
+      "referral/recruitment system records",
+      "platform/product rules",
+      "retention metrics",
+      "access-rights/role matrices",
+      "internal manuals/scripts",
+      "operative/financial records of the participation system",
+      null
+     ]
+    },
+    "canonicalSegmentIdentity": {
+     "type": [
+      "string",
+      "null"
+     ],
+     "pattern": "^CSI:[0-9a-f]{64}$"
+    },
+    "fullyInspected": {
+     "type": "boolean"
+    },
+    "occurrenceCorrespondence": {
+     "type": [
+      "string",
+      "null"
+     ],
+     "enum": [
+      "FRAME-C",
+      "FRAME-U",
+      "UNESTABLISHED",
+      null
+     ]
+    },
+    "csiComponents": {
+     "type": [
+      "object",
+      "null"
+     ]
+    },
+    "occurrenceAnchor": {
+     "type": [
+      "object",
+      "null"
+     ]
+    },
+    "occurrenceDiagnostics": {
+     "type": [
+      "object",
+      "null"
+     ]
+    }
+   }
+  },
+  "record": {
+   "type": "object",
+   "required": [
+    "recordId",
+    "assignmentId",
+    "edgeId",
+    "caseId",
+    "sideId",
+    "factId",
+    "sourceId",
+    "sourceRefIndex",
+    "sourceRefIds",
+    "sourceLocators",
+    "sourceLocatorAbsenceReason",
+    "artifactId",
+    "recipe",
+    "bindingStatus",
+    "humanReadableLocator",
+    "physicalHeading",
+    "units",
+    "computed",
+    "coderIdentity",
+    "contractIdentity",
+    "boundaryModelSha256",
+    "vocabularyVersion",
+    "classificationEvidenceMode",
+    "metadataUsedForLocatingOnly"
+   ],
+   "properties": {
+    "sourceRefIds": {
+     "type": "array",
+     "minItems": 1,
+     "items": {
+      "type": "string"
+     }
+    },
+    "sourceLocators": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "recipe": {
+     "type": "string",
+     "enum": [
+      "HTML_RAW_V1",
+      "HTML_TEXT_V1",
+      "PDF_LZW_TEXT_V1",
+      "PLAIN_TEXT_V1"
+     ]
+    },
+    "bindingStatus": {
+     "type": "string",
+     "enum": [
+      "BOUND",
+      "UNRESOLVED"
+     ]
+    },
+    "units": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "required": [
+       "unitId",
+       "separatorBefore",
+       "locatorKind",
+       "start",
+       "end",
+       "text",
+       "textSha256",
+       "assertions"
+      ],
+      "properties": {
+       "unitId": {
+        "type": "string"
+       },
+       "separatorBefore": {
+        "type": "string",
+        "enum": [
+         "EXHIBIT",
+         "HEADING",
+         "NONE",
+         "NUMBERED_CLAUSE",
+         "NUMBERED_SUBCLAUSE",
+         "PAGE_OR_SECTION_LABEL",
+         "SENTENCE",
+         "START",
+         "TABLE_ROW"
+        ]
+       },
+       "locatorKind": {
+        "type": "string",
+        "enum": [
+         "EXACT_HEADING",
+         "PARAGRAPH_WINDOW_UNDER_HEADING",
+         "TABLE_OR_ROW",
+         "NUMBERED_CLAUSE",
+         "EXHIBIT",
+         "RECORD_LEVEL_BINDING",
+         "SENTENCE"
+        ]
+       },
+       "start": {
+        "type": "integer"
+       },
+       "end": {
+        "type": "integer"
+       },
+       "text": {
+        "type": "string"
+       },
+       "textSha256": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+       },
+       "assertions": {
+        "type": "array",
+        "items": {
+         "type": "object",
+         "required": [
+          "featureId",
+          "value",
+          "witness",
+          "assertionType",
+          "coderIdentity",
+          "sourceRef",
+          "segmentLocator"
+         ],
+         "properties": {
+          "featureId": {
+           "type": "string"
+          },
+          "witness": {
+           "type": "string"
+          },
+          "assertionType": {
+           "type": "string",
+           "enum": [
+            "QUOTED_WITNESS"
+           ]
+          },
+          "coderIdentity": {
+           "type": "string"
+          },
+          "sourceRef": {
+           "type": "string"
+          },
+          "segmentLocator": {
+           "type": "object",
+           "required": [
+            "artifactId",
+            "unitId",
+            "start",
+            "end"
+           ]
+          }
+         }
+        }
+       }
+      }
+     }
+    },
+    "boundaryModelSha256": {
+     "type": "string",
+     "pattern": "^[0-9a-f]{64}$"
+    },
+    "classificationEvidenceMode": {
+     "type": "string",
+     "enum": [
+      "CONTENT"
+     ]
+    },
+    "computed": {
+     "type": "object",
+     "required": [
+      "duplicateIdentityState",
+      "segments"
+     ]
+    }
+   }
+  },
+  "occurrenceAnchor": {
+   "type": "object",
+   "required": [
+    "frame",
+    "sourceOriginAnchor",
+    "provisionalOccurrence",
+    "completeViewInterval",
+    "contentSkeletonSha256",
+    "unresolvedReason",
+    "failedConditions",
+    "occurrenceRepresentable",
+    "ownImageRepresentable",
+    "seamTaint",
+    "ownSeam",
+    "frameUGuard"
+   ],
+   "properties": {
+    "frame": {
+     "type": [
+      "string",
+      "null"
+     ],
+     "enum": [
+      "FRAME-C",
+      "FRAME-U",
+      null
+     ]
+    },
+    "unresolvedReason": {
+     "type": [
+      "string",
+      "null"
+     ],
+     "enum": [
+      "DUPLICATE_GROUP_UNRESOLVED",
+      "MEMBER_BYTES_UNAVAILABLE",
+      "EMPTY_CANONICAL_SEGMENT",
+      "DECODER_FRAME_MISMATCH",
+      "EMPTY_COMPLETE_VIEW_IMAGE",
+      "COMPLETE_VIEW_BOUNDARY_NOT_REPRESENTABLE",
+      "TEXT_BEARING_REMOVAL_SEAM_TAINTED_POSITION",
+      "EMPTY_SKELETON",
+      "U1_CONTENT_NOT_UNIQUE_IN_EVERY_COMPLETE_VIEW",
+      "U2_CANDIDATE_OCCURRENCE_IS_A_TEXT_BEARING_REMOVAL_SEAM",
+      "U3_APPARENT_OCCURRENCE_CREATED_BY_TEXT_BEARING_REMOVAL",
+      "U4_A_RECORD_CARRYING_THE_KEY_IS_A_TEXT_BEARING_REMOVAL_SEAM",
+      "POSSIBLE_CLASS_CONFLICT_FROM_UNPLACED_WITNESS",
+      null
+     ]
+    },
+    "completeViewInterval": {
+     "type": [
+      "array",
+      "null"
+     ]
+    },
+    "contentSkeletonSha256": {
+     "type": [
+      "string",
+      "null"
+     ],
+     "pattern": "^[0-9a-f]{64}$"
+    },
+    "failedConditions": {
+     "type": [
+      "array",
+      "null"
+     ]
+    },
+    "frameUGuard": {
+     "type": [
+      "object",
+      "null"
+     ]
+    },
+    "unplaced": {
+     "type": "object"
+    },
+    "withheldOccurrence": {
+     "type": "string",
+     "pattern": "^CSI:[0-9a-f]{64}$"
+    },
+    "quarantineWitnesses": {
+     "type": "array"
+    }
+   }
+  },
+  "basisOverlapRecord": {
+   "type": "object",
+   "required": [
+    "basisOverlapComponentId",
+    "basisOverlapMembers",
+    "basisOverlapRelation",
+    "predicateSupportCore",
+    "lawfulSeparationProof",
+    "b2CountDisposition",
+    "b2CountReason"
+   ],
+   "properties": {
+    "basisOverlapComponentId": {
+     "type": "string",
+     "pattern": "^B2C:[0-9a-f]{64}$"
+    },
+    "basisOverlapMembers": {
+     "type": "array",
+     "minItems": 1
+    },
+    "basisOverlapRelation": {
+     "type": "array"
+    },
+    "predicateSupportCore": {
+     "type": [
+      "object",
+      "null"
+     ]
+    },
+    "lawfulSeparationProof": {
+     "type": "array"
+    },
+    "b2CountDisposition": {
+     "type": "string",
+     "enum": [
+      "CLEAR_SINGLETON",
+      "LAWFULLY_SEPARATE",
+      "COLLAPSED_SAME_CLASS_OVERLAP",
+      "WITHHELD_CONFLICTING_OVERLAP"
+     ]
+    },
+    "b2CountReason": {
+     "type": [
+      "string",
+      "null"
+     ],
+     "enum": [
+      "B2_OVERLAP_CLASS_CONFLICT",
+      null
+     ]
+    }
+   }
+  },
+  "touchingAtomRelation": {
+   "type": "object",
+   "required": [
+    "records",
+    "relation",
+    "atomProof"
+   ],
+   "properties": {
+    "records": {
+     "type": "array",
+     "minItems": 2,
+     "maxItems": 2
+    },
+    "relation": {
+     "type": "string",
+     "enum": [
+      "DIFFERENT_ATOMS",
+      "TOUCHING_SAME_ATOM",
+      "TOUCHING_SAME_ATOM_IN_SOME_MEMBERS"
+     ]
+    },
+    "atomProof": {
+     "type": "object"
+    }
+   }
+  },
+  "touchingAtomPair": {
+   "type": "object",
+   "required": [
+    "records",
+    "relation",
+    "lawfulSeparation"
+   ],
+   "properties": {
+    "records": {
+     "type": "array",
+     "minItems": 2,
+     "maxItems": 2
+    },
+    "relation": {
+     "type": "string",
+     "enum": [
+      "TOUCHING_SAME_ATOM",
+      "TOUCHING_SAME_ATOM_IN_SOME_MEMBERS"
+     ]
+    },
+    "lawfulSeparation": {
+     "type": "object"
+    }
+   }
+  }
+ },
+ "notes": [
+  "sourceClass is null unless the state is the assigned state; a state is NOT a tenth class",
+  "canonicalSegmentIdentity is recomputed by the validator; a supplied value is never trusted",
+  "free-form fields (humanReadableLocator, physicalHeading, sourceLocators) are audit metadata only",
+  "classificationEvidenceMode is always CONTENT: metadata locates, it never classifies (R-FORM, R-EVID)",
+  "canonicalSegmentIdentity is null for a segment that was not bound and for a segment whose occurrence correspondence is not established",
+  "occurrenceCorrespondence names the frame that established the identity (FRAME-C / FRAME-U) or the marker UNESTABLISHED; CSI-v5 proof names no longer exist",
+  "canonicalSegmentIdentity is CSI-v6, recomputed by the validator (checks R-3, C-6); a supplied value is never trusted",
+  "an OA-14 witness role and a withheld occurrence are recorded diagnostics of the anchor block, never states",
+  "b2CountDisposition is a COUNTING disposition of R-COUNT step 5b, not a state, not a class and not a public sourceClass disposition; segment records are never written by it",
+  "the touching-atom relation (TOUCHING_SAME_ATOM, TOUCHING_SAME_ATOM_IN_SOME_MEMBERS, DIFFERENT_ATOMS) is a count-stage diagnostic of R-COUNT step 5b; it never enters a segment record",
+  "LOWERCASE_CONTINUATION_AFTER_ATERM is a separator-evidence decision; it never enters a segment record, a count block or an identity",
+  "SENTENCE_EVIDENCE_ON_DOCUMENTARY_INTERVAL and ENTITY_INTERNAL_PERIOD_NOT_SENTENCE_EVIDENCE are separator-evidence decisions; they never enter a segment record, a count block or an identity"
+ ]
+}

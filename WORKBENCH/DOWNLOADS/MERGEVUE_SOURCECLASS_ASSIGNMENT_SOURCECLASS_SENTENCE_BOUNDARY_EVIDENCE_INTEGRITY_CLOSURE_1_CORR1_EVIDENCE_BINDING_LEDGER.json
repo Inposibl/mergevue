@@ -1,0 +1,2490 @@
+{
+ "artifact": "MERGEVUE_SOURCECLASS_ASSIGNMENT_SOURCECLASS_SENTENCE_BOUNDARY_EVIDENCE_INTEGRITY_CLOSURE_1_CORR1_EVIDENCE_BINDING_LEDGER.json",
+ "act": "SOURCECLASS-SENTENCE-BOUNDARY-EVIDENCE-INTEGRITY-CLOSURE-1.CORR1",
+ "status": "CORRECTION / IMPLEMENTATION CANDIDATE - NOT INDEPENDENTLY VERIFIED - NOT OWNER-ACCEPTED - NOT CONTROLLING",
+ "boundaryModelSha256": "9c8011f743a76ca8b1bf94b699b54567d7f510bfb0e678a35f8f690f82a0c501",
+ "purpose": "Row-by-row physical evidence binding of the 32 pilot rows under the sentence-boundary evidence integrity closure (identical to the A+ parent: the count layer writes no record), with the comparison against the parent replay and the tracked-replay invariance. The replay is the evidence; this ledger is an index the validator cross-checks (R-11).",
+ "integrity": {
+  "rows": 32,
+  "distinctFacts": 30,
+  "rowsPhysicallyBound": 32,
+  "artifacts": 23,
+  "units": 61,
+  "rowsWithUnitsAndAssertionsIdenticalToParent": 32,
+  "witnessedAssertions": 72,
+  "segmentRecords": 61,
+  "segmentsChangedFromParent": 4,
+  "rowsUnresolved": []
+ },
+ "trackedReplay": {
+  "artifacts": 23,
+  "recipes": [
+   "HTML_RAW_V1",
+   "HTML_TEXT_V1",
+   "PDF_LZW_TEXT_V1",
+   "PLAIN_TEXT_V1"
+  ],
+  "artifactRecipePairs": 67,
+  "mismatches": 0
+ },
+ "stateOrClassChangesFromParent": {
+  "SCA-002#s1": [
+   [
+    "OUTSIDE_FROZEN_VOCABULARY",
+    null
+   ],
+   [
+    "DUPLICATE_IDENTITY_UNRESOLVED",
+    null
+   ]
+  ],
+  "SCA-029#s1": [
+   [
+    "OUTSIDE_FROZEN_VOCABULARY",
+    null
+   ],
+   [
+    "DUPLICATE_IDENTITY_UNRESOLVED",
+    null
+   ]
+  ],
+  "SCA-031#s1": [
+   [
+    "OUTSIDE_FROZEN_VOCABULARY",
+    null
+   ],
+   [
+    "DUPLICATE_IDENTITY_UNRESOLVED",
+    null
+   ]
+  ],
+  "SCA-032#s1": [
+   [
+    "ASSIGNED",
+    "compensation plans"
+   ],
+   [
+    "DUPLICATE_IDENTITY_UNRESOLVED",
+    null
+   ]
+  ]
+ },
+ "rows": [
+  {
+   "recordId": "SCA-001",
+   "factId": "C-B04",
+   "sourceId": "C33-S01",
+   "artifactId": "ART-01",
+   "artifactPath": {
+    "anchor": "REPO_ROOT",
+    "relative": "Downloads/CASE-3.5_DAIMLER_CHRYSLER_BASELINE_v1.0.7_CANDIDATE/SOURCE_ARTIFACTS/C33-S01_LAT-19920426.html"
+   },
+   "artifactSha256": "b9c3a752e8d60b6d818ff1d55c6bb2a628f83eefe1fadeaa0a1fa00b2de99a5a",
+   "registryDigest": "b9c3a752e8d60b6d818ff1d55c6bb2a628f83eefe1fadeaa0a1fa00b2de99a5a",
+   "recipe": "HTML_TEXT_V1",
+   "units": [
+    {
+     "unitId": "u1",
+     "separatorBefore": "START",
+     "span": [
+      11388,
+      11583
+     ],
+     "opening": "To root out this latent tendency, the team managers decided that anybody who pointed a fin"
+    },
+    {
+     "unitId": "u2",
+     "separatorBefore": "SENTENCE",
+     "span": [
+      11584,
+      11702
+     ],
+     "opening": "A few red-faced examples later, the LH crew began to get the message, and the handful that"
+    }
+   ],
+   "unitTextSha256": [
+    "708e1a8642764feee2df0c97fd55b10743593ee470d19f2808767d28db646efc",
+    "e498ee49d803d00bc9e22b9e7b15c81ec7bdef20ebece5594ea1ba9c3f7c855c"
+   ],
+   "witnessCount": 0,
+   "segmentResults": [
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ]
+   ],
+   "rowLevelClassChangeFromCorr3": false,
+   "rowLevelClassChangeFromParent": false,
+   "segmentIdentities": [
+    [
+     "CSI:864d8f879378b88b86b08e8e7e33354c58ffbdad03972ee61ce61d6d14599f27",
+     "FRAME-C",
+     null
+    ],
+    [
+     "CSI:c2ffed20964d173b863adc1faaa66c0a78d2b24e97ae86ac8b74bdca489a493c",
+     "FRAME-C",
+     null
+    ]
+   ],
+   "parentSegmentResults": [
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ]
+   ]
+  },
+  {
+   "recordId": "SCA-002",
+   "factId": "F-A-0008",
+   "sourceId": "S-A1",
+   "artifactId": "ART-02",
+   "artifactPath": {
+    "anchor": "REPO_PARENT",
+    "relative": "MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/aecom-urs/01_T0_PRE_T0_BASELINE/candidate_corr2/sources/aecom/aecom_10k_fy2013_filed_2013-11-13.htm"
+   },
+   "artifactSha256": "004a5ad7617f5415b91ba50e7e1a3276107a5ba0243cacac3b5795bdfe8423d5",
+   "registryDigest": "004a5ad7617f5415b91ba50e7e1a3276107a5ba0243cacac3b5795bdfe8423d5",
+   "recipe": "HTML_TEXT_V1",
+   "units": [
+    {
+     "unitId": "u1",
+     "separatorBefore": "START",
+     "span": [
+      8727,
+      8913
+     ],
+     "opening": "According to Engineering News-Record 's (ENR's) 2013 Design Survey, we are the largest gen"
+    }
+   ],
+   "unitTextSha256": [
+    "f9d35ceb0d9423735148630a0148ccf5535cf369f17e39211b7e63d473ced2d3"
+   ],
+   "witnessCount": 0,
+   "segmentResults": [
+    [
+     "DUPLICATE_IDENTITY_UNRESOLVED",
+     null
+    ]
+   ],
+   "rowLevelClassChangeFromCorr3": false,
+   "rowLevelClassChangeFromParent": false,
+   "segmentIdentities": [
+    [
+     null,
+     "FRAME-C",
+     "TEXT_BEARING_REMOVAL_SEAM_TAINTED_POSITION"
+    ]
+   ],
+   "parentSegmentResults": [
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ]
+   ]
+  },
+  {
+   "recordId": "SCA-003",
+   "factId": "F-U-0008",
+   "sourceId": "S-U1",
+   "artifactId": "ART-03",
+   "artifactPath": {
+    "anchor": "REPO_PARENT",
+    "relative": "MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/aecom-urs/01_T0_PRE_T0_BASELINE/candidate_corr2/sources/urs/urs_10k_fy2013_filed_2014-03-03.htm"
+   },
+   "artifactSha256": "6c0aaba4debc3beb0543a75af9e3ed049d8c6f9be17491771d89f0da6a6d4ae0",
+   "registryDigest": "6c0aaba4debc3beb0543a75af9e3ed049d8c6f9be17491771d89f0da6a6d4ae0",
+   "recipe": "HTML_TEXT_V1",
+   "units": [
+    {
+     "unitId": "u1",
+     "separatorBefore": "START",
+     "span": [
+      80183,
+      80296
+     ],
+     "opening": "In addition, 3,000 of our employees were furloughed during parts of the October 2013 feder"
+    },
+    {
+     "unitId": "u2",
+     "separatorBefore": "SENTENCE",
+     "span": [
+      80298,
+      80643
+     ],
+     "opening": "Reduction in federal government spending, including as a result of the U.S. federal govern"
+    }
+   ],
+   "unitTextSha256": [
+    "cece8fee847896a664bab191b51a6b1ddd4fb016aec400b34ae88addd2234be7",
+    "1052c873691193bd25d86b8024ec3d482cc9a08b9128034d2d755e4940ba05ec"
+   ],
+   "witnessCount": 2,
+   "segmentResults": [
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ]
+   ],
+   "rowLevelClassChangeFromCorr3": false,
+   "rowLevelClassChangeFromParent": false,
+   "segmentIdentities": [
+    [
+     "CSI:f5ac201770cc5fe9cbfd6b91005ceccb337975b28612995e53956c012c73c0cb",
+     "FRAME-C",
+     null
+    ],
+    [
+     "CSI:7ce7a799726e295003d752154a51207d16d724c5a9b618a9a6c50ec563d030b9",
+     "FRAME-C",
+     null
+    ]
+   ],
+   "parentSegmentResults": [
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ]
+   ]
+  },
+  {
+   "recordId": "SCA-004",
+   "factId": "F-A-0019",
+   "sourceId": "S-A2",
+   "artifactId": "ART-04",
+   "artifactPath": {
+    "anchor": "REPO_PARENT",
+    "relative": "MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/amazon-whole-foods/01_T0_PRE_T0_BASELINE/candidate/sources/amazon_inc/amzn_def14a_2017_filed_2017-04-11.htm"
+   },
+   "artifactSha256": "3c252e7a4bf0edfeaa7a6ed2cd76e73e3be00c822ed15a35cde13c4169bd7514",
+   "registryDigest": "3c252e7a4bf0edfeaa7a6ed2cd76e73e3be00c822ed15a35cde13c4169bd7514",
+   "recipe": "HTML_TEXT_V1",
+   "units": [
+    {
+     "unitId": "u1",
+     "separatorBefore": "START",
+     "span": [
+      31997,
+      32210
+     ],
+     "opening": "While the full Board has overall responsibility for risk oversight, the Board has delegate"
+    }
+   ],
+   "unitTextSha256": [
+    "67105023c367a1fb1815b9cfd7d7073d6fca31e973dd22581cd4b45a2916c7d8"
+   ],
+   "witnessCount": 4,
+   "segmentResults": [
+    [
+     "ASSIGNED",
+     "access-rights/role matrices"
+    ]
+   ],
+   "rowLevelClassChangeFromCorr3": false,
+   "rowLevelClassChangeFromParent": false,
+   "segmentIdentities": [
+    [
+     "CSI:37ad946e4425d46def06c41d69e26261d87ef3d4eb706757c5c6f98f6ad3494b",
+     "FRAME-C",
+     null
+    ]
+   ],
+   "parentSegmentResults": [
+    [
+     "ASSIGNED",
+     "access-rights/role matrices"
+    ]
+   ]
+  },
+  {
+   "recordId": "SCA-005",
+   "factId": "F-B-0025",
+   "sourceId": "S-B1",
+   "artifactId": "ART-05",
+   "artifactPath": {
+    "anchor": "REPO_PARENT",
+    "relative": "MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/amazon-whole-foods/01_T0_PRE_T0_BASELINE/candidate/sources/whole_foods_inc/wfm_10k_fy2016_filed_2016-11-18.htm"
+   },
+   "artifactSha256": "12952277751407fc26e9d383225b79498ac93fc9a63fd0b895c4d745fa46fcef",
+   "registryDigest": "12952277751407fc26e9d383225b79498ac93fc9a63fd0b895c4d745fa46fcef",
+   "recipe": "HTML_TEXT_V1",
+   "units": [
+    {
+     "unitId": "u1",
+     "separatorBefore": "START",
+     "span": [
+      35470,
+      35544
+     ],
+     "opening": "Our salary and benefits programs reflect our philosophy of egalitarianism."
+    }
+   ],
+   "unitTextSha256": [
+    "9b45837f67a21ecf02f7230cd5bf167b2cd74a12e507931e4993aa1353e3b47b"
+   ],
+   "witnessCount": 2,
+   "segmentResults": [
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ]
+   ],
+   "rowLevelClassChangeFromCorr3": false,
+   "rowLevelClassChangeFromParent": false,
+   "segmentIdentities": [
+    [
+     "CSI:32b32c482957d7d92914e8ace585aa2a5b1c0b0bc81e928ba73f6a0cd02763e0",
+     "FRAME-C",
+     null
+    ]
+   ],
+   "parentSegmentResults": [
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ]
+   ]
+  },
+  {
+   "recordId": "SCA-006",
+   "factId": "F-B-0037",
+   "sourceId": "S-B1",
+   "artifactId": "ART-05",
+   "artifactPath": {
+    "anchor": "REPO_PARENT",
+    "relative": "MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/amazon-whole-foods/01_T0_PRE_T0_BASELINE/candidate/sources/whole_foods_inc/wfm_10k_fy2016_filed_2016-11-18.htm"
+   },
+   "artifactSha256": "12952277751407fc26e9d383225b79498ac93fc9a63fd0b895c4d745fa46fcef",
+   "registryDigest": "12952277751407fc26e9d383225b79498ac93fc9a63fd0b895c4d745fa46fcef",
+   "recipe": "HTML_TEXT_V1",
+   "units": [
+    {
+     "unitId": "u1",
+     "separatorBefore": "START",
+     "span": [
+      32168,
+      32437
+     ],
+     "opening": "We also operate three seafood processing and distribution facilities, a specialty coffee a"
+    }
+   ],
+   "unitTextSha256": [
+    "7d63c33a0fb272e13448958a57b880c0e191ddd40c0ed92a5e3e69294298e90a"
+   ],
+   "witnessCount": 2,
+   "segmentResults": [
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ]
+   ],
+   "rowLevelClassChangeFromCorr3": false,
+   "rowLevelClassChangeFromParent": false,
+   "segmentIdentities": [
+    [
+     "CSI:cf38505131fd2b1bb94ab4f2747408569ede7e4b933e5c062b1df38bebbb7b75",
+     "FRAME-C",
+     null
+    ]
+   ],
+   "parentSegmentResults": [
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ]
+   ]
+  },
+  {
+   "recordId": "SCA-007",
+   "factId": "F-B-0071",
+   "sourceId": "S-B15",
+   "artifactId": "ART-06",
+   "artifactPath": {
+    "anchor": "REPO_PARENT",
+    "relative": "MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/amazon-whole-foods/01_T0_PRE_T0_BASELINE/candidate/sources/whole_foods_inc/wfm_sc13da_jana_2017-05-30.htm"
+   },
+   "artifactSha256": "c8cddac5a77534e89aa9eefe1ad3a452828547338ec97fcdbd96d55689d0f4c4",
+   "registryDigest": "c8cddac5a77534e89aa9eefe1ad3a452828547338ec97fcdbd96d55689d0f4c4",
+   "recipe": "HTML_TEXT_V1",
+   "units": [
+    {
+     "unitId": "u1",
+     "separatorBefore": "START",
+     "span": [
+      12419,
+      12700
+     ],
+     "opening": "On May 27, 2017, JANA entered into a nominee agreement with Celeste A. Clark, Ph.D. (\" Dr."
+    },
+    {
+     "unitId": "u2",
+     "separatorBefore": "SENTENCE",
+     "span": [
+      12709,
+      12969
+     ],
+     "opening": "The principal business of Dr. Clark is consulting on nutrition, health policy, regulatory "
+    },
+    {
+     "unitId": "u3",
+     "separatorBefore": "SENTENCE",
+     "span": [
+      12971,
+      13070
+     ],
+     "opening": "Dr. Clark currently serves on the boards of Mead Johnson Nutrition Company and AdvancePier"
+    }
+   ],
+   "unitTextSha256": [
+    "3eba027c4a457804c56bff70d9c452431dc39bb141746c7f286fa6ab058e5a66",
+    "5dd41766d4bf5a42c94074d2d450d940954a44d545dca1f197cd471a49ac9fbb",
+    "3d46bfa1305587091a2e8d59cc4504ffc8b645bd3ea9d67b588addad9b360dc7"
+   ],
+   "witnessCount": 3,
+   "segmentResults": [
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ]
+   ],
+   "rowLevelClassChangeFromCorr3": false,
+   "rowLevelClassChangeFromParent": false,
+   "segmentIdentities": [
+    [
+     "CSI:41f0462b372934334b59961dab5ea82449d01a6a6daea75fe815607d7a0fdd0b",
+     "FRAME-C",
+     null
+    ],
+    [
+     "CSI:863c43075f124eef33ea397ab809d6ee0a083c4486e997636ffb7de52d8c1c50",
+     "FRAME-C",
+     null
+    ],
+    [
+     "CSI:aa132558d22518874c752c41cc65a48c670e69cf99efa2f783c08a67bdcc4759",
+     "FRAME-C",
+     null
+    ]
+   ],
+   "parentSegmentResults": [
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ]
+   ]
+  },
+  {
+   "recordId": "SCA-008",
+   "factId": "F0011",
+   "sourceId": "S0009",
+   "artifactId": "ART-07",
+   "artifactPath": {
+    "anchor": "REPO_PARENT",
+    "relative": "MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/aol-time-warner/01_T0_PRE_T0_BASELINE/candidate/sources/aol/aol_def14a_1999_filed_1999-09-24.txt"
+   },
+   "artifactSha256": "1aee005dbeb8da855ee70f0846800b3b57250a3c7044747e72706ae64cf44c0d",
+   "registryDigest": "1aee005dbeb8da855ee70f0846800b3b57250a3c7044747e72706ae64cf44c0d",
+   "recipe": "PLAIN_TEXT_V1",
+   "units": [
+    {
+     "unitId": "u1",
+     "separatorBefore": "START",
+     "span": [
+      20567,
+      20656
+     ],
+     "opening": "Dr. Middelhoff is Chairman of Bertelsmann AG, a joint venture partner of the Company."
+    },
+    {
+     "unitId": "u2",
+     "separatorBefore": "SENTENCE",
+     "span": [
+      20657,
+      20768
+     ],
+     "opening": "Dr. Middelhoff disclaims beneficial ownership of 14,414,240 shares of Common Stock owned b"
+    },
+    {
+     "unitId": "u3",
+     "separatorBefore": "SENTENCE",
+     "span": [
+      26494,
+      26559
+     ],
+     "opening": "Dr. Middelhoff has been a Director of the Company since May 1995."
+    },
+    {
+     "unitId": "u4",
+     "separatorBefore": "SENTENCE",
+     "span": [
+      26560,
+      26744
+     ],
+     "opening": "He has been, since October 1998, Chairman of Bertelsmann AG, one of the world's largest me"
+    },
+    {
+     "unitId": "u5",
+     "separatorBefore": "SENTENCE",
+     "span": [
+      27165,
+      27302
+     ],
+     "opening": "Dr. Middelhoff was nominated as a Director of the Company pursuant to the terms of a Commo"
+    }
+   ],
+   "unitTextSha256": [
+    "b5aa08f8f0a73b934afe1ef4b7810cd250dc83329ead5cf1db41d86358c2a0cc",
+    "a5fdff793251effe91647f437ae8cfdc5ff7ac408f45b9e497cb1c18861a2f2c",
+    "af530bd8901bb81daa77e288dfe7db3dd949bc5b5c696983633bd24cc78b54ac",
+    "c051fbafc39dc0cf89ef0e50e7efc7e7e5a27186d8f813a21c158b51dd5a85c1",
+    "26c852d56946cf89e2c11d9643d6d5ddc418d8350b29b32e6adb0f31554f9601"
+   ],
+   "witnessCount": 5,
+   "segmentResults": [
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ]
+   ],
+   "rowLevelClassChangeFromCorr3": false,
+   "rowLevelClassChangeFromParent": false,
+   "segmentIdentities": [
+    [
+     "CSI:fc7ce4802d2727f45fe00959b1747a3f780b85336828bfca402d5de221444ae3",
+     "FRAME-C",
+     null
+    ],
+    [
+     "CSI:370c5dbf1cb47b6a4389cc013a32e3891758b4648dd2d7f8925b519a3d7187dc",
+     "FRAME-C",
+     null
+    ],
+    [
+     "CSI:3217892f8d17c7f71ec5927571a9f5ed43c9155849689e3fb001f4b4e2189ad3",
+     "FRAME-C",
+     null
+    ],
+    [
+     "CSI:e3c7b164271a7d6a54bab5cf4c1ccf3f6fbd40a08d1bc012e765d88d61888da4",
+     "FRAME-C",
+     null
+    ],
+    [
+     "CSI:39dbc5ff7d650f5b36d27ed20c57724cd533ec5d8cfe0031e81dd7c75d543a23",
+     "FRAME-C",
+     null
+    ]
+   ],
+   "parentSegmentResults": [
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ]
+   ]
+  },
+  {
+   "recordId": "SCA-009",
+   "factId": "F0011",
+   "sourceId": "S0007",
+   "artifactId": "ART-08",
+   "artifactPath": {
+    "anchor": "REPO_PARENT",
+    "relative": "MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/aol-time-warner/01_T0_PRE_T0_BASELINE/candidate/sources/aol/aol_10k_fy1999_filed_1999-08-13.txt"
+   },
+   "artifactSha256": "10f51007471f1c79970142f6edfad012f75f9b16a2f5a4ad123a78d855a26b02",
+   "registryDigest": "10f51007471f1c79970142f6edfad012f75f9b16a2f5a4ad123a78d855a26b02",
+   "recipe": "PLAIN_TEXT_V1",
+   "units": [
+    {
+     "unitId": "u1",
+     "separatorBefore": "START",
+     "span": [
+      26277,
+      26539
+     ],
+     "opening": "The Company, through joint ventures with Bertelsmann AG entitled \"AOL Europe\" and \"CompuSe"
+    },
+    {
+     "unitId": "u2",
+     "separatorBefore": "SENTENCE",
+     "span": [
+      26541,
+      26775
+     ],
+     "opening": "Bertelsmann, one of the world's largest media companies, is a minority stockholder in the "
+    }
+   ],
+   "unitTextSha256": [
+    "a79c6dbcc1c47a3b45212515c45d9b5ca11e1a356c15b17af88f6ba9d084a89f",
+    "60bcf2710a1903a43a96b7897155fbda1bcec96abfc8dd589db2bd962d5db7a7"
+   ],
+   "witnessCount": 2,
+   "segmentResults": [
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ]
+   ],
+   "rowLevelClassChangeFromCorr3": false,
+   "rowLevelClassChangeFromParent": false,
+   "segmentIdentities": [
+    [
+     "CSI:33b265239293029aa3027cfa700f2e9692b07eacac0293cbb618f60f30472138",
+     "FRAME-C",
+     null
+    ],
+    [
+     "CSI:72446421c4e2fc0584e9459512557755eab1fa52845441cfda197292a3a6522f",
+     "FRAME-C",
+     null
+    ]
+   ],
+   "parentSegmentResults": [
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ]
+   ]
+  },
+  {
+   "recordId": "SCA-010",
+   "factId": "F0024",
+   "sourceId": "S0009",
+   "artifactId": "ART-07",
+   "artifactPath": {
+    "anchor": "REPO_PARENT",
+    "relative": "MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/aol-time-warner/01_T0_PRE_T0_BASELINE/candidate/sources/aol/aol_def14a_1999_filed_1999-09-24.txt"
+   },
+   "artifactSha256": "1aee005dbeb8da855ee70f0846800b3b57250a3c7044747e72706ae64cf44c0d",
+   "registryDigest": "1aee005dbeb8da855ee70f0846800b3b57250a3c7044747e72706ae64cf44c0d",
+   "recipe": "PLAIN_TEXT_V1",
+   "units": [
+    {
+     "unitId": "u1",
+     "separatorBefore": "START",
+     "span": [
+      54873,
+      55863
+     ],
+     "opening": "The Company's 1992 Employee, Director and Consultant Stock Option Plan provides that upon "
+    }
+   ],
+   "unitTextSha256": [
+    "4785a15b3f3ca42df47f36956800f8421a997915a28650838e56892128f1f25b"
+   ],
+   "witnessCount": 5,
+   "segmentResults": [
+    [
+     "ASSIGNED",
+     "compensation plans"
+    ]
+   ],
+   "rowLevelClassChangeFromCorr3": false,
+   "rowLevelClassChangeFromParent": false,
+   "segmentIdentities": [
+    [
+     "CSI:d6ce8d7ee280bcc4410050b07b9c6717d347dfb61c6f30ac990f158de448e353",
+     "FRAME-C",
+     null
+    ]
+   ],
+   "parentSegmentResults": [
+    [
+     "ASSIGNED",
+     "compensation plans"
+    ]
+   ]
+  },
+  {
+   "recordId": "SCA-011",
+   "factId": "F0034",
+   "sourceId": "S0013",
+   "artifactId": "ART-09",
+   "artifactPath": {
+    "anchor": "REPO_PARENT",
+    "relative": "MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/aol-time-warner/01_T0_PRE_T0_BASELINE/candidate/sources/time_warner/tw_8k_filed_1999-09-17_item5_excerpt.txt"
+   },
+   "artifactSha256": "c623a9b3a05bf6eb1802e0e8100cb199982cda18e36054c81388e7a5a5600c33",
+   "registryDigest": "c623a9b3a05bf6eb1802e0e8100cb199982cda18e36054c81388e7a5a5600c33",
+   "recipe": "PLAIN_TEXT_V1",
+   "units": [
+    {
+     "unitId": "u1",
+     "separatorBefore": "START",
+     "span": [
+      1970,
+      2188
+     ],
+     "opening": "As previously reported in TWE's Current Report on Form 8-K dated August 3, 1999, TWE recei"
+    },
+    {
+     "unitId": "u2",
+     "separatorBefore": "SENTENCE",
+     "span": [
+      2287,
+      2567
+     ],
+     "opening": "As a result of the Termination Notice and the operation of the partnership agreement gover"
+    },
+    {
+     "unitId": "u3",
+     "separatorBefore": "SENTENCE",
+     "span": [
+      2568,
+      2973
+     ],
+     "opening": "As a result, MediaOne no longer has a vote on, or any right to participate in, the Cable M"
+    },
+    {
+     "unitId": "u4",
+     "separatorBefore": "SENTENCE",
+     "span": [
+      2974,
+      3127
+     ],
+     "opening": "MediaOne retains certain protective governance rights on the TWE Board of Representatives "
+    }
+   ],
+   "unitTextSha256": [
+    "fd2fdf6280af5e77f2f23c260ad0e7ca8d71b8fda37e0319769a80e169e2ab1a",
+    "8114fa1aec09bf821a0defc70cdde5e6603109799e36e0155a2038a5e4372bca",
+    "a50c0f98ffd99a097e3374532446002ba7ada7cdd7674ee48fed6ddafcbbe29c",
+    "a8e5838f5e742082681b74be94a560989474fa1813a58b746ba340c7f54b955d"
+   ],
+   "witnessCount": 3,
+   "segmentResults": [
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ]
+   ],
+   "rowLevelClassChangeFromCorr3": false,
+   "rowLevelClassChangeFromParent": false,
+   "segmentIdentities": [
+    [
+     "CSI:b15608283345fa5739320d1e4997c6a27d8f80f0496f3ed1b81004234b0d9d91",
+     "FRAME-C",
+     null
+    ],
+    [
+     "CSI:94c5cffbf5e9e8b4adbbe8d7e58bc01fe4fc2243085dd226586d52d91899fd7e",
+     "FRAME-C",
+     null
+    ],
+    [
+     "CSI:c846ba6662afaf71edd74f236bb94a4b261484a5bffbc3406ff7fb4a3fd46c33",
+     "FRAME-C",
+     null
+    ],
+    [
+     "CSI:05f013c57ce84e7dfaa3d579b8fbcbf87c766ec9dd5f62e4b375bd24ec3e1439",
+     "FRAME-C",
+     null
+    ]
+   ],
+   "parentSegmentResults": [
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ]
+   ]
+  },
+  {
+   "recordId": "SCA-012",
+   "factId": "F0034",
+   "sourceId": "S0014",
+   "artifactId": "ART-10",
+   "artifactPath": {
+    "anchor": "REPO_PARENT",
+    "relative": "MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/aol-time-warner/01_T0_PRE_T0_BASELINE/candidate/sources/time_warner/tw_10q_1999q3_filed_1999-11-15.txt"
+   },
+   "artifactSha256": "a562d1e12addbfd4faec3235a0f5f92a0069d93f457bdda674507427d7fad3bf",
+   "registryDigest": "a562d1e12addbfd4faec3235a0f5f92a0069d93f457bdda674507427d7fad3bf",
+   "recipe": "PLAIN_TEXT_V1",
+   "units": [
+    {
+     "unitId": "u1",
+     "separatorBefore": "START",
+     "span": [
+      7144,
+      7277
+     ],
+     "opening": "However, in August 1999, TWE received a notice from MediaOne concerning the termination of"
+    },
+    {
+     "unitId": "u2",
+     "separatorBefore": "SENTENCE",
+     "span": [
+      7397,
+      7609
+     ],
+     "opening": "As a result of the termination notice and the operation of the TWE partnership agreement, "
+    },
+    {
+     "unitId": "u3",
+     "separatorBefore": "SENTENCE",
+     "span": [
+      7612,
+      7741
+     ],
+     "opening": "MediaOne retains only certain protective governance rights pertaining to certain limited m"
+    }
+   ],
+   "unitTextSha256": [
+    "0ab6b32ffd43f38603ce4bf5e7f05055a68cad3d873dcf84eafe86f7610aafc6",
+    "518499ecae4697e8a4a4e5a57d5ed10ca1f7b2e7cbd59304d8f51216725c76a4",
+    "d0d5f66aad9e122d44c46b4e3f3676893cf07feeada32ec44660d8deb7782d02"
+   ],
+   "witnessCount": 2,
+   "segmentResults": [
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ]
+   ],
+   "rowLevelClassChangeFromCorr3": false,
+   "rowLevelClassChangeFromParent": false,
+   "segmentIdentities": [
+    [
+     "CSI:e364f83ec5258f2179cacf37bc4e91a83af4fb64c03e92a58a2ee836f3f082f5",
+     "FRAME-C",
+     null
+    ],
+    [
+     "CSI:d725ca6995acbe052c8d523cdb6d8585f7e818dbca953fabf7a3a664bb997650",
+     "FRAME-C",
+     null
+    ],
+    [
+     "CSI:b33285328abe7ac8eeff4ad810f114f5c8178cc6c6e6ecedd9b5ffaab6e7e168",
+     "FRAME-C",
+     null
+    ]
+   ],
+   "parentSegmentResults": [
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ]
+   ]
+  },
+  {
+   "recordId": "SCA-013",
+   "factId": "F0015",
+   "sourceId": "S0001",
+   "artifactId": "ART-11",
+   "artifactPath": {
+    "anchor": "REPO_PARENT",
+    "relative": "MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/deutsche-bankers-trust/01_T0_PRE_T0_BASELINE/candidate/sources/bankers_trust/bt_10k_1997_filed_1998-03-05.txt"
+   },
+   "artifactSha256": "20883915c639e5392e6e909d748aec80633b7868774bfa20e6d4db89e1add4d8",
+   "registryDigest": "20883915c639e5392e6e909d748aec80633b7868774bfa20e6d4db89e1add4d8",
+   "recipe": "PLAIN_TEXT_V1",
+   "units": [
+    {
+     "unitId": "u1",
+     "separatorBefore": "START",
+     "span": [
+      12584,
+      12720
+     ],
+     "opening": "The Corporation delivers a wide range of financial products and services worldwide princip"
+    },
+    {
+     "unitId": "u2",
+     "separatorBefore": "SENTENCE",
+     "span": [
+      12721,
+      12913
+     ],
+     "opening": "Five units are organized around specific products and services: Investment Banking, Risk M"
+    },
+    {
+     "unitId": "u3",
+     "separatorBefore": "SENTENCE",
+     "span": [
+      12914,
+      13129
+     ],
+     "opening": "Three additional units are organized to deliver these same types of financial products and"
+    }
+   ],
+   "unitTextSha256": [
+    "37f293195386eeefff8102a264c1901a9ebe0e801c05cb174438804a8ac0fcc9",
+    "1e7114a9ec932b651a1fd0efab2f19b44c5b44ba364d9eb40236079b8927bb0f",
+    "813fd2107db6dac8a88cafbcda4ccfac9d3a7f7978673e691e29c2b1f4eb7c1a"
+   ],
+   "witnessCount": 0,
+   "segmentResults": [
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ]
+   ],
+   "rowLevelClassChangeFromCorr3": false,
+   "rowLevelClassChangeFromParent": false,
+   "segmentIdentities": [
+    [
+     "CSI:33205c1d1f99feae3182318f0a17af3932487f4de855f320a96ac47fb054901d",
+     "FRAME-C",
+     null
+    ],
+    [
+     "CSI:fdcc06af4552163f8d2bd8eb27fbde6cba1b19ee45d417ea0df75cfc8cb7abbf",
+     "FRAME-C",
+     null
+    ],
+    [
+     "CSI:fd4ade7e82d7578302c0799d084ab5e62eeac14c99f0a73ed4c27f1c593a1eda",
+     "FRAME-C",
+     null
+    ]
+   ],
+   "parentSegmentResults": [
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ]
+   ]
+  },
+  {
+   "recordId": "SCA-014",
+   "factId": "F0023",
+   "sourceId": "S0004",
+   "artifactId": "ART-12",
+   "artifactPath": {
+    "anchor": "REPO_PARENT",
+    "relative": "MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/deutsche-bankers-trust/01_T0_PRE_T0_BASELINE/candidate/sources/deutsche_bank/db_annual_report_1997_en.pdf"
+   },
+   "artifactSha256": "22ebd1299d3020daa118de9908471e878dc167c6f7b48ecdcdaacaec84fde512",
+   "registryDigest": "22ebd1299d3020daa118de9908471e878dc167c6f7b48ecdcdaacaec84fde512",
+   "recipe": "PDF_LZW_TEXT_V1",
+   "units": [
+    {
+     "unitId": "u1",
+     "separatorBefore": "START",
+     "span": [
+      169170,
+      169410
+     ],
+     "opening": "Structure planned from April 1, 1998; the Group Executive Committee includes, besides the "
+    }
+   ],
+   "unitTextSha256": [
+    "e9d9d0bd3f07b06457618c69022725744289577a8074aeccf1a3efbfb031cc67"
+   ],
+   "witnessCount": 4,
+   "segmentResults": [
+    [
+     "ASSIGNED",
+     "access-rights/role matrices"
+    ]
+   ],
+   "rowLevelClassChangeFromCorr3": false,
+   "rowLevelClassChangeFromParent": false,
+   "segmentIdentities": [
+    [
+     "CSI:2722e3842c30d8de37095bb1009c4e9f89c3a7b7fed4317bfba7672bc42f40c7",
+     "FRAME-C",
+     null
+    ]
+   ],
+   "parentSegmentResults": [
+    [
+     "ASSIGNED",
+     "access-rights/role matrices"
+    ]
+   ]
+  },
+  {
+   "recordId": "SCA-015",
+   "factId": "F-E-0068",
+   "sourceId": "S-E2",
+   "artifactId": "ART-13",
+   "artifactPath": {
+    "anchor": "REPO_PARENT",
+    "relative": "MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/exxon-mobil/01_T0_PRE_T0_BASELINE/candidate_corr8/sources/exxon/exxon_def14a_1998_filed_1998-03-18.txt"
+   },
+   "artifactSha256": "1d12b7959c043185343cbc5db2ff051f495795921bb2093f76f0629df941abd5",
+   "registryDigest": "1d12b7959c043185343cbc5db2ff051f495795921bb2093f76f0629df941abd5",
+   "recipe": "PLAIN_TEXT_V1",
+   "units": [
+    {
+     "unitId": "u1",
+     "separatorBefore": "START",
+     "span": [
+      11326,
+      11426
+     ],
+     "opening": "Only nonemployee directors serve on Exxon's Audit, Board Compensation, and Board Affairs c"
+    }
+   ],
+   "unitTextSha256": [
+    "57dced7ab311b06c4c64ec55fc5aff01e29322c5a4dab0bab6b1eb09a502bb28"
+   ],
+   "witnessCount": 4,
+   "segmentResults": [
+    [
+     "ASSIGNED",
+     "access-rights/role matrices"
+    ]
+   ],
+   "rowLevelClassChangeFromCorr3": false,
+   "rowLevelClassChangeFromParent": false,
+   "segmentIdentities": [
+    [
+     "CSI:7c08cd500f627ccf2de3db0af59fe035e864dae217d4e042ca797bf423d7a59d",
+     "FRAME-C",
+     null
+    ]
+   ],
+   "parentSegmentResults": [
+    [
+     "ASSIGNED",
+     "access-rights/role matrices"
+    ]
+   ]
+  },
+  {
+   "recordId": "SCA-016",
+   "factId": "F-E-0123",
+   "sourceId": "S-E3",
+   "artifactId": "ART-14",
+   "artifactPath": {
+    "anchor": "REPO_PARENT",
+    "relative": "MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/exxon-mobil/01_T0_PRE_T0_BASELINE/candidate_corr8/sources/exxon/exxon_10q_q3_1998_filed_1998-11-12.txt"
+   },
+   "artifactSha256": "9751765a0fc5074ae2a58dfa6f90e6300d6625a0941bd06924610000198699d0",
+   "registryDigest": "9751765a0fc5074ae2a58dfa6f90e6300d6625a0941bd06924610000198699d0",
+   "recipe": "PLAIN_TEXT_V1",
+   "units": [
+    {
+     "unitId": "u1",
+     "separatorBefore": "START",
+     "span": [
+      36394,
+      36546
+     ],
+     "opening": "During the first nine months of 1998, a total of 37.5 million shares of Exxon common stock"
+    },
+    {
+     "unitId": "u2",
+     "separatorBefore": "SENTENCE",
+     "span": [
+      36623,
+      36826
+     ],
+     "opening": "These purchases reflect both the increased repurchases announced in the first quarter of 1"
+    }
+   ],
+   "unitTextSha256": [
+    "46620871fe857551a63866afbb949e717c6e4f77399a65d2543b5c9228b8e3e8",
+    "ea86f602f19587cb9b8098f627bc1a5c5cb6fbcb87667ed391d4932cfb8b5648"
+   ],
+   "witnessCount": 2,
+   "segmentResults": [
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ]
+   ],
+   "rowLevelClassChangeFromCorr3": false,
+   "rowLevelClassChangeFromParent": false,
+   "segmentIdentities": [
+    [
+     "CSI:c78558b3bce279174bcdc5709f1a721b566a3e2e66a19216bed9e43f2e3cd89f",
+     "FRAME-C",
+     null
+    ],
+    [
+     "CSI:b7cb0088195b8f18154e5e38cddacd8f0268796a18c7122748f56af5aa38dfd5",
+     "FRAME-C",
+     null
+    ]
+   ],
+   "parentSegmentResults": [
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ]
+   ]
+  },
+  {
+   "recordId": "SCA-017",
+   "factId": "F-E-0171",
+   "sourceId": "S-E2",
+   "artifactId": "ART-13",
+   "artifactPath": {
+    "anchor": "REPO_PARENT",
+    "relative": "MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/exxon-mobil/01_T0_PRE_T0_BASELINE/candidate_corr8/sources/exxon/exxon_def14a_1998_filed_1998-03-18.txt"
+   },
+   "artifactSha256": "1d12b7959c043185343cbc5db2ff051f495795921bb2093f76f0629df941abd5",
+   "registryDigest": "1d12b7959c043185343cbc5db2ff051f495795921bb2093f76f0629df941abd5",
+   "recipe": "PLAIN_TEXT_V1",
+   "units": [
+    {
+     "unitId": "u1",
+     "separatorBefore": "START",
+     "span": [
+      11149,
+      11232
+     ],
+     "opening": "The Board also reviews development and succession plans for Exxon's top executives."
+    }
+   ],
+   "unitTextSha256": [
+    "6371b558723bb65ce0bf980836323120d8e412394b5f02da0dab060b7a5c68f3"
+   ],
+   "witnessCount": 4,
+   "segmentResults": [
+    [
+     "ASSIGNED",
+     "access-rights/role matrices"
+    ]
+   ],
+   "rowLevelClassChangeFromCorr3": false,
+   "rowLevelClassChangeFromParent": false,
+   "segmentIdentities": [
+    [
+     "CSI:bb2cc2e49f7bf5b4dc8f3794d00265cd97ebec5a6846ecb34e3b1c79677cb226",
+     "FRAME-C",
+     null
+    ]
+   ],
+   "parentSegmentResults": [
+    [
+     "ASSIGNED",
+     "access-rights/role matrices"
+    ]
+   ]
+  },
+  {
+   "recordId": "SCA-018",
+   "factId": "F-E-0182",
+   "sourceId": "S-E2",
+   "artifactId": "ART-13",
+   "artifactPath": {
+    "anchor": "REPO_PARENT",
+    "relative": "MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/exxon-mobil/01_T0_PRE_T0_BASELINE/candidate_corr8/sources/exxon/exxon_def14a_1998_filed_1998-03-18.txt"
+   },
+   "artifactSha256": "1d12b7959c043185343cbc5db2ff051f495795921bb2093f76f0629df941abd5",
+   "registryDigest": "1d12b7959c043185343cbc5db2ff051f495795921bb2093f76f0629df941abd5",
+   "recipe": "PLAIN_TEXT_V1",
+   "units": [
+    {
+     "unitId": "u1",
+     "separatorBefore": "START",
+     "span": [
+      43379,
+      43548
+     ],
+     "opening": "The BCC recommends the CEO's salary to the Board of Directors, sets the salaries for Exxon"
+    }
+   ],
+   "unitTextSha256": [
+    "a572d044e62ba2ea7bfa61034d4a5007544fc5167ab6fec05fbed42d754954f6"
+   ],
+   "witnessCount": 6,
+   "segmentResults": [
+    [
+     "ASSIGNED",
+     "access-rights/role matrices"
+    ]
+   ],
+   "rowLevelClassChangeFromCorr3": false,
+   "rowLevelClassChangeFromParent": false,
+   "segmentIdentities": [
+    [
+     "CSI:b0e0b937b53fef13609650a7149335da3c34aa95b704ed75c6e705c492bb9696",
+     "FRAME-C",
+     null
+    ]
+   ],
+   "parentSegmentResults": [
+    [
+     "ASSIGNED",
+     "access-rights/role matrices"
+    ]
+   ]
+  },
+  {
+   "recordId": "SCA-019",
+   "factId": "F-M-0160",
+   "sourceId": "S-M2",
+   "artifactId": "ART-15",
+   "artifactPath": {
+    "anchor": "REPO_PARENT",
+    "relative": "MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/exxon-mobil/01_T0_PRE_T0_BASELINE/candidate_corr8/sources/mobil/mobil_def14a_1998_filed_1998-03-23.txt"
+   },
+   "artifactSha256": "501daa5d918516308e9bdcecd6074820bb10d9a51fe094abea2d27a725da8065",
+   "registryDigest": "501daa5d918516308e9bdcecd6074820bb10d9a51fe094abea2d27a725da8065",
+   "recipe": "PLAIN_TEXT_V1",
+   "units": [
+    {
+     "unitId": "u1",
+     "separatorBefore": "START",
+     "span": [
+      35966,
+      36191
+     ],
+     "opening": "Management has been advised that the College Retirement Equities Fund, 730 Third Avenue, N"
+    },
+    {
+     "unitId": "u2",
+     "separatorBefore": "SENTENCE",
+     "span": [
+      39564,
+      39643
+     ],
+     "opening": "THE BOARD OF DIRECTORS RECOMMENDS A VOTE AGAINST THE ADOPTION OF THIS PROPOSAL."
+    },
+    {
+     "unitId": "u3",
+     "separatorBefore": "SENTENCE",
+     "span": [
+      39951,
+      40173
+     ],
+     "opening": "First, and most importantly, the proposal would deprive the Board of one of the means it n"
+    },
+    {
+     "unitId": "u4",
+     "separatorBefore": "SENTENCE",
+     "span": [
+      41206,
+      41351
+     ],
+     "opening": "Second, the proposal could curtail the Corporation's ability to issue preferred stock for "
+    }
+   ],
+   "unitTextSha256": [
+    "434cb4be68ec99d405263205858b47503de2fd466fa35dce2f92246725940a9a",
+    "c2958fc8866164c12894a51eff3a2f307ccd926b20ca78e8590b0bbac18a7f9d",
+    "85d03f8c49a9a1616ab6e7634dddb64cde44e97567b498c92454284f35ff1522",
+    "57a493aab408b5fd5c2fb3c73f4056d5cac21e40f154ef8a276f0c14df3b89fe"
+   ],
+   "witnessCount": 0,
+   "segmentResults": [
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ]
+   ],
+   "rowLevelClassChangeFromCorr3": false,
+   "rowLevelClassChangeFromParent": false,
+   "segmentIdentities": [
+    [
+     "CSI:2a039c7021c4e612fee7f63c08864d6d8093a4604e522cd299a520e08aabfe6c",
+     "FRAME-C",
+     null
+    ],
+    [
+     "CSI:d1788dee4b693f2d8e07c4cc1344472567b7793094b45f65b4aea5152c98c274",
+     "FRAME-C",
+     null
+    ],
+    [
+     "CSI:f6db4dcb923f03eebda678bb982f458ec2765c07d3fa43878c3fa3586b1046ca",
+     "FRAME-C",
+     null
+    ],
+    [
+     "CSI:1400b31bf72d5108c7cd7812641c114ed10c7d314a5307cf070321d11f8c7bdd",
+     "FRAME-C",
+     null
+    ]
+   ],
+   "parentSegmentResults": [
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ]
+   ]
+  },
+  {
+   "recordId": "SCA-020",
+   "factId": "F-M-0199",
+   "sourceId": "S-M1",
+   "artifactId": "ART-16",
+   "artifactPath": {
+    "anchor": "REPO_PARENT",
+    "relative": "MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/exxon-mobil/01_T0_PRE_T0_BASELINE/candidate_corr8/sources/mobil/mobil_10k_fy1997_filed_1998-03-19.txt"
+   },
+   "artifactSha256": "00771928e5efff2e5b8bf33e5b3099a67ede6477bd1ccb448b0b2466a9a7168e",
+   "registryDigest": "00771928e5efff2e5b8bf33e5b3099a67ede6477bd1ccb448b0b2466a9a7168e",
+   "recipe": "PLAIN_TEXT_V1",
+   "units": [
+    {
+     "unitId": "u1",
+     "separatorBefore": "START",
+     "span": [
+      181795,
+      182002
+     ],
+     "opening": "Also, in an effort to improve profitability in Japan, initiatives were implemented to enha"
+    }
+   ],
+   "unitTextSha256": [
+    "372934c06bbe739a0d9d65ae4d00bfcd300445910ebff2c9ff5c947539edf608"
+   ],
+   "witnessCount": 0,
+   "segmentResults": [
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ]
+   ],
+   "rowLevelClassChangeFromCorr3": false,
+   "rowLevelClassChangeFromParent": false,
+   "segmentIdentities": [
+    [
+     "CSI:798ba535000ed36b433f0cc1d4d3e521995f09b4aa9d567689746051566fcbaa",
+     "FRAME-C",
+     null
+    ]
+   ],
+   "parentSegmentResults": [
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ]
+   ]
+  },
+  {
+   "recordId": "SCA-021",
+   "factId": "F-M-0205",
+   "sourceId": "S-M1",
+   "artifactId": "ART-16",
+   "artifactPath": {
+    "anchor": "REPO_PARENT",
+    "relative": "MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/exxon-mobil/01_T0_PRE_T0_BASELINE/candidate_corr8/sources/mobil/mobil_10k_fy1997_filed_1998-03-19.txt"
+   },
+   "artifactSha256": "00771928e5efff2e5b8bf33e5b3099a67ede6477bd1ccb448b0b2466a9a7168e",
+   "registryDigest": "00771928e5efff2e5b8bf33e5b3099a67ede6477bd1ccb448b0b2466a9a7168e",
+   "recipe": "PLAIN_TEXT_V1",
+   "units": [
+    {
+     "unitId": "u1",
+     "separatorBefore": "START",
+     "span": [
+      141419,
+      141620
+     ],
+     "opening": "Mobil has begun construction of a major expansion of its joint-venture Yanpet petrochemica"
+    },
+    {
+     "unitId": "u2",
+     "separatorBefore": "SENTENCE",
+     "span": [
+      141984,
+      142271
+     ],
+     "opening": "Called Yanpet II, the $2.5 billion Saudi expansion, to be completed in 2000, will more tha"
+    }
+   ],
+   "unitTextSha256": [
+    "48bb1effca2eadb48209ff38e80c67a8740942b8971dc13b7a2dbc4f586ae352",
+    "2d988caabaad5afbb1c755b4eb9ac3c7730c1add4cc9a2bdcc0267bfaaf3a95a"
+   ],
+   "witnessCount": 0,
+   "segmentResults": [
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ]
+   ],
+   "rowLevelClassChangeFromCorr3": false,
+   "rowLevelClassChangeFromParent": false,
+   "segmentIdentities": [
+    [
+     "CSI:6989972197bb5852df4f043079293e1a6373a1bb5da07546a8ab0250c77f2537",
+     "FRAME-C",
+     null
+    ],
+    [
+     "CSI:6f678f734497e224b311407069d2bfd215e337099c94e02a3af9d9a6267464c8",
+     "FRAME-C",
+     null
+    ]
+   ],
+   "parentSegmentResults": [
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ]
+   ]
+  },
+  {
+   "recordId": "SCA-022",
+   "factId": "F-M-0279",
+   "sourceId": "S-M2",
+   "artifactId": "ART-15",
+   "artifactPath": {
+    "anchor": "REPO_PARENT",
+    "relative": "MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/exxon-mobil/01_T0_PRE_T0_BASELINE/candidate_corr8/sources/mobil/mobil_def14a_1998_filed_1998-03-23.txt"
+   },
+   "artifactSha256": "501daa5d918516308e9bdcecd6074820bb10d9a51fe094abea2d27a725da8065",
+   "registryDigest": "501daa5d918516308e9bdcecd6074820bb10d9a51fe094abea2d27a725da8065",
+   "recipe": "PLAIN_TEXT_V1",
+   "units": [
+    {
+     "unitId": "u1",
+     "separatorBefore": "START",
+     "span": [
+      55666,
+      55736
+     ],
+     "opening": "The AUDIT COMMITTEE, established in 1969, met three times during 1997."
+    },
+    {
+     "unitId": "u2",
+     "separatorBefore": "SENTENCE",
+     "span": [
+      56142,
+      56389
+     ],
+     "opening": "At least annually, the Committee reviews the services performed and the fees charged by th"
+    }
+   ],
+   "unitTextSha256": [
+    "cb483b50e3c70bdf188314c391e7a18065d47673b69852ae40d42bf31f33dd96",
+    "4ff4ae0922f49d4e3f7e04d567826c01a83c4782a63247f19765d82fce4aaff5"
+   ],
+   "witnessCount": 7,
+   "segmentResults": [
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "ASSIGNED",
+     "access-rights/role matrices"
+    ]
+   ],
+   "rowLevelClassChangeFromCorr3": false,
+   "rowLevelClassChangeFromParent": false,
+   "segmentIdentities": [
+    [
+     "CSI:7f0e2394ec7951eb2ab9298469cceef7692276b7f420aa67f75e9dbbaa511fac",
+     "FRAME-C",
+     null
+    ],
+    [
+     "CSI:83b4376717827b8845eee52756185e61a14e48ebc1c06b51aa918111fd49164a",
+     "FRAME-C",
+     null
+    ]
+   ],
+   "parentSegmentResults": [
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "ASSIGNED",
+     "access-rights/role matrices"
+    ]
+   ]
+  },
+  {
+   "recordId": "SCA-023",
+   "factId": "F-M-0302",
+   "sourceId": "S-M2",
+   "artifactId": "ART-15",
+   "artifactPath": {
+    "anchor": "REPO_PARENT",
+    "relative": "MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/exxon-mobil/01_T0_PRE_T0_BASELINE/candidate_corr8/sources/mobil/mobil_def14a_1998_filed_1998-03-23.txt"
+   },
+   "artifactSha256": "501daa5d918516308e9bdcecd6074820bb10d9a51fe094abea2d27a725da8065",
+   "registryDigest": "501daa5d918516308e9bdcecd6074820bb10d9a51fe094abea2d27a725da8065",
+   "recipe": "PLAIN_TEXT_V1",
+   "units": [
+    {
+     "unitId": "u1",
+     "separatorBefore": "START",
+     "span": [
+      54566,
+      54678
+     ],
+     "opening": "Non-employee directors may not participate in Mobil's incentive compensation or other empl"
+    }
+   ],
+   "unitTextSha256": [
+    "0eea2edc241c8399703732362382e9db0722a9215067146c6dc9f57d40bee1a8"
+   ],
+   "witnessCount": 5,
+   "segmentResults": [
+    [
+     "ASSIGNED",
+     "compensation plans"
+    ]
+   ],
+   "rowLevelClassChangeFromCorr3": false,
+   "rowLevelClassChangeFromParent": false,
+   "segmentIdentities": [
+    [
+     "CSI:56236a27ed9fbfbb8808fed2b15c99bf63f8eb77e12f9312d60ce1b1148fb392",
+     "FRAME-C",
+     null
+    ]
+   ],
+   "parentSegmentResults": [
+    [
+     "ASSIGNED",
+     "compensation plans"
+    ]
+   ]
+  },
+  {
+   "recordId": "SCA-024",
+   "factId": "F-M-0304",
+   "sourceId": "S-M2",
+   "artifactId": "ART-15",
+   "artifactPath": {
+    "anchor": "REPO_PARENT",
+    "relative": "MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/exxon-mobil/01_T0_PRE_T0_BASELINE/candidate_corr8/sources/mobil/mobil_def14a_1998_filed_1998-03-23.txt"
+   },
+   "artifactSha256": "501daa5d918516308e9bdcecd6074820bb10d9a51fe094abea2d27a725da8065",
+   "registryDigest": "501daa5d918516308e9bdcecd6074820bb10d9a51fe094abea2d27a725da8065",
+   "recipe": "PLAIN_TEXT_V1",
+   "units": [
+    {
+     "unitId": "u1",
+     "separatorBefore": "START",
+     "span": [
+      104669,
+      104852
+     ],
+     "opening": "The Board of Directors has defined certain events, which are described below, the occurren"
+    },
+    {
+     "unitId": "u2",
+     "separatorBefore": "SENTENCE",
+     "span": [
+      109052,
+      109188
+     ],
+     "opening": "The following are the events defined by the Board the occurrence of which might precede a "
+    },
+    {
+     "unitId": "u3",
+     "separatorBefore": "NUMBERED_SUBCLAUSE",
+     "span": [
+      109189,
+      109272
+     ],
+     "opening": "(1) a date is set for a meeting of stockholders to consider a business combination,"
+    },
+    {
+     "unitId": "u4",
+     "separatorBefore": "NUMBERED_SUBCLAUSE",
+     "span": [
+      109273,
+      109427
+     ],
+     "opening": "(2) an interested stockholder begins to solicit proxies to propose the election of a direc"
+    },
+    {
+     "unitId": "u5",
+     "separatorBefore": "NUMBERED_SUBCLAUSE",
+     "span": [
+      109428,
+      109530
+     ],
+     "opening": "(3) an announcement is made of a serious tender offer for some or all of Mobil's outstandi"
+    },
+    {
+     "unitId": "u6",
+     "separatorBefore": "NUMBERED_SUBCLAUSE",
+     "span": [
+      109531,
+      109709
+     ],
+     "opening": "(4) any stockholder or group of stockholders acting in concert owns beneficially or has ac"
+    }
+   ],
+   "unitTextSha256": [
+    "b611b851a991871b0822b757aa4eb0499fccc4f4cf2e83f5e489db843421e2a5",
+    "8c3c72b227fdf5dfcb3f346b2115fab4ff8db2999ab7903af057e635bc25871c",
+    "faaad59633da5d653ef8fe58c285ca2a1ab1eddfabd60da6bb40bf7037f88cad",
+    "2c25bd2ed909ad5e01e52eb3a6be4a8960b8c4ab05bc3c3cc7862b9b06fc8d35",
+    "e1a770f4d442778dc6d261f4c856e2f293eb597b057df63eb6ea5c7d5c827ba4",
+    "56862636ec2804e631bbdcf46e2e01a24c42429f26f2d165128d0acb85a134e7"
+   ],
+   "witnessCount": 0,
+   "segmentResults": [
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ]
+   ],
+   "rowLevelClassChangeFromCorr3": false,
+   "rowLevelClassChangeFromParent": false,
+   "segmentIdentities": [
+    [
+     "CSI:6ecd2455c0b60b49f70121a607c28ec7c03e3c6e4d9e26fbd08224f2cddd82aa",
+     "FRAME-C",
+     null
+    ],
+    [
+     "CSI:6a12d45a9723deed95285dcc5aa07d86d2a2f0a75ee039e3607b791755a58393",
+     "FRAME-C",
+     null
+    ],
+    [
+     "CSI:cc48a06388b4a46641893a737528919e8c7f9917ff049f3f27bfb82ef5b415c0",
+     "FRAME-C",
+     null
+    ],
+    [
+     "CSI:58f06169ffb4d93672a50476a078a21ae5409588f9d09ae2431d3bf09925c6ec",
+     "FRAME-C",
+     null
+    ],
+    [
+     "CSI:1a07c706aa29e6e451bbaf078f7487a2d0af29ae9ceb604c3e791e932c95e4c8",
+     "FRAME-C",
+     null
+    ],
+    [
+     "CSI:b2b8f3890ddb953c8bf7e755af53e95d423a86e13116818322f8f9969936f625",
+     "FRAME-C",
+     null
+    ]
+   ],
+   "parentSegmentResults": [
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ]
+   ]
+  },
+  {
+   "recordId": "SCA-025",
+   "factId": "F-A-0004",
+   "sourceId": "S-A4",
+   "artifactId": "ART-17",
+   "artifactPath": {
+    "anchor": "REPO_PARENT",
+    "relative": "MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/google-android/01_T0_PRE_T0_BASELINE/candidate/sources/android_inc/android_com_2005-04-11.html"
+   },
+   "artifactSha256": "ee1c5c1554ea5b96e39cd9e37836ae467baf749d99141752eec8d9ecd8996656",
+   "registryDigest": "ee1c5c1554ea5b96e39cd9e37836ae467baf749d99141752eec8d9ecd8996656",
+   "recipe": "HTML_RAW_V1",
+   "units": [
+    {
+     "unitId": "u1",
+     "separatorBefore": "START",
+     "span": [
+      183,
+      216
+     ],
+     "opening": "<!-- S3KR3T MESSAGES by rubin -->"
+    }
+   ],
+   "unitTextSha256": [
+    "b229a3d19038a711728c7f2511766669a77753fe98d75f97dca215782ff5b606"
+   ],
+   "witnessCount": 0,
+   "segmentResults": [
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ]
+   ],
+   "rowLevelClassChangeFromCorr3": false,
+   "rowLevelClassChangeFromParent": false,
+   "segmentIdentities": [
+    [
+     "CSI:95252d0b1afcd832f45ab64620e854a3f7e086d4141049286c4804e2e539f4df",
+     "FRAME-C",
+     null
+    ]
+   ],
+   "parentSegmentResults": [
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ]
+   ]
+  },
+  {
+   "recordId": "SCA-026",
+   "factId": "F-A-0007",
+   "sourceId": "S-A5",
+   "artifactId": "ART-18",
+   "artifactPath": {
+    "anchor": "REPO_PARENT",
+    "relative": "MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/google-android/01_T0_PRE_T0_BASELINE/candidate/sources/android_inc/android_com_2005-07-08.html"
+   },
+   "artifactSha256": "ee1c5c1554ea5b96e39cd9e37836ae467baf749d99141752eec8d9ecd8996656",
+   "registryDigest": "ee1c5c1554ea5b96e39cd9e37836ae467baf749d99141752eec8d9ecd8996656",
+   "recipe": "HTML_RAW_V1",
+   "units": [
+    {
+     "unitId": "u1",
+     "separatorBefore": "START",
+     "span": [
+      183,
+      676
+     ],
+     "opening": "<!-- S3KR3T MESSAGES by rubin --> <body bgcolor=\"#000000\"> <table border=\"0\" align=\"center"
+    }
+   ],
+   "unitTextSha256": [
+    "522b191dca423baa9e24a1ab7ebeffc440a69f9a2d1b2374cdfcaa4252969163"
+   ],
+   "witnessCount": 0,
+   "segmentResults": [
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ]
+   ],
+   "rowLevelClassChangeFromCorr3": false,
+   "rowLevelClassChangeFromParent": false,
+   "segmentIdentities": [
+    [
+     "CSI:5037183684072e8ec5a2ffdab5225d248c09234d5089af831b766f361d7e34fc",
+     "FRAME-C",
+     null
+    ]
+   ],
+   "parentSegmentResults": [
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ]
+   ]
+  },
+  {
+   "recordId": "SCA-027",
+   "factId": "F-A-0011",
+   "sourceId": "S-A7",
+   "artifactId": "ART-19",
+   "artifactPath": {
+    "anchor": "REPO_PARENT",
+    "relative": "MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/google-android/01_T0_PRE_T0_BASELINE/candidate/sources/android_inc/android_com_2004-04-10.html"
+   },
+   "artifactSha256": "39e9e4b1f07550b815ab1388109c81484292387c80e461bc70591caeefff036a",
+   "registryDigest": "39e9e4b1f07550b815ab1388109c81484292387c80e461bc70591caeefff036a",
+   "recipe": "HTML_RAW_V1",
+   "units": [
+    {
+     "unitId": "u1",
+     "separatorBefore": "START",
+     "span": [
+      112,
+      137
+     ],
+     "opening": "<title>Andy Rubin</title>"
+    },
+    {
+     "unitId": "u2",
+     "separatorBefore": "HEADING",
+     "span": [
+      338,
+      378
+     ],
+     "opening": "> <a href=http://www.danger.com>work</a>"
+    }
+   ],
+   "unitTextSha256": [
+    "5cca4ba672be035af31faad68892bc2761265af1e203508c8bb2b8d03e1dffa1",
+    "26b1954eec58c04d740c40def45ab38eb271911f3da7e458b1b44719ba89b902"
+   ],
+   "witnessCount": 0,
+   "segmentResults": [
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ]
+   ],
+   "rowLevelClassChangeFromCorr3": false,
+   "rowLevelClassChangeFromParent": false,
+   "segmentIdentities": [
+    [
+     "CSI:0801ded02f1d895d4570f2a2e534fd1cc1a5e6becce51c1be221f0b1936b94e8",
+     "FRAME-C",
+     null
+    ],
+    [
+     "CSI:d901a0762222f434c756f72c91a20776e3f4eea474c313111179fa69df2c114a",
+     "FRAME-C",
+     null
+    ]
+   ],
+   "parentSegmentResults": [
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ]
+   ]
+  },
+  {
+   "recordId": "SCA-028",
+   "factId": "F-G-0004",
+   "sourceId": "S-G1",
+   "artifactId": "ART-20",
+   "artifactPath": {
+    "anchor": "REPO_PARENT",
+    "relative": "MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/google-android/01_T0_PRE_T0_BASELINE/candidate/sources/google_inc/goog_10k_fy2004_filed_2005-03-30.htm"
+   },
+   "artifactSha256": "a64fd91b246b879b3100a1d9cf5827b2164dcb8b6efdfeea5ac73c2ca29b8fdf",
+   "registryDigest": "a64fd91b246b879b3100a1d9cf5827b2164dcb8b6efdfeea5ac73c2ca29b8fdf",
+   "recipe": "HTML_TEXT_V1",
+   "units": [
+    {
+     "unitId": "u1",
+     "separatorBefore": "START",
+     "span": [
+      337705,
+      337794
+     ],
+     "opening": "Google Inc. (“Google” or the “Company”) was incorporated in California on September 1998."
+    },
+    {
+     "unitId": "u2",
+     "separatorBefore": "SENTENCE",
+     "span": [
+      337795,
+      337863
+     ],
+     "opening": "The Company re incorporated in the State of Delaware in August 2003."
+    }
+   ],
+   "unitTextSha256": [
+    "d65fe05b172542e44bb2484e617504ba97a5ec2acc5745d28857fe538f5624e8",
+    "d38601b3f10c5a7b1bf95465daf8432174c2b844d732e46c935883d9210e6a45"
+   ],
+   "witnessCount": 0,
+   "segmentResults": [
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ]
+   ],
+   "rowLevelClassChangeFromCorr3": false,
+   "rowLevelClassChangeFromParent": false,
+   "segmentIdentities": [
+    [
+     "CSI:7d2ac3a500075ec9219358a49085ba68af9f1c92465637bba8690f1dcfb6c573",
+     "FRAME-C",
+     null
+    ],
+    [
+     "CSI:3899a3313926cfd85d4ee13550ec2b86077ca8e54eee8a01faf89bdcdf479fba",
+     "FRAME-C",
+     null
+    ]
+   ],
+   "parentSegmentResults": [
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ],
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ]
+   ]
+  },
+  {
+   "recordId": "SCA-029",
+   "factId": "F-B-0015",
+   "sourceId": "S-B1",
+   "artifactId": "ART-21",
+   "artifactPath": {
+    "anchor": "REPO_PARENT",
+    "relative": "MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/jpmorgan-bank-one/01_T0_PRE_T0_BASELINE/candidate/sources/bank_one/one_10k_fy2002_filed_2003-03-05.htm"
+   },
+   "artifactSha256": "90ff27ef9008d385d6485d5b24fdf85b1efa1c50cf60f8fa106f076c4eebd0c9",
+   "registryDigest": "90ff27ef9008d385d6485d5b24fdf85b1efa1c50cf60f8fa106f076c4eebd0c9",
+   "recipe": "HTML_TEXT_V1",
+   "units": [
+    {
+     "unitId": "u1",
+     "separatorBefore": "START",
+     "span": [
+      53659,
+      53730
+     ],
+     "opening": "David J. Kundert (60) Executive Vice President (12/15/98)"
+    }
+   ],
+   "unitTextSha256": [
+    "afe703953afaaf910350f7c6afb94bdb6c7090878fd14a0eb062132a79a7b73a"
+   ],
+   "witnessCount": 2,
+   "segmentResults": [
+    [
+     "DUPLICATE_IDENTITY_UNRESOLVED",
+     null
+    ]
+   ],
+   "rowLevelClassChangeFromCorr3": false,
+   "rowLevelClassChangeFromParent": false,
+   "segmentIdentities": [
+    [
+     null,
+     "FRAME-C",
+     "TEXT_BEARING_REMOVAL_SEAM_TAINTED_POSITION"
+    ]
+   ],
+   "parentSegmentResults": [
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ]
+   ]
+  },
+  {
+   "recordId": "SCA-030",
+   "factId": "F-J-0003",
+   "sourceId": "S-J1",
+   "artifactId": "ART-22",
+   "artifactPath": {
+    "anchor": "REPO_PARENT",
+    "relative": "MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/jpmorgan-bank-one/01_T0_PRE_T0_BASELINE/candidate/sources/jpmorgan_chase/jpm_10k_fy2002_filed_2003-03-19.htm"
+   },
+   "artifactSha256": "d3b3110774d0eb35b484a6c786feb92fc560a68fb24aa6952ef4023315b3e810",
+   "registryDigest": "d3b3110774d0eb35b484a6c786feb92fc560a68fb24aa6952ef4023315b3e810",
+   "recipe": "HTML_TEXT_V1",
+   "units": [
+    {
+     "unitId": "u1",
+     "separatorBefore": "START",
+     "span": [
+      8779,
+      8953
+     ],
+     "opening": "As of December 31, 2002, JPMorgan Chase was one of the largest banking institutions in the"
+    }
+   ],
+   "unitTextSha256": [
+    "4e213bb3f1a326b57c23a5cd614dddaf0bb3996e2f103e9be1aa70e58e076ca8"
+   ],
+   "witnessCount": 2,
+   "segmentResults": [
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ]
+   ],
+   "rowLevelClassChangeFromCorr3": false,
+   "rowLevelClassChangeFromParent": false,
+   "segmentIdentities": [
+    [
+     "CSI:945f054ca536cf6c99d6cb738eafcd77616a50b505c42a3ceac2e25d8b24dc5e",
+     "FRAME-C",
+     null
+    ]
+   ],
+   "parentSegmentResults": [
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ]
+   ]
+  },
+  {
+   "recordId": "SCA-031",
+   "factId": "F-J-0009",
+   "sourceId": "S-J1",
+   "artifactId": "ART-22",
+   "artifactPath": {
+    "anchor": "REPO_PARENT",
+    "relative": "MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/jpmorgan-bank-one/01_T0_PRE_T0_BASELINE/candidate/sources/jpmorgan_chase/jpm_10k_fy2002_filed_2003-03-19.htm"
+   },
+   "artifactSha256": "d3b3110774d0eb35b484a6c786feb92fc560a68fb24aa6952ef4023315b3e810",
+   "registryDigest": "d3b3110774d0eb35b484a6c786feb92fc560a68fb24aa6952ef4023315b3e810",
+   "recipe": "HTML_TEXT_V1",
+   "units": [
+    {
+     "unitId": "u1",
+     "separatorBefore": "START",
+     "span": [
+      875,
+      987
+     ],
+     "opening": "270 Park Avenue, New York, NY 10017 (Address of principal executive offices)"
+    }
+   ],
+   "unitTextSha256": [
+    "879e98e1ac07fb752dc288dcee5aa1be0634f30a170a09c1e6e6b3b09fb2315b"
+   ],
+   "witnessCount": 0,
+   "segmentResults": [
+    [
+     "DUPLICATE_IDENTITY_UNRESOLVED",
+     null
+    ]
+   ],
+   "rowLevelClassChangeFromCorr3": false,
+   "rowLevelClassChangeFromParent": false,
+   "segmentIdentities": [
+    [
+     null,
+     "FRAME-C",
+     "TEXT_BEARING_REMOVAL_SEAM_TAINTED_POSITION"
+    ]
+   ],
+   "parentSegmentResults": [
+    [
+     "OUTSIDE_FROZEN_VOCABULARY",
+     null
+    ]
+   ]
+  },
+  {
+   "recordId": "SCA-032",
+   "factId": "F0032",
+   "sourceId": "S0007",
+   "artifactId": "ART-23",
+   "artifactPath": {
+    "anchor": "REPO_PARENT",
+    "relative": "MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/pfizer-megamergers/01_T0_PRE_T0_BASELINE/CORR2/candidate/sources/wyeth/wyeth_def14a_2008_filed_2008-03-14.txt"
+   },
+   "artifactSha256": "8c2c9d217c88f6a957703ba5c2ff4b37e1d0d6b8a836ce4541cbd8c3207cc1e3",
+   "registryDigest": "8c2c9d217c88f6a957703ba5c2ff4b37e1d0d6b8a836ce4541cbd8c3207cc1e3",
+   "recipe": "HTML_TEXT_V1",
+   "units": [
+    {
+     "unitId": "u1",
+     "separatorBefore": "START",
+     "span": [
+      41217,
+      41584
+     ],
+     "opening": "In 2007, our non-employee directors were entitled to receive the following director cash f"
+    }
+   ],
+   "unitTextSha256": [
+    "0ce44888a207cbf12785520b8b071f8a12ae2752ee9bd7c2f5fe3f0e46f28d3b"
+   ],
+   "witnessCount": 6,
+   "segmentResults": [
+    [
+     "DUPLICATE_IDENTITY_UNRESOLVED",
+     null
+    ]
+   ],
+   "rowLevelClassChangeFromCorr3": false,
+   "rowLevelClassChangeFromParent": false,
+   "segmentIdentities": [
+    [
+     null,
+     "FRAME-C",
+     "TEXT_BEARING_REMOVAL_SEAM_TAINTED_POSITION"
+    ]
+   ],
+   "parentSegmentResults": [
+    [
+     "ASSIGNED",
+     "compensation plans"
+    ]
+   ]
+  }
+ ],
+ "aPlusToChildPilotDelta": {
+  "segmentsChanged": 0,
+  "countChanged": false,
+  "overlapPairs": 0
+ },
+ "r7ToChildPilotDelta": {
+  "segmentsChanged": 0,
+  "countChanged": false,
+  "touchingAtomPairs": 0,
+  "touchingAtomRelations": [
+   [
+    [
+     "SCA-015#s1",
+     "SCA-017#s1"
+    ],
+    "DIFFERENT_ATOMS"
+   ],
+   [
+    [
+     "SCA-015#s1",
+     "SCA-018#s1"
+    ],
+    "DIFFERENT_ATOMS"
+   ],
+   [
+    [
+     "SCA-017#s1",
+     "SCA-018#s1"
+    ],
+    "DIFFERENT_ATOMS"
+   ],
+   [
+    [
+     "SCA-022#s2",
+     "SCA-023#s1"
+    ],
+    "DIFFERENT_ATOMS"
+   ]
+  ]
+ },
+ "taParentToChildPilotDelta": {
+  "segmentsChanged": 0,
+  "countChanged": false,
+  "guardFired": 4,
+  "touchingAtomRelations": [
+   [
+    [
+     "SCA-015#s1",
+     "SCA-017#s1"
+    ],
+    "DIFFERENT_ATOMS"
+   ],
+   [
+    [
+     "SCA-015#s1",
+     "SCA-018#s1"
+    ],
+    "DIFFERENT_ATOMS"
+   ],
+   [
+    [
+     "SCA-017#s1",
+     "SCA-018#s1"
+    ],
+    "DIFFERENT_ATOMS"
+   ],
+   [
+    [
+     "SCA-022#s2",
+     "SCA-023#s1"
+    ],
+    "DIFFERENT_ATOMS"
+   ]
+  ]
+ },
+ "seParentToChildPilotDelta": {
+  "segmentsChanged": 0,
+  "countChanged": false,
+  "vetoFired": 0,
+  "authorityBinding": [
+   [
+    "ART-01",
+    "AUTHORITY_NOT_PROVEN"
+   ],
+   [
+    "ART-02",
+    "AUTHORITY_NOT_PROVEN"
+   ],
+   [
+    "ART-03",
+    "AUTHORITY_NOT_PROVEN"
+   ],
+   [
+    "ART-04",
+    "AUTHORITY_NOT_PROVEN"
+   ],
+   [
+    "ART-05",
+    "AUTHORITY_NOT_PROVEN"
+   ],
+   [
+    "ART-06",
+    "AUTHORITY_NOT_PROVEN"
+   ],
+   [
+    "ART-07",
+    "AUTHORITY_RECORD_USABLE"
+   ],
+   [
+    "ART-08",
+    "AUTHORITY_RECORD_USABLE"
+   ],
+   [
+    "ART-09",
+    "AUTHORITY_NOT_PROVEN"
+   ],
+   [
+    "ART-10",
+    "AUTHORITY_NOT_PROVEN"
+   ],
+   [
+    "ART-11",
+    "AUTHORITY_NOT_PROVEN"
+   ],
+   [
+    "ART-12",
+    "AUTHORITY_COORDINATE_VIEW_MISMATCH"
+   ],
+   [
+    "ART-13",
+    "AUTHORITY_RECORD_USABLE"
+   ],
+   [
+    "ART-14",
+    "AUTHORITY_NOT_PROVEN"
+   ],
+   [
+    "ART-15",
+    "AUTHORITY_NOT_PROVEN"
+   ],
+   [
+    "ART-16",
+    "AUTHORITY_NOT_PROVEN"
+   ],
+   [
+    "ART-17",
+    "AUTHORITY_NOT_PROVEN"
+   ],
+   [
+    "ART-18",
+    "AUTHORITY_NOT_PROVEN"
+   ],
+   [
+    "ART-19",
+    "AUTHORITY_NOT_PROVEN"
+   ],
+   [
+    "ART-20",
+    "AUTHORITY_NOT_PROVEN"
+   ],
+   [
+    "ART-21",
+    "AUTHORITY_NOT_PROVEN"
+   ],
+   [
+    "ART-22",
+    "AUTHORITY_NOT_PROVEN"
+   ],
+   [
+    "ART-23",
+    "AUTHORITY_RECORD_USABLE"
+   ]
+  ],
+  "boundSpans": {
+   "ART-07": 15,
+   "ART-08": 53,
+   "ART-13": 1,
+   "ART-23": 219
+  }
+ },
+ "corr1": "CARRIED from SOURCECLASS-SENTENCE-BOUNDARY-EVIDENCE-INTEGRITY-CLOSURE-1 (recorded under boundaryModelSha256 8f66179681a0f1e8d582e9f7a25b4f538fc0c5b69bcc553ea178afeb0a5329e5) and re-bound to the CORR1 identity only; NOT recomputed under CORR1 - the Owner's Codex-driven correction rule forbids author validation, regression, pilot replay, fixture, generated-surface and forced-failure runs"
+}
