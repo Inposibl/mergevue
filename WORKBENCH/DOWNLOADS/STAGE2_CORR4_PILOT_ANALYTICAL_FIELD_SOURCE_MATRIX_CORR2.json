@@ -1,0 +1,608 @@
+{
+  "artifact": "STAGE2_CORR4_PILOT_ANALYTICAL_FIELD_SOURCE_MATRIX_CORR2.json",
+  "act": "POST-10-CALIBRATION-STAGE2-TREE-BOUND-DISCRIMINATOR-AND-MECHANISM-MEASUREMENT-CONTRACT-1.PILOT-VERSION-LOCK-1.CORR1.CORR2",
+  "status": "AUTHOR CORRECTION CANDIDATE — NOT INDEPENDENTLY VERIFIED — NOT OWNER-ACCEPTED",
+  "purpose": "Structural executability dry-run ONLY. No real fact was analytically coded. This matrix proves that every CORR4 §I field can be sourced from the corrected lawful view without any forbidden surface, with section I sourceClass now MECHANICALLY BOUND from the final Git-bound sourceClass closure instead of coder-assigned.",
+  "noRealCodingPerformed": true,
+  "fieldCount": 47,
+  "corr4ISource": "CORR4 §I verbatim field list (line 1005 + 1006)",
+  "sourceSurfaces": {
+    "a": "blinded_fact_input (PI-2)",
+    "b": "provenance_sidecar (PI-3)",
+    "c": "exact_CORR4 (PI-1)",
+    "d": "bounded_CASE34_packet (PI-4)",
+    "e": "fixed_coder_session_metadata (PI-6 + role slot)",
+    "f": "sourceclass_binding (PI-7)"
+  },
+  "sectionIFieldCount": 46,
+  "viewSchemaOnlyFieldCount": 1,
+  "summary": {
+    "assignmentTypes": {
+      "MECHANICAL": 12,
+      "CODER_JUDGMENT": 35
+    },
+    "sourceSurfaceUsage": {
+      "exact_CORR4": 40,
+      "fixed_coder_session_metadata": 4,
+      "provenance_sidecar": 7,
+      "blinded_fact_input": 14,
+      "sourceclass_binding": 1,
+      "bounded_CASE34_packet": 13
+    },
+    "executableYes": 47,
+    "executableNo": 0
+  },
+  "requiredChecks": [
+    {
+      "check": "factualPackageIdentity mechanically available",
+      "result": "PASS",
+      "evidence": "PI-3 supplies it for all 30 records; identity re-derived from the frozen source map by the validator."
+    },
+    {
+      "check": "sourceRefs[] mechanically available",
+      "result": "PASS",
+      "evidence": "32 source references across 30 records, 21 distinct sourceIds, every one resolved in its package's own source registry."
+    },
+    {
+      "check": "sourceClass mechanically available",
+      "result": "PASS_MECHANICALLY_BOUND",
+      "evidence": "PI-7 binds the final sourceClass assignment surface per sourceRef: 32/32 binding records in exact set bijection with the 32 sidecar sourceRefs; 8 ASSIGNED section I fills (access-rights/role matrices, compensation plans), 20 OUTSIDE_FROZEN_VOCABULARY, 4 DUPLICATE_IDENTITY_UNRESOLVED, all copied verbatim; fail-closed states never converted."
+    },
+    {
+      "check": "DE-1..DE-4 definitions available",
+      "result": "PASS",
+      "evidence": "PI-4 CASE-3.4 v1.3 §6 verbatim."
+    },
+    {
+      "check": "all CASE-3.4-dependent state rules required by CORR4 available",
+      "result": "PASS",
+      "evidence": "PI-4 includes §5, §6, §7, §8, §9, §10, §11, §12, §13, §14, §17 verbatim, byte-reproducible from the source."
+    },
+    {
+      "check": "result schema representable",
+      "result": "PASS",
+      "evidence": "§6 executability check; RESULT_SCHEMA_CORRECTION_REQUIRED = NO."
+    },
+    {
+      "check": "all §I fields executable",
+      "result": "PASS",
+      "evidence": "46/46 CORR4 §I fields EXECUTABLE = YES (plus the 1 view-schema-required non-§I field `abstention`, also EXECUTABLE = YES)."
+    },
+    {
+      "check": "sourceClass binding bijection with the final surface",
+      "result": "PASS",
+      "evidence": "Binding records keyed (caseId, sideId, factId, sourceRefIndex, sourceId) equal the replay records of MERGEVUE_SOURCECLASS_ASSIGNMENT_PILOT_DRYRUN_v1.0_SOURCECLASS_SENTENCE_BOUNDARY_EVIDENCE_INTEGRITY_CLOSURE_1_CORR1.json 32/32 in both directions; per-segment states/classes/identities byte-equal to the pinned surface; segment totals 49/8/4."
+    }
+  ],
+  "fields": [
+    {
+      "FIELD": "edgeId",
+      "SOURCE_SURFACE": [
+        "exact_CORR4",
+        "fixed_coder_session_metadata"
+      ],
+      "ASSIGNMENT_TYPE": "MECHANICAL",
+      "AUTHORITY": "CORR4 §I; §L-3 (R-03/R-05 agreement is keyed on factIds / relationInstanceId / organizationalObjectRef, not on the edge-id string)",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true,
+      "NOTE": "Locally unique identifier the coding session mints. CORR4 requires existence only and defines no cross-coder construction rule; CORR1 does not add one. Cross-coder comparison is by content key per the frozen result schema."
+    },
+    {
+      "FIELD": "caseId",
+      "SOURCE_SURFACE": [
+        "provenance_sidecar",
+        "blinded_fact_input"
+      ],
+      "ASSIGNMENT_TYPE": "MECHANICAL",
+      "AUTHORITY": "CORR4 §I; §H-1; C34 §13.3",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true,
+      "NOTE": "Supplied verbatim by PI-3 factualPackageIdentity binding. Exact physical values are heterogeneous by design (a Daimler fact carries caseId 'CASE-3.5'; the other eight carry case slugs). No normalization is applied."
+    },
+    {
+      "FIELD": "side",
+      "SOURCE_SURFACE": [
+        "provenance_sidecar",
+        "blinded_fact_input"
+      ],
+      "ASSIGNMENT_TYPE": "MECHANICAL",
+      "AUTHORITY": "CORR4 §I",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true,
+      "NOTE": "Supplied as sideId by PI-2/PI-3."
+    },
+    {
+      "FIELD": "factualPackageIdentity",
+      "SOURCE_SURFACE": [
+        "provenance_sidecar"
+      ],
+      "ASSIGNMENT_TYPE": "MECHANICAL",
+      "AUTHORITY": "CORR4 §I; §H-1; C34 §13.2/§13.3",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true,
+      "NOTE": "PI-3 slot: packageDir, recordFile, recordFileSha256, recordFileBytes, recordFormat, stage1Generation, caseSlug, packageFactCount, packageSideCount and the exact caseId/factId/sideId locators, all taken from the frozen source map."
+    },
+    {
+      "FIELD": "factIds[]",
+      "SOURCE_SURFACE": [
+        "blinded_fact_input",
+        "provenance_sidecar"
+      ],
+      "ASSIGNMENT_TYPE": "MECHANICAL",
+      "AUTHORITY": "CORR4 §I; §H-5",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true,
+      "NOTE": "Drawn from PI-2 and corroborated by PI-3."
+    },
+    {
+      "FIELD": "sourceRefs[]",
+      "SOURCE_SURFACE": [
+        "provenance_sidecar"
+      ],
+      "ASSIGNMENT_TYPE": "MECHANICAL",
+      "AUTHORITY": "CORR4 §I; C34 §13.2",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true,
+      "NOTE": "PI-3 slot: per-source exact sourceId, its binding locator in the fact record, the exact fact-level locator where the package carries one, the registry file and record hashes, and the record's documentary identity."
+    },
+    {
+      "FIELD": "mechanismPropositionIds[]",
+      "SOURCE_SURFACE": [
+        "exact_CORR4"
+      ],
+      "ASSIGNMENT_TYPE": "CODER_JUDGMENT",
+      "AUTHORITY": "CORR4 §H-2, §H-4, §D registry",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true,
+      "NOTE": "Selected by preciseMeaning from the frozen M registry. Coder never creates an M."
+    },
+    {
+      "FIELD": "mechanismObjectTypes[]",
+      "SOURCE_SURFACE": [
+        "exact_CORR4"
+      ],
+      "ASSIGNMENT_TYPE": "CODER_JUDGMENT",
+      "AUTHORITY": "CORR4 §D objectType",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true,
+      "NOTE": "Read off the selected M row."
+    },
+    {
+      "FIELD": "componentSupply[]",
+      "SOURCE_SURFACE": [
+        "exact_CORR4",
+        "blinded_fact_input",
+        "provenance_sidecar"
+      ],
+      "ASSIGNMENT_TYPE": "CODER_JUDGMENT",
+      "AUTHORITY": "CORR4 §H-3, §H-5, §F.4, §F.4.1, §I",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true,
+      "NOTE": "mechanismPropositionId and componentId come from §D; factIds[] from PI-2; relationInstanceId and organizationalObjectRef are coder-bound under §F.4; linkageEvidence{class, identifier} is recorded by the coder from source-record content under §F.4.1 (L-1..L-6 or NO_LAWFUL_LINKAGE)."
+    },
+    {
+      "FIELD": "relationInstanceId",
+      "SOURCE_SURFACE": [
+        "exact_CORR4"
+      ],
+      "ASSIGNMENT_TYPE": "CODER_JUDGMENT",
+      "AUTHORITY": "CORR4 §F.4 J-R1..J-R6; §F.4.1",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true
+    },
+    {
+      "FIELD": "organizationalObjectRef",
+      "SOURCE_SURFACE": [
+        "exact_CORR4"
+      ],
+      "ASSIGNMENT_TYPE": "CODER_JUDGMENT",
+      "AUTHORITY": "CORR4 §F.4; §I",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true,
+      "NOTE": "Chosen from the closed object list in §F.4."
+    },
+    {
+      "FIELD": "decisionRef",
+      "SOURCE_SURFACE": [
+        "exact_CORR4"
+      ],
+      "ASSIGNMENT_TYPE": "CODER_JUDGMENT",
+      "AUTHORITY": "CORR4 §F.4 J-R3; §I",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true,
+      "NOTE": "Reference-only field; may be null where not applicable."
+    },
+    {
+      "FIELD": "resourceFlowRef",
+      "SOURCE_SURFACE": [
+        "exact_CORR4"
+      ],
+      "ASSIGNMENT_TYPE": "CODER_JUDGMENT",
+      "AUTHORITY": "CORR4 §F.4 J-R3; §I",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true,
+      "NOTE": "Reference-only field; may be null."
+    },
+    {
+      "FIELD": "participationSystemRef",
+      "SOURCE_SURFACE": [
+        "exact_CORR4"
+      ],
+      "ASSIGNMENT_TYPE": "CODER_JUDGMENT",
+      "AUTHORITY": "CORR4 §F.4 J-R3; §I",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true,
+      "NOTE": "Reference-only field; may be null."
+    },
+    {
+      "FIELD": "beliefSystemRef",
+      "SOURCE_SURFACE": [
+        "exact_CORR4"
+      ],
+      "ASSIGNMENT_TYPE": "CODER_JUDGMENT",
+      "AUTHORITY": "CORR4 §F.4 J-R3; §I",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true,
+      "NOTE": "Reference-only field; may be null."
+    },
+    {
+      "FIELD": "sourceClass",
+      "SOURCE_SURFACE": [
+        "sourceclass_binding",
+        "exact_CORR4"
+      ],
+      "ASSIGNMENT_TYPE": "MECHANICAL",
+      "AUTHORITY": "SOURCECLASS-SENTENCE-BOUNDARY-EVIDENCE-INTEGRITY-CLOSURE-1.CORR1 (Git-tracked at HEAD 31fd56e7e8df29ab5f7ff854be75453686f37758; IV1 PASS; boundaryModelSha256 9c8011f743a76ca8b1bf94b699b54567d7f510bfb0e678a35f8f690f82a0c501); CORR4 §I sourceClass; §F.3 srcDiv; contract R-EDGE / R-COUNT / R-FORM / R-EVID",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true,
+      "NOTE": "MECHANICALLY BOUND (supersedes the CORR1 coder-judgment basis): PI-7 supplies the final assignment state and sourceClass per sourceRef (32/32 bijection). The coder copies sectionIFill verbatim; reclassification, R-FORM metadata shortcuts, fail-closed-to-ASSIGNED conversion and fact-level flattening are forbidden. One section I edge per class-bearing support record where supports differ (R-EDGE); non-ASSIGNED states never count toward srcDiv (R-COUNT PRE-5)."
+    },
+    {
+      "FIELD": "presentationLaneOnly",
+      "SOURCE_SURFACE": [
+        "exact_CORR4"
+      ],
+      "ASSIGNMENT_TYPE": "MECHANICAL",
+      "AUTHORITY": "CORR4 §F.3 PRES-lane non-consumability (IV2 B4); §I",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true,
+      "NOTE": "Determined by whether treeTargetIds[] contains the lane-carrying target TT-NFNT-PH-PR; YES for such edges and derived state rows, otherwise NO."
+    },
+    {
+      "FIELD": "discriminatorIds[]",
+      "SOURCE_SURFACE": [
+        "exact_CORR4"
+      ],
+      "ASSIGNMENT_TYPE": "CODER_JUDGMENT",
+      "AUTHORITY": "CORR4 §C per-M dispatch; §C routing invariant (F11)",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true,
+      "NOTE": "Reached from the selected M, never from a supplied stratum label."
+    },
+    {
+      "FIELD": "treeTargetIds[]",
+      "SOURCE_SURFACE": [
+        "exact_CORR4"
+      ],
+      "ASSIGNMENT_TYPE": "CODER_JUDGMENT",
+      "AUTHORITY": "CORR4 §F lane rows, §C tree consumers",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true
+    },
+    {
+      "FIELD": "relation",
+      "SOURCE_SURFACE": [
+        "exact_CORR4"
+      ],
+      "ASSIGNMENT_TYPE": "CODER_JUDGMENT",
+      "AUTHORITY": "CORR4 §F.2 counters; §I",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true,
+      "NOTE": "One of SUPPORTS_LEAF | NEGATES_LEAF | COUNTER_M."
+    },
+    {
+      "FIELD": "relevanceState",
+      "SOURCE_SURFACE": [
+        "exact_CORR4",
+        "blinded_fact_input"
+      ],
+      "ASSIGNMENT_TYPE": "CODER_JUDGMENT",
+      "AUTHORITY": "CORR4 §E; §H-2",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true
+    },
+    {
+      "FIELD": "evidenceForm",
+      "SOURCE_SURFACE": [
+        "exact_CORR4",
+        "bounded_CASE34_packet"
+      ],
+      "ASSIGNMENT_TYPE": "CODER_JUDGMENT",
+      "AUTHORITY": "CORR4 §E; §H-6; C34 §6 DE-1..DE-4 (PI-4)",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true,
+      "NOTE": "PI-4 is the first lawful source of the DE-1..DE-4 definitions and of the DE-4 ceiling. Not supplied as metadata (Owner Option A)."
+    },
+    {
+      "FIELD": "edgeState",
+      "SOURCE_SURFACE": [
+        "exact_CORR4",
+        "bounded_CASE34_packet"
+      ],
+      "ASSIGNMENT_TYPE": "CODER_JUDGMENT",
+      "AUTHORITY": "CORR4 §E; §H-7; C34 §7, §14, §17 (PI-4); §F.5 E-R1..E-R5",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true
+    },
+    {
+      "FIELD": "supportClass",
+      "SOURCE_SURFACE": [
+        "exact_CORR4",
+        "bounded_CASE34_packet"
+      ],
+      "ASSIGNMENT_TYPE": "CODER_JUDGMENT",
+      "AUTHORITY": "CORR4 §E; §H-8; C34 §14 (PI-4)",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true
+    },
+    {
+      "FIELD": "observedScope",
+      "SOURCE_SURFACE": [
+        "exact_CORR4",
+        "blinded_fact_input",
+        "bounded_CASE34_packet"
+      ],
+      "ASSIGNMENT_TYPE": "CODER_JUDGMENT",
+      "AUTHORITY": "CORR4 §E; §G-9; C34 §5 condition 4 and §10 (PI-4)",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true
+    },
+    {
+      "FIELD": "claimedScope",
+      "SOURCE_SURFACE": [
+        "exact_CORR4",
+        "bounded_CASE34_packet"
+      ],
+      "ASSIGNMENT_TYPE": "CODER_JUDGMENT",
+      "AUTHORITY": "CORR4 §A.8 SC-CLAIM; C34 §10 (PI-4)",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true
+    },
+    {
+      "FIELD": "scopeBridgeState",
+      "SOURCE_SURFACE": [
+        "exact_CORR4",
+        "bounded_CASE34_packet"
+      ],
+      "ASSIGNMENT_TYPE": "CODER_JUDGMENT",
+      "AUTHORITY": "CORR4 §E; C34 §10 (PI-4)",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true
+    },
+    {
+      "FIELD": "scopeBridgeFactIds[]",
+      "SOURCE_SURFACE": [
+        "blinded_fact_input",
+        "exact_CORR4"
+      ],
+      "ASSIGNMENT_TYPE": "CODER_JUDGMENT",
+      "AUTHORITY": "CORR4 §I; C34 §10 (PI-4)",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true
+    },
+    {
+      "FIELD": "temporalState",
+      "SOURCE_SURFACE": [
+        "exact_CORR4",
+        "bounded_CASE34_packet"
+      ],
+      "ASSIGNMENT_TYPE": "CODER_JUDGMENT",
+      "AUTHORITY": "CORR4 §E; §A.8 TM-T0; C34 §11 (PI-4)",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true
+    },
+    {
+      "FIELD": "continuityBridgeFactIds[]",
+      "SOURCE_SURFACE": [
+        "blinded_fact_input",
+        "bounded_CASE34_packet"
+      ],
+      "ASSIGNMENT_TYPE": "CODER_JUDGMENT",
+      "AUTHORITY": "CORR4 §I; C34 §11 (PI-4)",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true
+    },
+    {
+      "FIELD": "characteristicityState",
+      "SOURCE_SURFACE": [
+        "exact_CORR4",
+        "bounded_CASE34_packet"
+      ],
+      "ASSIGNMENT_TYPE": "CODER_JUDGMENT",
+      "AUTHORITY": "CORR4 §E; §K-1..§K-6; C34 §9, §10 (PI-4)",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true
+    },
+    {
+      "FIELD": "characteristicityFactIds[]",
+      "SOURCE_SURFACE": [
+        "blinded_fact_input",
+        "exact_CORR4"
+      ],
+      "ASSIGNMENT_TYPE": "CODER_JUDGMENT",
+      "AUTHORITY": "CORR4 §I; §K",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true
+    },
+    {
+      "FIELD": "formalOperativeState",
+      "SOURCE_SURFACE": [
+        "exact_CORR4",
+        "bounded_CASE34_packet"
+      ],
+      "ASSIGNMENT_TYPE": "CODER_JUDGMENT",
+      "AUTHORITY": "CORR4 §E; §G-2, §G-3, §G-5; C34 §6, §8 (PI-4)",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true,
+      "NOTE": "PI-4 supplies the DE-3/DE-4 boundary and the operative rule test; PRE-SAMPLING Stage-1 formal/operative metadata is expressly forbidden."
+    },
+    {
+      "FIELD": "planCurrentState",
+      "SOURCE_SURFACE": [
+        "exact_CORR4",
+        "bounded_CASE34_packet"
+      ],
+      "ASSIGNMENT_TYPE": "CODER_JUDGMENT",
+      "AUTHORITY": "CORR4 §E; §H-6; C34 §5 condition 8 and §9 (PI-4)",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true,
+      "NOTE": "Post-sampling state (Owner Option A). PI-4 supplies the semantic non-expansion rule and the repeated-practice test it is read against."
+    },
+    {
+      "FIELD": "sourceQualityState",
+      "SOURCE_SURFACE": [
+        "exact_CORR4",
+        "bounded_CASE34_packet",
+        "provenance_sidecar"
+      ],
+      "ASSIGNMENT_TYPE": "CODER_JUDGMENT",
+      "AUTHORITY": "CORR4 §E; §G-1..§G-9; C34 §5 condition 5 and §12 (PI-4)",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true,
+      "NOTE": "Assigned per exact proposition. PI-3 supplies record identity only; no Stage-1 competence/authority classification is supplied."
+    },
+    {
+      "FIELD": "absenceEvidenceState",
+      "SOURCE_SURFACE": [
+        "exact_CORR4"
+      ],
+      "ASSIGNMENT_TYPE": "CODER_JUDGMENT",
+      "AUTHORITY": "CORR4 §E; §J-1..§J-6; C34 §17 (PI-4)",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true
+    },
+    {
+      "FIELD": "sufficiencyExpression",
+      "SOURCE_SURFACE": [
+        "exact_CORR4"
+      ],
+      "ASSIGNMENT_TYPE": "MECHANICAL",
+      "AUTHORITY": "CORR4 §I",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true,
+      "NOTE": "Copied verbatim from the TT row of the selected target."
+    },
+    {
+      "FIELD": "sufficiencyExpressionResult",
+      "SOURCE_SURFACE": [
+        "exact_CORR4"
+      ],
+      "ASSIGNMENT_TYPE": "CODER_JUDGMENT",
+      "AUTHORITY": "CORR4 §F.3, §F.5",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true
+    },
+    {
+      "FIELD": "missingComponents[]",
+      "SOURCE_SURFACE": [
+        "exact_CORR4",
+        "blinded_fact_input"
+      ],
+      "ASSIGNMENT_TYPE": "CODER_JUDGMENT",
+      "AUTHORITY": "CORR4 §H-3; C34 §7.4 (PI-4)",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true
+    },
+    {
+      "FIELD": "ambiguity",
+      "SOURCE_SURFACE": [
+        "exact_CORR4"
+      ],
+      "ASSIGNMENT_TYPE": "CODER_JUDGMENT",
+      "AUTHORITY": "CORR4 §F.5 E-R7/E-R8; §H-4",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true
+    },
+    {
+      "FIELD": "counterevidenceFactIds[]",
+      "SOURCE_SURFACE": [
+        "blinded_fact_input",
+        "exact_CORR4"
+      ],
+      "ASSIGNMENT_TYPE": "CODER_JUDGMENT",
+      "AUTHORITY": "CORR4 §F.2; §J; C34 §7.7 (PI-4)",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true
+    },
+    {
+      "FIELD": "conflictFactIds[]",
+      "SOURCE_SURFACE": [
+        "blinded_fact_input",
+        "exact_CORR4"
+      ],
+      "ASSIGNMENT_TYPE": "CODER_JUDGMENT",
+      "AUTHORITY": "CORR4 §F.5 E-R1; C34 §7.7 (PI-4)",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true
+    },
+    {
+      "FIELD": "nonExpansionRationale",
+      "SOURCE_SURFACE": [
+        "exact_CORR4",
+        "blinded_fact_input"
+      ],
+      "ASSIGNMENT_TYPE": "CODER_JUDGMENT",
+      "AUTHORITY": "CORR4 §H-9; C34 §5 condition 8 (PI-4)",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true
+    },
+    {
+      "FIELD": "coderIdentity",
+      "SOURCE_SURFACE": [
+        "fixed_coder_session_metadata"
+      ],
+      "ASSIGNMENT_TYPE": "MECHANICAL",
+      "AUTHORITY": "CORR4 §I; §L-1 (two independent coders)",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true,
+      "NOTE": "Role slot ANALYTICAL_CODER_A or ANALYTICAL_CODER_B."
+    },
+    {
+      "FIELD": "vocabularyVersion",
+      "SOURCE_SURFACE": [
+        "fixed_coder_session_metadata",
+        "exact_CORR4"
+      ],
+      "ASSIGNMENT_TYPE": "MECHANICAL",
+      "AUTHORITY": "CORR4 §M",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true,
+      "NOTE": "Fixed by the locked contract version; coders never create M-NEW."
+    },
+    {
+      "FIELD": "contractIdentity",
+      "SOURCE_SURFACE": [
+        "fixed_coder_session_metadata",
+        "exact_CORR4"
+      ],
+      "ASSIGNMENT_TYPE": "MECHANICAL",
+      "AUTHORITY": "CORR4 §I",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": true,
+      "NOTE": "The exact CORR4 SHA-256, frozen and unchanged by CORR1."
+    },
+    {
+      "FIELD": "abstention",
+      "SOURCE_SURFACE": [
+        "exact_CORR4",
+        "bounded_CASE34_packet",
+        "blinded_fact_input"
+      ],
+      "ASSIGNMENT_TYPE": "CODER_JUDGMENT",
+      "AUTHORITY": "view schema `requiredCodingFields` group 'abstention'; CORR4 §E (NOT_DETERMINABLE), §G-7, §G-8, §H-7, §J-3, §K-2; C34 §10, §17 (PI-4)",
+      "EXECUTABLE": "YES",
+      "SECTION_I_FIELD": false,
+      "NOTE": "Explicit coder statement that the determination cannot lawfully be made, with the governing reason. Mandatory under §G-7 / §G-8 / §H-7 / §G-1. Not part of the CORR4 §I field list; carried by the frozen view schema and preserved by CORR1."
+    }
+  ]
+}

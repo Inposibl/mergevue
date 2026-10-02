@@ -1,0 +1,231 @@
+{
+  "artifact": "STAGE2_CORR4_PILOT_RESULT_SCHEMA.json",
+  "act": "POST-10-CALIBRATION-STAGE2-TREE-BOUND-DISCRIMINATOR-AND-MECHANISM-MEASUREMENT-CONTRACT-1.PILOT-VERSION-LOCK-1.CORR4",
+  "status": "FROZEN_BY_THIS_LOCK",
+  "contractAuthority": {
+    "contract": "WORKBENCH/DOWNLOADS/STAGE2_SEMANTIC_SUCCESSOR_CANDIDATE_CORR4.md",
+    "sha256": "2de49862fb0d63c5f1cd1745531199137e73b7b37abceecef6e735d497d38bb0",
+    "sections": ["L. PILOT DESIGN — L-2, L-3, L-4", "M. DOWNSTREAM SEQUENCE"]
+  },
+  "scopeStatement": "This schema describes the bounded outcome-hidden pilot's reported result. It measures contract-execution agreement between two independent coders. It does NOT measure, and must not be read as, any Environment determination or predictive claim.",
+
+  "measured": {
+    "note": "CORR4 §L-3. Every item below is a required reportable measurement of the bounded pilot.",
+    "items": [
+      {
+        "id": "R-01",
+        "name": "stratification agreement",
+        "unit": "per-(fact, D) mark comparison across all 13 D rows",
+        "reported": ["agreementRate", "agreeCount", "disagreeCount", "perD[13]"],
+        "authority": "CORR4 §L:1035",
+        "note": "Stratification is explicitly part of the measured process and is NOT claimed neutral."
+      },
+      {
+        "id": "R-02",
+        "name": "M selection agreement",
+        "reported": ["agreementRate", "codersA", "codersB", "disagreementFactIds[]"],
+        "authority": "CORR4 §L:1043 (L-3)"
+      },
+      {
+        "id": "R-03",
+        "name": "D agreement",
+        "reported": ["agreementRate", "codersA", "codersB", "disagreementEdgeIds[]"],
+        "authority": "CORR4 §L:1043 (L-3)"
+      },
+      {
+        "id": "R-04",
+        "name": "component satisfaction agreement",
+        "reported": ["agreementRate", "perComponent[] (componentId, factIds, satisfiedA, satisfiedB)"],
+        "authority": "CORR4 §L:1043 (L-3); §H-3"
+      },
+      {
+        "id": "R-05",
+        "name": "join / relationInstance binding agreement",
+        "reported": ["agreementRate", "perJoin[] (relationInstanceId_A, relationInstanceId_B, organizationalObjectRef, linkageEvidence{class, identifier}, agreement)"],
+        "authority": "CORR4 §L:1043 (L-3); §F.4, §F.4.1"
+      },
+      {
+        "id": "R-06",
+        "name": "scope agreement",
+        "reported": ["agreementRate", "observedScopeAgreement", "claimedScopeAgreement", "scopeBridgeStateAgreement"],
+        "authority": "CORR4 §L:1043 (L-3); §E"
+      },
+      {
+        "id": "R-07",
+        "name": "time agreement",
+        "reported": ["agreementRate", "temporalStateAgreement"],
+        "authority": "CORR4 §L:1043 (L-3); §E"
+      },
+      {
+        "id": "R-08",
+        "name": "characteristicity agreement",
+        "reported": ["agreementRate", "characteristicityStateAgreement"],
+        "authority": "CORR4 §L:1043 (L-3); §E, §K"
+      },
+      {
+        "id": "R-09",
+        "name": "formal/operative agreement",
+        "reported": ["agreementRate", "formalOperativeStateAgreement"],
+        "authority": "CORR4 §L:1043 (L-3); §E"
+      },
+      {
+        "id": "R-10",
+        "name": "plan/current agreement",
+        "reported": ["agreementRate", "planCurrentStateAgreement"],
+        "authority": "CORR4 §L:1043 (L-3); §E, §H-6"
+      },
+      {
+        "id": "R-11",
+        "name": "edgeState agreement",
+        "reported": ["agreementRate", "edgeStateAgreement"],
+        "authority": "CORR4 §L:1043 (L-3); §E, §H-7"
+      },
+      {
+        "id": "R-12",
+        "name": "UNMAPPED agreement",
+        "reported": ["agreementRate", "unmappedObservationAgreement"],
+        "authority": "CORR4 §L:1043 (L-3); §H-2, §E"
+      },
+      {
+        "id": "R-13",
+        "name": "abstention agreement",
+        "reported": ["agreementRate", "abstentionAgreement", "abstentionReasons[]"],
+        "authority": "CORR4 §L:1043 (L-3); §E, §G-7, §G-8, §H-7"
+      }
+    ]
+  },
+
+  "notMeasured": {
+    "note": "CORR4 §L-3. These are outside the bounded pilot and must not appear as pilot result fields.",
+    "items": [
+      "Environment agreement",
+      "prediction accuracy",
+      "outcomes",
+      "ECS",
+      "success",
+      "failure"
+    ],
+    "rationale": "The bounded pilot is outcome-hidden and terminates at the mechanism-measurement layer. Environment determination is HEDC's separate downstream act (CORR4 §K-5, §M)."
+  },
+
+  "disagreementTaxonomy": {
+    "note": "CORR4 §L-4. Exactly four categories. No fifth category exists.",
+    "categories": [
+      {
+        "id": "CODER_ERROR",
+        "meaning": "one coder applied the frozen rule incorrectly; the rule itself is adequate",
+        "route": "correct only the affected cell; re-IV and re-run that cell"
+      },
+      {
+        "id": "DEFINITION_AMBIGUITY",
+        "meaning": "the frozen definition admits two readings that produce different lawful results",
+        "route": "correct only the affected cell; re-IV and re-run that cell"
+      },
+      {
+        "id": "MISSING_M",
+        "meaning": "the fact records an organizational behavior that no frozen M represents",
+        "route": "→ schema review (§M); separately authorized, versioned correction/re-IV path"
+      },
+      {
+        "id": "GRAMMAR_GAP",
+        "meaning": "the §G/§H binding grammar cannot lawfully bind the fact to any M or component",
+        "route": "→ schema review (§M); separately authorized, versioned correction/re-IV path"
+      }
+    ],
+    "eighthOrFifthCategoryPermitted": false,
+    "opportunisticTuningForbidden": true,
+    "repairRoute": "CORR4 §L-4 and §M: disagreement-driven repair is a separately authorized, versioned correction/re-IV path, never opportunistic tuning to selected corpus facts. Only affected cells are corrected, re-IV'd and re-run.",
+    "codersMayCreateM": false,
+    "mNewForbidden": true,
+    "mNewRouting": ["MISSING_M", "GRAMMAR_GAP"]
+  },
+
+  "postCodingCoverageReport": {
+    "note": "CORR4 §L:1041 (Owner Option A). This is a POST-CODING report on which execution paths were actually exercised. It is not a sampling rule and not a pre-hoc quota.",
+    "timing": "AFTER analytical coding; never before or during sampling",
+    "requiredEntries": [
+      {
+        "pathId": "COV-01",
+        "state": "evidenceForm = DE-4",
+        "reportedAs": ["EXERCISED", "COVERAGE_PATH_GAP"]
+      },
+      {
+        "pathId": "COV-02",
+        "state": "planCurrentState = PLAN",
+        "reportedAs": ["EXERCISED", "COVERAGE_PATH_GAP"]
+      },
+      {
+        "pathId": "COV-03",
+        "state": "planCurrentState = CONDITIONAL",
+        "reportedAs": ["EXERCISED", "COVERAGE_PATH_GAP"]
+      },
+      {
+        "pathId": "COV-04",
+        "state": "planCurrentState = ELIGIBILITY_ONLY",
+        "reportedAs": ["EXERCISED", "COVERAGE_PATH_GAP"]
+      }
+    ],
+    "exactlyOneVerdictPerEntry": true,
+    "entryCount": 4,
+    "allFourEntriesMandatory": true,
+
+    "coveragePathGapSemantics": {
+      "meansOnly": "the bounded pilot did not exercise that execution path",
+      "doesNotMean": [
+        "absent from the corpus",
+        "unsupported",
+        "false",
+        "counterevidence",
+        "not characteristic"
+      ],
+      "consequences": {
+        "sampleExpansion": "NONE",
+        "imputation": "NONE",
+        "preClassification": "NONE",
+        "proxy": "NONE",
+        "stage1MetadataMapping": "NONE",
+        "backfillAcrossStrata": "NONE",
+        "negativeInference": "NONE"
+      },
+      "laterExtensionRequiresSeparatelyAuthorizedAct": true,
+      "authority": "CORR4 §L:1041"
+    }
+  },
+
+  "sampleAccountingRequired": {
+    "note": "The fixed pre-coding sample and its realized shortfalls must be reported alongside the measurements.",
+    "fields": [
+      "populationFacts (905)",
+      "populationCases (9)",
+      "populationSides (18)",
+      "maximumPilotTarget (32)",
+      "realizedSelectedCount",
+      "perStratum[13] (d, eligibleIntersectionCount, selectedFactIds[], removedByPriorSelectionCount)",
+      "oneSideOnlyStrata[]",
+      "emptyStrata[]",
+      "nonAnalyticalRequested (6)",
+      "nonAnalyticalRealized",
+      "nonAnalyticalShortfall",
+      "multiDEligibilityRecords[] (factId, eligibleDIds[])"
+    ],
+    "rules": [
+      "sampleIsFixedBeforeAnyCoding",
+      "noCrossDBackfill",
+      "noReplacementFactInvention",
+      "shortfallRecordedNotFilled",
+      "multiDEligibilityRemainsRecordedEvenWhenFactSelectedOnce"
+    ],
+    "authority": "CORR4 §L:1036–§L:1042"
+  },
+
+  "firewallAssertions": {
+    "environmentAgreementMeasured": false,
+    "predictionAccuracyMeasured": false,
+    "outcomeMaterialRead": false,
+    "ecsComputed": false,
+    "successFailureAssessed": false,
+    "coverageGapTriggeredExpansion": false,
+    "fifthDisagreementCategoryCreated": false,
+    "mNewCreated": false
+  }
+}

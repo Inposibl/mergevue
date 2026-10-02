@@ -1,0 +1,629 @@
+{
+  "artifact": "STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json",
+  "act": "POST-10-CALIBRATION-STAGE2-TREE-BOUND-DISCRIMINATOR-AND-MECHANISM-MEASUREMENT-CONTRACT-1.PILOT-VERSION-LOCK-1.CORR1.CORR2.CORR1.CORR2.CORR1",
+  "status": "AUTHOR CORRECTION CANDIDATE — NOT INDEPENDENTLY VERIFIED — NOT OWNER-ACCEPTED",
+  "supersedes": {
+    "artifact": "STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2.json",
+    "sha256": "f5f096a3bc7909de0a90e809cef5a141bef7c5eef17b2e260541f5372caa6d11",
+    "reason": "Single-controlling-execution-view / PI-6 self-resolution closure of IV1-F1 (SPLIT_BRAIN_VIEW_CONTROL). The parent successor correctly carried the repaired required-output inventory (46 CORR4 section I fields + view-schema-only abstention = 47) but its PI-6 slot remained byte-frozen to the superseded grandparent view (STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1.json, 0d08c7e1...), whose closed inventory is the defective 45-section-I-fields + abstention = 46 list without presentationLaneOnly. Two authenticated but incompatible execution surfaces therefore existed. This successor makes the outer controlling view, the PI-6 resolution target, the manifest-authenticated view and the sole coder-deliverable instruction THE SAME artifact, adds the machine-readable executionViewControl declaration, and leaves all superseded coder views historical and non-deliverable. The requiredCodingFields inventory is semantically unchanged (46/1/47). Only successor bookkeeping, the PI-6 self-resolution identity fields, and this declaration changed.",
+    "deltaClass": "EXECUTION CONTROL ONLY — PI-6 self-resolution + executionViewControl declaration; no analytical methodology change; requiredCodingFields inventory preserved exactly; no permittedInput change beyond the PI-6 identity fields"
+  },
+  "contractAuthority": {
+    "contract": "WORKBENCH/DOWNLOADS/STAGE2_SEMANTIC_SUCCESSOR_CANDIDATE_CORR4.md",
+    "sha256": "2de49862fb0d63c5f1cd1745531199137e73b7b37abceecef6e735d497d38bb0",
+    "sections": [
+      "E. EVIDENCE / CONTROL STATE TYPE SYSTEM",
+      "F. LANE SEMANTICS",
+      "G. SOURCE-COMPETENCE RULES",
+      "H. FACT → ORGANIZATIONAL PROPOSITION BINDING GRAMMAR",
+      "I. TRACEABILITY RECORD",
+      "J. NEGATIVE-EVIDENCE RULES",
+      "K. CHARACTERISTICITY RULES",
+      "L. PILOT DESIGN — L-2 (analytical-coder blindness), L-4"
+    ],
+    "note": "The exact CORR4 bytes are unchanged by this correction and remain the sole coding instrument."
+  },
+  "roleSlotsBound": [
+    "ANALYTICAL_CODER_A",
+    "ANALYTICAL_CODER_B"
+  ],
+  "normalizationApplied": "NONE",
+  "permittedInput": {
+    "note": "The complete and exclusive semantic view of an analytical coder. Both coders receive byte-identical shared semantic inputs. Analytical coders are BLIND to stratification.",
+    "fields": [
+      {
+        "slotId": "PI-1",
+        "name": "controllingContractText",
+        "value": "the exact CORR4 bytes",
+        "path": "WORKBENCH/DOWNLOADS/STAGE2_SEMANTIC_SUCCESSOR_CANDIDATE_CORR4.md",
+        "sha256": "2de49862fb0d63c5f1cd1745531199137e73b7b37abceecef6e735d497d38bb0",
+        "authority": "CORR4 §L:1043",
+        "note": "The contract is the coding instrument, not sample information."
+      },
+      {
+        "slotId": "PI-2",
+        "name": "selectedFactRecords",
+        "path": "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_INPUT.jsonl",
+        "sha256": "a87409c3f4c1d7d097443233284bceee1cbed49c59e57a8aeb9eed651ff0c883",
+        "grain": "one record per fact selected into the bounded pilot sample",
+        "recordCount": 30,
+        "fields": [
+          {
+            "name": "factId",
+            "transform": "none"
+          },
+          {
+            "name": "caseId",
+            "transform": "none"
+          },
+          {
+            "name": "sideId",
+            "transform": "none"
+          },
+          {
+            "name": "factText",
+            "transform": "none"
+          }
+        ],
+        "note": "Selection ORDER of the record list must be randomised or sorted by a non-stratum key before disclosure. The list must not be presented grouped by D stratum and must not carry the stratum that caused the selection.",
+        "authority": "CORR4 §L:1043"
+      },
+      {
+        "slotId": "PI-3",
+        "name": "factualProvenanceSidecar",
+        "path": "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_PROVENANCE_SIDECAR_CORR1.jsonl",
+        "sha256": "84ab83d23209eae9f775844502676d462490ca8954f8d7a135d28acf5234d6af",
+        "grain": "exactly one record per blinded identity; exact set equality on (caseId, sideId, factId)",
+        "recordCount": 30,
+        "supplies": [
+          "factualPackageIdentity",
+          "sourceRefs[]",
+          "sourceClass documentary inputs (sourceRefs[].documentaryIdentity)"
+        ],
+        "doesNotSupply": [
+          "sourceClass value",
+          "evidenceForm",
+          "planCurrentState",
+          "formalOperativeState",
+          "scope",
+          "temporal",
+          "characteristicity",
+          "relevanceState",
+          "edgeState",
+          "any M or D assignment",
+          "any stratification or selection information",
+          "any fact text"
+        ],
+        "authority": "CORR4 §I (factualPackageIdentity, sourceRefs[], sourceClass); §H-1; C34 §13.2/§13.3",
+        "note": "Added by CORR1. Machine-derived from the nine sealed Stage-1 packages under the frozen environment-hidden source map. Encodes no analytical interpretation."
+      },
+      {
+        "slotId": "PI-4",
+        "name": "boundedCase34AuthorityPacket",
+        "path": "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_CASE34_BOUNDED_AUTHORITY_CORR1.md",
+        "sha256": "f756a802f6842c203c14142ecb8dc8a49ce6edfb9eec9fea85565b3f1c80b1fd",
+        "scope": "verbatim bounded execution view: CASE-3.4 v1.3 §5, §6, §7, §8, §9, §10, §11, §12, §13, §14, §17",
+        "sourceAuthority": {
+          "path": "docs/reference/root-definitional-v1.7/contract/CASE-3.4_CONTRACT_v1.3.md",
+          "sha256": "dae8143899cd4fb7e406b4b410e9730a6f8bf7853989f3ef9757edeec293ae39"
+        },
+        "supplies": [
+          "DE-1..DE-4 definitions and the DE-4 ceiling",
+          "discriminator instantiation test (7.1..7.7) incl. no hidden completion",
+          "operative rule test",
+          "repeated practice test",
+          "scope / generalization bridge",
+          "temporal relevance / continuity",
+          "interested self-description",
+          "edge/provenance requirements incl. 13.3 membership invariant",
+          "support classes",
+          "documentary-ingress fail-closed research states"
+        ],
+        "doesNotSupply": [
+          "Tree cards",
+          "Environment definitions",
+          "historical Environment assignments",
+          "outcomes",
+          "post-T0 material",
+          "predictions seals"
+        ],
+        "supersessionRule": "THIS PACKET DOES NOT SUPERSEDE CASE-3.4 v1.3; IT IS A BOUNDED EXECUTION VIEW OF THAT EXACT AUTHORITY. Any divergence is resolved in favour of the source bytes and the packet is void.",
+        "authority": "CORR4 §E and §G–§K anchors to C34; §H-1 anchors C34 §13.3"
+      },
+      {
+        "slotId": "PI-5",
+        "name": "pilotResultSchema",
+        "path": "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_RESULT_SCHEMA.json",
+        "sha256": "816f26cc616af20d9f9f54640acb426cbddd7698c1cf1a08c494e5e11674c12c",
+        "note": "Preserved byte-identically. CORR1 §6 executability check found no field-level mismatch: the result schema reports pilot measurements, while the §I coding record shape is specified by exact CORR4 §I. RESULT_SCHEMA_CORRECTION_REQUIRED = NO.",
+        "authority": "CORR4 §L-3, §M"
+      },
+      {
+        "slotId": "PI-6",
+        "name": "correctedAnalyticalCoderViewSchema",
+        "path": "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json",
+        "sha256": "SELF (recorded in STAGE2_CORR4_PILOT_LOCK_CORR1_CORR2_CORR1_CORR2_CORR1_MANIFEST.sha256)",
+        "note": "This document is the sole controlling analytical coder view. Its physical SHA-256 is recorded in STAGE2_CORR4_PILOT_LOCK_CORR1_CORR2_CORR1_CORR2_CORR1_MANIFEST.sha256. All superseded coder-view artifacts are historical dependencies only and MUST NOT be delivered to ANALYTICAL_CODER_A/B as semantic or instructional input; see executionViewControl.",
+        "authority": "POST-10-CALIBRATION-STAGE2-TREE-BOUND-DISCRIMINATOR-AND-MECHANISM-MEASUREMENT-CONTRACT-1.PILOT-VERSION-LOCK-1.CORR1.CORR2.CORR1.CORR2.CORR1"
+      },
+      {
+        "slotId": "PI-7",
+        "name": "sourceClassBinding",
+        "path": "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_SOURCECLASS_BINDING_CORR2.jsonl",
+        "sha256": "3eee72d088f9f72cb95671df14393912659081827719b589cc8a278cddc61591",
+        "grain": "exactly one record per selected-fact sourceRef (caseId, sideId, factId, sourceRefIndex, sourceId); 32 records; exact set bijection with the PI-3 sourceRefs[] universe",
+        "supplies": [
+          "per-sourceRef sourceClassAssignmentState copied verbatim from the final sourceClass surface at segment grain (segmentAssignments[])",
+          "sourceClass where the state is ASSIGNED (sectionIFill)",
+          "fail-closed states OUTSIDE_FROZEN_VOCABULARY / DUPLICATE_IDENTITY_UNRESOLVED / MULTIPLE_CLASS_PREDICATES_SATISFIED / NOT_DETERMINABLE preserved verbatim where present",
+          "final-surface identity metadata: segmentId, canonicalSegmentIdentity, underlyingDocumentIdentity, occurrenceCorrespondence",
+          "the mechanical section I fill derivation per sourceRef (sectionIFill.derivation)"
+        ],
+        "doesNotSupply": [
+          "any fact text or source segment text",
+          "any new or renamed sourceClass value",
+          "any converted fail-closed state",
+          "any fact-level aggregation where several supplying records differ",
+          "any M or D assignment",
+          "any stratification or selection information",
+          "any Environment or outcome material"
+        ],
+        "authority": "SOURCECLASS-SENTENCE-BOUNDARY-EVIDENCE-INTEGRITY-CLOSURE-1.CORR1 — Git-tracked at HEAD 31fd56e7e8df29ab5f7ff854be75453686f37758, IV1 PASS; boundaryModelSha256 9c8011f743a76ca8b1bf94b699b54567d7f510bfb0e678a35f8f690f82a0c501; CORR4 §I sourceClass; §F.3 srcDiv; contract rules R-EDGE / R-COUNT / R-FORM / R-EVID",
+        "note": "Added by CORR2. Byte-identical copy of the final sourceClass assignment surface restricted to the 32 pilot sourceRefs; unit texts, assertions and locator prose of the final surface are NOT carried."
+      }
+    ],
+    "identityRule": "All seven slots are shared semantic inputs and are byte-identical for ANALYTICAL_CODER_A and ANALYTICAL_CODER_B."
+  },
+  "forbiddenInput": {
+    "note": "Each entry is a hard prohibition. No analytical coder may be shown, told, or allowed to infer these.",
+    "stratificationMaterial": [
+      {
+        "name": "stratifier identity (which coder produced any mark)",
+        "reason": "CORR4 §L:1043"
+      },
+      {
+        "name": "stratification marks (per-(fact,D) eligible YES/NO)",
+        "reason": "CORR4 §L:1043 — without stratification marks"
+      },
+      {
+        "name": "NON_ANALYTICAL fact-level marks and the NON_ANALYTICAL control membership",
+        "reason": "CORR4 §L:1043 — without stratification marks"
+      },
+      {
+        "name": "sample D label / stratum of origin for any fact",
+        "reason": "CORR4 §L:1043 — without stratum labels"
+      },
+      {
+        "name": "per-stratum selection order, EMPTY_STRATUM and ONE_SIDE_ONLY records",
+        "reason": "CORR4 §L:1043 — stratum labels"
+      },
+      {
+        "name": "the other stratification coder's marks",
+        "reason": "CORR4 §L:1031, §L:1043"
+      },
+      {
+        "name": "the selected-sample artifact",
+        "reason": "CORR4 §L:1043; contains selectionClass and sample labels"
+      },
+      {
+        "name": "sample selectionClass and the selection canonical hash",
+        "reason": "CORR4 §L:1036–§L:1037; selection information"
+      },
+      {
+        "name": "stratification agreement/disagreement artifacts and their statistics",
+        "reason": "CORR4 §L:1035"
+      }
+    ],
+    "peerMaterial": [
+      {
+        "name": "ANALYTICAL_CODER_B's coding result must not be shown to ANALYTICAL_CODER_A before freeze, and vice versa",
+        "reason": "CORR4 §L:1043 — or each other's conclusions; CORR4 §M dual coding must not be omitted"
+      },
+      {
+        "name": "any agreement statistic or interim reconciliation",
+        "reason": "CORR4 §L:1043"
+      }
+    ],
+    "environmentAndOutcome": [
+      {
+        "name": "Environment information of any kind",
+        "reason": "outcome-hidden pilot; CORR4 §L:1031"
+      },
+      {
+        "name": "any outcome material, prediction seal, post-T0 reconstruction, ECS, success/failure or realized-coverage material",
+        "reason": "outcome-hidden pilot"
+      },
+      {
+        "name": "historical Environment assignments",
+        "reason": "outcome-hidden pilot; AGENTS.md §5.4 design-canon rule"
+      }
+    ],
+    "stage1Metadata": [
+      {
+        "name": "evidenceForm and planCurrentState as supplied inputs",
+        "reason": "CORR4 §L:1031 (Owner Option A) — Stage-2 coding states assigned by §H-6 downstream of sampling; never supplied, inferred or proxied"
+      },
+      {
+        "name": "Stage-1 formal_or_operative / organizational_scope / time_scope / state_at_t0 / domain / source_competence / source_authority_class / use_class as supplied inputs",
+        "reason": "would pre-empt coder-assigned §I states (formalOperativeState, observedScope, temporalState, relevanceState, sourceQualityState); CORR1 §3 STRICT forbids inferring these in the sidecar"
+      },
+      {
+        "name": "Stage-1 excerpt / bounded_passage / direct_quote fields",
+        "reason": "would re-supply source text beyond the frozen fact input; the sidecar carries provenance only"
+      }
+    ]
+  },
+  "discriminatorAssignmentIsNotSampleLeakage": {
+    "statement": "The analytical coder MUST record discriminatorIds[] and treeTargetIds[]. These are derived by the coder from the frozen CORR4 §C dispatch routing and §F routing invariant for the M the coder selected by preciseMeaning. They are NOT the sample's D label and are NOT stratification information.",
+    "lawfulBasis": "CORR4 §C routing invariant (F11): for every linked M, the D route asks exactly the subquestion required to establish that M.",
+    "requirement": "The coder must reach the D route from the selected M, never from a supplied stratum label."
+  },
+  "requiredCodingFields": {
+    "note": "The emitted coding record is the CORR4 §I traceability record. It must carry every field below. No field may be dropped, and no field outside this set may be added. Inventory corrected from the superseded view: presentationLaneOnly added under §F.3/§I with its mechanical rule, and counts made explicit (46 §I + 1 view-schema-only abstention = 47). §I itself is unchanged.",
+    "fieldsFrom": "CORR4 §I (verbatim field list, 46 fields) plus the view-schema-required abstention declaration (1 non-§I output field)",
+    "fieldCount": 47,
+    "resolvedBy": "STAGE2_CORR4_PILOT_ANALYTICAL_FIELD_SOURCE_MATRIX_CORR2.json",
+    "everyFieldExecutable": true,
+    "groups": [
+      {
+        "group": "identity and membership",
+        "fields": [
+          "edgeId",
+          "caseId",
+          "side",
+          "factualPackageIdentity",
+          "factIds[]",
+          "sourceRefs[]",
+          "coderIdentity",
+          "vocabularyVersion",
+          "contractIdentity"
+        ],
+        "authority": "CORR4 §I; §H-1"
+      },
+      {
+        "group": "M selection and D routing",
+        "fields": [
+          "mechanismPropositionIds[]",
+          "mechanismObjectTypes[]",
+          "discriminatorIds[]",
+          "treeTargetIds[]",
+          "relation (SUPPORTS_LEAF|NEGATES_LEAF|COUNTER_M)"
+        ],
+        "authority": "CORR4 §H-2, §H-4, §C routing invariant, §I"
+      },
+      {
+        "group": "component satisfaction",
+        "fields": [
+          "componentSupply[] where each entry = {mechanismPropositionId, componentId, factIds[], relationInstanceId, organizationalObjectRef, linkageEvidence{class ∈ L-1..L-6 | NO_LAWFUL_LINKAGE, identifier}}",
+          "missingComponents[]"
+        ],
+        "authority": "CORR4 §H-3, §H-5, §F.4, §F.4.1, §I"
+      },
+      {
+        "group": "join / relationInstance binding",
+        "fields": [
+          "relationInstanceId",
+          "organizationalObjectRef",
+          "decisionRef",
+          "resourceFlowRef",
+          "participationSystemRef",
+          "beliefSystemRef"
+        ],
+        "authority": "CORR4 §F.4 (J-R1..J-R6), §F.4.1 (L-1..L-6, L-N, LINKAGE_AMBIGUOUS), §I"
+      },
+      {
+        "group": "scope",
+        "fields": [
+          "observedScope",
+          "claimedScope",
+          "scopeBridgeState",
+          "scopeBridgeFactIds[]"
+        ],
+        "allowedValues": {
+          "observedScope": "individual|team|program|unit|enterprise|unspecified",
+          "scopeBridgeState": [
+            "NOT_REQUIRED",
+            "BRIDGED",
+            "UNRESOLVED_FAIL_CLOSED"
+          ]
+        },
+        "authority": "CORR4 §E, §G-9, §I"
+      },
+      {
+        "group": "time",
+        "fields": [
+          "temporalState",
+          "continuityBridgeFactIds[]"
+        ],
+        "allowedValues": {
+          "temporalState": [
+            "PRE_T0_CONTINUITY_NOT_REQUIRED",
+            "PRE_T0_CONTINUITY_BRIDGED",
+            "PRE_T0_CONTINUITY_UNRESOLVED",
+            "POST_T0_EXCLUDED"
+          ]
+        },
+        "authority": "CORR4 §E, §I"
+      },
+      {
+        "group": "characteristicity",
+        "fields": [
+          "characteristicityState",
+          "characteristicityFactIds[]"
+        ],
+        "allowedValues": {
+          "characteristicityState": [
+            "CHARACTERISTIC",
+            "EPISODE_ONLY",
+            "EXCEPTIONAL",
+            "EXPERIMENTAL",
+            "NOT_ADOPTED",
+            "NOT_DETERMINABLE"
+          ]
+        },
+        "authority": "CORR4 §E, §K (K-1..K-6, charGate CH-FRAME / CH-OP / CH-NA), §I"
+      },
+      {
+        "group": "formal / operative",
+        "fields": [
+          "formalOperativeState"
+        ],
+        "allowedValues": {
+          "formalOperativeState": [
+            "FORMAL_ONLY",
+            "OPERATIVE",
+            "FORMAL_PLUS_OPERATIVE",
+            "OPERATIVE_CONTRA_FORMAL",
+            "NOT_APPLICABLE"
+          ]
+        },
+        "authority": "CORR4 §E, §G-2, §G-3, §G-5, §I"
+      },
+      {
+        "group": "plan / current",
+        "fields": [
+          "planCurrentState"
+        ],
+        "allowedValues": {
+          "planCurrentState": [
+            "CURRENT",
+            "PLAN",
+            "CONDITIONAL",
+            "ELIGIBILITY_ONLY",
+            "NOT_DETERMINABLE"
+          ]
+        },
+        "authority": "CORR4 §E, §H-6, §I",
+        "note": "Assigned HERE, post-sampling. This is the state whose pre-sampling use was removed by Owner Option A."
+      },
+      {
+        "group": "evidence form",
+        "fields": [
+          "evidenceForm"
+        ],
+        "allowedValues": {
+          "evidenceForm": [
+            "DE-1",
+            "DE-2",
+            "DE-3",
+            "DE-4"
+          ]
+        },
+        "authority": "CORR4 §E, §H-6, §G-2, §I",
+        "note": "Assigned HERE, post-sampling. DE-4 cannot establish an OP mechanism; it may establish a PRES object or FORMAL_ONLY."
+      },
+      {
+        "group": "source competence and absence",
+        "fields": [
+          "sourceQualityState",
+          "absenceEvidenceState",
+          "sourceClass"
+        ],
+        "allowedValues": {
+          "sourceQualityState": [
+            "COMPETENT",
+            "COMPETENT_SELF_DESCRIPTION_UNCORROBORATED",
+            "NOT_COMPETENT_FOR_PROPOSITION",
+            "CONTENT_INACCESSIBLE"
+          ],
+          "absenceEvidenceState": [
+            "NONE",
+            "COMPETENT_AFFIRMATIVE_ABSENCE",
+            "DOCUMENTARY_SILENCE"
+          ]
+        },
+        "authority": "CORR4 §E, §G-1..§G-9, §J-1..§J-6, §I",
+        "note": "sourceClass value is supplied mechanically by PI-7 per sourceRef; see sourceClassBindingRule. No allowed-value enumeration is added here: the value space remains the CORR4 nine-class qualifying vocabulary plus the final surface's binding states, copied verbatim."
+      },
+      {
+        "group": "relevance and edge state",
+        "fields": [
+          "relevanceState",
+          "edgeState",
+          "supportClass"
+        ],
+        "allowedValues": {
+          "relevanceState": [
+            "ANALYTICAL_MAPPED",
+            "UNMAPPED_OBSERVATION",
+            "NON_ANALYTICAL"
+          ],
+          "edgeState": [
+            "SUPPORTED",
+            "PARTIAL",
+            "CONFLICT",
+            "AMBIGUOUS",
+            "GAP",
+            "COUNTEREVIDENCE",
+            "NOT_DETERMINABLE"
+          ],
+          "supportClass": [
+            "DIRECT_SUPPORT",
+            "DIRECT_CONTRADICTION",
+            "SHARED_NON_UNIQUE",
+            "NON_DISCRIMINATING",
+            "NOT_DETERMINABLE"
+          ]
+        },
+        "authority": "CORR4 §E, §H-2, §H-7, §H-8, §I"
+      },
+      {
+        "group": "UNMAPPED and ambiguity",
+        "fields": [
+          "ambiguity{competing M-ids + resolution state}"
+        ],
+        "allowedValues": {
+          "relevanceState": [
+            "UNMAPPED_OBSERVATION"
+          ],
+          "ambiguityResolution": [
+            "AMBIGUOUS_INTERPRETATION"
+          ]
+        },
+        "authority": "CORR4 §H-2, §F.5 E-R6/E-R7/E-R8, §H-4, §I"
+      },
+      {
+        "group": "sufficiency and conflict",
+        "fields": [
+          "sufficiencyExpression",
+          "sufficiencyExpressionResult",
+          "counterevidenceFactIds[]",
+          "conflictFactIds[]"
+        ],
+        "allowedValues": {
+          "sufficiencyExpressionResult": [
+            "TRUE",
+            "FALSE",
+            "CONFLICTED",
+            "OPEN"
+          ]
+        },
+        "authority": "CORR4 §F.3, §F.5, §I"
+      },
+      {
+        "group": "abstention",
+        "fields": [
+          "abstention"
+        ],
+        "definition": "An explicit coder statement that the required determination cannot lawfully be made from the available records, with the governing reason.",
+        "mandatoryWhen": [
+          "CORR4 §G-7 — heterogeneous channels without a lawful commensurability basis → NOT_DETERMINABLE",
+          "CORR4 §G-8 — inner states are UNOBS",
+          "CORR4 §H-7 — a required component of a kind documents cannot establish",
+          "CORR4 §G-1 — person involved and source inaccessible → NOT_DETERMINABLE rather than silence-as-absence"
+        ],
+        "forbiddenSubstitutes": [
+          "guessing",
+          "majority reasoning",
+          "structural symmetry",
+          "missing-as-negative"
+        ],
+        "authority": "CORR4 §E (NOT_DETERMINABLE), §F.3, §G-7, §G-8, §H-7, §J-3, §K-2"
+      },
+      {
+        "group": "non-expansion",
+        "fields": [
+          "nonExpansionRationale"
+        ],
+        "definition": "one sentence stating what the fact does NOT establish (motive, recurrence, scope, causality, authority not added)",
+        "authority": "CORR4 §H-9"
+      },
+      {
+        "group": "presentation-lane execution control",
+        "fields": [
+          "presentationLaneOnly"
+        ],
+        "allowedValues": {
+          "presentationLaneOnly": [
+            "YES",
+            "NO"
+          ]
+        },
+        "assignmentType": "MECHANICAL",
+        "mechanicalRule": "YES iff treeTargetIds[] contains TT-NFNT-PH-PR; otherwise NO",
+        "authority": "CORR4 §F.3 PRES-LANE NON-CONSUMABILITY; §I"
+      }
+    ],
+    "forbiddenOutputFields": [
+      "score",
+      "probability",
+      "confidence",
+      "weight",
+      "threshold",
+      "environment",
+      "environmentAssignment",
+      "environmentCode",
+      "prediction",
+      "predictionAccuracy",
+      "ecs",
+      "outcome",
+      "realizedOutcome",
+      "success",
+      "failure",
+      "stratificationMark",
+      "stratumLabel",
+      "sampleDLabel",
+      "peerCoderResult"
+    ],
+    "sectionIFieldCount": 46,
+    "viewSchemaOnlyFieldCount": 1
+  },
+  "vocabularyExtension": {
+    "codersMayCreateM": false,
+    "mNewForbidden": true,
+    "route": "CORR4 §M — separate schema-review act → independent review → Owner acceptance → version change",
+    "authority": "CORR4 §L-4, §M"
+  },
+  "roleIsolation": {
+    "ANALYTICAL_CODER_A": {
+      "seesStratificationMaterial": false,
+      "seesPeerOutputBeforeFreeze": false,
+      "seesEnvironmentOrOutcome": false
+    },
+    "ANALYTICAL_CODER_B": {
+      "seesStratificationMaterial": false,
+      "seesPeerOutputBeforeFreeze": false,
+      "seesEnvironmentOrOutcome": false
+    },
+    "dualCodingMustNotBeOmitted": true,
+    "authority": "CORR4 §M"
+  },
+  "firewallAssertions": {
+    "STRATIFIER_IDENTITY_EXPOSED": false,
+    "STRATIFICATION_MARK_EXPOSED": false,
+    "SAMPLE_D_LABEL_EXPOSED": false,
+    "SELECTION_CLASS_EXPOSED": false,
+    "SELECTION_CANONICAL_HASH_EXPOSED": false,
+    "PEER_RESULT_EXPOSED_PRE_FREEZE": false,
+    "ENVIRONMENT_EXPOSED": false,
+    "OUTCOME_EXPOSED": false,
+    "M_NEW_PERMITTED": false,
+    "FACT_TEXT_IN_PROVENANCE_SIDECAR": false,
+    "CORR4_SEMANTICS_CHANGED": false,
+    "RESULT_SCHEMA_CHANGED": false,
+    "SOURCECLASS_RECLASSIFICATION_PERMITTED": false,
+    "SOURCECLASS_FAIL_CLOSED_STATE_CONVERTED": false,
+    "SOURCECLASS_VOCABULARY_EXTENDED": false,
+    "FACT_LEVEL_SOURCECLASS_FLATTENING_PERMITTED": false,
+    "SOURCECLASS_BINDING_MUTATED": false
+  },
+  "sourceClassBindingRule": {
+    "statement": "Section I sourceClass is MECHANICALLY BOUND by PI-7 from the final Git-bound sourceClass closure. For every section I edge consuming a selected-fact sourceRef, the coder copies the binding record's sectionIFill exactly: sourceClass where the state is ASSIGNED, otherwise the fail-closed state verbatim. Reclassification, inference from documentaryIdentity (R-FORM), conversion of a fail-closed state into ASSIGNED, and invention of a fact-level sourceClass where several supplying records differ are all FORBIDDEN.",
+    "multiSourceRefRule": "R-EDGE: one section I edge per class-bearing support record. Where a fact's supplying sourceRefs are lawfully separable class-bearing records carrying different classes, the coder emits separate section I edges, one per support record, each carrying its own singular sourceClass, sharing the same M binding and relationInstanceId. A non-ASSIGNED binding never counts toward srcDiv (R-COUNT PRE-5) and is never converted to ASSIGNED.",
+    "precedenceOverSidecarNote": "PI-3's sourceClassResolution block (NOT_MECHANICALLY_BOUND_BY_STAGE_1 / CODER_JUDGMENT_REQUIRED_UNCHANGED) remains a true statement about Stage-1: Stage-1 does not bind a section I sourceClass value. From this correction onward the sourceClass VALUE is bound mechanically by PI-7; where the two surfaces appear to conflict, PI-7 controls the value and PI-3 controls documentary identity and provenance.",
+    "pilotObservation": "In the frozen pilot surface no multi-sourceRef fact has an ASSIGNED supplying record (both multi-sourceRef facts are all-OUTSIDE_FROZEN_VOCABULARY on every segment), so no edge-spanning separation case arises in this pilot; the rule is stated for mechanical completeness and creates no new semantics.",
+    "authority": [
+      "CORR4 §I sourceClass; §F.3 srcDiv; §F.5 MULTI-EDGE RESOLUTION",
+      "SOURCECLASS-SENTENCE-BOUNDARY-EVIDENCE-INTEGRITY-CLOSURE-1.CORR1 §16 R-EDGE (corr4RecordingCheck: NO_SCHEMA_CHANGE_REQUIRED)",
+      "SOURCECLASS-SENTENCE-BOUNDARY-EVIDENCE-INTEGRITY-CLOSURE-1.CORR1 §17 R-COUNT (PRE-5)",
+      "SOURCECLASS-SENTENCE-BOUNDARY-EVIDENCE-INTEGRITY-CLOSURE-1.CORR1 §16 R-FORM / R-EVID"
+    ]
+  },
+  "executionViewControl": {
+    "controllingViewPath": "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json",
+    "pi6MustResolveToControllingView": true,
+    "deliveryCardinality": "EXACTLY_ONE_CONTROLLING_CODER_VIEW",
+    "supersededCoderViews": "HISTORICAL_ONLY_NOT_DELIVERABLE",
+    "futureCoderRule": "ANALYTICAL_CODER_A and ANALYTICAL_CODER_B must receive this artifact as the sole controlling analytical coder-view instruction. No superseded coder-view artifact may be separately supplied as semantic or instructional input."
+  }
+}
