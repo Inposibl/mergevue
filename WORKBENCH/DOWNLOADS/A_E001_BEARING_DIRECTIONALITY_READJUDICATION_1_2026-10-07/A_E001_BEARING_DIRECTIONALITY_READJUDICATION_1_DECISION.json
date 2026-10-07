@@ -1,0 +1,265 @@
+{
+  "ACT": "A_E001_BEARING_DIRECTIONALITY_READJUDICATION_1",
+  "ROLE": "ANALYST",
+  "actor": "Claude (Opus 5.5)",
+  "date": "2026-10-07",
+  "repository": {
+    "branch": "main",
+    "head": "fcbcf86fbaafe7711caf4ab76d0c8d852f243d5a",
+    "originMain": "fcbcf86fbaafe7711caf4ab76d0c8d852f243d5a",
+    "trackedDiffEmpty": true,
+    "stagedDiffEmpty": true
+  },
+  "STATUS": "READJUDICATED_SELF_VALIDATED",
+  "EDGE": "A-E001",
+  "edgeIdentity": {
+    "caseId": "CASE-3.5",
+    "side": "CHRYSLER",
+    "factId": "C-B04",
+    "mechanismPropositionId": "M-ENFORCE-SANCTION",
+    "treeTargetId": "TT-STJSTP-PW",
+    "relation": "SUPPORTS_LEAF",
+    "evidenceForm": "DE-1",
+    "legacySupportClass": "DIRECT_SUPPORT"
+  },
+  "frozenRecordSource": {
+    "view": "STAGE2_EFFECTIVE_VIEW_MEASUREMENT_CORR1_RECORDS.jsonl",
+    "sha256Prefix": "3737bd5d",
+    "line": 115
+  },
+  "priorWork": {
+    "PREEXISTING_A_E001_DIRECTIONALITY_TRACE": "NONE",
+    "PREEXISTING_A_E001_WITNESS": "NONE",
+    "notes": [
+      "only HOLD-T / 'no trace, no witness' routing statements exist",
+      "SYN-PC2 is a synthetic control, not A-E001",
+      "A-RERUN1-CORR1:C-B04:* historical rerun records are a different coder output and carry no T(r)/W(f)"
+    ]
+  },
+  "stepA_admissionEvaluability": {
+    "admission": "ADMITTED (absent HOLD-T once B-3 is not required)",
+    "AV1": "PASS",
+    "AV2": "PASS",
+    "AV3": "PASS",
+    "AV6": "PASS",
+    "partition": {
+      "c1": "SUPPLIED",
+      "c2": "ORDINARY_MISSING_ASSESSABLE"
+    },
+    "EV1": "PASS",
+    "EV2": "PASS",
+    "EV3": "PASS",
+    "EV4": "PASS (C-4 CI-1 repair executed; no open C-3 on D-06 route)",
+    "bearingEvaluability": "EVALUABLE",
+    "bearingIndeterminacyReasons": null
+  },
+  "B1A_CAP": "NOT_FIRED (evidenceForm DE-1)",
+  "B1B_CAP": "FIRED",
+  "b1bBasis": {
+    "rule": "SEP-B-1b (Class A): edge's only basis is a criterion listed in the TT row's prohib -> NON_DISCRIMINATING; cb08b51e §F.3 l.1157 per-proposition block",
+    "ttProhib": "PR-STJSTP (TT-STJSTP-PW row; TT-STJSTP-PR row l.572-575)",
+    "prohibitedCriterionMatched": "one hard rule (E9/07 §12, card sha256 8d246f0a…)",
+    "basisInventory": {
+      "factIds": [
+        "C-B04"
+      ],
+      "suppliedComponents": [
+        "c1"
+      ],
+      "missingComponentsContributingNothing": [
+        "c2"
+      ],
+      "counterevidenceFactIds": [],
+      "conflictFactIds": [],
+      "scopeBridgeFactIds": []
+    },
+    "match": {
+      "rule": "single rule with attached sanction (blame-pointing -> public embarrassment; non-conformance -> asked to leave)",
+      "hard": "strict punitive rule in the sense of E9/07 §5 strict rules + punishment for defection",
+      "one": "one fact, one rule; no second rule, regime record, strength or resource-control content; counted from evidentiary basis, not scope",
+      "only": "no other bearing content on the edge"
+    },
+    "readingInvariance": [
+      "rule-declaration reading (certified proposition)",
+      "recorded removal reading (legacy entailmentBasis)"
+    ],
+    "notOverReach": [
+      "regime or rule+independent operative record would not be 'only one hard rule'",
+      "never DIRECT_CONTRADICTION; no leaf/target change",
+      "per-proposition: observation stays ANALYTICAL_MAPPED and valid"
+    ],
+    "judgmentClass": "existing PR-basis judgment (A), recorded and contestable (CORR1 §12)"
+  },
+  "recordedPrOnlyBasisForMaterialization": {
+    "ttId": "TT-STJSTP-PW",
+    "prohibId": "PR-STJSTP",
+    "criterion": "one hard rule",
+    "authority": "E9/07 §12 (OWNER-CORR2-STJSTP); cb08b51e §F.3 l.1157; SEP-B-1b",
+    "basisFactIds": [
+      "C-B04"
+    ],
+    "basisComponents": [
+      "c1"
+    ],
+    "adjudicatedBy": "A_E001_BEARING_DIRECTIONALITY_READJUDICATION_1"
+  },
+  "T_R_STATUS": "NOT_REQUIRED",
+  "T_R_IDENTITY": null,
+  "W_F_REQUIRED": "NO",
+  "W_F_STATUS": "NOT_REQUIRED",
+  "W_F_IDENTITY": null,
+  "comparatorUniverseRecomputed": {
+    "registry": "cb08b51e1c2fbaec7765989a7a4e15db1788c53eb5fec43f2628ecb88c1d6c73",
+    "registryMCount": 74,
+    "singleEnvironmentAll": true,
+    "CmpM": [
+      "M-INSIDER-OUTSIDER-RULE-ASYMMETRY",
+      "M-RULE-EXEMPT-UPPER"
+    ],
+    "equalsCensusTable": true,
+    "usedForTrace": false
+  },
+  "BEARING_EVALUABILITY": "EVALUABLE",
+  "SUPPORT_BEARING": "NON_DISCRIMINATING",
+  "UNIQUENESS_BASIS": null,
+  "HOLD_CODE": null,
+  "SUCCESSOR_TRIPLE": [
+    "EVALUABLE",
+    null,
+    "NON_DISCRIMINATING"
+  ],
+  "migrationProjection": {
+    "rule": "SEP-MIG-6a",
+    "machineryLabel": "MECHANICAL_VALUE_CHANGE",
+    "note": "mechanical given the recorded prOnlyBasis input, which is this act's B-1b judgment; ledger must cite this act"
+  },
+  "A_E001_BEARING_ADJUDICATED": "YES",
+  "A_E001_SCOPE_ADJUDICATED": "YES",
+  "A_E001_ADJUDICATED": "YES (author-level; not independently verified; not Owner-accepted)",
+  "REQUIRES_READJUDICATION": "NO",
+  "conditionalDependency": "D-1: bearing rests on frozen partition supplied [c1] / missing [c2]; if an authorized act later changes c2, recompute bearing (B-1b re-test not adjudicated here)",
+  "advisories": [
+    "ADV-1: CORR10 b1b_cap_fires checks only truthiness of prOnlyBasis, not PR membership in the TT prohib (post-release watch; not acted on)"
+  ],
+  "ENTERPRISE_SCOPE_ESTABLISHED": "NO",
+  "SCOPE_BRIDGE_STATE": "UNRESOLVED_FAIL_CLOSED",
+  "NO_UPWARD_PROMOTION": "YES",
+  "LOCAL_EVIDENCE_VALID": "YES",
+  "FUTURE_MULTISCALE_RELEVANCE": "PRESERVED_NOT_EXECUTED",
+  "METHODOLOGY_CHANGED": "NO",
+  "ENVIRONMENT_CHANGED": "NO",
+  "F0024_CHANGED": "NO",
+  "FINAL_EFFECTIVE_VIEW_ASSEMBLED": "NO",
+  "FINAL_REGRESSION_EXECUTED": "NO",
+  "INDEPENDENTLY_VERIFIED": "NO",
+  "OWNER_ACCEPTED": "NO",
+  "GIT_MUTATION": "NO",
+  "COMMIT": "NONE",
+  "PUSH": "NONE",
+  "machineryReplay": {
+    "builderSha256": "4fabec820660e9399ece1314142e5bdc99a3196c9794fa71a3dc5ddb80551cc9",
+    "mode": "in-memory import of byte-identical external copy; bytecode disabled",
+    "workbenchDigestBeforeAfter": "a8c68dee56f982ff31ad5565f7abd5e3d46ba426bece58e55cf0868a3103fd25 (identical)",
+    "harnessSha256": "e35ff113d6edb85363ba29dadabf5bd28e1af523bd2289bcf826503dfc8ecda5",
+    "harnessSource": "import sys, json, copy, importlib.util, hashlib\nsys.dont_write_bytecode=True\nD=sys.argv[1]\nspec=importlib.util.spec_from_file_location(\"b\",\"/private/tmp/ae001bear/builder_copy.py\"); b=importlib.util.module_from_spec(spec); spec.loader.exec_module(b)\nmb=open(D+\"/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md\",\"rb\").read()\nreg=b.parse_registry(mb.decode()); sha=b.registry_identity(mb)\nprint(\"registry\",sha[:16], \"Ms\",len(reg[\"m\"]))\ndef rec_from(p):\n    for l in open(p):\n        r=json.loads(l)\n        if r.get(\"recordType\")==\"SECTION_I_RECORD\" and r.get(\"edgeId\")==\"A-E001\": return r\nviews={\"predecessor_a1fcae68\":D+\"/STAGE2_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_2026-10-05/STAGE2_EFFECTIVE_VIEW_ASSEMBLY_1_RECORDS.jsonl\",\n       \"measurement_3737bd5d\":D+\"/STAGE2_FINAL_MEASUREMENT_REGRESSION_1_CORRECTION_1_2026-10-05/STAGE2_EFFECTIVE_VIEW_MEASUREMENT_CORR1_RECORDS.jsonl\"}\nkeys=(\"admission\",\"holdCode\",\"holdReasons\",\"partition\",\"failingGates\",\"bearingEvaluability\",\"bearingIndeterminacyReasons\",\"supportBearing\",\"pipelineState\",\"uniquenessBasis\",\"capFired\",\"b3RecordVerdict\")\nres={}\nfor name,p in views.items():\n    r=rec_from(p)\n    ctx={\"traces\":{},\"witness\":{},\"coderOutput\":{}}\n    o0=b.evaluate(copy.deepcopy(r),reg,ctx,registry_sha=sha)\n    r1=copy.deepcopy(r); r1[\"prOnlyBasis\"]={\"prohib\":\"PR-STJSTP\",\"criterion\":\"one hard rule\"}\n    o1=b.evaluate(r1,reg,ctx,registry_sha=sha)\n    m1=b.migration_classify(r1,o1,reg)\n    res[name]={\"asFrozen\":{k:o0.get(k) for k in keys},\"withB1bInput\":{k:o1.get(k) for k in keys},\"migrationWithB1b\":{k:m1.get(k) for k in (\"migrationRuleId\",\"projectionClass\",\"successorTriple\",\"holdCode\")}}\nprint(json.dumps(res,indent=1,default=str))\njson.dump(res,open(\"/private/tmp/ae001bear/harness_out.json\",\"w\"),indent=1,default=str)\n",
+    "results": {
+      "predecessor_a1fcae68": {
+        "asFrozen": {
+          "admission": "HELD",
+          "holdCode": "HOLD-T",
+          "holdReasons": [
+            "SEP-AV-4: directionality trace incomplete (T-closure): SEP-AV-4: T(r) absent for (A-E001, TT-STJSTP-PW)"
+          ],
+          "partition": {
+            "c1": "SUPPLIED",
+            "c2": "ORDINARY_MISSING_ASSESSABLE"
+          },
+          "failingGates": [],
+          "bearingEvaluability": "EVALUABLE",
+          "bearingIndeterminacyReasons": null,
+          "supportBearing": null,
+          "pipelineState": null,
+          "uniquenessBasis": null,
+          "capFired": null,
+          "b3RecordVerdict": "INCOMPLETE"
+        },
+        "withB1bInput": {
+          "admission": "ADMITTED",
+          "holdCode": null,
+          "holdReasons": [],
+          "partition": {
+            "c1": "SUPPLIED",
+            "c2": "ORDINARY_MISSING_ASSESSABLE"
+          },
+          "failingGates": [],
+          "bearingEvaluability": "EVALUABLE",
+          "bearingIndeterminacyReasons": null,
+          "supportBearing": "NON_DISCRIMINATING",
+          "pipelineState": null,
+          "uniquenessBasis": null,
+          "capFired": "B-1b",
+          "b3RecordVerdict": null
+        },
+        "migrationWithB1b": {
+          "migrationRuleId": "SEP-MIG-6a",
+          "projectionClass": "MECHANICAL_VALUE_CHANGE",
+          "successorTriple": [
+            "EVALUABLE",
+            null,
+            "NON_DISCRIMINATING"
+          ],
+          "holdCode": null
+        }
+      },
+      "measurement_3737bd5d": {
+        "asFrozen": {
+          "admission": "HELD",
+          "holdCode": "HOLD-T",
+          "holdReasons": [
+            "SEP-AV-4: directionality trace incomplete (T-closure): SEP-AV-4: T(r) absent for (A-E001, TT-STJSTP-PW)"
+          ],
+          "partition": {
+            "c1": "SUPPLIED",
+            "c2": "ORDINARY_MISSING_ASSESSABLE"
+          },
+          "failingGates": [],
+          "bearingEvaluability": "EVALUABLE",
+          "bearingIndeterminacyReasons": null,
+          "supportBearing": null,
+          "pipelineState": null,
+          "uniquenessBasis": null,
+          "capFired": null,
+          "b3RecordVerdict": "INCOMPLETE"
+        },
+        "withB1bInput": {
+          "admission": "ADMITTED",
+          "holdCode": null,
+          "holdReasons": [],
+          "partition": {
+            "c1": "SUPPLIED",
+            "c2": "ORDINARY_MISSING_ASSESSABLE"
+          },
+          "failingGates": [],
+          "bearingEvaluability": "EVALUABLE",
+          "bearingIndeterminacyReasons": null,
+          "supportBearing": "NON_DISCRIMINATING",
+          "pipelineState": null,
+          "uniquenessBasis": null,
+          "capFired": "B-1b",
+          "b3RecordVerdict": null
+        },
+        "migrationWithB1b": {
+          "migrationRuleId": "SEP-MIG-6a",
+          "projectionClass": "MECHANICAL_VALUE_CHANGE",
+          "successorTriple": [
+            "EVALUABLE",
+            null,
+            "NON_DISCRIMINATING"
+          ],
+          "holdCode": null
+        }
+      }
+    }
+  },
+  "authorshipDisclosure": "Claude authored the separation methodology candidates, Final Regression CORR1, the scope act and this act; combined disposition requires a non-Claude AUDITOR before Owner acceptance or materialization."
+}

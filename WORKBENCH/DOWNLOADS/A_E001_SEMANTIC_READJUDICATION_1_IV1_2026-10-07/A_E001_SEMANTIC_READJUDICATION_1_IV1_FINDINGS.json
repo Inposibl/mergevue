@@ -1,0 +1,300 @@
+{
+  "act": "A_E001_SEMANTIC_READJUDICATION_1.IV1",
+  "actor": "CODEX SOL",
+  "role": "AUDITOR",
+  "date": "2026-10-07",
+  "mode": "INDEPENDENT NON-CLAUDE READ-ONLY SEMANTIC AUDIT",
+  "verdict": "PASS",
+  "requiredFindingsMatrix": {
+    "SCOPE_CANDIDATE_IDENTITY": "PASS",
+    "BEARING_CANDIDATE_IDENTITY": "PASS",
+    "INDEPENDENCE": "PASS",
+    "CERTIFIED_SCOPE": "LH program team ONLY",
+    "SCOPE_AUTHOR_CONCLUSION": "PASS",
+    "ENTERPRISE_BRIDGE": "NOT_FOUND",
+    "SCOPE_FAIL_CLOSED": "PASS",
+    "B1B_AUTHORITY": "PASS",
+    "TT_PROHIB_MEMBERSHIP": "PASS",
+    "ONE": "PASS",
+    "HARD": "PASS",
+    "RULE": "PASS",
+    "ONLY_BASIS": "PASS",
+    "EDGE_BASIS_EXHAUSTIVE": "YES",
+    "B1B_CAP": "FIRES",
+    "T_R_REQUIRED": "NO",
+    "W_F_REQUIRED": "NO",
+    "BEARING_EVALUABILITY": "EVALUABLE",
+    "SUPPORT_BEARING": "NON_DISCRIMINATING",
+    "HOLD_CODE": null,
+    "SUCCESSOR_TRIPLE": [
+      "EVALUABLE",
+      null,
+      "NON_DISCRIMINATING"
+    ],
+    "A_E001_SCOPE_ADJUDICATION_VERIFIED": "YES",
+    "A_E001_BEARING_ADJUDICATION_VERIFIED": "YES",
+    "A_E001_COMBINED_DISPOSITION_VERIFIED": "YES",
+    "CURRENT_EXACT_CANDIDATE_DEFECT": "NO",
+    "ENVIRONMENT_CHANGED": "NO",
+    "GIT_MUTATION": "NO",
+    "ENTERPRISE_SCOPE_ESTABLISHED": "NO",
+    "LAWFUL_SCOPE_BRIDGE_FOUND": "NO",
+    "NO_UPWARD_PROMOTION": "YES",
+    "ONE_HARD_RULE_JUDGMENT": "PASS",
+    "SCOPE_BRIDGE_STATE": "UNRESOLVED_FAIL_CLOSED",
+    "OWNER_ACCEPTED": "NO",
+    "GIT_CLOSED": "NO",
+    "FINAL_EFFECTIVE_VIEW_ASSEMBLED": "NO",
+    "FINAL_REGRESSION_EXECUTED": "NO"
+  },
+  "severityCounts": {
+    "BLOCKING": 0,
+    "CRITICAL": 0,
+    "MAJOR": 0,
+    "MINOR": 0,
+    "ADVISORY": 5
+  },
+  "candidateIdentities": [
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/A_E001_SCOPE_DISPOSITION_READJUDICATION_1_2026-10-07/A_E001_SCOPE_DISPOSITION_READJUDICATION_1_REPORT.md",
+      "sha256": "9c79e38480406e30b99cc11fb6b0e78b0b907994a320d76d74ce807898501fcb",
+      "bytes": 22295
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/A_E001_SCOPE_DISPOSITION_READJUDICATION_1_2026-10-07/A_E001_SCOPE_DISPOSITION_READJUDICATION_1_DECISION.json",
+      "sha256": "b390038365f0d8e6e637feac22db801f68874dd1bc78df706adada1f20afd02c",
+      "bytes": 7482
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/A_E001_SCOPE_DISPOSITION_READJUDICATION_1_2026-10-07/A_E001_SCOPE_DISPOSITION_READJUDICATION_1_MANIFEST.json",
+      "sha256": "1ac315f02f53c092224ba6900567bb7d1616b23b883078a3b1ce1985337a83f8",
+      "bytes": 5505
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/A_E001_BEARING_DIRECTIONALITY_READJUDICATION_1_2026-10-07/A_E001_BEARING_DIRECTIONALITY_READJUDICATION_1_REPORT.md",
+      "sha256": "3bbdcebb69c8271f2e4a4e40e20cc8c7032d581cffacaacd305fd9b3c26d59f2",
+      "bytes": 16478
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/A_E001_BEARING_DIRECTIONALITY_READJUDICATION_1_2026-10-07/A_E001_BEARING_DIRECTIONALITY_READJUDICATION_1_DECISION.json",
+      "sha256": "e7624316fb7b38711220318d78d5a5180fb4a3e6d70543f507675eb1b09a67b8",
+      "bytes": 11468
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/A_E001_BEARING_DIRECTIONALITY_READJUDICATION_1_2026-10-07/A_E001_BEARING_DIRECTIONALITY_READJUDICATION_1_MANIFEST.json",
+      "sha256": "b7e349c4da51e3128c0bd314fa9853be9904cac630c0e647858ffb4c552f50a3",
+      "bytes": 5753
+    }
+  ],
+  "edgeIdentity": {
+    "edgeId": "A-E001",
+    "caseId": "CASE-3.5",
+    "side": "CHRYSLER",
+    "factId": "C-B04",
+    "mechanismPropositionId": "M-ENFORCE-SANCTION",
+    "treeTargetId": "TT-STJSTP-PW",
+    "relation": "SUPPORTS_LEAF",
+    "evidenceForm": "DE-1",
+    "legacySupportClass": "DIRECT_SUPPORT"
+  },
+  "certifiedProposition": "LH program management established a rule that anyone pointing a finger of blame at a fellow team member would be called in front of the entire team and publicly embarrassed, and members who did not conform were asked to leave.",
+  "edgeBasis": {
+    "factIds": [
+      "C-B04"
+    ],
+    "sourceIds": [
+      "C33-S01"
+    ],
+    "suppliedComponents": [
+      {
+        "M": "M-ENFORCE-SANCTION",
+        "componentId": "c1",
+        "meaning": "declared sanction rule/regime for defection",
+        "basis": "LH management anti-blame rule: public embarrassment; removal for continuing nonconformity",
+        "legacyEntailmentBasis": "Removal of non-conforming team members satisfies sanction enforcement definition"
+      }
+    ],
+    "missingComponents": [
+      "c2"
+    ],
+    "requiredComponents": [
+      "c1",
+      "c2"
+    ],
+    "counterevidenceFactIds": [],
+    "conflictFactIds": [],
+    "scopeBridgeFactIds": [],
+    "continuityBridgeFactIds": [],
+    "characteristicityFactIds": [
+      "C-B04"
+    ],
+    "relationInstanceId": "REL-C-B04-SANCTION-01",
+    "decisionRef": "DEC-C-B04-SANCTION-REMOVAL",
+    "resourceFlowRef": null,
+    "participationSystemRef": null,
+    "beliefSystemRef": null,
+    "extraPositiveBearingBasisFound": false
+  },
+  "bridgeCensus": {
+    "universe": "All 43 admitted CASE-3.5 facts, including all 21 Chrysler facts and their certified excerpts; BASELINE_FACT_PACK facts identical to CERTIFIED_FACT_REGISTER admittedFacts. Opposite-side facts cannot bridge Chrysler. No new fact acquisition.",
+    "enterpriseRuleAcrossPortfolio": false,
+    "sameMechanismAdoptionAcrossUnits": false,
+    "enterpriseStandardPlusImplementation": false,
+    "repeatedMultiUnitCommonMechanism": false,
+    "otherInstitutionalBridge": false,
+    "CN09": "Platform-team organization and collaboration do not entail export of LH anti-blame sanctions. Exactly the named unlawful C34 section 10 bridge.",
+    "otherPlausibleCandidates": {
+      "C-B01": "Local consensus episode, pilot exception; no enterprise sanctions",
+      "C-B02": "Local prototype/manufacturing invitation; no sanctions or adoption",
+      "C-B03": "Another program's customer clinics, different mechanism",
+      "C-N04": "Single-plant strike, no anti-blame sanction regime",
+      "C-N10/C-N11": "Executive titles, no mechanism adoption",
+      "C-N12/C-N13": "Board activity and committee governance, no LH sanction policy",
+      "C-N14": "Supplier procurement statement, no sanction linkage",
+      "C-N01..03/C-N05..08/C-N15..17": "Results, identity, location, workforce magnitudes; no adoption mechanism"
+    },
+    "adverseScopeEvidence": [
+      "C-B04 SOURCE_EXPLICITLY_NOTES_EXCEPTIONAL_PILOT_TACTIC",
+      "C-B01 PILOT_EXCEPTION_TO_CORPORATE_NORM_RECORDED",
+      "CANONICAL_BASELINE_MANIFEST CONTRA-002-C-B01-B04",
+      "C33-S01 preserved paragraph: hard-nosed tactics were the exception; supportive environment and consensus context"
+    ]
+  },
+  "authority": {
+    "registrySha256": "cb08b51e1c2fbaec7765989a7a4e15db1788c53eb5fec43f2628ecb88c1d6c73",
+    "tt": "TT-STJSTP-PW",
+    "prohib": "PR-STJSTP",
+    "prohibitionSource": "E9/07 section 12, accepted card sha256 8d246f0a7a89b294be0411ad97af9df168fdf3902c7ab779f3616f104df2d1e1",
+    "primaryOwnerAuthorityMembers": [
+      {
+        "carrier": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/DOWNLOADS/CODEX_SOL_E9_CORR2_FINAL_OWNER_INTEGRATION_BUNDLE.zip",
+        "member": "CODEX_SOL_E9_CORR2_FINAL_OWNER_INTEGRATION_BUNDLE/02_OWNER_AUTHORITY/FINAL_OWNER_AUTHORITY_RECORD_E9_CORR2.md",
+        "sha256": "c21795a2069b58bbfe8dd2a7492732ce69a090411a7b1a6124328a068e653354",
+        "bytes": 31087
+      },
+      {
+        "carrier": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/DOWNLOADS/DEEPSEEK_E9_CORR2_IV1_SUPPORTING_AUTHORITY_BUNDLE.zip",
+        "member": "DEEPSEEK_E9_CORR2_IV1_SUPPORTING_AUTHORITY_BUNDLE/01_OWNER_AUTHORITY/FINAL_OWNER_AUTHORITY_RECORD_E9_CORR2.md",
+        "sha256": "c21795a2069b58bbfe8dd2a7492732ce69a090411a7b1a6124328a068e653354",
+        "bytes": 31087
+      }
+    ],
+    "bearingBasisRule": "Separation CORR1 section 9.1, incorporated by final candidate section 4",
+    "capRule": "SEP-B-1b; CORR1 section 9.2; registry section F.3 line 1157",
+    "ordering": "CORR1 sections 9.3 and 12; final candidate section 10; methodology successor section 5.1"
+  },
+  "migration": {
+    "rule": "SEP-MIG-6a",
+    "classification": "MECHANICAL_VALUE_CHANGE conditional on separately established and recorded PR-basis judgment",
+    "semanticJudgmentIsMechanical": false,
+    "legacyArtifactsMutated": false
+  },
+  "admissionEvaluability": {
+    "EV0": "APPLIES",
+    "AV1": "PASS",
+    "AV2": "PASS",
+    "AV3": "PASS",
+    "AV6": "PASS",
+    "EV1": "PASS",
+    "EV2": "PASS",
+    "EV3": "PASS",
+    "EV4": "PASS",
+    "B1a": "DOES_NOT_FIRE; DE-1",
+    "B1b": "FIRES",
+    "B3": "NOT_REACHED",
+    "AV4": "NOT_APPLICABLE after lawful cap",
+    "AV5": "NOT_APPLICABLE; no directional SUPPORTS_LEAF output"
+  },
+  "findings": [
+    {
+      "id": "ADV-01",
+      "severity": "ADVISORY",
+      "classification": "SOURCE_FACT",
+      "title": "B-1b helper trusts truthiness",
+      "evidence": "CORR10 SUCCESSOR_VIEW_BUILDER.py:1319-1320",
+      "detail": "b1b_cap_fires returns bool(record.get(\"prOnlyBasis\")); it does not receive the registry and does not validate TT/PR/criterion membership. The exact current decision binds TT-STJSTP-PW -> PR-STJSTP -> one hard rule correctly, independently established. No hypothetical mutation tests were run.",
+      "disposition": "QA_BACKLOG; nonblocking under the Owner current-candidate threshold"
+    },
+    {
+      "id": "ADV-02",
+      "severity": "ADVISORY",
+      "classification": "SOURCE_FACT",
+      "title": "Inherited scope overstatement is preserved, not endorsed",
+      "evidence": "CERTIFIED_FACT_REGISTER C-B04; predecessor line 115; measurement line 115",
+      "detail": "observedScope=unit, the legacy platform-team paraphrase and organizationalObjectRef are broader than the certified LH program team ONLY. Both candidates disclose this. Team and unit are below enterprise; fail-closed disposition is unchanged. Local preservation means the certified LH observation, never evidence across all platform teams.",
+      "disposition": "No repair; relevant before any separately authorized scoped-domain use"
+    },
+    {
+      "id": "ADV-03",
+      "severity": "ADVISORY",
+      "classification": "SOURCE_FACT_AND_BOUNDARY",
+      "title": "Applied-instance content and historical c2 supply remain visible",
+      "evidence": "C-B04 excerpt and gateA; historical FUTURE_OUTPUT_A row, sha256 0aeb8fceb2dce7bd0ec82bb3f08985a42a89ca91b519ec63aee689f0f55d91bd",
+      "detail": "Public rebukes and removals are actual reported applications, not just proposed sanctions. A historical alternate row supplied c1 and c2; it is a different input view and does not override the current Owner-frozen [c1]/[c2] partition. The audit does not decide c2 entailment. Any authorized change to that partition requires a new bearing evaluation.",
+      "disposition": "No c2 correction or new semantic adjudication; PASS bounded to the frozen input"
+    },
+    {
+      "id": "ADV-04",
+      "severity": "ADVISORY",
+      "classification": "SOURCE_FACT",
+      "title": "Establishment metadata is not independently cleared by bearing PASS",
+      "evidence": "Measurement line 115; C-B04 contradictionState; C34 sections 9-11",
+      "detail": "CHARACTERISTIC remains beside an exceptional-pilot annotation; PRE_T0_CONTINUITY_UNRESOLVED remains recorded. They were inspected for bearing-basis exhaustiveness and scope, not corrected or verified as establishment approvals. Scope and continuity still prevent enterprise establishment.",
+      "disposition": "Retain as out-of-scope establishment limitations"
+    },
+    {
+      "id": "ADV-05",
+      "severity": "ADVISORY",
+      "classification": "AUTHORITY_LIMITATION",
+      "title": "Do not generalize the author exception explanation",
+      "evidence": "Bearing report section 6.5 and decision b1bBasis.notOverReach; registry M-ENFORCE-SANCTION c2",
+      "detail": "Accepted methodology does not make an independent second document a prerequisite for operative capacity, nor does it say that a second document automatically defeats the one-rule prohibition. The report's broader regime/rule-plus-independent-record explanation is not adopted as a new general rule. It is unnecessary to the exact c1-only disposition.",
+      "disposition": "Interpretive narrowing only; no methodology or candidate edits"
+    }
+  ],
+  "blockingFindings": [],
+  "independenceDisclosure": "Current auditor authored neither author candidate nor the deciding PR-basis judgment. Earlier Codex-labelled methodology/integration artifacts were applied as fixed inputs, not audited as this auditor's work. Author reasoning and CORR10 outputs were not semantic premises. A broad authority search returned some author snippets before full package comparison; those snippets were not used to establish the independent conclusions.",
+  "validationPerformed": [
+    "Read-only root/branch/HEAD/origin/main/tracked/staged preflight",
+    "Independent SHA-256 of six exact candidate artifacts and all 33 manifest input entries across both packages",
+    "All 17 E9 checksum members verified",
+    "Stage-1 terminal manifest identity and governance sidecars verified; binding history inspected",
+    "Frozen 43-fact inventory and Chrysler excerpts inspected; register equals fact pack",
+    "Both effective-view line 115 records and execution cells 107/108 inspected; historical c1+c2 variant identified separately",
+    "Exact methodology, TT, PR, M component, admission/EV and ordered bearing rules independently read",
+    "Static inspection of CORR10 helper and return ordering; no builder execution"
+  ],
+  "notPerformed": [
+    "External research",
+    "Semantic corrections",
+    "c2 entailment adjudication",
+    "New evidence acquisition",
+    "Environment determination or ranking",
+    "HEDC/Rule Freeze/historical replay/Pair/ECS/friction",
+    "Final effective-view assembly",
+    "Final Stage-2 Regression",
+    "Builder/validator/test execution",
+    "Git mutation/commit/push"
+  ],
+  "governanceAfterAudit": {
+    "SCOPE_ADJUDICATED": "YES",
+    "BEARING_ADJUDICATED": "YES",
+    "READJUDICATED": "YES",
+    "INDEPENDENTLY_VERIFIED": "YES",
+    "OWNER_ACCEPTED": "NO",
+    "GIT_CLOSED": "NO",
+    "FINAL_EFFECTIVE_VIEW_ASSEMBLED": "NO",
+    "FINAL_STAGE2_REGRESSION_COMPLETE": "NO",
+    "HEDC_READY": "NOT_CLAIMED"
+  },
+  "repository": {
+    "root": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)",
+    "branch": "main",
+    "head": "fcbcf86fbaafe7711caf4ab76d0c8d852f243d5a",
+    "originMain": "fcbcf86fbaafe7711caf4ab76d0c8d852f243d5a",
+    "trackedDiffEmpty": true,
+    "stagedDiffEmpty": true,
+    "preexistingUntrackedPreserved": true
+  },
+  "causalityClaimLimit": "Independent semantic proof of the exact combined candidate under frozen inputs. No production reachability, runtime authority, deployment, or generalized c2-inclusive bearing claim."
+}

@@ -1,0 +1,159 @@
+{
+  "act": "A_E001_SCOPE_DISPOSITION_READJUDICATION_1",
+  "actor": "Claude (Opus 5.5)",
+  "role": "ANALYST",
+  "date": "2026-10-07",
+  "repository": {
+    "branch": "main",
+    "head": "fcbcf86fbaafe7711caf4ab76d0c8d852f243d5a",
+    "originMain": "fcbcf86fbaafe7711caf4ab76d0c8d852f243d5a",
+    "trackedDiffEmpty": true,
+    "stagedDiffEmpty": true
+  },
+  "edge": {
+    "edgeId": "A-E001",
+    "caseId": "CASE-3.5",
+    "side": "CHRYSLER",
+    "factId": "C-B04",
+    "mechanismPropositionId": "M-ENFORCE-SANCTION",
+    "treeTargetId": "TT-STJSTP-PW",
+    "evidenceForm": "DE-1"
+  },
+  "outcome": "A",
+  "outcomeAxis": "SCOPE",
+  "analysisTerminalState": "PASS",
+  "decisionGapOutcomeB": "DOES_NOT_EXIST",
+  "answers": {
+    "Q1": {
+      "LAWFULLY_ESTABLISHED_SCOPE": "LH program team only",
+      "basis": "CERTIFIED_FACT_REGISTER.json C-B04 field scope = 'LH program team ONLY'; certified proposition names LH program management",
+      "recordedObservedScope": "unit",
+      "recordedObservedScopeModified": false,
+      "dispositionInvariantToTeamVsUnit": true,
+      "paraphraseBroaderThanCertifiedFact": true
+    },
+    "Q2": {
+      "REQUIRED_COMPONENTS": ["c1", "c2"],
+      "SUPPLIED_COMPONENTS": ["c1"],
+      "MISSING_COMPONENTS": ["c2"],
+      "c1": {
+        "positivelyEstablishedAtLawfulScope": true,
+        "basis": "certified proposition: LH program management established a sanction rule for non-conformity (registry c1: declared sanction rule/regime for defection)"
+      },
+      "c2": {
+        "positivelyEstablishedForThisAct": false,
+        "recordedStatus": "MISSING (REG-004 recorded-supply complement)",
+        "entailmentAdjudicated": false,
+        "negativeEvidence": false,
+        "inferred": false,
+        "materialToThisAct": false,
+        "note": "certified text contains applied-instance wording; H-3 entailment unadjudicated (OOS-1); not inferred per Owner instruction"
+      }
+    },
+    "Q3": {
+      "CLAIMED_SCOPE": "enterprise",
+      "ENTERPRISE_SCOPE_ESTABLISHED": "NO",
+      "LAWFUL_SCOPE_BRIDGE_FOUND": "NO",
+      "scopeBridgeFactIds": [],
+      "c34Section10BridgeClassesPresent": [],
+      "namedUnlawfulBridgesMatched": [
+        "one successful team -> whole company",
+        "platform-team structure became standard -> every behavioral mechanism observed in the original pilot became enterprise practice (C-N09)"
+      ],
+      "adverseScopeEvidenceRetained": [
+        "C-B04 contradictionState SOURCE_EXPLICITLY_NOTES_EXCEPTIONAL_PILOT_TACTIC",
+        "C-B01 contradictionState PILOT_EXCEPTION_TO_CORPORATE_NORM_RECORDED"
+      ]
+    },
+    "Q4": {
+      "CURRENT_METHODOLOGY_HAS_TERMINAL_SCOPE_LIMITED_STATE": "YES",
+      "axis": "SCOPE / ESTABLISHMENT",
+      "exactVocabulary": {
+        "scopeBridgeState": "UNRESOLVED_FAIL_CLOSED",
+        "disposition": "FAIL CLOSED AT CLAIMED SCOPE; the observation is kept at observedScope",
+        "nonMeaning": "UNRESOLVED != counterevidence; the observation stays valid at observedScope",
+        "researchLabel": "SCOPE_BRIDGE_UNRESOLVED",
+        "leafValue": "OPEN",
+        "targetLevelConsequence": "TARGET_NOT_ESTABLISHED_WITHIN_BOUND (epistemic, never ontological; FW-4)"
+      },
+      "authorities": [
+        "C34 v1.3 §10, §17",
+        "STAGE2 CORR3/CORR4 A.8 SC-CLAIM",
+        "STAGE2 CORR3/CORR4 §E scopeBridgeState row",
+        "STAGE2 CORR3/CORR4 §F.3 leafTrue scope conjunct; §F.5 E-R4",
+        "STAGE2 CORR3/CORR4 §S S-2, S-R6",
+        "REG-005 (Codex IV1 PASS)"
+      ],
+      "terminalWithinCurrentEvidenceBound": true,
+      "closesBearingHold": false,
+      "whyNotBearing": [
+        "scope is not in EV_INPUT_SIGNATURE; B-1a/B-1b/B-3/SEP-U read no scope field (separation successor §4, §5; SEP-I-9/I-10)",
+        "accepted candidate l.511: scope is an establishment matter owned by §F.3",
+        "SEP-I-3 / SEP-FW-27: null bearing on EVALUABLE means only UNIQUENESS_UNRESOLVED; no scope meaning exists for null",
+        "HOLD-T cause is absent T(r) (SEP-AV-4), not scope; migration hardStopCase reasons list no scope reason"
+      ]
+    }
+  },
+  "LOCAL_EVIDENCE_VALID": "YES",
+  "LAWFULLY_ESTABLISHED_SCOPE": "LH program team only",
+  "REQUIRED_COMPONENTS": ["c1", "c2"],
+  "SUPPLIED_COMPONENTS": ["c1"],
+  "MISSING_COMPONENTS": ["c2"],
+  "CLAIMED_SCOPE": "enterprise",
+  "ENTERPRISE_SCOPE_ESTABLISHED": "NO",
+  "LAWFUL_SCOPE_BRIDGE_FOUND": "NO",
+  "SCOPE_BRIDGE": "NO",
+  "NO_UPWARD_PROMOTION": "YES",
+  "CURRENT_METHODOLOGY_HAS_TERMINAL_SCOPE_LIMITED_STATE": "YES",
+  "FINAL_CURRENT_STAGE2_DISPOSITION": {
+    "scope": {
+      "value": "FAIL_CLOSED_AT_CLAIMED_SCOPE",
+      "scopeBridgeState": "UNRESOLVED_FAIL_CLOSED",
+      "observationKeptAt": "observedScope",
+      "terminal": true
+    },
+    "establishment": {
+      "edgeState": "PARTIAL",
+      "leafValue": "OPEN",
+      "leafBlockingConjuncts": ["scopeBridgeState", "temporalState", "edgeState PARTIAL (E-R4)"],
+      "sufficiencyExpressionResult": "OPEN",
+      "terminalWithinCurrentBound": true
+    },
+    "bearing": {
+      "migrationRuleId": "SEP-MIG-6c",
+      "projectionClass": "RE_ADJUDICATION",
+      "holdCode": "HOLD-T",
+      "successorTriple": [null, null, null],
+      "terminal": false,
+      "changedByThisAct": false
+    }
+  },
+  "BEARING_EVALUABILITY": "EVALUABLE (pre-hold EV result per CORR10 ledger; materialized triple null under HOLD-T)",
+  "SUPPORT_BEARING": null,
+  "SUPPORT_BEARING_NULL_MEANING": "HOLD-T (correctable defect state); NOT a terminal null; NOT UNIQUENESS_UNRESOLVED; NOT scope-limited",
+  "A_E001_SCOPE_DISPOSITION_ADJUDICATED": "YES",
+  "A_E001_ADJUDICATED": "NO",
+  "REQUIRES_READJUDICATION": "YES",
+  "REQUIRES_READJUDICATION_AXIS": "BEARING_ONLY (B-1b check, then T(r) under SEP-B-3; W(f) only if T(r) verdict DIRECTIONAL)",
+  "OWNER_DECISION_REQUIRED": "NO",
+  "infiniteReadjudicationLoop": "NONE (scope axis closed; bearing axis has one finite rule-defined exit to a materializable terminal value)",
+  "proposedNextAct": {
+    "id": "A_E001_BEARING_DIRECTIONALITY_READJUDICATION_1",
+    "status": "PROPOSAL_ONLY_NOT_AUTHORIZED",
+    "bounds": "no scope/establishment/c2/characteristicity/temporal change; no Environment; non-Claude IV if Claude-authored",
+    "whyMaterial": "SEP-I-11 bars materializing a successor view containing a held record; final effective-view assembly stays blocked by HOLD-T"
+  },
+  "outOfScopeObservations": [
+    {"id": "OOS-1", "summary": "H-3 entailment of M-ENFORCE-SANCTION c2 by C-B04 never adjudicated; certified text has applied-instance wording", "actedOn": false},
+    {"id": "OOS-2", "summary": "characteristicityState CHARACTERISTIC vs Stage-1 SOURCE_EXPLICITLY_NOTES_EXCEPTIONAL_PILOT_TACTIC (K-3)", "actedOn": false},
+    {"id": "OOS-3", "summary": "observedScope unit / paraphrase / organizationalObjectRef broader than certified 'LH program team ONLY'; material for future scoped-domain work", "actedOn": false},
+    {"id": "OOS-4", "summary": "temporalState PRE_T0_CONTINUITY_UNRESOLVED is an independent leaf blocker", "actedOn": false}
+  ],
+  "FUTURE_MULTISCALE_RELEVANCE": "PRESERVED_NOT_EXECUTED",
+  "METHODOLOGY_CHANGED": "NO",
+  "ENVIRONMENT_CHANGED": "NO",
+  "F0024_CHANGED": "NO",
+  "INDEPENDENTLY_VERIFIED": "NO",
+  "GIT_MUTATION": "NO",
+  "authorshipDisclosure": "Claude authored the separation methodology candidate chain and FINAL_MEASUREMENT_REGRESSION_1_CORRECTION_1; this act applies, does not verify, them. REG-004/REG-005 independently verified PASS by Codex."
+}
