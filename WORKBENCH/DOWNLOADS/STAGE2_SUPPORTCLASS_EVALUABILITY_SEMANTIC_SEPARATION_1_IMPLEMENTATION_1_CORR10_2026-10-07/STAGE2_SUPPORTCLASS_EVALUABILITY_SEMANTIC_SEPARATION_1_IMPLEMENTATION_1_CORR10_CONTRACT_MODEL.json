@@ -1,0 +1,3640 @@
+{
+  "act": "STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1.IMPLEMENTATION-1.CORR10",
+  "artifact": "STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_CONTRACT_MODEL.json",
+  "authority_status": "derived self-validation model; no new methodology; Owner task binds frozen source identities",
+  "bounds": {
+    "alternativeFacts": [
+      1,
+      2
+    ],
+    "alternativeRecords": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "alternativeTargets": [
+      1,
+      2
+    ],
+    "claim": "bounded deterministic witnesses; no unbounded proof",
+    "components": [
+      1,
+      2
+    ],
+    "subjectFacts": [
+      1,
+      2,
+      3
+    ],
+    "subjectTargets": [
+      1,
+      2
+    ]
+  },
+  "constitutive_exception": "NOT_AVAILABLE",
+  "corr6Architecture": {
+    "C6-01": "record traversal + supply group in builder; supply/witness anti-join in reference",
+    "C6-02": "explicit checked assertions in builder; matrix-derived grammar and source-row identity relation in boundary reference",
+    "claim": "component candidate, author self-validation only",
+    "sharedSemanticHelpers": false
+  },
+  "corr6FrozenRules": {
+    "COMPONENT_SUPPLY": {
+      "citation": "registry \u00a7I/H-5; cor1 \u00a76.6",
+      "rule": "Six-key supply; trace basis belongs to supplying facts; each supplied component traced.",
+      "sourceKeys": [
+        "accepted",
+        "c34",
+        "cor1",
+        "package_locators",
+        "registry",
+        "schema",
+        "field_source_matrix"
+      ]
+    },
+    "COUNTER_M": {
+      "citation": "cor1 \u00a79.2 B-2(ii); registry E-R8",
+      "rule": "Counter must be listed against leaf of evaluated TT and have lawful DIRECTIONAL counter-M trace.",
+      "sourceKeys": [
+        "accepted",
+        "c34",
+        "cor1",
+        "package_locators",
+        "registry",
+        "schema",
+        "field_source_matrix"
+      ]
+    },
+    "CertifiedFact": {
+      "citation": "cor1 \u00a76.6 T-2; registry H-1/H-5; c34 \u00a713.3",
+      "rule": "Bound source map supplies path/locators; verify bytes, digest, membership, case/side; extract proposition and require exact asserted-text match.",
+      "sourceKeys": [
+        "accepted",
+        "c34",
+        "cor1",
+        "package_locators",
+        "registry",
+        "schema",
+        "field_source_matrix"
+      ]
+    },
+    "DOMAINS": {
+      "citation": "registry \u00a7E/\u00a7I; accepted \u00a76.3",
+      "rule": "Exact string domains; no normalization.",
+      "sourceKeys": [
+        "accepted",
+        "c34",
+        "cor1",
+        "package_locators",
+        "registry",
+        "schema",
+        "field_source_matrix"
+      ]
+    },
+    "ORDER": {
+      "citation": "accepted \u00a710/\u00a77.1",
+      "rule": "Admission before EV before DE-4; U-X before U-2 before U-3 before U-0/U-1.",
+      "sourceKeys": [
+        "accepted",
+        "c34",
+        "cor1",
+        "package_locators",
+        "registry",
+        "schema",
+        "field_source_matrix"
+      ]
+    },
+    "PI-3": {
+      "citation": "field_source_matrix factualPackageIdentity NOTE; package_locators",
+      "rule": "Seven required identifying fields plus packageFactCount, packageSideCount, six identity locator labels, identityAuthority and identityAuthoritySha256 are equality assertions. No unknown members; no content/list locator authority.",
+      "sourceKeys": [
+        "accepted",
+        "c34",
+        "cor1",
+        "package_locators",
+        "registry",
+        "schema",
+        "field_source_matrix"
+      ]
+    },
+    "W-1": {
+      "citation": "cor1 \u00a76.5",
+      "rule": "Exact registry census, each mechanism once; no duplicate entries.",
+      "sourceKeys": [
+        "accepted",
+        "c34",
+        "cor1",
+        "package_locators",
+        "registry",
+        "schema",
+        "field_source_matrix"
+      ]
+    },
+    "W-2": {
+      "citation": "cor1 \u00a76.5",
+      "rule": "Witness identity equals every material record of f, not just subject.",
+      "sourceKeys": [
+        "accepted",
+        "c34",
+        "cor1",
+        "package_locators",
+        "registry",
+        "schema",
+        "field_source_matrix"
+      ]
+    },
+    "W-3": {
+      "citation": "cor1 \u00a76.5",
+      "rule": "SELECTED has SUPPORTS_LEAF materialization covering all registry consumers; NOT_SELECTABLE has none.",
+      "sourceKeys": [
+        "accepted",
+        "c34",
+        "cor1",
+        "package_locators",
+        "registry",
+        "schema",
+        "field_source_matrix"
+      ]
+    },
+    "W-4": {
+      "citation": "cor1 \u00a76.5; registry H-5",
+      "rule": "Every supply entry of every record of f is consistent with W(f,M), per component supplying facts; relation does not restrict scope.",
+      "sourceKeys": [
+        "accepted",
+        "c34",
+        "cor1",
+        "package_locators",
+        "registry",
+        "schema",
+        "field_source_matrix"
+      ]
+    }
+  },
+  "corr6InvariantCoverage": {
+    "FX01": "B3-2/H-5; basis certified from supply.factIds, not any record fact",
+    "FX02": "W-1 exact multiplicity, duplicate census rejected",
+    "FX03": "B-2(ii) binding per evaluated TT, no all-TT union",
+    "FX05": "S2 admission precedes DE-4 at S6",
+    "FX06": "W-2 compares all f records",
+    "FX09": "SEP-AV-6 no supplied/NACR precedence",
+    "FX11": "\u00a7E/B-2(i) exact absenceEvidenceState",
+    "FX12": "H-1 exact typed fact membership",
+    "FX13": "W-3 every required consumer",
+    "FX14": "U-X precedes U-2/U-3",
+    "FX15": "T-2/B3-6 every supplied component"
+  },
+  "corr7HoldOrder": {
+    "AV1": {
+      "rule": "CONDITION_NOT_MET is not an explanation of NOT_DETERMINABLE",
+      "source": "accepted \u00a76.3; cor1 \u00a76.7"
+    },
+    "DE4": {
+      "rule": "B-1a applies to every admitted EVALUABLE direction before B-2",
+      "source": "accepted \u00a714 Decision 3; cor1 \u00a79.1/\u00a79.3"
+    },
+    "H5": {
+      "rule": "each componentSupply.factIds names only its suppliers",
+      "source": "registry \u00a7H H-5 / \u00a7I; cor1 \u00a76.5"
+    },
+    "PI3": {
+      "rule": "type-exact identity assertions, including bool/int/float/string distinctions",
+      "source": "field_source_matrix factualPackageIdentity NOTE; registry H-1; cor1 W-2/T-2"
+    },
+    "S2": {
+      "admission": [
+        "AV-1",
+        "AV-2",
+        "AV-3",
+        "AV-6"
+      ],
+      "holds": [
+        "HOLD-ND",
+        "HOLD-AMB",
+        "HOLD-NA"
+      ]
+    },
+    "S3": {
+      "evaluability": "exact closed EV_INPUT_SIGNATURE; no W/T/edgeState",
+      "source": "accepted \u00a76.1"
+    },
+    "S6": {
+      "failure": "HOLD-T",
+      "order": [
+        "B-1a DE-4",
+        "B-1b",
+        "B-2",
+        "B-3 T(r)"
+      ],
+      "source": "cor1 \u00a79.3/\u00a712; accepted \u00a710"
+    },
+    "S7": {
+      "applies": "DIRECTIONAL SUPPORTS_LEAF",
+      "closure": [
+        "W-1 census",
+        "W-2 identity",
+        "W-3 materialization",
+        "W-4 per-supplier/per-M consistency"
+      ],
+      "failure": "HOLD-U",
+      "source": "accepted \u00a77.1/\u00a710; cor1 \u00a76.5/\u00a76.7/\u00a79.5"
+    },
+    "authority": {
+      "section": "\u00a710 S2 \u2192 S3 \u2192 S6 \u2192 S7; \u00a76.3 AV-4/AV-5; \u00a77.1 SEP-U-X",
+      "sha256": "2f595ab5ddecc7e8149f751c661470bbae1fa3abfb1fb207b2b65c4c4565d6c8",
+      "source": "accepted"
+    },
+    "nonmapped": {
+      "rule": "no hidden analytical M/TT/componentSupply",
+      "source": "registry \u00a7E/H-2/\u00a7I"
+    },
+    "simultaneousFailure": "S6 HOLD-T takes precedence over S7 HOLD-U"
+  },
+  "corr8Routing": {
+    "ALTERNATIVE_STATUS_SOURCE": {
+      "authoritySha256": "2f595ab5ddecc7e8149f751c661470bbae1fa3abfb1fb207b2b65c4c4565d6c8",
+      "rule": "S4/S6",
+      "source": "accepted \u00a710 S2/S3/S4/S6/S7; \u00a76.3 AV-4/AV-5; \u00a77.1 SEP-U-X; CORR1 \u00a79.3/\u00a79.5/\u00a712"
+    },
+    "COUNTER_M_TERMINAL_STAGE": {
+      "authoritySha256": "2f595ab5ddecc7e8149f751c661470bbae1fa3abfb1fb207b2b65c4c4565d6c8",
+      "rule": "S6",
+      "source": "accepted \u00a710 S2/S3/S4/S6/S7; \u00a76.3 AV-4/AV-5; \u00a77.1 SEP-U-X; CORR1 \u00a79.3/\u00a79.5/\u00a712"
+    },
+    "NEGATES_LEAF_TERMINAL_STAGE": {
+      "authoritySha256": "2f595ab5ddecc7e8149f751c661470bbae1fa3abfb1fb207b2b65c4c4565d6c8",
+      "rule": "S6",
+      "source": "accepted \u00a710 S2/S3/S4/S6/S7; \u00a76.3 AV-4/AV-5; \u00a77.1 SEP-U-X; CORR1 \u00a79.3/\u00a79.5/\u00a712"
+    },
+    "S2": {
+      "authoritySha256": "2f595ab5ddecc7e8149f751c661470bbae1fa3abfb1fb207b2b65c4c4565d6c8",
+      "rule": "AV-1 HOLD-ND; AV-2 HOLD-AMB; AV-3/6 HOLD-NA; STOP",
+      "source": "accepted \u00a710 S2/S3/S4/S6/S7; \u00a76.3 AV-4/AV-5; \u00a77.1 SEP-U-X; CORR1 \u00a79.3/\u00a79.5/\u00a712"
+    },
+    "S3_S4": {
+      "authoritySha256": "2f595ab5ddecc7e8149f751c661470bbae1fa3abfb1fb207b2b65c4c4565d6c8",
+      "rule": "EV signature only; INDETERMINATE stops before S6/S7",
+      "source": "accepted \u00a710 S2/S3/S4/S6/S7; \u00a76.3 AV-4/AV-5; \u00a77.1 SEP-U-X; CORR1 \u00a79.3/\u00a79.5/\u00a712"
+    },
+    "S6": {
+      "authoritySha256": "2f595ab5ddecc7e8149f751c661470bbae1fa3abfb1fb207b2b65c4c4565d6c8",
+      "rule": "B-1a/B-1b caps; B-2 relation result; B-3 T closure",
+      "source": "accepted \u00a710 S2/S3/S4/S6/S7; \u00a76.3 AV-4/AV-5; \u00a77.1 SEP-U-X; CORR1 \u00a79.3/\u00a79.5/\u00a712"
+    },
+    "S7_APPLIES": {
+      "authoritySha256": "2f595ab5ddecc7e8149f751c661470bbae1fa3abfb1fb207b2b65c4c4565d6c8",
+      "rule": "iff relation == SUPPORTS_LEAF AND S6 result == DIRECTIONAL",
+      "source": "accepted \u00a710 S2/S3/S4/S6/S7; \u00a76.3 AV-4/AV-5; \u00a77.1 SEP-U-X; CORR1 \u00a79.3/\u00a79.5/\u00a712"
+    },
+    "W_CLOSURE_IS_GLOBAL_S6_GATE": {
+      "authoritySha256": "2f595ab5ddecc7e8149f751c661470bbae1fa3abfb1fb207b2b65c4c4565d6c8",
+      "rule": false,
+      "source": "accepted \u00a710 S2/S3/S4/S6/S7; \u00a76.3 AV-4/AV-5; \u00a77.1 SEP-U-X; CORR1 \u00a79.3/\u00a79.5/\u00a712"
+    },
+    "W_HOLD_U_NON_LEAKAGE": {
+      "authoritySha256": "2f595ab5ddecc7e8149f751c661470bbae1fa3abfb1fb207b2b65c4c4565d6c8",
+      "rule": "REQUIRED",
+      "source": "accepted \u00a710 S2/S3/S4/S6/S7; \u00a76.3 AV-4/AV-5; \u00a77.1 SEP-U-X; CORR1 \u00a79.3/\u00a79.5/\u00a712"
+    }
+  },
+  "counterOf": {
+    "M-ADJ-ARGUMENT-QUALITY": [
+      "M-AUTH-TOPDOWN-EXPLICIT"
+    ],
+    "M-ADJ-TEST-RESULT": [
+      "M-AUTH-TOPDOWN-EXPLICIT"
+    ],
+    "M-AUTH-TOPDOWN-EXPLICIT": [
+      "M-ADJ-ARGUMENT-QUALITY",
+      "M-ADJ-TEST-RESULT"
+    ]
+  },
+  "date": "2026-10-07",
+  "domains": {
+    "abstention": [
+      "NACR-1",
+      "NACR-1:CONDITION_NOT_MET",
+      "SRC-INACCESSIBLE",
+      "EST-CHAR",
+      "EST-PLAN",
+      "EST-SILENCE"
+    ],
+    "edgeState": [
+      "SUPPORTED",
+      "PARTIAL",
+      "CONFLICT",
+      "AMBIGUOUS",
+      "GAP",
+      "COUNTEREVIDENCE",
+      "NOT_DETERMINABLE"
+    ],
+    "evidenceForm": [
+      "DE-1",
+      "DE-2",
+      "DE-3",
+      "DE-4"
+    ],
+    "prohibitedOutputFields": [
+      "Environment",
+      "environmentAssignment",
+      "environmentCode",
+      "environmentRanking",
+      "Pair",
+      "ECS",
+      "friction",
+      "score",
+      "probability",
+      "confidence",
+      "weight"
+    ],
+    "relation": [
+      "SUPPORTS_LEAF",
+      "NEGATES_LEAF",
+      "COUNTER_M"
+    ],
+    "relevanceState": [
+      "ANALYTICAL_MAPPED",
+      "UNMAPPED_OBSERVATION",
+      "NON_ANALYTICAL"
+    ],
+    "sourceQualityState": [
+      "COMPETENT",
+      "COMPETENT_SELF_DESCRIPTION_UNCORROBORATED",
+      "NOT_COMPETENT_FOR_PROPOSITION",
+      "CONTENT_INACCESSIBLE"
+    ],
+    "w_disposition": [
+      "SELECTED",
+      "NOT_SELECTABLE"
+    ]
+  },
+  "entities": {
+    "ABSTENTION_NACR_DECLARATION": [
+      "exact_code",
+      "mechanism",
+      "component"
+    ],
+    "BEARING_STATE": [
+      "DIRECT_SUPPORT",
+      "DIRECT_CONTRADICTION",
+      "SHARED_NON_UNIQUE",
+      "NON_DISCRIMINATING",
+      null
+    ],
+    "COMPONENT": [
+      "mechanism",
+      "local_id"
+    ],
+    "COMPONENT_SUPPLY": [
+      "edge",
+      "mechanism",
+      "component",
+      "supplying_facts"
+    ],
+    "FACT": [
+      "id",
+      "certified_content",
+      "package"
+    ],
+    "FACTUAL_PACKAGE_CERTIFIED_CONTENT": [
+      "identity",
+      "bound_bytes",
+      "fact_membership",
+      "text_locator"
+    ],
+    "MECHANISM_M": [
+      "id",
+      "components",
+      "environment",
+      "comparators",
+      "consumers"
+    ],
+    "MISSING_COMPONENT": [
+      "edge",
+      "component"
+    ],
+    "RECORD_EDGE": [
+      "id",
+      "facts",
+      "mechanism",
+      "targets",
+      "relation",
+      "form"
+    ],
+    "TRACE_T_edge_TT": [
+      "edge",
+      "target",
+      "facts",
+      "universe",
+      "component_judgments"
+    ],
+    "TREE_TARGET_TT": [
+      "id",
+      "leaves",
+      "documentary",
+      "verdict"
+    ],
+    "UNIQUENESS_STATE": [
+      "U-0",
+      "U-1",
+      "U-2",
+      "U-3",
+      "U-X"
+    ],
+    "WITNESS_ENTRY": [
+      "mechanism",
+      "disposition",
+      "entailed",
+      "missing"
+    ],
+    "WITNESS_W_f": [
+      "fact",
+      "identity",
+      "entries"
+    ]
+  },
+  "environment_containment_source": "Owner CORR6 \u00a722; CORR1 \u00a716; accepted \u00a715; registry \u00a7I",
+  "grain": [
+    "edgeId",
+    "treeTargetId"
+  ],
+  "mechanisms": {
+    "M-ACCESS-BY-LOYALTY-RELIABILITY": {
+      "comparators": [
+        "M-ADV-DOCTRINAL-ALIGNMENT",
+        "M-ADV-REALISED-RESULT",
+        "M-AUTH-DELIVERY",
+        "M-AUTH-EPISTEMIC",
+        "M-AUTH-TECHNICAL-CREDIBILITY",
+        "M-CONTINUITY-VIA-RELATIONS",
+        "M-INFORMAL-LOYALTY-AUTHORITY",
+        "M-MEMBERSHIP-ACQUIRED",
+        "M-MEMBERSHIP-ASCRIBED",
+        "M-RES-NETWORK-PRESERVATION",
+        "M-TRUST-BY-DEMONSTRATED-LOYALTY"
+      ],
+      "components": [
+        "c1",
+        "c2"
+      ],
+      "consumers": [
+        "TT-STPSTJ-PW"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-10",
+        "D-03"
+      ],
+      "environment": "STP/STJ",
+      "negative_cell": "Not SFJ reciprocal-belonging loyalty semantics; not mere tenure; not formal role alone."
+    },
+    "M-ADJ-ARGUMENT-QUALITY": {
+      "comparators": [
+        "M-ADJ-TEST-RESULT",
+        "M-AUTH-TOPDOWN-EXPLICIT",
+        "M-INTERPRETIVE-CONTROL",
+        "M-MEANING-GOVERNED-COMPLIANCE",
+        "M-PARTICIPATION-ARCHITECTURE-CONTROL",
+        "M-RES-REALLOC-BY-RESULT"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ],
+      "consumers": [
+        "TT-NFNT-CORE"
+      ],
+      "declared_competitors": [
+        "M-AUTH-TOPDOWN-EXPLICIT"
+      ],
+      "domains": [
+        "D-02"
+      ],
+      "environment": "NF/NT",
+      "negative_cell": "Not that every decision follows the best argument; not consultation followed by rank decision."
+    },
+    "M-ADJ-TEST-RESULT": {
+      "comparators": [
+        "M-ADJ-ARGUMENT-QUALITY",
+        "M-AUTH-TOPDOWN-EXPLICIT",
+        "M-INTERPRETIVE-CONTROL",
+        "M-MEANING-GOVERNED-COMPLIANCE",
+        "M-PARTICIPATION-ARCHITECTURE-CONTROL"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ],
+      "consumers": [
+        "TT-NTSTP-ES"
+      ],
+      "declared_competitors": [
+        "M-AUTH-TOPDOWN-EXPLICIT"
+      ],
+      "domains": [
+        "D-02"
+      ],
+      "environment": "NT/STP",
+      "negative_cell": "Not \"test found defect; fixed\"."
+    },
+    "M-ADV-DOCTRINAL-ALIGNMENT": {
+      "comparators": [
+        "M-ACCESS-BY-LOYALTY-RELIABILITY",
+        "M-ADV-REALISED-RESULT",
+        "M-AUTH-DELIVERY",
+        "M-AUTH-EPISTEMIC",
+        "M-AUTH-TECHNICAL-CREDIBILITY",
+        "M-INFORMAL-LOYALTY-AUTHORITY",
+        "M-TRUST-BY-DEMONSTRATED-LOYALTY"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "consumers": [
+        "TT-NFSFJ-CORE"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-03"
+      ],
+      "environment": "NF/SFJ",
+      "negative_cell": "Not culture-fit language alone."
+    },
+    "M-ADV-REALISED-RESULT": {
+      "comparators": [
+        "M-ACCESS-BY-LOYALTY-RELIABILITY",
+        "M-ADV-DOCTRINAL-ALIGNMENT",
+        "M-AUTH-EPISTEMIC",
+        "M-AUTH-TECHNICAL-CREDIBILITY",
+        "M-INFORMAL-LOYALTY-AUTHORITY",
+        "M-POSITION-BY-RESOURCE-HOLD",
+        "M-TRUST-BY-DEMONSTRATED-LOYALTY"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "consumers": [
+        "TT-NTSTJ-CORE"
+      ],
+      "declared_competitors": [
+        "M-POSITION-BY-RESOURCE-HOLD"
+      ],
+      "domains": [
+        "D-03"
+      ],
+      "environment": "NT/STJ",
+      "negative_cell": "Not a KPI threshold alone; not self-reported success; not one metric required."
+    },
+    "M-AUTH-DELIVERY": {
+      "comparators": [
+        "M-ACCESS-BY-LOYALTY-RELIABILITY",
+        "M-ADV-DOCTRINAL-ALIGNMENT",
+        "M-AUTH-EPISTEMIC",
+        "M-AUTH-TECHNICAL-CREDIBILITY",
+        "M-INFORMAL-LOYALTY-AUTHORITY",
+        "M-TRUST-BY-DEMONSTRATED-LOYALTY"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "consumers": [
+        "TT-NTSTJ-PW"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-03"
+      ],
+      "environment": "NT/STJ",
+      "negative_cell": "Not seniority; not credentials."
+    },
+    "M-AUTH-EPISTEMIC": {
+      "comparators": [
+        "M-ACCESS-BY-LOYALTY-RELIABILITY",
+        "M-ADV-DOCTRINAL-ALIGNMENT",
+        "M-ADV-REALISED-RESULT",
+        "M-AUTH-DELIVERY",
+        "M-AUTH-TECHNICAL-CREDIBILITY",
+        "M-INFORMAL-LOYALTY-AUTHORITY",
+        "M-TRUST-BY-DEMONSTRATED-LOYALTY"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "consumers": [
+        "TT-NFNT-PW"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-03"
+      ],
+      "environment": "NF/NT",
+      "negative_cell": "Not credentials alone; not title."
+    },
+    "M-AUTH-TECHNICAL-CREDIBILITY": {
+      "comparators": [
+        "M-ACCESS-BY-LOYALTY-RELIABILITY",
+        "M-ADV-DOCTRINAL-ALIGNMENT",
+        "M-ADV-REALISED-RESULT",
+        "M-AUTH-DELIVERY",
+        "M-AUTH-EPISTEMIC",
+        "M-INFORMAL-LOYALTY-AUTHORITY",
+        "M-TRUST-BY-DEMONSTRATED-LOYALTY"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "consumers": [
+        "TT-NTSTP-PW"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-03"
+      ],
+      "environment": "NT/STP",
+      "negative_cell": "Not hierarchy/status/prior agreement/proposer as the basis (that exclusion is the adjudication lane); not credentials alone."
+    },
+    "M-AUTH-TOPDOWN-EXPLICIT": {
+      "comparators": [
+        "M-ADJ-ARGUMENT-QUALITY",
+        "M-ADJ-TEST-RESULT",
+        "M-DELEGATION-HOW-VS-WHAT",
+        "M-ENFORCE-RESOURCE-INFORMATION-CONTROL",
+        "M-HIERARCHY-EFFICIENCY",
+        "M-ORDER-SUSTAINED-FLEXIBILITY",
+        "M-RECOGNISED-COMMAND-ORDER"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "consumers": [
+        "TT-STJSTP-PW"
+      ],
+      "declared_competitors": [
+        "M-ADJ-ARGUMENT-QUALITY",
+        "M-ADJ-TEST-RESULT"
+      ],
+      "domains": [
+        "D-04"
+      ],
+      "environment": "STJ/STP",
+      "negative_cell": "Not an org chart alone (FORMAL_ONLY); not mere existence of a hierarchy."
+    },
+    "M-CAPABILITY-YIELDS-CONTROL": {
+      "comparators": [
+        "M-COST-MINIMISING-SURPLUS-RETENTION",
+        "M-ENFORCE-RESOURCE-CONTROL",
+        "M-ENFORCE-RESOURCE-INFORMATION-CONTROL",
+        "M-NO-EXTERNAL-ARBITER",
+        "M-POSITION-BY-RESOURCE-HOLD",
+        "M-RES-ADAPTING-PERSON-RECRUITMENT",
+        "M-RES-ASYMMETRIC-RETENTION",
+        "M-RES-COERCIVE-REDISTRIBUTION",
+        "M-RES-CONCEPTUAL-GENERATION",
+        "M-RES-EXPRESSIVE-EXPENDITURE",
+        "M-RES-HIERARCHICAL-RETENTION",
+        "M-RES-KNOWLEDGE-PRIMARY",
+        "M-RES-NETWORK-AS-PRINCIPAL-RESOURCE",
+        "M-RES-NETWORK-PRESERVATION",
+        "M-RES-PROTECTED-ACCESS-EXCHANGE",
+        "M-RES-REALLOC-BY-RESULT",
+        "M-RES-ROLE-CONTROLLED-ACCESS",
+        "M-RES-STAKE-UNPROVEN",
+        "M-RES-TACTICAL-EXTERNAL-ACQUISITION",
+        "M-RES-UPWARD-TRANSFER"
+      ],
+      "components": [
+        "c1",
+        "c2"
+      ],
+      "consumers": [
+        "TT-NTSTJ-RS"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-07"
+      ],
+      "environment": "NT/STJ",
+      "negative_cell": "Not individual advancement (M-ADV-REALISED-RESULT lane); not mere possession of assets."
+    },
+    "M-CONTINUITY-VIA-RELATIONS": {
+      "comparators": [
+        "M-ACCESS-BY-LOYALTY-RELIABILITY"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "consumers": [
+        "TT-SFJSFP-CORE"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-10"
+      ],
+      "environment": "SFJ/SFP",
+      "negative_cell": "Not a ritual; not static custom."
+    },
+    "M-COST-MINIMISING-SURPLUS-RETENTION": {
+      "comparators": [
+        "M-CAPABILITY-YIELDS-CONTROL",
+        "M-ENFORCE-RESOURCE-CONTROL",
+        "M-ENFORCE-RESOURCE-INFORMATION-CONTROL",
+        "M-NO-EXTERNAL-ARBITER",
+        "M-POSITION-BY-RESOURCE-HOLD",
+        "M-RES-ADAPTING-PERSON-RECRUITMENT",
+        "M-RES-CAPABILITY-ADVANTAGE",
+        "M-RES-COERCIVE-REDISTRIBUTION",
+        "M-RES-CONCEPTUAL-GENERATION",
+        "M-RES-EXPRESSIVE-EXPENDITURE",
+        "M-RES-HIERARCHICAL-RETENTION",
+        "M-RES-KNOWLEDGE-PRIMARY",
+        "M-RES-NETWORK-AS-PRINCIPAL-RESOURCE",
+        "M-RES-NETWORK-PRESERVATION",
+        "M-RES-PROTECTED-ACCESS-EXCHANGE",
+        "M-RES-REALLOC-BY-RESULT",
+        "M-RES-ROLE-CONTROLLED-ACCESS",
+        "M-RES-STAKE-UNPROVEN",
+        "M-RES-TACTICAL-EXTERNAL-ACQUISITION",
+        "M-RES-UPWARD-TRANSFER"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "consumers": [
+        "TT-SFPSFJ-DOC",
+        "TT-SFPSFJ-RES"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-07",
+        "D-13"
+      ],
+      "environment": "SFP/SFJ",
+      "negative_cell": "Not profit alone; not generic efficiency programs; not inferred from low pay (E9/10 \u00a78)."
+    },
+    "M-DECISIONS-SEEK-RELATIONAL-SAFETY": {
+      "comparators": [],
+      "components": [
+        "c1",
+        "c2"
+      ],
+      "consumers": [
+        "TT-SFJSFP-REL"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-11"
+      ],
+      "environment": "SFJ/SFP",
+      "negative_cell": "Not that harmony is always achieved; not a conservative-culture statement; not the POS trade-off alternatives."
+    },
+    "M-DELEGATION-HOW-VS-WHAT": {
+      "comparators": [
+        "M-AUTH-TOPDOWN-EXPLICIT",
+        "M-ENFORCE-RESOURCE-CONTROL",
+        "M-ENFORCE-STRENGTH",
+        "M-HIERARCHY-EFFICIENCY"
+      ],
+      "components": [
+        "c1",
+        "c2"
+      ],
+      "consumers": [
+        "TT-STPSTJ-PW"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-04",
+        "D-12"
+      ],
+      "environment": "STP/STJ",
+      "negative_cell": "Not full autonomy."
+    },
+    "M-EMPIRICAL-TEST-ITERATE": {
+      "comparators": [
+        "M-INQUIRY-OPERATION",
+        "M-OPEN-CRITICAL-EXCHANGE",
+        "M-STRATEGY-TO-SCALE",
+        "M-STRUCTURED-IMPLEMENTATION",
+        "M-THEORY-PRODUCTION"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "consumers": [
+        "TT-NTSTP-ES"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-05"
+      ],
+      "environment": "NT/STP",
+      "negative_cell": "Not that the test decided a contested issue (C34 \u00a77.4); not the immediate/continuous variant."
+    },
+    "M-ENFORCE-RESOURCE-CONTROL": {
+      "comparators": [
+        "M-CAPABILITY-YIELDS-CONTROL",
+        "M-COST-MINIMISING-SURPLUS-RETENTION",
+        "M-DELEGATION-HOW-VS-WHAT",
+        "M-ENFORCE-RESOURCE-INFORMATION-CONTROL",
+        "M-HIERARCHY-EFFICIENCY",
+        "M-NO-EXTERNAL-ARBITER",
+        "M-ORDER-SUSTAINED-FLEXIBILITY",
+        "M-RECOGNISED-COMMAND-ORDER",
+        "M-RES-ADAPTING-PERSON-RECRUITMENT",
+        "M-RES-ASYMMETRIC-RETENTION",
+        "M-RES-CAPABILITY-ADVANTAGE",
+        "M-RES-CONCEPTUAL-GENERATION",
+        "M-RES-EXPRESSIVE-EXPENDITURE",
+        "M-RES-HIERARCHICAL-RETENTION",
+        "M-RES-KNOWLEDGE-PRIMARY",
+        "M-RES-NETWORK-AS-PRINCIPAL-RESOURCE",
+        "M-RES-NETWORK-PRESERVATION",
+        "M-RES-PROTECTED-ACCESS-EXCHANGE",
+        "M-RES-REALLOC-BY-RESULT",
+        "M-RES-ROLE-CONTROLLED-ACCESS",
+        "M-RES-STAKE-UNPROVEN",
+        "M-RES-TACTICAL-EXTERNAL-ACQUISITION",
+        "M-RES-UPWARD-TRANSFER"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "consumers": [
+        "TT-STJSTP-PW"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-04",
+        "D-07"
+      ],
+      "environment": "STJ/STP",
+      "negative_cell": "Not budget ownership alone; information control alone does not satisfy this leaf (that is M-ENFORCE-RESOURCE-INFORMATION-CONTROL)."
+    },
+    "M-ENFORCE-RESOURCE-INFORMATION-CONTROL": {
+      "comparators": [
+        "M-AUTH-TOPDOWN-EXPLICIT",
+        "M-CAPABILITY-YIELDS-CONTROL",
+        "M-COST-MINIMISING-SURPLUS-RETENTION",
+        "M-ENFORCE-RESOURCE-CONTROL",
+        "M-ENFORCE-STRENGTH",
+        "M-HIERARCHY-EFFICIENCY",
+        "M-NO-EXTERNAL-ARBITER",
+        "M-POSITION-BY-RESOURCE-HOLD",
+        "M-RES-ASYMMETRIC-RETENTION",
+        "M-RES-CAPABILITY-ADVANTAGE",
+        "M-RES-COERCIVE-REDISTRIBUTION",
+        "M-RES-CONCEPTUAL-GENERATION",
+        "M-RES-EXPRESSIVE-EXPENDITURE",
+        "M-RES-KNOWLEDGE-PRIMARY",
+        "M-RES-NETWORK-AS-PRINCIPAL-RESOURCE",
+        "M-RES-NETWORK-PRESERVATION",
+        "M-RES-REALLOC-BY-RESULT",
+        "M-RES-STAKE-UNPROVEN",
+        "M-RES-UPWARD-TRANSFER"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "consumers": [
+        "TT-STPSTJ-PW"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-04",
+        "D-07"
+      ],
+      "environment": "STP/STJ",
+      "negative_cell": "Not resources alone; not information alone."
+    },
+    "M-ENFORCE-SANCTION": {
+      "comparators": [
+        "M-INSIDER-OUTSIDER-RULE-ASYMMETRY",
+        "M-RULE-EXEMPT-UPPER"
+      ],
+      "components": [
+        "c1",
+        "c2"
+      ],
+      "consumers": [
+        "TT-STJSTP-PW"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-06"
+      ],
+      "environment": "STJ/STP",
+      "negative_cell": "NOT routine/applied punishment required; not a written code only (FORMAL_ONLY fails)."
+    },
+    "M-ENFORCE-STRENGTH": {
+      "comparators": [
+        "M-DELEGATION-HOW-VS-WHAT",
+        "M-ENFORCE-RESOURCE-INFORMATION-CONTROL",
+        "M-HIERARCHY-EFFICIENCY",
+        "M-ORDER-SUSTAINED-FLEXIBILITY",
+        "M-RECOGNISED-COMMAND-ORDER"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "consumers": [
+        "TT-STJSTP-PW"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-04"
+      ],
+      "environment": "STJ/STP",
+      "negative_cell": "Not physical violence required."
+    },
+    "M-EXTERNAL-ADAPTIVE-DEMAND": {
+      "comparators": [],
+      "components": [
+        "c1",
+        "c2"
+      ],
+      "consumers": [
+        "TT-STPSTJ-ESS"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-12"
+      ],
+      "environment": "STP/STJ",
+      "negative_cell": "Not literal crisis; not \"dynamic market\" slogan."
+    },
+    "M-HIERARCHY-EFFICIENCY": {
+      "comparators": [
+        "M-AUTH-TOPDOWN-EXPLICIT",
+        "M-DELEGATION-HOW-VS-WHAT",
+        "M-ENFORCE-RESOURCE-CONTROL",
+        "M-ENFORCE-RESOURCE-INFORMATION-CONTROL",
+        "M-ENFORCE-STRENGTH",
+        "M-ORDER-SUSTAINED-FLEXIBILITY",
+        "M-RECOGNISED-COMMAND-ORDER"
+      ],
+      "components": [
+        "c1",
+        "c2"
+      ],
+      "consumers": [
+        "TT-NTSTJ-ES"
+      ],
+      "declared_competitors": [
+        "M-AUTH-TOPDOWN-EXPLICIT",
+        "M-ENFORCE-STRENGTH"
+      ],
+      "domains": [
+        "D-04"
+      ],
+      "environment": "NT/STJ",
+      "negative_cell": "Not dominance; not status elite."
+    },
+    "M-IMMEDIATE-EMPIRICAL-ITERATION": {
+      "comparators": [
+        "M-INQUIRY-OPERATION",
+        "M-OPEN-CRITICAL-EXCHANGE",
+        "M-STRATEGY-TO-SCALE",
+        "M-STRUCTURED-IMPLEMENTATION",
+        "M-THEORY-PRODUCTION"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ],
+      "consumers": [
+        "TT-NTSTP-CORE"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-05"
+      ],
+      "environment": "NT/STP",
+      "negative_cell": "Not a slow episodic test program; not a single experiment."
+    },
+    "M-INFORMAL-LOYALTY-AUTHORITY": {
+      "comparators": [
+        "M-ACCESS-BY-LOYALTY-RELIABILITY",
+        "M-ADV-DOCTRINAL-ALIGNMENT",
+        "M-ADV-REALISED-RESULT",
+        "M-AUTH-DELIVERY",
+        "M-AUTH-EPISTEMIC",
+        "M-AUTH-TECHNICAL-CREDIBILITY"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ],
+      "consumers": [
+        "TT-SFJSFP-PW"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-03"
+      ],
+      "environment": "SFJ/SFP",
+      "negative_cell": "Not formal-title authority; not abstract-performance allocation; modal not hardened; NOT an unlabeled any-member set \u2014 the family reading is stated and source-justified, and the operative test is the contrast with abstract performance."
+    },
+    "M-INQUIRY-OPERATION": {
+      "comparators": [
+        "M-EMPIRICAL-TEST-ITERATE",
+        "M-IMMEDIATE-EMPIRICAL-ITERATION",
+        "M-STRATEGY-TO-SCALE",
+        "M-STRUCTURED-IMPLEMENTATION",
+        "M-WORKING-RESULT"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "consumers": [
+        "TT-NFNT-ES"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-05"
+      ],
+      "environment": "NF/NT",
+      "negative_cell": "Not an R&D budget line; not an academic label; not a mission claim."
+    },
+    "M-INSIDER-OUTSIDER-RULE-ASYMMETRY": {
+      "comparators": [
+        "M-ENFORCE-SANCTION",
+        "M-RULE-EXEMPT-UPPER",
+        "M-ZERO-SUM-PRIMACY-CONTEST"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "consumers": [
+        "TT-STPSTJ-ESS",
+        "TT-STPSTJ-ORD"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-06"
+      ],
+      "environment": "STP/STJ",
+      "negative_cell": "Not level asymmetry (M-RULE-EXEMPT-UPPER)."
+    },
+    "M-INTERNAL-ENEMY-DESIGNATION": {
+      "comparators": [],
+      "components": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ],
+      "consumers": [
+        "TT-NFSFJ-SO"
+      ],
+      "declared_competitors": [
+        "M-THREAT-AMPLIFICATION"
+      ],
+      "domains": [
+        "D-08"
+      ],
+      "environment": "NF/SFJ",
+      "negative_cell": "Not ordinary discipline for misconduct."
+    },
+    "M-INTERPRETIVE-CONTROL": {
+      "comparators": [
+        "M-ADJ-ARGUMENT-QUALITY",
+        "M-ADJ-TEST-RESULT",
+        "M-PARTICIPATION-ARCHITECTURE-CONTROL",
+        "M-RES-REALLOC-BY-RESULT"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ],
+      "consumers": [
+        "TT-NFSFJ-ES"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-02"
+      ],
+      "environment": "NF/SFJ",
+      "negative_cell": "Not ordinary policy ownership; not that participants comply."
+    },
+    "M-MEANING-GOVERNED-COMPLIANCE": {
+      "comparators": [
+        "M-ADJ-ARGUMENT-QUALITY",
+        "M-ADJ-TEST-RESULT",
+        "M-PARTICIPATION-ARCHITECTURE-CONTROL",
+        "M-RES-REALLOC-BY-RESULT"
+      ],
+      "components": [
+        "c1",
+        "c2"
+      ],
+      "consumers": [
+        "TT-NFSFJ-ES"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-02"
+      ],
+      "environment": "NF/SFJ",
+      "negative_cell": "Not general obedience to managers; not compliance unrelated to the belief system; not inferred from co-occurrence \u2014 join applies."
+    },
+    "M-MEMBERSHIP-ACQUIRED": {
+      "comparators": [
+        "M-ACCESS-BY-LOYALTY-RELIABILITY"
+      ],
+      "components": [
+        "c1",
+        "c2"
+      ],
+      "consumers": [
+        "TT-SFJSFP-MEM"
+      ],
+      "declared_competitors": [
+        "M-MEMBERSHIP-ASCRIBED"
+      ],
+      "domains": [
+        "D-10"
+      ],
+      "environment": "SFJ/SFP",
+      "negative_cell": "Not deep trust; not hiring alone; not any one member of the list."
+    },
+    "M-MEMBERSHIP-ASCRIBED": {
+      "comparators": [
+        "M-ACCESS-BY-LOYALTY-RELIABILITY"
+      ],
+      "components": [
+        "c1",
+        "c2"
+      ],
+      "consumers": [
+        "TT-SFJSFP-MEM"
+      ],
+      "declared_competitors": [
+        "M-MEMBERSHIP-ACQUIRED"
+      ],
+      "domains": [
+        "D-10"
+      ],
+      "environment": "SFJ/SFP",
+      "negative_cell": "Not deep trust."
+    },
+    "M-NO-EXTERNAL-ARBITER": {
+      "comparators": [
+        "M-CAPABILITY-YIELDS-CONTROL",
+        "M-COST-MINIMISING-SURPLUS-RETENTION",
+        "M-ENFORCE-RESOURCE-CONTROL",
+        "M-ENFORCE-RESOURCE-INFORMATION-CONTROL",
+        "M-POSITION-BY-RESOURCE-HOLD",
+        "M-RES-ADAPTING-PERSON-RECRUITMENT",
+        "M-RES-ASYMMETRIC-RETENTION",
+        "M-RES-CAPABILITY-ADVANTAGE",
+        "M-RES-COERCIVE-REDISTRIBUTION",
+        "M-RES-CONCEPTUAL-GENERATION",
+        "M-RES-EXPRESSIVE-EXPENDITURE",
+        "M-RES-HIERARCHICAL-RETENTION",
+        "M-RES-KNOWLEDGE-PRIMARY",
+        "M-RES-NETWORK-AS-PRINCIPAL-RESOURCE",
+        "M-RES-NETWORK-PRESERVATION",
+        "M-RES-PROTECTED-ACCESS-EXCHANGE",
+        "M-RES-ROLE-CONTROLLED-ACCESS",
+        "M-RES-TACTICAL-EXTERNAL-ACQUISITION",
+        "M-RES-UPWARD-TRANSFER"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "consumers": [
+        "TT-NTSTP-RS"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-07"
+      ],
+      "environment": "NT/STP",
+      "negative_cell": "NOT established by silence or absent documents (\u00a7J); not \"no controls exist\" generically; never inferred from result-following alone; a series of allocations that happened to follow test results is NOT proof of exclusivity; \"we use tests\" \u2260 \"tests are the sole arbiter\"."
+    },
+    "M-OPEN-CRITICAL-EXCHANGE": {
+      "comparators": [
+        "M-EMPIRICAL-TEST-ITERATE",
+        "M-IMMEDIATE-EMPIRICAL-ITERATION",
+        "M-STRATEGY-TO-SCALE",
+        "M-STRUCTURED-IMPLEMENTATION",
+        "M-WORKING-RESULT"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "consumers": [
+        "TT-NFNT-CORE"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-05"
+      ],
+      "environment": "NF/NT",
+      "negative_cell": "Not a slogan of openness; not a single debate."
+    },
+    "M-ORDER-SUSTAINED-FLEXIBILITY": {
+      "comparators": [
+        "M-AUTH-TOPDOWN-EXPLICIT",
+        "M-ENFORCE-RESOURCE-CONTROL",
+        "M-ENFORCE-STRENGTH",
+        "M-HIERARCHY-EFFICIENCY"
+      ],
+      "components": [
+        "c1",
+        "c2"
+      ],
+      "consumers": [
+        "TT-STPSTJ-ESS"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-12",
+        "D-04"
+      ],
+      "environment": "STP/STJ",
+      "negative_cell": "NOT mere co-presence of order and discretion; NOT satisfiable by the three-layer coincidence alone; no causal counterfactual is claimed or detected; not flexibility despite the order."
+    },
+    "M-OUTWARD-TACTICAL-DISCRETION": {
+      "comparators": [],
+      "components": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "consumers": [
+        "TT-STPSTJ-ESS"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-12"
+      ],
+      "environment": "STP/STJ",
+      "negative_cell": "Not stable procedural external action."
+    },
+    "M-PARTICIPATION-ARCHITECTURE-CONTROL": {
+      "comparators": [
+        "M-ADJ-ARGUMENT-QUALITY",
+        "M-ADJ-TEST-RESULT",
+        "M-INTERPRETIVE-CONTROL",
+        "M-MEANING-GOVERNED-COMPLIANCE",
+        "M-RES-REALLOC-BY-RESULT"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "consumers": [
+        "TT-SFPSFJ-CTRL",
+        "TT-SFPSFJ-DOC"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-13",
+        "D-02"
+      ],
+      "environment": "SFP/SFJ",
+      "negative_cell": "Not information asymmetry/replaceability."
+    },
+    "M-PARTICIPATION-REPLACEMENT": {
+      "comparators": [],
+      "components": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "consumers": [
+        "TT-SFPSFJ-DOC",
+        "TT-SFPSFJ-REP"
+      ],
+      "declared_competitors": [
+        "M-PARTICIPATION-RETENTION"
+      ],
+      "domains": [
+        "D-13"
+      ],
+      "environment": "SFP/SFJ",
+      "negative_cell": "Not ordinary hiring alone."
+    },
+    "M-PARTICIPATION-RETENTION": {
+      "comparators": [],
+      "components": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "consumers": [
+        "TT-SFPSFJ-DOC",
+        "TT-SFPSFJ-REP"
+      ],
+      "declared_competitors": [
+        "M-PARTICIPATION-REPLACEMENT"
+      ],
+      "domains": [
+        "D-13"
+      ],
+      "environment": "SFP/SFJ",
+      "negative_cell": "Not one transaction."
+    },
+    "M-POSITION-BY-RESOURCE-HOLD": {
+      "comparators": [
+        "M-ADV-REALISED-RESULT",
+        "M-CAPABILITY-YIELDS-CONTROL",
+        "M-COST-MINIMISING-SURPLUS-RETENTION",
+        "M-ENFORCE-RESOURCE-INFORMATION-CONTROL",
+        "M-NO-EXTERNAL-ARBITER",
+        "M-RES-ADAPTING-PERSON-RECRUITMENT",
+        "M-RES-ASYMMETRIC-RETENTION",
+        "M-RES-CAPABILITY-ADVANTAGE",
+        "M-RES-CONCEPTUAL-GENERATION",
+        "M-RES-EXPRESSIVE-EXPENDITURE",
+        "M-RES-HIERARCHICAL-RETENTION",
+        "M-RES-KNOWLEDGE-PRIMARY",
+        "M-RES-NETWORK-AS-PRINCIPAL-RESOURCE",
+        "M-RES-NETWORK-PRESERVATION",
+        "M-RES-PROTECTED-ACCESS-EXCHANGE",
+        "M-RES-REALLOC-BY-RESULT",
+        "M-RES-ROLE-CONTROLLED-ACCESS",
+        "M-RES-STAKE-UNPROVEN",
+        "M-RES-TACTICAL-EXTERNAL-ACQUISITION",
+        "M-RES-UPWARD-TRANSFER"
+      ],
+      "components": [
+        "c1",
+        "c2"
+      ],
+      "consumers": [
+        "TT-STJSTP-ES"
+      ],
+      "declared_competitors": [
+        "M-ADV-REALISED-RESULT"
+      ],
+      "domains": [
+        "D-07"
+      ],
+      "environment": "STJ/STP",
+      "negative_cell": "Not performance-based advancement."
+    },
+    "M-PRECEDENCE-CONTINUITY": {
+      "comparators": [],
+      "components": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "consumers": [
+        "TT-SFJSFP-POS"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-11"
+      ],
+      "environment": "SFJ/SFP",
+      "negative_cell": "Not a conservative culture statement."
+    },
+    "M-PRES-ABSOLUTE-BELIEF": {
+      "comparators": [
+        "M-PRES-APPLIED-EXPERIMENTATION",
+        "M-PRES-BELONGING-CONTINUITY",
+        "M-PRES-DESIRE-FRAMING",
+        "M-PRES-EXPRESSIVE-MEANING",
+        "M-PRES-HIGHER-MISSION",
+        "M-PRES-INNOVATION-ACHIEVEMENT",
+        "M-PRES-STRICT-HIERARCHY"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5"
+      ],
+      "consumers": [
+        "TT-NFSFJ-PH"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-01"
+      ],
+      "environment": "NF/SFJ",
+      "negative_cell": "Not ordinary value statements; not that participants believe it; not \"dogmatic\" as evaluation."
+    },
+    "M-PRES-APPLIED-EXPERIMENTATION": {
+      "comparators": [
+        "M-PRES-ABSOLUTE-BELIEF",
+        "M-PRES-BELONGING-CONTINUITY",
+        "M-PRES-DESIRE-FRAMING",
+        "M-PRES-EXPRESSIVE-MEANING",
+        "M-PRES-HIGHER-MISSION",
+        "M-PRES-INNOVATION-ACHIEVEMENT",
+        "M-PRES-STRICT-HIERARCHY"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ],
+      "consumers": [
+        "TT-NTSTP-PH"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-01"
+      ],
+      "environment": "NT/STP",
+      "negative_cell": "Not that tests decide issues or resources follow results."
+    },
+    "M-PRES-BELONGING-CONTINUITY": {
+      "comparators": [
+        "M-PRES-ABSOLUTE-BELIEF",
+        "M-PRES-APPLIED-EXPERIMENTATION",
+        "M-PRES-DESIRE-FRAMING",
+        "M-PRES-EXPRESSIVE-MEANING",
+        "M-PRES-HIGHER-MISSION",
+        "M-PRES-INNOVATION-ACHIEVEMENT",
+        "M-PRES-STRICT-HIERARCHY"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ],
+      "consumers": [
+        "TT-SFJSFP-PH"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-01"
+      ],
+      "environment": "SFJ/SFP",
+      "negative_cell": "Not any single label in isolation (bare \"loyalty\" or \"care\" alone insufficient); not network resource preservation (operative Ms); not trust gating."
+    },
+    "M-PRES-DESIRE-FRAMING": {
+      "comparators": [
+        "M-PRES-ABSOLUTE-BELIEF",
+        "M-PRES-APPLIED-EXPERIMENTATION",
+        "M-PRES-BELONGING-CONTINUITY",
+        "M-PRES-EXPRESSIVE-MEANING",
+        "M-PRES-HIGHER-MISSION",
+        "M-PRES-INNOVATION-ACHIEVEMENT",
+        "M-PRES-STRICT-HIERARCHY"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ],
+      "consumers": [
+        "TT-SFPSFJ-DE",
+        "TT-SFPSFJ-DOC"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-01"
+      ],
+      "environment": "SFP/SFJ",
+      "negative_cell": "Not that participation was actually activated by desire; not voluntariness; not retention architecture."
+    },
+    "M-PRES-EXPRESSIVE-MEANING": {
+      "comparators": [
+        "M-PRES-ABSOLUTE-BELIEF",
+        "M-PRES-APPLIED-EXPERIMENTATION",
+        "M-PRES-BELONGING-CONTINUITY",
+        "M-PRES-DESIRE-FRAMING",
+        "M-PRES-HIGHER-MISSION",
+        "M-PRES-INNOVATION-ACHIEVEMENT",
+        "M-PRES-STRICT-HIERARCHY"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ],
+      "consumers": [
+        "TT-NFSFP-PH"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-01"
+      ],
+      "environment": "NF/SFP",
+      "negative_cell": "Not authenticity; not emotional engagement; not that expression governs operation."
+    },
+    "M-PRES-HIGHER-MISSION": {
+      "comparators": [
+        "M-PRES-ABSOLUTE-BELIEF",
+        "M-PRES-APPLIED-EXPERIMENTATION",
+        "M-PRES-BELONGING-CONTINUITY",
+        "M-PRES-DESIRE-FRAMING",
+        "M-PRES-EXPRESSIVE-MEANING",
+        "M-PRES-INNOVATION-ACHIEVEMENT",
+        "M-PRES-STRICT-HIERARCHY"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ],
+      "consumers": [
+        "TT-NFNT-PH-PR"
+      ],
+      "declared_competitors": [
+        "M-PRES-HIGHER-MISSION"
+      ],
+      "domains": [
+        "D-01"
+      ],
+      "environment": "NF/NT",
+      "negative_cell": "Not that the mission is genuine, governs work, or is believed; not generic \"mission statement\" of commercial goals; NOT completion of the full accepted NF/NT Phenomenon (genuineness boundary, TT-NFNT-PH note)."
+    },
+    "M-PRES-INNOVATION-ACHIEVEMENT": {
+      "comparators": [
+        "M-PRES-ABSOLUTE-BELIEF",
+        "M-PRES-APPLIED-EXPERIMENTATION",
+        "M-PRES-BELONGING-CONTINUITY",
+        "M-PRES-DESIRE-FRAMING",
+        "M-PRES-EXPRESSIVE-MEANING",
+        "M-PRES-HIGHER-MISSION",
+        "M-PRES-STRICT-HIERARCHY"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ],
+      "consumers": [
+        "TT-NTSTJ-PH"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-01"
+      ],
+      "environment": "NT/STJ",
+      "negative_cell": "Not that achievements exist or govern advancement."
+    },
+    "M-PRES-STRICT-HIERARCHY": {
+      "comparators": [
+        "M-PRES-ABSOLUTE-BELIEF",
+        "M-PRES-APPLIED-EXPERIMENTATION",
+        "M-PRES-BELONGING-CONTINUITY",
+        "M-PRES-DESIRE-FRAMING",
+        "M-PRES-EXPRESSIVE-MEANING",
+        "M-PRES-HIGHER-MISSION",
+        "M-PRES-INNOVATION-ACHIEVEMENT"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5"
+      ],
+      "consumers": [
+        "TT-STJSTP-PH"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-01"
+      ],
+      "environment": "STJ/STP",
+      "negative_cell": "Not that enforcement operates; not dominance-based redistribution; tribute here is the displayed transfer/subordination practice, not operative extraction."
+    },
+    "M-RECOGNISED-COMMAND-ORDER": {
+      "comparators": [
+        "M-AUTH-TOPDOWN-EXPLICIT",
+        "M-ENFORCE-RESOURCE-CONTROL",
+        "M-ENFORCE-STRENGTH",
+        "M-HIERARCHY-EFFICIENCY"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "consumers": [
+        "TT-STPSTJ-ESS",
+        "TT-STPSTJ-PW"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-04"
+      ],
+      "environment": "STP/STJ",
+      "negative_cell": "Not formal bureaucracy; not chart only."
+    },
+    "M-RES-ADAPTING-PERSON-RECRUITMENT": {
+      "comparators": [
+        "M-CAPABILITY-YIELDS-CONTROL",
+        "M-COST-MINIMISING-SURPLUS-RETENTION",
+        "M-ENFORCE-RESOURCE-CONTROL",
+        "M-NO-EXTERNAL-ARBITER",
+        "M-POSITION-BY-RESOURCE-HOLD",
+        "M-RES-ASYMMETRIC-RETENTION",
+        "M-RES-CAPABILITY-ADVANTAGE",
+        "M-RES-COERCIVE-REDISTRIBUTION",
+        "M-RES-CONCEPTUAL-GENERATION",
+        "M-RES-EXPRESSIVE-EXPENDITURE",
+        "M-RES-KNOWLEDGE-PRIMARY",
+        "M-RES-NETWORK-AS-PRINCIPAL-RESOURCE",
+        "M-RES-NETWORK-PRESERVATION",
+        "M-RES-REALLOC-BY-RESULT",
+        "M-RES-STAKE-UNPROVEN",
+        "M-RES-UPWARD-TRANSFER"
+      ],
+      "components": [
+        "c1",
+        "c2"
+      ],
+      "consumers": [
+        "TT-STPSTJ-RS"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-07",
+        "D-12"
+      ],
+      "environment": "STP/STJ",
+      "negative_cell": "Not ordinary hiring alone; not retention of non-adapting personnel."
+    },
+    "M-RES-ASYMMETRIC-RETENTION": {
+      "comparators": [
+        "M-CAPABILITY-YIELDS-CONTROL",
+        "M-ENFORCE-RESOURCE-CONTROL",
+        "M-ENFORCE-RESOURCE-INFORMATION-CONTROL",
+        "M-NO-EXTERNAL-ARBITER",
+        "M-POSITION-BY-RESOURCE-HOLD",
+        "M-RES-ADAPTING-PERSON-RECRUITMENT",
+        "M-RES-CAPABILITY-ADVANTAGE",
+        "M-RES-COERCIVE-REDISTRIBUTION",
+        "M-RES-CONCEPTUAL-GENERATION",
+        "M-RES-EXPRESSIVE-EXPENDITURE",
+        "M-RES-HIERARCHICAL-RETENTION",
+        "M-RES-KNOWLEDGE-PRIMARY",
+        "M-RES-NETWORK-AS-PRINCIPAL-RESOURCE",
+        "M-RES-NETWORK-PRESERVATION",
+        "M-RES-PROTECTED-ACCESS-EXCHANGE",
+        "M-RES-REALLOC-BY-RESULT",
+        "M-RES-ROLE-CONTROLLED-ACCESS",
+        "M-RES-STAKE-UNPROVEN",
+        "M-RES-TACTICAL-EXTERNAL-ACQUISITION",
+        "M-RES-UPWARD-TRANSFER"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "consumers": [
+        "TT-SFPSFJ-DOC",
+        "TT-SFPSFJ-RES"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-07"
+      ],
+      "environment": "SFP/SFJ",
+      "negative_cell": "Not nominal low pay alone (G-7); not a conclusion restated without a stated comparison basis (conclusion-only statements are INSUFFICIENT for c3); not a coder-chosen conversion unit; never established across incommensurable channels."
+    },
+    "M-RES-CAPABILITY-ADVANTAGE": {
+      "comparators": [
+        "M-COST-MINIMISING-SURPLUS-RETENTION",
+        "M-ENFORCE-RESOURCE-CONTROL",
+        "M-ENFORCE-RESOURCE-INFORMATION-CONTROL",
+        "M-NO-EXTERNAL-ARBITER",
+        "M-POSITION-BY-RESOURCE-HOLD",
+        "M-RES-ADAPTING-PERSON-RECRUITMENT",
+        "M-RES-ASYMMETRIC-RETENTION",
+        "M-RES-COERCIVE-REDISTRIBUTION",
+        "M-RES-CONCEPTUAL-GENERATION",
+        "M-RES-EXPRESSIVE-EXPENDITURE",
+        "M-RES-HIERARCHICAL-RETENTION",
+        "M-RES-KNOWLEDGE-PRIMARY",
+        "M-RES-NETWORK-AS-PRINCIPAL-RESOURCE",
+        "M-RES-NETWORK-PRESERVATION",
+        "M-RES-PROTECTED-ACCESS-EXCHANGE",
+        "M-RES-REALLOC-BY-RESULT",
+        "M-RES-ROLE-CONTROLLED-ACCESS",
+        "M-RES-STAKE-UNPROVEN",
+        "M-RES-TACTICAL-EXTERNAL-ACQUISITION",
+        "M-RES-UPWARD-TRANSFER"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ],
+      "consumers": [
+        "TT-NTSTJ-RS"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-07"
+      ],
+      "environment": "NT/STJ",
+      "negative_cell": "Not capex existence; not comfort spending; not secondary deployment."
+    },
+    "M-RES-COERCIVE-REDISTRIBUTION": {
+      "comparators": [
+        "M-CAPABILITY-YIELDS-CONTROL",
+        "M-COST-MINIMISING-SURPLUS-RETENTION",
+        "M-ENFORCE-RESOURCE-INFORMATION-CONTROL",
+        "M-NO-EXTERNAL-ARBITER",
+        "M-RES-ADAPTING-PERSON-RECRUITMENT",
+        "M-RES-ASYMMETRIC-RETENTION",
+        "M-RES-CAPABILITY-ADVANTAGE",
+        "M-RES-CONCEPTUAL-GENERATION",
+        "M-RES-EXPRESSIVE-EXPENDITURE",
+        "M-RES-HIERARCHICAL-RETENTION",
+        "M-RES-KNOWLEDGE-PRIMARY",
+        "M-RES-NETWORK-AS-PRINCIPAL-RESOURCE",
+        "M-RES-NETWORK-PRESERVATION",
+        "M-RES-PROTECTED-ACCESS-EXCHANGE",
+        "M-RES-REALLOC-BY-RESULT",
+        "M-RES-ROLE-CONTROLLED-ACCESS",
+        "M-RES-STAKE-UNPROVEN",
+        "M-RES-TACTICAL-EXTERNAL-ACQUISITION",
+        "M-RES-UPWARD-TRANSFER"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "consumers": [
+        "TT-STJSTP-RS"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-07"
+      ],
+      "environment": "STJ/STP",
+      "negative_cell": "Not \"unfair\" (legacy); no fairness-violation component."
+    },
+    "M-RES-CONCEPTUAL-GENERATION": {
+      "comparators": [
+        "M-CAPABILITY-YIELDS-CONTROL",
+        "M-COST-MINIMISING-SURPLUS-RETENTION",
+        "M-ENFORCE-RESOURCE-CONTROL",
+        "M-ENFORCE-RESOURCE-INFORMATION-CONTROL",
+        "M-NO-EXTERNAL-ARBITER",
+        "M-POSITION-BY-RESOURCE-HOLD",
+        "M-RES-ADAPTING-PERSON-RECRUITMENT",
+        "M-RES-ASYMMETRIC-RETENTION",
+        "M-RES-CAPABILITY-ADVANTAGE",
+        "M-RES-COERCIVE-REDISTRIBUTION",
+        "M-RES-EXPRESSIVE-EXPENDITURE",
+        "M-RES-HIERARCHICAL-RETENTION",
+        "M-RES-NETWORK-AS-PRINCIPAL-RESOURCE",
+        "M-RES-NETWORK-PRESERVATION",
+        "M-RES-PROTECTED-ACCESS-EXCHANGE",
+        "M-RES-REALLOC-BY-RESULT",
+        "M-RES-ROLE-CONTROLLED-ACCESS",
+        "M-RES-STAKE-UNPROVEN",
+        "M-RES-TACTICAL-EXTERNAL-ACQUISITION",
+        "M-RES-UPWARD-TRANSFER"
+      ],
+      "components": [
+        "c1",
+        "c2"
+      ],
+      "consumers": [
+        "TT-NFNT-RS"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-07"
+      ],
+      "environment": "NF/NT",
+      "negative_cell": "Not a budget line; not redistribution alone."
+    },
+    "M-RES-EXPRESSIVE-EXPENDITURE": {
+      "comparators": [
+        "M-CAPABILITY-YIELDS-CONTROL",
+        "M-COST-MINIMISING-SURPLUS-RETENTION",
+        "M-ENFORCE-RESOURCE-CONTROL",
+        "M-ENFORCE-RESOURCE-INFORMATION-CONTROL",
+        "M-NO-EXTERNAL-ARBITER",
+        "M-POSITION-BY-RESOURCE-HOLD",
+        "M-RES-ADAPTING-PERSON-RECRUITMENT",
+        "M-RES-ASYMMETRIC-RETENTION",
+        "M-RES-CAPABILITY-ADVANTAGE",
+        "M-RES-COERCIVE-REDISTRIBUTION",
+        "M-RES-CONCEPTUAL-GENERATION",
+        "M-RES-HIERARCHICAL-RETENTION",
+        "M-RES-KNOWLEDGE-PRIMARY",
+        "M-RES-NETWORK-AS-PRINCIPAL-RESOURCE",
+        "M-RES-NETWORK-PRESERVATION",
+        "M-RES-PROTECTED-ACCESS-EXCHANGE",
+        "M-RES-REALLOC-BY-RESULT",
+        "M-RES-ROLE-CONTROLLED-ACCESS",
+        "M-RES-STAKE-UNPROVEN",
+        "M-RES-TACTICAL-EXTERNAL-ACQUISITION",
+        "M-RES-UPWARD-TRANSFER"
+      ],
+      "components": [
+        "c1",
+        "c2"
+      ],
+      "consumers": [
+        "TT-NFSFP-RS"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-07"
+      ],
+      "environment": "NF/SFP",
+      "negative_cell": "Not that expression is authentic; not uncontrolled."
+    },
+    "M-RES-HIERARCHICAL-RETENTION": {
+      "comparators": [
+        "M-CAPABILITY-YIELDS-CONTROL",
+        "M-COST-MINIMISING-SURPLUS-RETENTION",
+        "M-ENFORCE-RESOURCE-CONTROL",
+        "M-NO-EXTERNAL-ARBITER",
+        "M-POSITION-BY-RESOURCE-HOLD",
+        "M-RES-ASYMMETRIC-RETENTION",
+        "M-RES-CAPABILITY-ADVANTAGE",
+        "M-RES-COERCIVE-REDISTRIBUTION",
+        "M-RES-CONCEPTUAL-GENERATION",
+        "M-RES-EXPRESSIVE-EXPENDITURE",
+        "M-RES-KNOWLEDGE-PRIMARY",
+        "M-RES-NETWORK-AS-PRINCIPAL-RESOURCE",
+        "M-RES-NETWORK-PRESERVATION",
+        "M-RES-REALLOC-BY-RESULT",
+        "M-RES-STAKE-UNPROVEN",
+        "M-RES-UPWARD-TRANSFER"
+      ],
+      "components": [
+        "c1",
+        "c2"
+      ],
+      "consumers": [
+        "TT-STPSTJ-RS"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-07"
+      ],
+      "environment": "STP/STJ",
+      "negative_cell": "Not access control alone; not external redistribution."
+    },
+    "M-RES-KNOWLEDGE-PRIMARY": {
+      "comparators": [
+        "M-CAPABILITY-YIELDS-CONTROL",
+        "M-COST-MINIMISING-SURPLUS-RETENTION",
+        "M-ENFORCE-RESOURCE-CONTROL",
+        "M-ENFORCE-RESOURCE-INFORMATION-CONTROL",
+        "M-NO-EXTERNAL-ARBITER",
+        "M-POSITION-BY-RESOURCE-HOLD",
+        "M-RES-ADAPTING-PERSON-RECRUITMENT",
+        "M-RES-ASYMMETRIC-RETENTION",
+        "M-RES-CAPABILITY-ADVANTAGE",
+        "M-RES-COERCIVE-REDISTRIBUTION",
+        "M-RES-EXPRESSIVE-EXPENDITURE",
+        "M-RES-HIERARCHICAL-RETENTION",
+        "M-RES-NETWORK-AS-PRINCIPAL-RESOURCE",
+        "M-RES-NETWORK-PRESERVATION",
+        "M-RES-PROTECTED-ACCESS-EXCHANGE",
+        "M-RES-REALLOC-BY-RESULT",
+        "M-RES-ROLE-CONTROLLED-ACCESS",
+        "M-RES-STAKE-UNPROVEN",
+        "M-RES-TACTICAL-EXTERNAL-ACQUISITION",
+        "M-RES-UPWARD-TRANSFER"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "consumers": [
+        "TT-NFNT-RS"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-07"
+      ],
+      "environment": "NF/NT",
+      "negative_cell": "NOT \"other resources are spent on knowledge\"; not an allocation-priority test alone; not incidental R&D; not application control; NOT an any-one-stage category (no single stage satisfies)."
+    },
+    "M-RES-NETWORK-AS-PRINCIPAL-RESOURCE": {
+      "comparators": [
+        "M-CAPABILITY-YIELDS-CONTROL",
+        "M-COST-MINIMISING-SURPLUS-RETENTION",
+        "M-ENFORCE-RESOURCE-CONTROL",
+        "M-ENFORCE-RESOURCE-INFORMATION-CONTROL",
+        "M-NO-EXTERNAL-ARBITER",
+        "M-POSITION-BY-RESOURCE-HOLD",
+        "M-RES-ADAPTING-PERSON-RECRUITMENT",
+        "M-RES-ASYMMETRIC-RETENTION",
+        "M-RES-CAPABILITY-ADVANTAGE",
+        "M-RES-COERCIVE-REDISTRIBUTION",
+        "M-RES-CONCEPTUAL-GENERATION",
+        "M-RES-EXPRESSIVE-EXPENDITURE",
+        "M-RES-HIERARCHICAL-RETENTION",
+        "M-RES-KNOWLEDGE-PRIMARY",
+        "M-RES-PROTECTED-ACCESS-EXCHANGE",
+        "M-RES-REALLOC-BY-RESULT",
+        "M-RES-ROLE-CONTROLLED-ACCESS",
+        "M-RES-STAKE-UNPROVEN",
+        "M-RES-TACTICAL-EXTERNAL-ACQUISITION",
+        "M-RES-UPWARD-TRANSFER"
+      ],
+      "components": [
+        "c1",
+        "c2"
+      ],
+      "consumers": [
+        "TT-SFJSFP-CORE"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-07"
+      ],
+      "environment": "SFJ/SFP",
+      "negative_cell": "Not merely resources circulating inside a network; not the network as venue only."
+    },
+    "M-RES-NETWORK-PRESERVATION": {
+      "comparators": [
+        "M-ACCESS-BY-LOYALTY-RELIABILITY",
+        "M-CAPABILITY-YIELDS-CONTROL",
+        "M-COST-MINIMISING-SURPLUS-RETENTION",
+        "M-ENFORCE-RESOURCE-CONTROL",
+        "M-ENFORCE-RESOURCE-INFORMATION-CONTROL",
+        "M-NO-EXTERNAL-ARBITER",
+        "M-POSITION-BY-RESOURCE-HOLD",
+        "M-RES-ADAPTING-PERSON-RECRUITMENT",
+        "M-RES-ASYMMETRIC-RETENTION",
+        "M-RES-CAPABILITY-ADVANTAGE",
+        "M-RES-COERCIVE-REDISTRIBUTION",
+        "M-RES-CONCEPTUAL-GENERATION",
+        "M-RES-EXPRESSIVE-EXPENDITURE",
+        "M-RES-HIERARCHICAL-RETENTION",
+        "M-RES-KNOWLEDGE-PRIMARY",
+        "M-RES-PROTECTED-ACCESS-EXCHANGE",
+        "M-RES-REALLOC-BY-RESULT",
+        "M-RES-ROLE-CONTROLLED-ACCESS",
+        "M-RES-STAKE-UNPROVEN",
+        "M-RES-TACTICAL-EXTERNAL-ACQUISITION",
+        "M-RES-UPWARD-TRANSFER"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "consumers": [
+        "TT-SFJSFP-CORE"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-07",
+        "D-10"
+      ],
+      "environment": "SFJ/SFP",
+      "negative_cell": "Not family ownership label alone; not the stronger principal-resource claim (that is M-RES-NETWORK-AS-PRINCIPAL-RESOURCE)."
+    },
+    "M-RES-NO-INTERNAL-REPLENISHMENT": {
+      "comparators": [],
+      "components": [
+        "c1",
+        "c2"
+      ],
+      "consumers": [
+        "TT-NFSFP-RS"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-09"
+      ],
+      "environment": "NF/SFP",
+      "negative_cell": "NOT established by silence / absent documents (\u00a7J); not \"wasteful\"; Mode-D \u00a721 record-class closure is not misapplied to ban this affirmative organizational negative."
+    },
+    "M-RES-PROTECTED-ACCESS-EXCHANGE": {
+      "comparators": [
+        "M-CAPABILITY-YIELDS-CONTROL",
+        "M-COST-MINIMISING-SURPLUS-RETENTION",
+        "M-ENFORCE-RESOURCE-CONTROL",
+        "M-NO-EXTERNAL-ARBITER",
+        "M-POSITION-BY-RESOURCE-HOLD",
+        "M-RES-ASYMMETRIC-RETENTION",
+        "M-RES-CAPABILITY-ADVANTAGE",
+        "M-RES-COERCIVE-REDISTRIBUTION",
+        "M-RES-CONCEPTUAL-GENERATION",
+        "M-RES-EXPRESSIVE-EXPENDITURE",
+        "M-RES-KNOWLEDGE-PRIMARY",
+        "M-RES-NETWORK-AS-PRINCIPAL-RESOURCE",
+        "M-RES-NETWORK-PRESERVATION",
+        "M-RES-REALLOC-BY-RESULT",
+        "M-RES-STAKE-UNPROVEN",
+        "M-RES-UPWARD-TRANSFER"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "consumers": [
+        "TT-STPSTJ-RS"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-07",
+        "D-12"
+      ],
+      "environment": "STP/STJ",
+      "negative_cell": "Not ordinary employment; not unconditional access; not loyalty-only trust (that is the PW lane)."
+    },
+    "M-RES-REALLOC-BY-RESULT": {
+      "comparators": [
+        "M-ADJ-ARGUMENT-QUALITY",
+        "M-CAPABILITY-YIELDS-CONTROL",
+        "M-COST-MINIMISING-SURPLUS-RETENTION",
+        "M-ENFORCE-RESOURCE-CONTROL",
+        "M-ENFORCE-RESOURCE-INFORMATION-CONTROL",
+        "M-INTERPRETIVE-CONTROL",
+        "M-MEANING-GOVERNED-COMPLIANCE",
+        "M-PARTICIPATION-ARCHITECTURE-CONTROL",
+        "M-POSITION-BY-RESOURCE-HOLD",
+        "M-RES-ADAPTING-PERSON-RECRUITMENT",
+        "M-RES-ASYMMETRIC-RETENTION",
+        "M-RES-CAPABILITY-ADVANTAGE",
+        "M-RES-COERCIVE-REDISTRIBUTION",
+        "M-RES-CONCEPTUAL-GENERATION",
+        "M-RES-EXPRESSIVE-EXPENDITURE",
+        "M-RES-HIERARCHICAL-RETENTION",
+        "M-RES-KNOWLEDGE-PRIMARY",
+        "M-RES-NETWORK-AS-PRINCIPAL-RESOURCE",
+        "M-RES-NETWORK-PRESERVATION",
+        "M-RES-PROTECTED-ACCESS-EXCHANGE",
+        "M-RES-ROLE-CONTROLLED-ACCESS",
+        "M-RES-TACTICAL-EXTERNAL-ACQUISITION",
+        "M-RES-UPWARD-TRANSFER"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "consumers": [
+        "TT-NTSTP-ES",
+        "TT-NTSTP-RS"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-07",
+        "D-02"
+      ],
+      "environment": "NT/STP",
+      "negative_cell": "NOT the absence of other arbiters \u2014 that distinct negative is M-NO-EXTERNAL-ARBITER (F03); not budget cycles by rank."
+    },
+    "M-RES-ROLE-CONTROLLED-ACCESS": {
+      "comparators": [
+        "M-CAPABILITY-YIELDS-CONTROL",
+        "M-COST-MINIMISING-SURPLUS-RETENTION",
+        "M-ENFORCE-RESOURCE-CONTROL",
+        "M-NO-EXTERNAL-ARBITER",
+        "M-POSITION-BY-RESOURCE-HOLD",
+        "M-RES-ASYMMETRIC-RETENTION",
+        "M-RES-CAPABILITY-ADVANTAGE",
+        "M-RES-COERCIVE-REDISTRIBUTION",
+        "M-RES-CONCEPTUAL-GENERATION",
+        "M-RES-EXPRESSIVE-EXPENDITURE",
+        "M-RES-KNOWLEDGE-PRIMARY",
+        "M-RES-NETWORK-AS-PRINCIPAL-RESOURCE",
+        "M-RES-NETWORK-PRESERVATION",
+        "M-RES-REALLOC-BY-RESULT",
+        "M-RES-STAKE-UNPROVEN",
+        "M-RES-UPWARD-TRANSFER"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "consumers": [
+        "TT-STPSTJ-RS"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-07"
+      ],
+      "environment": "STP/STJ",
+      "negative_cell": "Not budget authority alone; not the retention/distribution end of the flow (M-RES-HIERARCHICAL-RETENTION)."
+    },
+    "M-RES-STAKE-UNPROVEN": {
+      "comparators": [
+        "M-CAPABILITY-YIELDS-CONTROL",
+        "M-COST-MINIMISING-SURPLUS-RETENTION",
+        "M-ENFORCE-RESOURCE-CONTROL",
+        "M-ENFORCE-RESOURCE-INFORMATION-CONTROL",
+        "M-POSITION-BY-RESOURCE-HOLD",
+        "M-RES-ADAPTING-PERSON-RECRUITMENT",
+        "M-RES-ASYMMETRIC-RETENTION",
+        "M-RES-CAPABILITY-ADVANTAGE",
+        "M-RES-COERCIVE-REDISTRIBUTION",
+        "M-RES-CONCEPTUAL-GENERATION",
+        "M-RES-EXPRESSIVE-EXPENDITURE",
+        "M-RES-HIERARCHICAL-RETENTION",
+        "M-RES-KNOWLEDGE-PRIMARY",
+        "M-RES-NETWORK-AS-PRINCIPAL-RESOURCE",
+        "M-RES-NETWORK-PRESERVATION",
+        "M-RES-PROTECTED-ACCESS-EXCHANGE",
+        "M-RES-ROLE-CONTROLLED-ACCESS",
+        "M-RES-TACTICAL-EXTERNAL-ACQUISITION",
+        "M-RES-UPWARD-TRANSFER"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "consumers": [
+        "TT-NTSTP-RS"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-07"
+      ],
+      "environment": "NT/STP",
+      "negative_cell": "Not moral greed; not large return; not fraud."
+    },
+    "M-RES-TACTICAL-EXTERNAL-ACQUISITION": {
+      "comparators": [
+        "M-CAPABILITY-YIELDS-CONTROL",
+        "M-COST-MINIMISING-SURPLUS-RETENTION",
+        "M-ENFORCE-RESOURCE-CONTROL",
+        "M-NO-EXTERNAL-ARBITER",
+        "M-POSITION-BY-RESOURCE-HOLD",
+        "M-RES-ASYMMETRIC-RETENTION",
+        "M-RES-CAPABILITY-ADVANTAGE",
+        "M-RES-COERCIVE-REDISTRIBUTION",
+        "M-RES-CONCEPTUAL-GENERATION",
+        "M-RES-EXPRESSIVE-EXPENDITURE",
+        "M-RES-KNOWLEDGE-PRIMARY",
+        "M-RES-NETWORK-AS-PRINCIPAL-RESOURCE",
+        "M-RES-NETWORK-PRESERVATION",
+        "M-RES-REALLOC-BY-RESULT",
+        "M-RES-STAKE-UNPROVEN",
+        "M-RES-UPWARD-TRANSFER"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "consumers": [
+        "TT-STPSTJ-RS"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-07",
+        "D-12"
+      ],
+      "environment": "STP/STJ",
+      "negative_cell": "Not illegality; not ordinary sales; NOT satisfiable by an organization that primarily creates resources and only occasionally acquires externally; primary status never inferred from silence."
+    },
+    "M-RES-UPWARD-TRANSFER": {
+      "comparators": [
+        "M-CAPABILITY-YIELDS-CONTROL",
+        "M-COST-MINIMISING-SURPLUS-RETENTION",
+        "M-ENFORCE-RESOURCE-CONTROL",
+        "M-ENFORCE-RESOURCE-INFORMATION-CONTROL",
+        "M-NO-EXTERNAL-ARBITER",
+        "M-POSITION-BY-RESOURCE-HOLD",
+        "M-RES-ADAPTING-PERSON-RECRUITMENT",
+        "M-RES-ASYMMETRIC-RETENTION",
+        "M-RES-CAPABILITY-ADVANTAGE",
+        "M-RES-COERCIVE-REDISTRIBUTION",
+        "M-RES-CONCEPTUAL-GENERATION",
+        "M-RES-EXPRESSIVE-EXPENDITURE",
+        "M-RES-HIERARCHICAL-RETENTION",
+        "M-RES-KNOWLEDGE-PRIMARY",
+        "M-RES-NETWORK-AS-PRINCIPAL-RESOURCE",
+        "M-RES-NETWORK-PRESERVATION",
+        "M-RES-PROTECTED-ACCESS-EXCHANGE",
+        "M-RES-REALLOC-BY-RESULT",
+        "M-RES-ROLE-CONTROLLED-ACCESS",
+        "M-RES-STAKE-UNPROVEN",
+        "M-RES-TACTICAL-EXTERNAL-ACQUISITION"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "consumers": [
+        "TT-NFSFJ-ES"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-07"
+      ],
+      "environment": "NF/SFJ",
+      "negative_cell": "Not one transfer as criterion alone (E9/05 \u00a712 applies at target level); money not required."
+    },
+    "M-RULE-EXEMPT-UPPER": {
+      "comparators": [
+        "M-ENFORCE-SANCTION",
+        "M-INSIDER-OUTSIDER-RULE-ASYMMETRY",
+        "M-ZERO-SUM-PRIMACY-CONTEST"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "consumers": [
+        "TT-NFSFJ-CORE"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-06"
+      ],
+      "environment": "NF/SFJ",
+      "negative_cell": "Not insider/outsider asymmetry (M-INSIDER-OUTSIDER-RULE-ASYMMETRY)."
+    },
+    "M-SACRED-UNITY-PERSISTENCE-FUNCTION": {
+      "comparators": [],
+      "components": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "consumers": [
+        "TT-NFSFJ-SO"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-08"
+      ],
+      "environment": "NF/SFJ",
+      "negative_cell": "Not ordinary discipline; not risk disclosure; not motive invention; NOT satisfiable by consolidation/cohesion framing without the endpoint record; not any designation without consolidation framing."
+    },
+    "M-STRATEGY-TO-SCALE": {
+      "comparators": [
+        "M-EMPIRICAL-TEST-ITERATE",
+        "M-IMMEDIATE-EMPIRICAL-ITERATION",
+        "M-INQUIRY-OPERATION",
+        "M-OPEN-CRITICAL-EXCHANGE",
+        "M-THEORY-PRODUCTION",
+        "M-WORKING-RESULT"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "consumers": [
+        "TT-NTSTJ-CORE"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-05"
+      ],
+      "environment": "NT/STJ",
+      "negative_cell": "Not a plan only (PLAN fails)."
+    },
+    "M-STRUCTURED-IMPLEMENTATION": {
+      "comparators": [
+        "M-EMPIRICAL-TEST-ITERATE",
+        "M-IMMEDIATE-EMPIRICAL-ITERATION",
+        "M-INQUIRY-OPERATION",
+        "M-OPEN-CRITICAL-EXCHANGE",
+        "M-THEORY-PRODUCTION",
+        "M-WORKING-RESULT"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "consumers": [
+        "TT-NTSTJ-ES"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-05"
+      ],
+      "environment": "NT/STJ",
+      "negative_cell": "Not one strict process (E9/03 \u00a712)."
+    },
+    "M-THEORY-PRODUCTION": {
+      "comparators": [
+        "M-EMPIRICAL-TEST-ITERATE",
+        "M-IMMEDIATE-EMPIRICAL-ITERATION",
+        "M-STRATEGY-TO-SCALE",
+        "M-STRUCTURED-IMPLEMENTATION",
+        "M-WORKING-RESULT"
+      ],
+      "components": [
+        "c1",
+        "c2"
+      ],
+      "consumers": [
+        "TT-NFNT-ES"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-05"
+      ],
+      "environment": "NF/NT",
+      "negative_cell": "Not publication count as such; not applied product."
+    },
+    "M-THREAT-AMPLIFICATION": {
+      "comparators": [],
+      "components": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "consumers": [
+        "TT-NFSFJ-SO"
+      ],
+      "declared_competitors": [
+        "M-INTERNAL-ENEMY-DESIGNATION"
+      ],
+      "domains": [
+        "D-08"
+      ],
+      "environment": "NF/SFJ",
+      "negative_cell": "Not ordinary risk disclosure; not that the threat is real or unreal; not motive."
+    },
+    "M-TRUST-BY-DEMONSTRATED-LOYALTY": {
+      "comparators": [
+        "M-ACCESS-BY-LOYALTY-RELIABILITY",
+        "M-ADV-DOCTRINAL-ALIGNMENT",
+        "M-ADV-REALISED-RESULT",
+        "M-AUTH-DELIVERY",
+        "M-AUTH-EPISTEMIC",
+        "M-AUTH-TECHNICAL-CREDIBILITY"
+      ],
+      "components": [
+        "c1",
+        "c2"
+      ],
+      "consumers": [
+        "TT-SFJSFP-MEM"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-10",
+        "D-03"
+      ],
+      "environment": "SFJ/SFP",
+      "negative_cell": "Reliability or professional competence alone does not satisfy; membership itself does not satisfy; not the STP/STJ loyalty/reliability gate (M-ACCESS-BY-LOYALTY-RELIABILITY)."
+    },
+    "M-WORKING-RESULT": {
+      "comparators": [
+        "M-INQUIRY-OPERATION",
+        "M-OPEN-CRITICAL-EXCHANGE",
+        "M-STRATEGY-TO-SCALE",
+        "M-STRUCTURED-IMPLEMENTATION",
+        "M-THEORY-PRODUCTION"
+      ],
+      "components": [
+        "c1",
+        "c2"
+      ],
+      "consumers": [
+        "TT-NTSTP-CORE"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-05"
+      ],
+      "environment": "NT/STP",
+      "negative_cell": "Not an abandoned experiment series."
+    },
+    "M-ZERO-SUM-PRIMACY-CONTEST": {
+      "comparators": [
+        "M-INSIDER-OUTSIDER-RULE-ASYMMETRY",
+        "M-RULE-EXEMPT-UPPER"
+      ],
+      "components": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ],
+      "consumers": [
+        "TT-STJSTP-ES"
+      ],
+      "declared_competitors": [],
+      "domains": [
+        "D-06"
+      ],
+      "environment": "STJ/STP",
+      "negative_cell": "Not a single competitive act; not market competition with outsiders."
+    }
+  },
+  "nacr": {
+    "NACR-1": {
+      "component": "c3",
+      "mechanism": "M-RES-ASYMMETRIC-RETENTION"
+    }
+  },
+  "package_locators": [
+    {
+      "canonicalHashPreimageConstructibleCount": 43,
+      "caseIdKey": "caseId",
+      "caseIdLocator": "package-level key 'caseId'",
+      "caseIdValues": [
+        "CASE-3.5"
+      ],
+      "caseSlug": "daimler-chrysler",
+      "factCount": 43,
+      "factIdKey": "factId",
+      "factIdLocator": "record-level key 'factId'",
+      "factTextKey": "proposition",
+      "factTextLocator": "record-level key 'proposition'",
+      "factTextNonemptyCount": 43,
+      "ordinal": 1,
+      "packageDir": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/Downloads/CASE-3.5_DAIMLER_CHRYSLER_BASELINE_v1.0.7_CANDIDATE",
+      "recordFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/Downloads/CASE-3.5_DAIMLER_CHRYSLER_BASELINE_v1.0.7_CANDIDATE/CERTIFIED_FACT_REGISTER.json",
+      "recordFileBytes": 95230,
+      "recordFileSha256": "268ee5818a3fc6f660a634cc125679c365c759b0a5c0c226f4bca11aca37f532",
+      "recordFormat": "json",
+      "recordListKey": "admittedFacts",
+      "requiredReadPresence": {
+        "caseId": {
+          "locator": "package-level key 'caseId'",
+          "present": true
+        },
+        "evidenceForm": {
+          "occurrences": 0,
+          "present": false
+        },
+        "factId": {
+          "locator": "record-level key 'factId'",
+          "present": true
+        },
+        "factText": {
+          "locator": "record-level key 'proposition'",
+          "present": true
+        },
+        "planCurrentState": {
+          "occurrences": 0,
+          "present": false
+        },
+        "sideId": {
+          "locator": "record-level key 'side'",
+          "present": true
+        }
+      },
+      "sideCount": 2,
+      "sideIdKey": "side",
+      "sideIdLocator": "record-level key 'side'",
+      "sides": {
+        "CHRYSLER": 21,
+        "DAIMLER": 22
+      },
+      "stage1Generation": "BASELINE_v1.0.7_CANDIDATE"
+    },
+    {
+      "canonicalHashPreimageConstructibleCount": 35,
+      "caseIdKey": "case_id",
+      "caseIdLocator": "record-level key 'case_id'",
+      "caseIdValues": [
+        "deutsche-bankers-trust"
+      ],
+      "caseSlug": "deutsche-bankers-trust",
+      "factCount": 35,
+      "factIdKey": "fact_id",
+      "factIdLocator": "record-level key 'fact_id'",
+      "factTextKey": "atomic_proposition",
+      "factTextLocator": "record-level key 'atomic_proposition'",
+      "factTextNonemptyCount": 35,
+      "ordinal": 2,
+      "packageDir": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/deutsche-bankers-trust/01_T0_PRE_T0_BASELINE/candidate",
+      "recordFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/deutsche-bankers-trust/01_T0_PRE_T0_BASELINE/candidate/04_ATOMIC_FACT_LEDGER.jsonl",
+      "recordFileBytes": 37579,
+      "recordFileSha256": "9bfa11faac6a7619c6ee212db305fe0aca2ddcda0bc7c191f4be4c0937e3c69f",
+      "recordFormat": "jsonl",
+      "recordListKey": null,
+      "requiredReadPresence": {
+        "caseId": {
+          "locator": "record-level key 'case_id'",
+          "present": true
+        },
+        "evidenceForm": {
+          "occurrences": 0,
+          "present": false
+        },
+        "factId": {
+          "locator": "record-level key 'fact_id'",
+          "present": true
+        },
+        "factText": {
+          "locator": "record-level key 'atomic_proposition'",
+          "present": true
+        },
+        "planCurrentState": {
+          "occurrences": 0,
+          "present": false
+        },
+        "sideId": {
+          "locator": "record-level key 'side'",
+          "present": true
+        }
+      },
+      "sideCount": 2,
+      "sideIdKey": "side",
+      "sideIdLocator": "record-level key 'side'",
+      "sides": {
+        "BANKERS_TRUST": 18,
+        "DEUTSCHE_BANK": 17
+      },
+      "stage1Generation": "candidate"
+    },
+    {
+      "canonicalHashPreimageConstructibleCount": 38,
+      "caseIdKey": "case_id",
+      "caseIdLocator": "record-level key 'case_id'",
+      "caseIdValues": [
+        "pfizer-megamergers"
+      ],
+      "caseSlug": "pfizer-megamergers",
+      "factCount": 38,
+      "factIdKey": "fact_id",
+      "factIdLocator": "record-level key 'fact_id'",
+      "factTextKey": "atomic_proposition",
+      "factTextLocator": "record-level key 'atomic_proposition'",
+      "factTextNonemptyCount": 38,
+      "ordinal": 3,
+      "packageDir": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/pfizer-megamergers/01_T0_PRE_T0_BASELINE/CORR2/candidate",
+      "recordFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/pfizer-megamergers/01_T0_PRE_T0_BASELINE/CORR2/candidate/04_ATOMIC_FACT_LEDGER.jsonl",
+      "recordFileBytes": 41133,
+      "recordFileSha256": "b1f0e206a0233b3a5bf4929286173160352c2524a8b0bbfc70b4d96d2fd12ca7",
+      "recordFormat": "jsonl",
+      "recordListKey": null,
+      "requiredReadPresence": {
+        "caseId": {
+          "locator": "record-level key 'case_id'",
+          "present": true
+        },
+        "evidenceForm": {
+          "occurrences": 0,
+          "present": false
+        },
+        "factId": {
+          "locator": "record-level key 'fact_id'",
+          "present": true
+        },
+        "factText": {
+          "locator": "record-level key 'atomic_proposition'",
+          "present": true
+        },
+        "planCurrentState": {
+          "occurrences": 0,
+          "present": false
+        },
+        "sideId": {
+          "locator": "record-level key 'side'",
+          "present": true
+        }
+      },
+      "sideCount": 2,
+      "sideIdKey": "side",
+      "sideIdLocator": "record-level key 'side'",
+      "sides": {
+        "PFIZER": 22,
+        "WYETH": 16
+      },
+      "stage1Generation": "CORR2/candidate"
+    },
+    {
+      "canonicalHashPreimageConstructibleCount": 50,
+      "caseIdKey": "case_id",
+      "caseIdLocator": "record-level key 'case_id'",
+      "caseIdValues": [
+        "aol-time-warner"
+      ],
+      "caseSlug": "aol-time-warner",
+      "factCount": 50,
+      "factIdKey": "fact_id",
+      "factIdLocator": "record-level key 'fact_id'",
+      "factTextKey": "atomic_proposition",
+      "factTextLocator": "record-level key 'atomic_proposition'",
+      "factTextNonemptyCount": 50,
+      "ordinal": 4,
+      "packageDir": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/aol-time-warner/01_T0_PRE_T0_BASELINE/candidate",
+      "recordFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/aol-time-warner/01_T0_PRE_T0_BASELINE/candidate/06_FACTS.json",
+      "recordFileBytes": 61728,
+      "recordFileSha256": "88b20920149b3fcde03e4e060cf4361e9494fe0137540bbc654c526337fd5f10",
+      "recordFormat": "json",
+      "recordListKey": "facts",
+      "requiredReadPresence": {
+        "caseId": {
+          "locator": "record-level key 'case_id'",
+          "present": true
+        },
+        "evidenceForm": {
+          "occurrences": 0,
+          "present": false
+        },
+        "factId": {
+          "locator": "record-level key 'fact_id'",
+          "present": true
+        },
+        "factText": {
+          "locator": "record-level key 'atomic_proposition'",
+          "present": true
+        },
+        "planCurrentState": {
+          "occurrences": 0,
+          "present": false
+        },
+        "sideId": {
+          "locator": "record-level key 'side'",
+          "present": true
+        }
+      },
+      "sideCount": 2,
+      "sideIdKey": "side",
+      "sideIdLocator": "record-level key 'side'",
+      "sides": {
+        "AOL": 25,
+        "TIME_WARNER": 25
+      },
+      "stage1Generation": "candidate"
+    },
+    {
+      "canonicalHashPreimageConstructibleCount": 86,
+      "caseIdKey": "case_id",
+      "caseIdLocator": "package-level key 'case_id'",
+      "caseIdValues": [
+        "aecom-urs"
+      ],
+      "caseSlug": "aecom-urs",
+      "factCount": 86,
+      "factIdKey": "fact_id",
+      "factIdLocator": "record-level key 'fact_id'",
+      "factTextKey": "proposition",
+      "factTextLocator": "record-level key 'proposition'",
+      "factTextNonemptyCount": 86,
+      "ordinal": 5,
+      "packageDir": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/aecom-urs/01_T0_PRE_T0_BASELINE/candidate_corr2",
+      "recordFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/aecom-urs/01_T0_PRE_T0_BASELINE/candidate_corr2/06_FACTS.json",
+      "recordFileBytes": 153454,
+      "recordFileSha256": "a341928f14d8ff44fe4699bbf751cee3f1ac8993ab546d967c2c3ce537a879c4",
+      "recordFormat": "json",
+      "recordListKey": "facts",
+      "requiredReadPresence": {
+        "caseId": {
+          "locator": "package-level key 'case_id'",
+          "present": true
+        },
+        "evidenceForm": {
+          "occurrences": 0,
+          "present": false
+        },
+        "factId": {
+          "locator": "record-level key 'fact_id'",
+          "present": true
+        },
+        "factText": {
+          "locator": "record-level key 'proposition'",
+          "present": true
+        },
+        "planCurrentState": {
+          "occurrences": 0,
+          "present": false
+        },
+        "sideId": {
+          "locator": "record-level key 'side'",
+          "present": true
+        }
+      },
+      "sideCount": 2,
+      "sideIdKey": "side",
+      "sideIdLocator": "record-level key 'side'",
+      "sides": {
+        "AECOM": 38,
+        "URS": 48
+      },
+      "stage1Generation": "candidate_corr2"
+    },
+    {
+      "canonicalHashPreimageConstructibleCount": 428,
+      "caseIdKey": "case_id",
+      "caseIdLocator": "package-level key 'case_id'",
+      "caseIdValues": [
+        "exxon-mobil"
+      ],
+      "caseSlug": "exxon-mobil",
+      "factCount": 428,
+      "factIdKey": "fact_id",
+      "factIdLocator": "record-level key 'fact_id'",
+      "factTextKey": "proposition",
+      "factTextLocator": "record-level key 'proposition'",
+      "factTextNonemptyCount": 428,
+      "ordinal": 6,
+      "packageDir": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/exxon-mobil/01_T0_PRE_T0_BASELINE/candidate_corr8",
+      "recordFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/exxon-mobil/01_T0_PRE_T0_BASELINE/candidate_corr8/06_FACTS.json",
+      "recordFileBytes": 737400,
+      "recordFileSha256": "415907847a64479d38298e6c48b38a727c93d26397867d7c6897843b7f05da36",
+      "recordFormat": "json",
+      "recordListKey": "facts",
+      "requiredReadPresence": {
+        "caseId": {
+          "locator": "package-level key 'case_id'",
+          "present": true
+        },
+        "evidenceForm": {
+          "occurrences": 0,
+          "present": false
+        },
+        "factId": {
+          "locator": "record-level key 'fact_id'",
+          "present": true
+        },
+        "factText": {
+          "locator": "record-level key 'proposition'",
+          "present": true
+        },
+        "planCurrentState": {
+          "occurrences": 0,
+          "present": false
+        },
+        "sideId": {
+          "locator": "record-level key 'side'",
+          "present": true
+        }
+      },
+      "sideCount": 2,
+      "sideIdKey": "side",
+      "sideIdLocator": "record-level key 'side'",
+      "sides": {
+        "EXXON": 166,
+        "MOBIL": 262
+      },
+      "stage1Generation": "candidate_corr8"
+    },
+    {
+      "canonicalHashPreimageConstructibleCount": 61,
+      "caseIdKey": "case_id",
+      "caseIdLocator": "package-level key 'case_id'",
+      "caseIdValues": [
+        "jpmorgan-bank-one"
+      ],
+      "caseSlug": "jpmorgan-bank-one",
+      "factCount": 61,
+      "factIdKey": "fact_id",
+      "factIdLocator": "record-level key 'fact_id'",
+      "factTextKey": "proposition",
+      "factTextLocator": "record-level key 'proposition'",
+      "factTextNonemptyCount": 61,
+      "ordinal": 7,
+      "packageDir": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/jpmorgan-bank-one/01_T0_PRE_T0_BASELINE/candidate",
+      "recordFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/jpmorgan-bank-one/01_T0_PRE_T0_BASELINE/candidate/06_FACTS.json",
+      "recordFileBytes": 99055,
+      "recordFileSha256": "6150e8f45337d07d17b5ec6132b41bda724a72346ae7967b01fe6dcb996bbec0",
+      "recordFormat": "json",
+      "recordListKey": "facts",
+      "requiredReadPresence": {
+        "caseId": {
+          "locator": "package-level key 'case_id'",
+          "present": true
+        },
+        "evidenceForm": {
+          "occurrences": 0,
+          "present": false
+        },
+        "factId": {
+          "locator": "record-level key 'fact_id'",
+          "present": true
+        },
+        "factText": {
+          "locator": "record-level key 'proposition'",
+          "present": true
+        },
+        "planCurrentState": {
+          "occurrences": 0,
+          "present": false
+        },
+        "sideId": {
+          "locator": "record-level key 'side'",
+          "present": true
+        }
+      },
+      "sideCount": 2,
+      "sideIdKey": "side",
+      "sideIdLocator": "record-level key 'side'",
+      "sides": {
+        "BANK_ONE": 32,
+        "JPMORGAN_CHASE": 29
+      },
+      "stage1Generation": "candidate"
+    },
+    {
+      "canonicalHashPreimageConstructibleCount": 51,
+      "caseIdKey": "case_id",
+      "caseIdLocator": "package-level key 'case_id'",
+      "caseIdValues": [
+        "google-android"
+      ],
+      "caseSlug": "google-android",
+      "factCount": 51,
+      "factIdKey": "fact_id",
+      "factIdLocator": "record-level key 'fact_id'",
+      "factTextKey": "proposition",
+      "factTextLocator": "record-level key 'proposition'",
+      "factTextNonemptyCount": 51,
+      "ordinal": 8,
+      "packageDir": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/google-android/01_T0_PRE_T0_BASELINE/candidate",
+      "recordFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/google-android/01_T0_PRE_T0_BASELINE/candidate/06_FACTS.json",
+      "recordFileBytes": 61587,
+      "recordFileSha256": "1a9ed535c66128b88a18904bc55a9fafd9f4faa37e350325c8fbf00325e02120",
+      "recordFormat": "json",
+      "recordListKey": "facts",
+      "requiredReadPresence": {
+        "caseId": {
+          "locator": "package-level key 'case_id'",
+          "present": true
+        },
+        "evidenceForm": {
+          "occurrences": 0,
+          "present": false
+        },
+        "factId": {
+          "locator": "record-level key 'fact_id'",
+          "present": true
+        },
+        "factText": {
+          "locator": "record-level key 'proposition'",
+          "present": true
+        },
+        "planCurrentState": {
+          "occurrences": 0,
+          "present": false
+        },
+        "sideId": {
+          "locator": "record-level key 'side'",
+          "present": true
+        }
+      },
+      "sideCount": 2,
+      "sideIdKey": "side",
+      "sideIdLocator": "record-level key 'side'",
+      "sides": {
+        "ANDROID_INC": 13,
+        "GOOGLE_INC": 38
+      },
+      "stage1Generation": "candidate"
+    },
+    {
+      "canonicalHashPreimageConstructibleCount": 113,
+      "caseIdKey": "case_id",
+      "caseIdLocator": "package-level key 'case_id'",
+      "caseIdValues": [
+        "amazon-whole-foods"
+      ],
+      "caseSlug": "amazon-whole-foods",
+      "factCount": 113,
+      "factIdKey": "fact_id",
+      "factIdLocator": "record-level key 'fact_id'",
+      "factTextKey": "proposition",
+      "factTextLocator": "record-level key 'proposition'",
+      "factTextNonemptyCount": 113,
+      "ordinal": 9,
+      "packageDir": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/amazon-whole-foods/01_T0_PRE_T0_BASELINE/candidate",
+      "recordFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/amazon-whole-foods/01_T0_PRE_T0_BASELINE/candidate/06_FACTS.json",
+      "recordFileBytes": 134974,
+      "recordFileSha256": "4d58905e077bb3a6e6181f33272cb3488ec064b7b9c1d525413cdf368b59317c",
+      "recordFormat": "json",
+      "recordListKey": "facts",
+      "requiredReadPresence": {
+        "caseId": {
+          "locator": "package-level key 'case_id'",
+          "present": true
+        },
+        "evidenceForm": {
+          "occurrences": 0,
+          "present": false
+        },
+        "factId": {
+          "locator": "record-level key 'fact_id'",
+          "present": true
+        },
+        "factText": {
+          "locator": "record-level key 'proposition'",
+          "present": true
+        },
+        "planCurrentState": {
+          "occurrences": 0,
+          "present": false
+        },
+        "sideId": {
+          "locator": "record-level key 'side'",
+          "present": true
+        }
+      },
+      "sideCount": 2,
+      "sideIdKey": "side",
+      "sideIdLocator": "record-level key 'side'",
+      "sides": {
+        "AMAZON": 40,
+        "WHOLE_FOODS": 73
+      },
+      "stage1Generation": "candidate"
+    }
+  ],
+  "pi3LawfulMembers": [
+    "caseSlug",
+    "stage1Generation",
+    "packageDir",
+    "recordFile",
+    "recordFormat",
+    "recordFileBytes",
+    "recordFileSha256",
+    "packageFactCount",
+    "packageSideCount",
+    "factIdKey",
+    "factIdLocator",
+    "caseIdKey",
+    "caseIdLocator",
+    "sideIdKey",
+    "sideIdLocator",
+    "identityAuthority",
+    "identityAuthoritySha256"
+  ],
+  "properties": [
+    {
+      "CONTRACT_SOURCE": "cor1 \u00a76.2; registry H-8; SEP-MIG-8",
+      "FAILURE_STATE": "HELD or separate per-TT outcomes",
+      "NORMAL_FORM": "outcome: Edge \u00d7 TT \u2192 Bearing; never existential-fold TT",
+      "PROPERTY_ID": "P01"
+    },
+    {
+      "CONTRACT_SOURCE": "cor1 \u00a76.5 W-1..W-4, \u00a76.6 T-1, \u00a79.4 B3-1",
+      "FAILURE_STATE": "HELD",
+      "NORMAL_FORM": "U(r)=Cmp(M) \u222a union_{f in facts(r)} SelectedOther(CLOSED W(f))",
+      "PROPERTY_ID": "P02"
+    },
+    {
+      "CONTRACT_SOURCE": "cor1 \u00a76.2, \u00a76.6 T-key",
+      "FAILURE_STATE": "counterexample",
+      "NORMAL_FORM": "TT permutation preserves outcome relation",
+      "PROPERTY_ID": "P03"
+    },
+    {
+      "CONTRACT_SOURCE": "registry H-5; cor1 \u00a76.5, \u00a76.6 T-1",
+      "FAILURE_STATE": "counterexample",
+      "NORMAL_FORM": "fact permutation preserves set semantics",
+      "PROPERTY_ID": "P04"
+    },
+    {
+      "CONTRACT_SOURCE": "cor1 \u00a76.5 W-3; \u00a79.4 B3-6",
+      "FAILURE_STATE": "HELD",
+      "NORMAL_FORM": "supplied groups and rows must all be enumerable",
+      "PROPERTY_ID": "P05"
+    },
+    {
+      "CONTRACT_SOURCE": "cor1 \u00a76.5 W-3",
+      "FAILURE_STATE": "HELD",
+      "NORMAL_FORM": "Materialized(f,M)=all rows mentioning f, independent of caller key",
+      "PROPERTY_ID": "P06"
+    },
+    {
+      "CONTRACT_SOURCE": "cor1 \u00a76.6 T-2; registry \u00a7D M-ADJ-TEST-RESULT",
+      "FAILURE_STATE": "HELD",
+      "NORMAL_FORM": "quoted delimiter is content; TRIGGERED quote \u2208 whole clauses",
+      "PROPERTY_ID": "P07"
+    },
+    {
+      "CONTRACT_SOURCE": "cor1 \u00a76.4; accepted \u00a76.3 AV-3",
+      "FAILURE_STATE": "HOLD-NA",
+      "NORMAL_FORM": "code \u2208 exact closed abstention domain with exact M,c binding",
+      "PROPERTY_ID": "P08"
+    },
+    {
+      "CONTRACT_SOURCE": "cor1 \u00a76.6 T-2, \u00a79.4 B3-2/B3-3; registry H-1; c34 \u00a713.3; schema PI-2/PI-3",
+      "FAILURE_STATE": "HELD",
+      "NORMAL_FORM": "basis \u2286 certified content of supplying fact in identified factual package",
+      "PROPERTY_ID": "P09"
+    },
+    {
+      "CONTRACT_SOURCE": "registry H-5; cor1 \u00a76.5 W-4",
+      "FAILURE_STATE": "HELD",
+      "NORMAL_FORM": "supply(f,M) = {c: f \u2208 suppliers(r,M,c)}; compare only to W(f,M)",
+      "PROPERTY_ID": "P10",
+      "corr6ExplicitCoverage": [
+        "SUPPORTS_LEAF",
+        "COUNTER_M",
+        "NEGATES_LEAF supply consistency",
+        "SELECTED",
+        "NOT_SELECTABLE",
+        "exact/subset/superset/disjoint components",
+        "multiple supply-bearing records",
+        "multi-fact/single-supplier counter",
+        "H-5 supplier isolation"
+      ]
+    },
+    {
+      "CONTRACT_SOURCE": "registry \u00a7I; schema requiredCodingFields evidence form",
+      "FAILURE_STATE": "HOLD-NA",
+      "NORMAL_FORM": "relation \u2208 {SUPPORTS_LEAF,NEGATES_LEAF,COUNTER_M}; form \u2208 {DE-1..DE-4}",
+      "PROPERTY_ID": "P11"
+    },
+    {
+      "CONTRACT_SOURCE": "cor1 \u00a713 SEP-DE4; accepted \u00a714 Decision 3; c34 \u00a76",
+      "FAILURE_STATE": "counterexample",
+      "NORMAL_FORM": "DE-4 \u2227 EVALUABLE \u2192 NON_DISCRIMINATING while frozen exception unavailable",
+      "PROPERTY_ID": "P12"
+    },
+    {
+      "CONTRACT_SOURCE": "accepted \u00a77 SEP-U-3, SEP-U-X, \u00a714 Decision 4",
+      "FAILURE_STATE": "counterexample",
+      "NORMAL_FORM": "HELD alternative\u2192HOLD-U; proven directional\u2192SHARED; indeterminate-only\u2192UNIQUENESS_UNRESOLVED",
+      "PROPERTY_ID": "P13"
+    },
+    {
+      "CONTRACT_SOURCE": "registry \u00a7I; accepted \u00a715; AGENTS \u00a76.6",
+      "FAILURE_STATE": "invalid candidate",
+      "NORMAL_FORM": "no Environment assignment/rank, Pair/ECS/friction in measurement output",
+      "PROPERTY_ID": "P14"
+    },
+    {
+      "PROPERTY_ID": "P15",
+      "invariant": "SEP-B-2(ii): registry counter binds through the consumed countered leaf; own ordinary leaf is not counter authority",
+      "source": "CORR1 \u00a79.2 / registry E-R8 / Owner \u00a713"
+    }
+  ],
+  "sources": {
+    "accepted": {
+      "path": "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR2_CORR1_CORR1_CORR1_CORR1_2026-10-05/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR2_CORR1_CORR1_CORR1_CORR1_CANDIDATE.md",
+      "sha256": "2f595ab5ddecc7e8149f751c661470bbae1fa3abfb1fb207b2b65c4c4565d6c8"
+    },
+    "c34": {
+      "path": "docs/reference/root-definitional-v1.7/contract/CASE-3.4_CONTRACT_v1.3.md",
+      "sha256": "dae8143899cd4fb7e406b4b410e9730a6f8bf7853989f3ef9757edeec293ae39"
+    },
+    "cor1": {
+      "path": "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR1_2026-10-05/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR1_CANDIDATE.md",
+      "sha256": "02505e92fd018439f9aba7d4b551fe5542c1be92c7bbb7d4f63994dc1dfa51e9"
+    },
+    "field_source_matrix": {
+      "path": "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_FIELD_SOURCE_MATRIX_CORR2.json",
+      "sha256": "1fb84aed8aadeb2b4c2fc85eb6e01cd2ea3849fae5be28a39e0b65ca4e4e2cdd"
+    },
+    "package_locators": {
+      "path": "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_STAGE1_SOURCE_MAP.json",
+      "sha256": "665aac81c2e0127d08f0406186891959255391cb99ec34611a972209565f4a7f"
+    },
+    "registry": {
+      "path": "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md",
+      "sha256": "cb08b51e1c2fbaec7765989a7a4e15db1788c53eb5fec43f2628ecb88c1d6c73"
+    },
+    "schema": {
+      "path": "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json",
+      "sha256": "0cb5a6b5d2239855eeabe0bfd0e9ceb6c545dc2a86b4b34a90b65187592721b5"
+    }
+  },
+  "targets": {
+    "TT-NFNT-AC": {
+      "documentary": "DOCUMENTARY_UNOBSERVABLE",
+      "environment": "NF/NT",
+      "leaves": [],
+      "verdict": null
+    },
+    "TT-NFNT-CORE": {
+      "documentary": "DOCUMENTARY_COMPLETE_CANDIDATE",
+      "environment": "NF/NT",
+      "leaves": [
+        "M-OPEN-CRITICAL-EXCHANGE",
+        "M-ADJ-ARGUMENT-QUALITY"
+      ],
+      "verdict": "EXACT"
+    },
+    "TT-NFNT-ES": {
+      "documentary": "DOCUMENTARY_COMPLETE_CANDIDATE",
+      "environment": "NF/NT",
+      "leaves": [
+        "M-INQUIRY-OPERATION",
+        "M-THEORY-PRODUCTION"
+      ],
+      "verdict": "EXACT"
+    },
+    "TT-NFNT-PH": {
+      "documentary": "DOCUMENTARY_UNOBSERVABLE",
+      "environment": "NF/NT",
+      "leaves": [],
+      "verdict": null
+    },
+    "TT-NFNT-PH-PR": {
+      "documentary": "DOCUMENTARY_COMPLETE_CANDIDATE",
+      "environment": "NF/NT",
+      "leaves": [
+        "M-PRES-HIGHER-MISSION"
+      ],
+      "verdict": "EXACT"
+    },
+    "TT-NFNT-PR": {
+      "documentary": "CONTEXTUAL_NON_DISCRIMINATING",
+      "environment": "NF/NT",
+      "leaves": [],
+      "verdict": null
+    },
+    "TT-NFNT-PW": {
+      "documentary": "DOCUMENTARY_COMPLETE_CANDIDATE",
+      "environment": "NF/NT",
+      "leaves": [
+        "M-AUTH-EPISTEMIC"
+      ],
+      "verdict": "EXACT"
+    },
+    "TT-NFNT-RS": {
+      "documentary": "DOCUMENTARY_COMPLETE_CANDIDATE",
+      "environment": "NF/NT",
+      "leaves": [
+        "M-RES-KNOWLEDGE-PRIMARY",
+        "M-RES-CONCEPTUAL-GENERATION"
+      ],
+      "verdict": "EXACT"
+    },
+    "TT-NFSFJ-CORE": {
+      "documentary": "DOCUMENTARY_COMPLETE_CANDIDATE",
+      "environment": "NF/SFJ",
+      "leaves": [
+        "M-RULE-EXEMPT-UPPER",
+        "M-ADV-DOCTRINAL-ALIGNMENT"
+      ],
+      "verdict": "EXACT"
+    },
+    "TT-NFSFJ-EA": {
+      "documentary": "DOCUMENTARY_UNOBSERVABLE",
+      "environment": "NF/SFJ",
+      "leaves": [],
+      "verdict": null
+    },
+    "TT-NFSFJ-ES": {
+      "documentary": "DOCUMENTARY_COMPLETE_CANDIDATE",
+      "environment": "NF/SFJ",
+      "leaves": [
+        "M-INTERPRETIVE-CONTROL",
+        "M-MEANING-GOVERNED-COMPLIANCE",
+        "M-RES-UPWARD-TRANSFER"
+      ],
+      "verdict": "EXACT"
+    },
+    "TT-NFSFJ-PH": {
+      "documentary": "DOCUMENTARY_COMPLETE_CANDIDATE",
+      "environment": "NF/SFJ",
+      "leaves": [
+        "M-PRES-ABSOLUTE-BELIEF"
+      ],
+      "verdict": "EXACT"
+    },
+    "TT-NFSFJ-PR": {
+      "documentary": "CONTEXTUAL_NON_DISCRIMINATING",
+      "environment": "NF/SFJ",
+      "leaves": [],
+      "verdict": null
+    },
+    "TT-NFSFJ-SO": {
+      "documentary": "DOCUMENTARY_COMPLETE_CANDIDATE",
+      "environment": "NF/SFJ",
+      "leaves": [
+        "M-THREAT-AMPLIFICATION",
+        "M-INTERNAL-ENEMY-DESIGNATION",
+        "M-SACRED-UNITY-PERSISTENCE-FUNCTION"
+      ],
+      "verdict": "EXACT"
+    },
+    "TT-NFSFP-AC": {
+      "documentary": "DOCUMENTARY_UNOBSERVABLE",
+      "environment": "NF/SFP",
+      "leaves": [],
+      "verdict": null
+    },
+    "TT-NFSFP-EA": {
+      "documentary": "DOCUMENTARY_UNOBSERVABLE",
+      "environment": "NF/SFP",
+      "leaves": [],
+      "verdict": null
+    },
+    "TT-NFSFP-ES": {
+      "documentary": "DOCUMENTARY_UNOBSERVABLE",
+      "environment": "NF/SFP",
+      "leaves": [],
+      "verdict": null
+    },
+    "TT-NFSFP-PH": {
+      "documentary": "DOCUMENTARY_COMPLETE_CANDIDATE",
+      "environment": "NF/SFP",
+      "leaves": [
+        "M-PRES-EXPRESSIVE-MEANING"
+      ],
+      "verdict": "EXACT"
+    },
+    "TT-NFSFP-PR": {
+      "documentary": "CONTEXTUAL_NON_DISCRIMINATING",
+      "environment": "NF/SFP",
+      "leaves": [],
+      "verdict": null
+    },
+    "TT-NFSFP-PW": {
+      "documentary": "CONTEXTUAL_NON_DISCRIMINATING",
+      "environment": "NF/SFP",
+      "leaves": [],
+      "verdict": null
+    },
+    "TT-NFSFP-RS": {
+      "documentary": "DOCUMENTARY_COMPLETE_CANDIDATE",
+      "environment": "NF/SFP",
+      "leaves": [
+        "M-RES-EXPRESSIVE-EXPENDITURE",
+        "M-RES-NO-INTERNAL-REPLENISHMENT"
+      ],
+      "verdict": "EXACT"
+    },
+    "TT-NTSTJ-AC": {
+      "documentary": "DOCUMENTARY_UNOBSERVABLE",
+      "environment": "NT/STJ",
+      "leaves": [],
+      "verdict": null
+    },
+    "TT-NTSTJ-CORE": {
+      "documentary": "DOCUMENTARY_COMPLETE_CANDIDATE",
+      "environment": "NT/STJ",
+      "leaves": [
+        "M-STRATEGY-TO-SCALE",
+        "M-ADV-REALISED-RESULT"
+      ],
+      "verdict": "EXACT"
+    },
+    "TT-NTSTJ-ES": {
+      "documentary": "DOCUMENTARY_COMPLETE_CANDIDATE",
+      "environment": "NT/STJ",
+      "leaves": [
+        "M-STRUCTURED-IMPLEMENTATION",
+        "M-HIERARCHY-EFFICIENCY"
+      ],
+      "verdict": "EXACT"
+    },
+    "TT-NTSTJ-PH": {
+      "documentary": "DOCUMENTARY_COMPLETE_CANDIDATE",
+      "environment": "NT/STJ",
+      "leaves": [
+        "M-PRES-INNOVATION-ACHIEVEMENT"
+      ],
+      "verdict": "EXACT"
+    },
+    "TT-NTSTJ-PR": {
+      "documentary": "CONTEXTUAL_NON_DISCRIMINATING",
+      "environment": "NT/STJ",
+      "leaves": [],
+      "verdict": null
+    },
+    "TT-NTSTJ-PW": {
+      "documentary": "DOCUMENTARY_COMPLETE_CANDIDATE",
+      "environment": "NT/STJ",
+      "leaves": [
+        "M-AUTH-DELIVERY"
+      ],
+      "verdict": "EXACT"
+    },
+    "TT-NTSTJ-RS": {
+      "documentary": "DOCUMENTARY_COMPLETE_CANDIDATE",
+      "environment": "NT/STJ",
+      "leaves": [
+        "M-RES-CAPABILITY-ADVANTAGE",
+        "M-CAPABILITY-YIELDS-CONTROL"
+      ],
+      "verdict": "EXACT"
+    },
+    "TT-NTSTP-CORE": {
+      "documentary": "DOCUMENTARY_COMPLETE_CANDIDATE",
+      "environment": "NT/STP",
+      "leaves": [
+        "M-IMMEDIATE-EMPIRICAL-ITERATION",
+        "M-WORKING-RESULT"
+      ],
+      "verdict": "EXACT"
+    },
+    "TT-NTSTP-ES": {
+      "documentary": "DOCUMENTARY_COMPLETE_CANDIDATE",
+      "environment": "NT/STP",
+      "leaves": [
+        "M-EMPIRICAL-TEST-ITERATE",
+        "M-ADJ-TEST-RESULT",
+        "M-RES-REALLOC-BY-RESULT"
+      ],
+      "verdict": "EXACT"
+    },
+    "TT-NTSTP-PH": {
+      "documentary": "DOCUMENTARY_COMPLETE_CANDIDATE",
+      "environment": "NT/STP",
+      "leaves": [
+        "M-PRES-APPLIED-EXPERIMENTATION"
+      ],
+      "verdict": "EXACT"
+    },
+    "TT-NTSTP-PR": {
+      "documentary": "CONTEXTUAL_NON_DISCRIMINATING",
+      "environment": "NT/STP",
+      "leaves": [],
+      "verdict": null
+    },
+    "TT-NTSTP-PW": {
+      "documentary": "DOCUMENTARY_COMPLETE_CANDIDATE",
+      "environment": "NT/STP",
+      "leaves": [
+        "M-AUTH-TECHNICAL-CREDIBILITY"
+      ],
+      "verdict": "EXACT"
+    },
+    "TT-NTSTP-RS": {
+      "documentary": "DOCUMENTARY_COMPLETE_CANDIDATE",
+      "environment": "NT/STP",
+      "leaves": [
+        "M-RES-STAKE-UNPROVEN",
+        "M-RES-REALLOC-BY-RESULT",
+        "M-NO-EXTERNAL-ARBITER"
+      ],
+      "verdict": "EXACT"
+    },
+    "TT-SFJSFP-CORE": {
+      "documentary": "DOCUMENTARY_COMPLETE_CANDIDATE",
+      "environment": "SFJ/SFP",
+      "leaves": [
+        "M-RES-NETWORK-PRESERVATION",
+        "M-CONTINUITY-VIA-RELATIONS",
+        "M-RES-NETWORK-AS-PRINCIPAL-RESOURCE"
+      ],
+      "verdict": "EXACT"
+    },
+    "TT-SFJSFP-EA": {
+      "documentary": "DOCUMENTARY_UNOBSERVABLE",
+      "environment": "SFJ/SFP",
+      "leaves": [],
+      "verdict": null
+    },
+    "TT-SFJSFP-ES": {
+      "documentary": "DOCUMENTARY_UNOBSERVABLE",
+      "environment": "SFJ/SFP",
+      "leaves": [],
+      "verdict": null
+    },
+    "TT-SFJSFP-MEM": {
+      "documentary": "DOCUMENTARY_COMPLETE_CANDIDATE",
+      "environment": "SFJ/SFP",
+      "leaves": [
+        "M-MEMBERSHIP-ASCRIBED",
+        "M-MEMBERSHIP-ACQUIRED",
+        "M-TRUST-BY-DEMONSTRATED-LOYALTY"
+      ],
+      "verdict": "EXACT"
+    },
+    "TT-SFJSFP-PH": {
+      "documentary": "DOCUMENTARY_COMPLETE_CANDIDATE",
+      "environment": "SFJ/SFP",
+      "leaves": [
+        "M-PRES-BELONGING-CONTINUITY"
+      ],
+      "verdict": "EXACT"
+    },
+    "TT-SFJSFP-POS": {
+      "documentary": "DOCUMENTARY_COMPLETE_CANDIDATE",
+      "environment": "SFJ/SFP",
+      "leaves": [
+        "M-PRECEDENCE-CONTINUITY"
+      ],
+      "verdict": "EXACT"
+    },
+    "TT-SFJSFP-PR": {
+      "documentary": "CONTEXTUAL_NON_DISCRIMINATING",
+      "environment": "SFJ/SFP",
+      "leaves": [],
+      "verdict": null
+    },
+    "TT-SFJSFP-PW": {
+      "documentary": "DOCUMENTARY_COMPLETE_CANDIDATE",
+      "environment": "SFJ/SFP",
+      "leaves": [
+        "M-INFORMAL-LOYALTY-AUTHORITY"
+      ],
+      "verdict": "EXACT"
+    },
+    "TT-SFJSFP-REL": {
+      "documentary": "DOCUMENTARY_COMPLETE_CANDIDATE",
+      "environment": "SFJ/SFP",
+      "leaves": [
+        "M-DECISIONS-SEEK-RELATIONAL-SAFETY"
+      ],
+      "verdict": "EXACT"
+    },
+    "TT-SFPSFJ-CTRL": {
+      "documentary": "DOCUMENTARY_COMPLETE_CANDIDATE",
+      "environment": "SFP/SFJ",
+      "leaves": [
+        "M-PARTICIPATION-ARCHITECTURE-CONTROL"
+      ],
+      "verdict": "EXACT"
+    },
+    "TT-SFPSFJ-DE": {
+      "documentary": "DOCUMENTARY_COMPLETE_CANDIDATE",
+      "environment": "SFP/SFJ",
+      "leaves": [
+        "M-PRES-DESIRE-FRAMING"
+      ],
+      "verdict": "EXACT"
+    },
+    "TT-SFPSFJ-DOC": {
+      "documentary": "DOCUMENTARY_COMPLETE_CANDIDATE",
+      "environment": "SFP/SFJ",
+      "leaves": [
+        "M-PRES-DESIRE-FRAMING",
+        "M-PARTICIPATION-RETENTION",
+        "M-PARTICIPATION-REPLACEMENT",
+        "M-PARTICIPATION-ARCHITECTURE-CONTROL",
+        "M-RES-ASYMMETRIC-RETENTION",
+        "M-COST-MINIMISING-SURPLUS-RETENTION"
+      ],
+      "verdict": "EXACT"
+    },
+    "TT-SFPSFJ-ESS": {
+      "documentary": "DOCUMENTARY_UNOBSERVABLE",
+      "environment": "SFP/SFJ",
+      "leaves": [],
+      "verdict": null
+    },
+    "TT-SFPSFJ-PR": {
+      "documentary": "CONTEXTUAL_NON_DISCRIMINATING",
+      "environment": "SFP/SFJ",
+      "leaves": [],
+      "verdict": null
+    },
+    "TT-SFPSFJ-REP": {
+      "documentary": "DOCUMENTARY_COMPLETE_CANDIDATE",
+      "environment": "SFP/SFJ",
+      "leaves": [
+        "M-PARTICIPATION-RETENTION",
+        "M-PARTICIPATION-REPLACEMENT"
+      ],
+      "verdict": "EXACT"
+    },
+    "TT-SFPSFJ-RES": {
+      "documentary": "DOCUMENTARY_COMPLETE_CANDIDATE",
+      "environment": "SFP/SFJ",
+      "leaves": [
+        "M-RES-ASYMMETRIC-RETENTION",
+        "M-COST-MINIMISING-SURPLUS-RETENTION"
+      ],
+      "verdict": "EXACT"
+    },
+    "TT-STJSTP-EA": {
+      "documentary": "DOCUMENTARY_UNOBSERVABLE",
+      "environment": "STJ/STP",
+      "leaves": [],
+      "verdict": null
+    },
+    "TT-STJSTP-ES": {
+      "documentary": "DOCUMENTARY_COMPLETE_CANDIDATE",
+      "environment": "STJ/STP",
+      "leaves": [
+        "M-ZERO-SUM-PRIMACY-CONTEST",
+        "M-POSITION-BY-RESOURCE-HOLD"
+      ],
+      "verdict": "EXACT"
+    },
+    "TT-STJSTP-PH": {
+      "documentary": "DOCUMENTARY_COMPLETE_CANDIDATE",
+      "environment": "STJ/STP",
+      "leaves": [
+        "M-PRES-STRICT-HIERARCHY"
+      ],
+      "verdict": "EXACT"
+    },
+    "TT-STJSTP-PR": {
+      "documentary": "CONTEXTUAL_NON_DISCRIMINATING",
+      "environment": "STJ/STP",
+      "leaves": [],
+      "verdict": null
+    },
+    "TT-STJSTP-PW": {
+      "documentary": "DOCUMENTARY_COMPLETE_CANDIDATE",
+      "environment": "STJ/STP",
+      "leaves": [
+        "M-AUTH-TOPDOWN-EXPLICIT",
+        "M-ENFORCE-STRENGTH",
+        "M-ENFORCE-SANCTION",
+        "M-ENFORCE-RESOURCE-CONTROL"
+      ],
+      "verdict": "EXACT"
+    },
+    "TT-STJSTP-RS": {
+      "documentary": "DOCUMENTARY_COMPLETE_CANDIDATE",
+      "environment": "STJ/STP",
+      "leaves": [
+        "M-RES-COERCIVE-REDISTRIBUTION"
+      ],
+      "verdict": "EXACT"
+    },
+    "TT-STPSTJ-ESS": {
+      "documentary": "DOCUMENTARY_COMPLETE_CANDIDATE",
+      "environment": "STP/STJ",
+      "leaves": [
+        "M-EXTERNAL-ADAPTIVE-DEMAND",
+        "M-OUTWARD-TACTICAL-DISCRETION",
+        "M-RECOGNISED-COMMAND-ORDER",
+        "M-INSIDER-OUTSIDER-RULE-ASYMMETRY",
+        "M-ORDER-SUSTAINED-FLEXIBILITY"
+      ],
+      "verdict": "EXACT"
+    },
+    "TT-STPSTJ-LO": {
+      "documentary": "DOCUMENTARY_UNOBSERVABLE",
+      "environment": "STP/STJ",
+      "leaves": [],
+      "verdict": null
+    },
+    "TT-STPSTJ-ORD": {
+      "documentary": "DOCUMENTARY_COMPLETE_CANDIDATE",
+      "environment": "STP/STJ",
+      "leaves": [
+        "M-INSIDER-OUTSIDER-RULE-ASYMMETRY"
+      ],
+      "verdict": "EXACT"
+    },
+    "TT-STPSTJ-PR": {
+      "documentary": "CONTEXTUAL_NON_DISCRIMINATING",
+      "environment": "STP/STJ",
+      "leaves": [],
+      "verdict": null
+    },
+    "TT-STPSTJ-PW": {
+      "documentary": "DOCUMENTARY_COMPLETE_CANDIDATE",
+      "environment": "STP/STJ",
+      "leaves": [
+        "M-RECOGNISED-COMMAND-ORDER",
+        "M-ACCESS-BY-LOYALTY-RELIABILITY",
+        "M-DELEGATION-HOW-VS-WHAT",
+        "M-ENFORCE-RESOURCE-INFORMATION-CONTROL"
+      ],
+      "verdict": "EXACT"
+    },
+    "TT-STPSTJ-RS": {
+      "documentary": "DOCUMENTARY_COMPLETE_CANDIDATE",
+      "environment": "STP/STJ",
+      "leaves": [
+        "M-RES-TACTICAL-EXTERNAL-ACQUISITION",
+        "M-RES-ROLE-CONTROLLED-ACCESS",
+        "M-RES-HIERARCHICAL-RETENTION",
+        "M-RES-PROTECTED-ACCESS-EXCHANGE",
+        "M-RES-ADAPTING-PERSON-RECRUITMENT"
+      ],
+      "verdict": "EXACT"
+    }
+  }
+}

@@ -1,0 +1,691 @@
+{
+ "AOL_boundary": {
+  "blocksFinalEffectiveView": true,
+  "class": "PRE_EXISTING_STALE_INPUT_DEBT",
+  "productionPI3Rejects": true,
+  "reconciled": false,
+  "separateActRequired": true
+ },
+ "A_E001_boundary": {
+  "adjudicated": false,
+  "holdCode": "HOLD-T",
+  "migrationRuleId": "SEP-MIG-6c",
+  "partition": {
+   "c1": "SUPPLIED",
+   "c2": "ORDINARY_MISSING_ASSESSABLE"
+  },
+  "projectionClass": "RE_ADJUDICATION",
+  "successorTriple": [
+   null,
+   null,
+   null
+  ],
+  "supportBearing": null
+ },
+ "GIT_CLOSED": "NO",
+ "INDEPENDENTLY_VERIFIED": "YES",
+ "OWNER_ACCEPTED": "NO",
+ "act": "STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1.IMPLEMENTATION-1.CORR10.IV1",
+ "actor": "CLAUDE (Claude Opus 5.5)",
+ "authorReproductionSummary": {
+  "CWD_RESULT_EFFECT": "NONE",
+  "mutation": "73/73 KILLED; 0 survived; 0 exception kills; 0 execution exceptions; MUTATION_EVIDENCE equal to author modulo scratch; normalized 8426b162... = author",
+  "permutation": "178 cases (6 new), 0 failures",
+  "probe": "DIRECT_SUPPORT x2; failures 0",
+  "property": "973/973 (933 retained byte-equal to CORR9 ledger 63845532..., 40 new); failures 0; full PROPERTY_EVIDENCE equal to author; raw output 789bae8c... byte-identical in 3 configs; normalized 90836c48... = author",
+  "regression": "equal to author and CORR9; digest 0d48fb34..."
+ },
+ "branch": "main",
+ "commands": [
+  {
+   "argv": [
+    "python3",
+    "-B",
+    "/private/tmp/corr10iv1/h/guard.py",
+    "/private/tmp/corr10iv1/run/author",
+    "<guard.json>",
+    "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_2026-10-07/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_PROPERTY_SUITE.py",
+    "--scratch",
+    "/private/tmp/corr10iv1/run/author/prop-root/scratch",
+    "--output",
+    "/private/tmp/corr10iv1/run/author/prop-root/result.json"
+   ],
+   "cwd": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)",
+   "env": {
+    "HOME": "/private/tmp/corr10iv1/run/author/prop-root/home",
+    "LANG": "C",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONHASHSEED": "5",
+    "TMPDIR": "/private/tmp/corr10iv1/run/author/prop-root/tmp",
+    "TZ": "UTC"
+   },
+   "exit": 0,
+   "guardBlocked": 0,
+   "label": "author:prop-root",
+   "seconds": 118.3
+  },
+  {
+   "argv": [
+    "python3",
+    "-B",
+    "/private/tmp/corr10iv1/h/guard.py",
+    "/private/tmp/corr10iv1/run/author",
+    "<guard.json>",
+    "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_2026-10-07/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_PROPERTY_SUITE.py",
+    "--scratch",
+    "/private/tmp/corr10iv1/run/author/prop-pkg/scratch",
+    "--output",
+    "/private/tmp/corr10iv1/run/author/prop-pkg/result.json"
+   ],
+   "cwd": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_2026-10-07",
+   "env": {
+    "HOME": "/private/tmp/corr10iv1/run/author/prop-pkg/home",
+    "LANG": "en_US.UTF-8",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONHASHSEED": "4242",
+    "TMPDIR": "/private/tmp/corr10iv1/run/author/prop-pkg/tmp",
+    "TZ": "Pacific/Auckland"
+   },
+   "exit": 0,
+   "guardBlocked": 0,
+   "label": "author:prop-pkg",
+   "seconds": 118.3
+  },
+  {
+   "argv": [
+    "python3",
+    "-B",
+    "/private/tmp/corr10iv1/h/guard.py",
+    "/private/tmp/corr10iv1/run/author",
+    "<guard.json>",
+    "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_2026-10-07/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_PROPERTY_SUITE.py",
+    "--scratch",
+    "/private/tmp/corr10iv1/run/author/prop-tmp/scratch",
+    "--output",
+    "/private/tmp/corr10iv1/run/author/prop-tmp/result.json"
+   ],
+   "cwd": "/private/tmp/corr10iv1/run/author/prop-tmp/cwd",
+   "env": {
+    "HOME": "/private/tmp/corr10iv1/run/author/prop-tmp/home",
+    "LANG": "fr_FR.UTF-8",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONHASHSEED": "0",
+    "TMPDIR": "/private/tmp/corr10iv1/run/author/prop-tmp/tmp",
+    "TZ": "America/Denver"
+   },
+   "exit": 0,
+   "guardBlocked": 0,
+   "label": "author:prop-tmp",
+   "seconds": 118.5
+  },
+  {
+   "argv": [
+    "python3",
+    "-B",
+    "/private/tmp/corr10iv1/h/guard.py",
+    "/private/tmp/corr10iv1/run/author",
+    "<guard.json>",
+    "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_2026-10-07/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_MUTATION_SUITE.py",
+    "--scratch",
+    "/private/tmp/corr10iv1/run/author/mut-root/scratch",
+    "--output",
+    "/private/tmp/corr10iv1/run/author/mut-root/result.json"
+   ],
+   "cwd": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)",
+   "env": {
+    "HOME": "/private/tmp/corr10iv1/run/author/mut-root/home",
+    "LANG": "C",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONHASHSEED": "31",
+    "TMPDIR": "/private/tmp/corr10iv1/run/author/mut-root/tmp",
+    "TZ": "UTC"
+   },
+   "exit": 0,
+   "guardBlocked": 0,
+   "label": "author:mut-root",
+   "seconds": 110.3
+  },
+  {
+   "argv": [
+    "python3",
+    "-B",
+    "/private/tmp/corr10iv1/h/guard.py",
+    "/private/tmp/corr10iv1/run/author",
+    "<guard.json>",
+    "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_2026-10-07/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_PROPERTY_SUITE.py",
+    "--scratch",
+    "/private/tmp/corr10iv1/run/author/reg-root/scratch",
+    "--output",
+    "/private/tmp/corr10iv1/run/author/reg-root/result.json",
+    "--regression-only"
+   ],
+   "cwd": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)",
+   "env": {
+    "HOME": "/private/tmp/corr10iv1/run/author/reg-root/home",
+    "LANG": "C",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONHASHSEED": "77",
+    "TMPDIR": "/private/tmp/corr10iv1/run/author/reg-root/tmp",
+    "TZ": "UTC"
+   },
+   "exit": 0,
+   "guardBlocked": 0,
+   "label": "author:reg-root",
+   "seconds": 0.6
+  },
+  {
+   "argv": [
+    "python3",
+    "-B",
+    "/private/tmp/corr10iv1/h/guard.py",
+    "/private/tmp/corr10iv1/run/author",
+    "<guard.json>",
+    "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_2026-10-07/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_PROPERTY_SUITE.py",
+    "--scratch",
+    "/private/tmp/corr10iv1/run/author/probe/scratch",
+    "--output",
+    "/private/tmp/corr10iv1/run/author/probe/result.json",
+    "--probe-pi3"
+   ],
+   "cwd": "/private/tmp/corr10iv1/run/author/probe/cwd",
+   "env": {
+    "HOME": "/private/tmp/corr10iv1/run/author/probe/home",
+    "LANG": "en_US.UTF-8",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONHASHSEED": "123",
+    "TMPDIR": "/private/tmp/corr10iv1/run/author/probe/tmp",
+    "TZ": "Asia/Tokyo"
+   },
+   "exit": 0,
+   "guardBlocked": 0,
+   "label": "author:probe",
+   "seconds": 3.8
+  },
+  {
+   "argv": [
+    "python3",
+    "-B",
+    "/private/tmp/corr10iv1/h/guard.py",
+    "/private/tmp/corr10iv1/run/detail",
+    "<guard.json>",
+    "/private/tmp/corr10iv1/h/detail.py"
+   ],
+   "cwd": "/private/tmp/corr10iv1/run/detail",
+   "env": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONHASHSEED": "0"
+   },
+   "exit": 0,
+   "guardBlocked": 0,
+   "label": "fresh:detail"
+  },
+  {
+   "argv": [
+    "python3",
+    "-B",
+    "/private/tmp/corr10iv1/h/guard.py",
+    "/private/tmp/corr10iv1/run/real",
+    "<guard.json>",
+    "/private/tmp/corr10iv1/h/real.py"
+   ],
+   "cwd": "/private/tmp/corr10iv1/run/real",
+   "env": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONHASHSEED": "0"
+   },
+   "exit": 0,
+   "guardBlocked": 0,
+   "label": "fresh:real"
+  },
+  {
+   "argv": [
+    "python3",
+    "-B",
+    "/private/tmp/corr10iv1/h/guard_selftest.py"
+   ],
+   "exit": 0,
+   "label": "fresh:guard_selftest",
+   "result": 18
+  },
+  {
+   "argv": [
+    "python3",
+    "-B",
+    "/private/tmp/corr10iv1/h/snapshot.py",
+    "run/snap_{pre,mid,post}.json"
+   ],
+   "exit": 0,
+   "label": "fresh:snapshot x3"
+  },
+  {
+   "argv": [
+    "python3",
+    "-B",
+    "/private/tmp/corr10iv1/h/analyze.py"
+   ],
+   "exit": 0,
+   "label": "fresh:analyze"
+  },
+  {
+   "argv": [
+    "python3",
+    "-B",
+    "/private/tmp/corr10iv1/h/findings.py"
+   ],
+   "exit": 0,
+   "label": "fresh:findings"
+  },
+  {
+   "argv": [
+    "git rev-parse --show-toplevel",
+    "git branch --show-current",
+    "git rev-parse HEAD",
+    "git status --porcelain=v1 -uall",
+    "git diff --name-only",
+    "git diff --cached --name-only",
+    "git rev-parse HEAD refs/heads/main refs/remotes/origin/main",
+    "git symbolic-ref refs/remotes/origin/HEAD"
+   ],
+   "exit": 0,
+   "label": "git (read-only, GIT_OPTIONAL_LOCKS=0)"
+  },
+  {
+   "argv": [
+    "cmp CORR9 vs CORR10 builder",
+    "cmp CORR9 vs CORR10 CVK",
+    "shasum -a 256 (identities)",
+    "diff CORR9 vs CORR10 PROPERTY/MUTATION suites"
+   ],
+   "exit": 0,
+   "label": "compare"
+  }
+ ],
+ "corr10Identities": {
+  "STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_AUTHOR_REPORT.md": {
+   "bytes": 18238,
+   "sha256": "80413a9b010560d73a0fe57e096bb136104879f8c5d3d2f830cd16ab59be6981"
+  },
+  "STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_CONTRACT_MODEL.json": {
+   "bytes": 107403,
+   "sha256": "433a8bf310d255860f04ad5147908a6003aaacf74d61f7dde892d481373de85d"
+  },
+  "STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_CONTRACT_VERIFICATION_KERNEL.py": {
+   "bytes": 37366,
+   "sha256": "7d80a64041b2fcba97abd49f1ca28ead9c1765b8de0c1c4d2863762c4164544c"
+  },
+  "STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_MANIFEST.json": {
+   "bytes": 617556,
+   "sha256": "34b78865d296e952f6a87f36733da482d130104858224f8ed62df36b524c5782"
+  },
+  "STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_MUTATION_SUITE.py": {
+   "bytes": 42205,
+   "sha256": "e0264f4e7c670d6cef7fb9b3eae2c68d0651b132716f02bf2ae685633eececae"
+  },
+  "STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_PROPERTY_SUITE.py": {
+   "bytes": 137584,
+   "sha256": "c31fed59e8b47e496d78a12816eebc35a1ca69f1038f036416a3d05d0a3cdb70"
+  },
+  "STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_SUCCESSOR_VIEW_BUILDER.py": {
+   "bytes": 89501,
+   "sha256": "4fabec820660e9399ece1314142e5bdc99a3196c9794fa71a3dc5ddb80551cc9"
+  },
+  "STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_VALIDATION_REPORT.json": {
+   "bytes": 8359171,
+   "sha256": "35ffcf542750905189f22b10c23c0e6793cbd924fb73908878ca8758a6b2792c"
+  }
+ },
+ "corr9IV1Identities": {
+  "STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR9_IV1_FINDINGS.json": {
+   "bytes": 219492,
+   "sha256": "a7a94b33ae65e0c01f8727d0820399d33a66f0eae5b072b2dd04ba4744638a82"
+  },
+  "STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR9_IV1_MANIFEST.json": {
+   "bytes": 39274,
+   "sha256": "03587f82b2422f2d278a7e6d55891be2d49e65475a13526e3dc581bc751ee4c3"
+  },
+  "STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR9_IV1_REPORT.md": {
+   "bytes": 41430,
+   "sha256": "a55bf12439469ae1c322a9e26b917283b407f6720c6c56e2533b7f4458c63aeb"
+  }
+ },
+ "date": "2026-10-07",
+ "environmentContainment": {
+  "ENVIRONMENT_MATH_CHANGED": "NO",
+  "FINAL_EFFECTIVE_VIEW_ASSEMBLED": "NO",
+  "FINAL_REGRESSION_EXECUTED": "NO",
+  "POST_CORR5_THREE_LOCI_RULE_USED": "NO"
+ },
+ "evidenceIdentities": {
+  "run/analysis.json": {
+   "bytes": 33818,
+   "sha256": "93a379b7a515aabe1757e24f9b7046889eaf94d8f51963eb6c80533e348d9e78"
+  },
+  "run/author/mut-root/result.json": {
+   "bytes": 3691810,
+   "sha256": "3371cc6d1dd25462f0c72824f65331d48d1daadcca9a8bbd4fca381117da46f8"
+  },
+  "run/author/probe/result.json": {
+   "bytes": 5732,
+   "sha256": "8f348df12c585c457d2fd7c82d888294b45b2b699f447bd95ef30d4a15db307f"
+  },
+  "run/author/prop-pkg/result.json": {
+   "bytes": 2230406,
+   "sha256": "789bae8c65812cad288eab3aac93f6f2f1a5b225caefbd13793131f784e95820"
+  },
+  "run/author/prop-root/result.json": {
+   "bytes": 2230406,
+   "sha256": "789bae8c65812cad288eab3aac93f6f2f1a5b225caefbd13793131f784e95820"
+  },
+  "run/author/prop-tmp/result.json": {
+   "bytes": 2230406,
+   "sha256": "789bae8c65812cad288eab3aac93f6f2f1a5b225caefbd13793131f784e95820"
+  },
+  "run/author/reg-root/result.json": {
+   "bytes": 2393,
+   "sha256": "986ce083f736824108bd78fc7fa16ff0e1368a16ac525e9ed3fe3cf21131bea1"
+  },
+  "run/detail/detail.json": {
+   "bytes": 34274,
+   "sha256": "3fa611503920b6fa165a59abcfccd6ddb36796788182dd4ef466e4083c106e3a"
+  },
+  "run/guard_selftest.json": {
+   "bytes": 644,
+   "sha256": "3568320329ae159f039362be15e95e6747f855d4591e9199f0184a13ca50dcd3"
+  },
+  "run/pre_status.txt": {
+   "bytes": 97559,
+   "sha256": "2e28fc2d86f2e2a221dfc33fdc4761d9e47e98f946bf6eaad62e5050bcc00fbc"
+  },
+  "run/real/real.json": {
+   "bytes": 12301,
+   "sha256": "0ab536eb666465d6508f1f8e7fac81f2638a1969ce06fcc063926cf2b4c9dafb"
+  },
+  "run/snap_mid.json": {
+   "bytes": 1998356,
+   "sha256": "9275f2e16a116ce4774df54724a0c139b9eb31099001aebd2ead4e89607f7dcf"
+  },
+  "run/snap_post.json": {
+   "bytes": 1999628,
+   "sha256": "3cd680cd253dbd853e4fa9fb6f100fbc0d9225ccf249ec663f35c8b9b480637f"
+  },
+  "run/snap_pre.json": {
+   "bytes": 1998356,
+   "sha256": "9275f2e16a116ce4774df54724a0c139b9eb31099001aebd2ead4e89607f7dcf"
+  }
+ },
+ "fiveCellVerificationSummary": {
+  "B1": {
+   "layerB": 9,
+   "layerD": 9,
+   "pass": 9,
+   "result": "PASS",
+   "worlds": 9
+  },
+  "B4": {
+   "layerB": 7,
+   "layerD": 7,
+   "pass": 7,
+   "result": "PASS",
+   "worlds": 7
+  },
+  "C5": {
+   "layerB": 12,
+   "layerD": 12,
+   "pass": 6,
+   "result": "PASS",
+   "worlds": 6
+  },
+  "D4": {
+   "layerB": 9,
+   "layerD": 0,
+   "pass": 7,
+   "result": "PASS",
+   "worlds": 7
+  },
+  "G1": {
+   "layerB": 19,
+   "layerD": 0,
+   "pass": 11,
+   "result": "PASS",
+   "worlds": 11
+  },
+  "c10Mutants": {
+   "C10-B1b": "KILLED",
+   "C10-B4b": "KILLED",
+   "C10-C5b": "KILLED",
+   "C10-D4a": "KILLED",
+   "C10-D4b": "KILLED",
+   "C10-G1b": "KILLED"
+  },
+  "exactCandidateDetailCells": "56/56",
+  "independentDerivationAgreement": "40/40"
+ },
+ "freshHarnessIdentities": {
+  "h/analyze.py": {
+   "bytes": 11482,
+   "sha256": "45c876e4c38b9c1355b8e673473684fe612aed3dc858313d5a277a4daeef9574"
+  },
+  "h/detail.py": {
+   "bytes": 4902,
+   "sha256": "153c0e08fdf8da127419f4e1782f16e0c7f93b7abe74caf39a74422606bc4c35"
+  },
+  "h/findings.py": {
+   "bytes": 13097,
+   "sha256": "37ef11983ae7a9bd2c9f6063f9baa0c47a66cb4d7d19e9ab3a7489dc444dfc37"
+  },
+  "h/guard.py": {
+   "bytes": 2256,
+   "sha256": "4a615f4997df016ad4b955dd6a64691211cbb31ceb63f8d00a5e0f2a1c018edc"
+  },
+  "h/guard_selftest.py": {
+   "bytes": 2644,
+   "sha256": "4fc618877beecc948701707dfbacca74e95c63b09b086dc5f23d624e42def3e2"
+  },
+  "h/launch_author.sh": {
+   "bytes": 1487,
+   "sha256": "77b564ba66c4e6614f1f2f41baf71d90fb7d0a2d66ec2c2e3f38bb270a2bd469"
+  },
+  "h/manifest.py": {
+   "bytes": 11410,
+   "sha256": "5bd2de5358edc9fe4ba435bcc84083790f48ad6e15951037d28f3d541d0ed24e"
+  },
+  "h/real.py": {
+   "bytes": 8512,
+   "sha256": "5f661fd4684d33ccbffae33022ee4449213459e769ade3109605375e8db526c7"
+  },
+  "h/snapshot.py": {
+   "bytes": 3519,
+   "sha256": "3f83ca9002971d226a098896c43815c0d07a6ddd976fcfa45fd2c502a4d87165"
+  }
+ },
+ "frozenAuthorityIdentities": {
+  "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json": {
+   "bytes": 28839,
+   "sha256": "0cb5a6b5d2239855eeabe0bfd0e9ceb6c545dc2a86b4b34a90b65187592721b5"
+  },
+  "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_PROVENANCE_SIDECAR_CORR1.jsonl": {
+   "bytes": 82425,
+   "sha256": "84ab83d23209eae9f775844502676d462490ca8954f8d7a135d28acf5234d6af"
+  },
+  "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_STAGE1_SOURCE_MAP.json": {
+   "bytes": 17490,
+   "sha256": "665aac81c2e0127d08f0406186891959255391cb99ec34611a972209565f4a7f"
+  },
+  "WORKBENCH/DOWNLOADS/STAGE2_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_2026-10-05/STAGE2_EFFECTIVE_VIEW_ASSEMBLY_1_RECORDS.jsonl": {
+   "bytes": 104310,
+   "sha256": "a1fcae68939decd0a3c4a39c0a0bc48e8d285bd9cd7ce1928b0d025056244047"
+  },
+  "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md": {
+   "bytes": 344754,
+   "sha256": "cb08b51e1c2fbaec7765989a7a4e15db1788c53eb5fec43f2628ecb88c1d6c73"
+  },
+  "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR1_2026-10-05/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR1_CANDIDATE.md": {
+   "bytes": 102697,
+   "sha256": "02505e92fd018439f9aba7d4b551fe5542c1be92c7bbb7d4f63994dc1dfa51e9"
+  },
+  "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR1_2026-10-05/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR1_IMPACT_CENSUS.json": {
+   "bytes": 142192,
+   "sha256": "d36e386d3b90032eca02ee28a32f14ea50b5acbc049bd26cea614f0efaf67b9a"
+  },
+  "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR2_CORR1_CORR1_CORR1_CORR1_2026-10-05/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR2_CORR1_CORR1_CORR1_CORR1_CANDIDATE.md": {
+   "bytes": 111635,
+   "sha256": "2f595ab5ddecc7e8149f751c661470bbae1fa3abfb1fb207b2b65c4c4565d6c8"
+  },
+  "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR2_CORR1_CORR1_CORR1_CORR1_2026-10-05/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR2_CORR1_CORR1_CORR1_CORR1_IMPACT_CENSUS.json": {
+   "bytes": 187602,
+   "sha256": "3133b758b77da2fa3f0270f4a3818b6d91f1ed6d0b38f6d89500d40bf10fc721"
+  },
+  "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR2_CORR1_CORR1_CORR1_CORR1_2026-10-05/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR2_CORR1_CORR1_CORR1_CORR1_MANIFEST.json": {
+   "bytes": 9131,
+   "sha256": "f068e31c6b609a3f0e01b0975eb5b0986e9bd1140438513ef18c7ce0a8b276dc"
+  },
+  "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_2026-10-05/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_MIGRATION_CONTRACT.json": {
+   "bytes": 17705,
+   "sha256": "8efcda9455e1e0bc9358bf527494301057638621986311c5520523b2dd528d46"
+  }
+ },
+ "gitMetadataClassification": {
+  "appendOnlyProven": true,
+  "auditorGitMetadataPrePost": {
+   "gitMetaFiles": 164,
+   "identical": true,
+   "postDigest": "bf7a83f583f41a9e88422434526e96f6a1d8614d94d91e179dc54f43166f6724",
+   "preDigest": "bf7a83f583f41a9e88422434526e96f6a1d8614d94d91e179dc54f43166f6724"
+  },
+  "classification": "NON_BLOCKING_GIT_METADATA_ADVISORY",
+  "headChanged": "NO",
+  "indexChanged": "NO",
+  "recurringBackgroundSetHead": "1852 same-OID entries since 2026-08-19, ~30.5 min cadence",
+  "refsChanged": "NO",
+  "semanticGitStateChanged": "NO",
+  "stagedContentChanged": "NO",
+  "trackedContentChanged": "NO"
+ },
+ "gitMutation": false,
+ "governanceIdentities": {
+  "AGENTS.md": {
+   "bytes": 23511,
+   "sha256": "f1f34b93c33ff6feea0611aa01b0d4df325dcb51c844b02180404337c9f4194d"
+  },
+  "AGENTS_A.md": {
+   "bytes": 12303,
+   "sha256": "3c73d681c25d9ed751e9b8298dd3772c15f99fc5095cc177b763416f655baa9d"
+  },
+  "MERGEVUE_CAUSALITY_PROOF_AND_AGENT_CONTROL.md": {
+   "bytes": 23137,
+   "sha256": "06770667d4abeff499d5e24b60d5af53af638a0ca1283aee0d188c17f7d1caf5"
+  },
+  "skills/mergevue-agent-quality-gate/SKILL.md": {
+   "bytes": 32781,
+   "sha256": "c80d3aa92ec16cde41eec0a7c3e22d6b6cd1767a910d5e26e40cee59615dacdb"
+  }
+ },
+ "historicalPreservation": {
+  "inputsPre": 304,
+  "preInputsUnchanged": true,
+  "repoFilesChangedOrAdded": [
+   "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_IV1_2026-10-07/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_IV1_FINDINGS.json",
+   "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_IV1_2026-10-07/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_IV1_REPORT.md"
+  ],
+  "repoTreePost": {
+   "digest": "4bbe4b0b2725990bc49c66df24120323cc9cdb4af0791b92a7bf72d2221c753f",
+   "files": 18725
+  },
+  "repoTreePre": {
+   "digest": "922d6196e6285e36fd95951103d534eb0a4084037a94ebd9441c22b873aa9f1e",
+   "files": 18723
+  },
+  "siblingWorkbenchTreeIdentical": true
+ },
+ "outputs": {
+  "FINDINGS.json": {
+   "bytes": 62300,
+   "path": "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_IV1_2026-10-07/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_IV1_FINDINGS.json",
+   "sha256": "185d19ccf4cd75bf735314fa352219ee54c87f71d92e0eedc4b30a984e41af7c"
+  },
+  "MANIFEST.json": {
+   "note": "no self-hash (not self-referential)",
+   "path": "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_IV1_2026-10-07/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_IV1_MANIFEST.json"
+  },
+  "REPORT.md": {
+   "bytes": 32637,
+   "path": "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_IV1_2026-10-07/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_IV1_REPORT.md",
+   "sha256": "716b5035d0eb1980f3f4aaa4ceba32c3bfda8518d5338384171921bcf85f3c3d"
+  }
+ },
+ "ownerCriticalFailRuleApplication": "APPLIED: FAIL requires exact code -> authoritative/current input -> materially wrong output -> release-blocking consequence; links 3 and 4 not established; hypothetical items classified POST_RELEASE_WATCH; no new mutation family",
+ "pi3Summary": {
+  "FALSE_CERTIFICATION": "NONE",
+  "LAWFUL_PHYSICAL_PI3_REJECTION": "NONE",
+  "disagreements": 0,
+  "sidecarCertified": 30,
+  "sidecarLawful": 30,
+  "sidecarTotal": 30,
+  "staleAOLF0024": "rejected",
+  "viewCertified": 5,
+  "viewLawful": 5,
+  "viewTotal": 6
+ },
+ "postHEAD": "2567223087d99b40bdfd174eed32566be7080e44",
+ "postStagedDiff": "",
+ "postStatus": {
+  "addedSincePre": [
+   "?? WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_IV1_2026-10-07/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_IV1_FINDINGS.json",
+   "?? WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_IV1_2026-10-07/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_IV1_MANIFEST.json",
+   "?? WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_IV1_2026-10-07/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_IV1_REPORT.md"
+  ],
+  "lines": 840,
+  "onlyAuthorizedOutputsAdded": true,
+  "preLines": 837,
+  "removedFromPre": [],
+  "sha256": "80963fb6709141e73da2b880edeb983884d922f8021eabb9115ec504f9c266a4"
+ },
+ "postTrackedDiff": "",
+ "preHEAD": "2567223087d99b40bdfd174eed32566be7080e44",
+ "preStagedDiff": "",
+ "preStatus": {
+  "allUntracked": true,
+  "lines": 837,
+  "sha256": "2e28fc2d86f2e2a221dfc33fdc4761d9e47e98f946bf6eaad62e5050bcc00fbc"
+ },
+ "preTrackedDiff": "",
+ "productionPreservationSummary": {
+  "builderByteEqual": "YES",
+  "contractProjectionSha256": "3aeafd278be0b823e13746efb3b1e97885dbba7edb6d51f2c925a3385d4bced9",
+  "contractSemanticDelta": "NONE",
+  "cvkByteEqual": "YES",
+  "realPath": {
+   "counts": {
+    "executionCells": 110,
+    "mechanicalProjections": 5,
+    "readjudication": 1,
+    "sectionIRecords": 6,
+    "sepMig8SplitCopies": 0,
+    "valueChanges": 3
+   },
+   "environmentSafety": [],
+   "inputsUnchanged": true,
+   "valueChanges": [
+    "A-E023",
+    "A-EXEC1:F-B-0025:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS",
+    "A-EXEC1:F0024:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS"
+   ]
+  },
+  "surfaces": "W-4, PI-3, COUNTER_M binding, DE-4 cap/order, AV-1, U-3, exact enums, non-mapped containment, S7, exact hold routing, per-TT/per-edge isolation, SYN-PC2, F03-F06, A-E023: PASS (reproduced; byte-equal ledgers; fresh real-path)"
+ },
+ "repositoryRoot": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)",
+ "role": "AUDITOR",
+ "scratchRoot": "/private/tmp/corr10iv1/ (h/ fresh harness, run/ evidence, gtest/ guard self-test)",
+ "severityCounts": {
+  "ADVISORY": 4,
+  "BLOCKING": 0,
+  "CRITICAL": 0,
+  "MAJOR": 0,
+  "MINOR": 0
+ },
+ "terminalCorrectionStageDisposition": {
+  "CORR11_AUTHORIZED": "NO",
+  "CORRECTION_STAGE_TERMINATED": "YES"
+ },
+ "verdict": "PASS"
+}
