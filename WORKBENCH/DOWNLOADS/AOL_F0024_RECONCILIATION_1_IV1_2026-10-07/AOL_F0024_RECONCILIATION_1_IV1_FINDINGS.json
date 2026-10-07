@@ -1,0 +1,103 @@
+{
+  "act": "AOL_F0024_RECONCILIATION_1.IV1",
+  "actor": "CLAUDE (Owner designation: CLAUDE 4.6; runtime model claude-opus-5-5)",
+  "role": "AUDITOR",
+  "date": "2026-10-07",
+  "auditedCandidate": {
+    "act": "AOL_F0024_RECONCILIATION_1",
+    "author": "CODEX (Owner-designated CODEX SOL)",
+    "files": {
+      "AOL_F0024_RECONCILIATION_1_REPORT.md": "189edc9cc6528f0ad584770157b5638e2206b0d8f730f59534a65d2171bd2019",
+      "AOL_F0024_RECONCILIATION_1_MANIFEST.json": "4ae6d08af2eb8309dca4a63360292c7d093ec5769ab89009185f16ed1a8291ec",
+      "AOL_F0024_RECONCILIATION_1_COMPARISON.json": "3b6cbd10589eba2ec97b9cbda4eccc5d69f4f9f210682aef3567113597b6e7c4",
+      "AOL_F0024_RECONCILIATION_1_PROVENANCE_PATCH.json": "bf5d832f846bb0034ec384e815d2434d39548a5530cb70b0375289b7b9d3b828"
+    }
+  },
+  "verdict": "PASS",
+  "failThresholdApplied": "Owner pre-production rule: blocking FAIL only for a proven critical defect in the exact current candidate",
+  "counts": {"BLOCKING": 0, "CRITICAL": 0, "MAJOR": 0, "MINOR": 0, "ADVISORY": 3},
+  "gates": {
+    "CANDIDATE_IDENTITY": "PASS",
+    "INDEPENDENCE": "PASS",
+    "IDENTITY_ONLY_SCOPE": "PASS",
+    "POSITIVE_SEMANTIC_EQUIVALENCE": "PASS",
+    "FOUR_FIELD_PATCH_SURFACE": "PASS",
+    "PI3_FAIL_CLOSED": "PASS",
+    "STAGE2_PROJECTION_UNCHANGED": "PASS",
+    "A_E001_PRESERVED": "PASS",
+    "CORR10_PRESERVED": "PASS",
+    "ENVIRONMENT_PRESERVED": "PASS"
+  },
+  "measured": {
+    "ALLOWED_IDENTITY_DIFF_COUNT": 4,
+    "SEMANTIC_FIELD_CHANGE_COUNT": 0,
+    "UNRELATED_RECORD_CHANGE_COUNT": 0,
+    "recordCountAfterApplication": 116,
+    "changedRecordLines": [112],
+    "PI3_F0024": "PASS",
+    "FALSE_CERTIFICATION": "NO",
+    "STALE_IDENTITY_ACCEPTED": "NO",
+    "CURRENT_AUTHORITY_RESOLVED": "YES",
+    "EVIDENCE_CONTENT_EQUIVALENT": "YES",
+    "FACT_ID_UNCHANGED": "YES",
+    "TEMPORAL_MEANING_UNCHANGED": "YES",
+    "ADMISSIBILITY_MEANING_UNCHANGED": "YES",
+    "STAGE2_SEMANTIC_PROJECTION_UNCHANGED": "YES",
+    "A_E001_CHANGED": "NO",
+    "CORR10_CHANGED": "NO",
+    "ENVIRONMENT_CHANGED": "NO",
+    "independentChecks": 57,
+    "independentChecksFailed": 0,
+    "directPI3Controls": 16,
+    "partialRepairMixturesRejected": "14/14",
+    "applierNegativeControlsHeld": "16/16",
+    "guardBlockedWriteAttempts": 0
+  },
+  "findings": [
+    {
+      "id": "AOL-F0024-R1-IV1-A1",
+      "severity": "ADVISORY",
+      "class": "POST_RELEASE_WATCH",
+      "currentCandidateDefect": false,
+      "title": "Fail-closed patch application is a declarative contract; no persisted consumer exists yet, and Stage-2 evaluate does not re-certify this edge",
+      "evidence": "PROVENANCE_PATCH.applicationContract declares every required invariant (input-view SHA, one selector match, exact oldValue, four-field delta, current-authority certification, HOLD). The author's consumer was inline and is recorded only by digest 56634fd8…. With an instrumented ProductionPackageAuthority.certify, CORR10 evaluate()/migration_classify() made 0 certify calls for the F0024 edge before or after the patch, because cap B-1a (SEP-DE4) fires before any PI-3-consulting step.",
+      "consequence": "No current defect. The patch is data, and the exact candidate claims nothing beyond a successor patch. A future final-assembly consumer must execute requireCurrentAuthorityCertification explicitly. Stage-2 evaluation will not implicitly reject a malformed identity on this edge.",
+      "recommendation": "When final effective-view assembly is authorized, verify that its consumer enforces every applicationContract invariant, in particular the explicit PI-3 certification step."
+    },
+    {
+      "id": "AOL-F0024-R1-IV1-A2",
+      "severity": "ADVISORY",
+      "class": "QA_BACKLOG",
+      "currentCandidateDefect": false,
+      "title": "Before/after projection equality cannot discriminate identity correctness on this edge",
+      "evidence": "Because PI-3 is not consulted for this edge (A1), the F0024 projection is identical under the stale identity, the corrected identity, and any identity value. Identity correctness is therefore established only by the direct ProductionPackageAuthority.certify checks, which this audit reproduced: stale rejected, corrected certified, and all malformed variants rejected.",
+      "consequence": "No current defect. requireUnchangedStage2SemanticProjection is a necessary non-regression condition. It is not evidence of identity correctness.",
+      "recommendation": "Do not cite projection equality as identity evidence in later acts."
+    },
+    {
+      "id": "AOL-F0024-R1-IV1-A3",
+      "severity": "ADVISORY",
+      "class": "QA_BACKLOG",
+      "currentCandidateDefect": false,
+      "title": "COMPARISON negative-declaration key trips the CORR10 Environment key scan",
+      "evidence": "B.assert_environment_safe(COMPARISON) reports ['.checksRun.environmentAssignment']. The value is false, a negative declaration. The PATCH artifact scans clean ([]).",
+      "consequence": "No Environment content exists. A later automated scan over the comparison artifact would raise a false positive.",
+      "recommendation": "None required for this candidate."
+    }
+  ],
+  "limitations": [
+    "Component scope only. The patch was applied in memory by an auditor-written consumer of the persisted contract. No production or final-assembly entrypoint exists or was exercised.",
+    "The predecessor a1fcae68 remains physically stale at line 112 by design (historicalArtifactsImmutable). The unchanged CORR10 PI-3 rejects that stale identity.",
+    "The author's 952-file preservation snapshot cannot be re-run retrospectively. Preservation was instead established by current hashes of all pinned inputs, CORR10 manifest pins, 40/40 candidate-manifest inputs, an mtime/ctime sweep since 17:30, and the git untracked count (695 = 691 + 4)."
+  ],
+  "status": {
+    "AOL_F0024_RECONCILIATION_INDEPENDENTLY_VERIFIED": "YES",
+    "OWNER_ACCEPTED": "NO",
+    "GIT_CLOSED": "NO",
+    "FINAL_EFFECTIVE_VIEW_ASSEMBLED": "NO",
+    "FINAL_REGRESSION_EXECUTED": "NO",
+    "GIT_MUTATION": "NO",
+    "COMMIT": "NONE",
+    "PUSH": "NONE"
+  }
+}

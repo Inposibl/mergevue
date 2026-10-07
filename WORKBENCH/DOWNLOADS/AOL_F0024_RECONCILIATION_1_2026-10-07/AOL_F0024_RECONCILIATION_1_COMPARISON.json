@@ -1,0 +1,520 @@
+{
+  "act": "AOL_F0024_RECONCILIATION_1",
+  "deltaClassification": "IDENTITY_ONLY_DELTA",
+  "comparisonScope": "F0024 evidence supplied to the stale SECTION_I row; no equivalence of the asserted 105-fact whole package is claimed",
+  "staleIdentity": {
+    "binding": {
+      "caseSlug": "aol-time-warner",
+      "stage1Generation": "candidate",
+      "packageDir": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/aol-time-warner/01_T0_PRE_T0_BASELINE/candidate",
+      "recordFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/aol-time-warner/01_T0_PRE_T0_BASELINE/candidate/06_FACTS.json",
+      "recordFormat": "json",
+      "recordFileBytes": 139589,
+      "recordFileSha256": "4b686b245e412a83424168da6c87db9b392b4ea16eeadff48c0b62e49c7198bb",
+      "packageFactCount": 105,
+      "packageSideCount": 2,
+      "caseIdKey": "case_id",
+      "caseIdLocator": "package-level key 'case_id'",
+      "factIdKey": "fact_id",
+      "factIdLocator": "record-level key 'fact_id'",
+      "sideIdKey": "side",
+      "sideIdLocator": "record-level key 'side'",
+      "identityAuthority": "STAGE2_CORR4_PILOT_STAGE1_SOURCE_MAP.json",
+      "identityAuthoritySha256": "665aac81c2e0127d08f0406186891959255391cb99ec34611a972209565f4a7f"
+    },
+    "viewPath": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_2026-10-05/STAGE2_EFFECTIVE_VIEW_ASSEMBLY_1_RECORDS.jsonl",
+    "jsonlLine": 112,
+    "edgeId": "A-EXEC1:F0024:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS",
+    "physicalCertification": "REJECTED",
+    "evidenceTextSource": "hash-pinned PI-2 frozen coder input, F0024, JSONL line 9",
+    "evidenceText": "America Online's 1992 Employee, Director and Consultant Stock Option Plan provided that upon specified change-in-control events, outstanding unvested options would become fully vested upon the earliest of the normal vesting date, one year from the change in control, or an involuntary employment action.",
+    "rowLinkageEvidence": "America Online's 1992 Employee, Director and Consultant Stock Option Plan provided that upon specified change-in-control events, outstanding unvested options would become fully vested",
+    "sourceRefs": [
+      {
+        "refIndex": 0,
+        "sourceId": "S0009",
+        "sourceIdBindingLocator": "record-level key 'source_ids'",
+        "factLevelLocator": "S0009 Employment Contracts / 1992 Plan change-in-control paragraph",
+        "factLevelLocatorAbsent": false,
+        "registryFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/aol-time-warner/01_T0_PRE_T0_BASELINE/candidate/03_SOURCE_REGISTRY.json",
+        "registryFileSha256": "bcc4576b6f1a94e8417340fe49a9f2a9a00aadd0db776acb4c9878579893dd09",
+        "registryRecordIndex": 8,
+        "registryRecordSha256": "df0f7cafb55087e317af99c02731f41e32691eab11ca829baac0b210dd27bea9",
+        "documentaryIdentity": {
+          "documentaryType": {
+            "key": "document_type",
+            "value": "DEF_14A"
+          },
+          "documentaryTitle": {
+            "key": "title",
+            "value": "America Online, Inc. Definitive Proxy Statement (DEF 14A) for 1999 annual meeting"
+          },
+          "documentaryIssuerOrPublisher": {
+            "key": "publisher",
+            "value": "U.S. Securities and Exchange Commission / America Online, Inc."
+          }
+        }
+      }
+    ],
+    "sourceClass": "compensation plans",
+    "temporalInterpretation": {
+      "temporalState": "PRE_T0_CONTINUITY_UNRESOLVED",
+      "continuityBridgeFactIds": [],
+      "formalOperativeState": "FORMAL_ONLY",
+      "planCurrentState": "ELIGIBILITY_ONLY"
+    }
+  },
+  "currentAuthoritativeIdentity": {
+    "binding": {
+      "caseSlug": "aol-time-warner",
+      "stage1Generation": "candidate",
+      "packageDir": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/aol-time-warner/01_T0_PRE_T0_BASELINE/candidate",
+      "recordFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/aol-time-warner/01_T0_PRE_T0_BASELINE/candidate/06_FACTS.json",
+      "recordFormat": "json",
+      "recordFileBytes": 61728,
+      "recordFileSha256": "88b20920149b3fcde03e4e060cf4361e9494fe0137540bbc654c526337fd5f10",
+      "packageFactCount": 50,
+      "packageSideCount": 2,
+      "caseIdKey": "case_id",
+      "caseIdLocator": "record-level key 'case_id'",
+      "factIdKey": "fact_id",
+      "factIdLocator": "record-level key 'fact_id'",
+      "sideIdKey": "side",
+      "sideIdLocator": "record-level key 'side'",
+      "identityAuthority": "STAGE2_CORR4_PILOT_STAGE1_SOURCE_MAP.json",
+      "identityAuthoritySha256": "665aac81c2e0127d08f0406186891959255391cb99ec34611a972209565f4a7f"
+    },
+    "physicalCertification": "CERTIFIED",
+    "contentLocator": "facts[23].atomic_proposition",
+    "fact": {
+      "fact_id": "F0024",
+      "side": "AOL",
+      "atomic_proposition": "America Online's 1992 Employee, Director and Consultant Stock Option Plan provided that upon specified change-in-control events, outstanding unvested options would become fully vested upon the earliest of the normal vesting date, one year from the change in control, or an involuntary employment action.",
+      "organizational_scope": "CORPORATE",
+      "time_scope": "CURRENT_AS_OF_FILING_DATE",
+      "state_at_t0": "HISTORICAL_CURRENT",
+      "formal_or_operative": "FORMAL",
+      "announced_or_effective": "EFFECTIVE",
+      "source_ids": [
+        "S0009"
+      ],
+      "source_locator": "S0009 Employment Contracts / 1992 Plan change-in-control paragraph",
+      "direct_quote_or_exact_evidence_locator": "DEF 14A Employment Contracts closing paragraph describing 1992 Plan change-in-control vesting.",
+      "normalization_note": "Plan term. Not evidence that a change in control had occurred.",
+      "temporal_status": "ADMITTED_PRE_T0",
+      "evidence_status": "ESTABLISHED_BY_PRE_T0_SOURCE",
+      "case_id": "aol-time-warner",
+      "counterevidence_ids": [],
+      "contradiction_ids": [],
+      "confidence_in_factual_extraction": "HIGH"
+    },
+    "sourceRegistryEntry": {
+      "source_id": "S0009",
+      "side": "AOL",
+      "title": "America Online, Inc. Definitive Proxy Statement (DEF 14A) for 1999 annual meeting",
+      "publisher": "U.S. Securities and Exchange Commission / America Online, Inc.",
+      "document_type": "DEF_14A",
+      "source_authority_class": "PRIMARY_REGULATORY",
+      "original_publication_date": "1999-09-24",
+      "original_publication_time": null,
+      "timezone": null,
+      "current_url": "https://www.sec.gov/Archives/edgar/data/883780/000095010999003477/0000950109-99-003477.txt",
+      "original_url": "https://www.sec.gov/Archives/edgar/data/883780/000095010999003477/0000950109-99-003477.txt",
+      "retrieved_at": "2026-09-06T12:00:00Z",
+      "local_artifact": "sources/aol/aol_def14a_1999_filed_1999-09-24.txt",
+      "file_type": "txt",
+      "pages_or_locator": "accession 0000950109-99-003477; filed 1999-09-24; meeting 1999-10-28; Management / Directors / Committees",
+      "temporal_status": "BEFORE_T0",
+      "admission_status": "ADMITTED_PRE_T0",
+      "admission_reason": "SEC filed 1999-09-24 < 2000-01-10.",
+      "notes": "Governance, classified board, executive officers, compensation committee.",
+      "duplicate_of": null,
+      "sha256": "1aee005dbeb8da855ee70f0846800b3b57250a3c7044747e72706ae64cf44c0d",
+      "byte_size": 123631
+    },
+    "sourceDocumentByteRange": {
+      "startInclusive": 54871,
+      "endExclusive": 55863,
+      "passageSha256": "59b174ecfe715973a41d3e48682f730b19f92e03046924bea8f73d48f1a1368f",
+      "passage": "  The Company's 1992 Employee, Director and Consultant Stock Option Plan\nprovides that upon the occurrence of a \"Corporate Change in Control\" or a\n\"Transactional Change in Control\" (as defined in the 1992 Plan), which include\n(i) the acquisition (with certain exceptions) of 30% of the outstanding Common\nStock of the Company by a person, entity or group, (ii) certain changes in the\ncomposition of the Board of Directors, (iii) certain mergers, reorganizations,\nrecapitalizations or consolidations involving the Company and (iv) the sale of\nall or substantially all of the assets of the Company, the outstanding options\nthat have not yet vested will become fully vested upon the earliest of (a) the\nnormal vesting date, (b) one year from the applicable \"Corporate Change in\nControl\" or \"Transactional Change in Control\" or (c) an involuntary employment\naction, such as termination of employment without cause or a reduction in base\ncompensation, power, authority, duties or responsibilities."
+    },
+    "sourceClassBinding": {
+      "sourceClassAssignmentState": "ASSIGNED",
+      "sourceClass": "compensation plans",
+      "derivation": "SINGLE_ASSIGNED_SUPPORT: exactly one bounded segment carrying exactly one satisfied class predicate (deterministic procedure STEP 7); the section I edge records this sourceClass (R-EDGE); it counts toward srcDiv subject to R-COUNT anti-inflation grouping."
+    },
+    "sourceClassDocumentIdentity": "SHA256:1aee005dbeb8da855ee70f0846800b3b57250a3c7044747e72706ae64cf44c0d",
+    "t0": "2000-01-10"
+  },
+  "positiveEquivalenceEvidence": {
+    "fullFrozenFactTextEqualsCertifiedStage1Text": true,
+    "staleRowEvidenceIsExactPrefixOfUnchangedFrozenFact": true,
+    "staleRowSourceRefsDeepEqualFrozenSidecarRefs": true,
+    "sourceRegistryBytesAndRecordDigestMatchStaleRowAssertions": true,
+    "sourceDocumentBytesMatchFrozenSourceclassBinding": true,
+    "sameSourceSideEntityCaseFactAndPassage": true,
+    "sameTemporalAndAdmissibilityMetadataThroughUnchangedSourceRegistryBinding": true,
+    "priorAcceptedIdentityCorrectionValuesEqualExactly": true,
+    "onlyFourProvenanceAssertionsDiffer": true,
+    "allOtherSectionIFieldsPreserved": true
+  },
+  "changedIdentityFields": [
+    "caseIdLocator",
+    "packageFactCount",
+    "recordFileBytes",
+    "recordFileSha256"
+  ],
+  "unchangedIdentityFields": [
+    "caseIdKey",
+    "caseSlug",
+    "factIdKey",
+    "factIdLocator",
+    "identityAuthority",
+    "identityAuthoritySha256",
+    "packageDir",
+    "packageSideCount",
+    "recordFile",
+    "recordFormat",
+    "sideIdKey",
+    "sideIdLocator",
+    "stage1Generation"
+  ],
+  "stage2": {
+    "evaluationBefore": {
+      "record": "A-EXEC1:F0024:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS",
+      "M": "M-RES-ROLE-CONTROLLED-ACCESS",
+      "ev0Applicable": true,
+      "admission": "ADMITTED",
+      "holdCode": null,
+      "holdReasons": [],
+      "partition": {
+        "c1": "SUPPLIED",
+        "c2": "ORDINARY_MISSING_ASSESSABLE",
+        "c3": "ORDINARY_MISSING_ASSESSABLE"
+      },
+      "failingGates": [],
+      "bearingEvaluability": "EVALUABLE",
+      "bearingIndeterminacyReasons": null,
+      "supportBearing": "NON_DISCRIMINATING",
+      "pipelineState": null,
+      "uniquenessBasis": null,
+      "alternatives": [],
+      "unresolvedAlternatives": [],
+      "capFired": "B-1a (SEP-DE4)",
+      "b3RecordVerdict": null,
+      "b3PerTT": [],
+      "b3ComponentVerdicts": {}
+    },
+    "evaluationAfter": {
+      "record": "A-EXEC1:F0024:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS",
+      "M": "M-RES-ROLE-CONTROLLED-ACCESS",
+      "ev0Applicable": true,
+      "admission": "ADMITTED",
+      "holdCode": null,
+      "holdReasons": [],
+      "partition": {
+        "c1": "SUPPLIED",
+        "c2": "ORDINARY_MISSING_ASSESSABLE",
+        "c3": "ORDINARY_MISSING_ASSESSABLE"
+      },
+      "failingGates": [],
+      "bearingEvaluability": "EVALUABLE",
+      "bearingIndeterminacyReasons": null,
+      "supportBearing": "NON_DISCRIMINATING",
+      "pipelineState": null,
+      "uniquenessBasis": null,
+      "alternatives": [],
+      "unresolvedAlternatives": [],
+      "capFired": "B-1a (SEP-DE4)",
+      "b3RecordVerdict": null,
+      "b3PerTT": [],
+      "b3ComponentVerdicts": {}
+    },
+    "migrationBefore": {
+      "edgeId": "A-EXEC1:F0024:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS",
+      "legacySupportClass": "DIRECT_SUPPORT",
+      "migrationRuleId": "SEP-MIG-6a",
+      "projectionClass": "MECHANICAL_VALUE_CHANGE",
+      "successorTriple": [
+        "EVALUABLE",
+        null,
+        "NON_DISCRIMINATING"
+      ],
+      "holdCode": null,
+      "notes": []
+    },
+    "migrationAfter": {
+      "edgeId": "A-EXEC1:F0024:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS",
+      "legacySupportClass": "DIRECT_SUPPORT",
+      "migrationRuleId": "SEP-MIG-6a",
+      "projectionClass": "MECHANICAL_VALUE_CHANGE",
+      "successorTriple": [
+        "EVALUABLE",
+        null,
+        "NON_DISCRIMINATING"
+      ],
+      "holdCode": null,
+      "notes": []
+    },
+    "semanticProjectionUnchanged": true,
+    "aE001Projection": {
+      "edgeId": "A-E001",
+      "legacySupportClass": "DIRECT_SUPPORT",
+      "migrationRuleId": "SEP-MIG-6c",
+      "projectionClass": "RE_ADJUDICATION",
+      "successorTriple": [
+        null,
+        null,
+        null
+      ],
+      "holdCode": "HOLD-T",
+      "notes": [
+        "needs T(r) and W(f); neither exists on the frozen tree",
+        "S6/S7 hold HOLD-T retained in the ledger",
+        "establishment-side inconsistency retained: componentSupply/missingComponents do not partition the required components; outside EV (§6.2); re-adjudication input"
+      ]
+    }
+  },
+  "pi3": {
+    "PI3_F0024": "PASS",
+    "FALSE_CERTIFICATION": "NO",
+    "STALE_IDENTITY_ACCEPTED": "NO",
+    "CURRENT_AUTHORITY_RESOLVED": "YES",
+    "certifiedFact": {
+      "authority": "FROZEN_STAGE1_SOURCE_MAP:665aac81c2e0127d08f0406186891959255391cb99ec34611a972209565f4a7f",
+      "package_digest": "88b20920149b3fcde03e4e060cf4361e9494fe0137540bbc654c526337fd5f10",
+      "fact_id": "F0024",
+      "case_id": "aol-time-warner",
+      "side": "AOL",
+      "proposition": "America Online's 1992 Employee, Director and Consultant Stock Option Plan provided that upon specified change-in-control events, outstanding unvested options would become fully vested upon the earliest of the normal vesting date, one year from the change in control, or an involuntary employment action."
+    },
+    "negativeControls": {
+      "revert_caseIdLocator": true,
+      "revert_packageFactCount": true,
+      "revert_recordFileBytes": true,
+      "revert_recordFileSha256": true,
+      "wrong_fact": true,
+      "wrong_case": true,
+      "wrong_side": true,
+      "locator_override": true,
+      "unknown_member": true,
+      "wrong_authority": true
+    }
+  },
+  "inputBindings": [
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR2_CORR1_CORR1_CORR1_CORR1_2026-10-05/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR2_CORR1_CORR1_CORR1_CORR1_CANDIDATE.md",
+      "bytes": 111635,
+      "sha256": "2f595ab5ddecc7e8149f751c661470bbae1fa3abfb1fb207b2b65c4c4565d6c8"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/docs/reference/root-definitional-v1.7/contract/CASE-3.4_CONTRACT_v1.3.md",
+      "bytes": 27762,
+      "sha256": "dae8143899cd4fb7e406b4b410e9730a6f8bf7853989f3ef9757edeec293ae39"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR1_2026-10-05/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR1_CANDIDATE.md",
+      "bytes": 102697,
+      "sha256": "02505e92fd018439f9aba7d4b551fe5542c1be92c7bbb7d4f63994dc1dfa51e9"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_FIELD_SOURCE_MATRIX_CORR2.json",
+      "bytes": 21176,
+      "sha256": "1fb84aed8aadeb2b4c2fc85eb6e01cd2ea3849fae5be28a39e0b65ca4e4e2cdd"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_STAGE1_SOURCE_MAP.json",
+      "bytes": 17490,
+      "sha256": "665aac81c2e0127d08f0406186891959255391cb99ec34611a972209565f4a7f"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md",
+      "bytes": 344754,
+      "sha256": "cb08b51e1c2fbaec7765989a7a4e15db1788c53eb5fec43f2628ecb88c1d6c73"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json",
+      "bytes": 28839,
+      "sha256": "0cb5a6b5d2239855eeabe0bfd0e9ceb6c545dc2a86b4b34a90b65187592721b5"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_2026-10-07/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_AUTHOR_REPORT.md",
+      "bytes": 18238,
+      "sha256": "80413a9b010560d73a0fe57e096bb136104879f8c5d3d2f830cd16ab59be6981"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_2026-10-07/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_CONTRACT_MODEL.json",
+      "bytes": 107403,
+      "sha256": "433a8bf310d255860f04ad5147908a6003aaacf74d61f7dde892d481373de85d"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_2026-10-07/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_CONTRACT_VERIFICATION_KERNEL.py",
+      "bytes": 37366,
+      "sha256": "7d80a64041b2fcba97abd49f1ca28ead9c1765b8de0c1c4d2863762c4164544c"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_2026-10-07/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_MUTATION_SUITE.py",
+      "bytes": 42205,
+      "sha256": "e0264f4e7c670d6cef7fb9b3eae2c68d0651b132716f02bf2ae685633eececae"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_2026-10-07/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_PROPERTY_SUITE.py",
+      "bytes": 137584,
+      "sha256": "c31fed59e8b47e496d78a12816eebc35a1ca69f1038f036416a3d05d0a3cdb70"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_2026-10-07/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_SUCCESSOR_VIEW_BUILDER.py",
+      "bytes": 89501,
+      "sha256": "4fabec820660e9399ece1314142e5bdc99a3196c9794fa71a3dc5ddb80551cc9"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_2026-10-07/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_VALIDATION_REPORT.json",
+      "bytes": 8359171,
+      "sha256": "35ffcf542750905189f22b10c23c0e6793cbd924fb73908878ca8758a6b2792c"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_2026-10-07/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_MANIFEST.json",
+      "bytes": 617556,
+      "sha256": "34b78865d296e952f6a87f36733da482d130104858224f8ed62df36b524c5782"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_2026-10-05/STAGE2_EFFECTIVE_VIEW_ASSEMBLY_1_RECORDS.jsonl",
+      "bytes": 104310,
+      "sha256": "a1fcae68939decd0a3c4a39c0a0bc48e8d285bd9cd7ce1928b0d025056244047"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_PROVENANCE_SIDECAR_CORR1.jsonl",
+      "bytes": 82425,
+      "sha256": "84ab83d23209eae9f775844502676d462490ca8954f8d7a135d28acf5234d6af"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_INPUT.jsonl",
+      "bytes": 9199,
+      "sha256": "a87409c3f4c1d7d097443233284bceee1cbed49c59e57a8aeb9eed651ff0c883"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_SOURCECLASS_BINDING_CORR2.jsonl",
+      "bytes": 95720,
+      "sha256": "3eee72d088f9f72cb95671df14393912659081827719b589cc8a278cddc61591"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/aol-time-warner/01_T0_PRE_T0_BASELINE/candidate/06_FACTS.json",
+      "bytes": 61728,
+      "sha256": "88b20920149b3fcde03e4e060cf4361e9494fe0137540bbc654c526337fd5f10"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/aol-time-warner/01_T0_PRE_T0_BASELINE/candidate/03_SOURCE_REGISTRY.json",
+      "bytes": 20437,
+      "sha256": "bcc4576b6f1a94e8417340fe49a9f2a9a00aadd0db776acb4c9878579893dd09"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/aol-time-warner/01_T0_PRE_T0_BASELINE/candidate/sources/aol/aol_def14a_1999_filed_1999-09-24.txt",
+      "bytes": 123631,
+      "sha256": "1aee005dbeb8da855ee70f0846800b3b57250a3c7044747e72706ae64cf44c0d"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_F0024_FACTUAL_PACKAGE_IDENTITY_CORRECTION_1_2026-10-04/STAGE2_F0024_FACTUAL_PACKAGE_IDENTITY_CORRECTION_1.json",
+      "bytes": 11108,
+      "sha256": "0711b74240ddeecac7a95f15a0093ce44f3288f440929d6b803516e53ba6f983"
+    }
+  ],
+  "limitation": "The unsupported 4b686b... identity is not certified or represented as historical source bytes. Positive equivalence rests on frozen PI-2 input plus exact documentary lineage, not on absence of an old physical package.",
+  "persistedPatchConsumption": {
+    "persistedPatchIdentity": {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/AOL_F0024_RECONCILIATION_1_2026-10-07/AOL_F0024_RECONCILIATION_1_PROVENANCE_PATCH.json",
+      "bytes": 5003,
+      "sha256": "bf5d832f846bb0034ec384e815d2434d39548a5530cb70b0375289b7b9d3b828"
+    },
+    "consumptionScope": "bounded in-memory application only; not final effective-view assembly",
+    "correctedRowJsonlLine": 112,
+    "recordCount": 116,
+    "unchangedRecordCount": 115,
+    "unrelatedFactsUnchanged": true,
+    "aE001Unchanged": true,
+    "semanticFieldChangeCount": 0,
+    "allowedIdentityLeafDiffCount": 4,
+    "stage2ProjectionUnchanged": true,
+    "successorTriple": [
+      "EVALUABLE",
+      null,
+      "NON_DISCRIMINATING"
+    ],
+    "negativeControls": {
+      "changed_predecessor_bytes": {
+        "pass": true,
+        "consequence": "HOLD: predecessor identity",
+        "downstreamCandidateAvailable": false
+      },
+      "duplicate_correction": {
+        "pass": true,
+        "consequence": "HOLD: correction count",
+        "downstreamCandidateAvailable": false
+      },
+      "wrong_target_fact": {
+        "pass": true,
+        "consequence": "HOLD: target selector",
+        "downstreamCandidateAvailable": false
+      },
+      "incomplete_selector": {
+        "pass": true,
+        "consequence": "HOLD: target selector",
+        "downstreamCandidateAvailable": false
+      },
+      "old_value_mismatch": {
+        "pass": true,
+        "consequence": "HOLD: old-value precondition",
+        "downstreamCandidateAvailable": false
+      },
+      "extra_identity_delta": {
+        "pass": true,
+        "consequence": "HOLD: delta surface",
+        "downstreamCandidateAvailable": false
+      },
+      "semantic_field_target": {
+        "pass": true,
+        "consequence": "HOLD: target selector",
+        "downstreamCandidateAvailable": false
+      },
+      "partial_reconciliation_caseIdLocator": {
+        "pass": true,
+        "consequence": "HOLD: delta surface",
+        "downstreamCandidateAvailable": false
+      },
+      "partial_reconciliation_packageFactCount": {
+        "pass": true,
+        "consequence": "HOLD: delta surface",
+        "downstreamCandidateAvailable": false
+      },
+      "partial_reconciliation_recordFileBytes": {
+        "pass": true,
+        "consequence": "HOLD: delta surface",
+        "downstreamCandidateAvailable": false
+      },
+      "partial_reconciliation_recordFileSha256": {
+        "pass": true,
+        "consequence": "HOLD: delta surface",
+        "downstreamCandidateAvailable": false
+      },
+      "forced_current_authority_failure": {
+        "pass": true,
+        "consequence": "HOLD: current physical source",
+        "downstreamCandidateAvailable": false
+      }
+    },
+    "finalEffectiveViewWritten": false,
+    "finalRegressionExecuted": false
+  },
+  "checksRun": {
+    "entrypoints": [
+      "CORR10.ProductionPackageAuthority.resolve/certify",
+      "CORR10.evaluate",
+      "CORR10.migration_classify"
+    ],
+    "fullStage2Replay": false,
+    "fullSuccessorViewBuild": false,
+    "finalMeasurementRegression": false,
+    "environmentAssignment": false,
+    "semanticComparison": "exact frozen fact text + exact source binding + exact before/after row projection",
+    "validationScope": "author self-validation only"
+  }
+}

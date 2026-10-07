@@ -1,0 +1,114 @@
+{
+  "recordType": "AOL_F0024_PROVENANCE_RECONCILIATION_PATCH",
+  "actId": "AOL_F0024_RECONCILIATION_1",
+  "actor": "CODEX",
+  "role": "CODER",
+  "deltaClassification": "IDENTITY_ONLY_DELTA",
+  "inputViewIdentity": {
+    "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_2026-10-05/STAGE2_EFFECTIVE_VIEW_ASSEMBLY_1_RECORDS.jsonl",
+    "bytes": 104310,
+    "sha256": "a1fcae68939decd0a3c4a39c0a0bc48e8d285bd9cd7ce1928b0d025056244047"
+  },
+  "correctionRecords": [
+    {
+      "correctionRecordId": "AOL-F0024-RECONCILIATION-1",
+      "correctionClass": "MECHANICAL_PROVENANCE_IDENTITY_CORRECTION",
+      "factId": "F0024",
+      "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+      "targetId": "TT-STPSTJ-RS",
+      "field": "factualPackageIdentity",
+      "targetSelector": {
+        "recordType": "SECTION_I_RECORD",
+        "edgeId": "A-EXEC1:F0024:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS",
+        "caseId": "aol-time-warner",
+        "side": "AOL",
+        "factIds": [
+          "F0024"
+        ],
+        "mechanismPropositionIds": [
+          "M-RES-ROLE-CONTROLLED-ACCESS"
+        ],
+        "treeTargetIds": [
+          "TT-STPSTJ-RS"
+        ]
+      },
+      "oldValue": {
+        "caseSlug": "aol-time-warner",
+        "stage1Generation": "candidate",
+        "packageDir": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/aol-time-warner/01_T0_PRE_T0_BASELINE/candidate",
+        "recordFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/aol-time-warner/01_T0_PRE_T0_BASELINE/candidate/06_FACTS.json",
+        "recordFormat": "json",
+        "recordFileBytes": 139589,
+        "recordFileSha256": "4b686b245e412a83424168da6c87db9b392b4ea16eeadff48c0b62e49c7198bb",
+        "packageFactCount": 105,
+        "packageSideCount": 2,
+        "caseIdKey": "case_id",
+        "caseIdLocator": "package-level key 'case_id'",
+        "factIdKey": "fact_id",
+        "factIdLocator": "record-level key 'fact_id'",
+        "sideIdKey": "side",
+        "sideIdLocator": "record-level key 'side'",
+        "identityAuthority": "STAGE2_CORR4_PILOT_STAGE1_SOURCE_MAP.json",
+        "identityAuthoritySha256": "665aac81c2e0127d08f0406186891959255391cb99ec34611a972209565f4a7f"
+      },
+      "correctedValue": {
+        "caseSlug": "aol-time-warner",
+        "stage1Generation": "candidate",
+        "packageDir": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/aol-time-warner/01_T0_PRE_T0_BASELINE/candidate",
+        "recordFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/aol-time-warner/01_T0_PRE_T0_BASELINE/candidate/06_FACTS.json",
+        "recordFormat": "json",
+        "recordFileBytes": 61728,
+        "recordFileSha256": "88b20920149b3fcde03e4e060cf4361e9494fe0137540bbc654c526337fd5f10",
+        "packageFactCount": 50,
+        "packageSideCount": 2,
+        "caseIdKey": "case_id",
+        "caseIdLocator": "record-level key 'case_id'",
+        "factIdKey": "fact_id",
+        "factIdLocator": "record-level key 'fact_id'",
+        "sideIdKey": "side",
+        "sideIdLocator": "record-level key 'side'",
+        "identityAuthority": "STAGE2_CORR4_PILOT_STAGE1_SOURCE_MAP.json",
+        "identityAuthoritySha256": "665aac81c2e0127d08f0406186891959255391cb99ec34611a972209565f4a7f"
+      },
+      "changedFields": [
+        "caseIdLocator",
+        "packageFactCount",
+        "recordFileBytes",
+        "recordFileSha256"
+      ]
+    }
+  ],
+  "applicationContract": {
+    "requireInputViewSha256": true,
+    "requireExactlyOneSelectorMatch": true,
+    "requireExactOldValue": true,
+    "replaceOnly": "factualPackageIdentity",
+    "noOtherFieldOrRecordChange": true,
+    "failureDisposition": "HOLD",
+    "historicalArtifactsImmutable": true,
+    "finalAssemblyExecuted": false,
+    "requireCurrentAuthorityCertification": {
+      "factId": "F0024",
+      "caseId": "aol-time-warner",
+      "side": "AOL"
+    },
+    "allowedIdentityDeltaFields": [
+      "caseIdLocator",
+      "packageFactCount",
+      "recordFileBytes",
+      "recordFileSha256"
+    ],
+    "requireAllOtherIdentityMembersUnchanged": true,
+    "requireUnchangedStage2SemanticProjection": true
+  },
+  "authorityBinding": {
+    "sourceMapSha256": "665aac81c2e0127d08f0406186891959255391cb99ec34611a972209565f4a7f",
+    "sourceMapCaseOrdinal": 4,
+    "provenanceSidecarSha256": "84ab83d23209eae9f775844502676d462490ca8954f8d7a135d28acf5234d6af",
+    "provenanceSidecarJsonlLine": 9
+  },
+  "independentlyVerified": false,
+  "ownerAccepted": false,
+  "gitClosed": false,
+  "materialisationStatus": "SUCCESSOR_PATCH_ONLY; future assembly must consume this patch; no final effective view materialized"
+}

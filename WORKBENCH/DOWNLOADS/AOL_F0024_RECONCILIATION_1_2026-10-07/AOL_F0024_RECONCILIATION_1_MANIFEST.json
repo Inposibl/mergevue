@@ -1,0 +1,358 @@
+{
+  "act": "AOL_F0024_RECONCILIATION_1",
+  "actor": "CODEX",
+  "role": "CODER",
+  "date": "2026-10-07",
+  "status": "IMPLEMENTED_SELF_VALIDATED",
+  "mode": "IDENTITY_RECONCILIATION_ONLY",
+  "repositoryRoot": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)",
+  "branch": "main",
+  "baselineHEAD": "9b1545e1fd85bd6cbbd6c76728e871d68ac33cbf",
+  "baselineOriginMain": "9b1545e1fd85bd6cbbd6c76728e871d68ac33cbf",
+  "trackedDiffBefore": "EMPTY",
+  "stagedDiffBefore": "EMPTY",
+  "preExistingUntrackedStatusEntries": 691,
+  "deltaClassification": "IDENTITY_ONLY_DELTA",
+  "EVIDENCE_CONTENT_EQUIVALENT": "YES",
+  "FACT_ID_UNCHANGED": "YES",
+  "TEMPORAL_MEANING_UNCHANGED": "YES",
+  "ADMISSIBILITY_MEANING_UNCHANGED": "YES",
+  "STAGE2_SEMANTIC_PROJECTION_UNCHANGED": "YES",
+  "PI3_F0024": "PASS",
+  "FALSE_CERTIFICATION": "NO",
+  "STALE_IDENTITY_ACCEPTED": "NO",
+  "CURRENT_AUTHORITY_RESOLVED": "YES",
+  "AOL_F0024_RECONCILED": "YES",
+  "FINAL_EFFECTIVE_VIEW_BLOCKER_F0024": "CLEARED",
+  "SEMANTIC_REVIEW_REQUIRED": "NO",
+  "METHODOLOGY_CHANGED": "NO",
+  "A_E001_CHANGED": "NO",
+  "ENVIRONMENT_CHANGED": "NO",
+  "FINAL_REGRESSION_EXECUTED": "NO",
+  "GIT_MUTATION": "NO",
+  "COMMIT": "NONE",
+  "PUSH": "NONE",
+  "independentlyVerified": false,
+  "ownerAccepted": false,
+  "gitClosed": false,
+  "finalEffectiveViewAssembled": false,
+  "closureScope": "F0024 identity-only successor patch, self-validated; future assembly must consume this patch; immutable predecessor remains stale on SECTION_I line 112; separate IV/acceptance and A-E001 gates remain",
+  "allowedWriteDirectory": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/AOL_F0024_RECONCILIATION_1_2026-10-07",
+  "filesWritten": [
+    "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/AOL_F0024_RECONCILIATION_1_2026-10-07/AOL_F0024_RECONCILIATION_1_REPORT.md",
+    "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/AOL_F0024_RECONCILIATION_1_2026-10-07/AOL_F0024_RECONCILIATION_1_MANIFEST.json",
+    "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/AOL_F0024_RECONCILIATION_1_2026-10-07/AOL_F0024_RECONCILIATION_1_COMPARISON.json",
+    "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/AOL_F0024_RECONCILIATION_1_2026-10-07/AOL_F0024_RECONCILIATION_1_PROVENANCE_PATCH.json"
+  ],
+  "existingFilesModified": [],
+  "historicalSourceBytesModified": false,
+  "identityDiffFields": [
+    "caseIdLocator",
+    "packageFactCount",
+    "recordFileBytes",
+    "recordFileSha256"
+  ],
+  "semanticFieldChangeCount": 0,
+  "inputs": [
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR2_CORR1_CORR1_CORR1_CORR1_2026-10-05/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR2_CORR1_CORR1_CORR1_CORR1_CANDIDATE.md",
+      "bytes": 111635,
+      "sha256": "2f595ab5ddecc7e8149f751c661470bbae1fa3abfb1fb207b2b65c4c4565d6c8"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/docs/reference/root-definitional-v1.7/contract/CASE-3.4_CONTRACT_v1.3.md",
+      "bytes": 27762,
+      "sha256": "dae8143899cd4fb7e406b4b410e9730a6f8bf7853989f3ef9757edeec293ae39"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR1_2026-10-05/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR1_CANDIDATE.md",
+      "bytes": 102697,
+      "sha256": "02505e92fd018439f9aba7d4b551fe5542c1be92c7bbb7d4f63994dc1dfa51e9"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_FIELD_SOURCE_MATRIX_CORR2.json",
+      "bytes": 21176,
+      "sha256": "1fb84aed8aadeb2b4c2fc85eb6e01cd2ea3849fae5be28a39e0b65ca4e4e2cdd"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_STAGE1_SOURCE_MAP.json",
+      "bytes": 17490,
+      "sha256": "665aac81c2e0127d08f0406186891959255391cb99ec34611a972209565f4a7f"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md",
+      "bytes": 344754,
+      "sha256": "cb08b51e1c2fbaec7765989a7a4e15db1788c53eb5fec43f2628ecb88c1d6c73"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json",
+      "bytes": 28839,
+      "sha256": "0cb5a6b5d2239855eeabe0bfd0e9ceb6c545dc2a86b4b34a90b65187592721b5"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_2026-10-07/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_AUTHOR_REPORT.md",
+      "bytes": 18238,
+      "sha256": "80413a9b010560d73a0fe57e096bb136104879f8c5d3d2f830cd16ab59be6981"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_2026-10-07/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_CONTRACT_MODEL.json",
+      "bytes": 107403,
+      "sha256": "433a8bf310d255860f04ad5147908a6003aaacf74d61f7dde892d481373de85d"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_2026-10-07/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_CONTRACT_VERIFICATION_KERNEL.py",
+      "bytes": 37366,
+      "sha256": "7d80a64041b2fcba97abd49f1ca28ead9c1765b8de0c1c4d2863762c4164544c"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_2026-10-07/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_MUTATION_SUITE.py",
+      "bytes": 42205,
+      "sha256": "e0264f4e7c670d6cef7fb9b3eae2c68d0651b132716f02bf2ae685633eececae"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_2026-10-07/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_PROPERTY_SUITE.py",
+      "bytes": 137584,
+      "sha256": "c31fed59e8b47e496d78a12816eebc35a1ca69f1038f036416a3d05d0a3cdb70"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_2026-10-07/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_SUCCESSOR_VIEW_BUILDER.py",
+      "bytes": 89501,
+      "sha256": "4fabec820660e9399ece1314142e5bdc99a3196c9794fa71a3dc5ddb80551cc9"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_2026-10-07/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_VALIDATION_REPORT.json",
+      "bytes": 8359171,
+      "sha256": "35ffcf542750905189f22b10c23c0e6793cbd924fb73908878ca8758a6b2792c"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_2026-10-07/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_MANIFEST.json",
+      "bytes": 617556,
+      "sha256": "34b78865d296e952f6a87f36733da482d130104858224f8ed62df36b524c5782"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_2026-10-05/STAGE2_EFFECTIVE_VIEW_ASSEMBLY_1_RECORDS.jsonl",
+      "bytes": 104310,
+      "sha256": "a1fcae68939decd0a3c4a39c0a0bc48e8d285bd9cd7ce1928b0d025056244047"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_PROVENANCE_SIDECAR_CORR1.jsonl",
+      "bytes": 82425,
+      "sha256": "84ab83d23209eae9f775844502676d462490ca8954f8d7a135d28acf5234d6af"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_INPUT.jsonl",
+      "bytes": 9199,
+      "sha256": "a87409c3f4c1d7d097443233284bceee1cbed49c59e57a8aeb9eed651ff0c883"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_SOURCECLASS_BINDING_CORR2.jsonl",
+      "bytes": 95720,
+      "sha256": "3eee72d088f9f72cb95671df14393912659081827719b589cc8a278cddc61591"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/aol-time-warner/01_T0_PRE_T0_BASELINE/candidate/06_FACTS.json",
+      "bytes": 61728,
+      "sha256": "88b20920149b3fcde03e4e060cf4361e9494fe0137540bbc654c526337fd5f10"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/aol-time-warner/01_T0_PRE_T0_BASELINE/candidate/03_SOURCE_REGISTRY.json",
+      "bytes": 20437,
+      "sha256": "bcc4576b6f1a94e8417340fe49a9f2a9a00aadd0db776acb4c9878579893dd09"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/aol-time-warner/01_T0_PRE_T0_BASELINE/candidate/sources/aol/aol_def14a_1999_filed_1999-09-24.txt",
+      "bytes": 123631,
+      "sha256": "1aee005dbeb8da855ee70f0846800b3b57250a3c7044747e72706ae64cf44c0d"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_F0024_FACTUAL_PACKAGE_IDENTITY_CORRECTION_1_2026-10-04/STAGE2_F0024_FACTUAL_PACKAGE_IDENTITY_CORRECTION_1.json",
+      "bytes": 11108,
+      "sha256": "0711b74240ddeecac7a95f15a0093ce44f3288f440929d6b803516e53ba6f983"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_IV1_2026-10-07/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_IV1_MANIFEST.json",
+      "sha256": "f8b949cdeed29c4436c105c92fc0a47c825aa16172a566f444561918f2abac77",
+      "bytes": 25549
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_IV1_2026-10-07/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_IV1_FINDINGS.json",
+      "sha256": "185d19ccf4cd75bf735314fa352219ee54c87f71d92e0eedc4b30a984e41af7c",
+      "bytes": 62300
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_IV1_2026-10-07/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_IV1_REPORT.md",
+      "sha256": "716b5035d0eb1980f3f4aaa4ceba32c3bfda8518d5338384171921bcf85f3c3d",
+      "bytes": 32637
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_2026-10-05/STAGE2_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_MANIFEST.json",
+      "sha256": "c9ed25e97861add673eae70df72cbff0da6273cd268db0b23cdfc557384a1859",
+      "bytes": 5095
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_2026-10-05/STAGE2_EFFECTIVE_VIEW_ASSEMBLY_CONTRACT_1.md",
+      "sha256": "4e2ff3d00baa05dc82dc4f72318c413b0683cbe0d050ee026bb8b6ad7c6eee66",
+      "bytes": 16515
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_2026-10-05/STAGE2_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_PROOF.json",
+      "sha256": "6ebdf0d7e8bbc3b536c90880d9b6e96fe3565a010e60c465baef8ba8685b8ecd",
+      "bytes": 15285
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_F0024_FACTUAL_PACKAGE_IDENTITY_CORRECTION_1_IV1_MANIFEST.json",
+      "sha256": "b349ee4eb40ad10afab5c4d34284201bb75c82fb7660041a6023d0f03d6bba68",
+      "bytes": 29378
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_F0024_FACTUAL_PACKAGE_IDENTITY_CORRECTION_1_IV1_FINDINGS.json",
+      "sha256": "df1838e6cbafa4e8591c1dc9cd488a1e73851f7bc2931031ba1f1118fe3e9a89",
+      "bytes": 26401
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_F0024_FACTUAL_PACKAGE_IDENTITY_CORRECTION_1_IV1_REPORT.md",
+      "sha256": "3df572b2d8fffe8727fa872b3ab354b2accaaef4571d663fb4410160a2692eb6",
+      "bytes": 16831
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/docs/governance/MERGEVUE_CONTROL_TREE_v2.1_2026-09-04.md",
+      "sha256": "360bafa29bad5ea93752323d4a217bf59aaec628e0e2b236350a2edd9c1f7128",
+      "bytes": 36971
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/docs/governance/MERGEVUE_CONTROL_TREE_REPORT_PRODUCT_ADDENDUM_2026-09-21.md",
+      "sha256": "83cdd1ec02f11579167ef24737fd8f2c24e8f6bd7993909054649dcc3e776815",
+      "bytes": 13915
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/AGENTS.md",
+      "sha256": "f1f34b93c33ff6feea0611aa01b0d4df325dcb51c844b02180404337c9f4194d",
+      "bytes": 23511
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/AGENTS_C.md",
+      "sha256": "9e43d2976cb2e4791185ed3be64a127348c59b0f268a7b91b6694e398dc6f910",
+      "bytes": 11883
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/AGENTS_A.md",
+      "sha256": "3c73d681c25d9ed751e9b8298dd3772c15f99fc5095cc177b763416f655baa9d",
+      "bytes": 12303
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/AGENTS_O.md",
+      "sha256": "5880b2f30bdad100c64f34d941fcb232b693c24d9754ca153ba5d2437a1dcc1c",
+      "bytes": 13001
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/MERGEVUE_CAUSALITY_PROOF_AND_AGENT_CONTROL.md",
+      "sha256": "06770667d4abeff499d5e24b60d5af53af638a0ca1283aee0d188c17f7d1caf5",
+      "bytes": 23137
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/skills/mergevue-agent-quality-gate/SKILL.md",
+      "sha256": "c80d3aa92ec16cde41eec0a7c3e22d6b6cd1767a910d5e26e40cee59615dacdb",
+      "bytes": 32781
+    }
+  ],
+  "outputs": [
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/AOL_F0024_RECONCILIATION_1_2026-10-07/AOL_F0024_RECONCILIATION_1_COMPARISON.json",
+      "file": "AOL_F0024_RECONCILIATION_1_COMPARISON.json",
+      "sha256": "3b6cbd10589eba2ec97b9cbda4eccc5d69f4f9f210682aef3567113597b6e7c4",
+      "bytes": 27316
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/AOL_F0024_RECONCILIATION_1_2026-10-07/AOL_F0024_RECONCILIATION_1_PROVENANCE_PATCH.json",
+      "file": "AOL_F0024_RECONCILIATION_1_PROVENANCE_PATCH.json",
+      "sha256": "bf5d832f846bb0034ec384e815d2434d39548a5530cb70b0375289b7b9d3b828",
+      "bytes": 5003
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/AOL_F0024_RECONCILIATION_1_2026-10-07/AOL_F0024_RECONCILIATION_1_REPORT.md",
+      "file": "AOL_F0024_RECONCILIATION_1_REPORT.md",
+      "sha256": "189edc9cc6528f0ad584770157b5638e2206b0d8f730f59534a65d2171bd2019",
+      "bytes": 14721
+    }
+  ],
+  "manifestSelfHashPolicy": "Excluded to avoid circularity; exact manifest hash provided in terminal response.",
+  "validation": {
+    "componentEntrypoints": [
+      "CORR10.ProductionPackageAuthority.resolve/certify",
+      "CORR10.evaluate",
+      "CORR10.migration_classify"
+    ],
+    "directPI3NegativeControlCount": 10,
+    "patchConsumptionNegativeControlCount": 12,
+    "allNegativeControlsPassed": true,
+    "productionBuilderChanged": false,
+    "currentAuthorityReconstructedFrom": "hash-pinned Stage-1 source map and physical bytes; frozen PI-2 fact input and PI-3/PI-7 source identity",
+    "projectionBeforeAfterExact": true,
+    "successorTriple": [
+      "EVALUABLE",
+      null,
+      "NON_DISCRIMINATING"
+    ],
+    "unrelatedRecordCountPreserved": 115,
+    "totalRecordCountPreserved": 116,
+    "aE001": {
+      "requiresReadjudication": true,
+      "adjudicated": false,
+      "supportBearing": null,
+      "holdCode": "HOLD-T",
+      "migrationRuleId": "SEP-MIG-6c"
+    },
+    "fullStage2ReplayExecuted": false,
+    "buildSuccessorViewExecuted": false,
+    "finalStage2MeasurementRegressionExecuted": false,
+    "authorOnly": true,
+    "executionMethod": "Two inline python3 -B heredocs, read-only imports and bounded in-memory comparison; no helper files installed.",
+    "executionSourceDigests": {
+      "semanticAndPI3": "6f8f49445d6673e08c2073915f3cf2594c6f137c9108e1ca3dadcd41e93a3b7e",
+      "savedPatchConsumer": "56634fd81504ed41a2deb4d3f2493e60047fe9f755f35aeff7bc741dea898bb5"
+    },
+    "reproducibleProcedure": [
+      "Verify output/input bindings before comparing.",
+      "Load the pinned predecessor JSONL and exact patch selector; require exactly one SECTION_I F0024 match and exact oldValue.",
+      "Derive current identity from the frozen sidecar/source map; compare only the four declared assertions and preserve other identity members.",
+      "Compare frozen PI-2 complete fact text, PI-3 sourceRefs, PI-7 sourceClass/document hash, physical Stage-1 F0024 and registry/document bytes.",
+      "Apply only factualPackageIdentity in memory; compare 115 other records and all target non-identity fields exactly.",
+      "Invoke unchanged CORR10 ProductionPackageAuthority.certify on stale/current identities; stale must be None and current must return the exact frozen F0024 proposition.",
+      "Invoke unchanged evaluate/migration_classify on F0024 before/after; exact outcomes must match.",
+      "Check unchanged A-E001 remains RE_ADJUDICATION/HOLD-T with null bearing.",
+      "Use negative controls listed in COMPARISON; failed current authority or bad patch must produce HOLD before candidate availability."
+    ]
+  },
+  "preservation": {
+    "protectedFileCount": 952,
+    "protectedScope": "All tracked files, existing WORKBENCH/DOWNLOADS files, nine map-bound Stage-1 fact files and S0009 registry/document",
+    "allProtectedBytesUnchanged": true,
+    "trackedDiffAfter": "EMPTY",
+    "stagedDiffAfter": "EMPTY",
+    "headChanged": false,
+    "originMainChanged": false,
+    "preExistingUntrackedEntriesPreserved": true,
+    "expectedAddedUntrackedFiles": 4,
+    "baselineSnapshotSha256": "4b52a443f75db523c0139e2dbaa2a8de9bbb1daf74217066db2ab0d33ccfcddb",
+    "preExistingUntrackedStatusSha256": "2eb96eba082f4dcde4d4539a8d415d6398eeeccedb35446ce30a409fd6a6072c"
+  },
+  "selfCheck": {
+    "skill": "skills/mergevue-agent-quality-gate/SKILL.md",
+    "scope": "CODER self-check only",
+    "roleAuthorityScopeAndReportingChecks": "PASS",
+    "independentVerificationClaimed": false,
+    "productionIntegrationClaimed": false
+  },
+  "failedCommands": [
+    {
+      "kind": "preliminary inline verification assertion",
+      "reason": "incorrectly transcribed full expected builder hash",
+      "resolution": "expectation read from exact unchanged CORR10 manifest; rerun PASS; no source changed"
+    },
+    {
+      "kind": "discovery rg no-match/missing-path exits",
+      "resolution": "required sibling source paths resolved through absolute frozen source map; no source inferred"
+    }
+  ],
+  "stoppingPoint": "STOP after package/self-validation; no independent audit, acceptance, Git closure, final assembly or regression."
+}

@@ -1,0 +1,84 @@
+{
+  "act": "AOL_F0024_RECONCILIATION_1.IV1",
+  "actor": "CLAUDE (Owner designation: CLAUDE 4.6; runtime model claude-opus-5-5)",
+  "role": "AUDITOR",
+  "date": "2026-10-07",
+  "verdict": "PASS",
+  "counts": {
+    "BLOCKING": 0,
+    "CRITICAL": 0,
+    "MAJOR": 0,
+    "MINOR": 0,
+    "ADVISORY": 3
+  },
+  "repository": {
+    "root": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)",
+    "branch": "main",
+    "HEAD": "9b1545e1fd85bd6cbbd6c76728e871d68ac33cbf",
+    "originMain": "9b1545e1fd85bd6cbbd6c76728e871d68ac33cbf",
+    "trackedDiff": "EMPTY",
+    "stagedDiff": "EMPTY"
+  },
+  "auditedCandidate": [
+    {
+      "file": "AOL_F0024_RECONCILIATION_1_COMPARISON.json",
+      "bytes": 27316,
+      "sha256": "3b6cbd10589eba2ec97b9cbda4eccc5d69f4f9f210682aef3567113597b6e7c4"
+    },
+    {
+      "file": "AOL_F0024_RECONCILIATION_1_MANIFEST.json",
+      "bytes": 22731,
+      "sha256": "4ae6d08af2eb8309dca4a63360292c7d093ec5769ab89009185f16ed1a8291ec"
+    },
+    {
+      "file": "AOL_F0024_RECONCILIATION_1_PROVENANCE_PATCH.json",
+      "bytes": 5003,
+      "sha256": "bf5d832f846bb0034ec384e815d2434d39548a5530cb70b0375289b7b9d3b828"
+    },
+    {
+      "file": "AOL_F0024_RECONCILIATION_1_REPORT.md",
+      "bytes": 14721,
+      "sha256": "189edc9cc6528f0ad584770157b5638e2206b0d8f730f59534a65d2171bd2019"
+    }
+  ],
+  "keyInputs": {
+    "predecessorView": "a1fcae68939decd0a3c4a39c0a0bc48e8d285bd9cd7ce1928b0d025056244047",
+    "sourceMap": "665aac81c2e0127d08f0406186891959255391cb99ec34611a972209565f4a7f",
+    "provenanceSidecar": "84ab83d23209eae9f775844502676d462490ca8954f8d7a135d28acf5234d6af",
+    "pi2CoderInput": "a87409c3f4c1d7d097443233284bceee1cbed49c59e57a8aeb9eed651ff0c883",
+    "pi7SourceclassBinding": "3eee72d088f9f72cb95671df14393912659081827719b589cc8a278cddc61591",
+    "stage1Facts": "88b20920149b3fcde03e4e060cf4361e9494fe0137540bbc654c526337fd5f10",
+    "sourceRegistry": "bcc4576b6f1a94e8417340fe49a9f2a9a00aadd0db776acb4c9878579893dd09",
+    "s0009Document": "1aee005dbeb8da855ee70f0846800b3b57250a3c7044747e72706ae64cf44c0d",
+    "methodRegistry": "cb08b51e1c2fbaec7765989a7a4e15db1788c53eb5fec43f2628ecb88c1d6c73",
+    "corr10Builder": "4fabec820660e9399ece1314142e5bdc99a3196c9794fa71a3dc5ddb80551cc9",
+    "corr10CVK": "7d80a64041b2fcba97abd49f1ca28ead9c1765b8de0c1c4d2863762c4164544c",
+    "priorF0024Correction": "0711b74240ddeecac7a95f15a0093ce44f3288f440929d6b803516e53ba6f983"
+  },
+  "scratchHarness": {
+    "location": "/private/tmp/aolf0024iv1 (outside repository)",
+    "audit.py": "61f96f130a03457b81866ccd44658ddd32e2c2f4a13892d29e0fbf0adb9ed10b",
+    "guard.py": "f6640107047090e6dd2e65d45c9bc7f83dafeef0114306ec3ab3d51048b6494a",
+    "run/audit.json": "0afc0b55019b56e50a5af902b4d8f64f0eaded03563a6bc48447d4f9784e5bfa",
+    "guardBlockedAttempts": 0
+  },
+  "outputs": [
+    {
+      "file": "AOL_F0024_RECONCILIATION_1_IV1_REPORT.md",
+      "bytes": 14582,
+      "sha256": "e25306bc4930ce1e432aa784110d3adfaec4004dc67a2ab75c097c2e7ef70a50"
+    },
+    {
+      "file": "AOL_F0024_RECONCILIATION_1_IV1_FINDINGS.json",
+      "bytes": 6097,
+      "sha256": "5c2824ad4f5456128e660ae7136e3234348ff88810dd21681c7c4a00df822911"
+    }
+  ],
+  "manifestSelfHashPolicy": "excluded (circularity); returned in terminal response",
+  "writeSurface": "three files in this directory only",
+  "gitMutation": "NO",
+  "commit": "NONE",
+  "push": "NONE",
+  "ownerAccepted": false,
+  "gitClosed": false
+}
