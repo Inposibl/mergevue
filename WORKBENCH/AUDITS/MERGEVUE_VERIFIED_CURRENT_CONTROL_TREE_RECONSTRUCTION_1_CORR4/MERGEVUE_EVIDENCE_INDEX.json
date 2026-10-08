@@ -1,0 +1,400 @@
+{
+  "act": "MERGEVUE_VERIFIED_CURRENT_CONTROL_TREE_RECONSTRUCTION_1.CORR4",
+  "date": "2026-10-08",
+  "author": "Z.ai (GLM-5.3 Flash via ZCode)",
+  "purpose": "Binds each material status claim of MERGEVUE_NODE_STATUS_MATRIX.json / MERGEVUE_CURRENT_CONTROL_TREE_CANDIDATE.md to its primary physical source. Method vocabulary (exhaustive): RECOMPUTED_SHA = SHA-256 recomputed from physical bytes (act noted); READ_DIRECT = file opened and read; GIT_READ = read from Git objects/history; LIVE_QUERY = live git/network query; AGENT_INSPECTED = read-only inspection with file:line citations; SPOT_VERIFIED = author re-read the cited lines; COMPUTED = mechanically computed by script from the cited inputs (census, node-ID accounting, ancestry assertions, diagram validation); SEARCH_NEGATIVE = structured search performed, nothing found (a missing-evidence marker per IV1-M07, never a negative finding). Entry ranges: E01-E40 carry over confirmed Reconstruction-1 evidence (annotations note later re-verification); E41-E46 are CORR1 additions for the IV1 findings; E47-E53 are CORR2 additions for the seven IV2 findings; E54 is the CORR3 addition covering the three IV3 findings; E55-E56 are CORR4 additions for the three IV4 findings (E55: IV4 provenance + B5.8 five-layer lifecycle disambiguation; E56: four-way diagram validation + dependency-graph no-regression). Entries corrected by CORR3 carry the correction inline (E19, E38, E52); E38's governance sentence is corrected by CORR4 per IV4-N02. All other entries are carried unchanged from CORR3 except re-verification annotations. Every line citation marked re-verified was re-read against baseline bytes this act.",
+  "entries": [
+    {
+      "id": "E01",
+      "binds": "B0.1 baseline HEAD/remote",
+      "source": "git rev-parse HEAD (re-checked 2026-10-08, CORR4 authoring time); Reconstruction-1 E01 (git ls-remote origin main)",
+      "method": "LIVE_QUERY",
+      "value": "local main == origin/main == ee55034f5b40dadffc59aa3b842eb9b69157df68; unchanged at CORR4 authoring time"
+    },
+    {
+      "id": "E02",
+      "binds": "B0.1/B0.2 tree identity / rollback / Branch 18 mapping",
+      "source": "WORKBENCH/AUDITS/ACT_MANIFEST_MERGEVUE_REJECTED_TREE_COMMITS_ROLLBACK_1.json",
+      "method": "READ_DIRECT",
+      "value": "HEAD tree ed3b9b6d7cca3ebfb067d545d9e7f886bdfcc180 == 3d7b777 tree; reverted c7a83a3/21ce98f/4f75669; archive ref -> 21ce98f. IV1-N01: narrative Branch 18 == matrix node B0.2"
+    },
+    {
+      "id": "E03",
+      "binds": "B0.1 governance sidecars",
+      "source": "docs/governance/*.sha256 + docs/governance/historical-corpus/*.sha256",
+      "method": "RECOMPUTED_SHA",
+      "value": "All sidecar-checked artifacts byte-verify OK (Reconstruction-1); RP Addendum 83cdd1ec...815, RP Authority e52029d9...f33, Control Tree v2.1 360bafa2...f7128, freeze da9b9de2...3cbd6, successor be9593a7...0237 RE-VERIFIED this act (CORR4)"
+    },
+    {
+      "id": "E04",
+      "binds": "B0.1 binding-commit ancestry",
+      "source": "git merge-base --is-ancestor for 7792c5e cb8f890 d177386 6ad8933 d52e7f4 f9fa210 92236dc 31fd56e d14f197 2567223 9b1545e fcbcf86 3d7b777",
+      "method": "LIVE_QUERY",
+      "value": "all ANCESTOR of ee55034 (Reconstruction-1); HEAD unchanged since"
+    },
+    {
+      "id": "E05",
+      "binds": "B1.1 v1.7 archive identity",
+      "source": "MergeVue-M&A WORKBENCH/05_ARCHIVED_CANDIDATES/SUPERSEDED_DEFINITIONS/MERGEVUE_ROOT_DEFINITIONAL_CANDIDATE_v1.7.zip",
+      "method": "RECOMPUTED_SHA",
+      "value": "8decabd692e1c401a381e7484961758325b27aee89a455b8d586a98a85c4ccdf == v2.1 s1 pin (Reconstruction-1, carried)"
+    },
+    {
+      "id": "E06",
+      "binds": "B1.4 CASE-3.4 contract v1.3",
+      "source": "docs/reference/root-definitional-v1.7/contract/CASE-3.4_CONTRACT_v1.3.md",
+      "method": "RECOMPUTED_SHA",
+      "value": "dae8143899cd4fb7e406b4b410e9730a6f8bf7853989f3ef9757edeec293ae39 == v2.1 s4 pin (Reconstruction-1, carried)"
+    },
+    {
+      "id": "E07",
+      "binds": "B1.3 E9 CORR3 binding",
+      "source": "git show --stat cb8f890; docs/reference/root-definitional-e9-corr3/ (18 files incl. 16_OWNER_DECISION_INTEGRATION_RECORD.md)",
+      "method": "GIT_READ",
+      "value": "commit subject 'docs: bind accepted E9 semantic authority CORR3'"
+    },
+    {
+      "id": "E08",
+      "binds": "B5.1 addendum + acceptance",
+      "source": "docs/governance/MERGEVUE_CALIBRATION_9_CASE_CORPUS_ADDENDUM_2026-09-25.md (93 ln); docs/governance/historical-corpus/outcome-iv/MERGEVUE_OUTCOME_IV_DURABLE_AUTHORITY_BINDING_2026-09-25.md (125 ln)",
+      "method": "READ_DIRECT",
+      "value": "9 cases/18 sides; disney-pixar PRESERVED+EXCLUDED; Owner verbatim: 'THE ADDENDUM IS ALREADY OWNER-ACCEPTED AND GIT-CLOSED LOCAL + REMOTE'; ALL_9_ACTIVE_CASES...=YES (Reconstruction-1, carried)"
+    },
+    {
+      "id": "E09",
+      "binds": "B5.2 outcome IVs",
+      "source": "outcome-iv binding sections Case2/3/4/Amazon",
+      "method": "READ_DIRECT",
+      "value": "identities acc282d1..., 91da4fc8..., 4f6a4c00..., f7c446d4...; IVs Grok PASS; Owner acceptance text blocks quoted verbatim (Reconstruction-1, carried)"
+    },
+    {
+      "id": "E10",
+      "binds": "B5.5 freeze candidate lifecycle",
+      "source": "docs/governance/historical-corpus/MERGEVUE_POST_10_CALIBRATION_9_CASE_CORPUS_FREEZE_2026-09-25.md lines 7,9 (SHA re-verified this act == sidecar); structured searches of repo+WB+history (re-run CORR2/CORR3, negative)",
+      "method": "READ_DIRECT+SEARCH_NEGATIVE",
+      "value": "own bytes READY_FOR_INDEPENDENT_VERIFICATION / OWNER_ACCEPTED: NO / CORPUS_FREEZE_FINAL: NO; candidate-specific IV and Owner acceptance NOT FOUND -> IV dimension NOT_ESTABLISHED (IV1-M07) (HOLD-1)"
+    },
+    {
+      "id": "E11",
+      "binds": "B5.6 correction campaign + exact acceptance locus",
+      "source": "successor-binding doc s2.2 (bound bytes); WB 01_AGENT_REPORTS census/consolidation reports",
+      "method": "READ_DIRECT",
+      "value": "905/905 facts; DC-001..019 corrected; IV1 Codex PASS per Owner pins; Owner acceptance exact locus = successor-binding doc s2.2 (bound bytes). IV1 report bytes NOT physically located (pinned 8eb434e4... lineage-only) (HOLD-2). Distinct instrument from B5.7 (IV2-P03)"
+    },
+    {
+      "id": "E12",
+      "binds": "B5.7 successor binding lifecycle + later assertions (IV2-P03, carried)",
+      "source": "successor-binding doc TERMINAL STATUS :404-413; Reality Audit :28-30; external WB Grok 2026-09-26 doc :59; structured searches (CORR2/CORR3, negative)",
+      "method": "READ_DIRECT+RECOMPUTED_SHA+SEARCH_NEGATIVE",
+      "value": "authoring-time STAGE1_CLOSED=NO preserved as historical candidate wording; binding 92236dc; two later agent-reported closure assertions preserved with locations (referenced Owner instruction not located); CURRENT CLOSURE + EXACT-BYTE OWNER ACCEPTANCE = NOT_ESTABLISHED; conflation explanation = INFERENCE (HOLD-3). Successor doc SHA re-verified this act (CORR4); :399 STAGE_2_STARTED = NO re-read this act — an authoring-time checklist line of the 2026-09-25 act, used by CORR4 (IV4-N02) ONLY as the historical layer of B5.8's disambiguation (E55)"
+    },
+    {
+      "id": "E13",
+      "binds": "B5.4 disney seal",
+      "source": "docs/governance/historical-corpus/factual-seals/09_DISNEY_PIXAR_FACTUAL_SEAL.md + .sha256",
+      "method": "RECOMPUTED_SHA",
+      "value": "sidecar OK; rebound at f9fa210 (Reconstruction-1, carried)"
+    },
+    {
+      "id": "E14",
+      "binds": "B5.3 seals sidecars",
+      "source": "factual-seals/*.sha256; CASES_2_5_FACTUAL_SEAL_SHA256SUMS.txt (shasum -c)",
+      "method": "RECOMPUTED_SHA",
+      "value": "6/6 sidecars OK; SUMS file SHA 7b350d09... == Stage-1 doc s4 pin (Reconstruction-1, carried)"
+    },
+    {
+      "id": "E15",
+      "binds": "B6.2 MD-2 kernel + F05",
+      "source": "src/historical/md2.js",
+      "method": "SPOT_VERIFIED",
+      "value": "environmentBinding='NONE' at :963 (re-read this act, CORR4); c1-c7 NOT_ESTABLISHABLE :969-977; validator asserts scripts/validate-md2-offline.mjs:196/:346/:1229; src/historical/* product-import-free"
+    },
+    {
+      "id": "E16",
+      "binds": "B6.3 MD-2 CORR6 status",
+      "source": "docs/MD-2_HISTORICAL_ENVIRONMENT_INFERENCE_OPERATOR_v0.1_CORR6.md",
+      "method": "RECOMPUTED_SHA+GIT_READ",
+      "value": "SHA 02b769126c3b6477fb93b29652d2866da8e86473a08f3d871dc052d00b50f5ba RE-VERIFIED this act (CORR4); untracked; no sidecar"
+    },
+    {
+      "id": "E17",
+      "binds": "B6.4 HEDC absence",
+      "source": "grep -r HEDC src/ api/ scripts/ (re-run CORR3: 0 hits; src/ api/ scripts/ unchanged since — baseline tree identical)",
+      "method": "AGENT_INSPECTED",
+      "value": "0 code hits; only Workbench governance text"
+    },
+    {
+      "id": "E18",
+      "binds": "B3.3 pair selector (IV1-M04 semantics; corrected citations carried)",
+      "source": "src/flow/candidatePairSelector.js:29-30,36-51,662,673,685",
+      "method": "SPOT_VERIFIED",
+      "value": "SOURCE_MODULE/RESPONDENT_SLOT :29-30; REACHABLE_CANDIDATE_PAIRS = 4 (:36-41); VALID_PAIR_WHITELIST = 5 (:45-51); NO_LAWFUL_PAIR :662, PAIR_SELECTION_AMBIGUOUS :673, SELECTED :685 (citations re-read against baseline in CORR3). The 4 pairs are Acquirer-respondent HYPOTHESIS CANDIDATES, not a model of the universe of transaction pairs"
+    },
+    {
+      "id": "E19",
+      "binds": "B8.1 ECS branches (IV3-N01 corrected homogeneous-condition citation)",
+      "source": "src/flow/finalDeliverableFlow.js:84,309-310,330,334,344-352,378-404,886,893,955",
+      "method": "SPOT_VERIFIED",
+      "value": "HOMOGENEOUS branch: canonicalStructuralEcs COMPUTES ECS = 100 x (1 - C/34) over static 17x9 RESOURCE_PRIORITY_MATRIX (:84; definition :378-404); homogeneous branch CONDITION 'if (acquirerEnvironmentCode === targetEnvironmentCode)' at :886 — IV3-N01: Codex independently confirmed :886; CORR2 cited :879, which is the unrelated early-return string status:'environment-pair-incomplete' (a different meaning; not blindly re-pointed); ECS computed at :893 (both preserved); same-environment C=0 -> ECS=100 mechanical, governed-parameter comment 'no transaction literal' (:344-352, OD-RMP3 chain). HETEROGENEOUS branch: STORED lookup score = friction?.ecs ?? narrative?.ecs at :955 (preserved) from NARRATIVE_BY_PAIR/FRICTION_BY_PAIR (:309-310; finders :330/:334). Lines :886/:893/:955 re-read against baseline this act (CORR4). ECS mathematical semantics untouched"
+    },
+    {
+      "id": "E20",
+      "binds": "B8.2 friction static",
+      "source": "src/flow/finalDeliverableFlow.js:313,334-336; src/data/finalDeliverableData.js",
+      "method": "AGENT_INSPECTED",
+      "value": "FRICTION_BY_PAIR map lookup; 72 generated narratives; data file header 'Generated... Do not edit manually' — carried unchanged"
+    },
+    {
+      "id": "E21",
+      "binds": "B8.3 prediction seal coverage (IV1-M05, carried)",
+      "source": "src/server/_predictionLedger.ts:63-78,89-106,123-134,140-158,184-209; api/seal-prediction.ts",
+      "method": "READ_DIRECT",
+      "value": "sealHash = sha256 of canonical JSON of EXACTLY {acquirerEnvironmentCode, targetEnvironmentCode, anchors[3], sealedAt}; prediction1/2/3 + falsificationCondition OUTSIDE the preimage; in-memory globalThis ledger; api 201/400/500; no generation. NO code modification made"
+    },
+    {
+      "id": "E22",
+      "binds": "B10.1 block statuses + F03 (+IV2-P04 framing, carried)",
+      "source": "src/server/_level1ModeDPublicReportProjection.ts; src/reporting/mergevueCanonicalPublicReportRegistry.js:12-25",
+      "method": "SPOT_VERIFIED",
+      "value": "Block1 LIMITED :447-450; Blocks2-8 INSUFFICIENT_PUBLIC_EVIDENCE :461-467 (literal :258); Block9 NOT_APPLICABLE :470; Block10 LIMITED :480; Blocks11-12 AVAILABLE :503/:514; 12-block assert :385; registry :12-25 (verified Reconstruction-1, carried). Evidence-availability states emitted without tier/entitlement input (E51)"
+    },
+    {
+      "id": "E23",
+      "binds": "B10.2 public flow + live SEC",
+      "source": "src/server/_secResearch.ts; src/server/_companyResolver.ts; src/routes/routeModel.js:53-78; src/screens/public/*; api/resolve-company.ts; api/start-public-research.ts",
+      "method": "AGENT_INSPECTED",
+      "value": "live data.sec.gov fetch with 8s timeout, SHA-256 of exact bytes, UA-gated 503; 24h in-process ticker cache; React 19/Vite 6 SPA (carried)"
+    },
+    {
+      "id": "E24",
+      "binds": "B11.1 paid absence",
+      "source": "grep 19-block|paid report|PaidReport across src/ api/ netlify/",
+      "method": "AGENT_INSPECTED",
+      "value": "no paid report builder; marketing copy only (carried)"
+    },
+    {
+      "id": "E25",
+      "binds": "B10.4 delivery chain (IV1-M03, carried)",
+      "source": "src/App.jsx:7791-7842,:7617,:7685; api/final-report.ts:549-560,565-666,673+; src/flow/emailCaptureFlow.js:68-116; src/server/_sessionLedger.ts:155-190; ReportDocument.tsx",
+      "method": "READ_DIRECT",
+      "value": "REAL delivery chain wired (authorized PDF -> Resend, five rejection paths); emailCaptureFlow record = client-side session annotation; deployed delivery success NOT_ESTABLISHED (HOLD-5) (carried)"
+    },
+    {
+      "id": "E26",
+      "binds": "B14.1 integration monitor absence",
+      "source": "grep integration monitor|IntegrationMonitor|predicted vs observed across src/ api/ netlify/ scripts/",
+      "method": "AGENT_INSPECTED",
+      "value": "0 hits"
+    },
+    {
+      "id": "E27",
+      "binds": "B17.1 CORR4 (Stage-2 chain) acceptance",
+      "source": "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_VERSION_LOCK.md s2-s4",
+      "method": "READ_DIRECT",
+      "value": "Owner explicitly accepted exact CORR4 (Stage-2 chain) identity + IV5 PASS 0/0/1 (carried); the lock treats the Stage-1 successor binding as 'substrate authority' with no candidate IV/acceptance record (E27 note from CORR2, carried)"
+    },
+    {
+      "id": "E28",
+      "binds": "B17.2 pilot lock lineage",
+      "source": "git show --stat d14f197 + 2567223",
+      "method": "GIT_READ",
+      "value": "terminal lineage ...CORR1_CORR2_CORR1_CORR2_CORR1_CORR1_CORR1.IV1 = PASS; RESULT_SCHEMA FROZEN_BY_THIS_LOCK (carried)"
+    },
+    {
+      "id": "E29",
+      "binds": "B17.3 pilot execution + agreement",
+      "source": "STAGE2_CORR4_PILOT_STRATIFIER_A_*/B_*; external WB 03_SOURCE_ARTIFACTS/STAGE2_CORR4_AB_COMPARISON_2026-10-02/",
+      "method": "AGENT_INSPECTED",
+      "value": "A = GPT-6 Astra; B = Claude/Cline (provenance deviation carried, HOLD-6); 11,765 marks each; agreement 0.9070123 (carried)"
+    },
+    {
+      "id": "E30",
+      "binds": "B17.4 post-pilot corrections x3 — exact IV + binding; acceptance = ATTESTATION ONLY (IV2-M02, carried)",
+      "source": "IV1 reports (SHAs recomputed this act, CORR4): CORR10 716b5035... (PASS :52, OWNER_ACCEPTED=NO :74); A-E001 633afd19... (PASS :7, NO :223/:230); F0024 = AOL_F0024_RECONCILIATION_1_IV1_REPORT.md e25306bc... (PASS :7, NO :30); git log -1 --format=%B 9b1545e/3d7b777/fcbcf86 (bodies empty, read CORR2)",
+      "method": "RECOMPUTED_SHA+GIT_READ+SEARCH_NEGATIVE",
+      "value": "IV PASS x3 + BOUND preserved; commit subjects = ATTESTATION only; no stronger acceptance record found (CORR2 searches); governance OWNER_ACCEPTANCE_NOT_ESTABLISHED. CORR4 recomputed all three IV-report SHAs from physical bytes with matching values"
+    },
+    {
+      "id": "E31",
+      "binds": "B17.5 FEVA CORR1 + F01",
+      "source": "WORKBENCH/DOWNLOADS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_2026-10-07/ (6 members)",
+      "method": "RECOMPUTED_SHA+READ_DIRECT",
+      "value": "RECORDS.jsonl SHA 3603c3169d7bdd67763ac0d2468d08cbb508d23dfeece4f7b396900b11dc68ec, 116 lines (re-verified again this act, CORR4); manifest READY_FOR_INDEPENDENT_VERIFICATION / independentlyVerified:false / ownerAccepted:false; v1 FAILED IV1; CORR1.IV1 not started"
+    },
+    {
+      "id": "E32",
+      "binds": "B17.6 sourceclass terminal (carried)",
+      "source": "...CLOSURE-1.CORR1.IV1_REPORT.md:7,15; git show --stat 31fd56e (13 files)",
+      "method": "GIT_READ+AGENT_INSPECTED",
+      "value": "IV1 = PASS; 'independently verified subject to the Owner-accepted residuals'"
+    },
+    {
+      "id": "E33",
+      "binds": "B17.7 other untracked candidates (carried)",
+      "source": "git status --porcelain; WORKBENCH/DOWNLOADS listing",
+      "method": "LIVE_QUERY",
+      "value": "SEC entity-name authority v1_CORR1 package; sourceclass fixture variants; overlay-lineage artifacts — UNTRACKED, not adjudicated"
+    },
+    {
+      "id": "E34",
+      "binds": "B5.14 disclosure contract (carried)",
+      "source": "docs/governance/MERGEVUE_PUBLIC_CASE_STUDY_DISCLOSURE_CONTRACT_AUTHORITY_2026-09-05.md header",
+      "method": "READ_DIRECT",
+      "value": "OWNER-ACCEPTED / FULLY INDEPENDENTLY VERIFIED SOURCE CONTRACT / FROZEN (sidecar OK); ten-case wording qualified by 9-case addendum"
+    },
+    {
+      "id": "E35",
+      "binds": "RP authority structures + RP-1..RP-13 (IV1-M06; RP-5 per IV2-P04; carried)",
+      "source": "Addendum s3 (:208-258) SHA 83cdd1ec...815 RE-VERIFIED this act (CORR4); RP Authority s7.1 :211-216, :661, s15.7 :696 — SHA e52029d9...f33 RE-VERIFIED this act (CORR4)",
+      "method": "READ_DIRECT+RECOMPUTED_SHA",
+      "value": "all 13 invariants Owner-accepted; RP-5 = PARTIAL (leak guards implemented; tier-sensitive entitlement/display-ceiling enforcement NOT_ESTABLISHED — projection consumes no tier input; output invariant to hypothesized tier fields per Codex IV2 independent test); canonical Anonymous-FREE Blocks 7-10 LIMITED ceiling verified from AUTHORITY TEXT (:213/:696), not from implemented behavior; availability statuses distinct from entitlement ceilings"
+    },
+    {
+      "id": "E36",
+      "binds": "closure governance s16/s21 (carried)",
+      "source": "docs/governance/MERGEVUE_GIT_WORKTREE_CLOSURE_GOVERNANCE_2026-09-05.md:371-390,453-468",
+      "method": "READ_DIRECT",
+      "value": "status list IMPLEMENTED..GIT-CLOSED LOCAL+REMOTE must never compress to 'done'"
+    },
+    {
+      "id": "E37",
+      "binds": "F01-F06 trap definitions + IV1/IV2/IV3/IV4 findings",
+      "source": "git show 4f75669:...OVERLAY...md (F01-F06); Codex IV1 verdict (0/8/2), Codex IV2 verdict on CORR1 (0/5/2), Codex IV3 verdict on CORR2 (FAIL — 0 BLOCKING / 1 MAJOR / 2 MINOR), Codex IV4 verdict on CORR3 (FAIL — 0 BLOCKING / 1 MAJOR / 2 MINOR: IV4-M01, IV4-N02, IV4-N03) as communicated in the Owner tasks",
+      "method": "GIT_READ",
+      "value": "F01-F06 adopted as regression traps; IV1 findings corrected in CORR1; IV2 findings corrected in CORR2; IV3 findings M01/N01/N02 corrected in CORR3; IV4 findings M01/N02/N03 corrected in this CORR4 per the Owner task statement (see E55)"
+    },
+    {
+      "id": "E38",
+      "binds": "B5.8 mechanism-normalization evidence (IV3-N02 CORRECTED census; IV4-N02 CORRECTED governance sentence)",
+      "source": "EXACT REPRODUCIBLE SCOPED CENSUS (CORR3, re-run CORR4 with identical counts): find '<repo>' -name .git -prune -o -type f -name '*MECHANISM*' -print (2 files) and -iname '*mechanism*' (5 files); find '<external WB>' -type f -name '*MECHANISM*' (20) / -iname '*mechanism*' (21); combined unique: 22 uppercase / 26 case-insensitive. Execution-record searches (CORR3): find repo+WB -iname '*MECHANISM_NORMALIZATION*' -o -iname '*NORMALIZATION_1*' -o -iname '*OUTCOME_HIDDEN*' (0 files); grep -rli 'mechanism normalization' WB 01_AGENT_REPORTS (hits are Stage-1 census/consolidation documents MENTIONING the future stage, not execution records). Code-level basis for C:ABSENT (re-run CORR4): grep -rnE 'normalizeMechanism|mechanismNormal|normalizationStage|outcomeHidden' src/ api/ scripts/ (0 hits)",
+      "method": "COMPUTED+SEARCH_NEGATIVE+READ_DIRECT",
+      "value": "WITHDRAWN (IV3-N02): the CORR1/CORR2 assertion 'no artifacts in either tree (filename census 0)' is FALSE — the scoped census returns 22 uppercase matches (26 case-insensitive in the defined scope; Codex IV3 reported 22/23 in its scope). CHARACTERIZATION: all matches are Stage-1 per-case research products and candidate-design materials (per-case FACT_TO_MECHANISM_LEDGER.csv; CASE-3.6-chain DAIMLER/CHRYSLER_MECHANISM_MATRIX.json; 02_CASE-3.1d_DAIMLER_MECHANISM_COMPLETION.md; OD-MS-9 ALL_NINE_THEORY_NATIVE_MECHANISM_SIGNATURES_v0.1.md; ASTRA mechanism-relation algebra/matrix; lowercase extras: 3 vendored node_modules Sentry type files + 1 WB working script generate_mechanism_ledger.py) — their existence neither establishes nor refutes execution of the Stage-2 corpus-wide outcome-hidden mechanism normalization act for the active 18 sides (B5.8). EXECUTION EVIDENCE for the specific act: searched and NOT FOUND -> B5.8 IV = NOT_ESTABLISHED (a filename census never proves or disproves that an act has run; absence of record is a missing-evidence marker). GOVERNANCE (IV4-N02 CORRECTED in CORR4): current governance = UNKNOWN — the CORR3 sentence deriving current NOT_REACHED from the bound STAGE_2_STARTED = NO record (:399), negative searches, and unresolved predecessors is WITHDRAWN as a current-governance derivation; the :399 record is preserved as the AUTHORING-TIME historical layer of B5.8's lifecycleDisambiguation (2026-09-25 state only); eligibility distinction: B5.8 is not cleared for authorized forward progression while B5.5/B5.7/B17.5 remain lifecycle-unresolved — a forward-progression fact, not a non-execution claim (see E55)"
+    },
+    {
+      "id": "E39",
+      "binds": "external WB structure + disney material (carried)",
+      "source": "ls MergeVue-M&A WORKBENCH/ and 02_CASE_RESEARCH/",
+      "method": "LIVE_QUERY",
+      "value": "WB directory structure as recorded in Reconstruction-1 (carried)"
+    },
+    {
+      "id": "E40",
+      "binds": "engine/product agent inventories (secondary detail, carried)",
+      "source": "read-only Explore agents, Reconstruction-1 session, 2026-10-07",
+      "method": "AGENT_INSPECTED",
+      "value": "line-cited findings; load-bearing claims spot-verified (E15, E18, E19, E22)"
+    },
+    {
+      "id": "E41",
+      "binds": "B15.2 + B10.3 case-study implementation (IV1-M02, carried)",
+      "source": "src/routes/routeModel.js:83-84,114-121,165; src/App.jsx:980-995,1031-1103,8035-8036; src/data/caseStudies.js (10 fixtures)",
+      "method": "READ_DIRECT",
+      "value": "case-study routes/renderers/fixtures EXIST in code; fixtures are legacy marketing renderings; accepted nine-case public proof remains NOT_REACHED"
+    },
+    {
+      "id": "E42",
+      "binds": "B4.3 historical offline foundation (IV1-M08, carried)",
+      "source": "src/historical/index.js; retrieval.js; hmir.js; importer grep; network-call grep",
+      "method": "READ_DIRECT+LIVE_QUERY",
+      "value": "offline foundations IMPLEMENTED and tracked; validator 215/215 PASS (re-run in CORR2; not re-run in CORR3/CORR4 — no change to src/historical/ since; baseline tree identical ed3b9b6d)"
+    },
+    {
+      "id": "E43",
+      "binds": "census (IV1-N02)",
+      "source": "build_matrix.py census block (computed from the node table; Counter over all nodes x 5 dimensions)",
+      "method": "COMPUTED",
+      "value": "CORR4 matrix (63 nodes): governance OWNER_ACCEPTED 25 / NOT_REACHED 20 / UNKNOWN 1 / CANDIDATE 9 / OWNER_ACCEPTANCE_NOT_ESTABLISHED 1 / others 7 (IV4-N02 adjustment: B5.8 governance NOT_REACHED -> UNKNOWN, so NOT_REACHED 21 -> 20 and UNKNOWN 0 -> 1 vs CORR3); IV PASS 24 / NOT_RUN 26 / NOT_ESTABLISHED 12 / FAIL 1 (B5.8 IV NOT_ESTABLISHED per CORR3's IV3-N02 adjustment, preserved); gitBinding BOUND 33 (17 + 16 commit-pinned) / UNTRACKED 4 / REVERTED 1 / N/A 25; implementation COMPLETE 10 / PARTIAL 9 / ABSENT 20 / N/A 24; runtime INTEGRATED_CODE_PATH 14 / OFFLINE_VALIDATED_ONLY 3 / NOT_ESTABLISHED 2 / ABSENT 20 / N/A 24"
+    },
+    {
+      "id": "E44",
+      "binds": "IV2-M01 chain ordering (controlling sequence, carried)",
+      "source": "Recalibration Track s12/s13/s21/s22/s23/s24/s28 + v2.1 s5.8/s5.9/s7 (read in full in CORR2); build_matrix.py chain + predecessor-relation assertions",
+      "method": "READ_DIRECT+COMPUTED",
+      "value": "nine explicit nodes in the accepted order; generator-enforced; unchanged by CORR3/CORR4 (regression constraint honored)"
+    },
+    {
+      "id": "E45",
+      "binds": "matrix integrity validation",
+      "source": "build_matrix.py assertions: vocabulary membership; no dangling refs/self-deps/cycles (DFS); IV2-M01 chain ordering + predecessor relations; IV2-P02 ancestry; IV2-M02 invariant; IV4-N02 B5.8 invariant (UNKNOWN + five-layer lifecycleDisambiguation + preserved historical record); IV3-M01 + IV4-M01 DIAGRAM VALIDATION (mermaid declared node set == 63 matrix ids; mermaid edges == edge-manifest == declared adjacency == report transcription == matrix direct dependencies, 52/52 both directions; no trunk art/pure-glyph lines; B5.19's single incoming edge B5.12 -> B5.19; named false-edge literals absent); census computed; P01 accounting computed from all FOUR predecessor matrices",
+      "method": "COMPUTED",
+      "value": "63/63 nodes pass all checks; 52 mermaid edges == 52 manifest edges == 52 adjacency declarations == 52 transcription entries == 52 matrix edges; B5.19 incoming edges == [B5.12 -> B5.19]; regeneration deterministic (two consecutive runs byte-identical, SHA 621eca0a...8a97); in-memory exec reproduction byte-identical with NO write during the check, and the exec fallback resolves the CORR4 directory (IV4-N03)"
+    },
+    {
+      "id": "E46",
+      "binds": "v1 census defect (IV1-N02 parent fact, carried)",
+      "source": "parent matrix (52 nodes)",
+      "method": "COMPUTED",
+      "value": "parent gitBinding 31/4/1/16 = 52; parent report's hand-written 'BOUND 37' arithmetically impossible (carried)"
+    },
+    {
+      "id": "E47",
+      "binds": "IV2-M01 controlling-sequence reads (carried)",
+      "source": "Recalibration Track + v2.1 sections (line ranges in E44)",
+      "method": "READ_DIRECT",
+      "value": "controlling track Owner-ACCEPTED; no later supersession located (carried from CORR2)"
+    },
+    {
+      "id": "E48",
+      "binds": "IV2-P02 report-generation prerequisites (carried)",
+      "source": "v2.1 s7 :452-492; track s23-24; md2.js:963; HEDC grep 0 hits",
+      "method": "READ_DIRECT+AGENT_INSPECTED",
+      "value": "B5.13 requires B5.19 + B6.4 + B9.1 (generator-enforced ancestry); unchanged by CORR3/CORR4"
+    },
+    {
+      "id": "E49",
+      "binds": "IV2-P03 Stage-1 lifecycle searches (carried)",
+      "source": "successor doc :404-413; Reality Audit :28-30; Grok doc :59; pilot lock; CORR2/CORR3 searches",
+      "method": "READ_DIRECT+RECOMPUTED_SHA+SEARCH_NEGATIVE",
+      "value": "no candidate-specific IV / exact acceptance record; current closure + exact-byte acceptance NOT_ESTABLISHED (carried)"
+    },
+    {
+      "id": "E50",
+      "binds": "IV2-M02 acceptance-record searches (carried)",
+      "source": "commit bodies (empty); docs/governance greps; external WB queues",
+      "method": "GIT_READ+SEARCH_NEGATIVE+READ_DIRECT",
+      "value": "no standalone acceptance instrument / binding-act authorization record; B17.4 governance OWNER_ACCEPTANCE_NOT_ESTABLISHED (carried)"
+    },
+    {
+      "id": "E51",
+      "binds": "IV2-P04 tier-input absence + canonical ceiling (carried)",
+      "source": "projection :402; tier/entitlement grep; RP Authority :211-216/:661/:696; Codex IV2 invariance test (R)",
+      "method": "SPOT_VERIFIED+READ_DIRECT",
+      "value": "projection consumes no tier/entitlement input; RP-5 enforcement NOT_ESTABLISHED; canonical Blocks 7-10 ceiling = authority-text requirement (carried)"
+    },
+    {
+      "id": "E52",
+      "binds": "citation corrections (IV2-N01 carried + IV3-N01 correction)",
+      "source": "sed -n reads against baseline: finalDeliverableFlow.js :886/:893/:955/:344-352/:378-404/:84/:309-310/:330/:334; candidatePairSelector.js :29-30/:36-41/:43/:45-51/:662/:673/:685; Reality Audit :28-30; projection :402/:447-450/:461-467/:470/:480/:503/:514/:385/:380-386",
+      "method": "SPOT_VERIFIED",
+      "value": "IV3-N01 CORRECTION (CORR3): the homogeneous branch CONDITION is at :886 (Codex-confirmed; line 886 = 'if (acquirerEnvironmentCode === targetEnvironmentCode) {'); CORR2's :879 citation was wrong (line 879 = the unrelated 'environment-pair-incomplete' early-return string — a different meaning, so no blind numeric replacement was performed anywhere); :893 (computed homogeneous ECS) and :955 (stored heterogeneous lookup) PRESERVED. :886/:893/:955 re-read against baseline this act (CORR4) with identical content; all other citations carried from CORR3 unchanged"
+    },
+    {
+      "id": "E53",
+      "binds": "P01 node-ID accounting (four transitions, computed)",
+      "source": "the FOUR predecessor matrices (Reconstruction-1, CORR1, CORR2, CORR3) + the CORR4 generator node table; diff computed by build_matrix.py (embedded changedNodeAccounting)",
+      "method": "COMPUTED",
+      "value": "parent->CORR1: NEW 6 / REMOVED 0 / MODIFIED 32 (19 status + 13 annotation) / IDENTICAL 20. CORR1->CORR2: NEW 5 / REMOVED 0 / MODIFIED 24 (11 + 13) / IDENTICAL 34. CORR2->CORR3: NEW 0 / REMOVED 0 / MODIFIED 3 / IDENTICAL 60 — status-bearing: B5.8 (IV NOT_RUN -> NOT_ESTABLISHED, the IV3-N02 adjustment); annotation-only: B0.1, B8.1. CORR3->CORR4 (this act): NEW 0 / REMOVED 0 / MODIFIED 17 / IDENTICAL 46 — status-bearing: B5.8 (governance NOT_REACHED -> UNKNOWN per IV4-N02, five-layer lifecycleDisambiguation added); annotation-only: B0.1, B3.3, B4.3, B5.5, B5.7, B5.9, B5.13, B5.19, B6.2, B6.3, B6.4, B7.1, B8.1, B10.1, B17.4, B17.5 (act-attribution + correction-propagation prose; every status dimension and every dependency unchanged — dependency-set identity vs CORR3 asserted by the generator, E56). Semantic continuity kept distinct from object equality"
+    },
+    {
+      "id": "E54",
+      "binds": "IV3 findings provenance and verification (CORR3 entry, carried)",
+      "source": "Codex IV3 report physical bytes: NOT LOCATED in the workspace (searched: repo tree, external WB, paste-attachment area, home Downloads, wider InvestProjects2026 tree — the only on-disk IV3 files belong to a different project's Stage-2 chain). Findings executed from the Owner task's complete transcription (verdict FAIL — 0 BLOCKING / 1 MAJOR / 2 MINOR; M01 diagram/matrix contradiction incl. the two named false edges; N01 :879 -> :886 Codex-confirmed; N02 census 22 uppercase / 23 case-insensitive in Codex's scope). Independent re-verification in CORR3: :886 confirmed by direct line read; census re-run with explicitly defined scope (22 uppercase / 26 case-insensitive; see E38); diagram edges enumerated mechanically against matrix deps (M01 confirmed: B6.4->B9.1 and B5.13->B16.3 drawn but absent from matrix; also the GATE A->GATE B flow implied B5.7->B17.5, not a matrix edge — all corrected)",
+      "method": "SEARCH_NEGATIVE+SPOT_VERIFIED+COMPUTED",
+      "value": "all three findings independently confirmed against primary sources before correction; the IV3 report's absence is recorded as HOLD-8 and is falsifiable by locating the report bytes; carried unchanged into CORR4"
+    },
+    {
+      "id": "E55",
+      "binds": "IV4 findings provenance + B5.8 five-layer lifecycle disambiguation",
+      "source": "Codex IV4 report physical bytes: NOT LOCATED in the workspace (searched this act: repo tree incl. WORKBENCH/AUDITS and WORKBENCH/DOWNLOADS, paste-attachment area, home Downloads, wider project tree — the only on-disk 'IV4' files belong to a different project's Stage-2 chain: STAGE2_SEMANTIC_SUCCESSOR_CORR3_IV4_REPORT.md et al.). Findings executed from the Owner task's complete transcription (verdict FAIL — 0 BLOCKING / 1 MAJOR / 2 MINOR; IV4-M01 hidden ASCII dependency B7.1 -> B5.19 with matrix B5.12.dependencies=[B7.1] / B5.19.dependencies=[B5.12]; IV4-N02 B5.8 governance overclaim with the exact five-layer mandate; IV4-N03 generator/matrix provenance staleness with seven enumerated minimums). Independent re-verification this act (CORR4): successor doc re-hashed be9593a7...0237 == sidecar and :399 STAGE_2_STARTED = NO re-read in context :390-413 (the line sits in the authoring act's own terminal checklist, confirming its authoring-time character); mechanism census re-run with identical counts (2/5 repo, 20/21 WB, 22/26 combined); normalization-token grep re-run (0 hits in src/ api/ scripts/); CORR3 diagram inspected: B5.19 was drawn as '|--> B5.19' on the B7.1 trunk branch in addition to its B5.12 chain, while the matrix gives B5.19.dependencies = [B5.12] only; CORR3 generator docstring found stating 'act ...CORR2' with correctionOf.parent naming CORR1 — both confirmed stale",
+      "method": "SEARCH_NEGATIVE+READ_DIRECT+RECOMPUTED_SHA+COMPUTED",
+      "value": "all three findings independently confirmed against primary sources before correction; the IV4 report's absence is recorded as HOLD-9 and is falsifiable by locating the report bytes; it does not affect the correctness of the source re-verification performed this act. B5.8 lifecycleDisambiguation (matrix node field, mandated by IV4-N02): historicalStageStateAtAuthoring = STAGE_2_STARTED = NO (:399, 2026-09-25, bound 92236dc); currentAuthorizationGovernance = UNKNOWN; currentExecutionEvidence = NOT_ESTABLISHED; currentIndependentVerificationEvidence = NOT_ESTABLISHED; eligibilityToProceed = NOT_CLEARED_FOR_AUTHORIZED_FORWARD_PROGRESSION while B5.5/B5.7/B17.5 remain lifecycle-unresolved (forward-progression statement, not a non-execution claim); formerClaimWithdrawn = current governance NOT_REACHED (CORR3 basis)"
+    },
+    {
+      "id": "E56",
+      "binds": "IV4-M01 four-way diagram validation + dependency-graph no-regression",
+      "source": "build_matrix.py IV3-M01 + IV4-M01 validation block; tree candidate s21 (mermaid block, edge-manifest fence, declared adjacency fence); reconstruction report s4A transcription block (HTML-comment-delimited); CORR3 + CORR4 matrices",
+      "method": "COMPUTED",
+      "value": "FOUR representations validated equal to the matrix edge set, each 52/52 both directions: (1) mermaid single-edge declarations A --> B (63 node declarations == 63 matrix ids; every non-declaration line a single exact edge; no '-.->' or '==>' forms; no trunk art), (2) the machine-readable (edge-manifest: ...) fence line, (3) the 63-line declared adjacency ([deps: ...] / [deps: none], each equal to the node's exact matrix deps), (4) the independent human-readable transcription in the report (separate artifact, separate reading pass). B5.19's incoming drawn edges == exactly [B5.12 -> B5.19] (IV4-M01 core); the named false relationships B7.1 -> B5.19, B6.4 -> B9.1, B5.13 -> B16.3 asserted absent as literals in the s21 section and the transcription; the CORR4 dependency set is asserted EQUAL to the physical CORR3 matrix dependency set (no dependency altered to match the drawing — regression constraint)"
+    }
+  ]
+}
