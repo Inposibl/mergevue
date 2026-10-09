@@ -181,29 +181,85 @@ Location: `WORKBENCH/AUDITS/`
 
 The package archive is completely self-contained and does not require `/private/tmp`.
 
-### 6.1 Verify archive integrity in-place
-Run from repository root:
+Future auditors can reproduce complete verification starting from an ordinary fresh Git checkout using the following 8-step sequence (updated in CORR1 to distinguish verification of the ZIP archive blob from its extracted member contents):
+
+### Step 1 — Verify the ZIP file itself against its frozen SHA-256
+From repository root, verify the intact archive blob:
 ```bash
-cd WORKBENCH/AUDITS/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_1
-shasum -a 256 -c ARCHIVE_MEMBER_MANIFEST.sha256
+echo "5741423ff019be78232144446fd50a7f715aa72b00cc9be7df169bae4a9056a5  WORKBENCH/AUDITS/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_1/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_1_ARCHIVE.zip" | shasum -a 256 -c
 ```
-Expected output: All 143 files report `OK`.
+Expected output: `..._ARCHIVE.zip: OK`.
 
-### 6.2 Extract archive to external destination (e.g. `/tmp`)
+### Step 2 — Extract archive into a temporary directory outside the repository
 ```bash
-unzip -q WORKBENCH/AUDITS/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_1/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_1_ARCHIVE.zip -d /tmp
+TMPDIR=$(mktemp -d /tmp/mergevue_archive_verify_XXXXXX)
+unzip -q WORKBENCH/AUDITS/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_1/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_1_ARCHIVE.zip -d "$TMPDIR"
 ```
-This extracts the exact source package and independent IV directories:
-- `/tmp/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_FEVA_CORR2/` (133 files including `FROZEN_INPUTS/`)
-- `/tmp/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_IV1/` (10 files)
+This extracts the two package directories with all origin identities and paths:
+- `$TMPDIR/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_FEVA_CORR2/` (133 files including `FROZEN_INPUTS/`)
+- `$TMPDIR/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_IV1/` (10 files)
 
-### 6.3 Self-contained verification of extracted packages
+### Step 3 — Verify all 143 expected archive members are present
 ```bash
-cd /tmp/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_FEVA_CORR2
-python3 -c "import json, hashlib, os; m=json.load(open('MANIFEST_SHA256.json'))['files']; assert all(hashlib.sha256(open(p,'rb').read()).hexdigest()==m[p]['sha256'] for p in m); print('ALL 132 CANDIDATE FILES VERIFIED OK')"
+TOTAL_EXTRACTED=$(find "$TMPDIR" -type f | wc -l | tr -d ' ')
+echo "Total extracted files: $TOTAL_EXTRACTED (expected: 143)"
+test "$TOTAL_EXTRACTED" -eq 143
+```
 
-cd /tmp/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_IV1
-python3 -c "import json, hashlib, os; m=json.load(open('IV1_MANIFEST_SHA256.json')); arts=m['requiredArtifacts']+m['supportingEvidence']; assert all(hashlib.sha256(open(a['path'],'rb').read()).hexdigest()==a['sha256'] for a in arts); print('ALL 9 IV1 ARTIFACTS VERIFIED OK')"
+### Step 4 — Verify each member's byte count and SHA-256 against ARCHIVE_MEMBER_MANIFEST
+Using the actual extracted paths:
+```bash
+(cd "$TMPDIR" && shasum -a 256 -c "$OLDPWD/WORKBENCH/AUDITS/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_1/ARCHIVE_MEMBER_MANIFEST.sha256")
+```
+Expected output: All 143 lines report `OK`.
+
+### Step 5 — Verify source MANIFEST_SHA256.json against all 132 declared candidate files
+```bash
+python3 -c "
+import json, hashlib, os
+src_dir = '$TMPDIR/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_FEVA_CORR2'
+with open(os.path.join(src_dir, 'MANIFEST_SHA256.json')) as f:
+    files = json.load(f)['files']
+assert len(files) == 132, f'Expected 132 files, got {len(files)}'
+for rel_p, meta in files.items():
+    p = os.path.join(src_dir, rel_p)
+    assert os.path.exists(p), f'Missing candidate file: {rel_p}'
+    assert hashlib.sha256(open(p, 'rb').read()).hexdigest() == meta['sha256'], f'Hash mismatch: {rel_p}'
+    assert os.path.getsize(p) == meta['bytes'], f'Size mismatch: {rel_p}'
+print('ALL 132 DECLARED CANDIDATE FILES VERIFIED OK')
+"
+```
+
+### Step 6 — Verify IV1 manifest against its nine declared evidence members
+```bash
+python3 -c "
+import json, hashlib, os
+iv_dir = '$TMPDIR/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_IV1'
+with open(os.path.join(iv_dir, 'IV1_MANIFEST_SHA256.json')) as f:
+    m = json.load(f)
+items = m['requiredArtifacts'] + m['supportingEvidence']
+assert len(items) == 9, f'Expected 9 artifacts, got {len(items)}'
+for item in items:
+    p = os.path.join(iv_dir, item['path'])
+    assert os.path.exists(p), f'Missing IV file: {item["path"]}'
+    assert hashlib.sha256(open(p, 'rb').read()).hexdigest() == item['sha256'], f'Hash mismatch: {item["path"]}'
+    assert os.path.getsize(p) == item['bytes'], f'Size mismatch: {item["path"]}'
+print('ALL 9 DECLARED IV1 EVIDENCE ARTIFACTS VERIFIED OK')
+"
+```
+
+### Step 7 — Verify no required file is missing or altered
+Check that candidate principal source is byte-identical:
+```bash
+diff -u WORKBENCH/AUDITS/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_1/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_FEVA_CORR2/ADAPTED_REGRESSION_HARNESS.py "$TMPDIR/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_FEVA_CORR2/ADAPTED_REGRESSION_HARNESS.py"
+echo "Diff check: exit $? (0 = exact match)"
+```
+
+### Step 8 — Report and clean up
+Report verification complete and remove the temporary verification directory:
+```bash
+rm -rf "$TMPDIR"
+echo "VERIFICATION COMPLETE: ALL 143 ARCHIVE MEMBERS AND MANIFESTS VERIFIED WITHOUT MUTATION"
 ```
 
 ---
@@ -228,3 +284,8 @@ python3 -c "import json, hashlib, os; m=json.load(open('IV1_MANIFEST_SHA256.json
 - **Staged scope:** Exactly the 41 paths under `WORKBENCH/AUDITS/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_1/` and `WORKBENCH/AUDITS/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_1_GIT_CLOSURE_1.md*` — no broad `git add .`, no unrelated staging.
 - **Commit:** Single local child commit of BASE HEAD `2f7bcc5d33cf8009145aa85cbb39d2ae9084ec26` on branch `main`.
 - **Remote status:** Commit created locally. No push was performed. Remote push remains exclusively the Owner's manual action per project policy (`AGENTS_G.md` §2/§8).
+
+### 8.1 CORR1 documentary corrections (F-GIT-01 / F-GIT-02)
+Under Owner authorization STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_1.GIT-CLOSURE-1.CORR1:
+- **F-GIT-01:** Bound ACT_MANIFEST_STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_1_GIT-CLOSURE-1.json as a tracked artifact (clarifying that commit 7f544af committed 41 paths and did not yet include the manifest).
+- **F-GIT-02:** Corrected Section 6 verification instructions to distinguish ZIP blob verification from extracted member verification in an external temporary directory.
