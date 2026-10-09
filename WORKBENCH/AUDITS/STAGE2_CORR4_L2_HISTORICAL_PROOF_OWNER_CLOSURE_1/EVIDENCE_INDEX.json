@@ -1,0 +1,164 @@
+{
+  "actId": "STAGE2_CORR4_L2_HISTORICAL_PROOF_OWNER_CLOSURE_1",
+  "documentRole": "EVIDENCE_INDEX",
+  "date": "2026-10-09",
+  "authority": "Human Project Owner",
+  "governingDecisionPath": "docs/decisions/MERGEVUE_STAGE2_CORR4_L2_HISTORICAL_PROOF_OWNER_DECISION_2026-10-09.md",
+  "governingDecisionSha256": "dcaed9af4ce90fd0f90eee2954baa58649158f6807ca7568d25a4c90e6f9ad8f",
+  "ownerAdjudication": {
+    "ownerStatement_verbatim_ru": "Достаточно ли независимо проверенных первичных клиентских журналов A и B, с раскрытыми ограничениями, для установления обязательного условия двух независимых стратификаторов в рамках неизменённого CORR4 - мое решение - достаточно. Я знаю, что процедура была проведена в соответствии с каноном. Двигаемся к закрытию этого этапа и git-commit",
+    "ownerInstruction_verbatim_ru": "minor в игнор",
+    "NON_VERBATIM_ORCHESTRATOR_FORMALIZATION": "The independently examined primary client records of original Stratifier A (GPT-6 Astra) and Stratifier B (Kimi K3 through Cline), considered together with the original frozen outputs, are sufficient evidence that the mandatory two-independent-stratifier process was performed in accordance with unchanged Stage-2 CORR4 §L-2. The Owner has direct knowledge that the procedure was conducted according to the canon. The historical evidence is accepted as methodologically admissible and sufficient for this specific process condition. No replacement stratification is required on the presently established record.",
+    "orchestratorFormalization_non_verbatim_en": "The independently examined primary client records of original Stratifier A (GPT-6 Astra) and Stratifier B (Kimi K3 through Cline), considered together with the original frozen outputs, are sufficient evidence that the mandatory two-independent-stratifier process was performed in accordance with unchanged Stage-2 CORR4 §L-2. The Owner has direct knowledge that the procedure was conducted according to the canon. The historical evidence is accepted as methodologically admissible and sufficient for this specific process condition. No replacement stratification is required on the presently established record.",
+    "minorFindingsDirective": "MINOR findings are nonblocking for this closure (per verbatim directive: minor в игнор). All MINOR/ADVISORY findings remain disclosed and historically immutable.",
+    "character": "Explicit Owner evidence-sufficiency adjudication based on previously independently examined records; not a claim of independent IV1 full scientific pass; not a general waiver of §L-2 or amendment of CORR4."
+  },
+  "determinations": {
+    "D1_historicalActorIdentity": {
+      "stratifierA": {
+        "model": "GPT-6 Astra",
+        "client": "Codex Desktop (0.158.0-alpha.2, vscode/projectless)",
+        "session": "01a0df1b-1939-7400-8140-5471972ce5be",
+        "status": "Independently corroborated at client-record scope"
+      },
+      "stratifierB": {
+        "modelRouting": "moonshotai/kimi-k3",
+        "client": "Cline agent runtime",
+        "session": "session_1790449139475_dr75m",
+        "status": "Independently corroborated at client-record scope; original report written Claude attribution preserved as historical error relative to recovered technical metadata"
+      }
+    },
+    "D2_processEvidenceAdmissibility": {
+      "status": "OWNER-ACCEPTED",
+      "scope": "Independently examined historical primary evidence is sufficient for mandatory CORR4 §L-2 two-independent-stratifier process condition",
+      "limitations": "Does not assert absolute absence of unlogged channels or provider-signed attestation; preserves both independent auditors narrower historical verdicts (NOT_ESTABLISHED for full scientific compliance at audit scope)"
+    },
+    "D3_hold6": {
+      "status": "CLOSED_BY_EXPLICIT_OWNER_ADJUDICATION",
+      "scope": "Historical A/B actor provenance and sufficient primary process evidence under CORR4 §L-2",
+      "otherHolds": "All other holds in project registry remain unchanged"
+    },
+    "D4_gL2Elig": {
+      "status": "OWNER_ADJUDICATED_SATISFIED",
+      "character": "Owner evidence-admissibility disposition following independent provenance audits",
+      "prohibitedLabel": "INDEPENDENT_IV1_FULL_SCIENTIFIC_PASS",
+      "controlTreeEdge": "No new Control Tree dependency edge added"
+    },
+    "D5_preservedFindings": {
+      "stratifierA_IV1": {
+        "minor": [
+          "IV1-M01: Parent-prefix SHA-256 discrepancy in PREFIX_INTEGRITY_PROOF.json",
+          "IV1-M02: Recovery report falsely denies A-side field-name diagnostics"
+        ],
+        "advisory": [
+          "IV1-A01: Client-record proof ceiling and full L-2 boundary",
+          "IV1-A02: B copied-file birth times are not checkout-delivery times",
+          "IV1-A03: Prior B attribution and vocabulary qualifications remain applicable"
+        ]
+      },
+      "stratifierB_IV1": {
+        "minorCount": 1,
+        "advisoryCount": 3
+      },
+      "disposition": "All MINOR findings nonblocking by explicit Owner decision; all findings preserved and immutable"
+    },
+    "D6_remainingScientificObligations": {
+      "L4_disagreements_disposition": "OPEN (1,094 effective stratifier disagreement tuples)",
+      "conditional_repairs_and_re_IV": "OPEN",
+      "post_pilot_semantic_contract_acceptance": "OPEN",
+      "final_contract_freeze": "OPEN",
+      "B5_8_analytical_coding_execution": "NOT AUTHORIZED",
+      "full_stage2_semantic_closure": "NOT CLAIMED"
+    }
+  },
+  "evidenceInventory": {
+    "stratifierA": {
+      "frozenMarks": {
+        "path": "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_STRATIFIER_A_MARKS.jsonl",
+        "sha256": "5d4c0a681b7ecdb1cef403dc91bd0603a666e070798326cc97893c1e6cf1c27d",
+        "tuples": 11765,
+        "facts": 905,
+        "domains": 13
+      },
+      "originalReport": {
+        "path": "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_STRATIFIER_A_REPORT.md",
+        "sha256": "13277cb6366c17de06c8aca3c9f8295678fc8bbd9de98db4d21d3578659b644f"
+      },
+      "primaryRecoveryArchive": {
+        "act": "STAGE2_CORR4_STRATIFIER_A_EXECUTION_EVIDENCE_RECOVERY_1",
+        "path": "WORKBENCH/DOWNLOADS/MERGEVUE_STAGE2_STRATIFIER_A_EXECUTION_EVIDENCE_RECOVERY_1.zip",
+        "bytes": 574967,
+        "sha256": "8fe1fc585e939e71e9f27c1ce8db934e06c2517bb1bf1ac213feca9be4f6af02"
+      },
+      "independentAudit": {
+        "act": "STAGE2_CORR4_STRATIFIER_A_EXECUTION_EVIDENCE_RECOVERY_1.IV1",
+        "auditor": "Codex Sol",
+        "verdict": "PASS — 0 BLOCKING / 0 MAJOR / 2 MINOR / 3 ADVISORY",
+        "fullScientificCompliance": "NOT_ESTABLISHED (documentary recovery scope)",
+        "archiveSha256": "30d373c552d7b195d3a548a2157ed2cbdb2f3cd57a9a70e5f57c45c0edf7450c"
+      }
+    },
+    "stratifierB": {
+      "frozenMarks": {
+        "path": "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_STRATIFIER_B_MARKS.jsonl",
+        "sha256": "7b91967b69bf5f95e831bac14e32bc1246836e2e9c2bcb3ef965874ba7dc2603",
+        "tuples": 11765,
+        "facts": 905,
+        "domains": 13
+      },
+      "originalReport": {
+        "path": "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_STRATIFIER_B_REPORT.md",
+        "sha256": "7572c68fa6c4313db1f06ea229eaab0fcc945f6b2231c7017b9a4f888d9a65c3"
+      },
+      "independentAudit": {
+        "act": "STAGE2_CORR4_STRATIFIER_B_MODEL_PROVENANCE_RECONCILIATION_1.IV1",
+        "auditor": "Codex",
+        "status": "OWNER-ACCEPTED PASS — 0 BLOCKING / 0 MAJOR / 1 MINOR / 3 ADVISORY",
+        "fullScientificCompliance": "NOT_ESTABLISHED (client-model provenance scope)",
+        "referenceReportSha256": "6db2de759ebc434594cdecb7c5c46b4f3736bb84160e3a8abc8a966b262f2bb5"
+      }
+    },
+    "immutableScientificReferences": {
+      "corr4Contract": {
+        "path": "WORKBENCH/DOWNLOADS/STAGE2_SEMANTIC_SUCCESSOR_CANDIDATE_CORR4.md",
+        "sha256": "2de49862fb0d63c5f1cd1745531199137e73b7b37abceecef6e735d497d38bb0"
+      },
+      "abDisagreementLedger": {
+        "path": "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_STRATIFICATION_DISAGREEMENTS.jsonl",
+        "sha256": "990950c5822df47f4b7afe27c86498d413e872c57b1b62b5de5bf2f5fd037e0b",
+        "effectiveDisagreements": 1094
+      },
+      "historicalSelectedSample": {
+        "path": "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_SELECTED_SAMPLE.json",
+        "sha256": "ce9a2bd1d44103c2a527be767af3300e3d14d516518be774b15262e19ca5f702",
+        "sampleSize": 30
+      }
+    },
+    "boundAuditArtifacts": {
+      "STAGE2_CORR4_STRATIFIER_B_PROVENANCE_IV1_REPORT.md": {
+        "path": "WORKBENCH/AUDITS/STAGE2_CORR4_L2_HISTORICAL_PROOF_OWNER_CLOSURE_1/STAGE2_CORR4_STRATIFIER_B_PROVENANCE_IV1_REPORT.md",
+        "bytes": 14355,
+        "sha256": "6db2de759ebc434594cdecb7c5c46b4f3736bb84160e3a8abc8a966b262f2bb5",
+        "byteIdenticalToSource": true
+      },
+      "STAGE2_CORR4_STRATIFIER_A_RECOVERY_IV1_REPORT.md": {
+        "path": "WORKBENCH/AUDITS/STAGE2_CORR4_L2_HISTORICAL_PROOF_OWNER_CLOSURE_1/STAGE2_CORR4_STRATIFIER_A_RECOVERY_IV1_REPORT.md",
+        "bytes": 17394,
+        "sha256": "b4088a3d38c8dc89b3ed114d622f3ef32f20cc17806e2ee05cfde7ffc483f4dd",
+        "byteIdenticalToSource": true
+      },
+      "STAGE2_CORR4_STRATIFIER_A_IV1_FINDINGS.json": {
+        "path": "WORKBENCH/AUDITS/STAGE2_CORR4_L2_HISTORICAL_PROOF_OWNER_CLOSURE_1/STAGE2_CORR4_STRATIFIER_A_IV1_FINDINGS.json",
+        "bytes": 6466,
+        "sha256": "7369586ace3959a6f92fe96f752906fd01af4c1e46787f5f41c4ab47e23be014",
+        "byteIdenticalToSource": true
+      },
+      "STAGE2_CORR4_STRATIFIER_A_IV1_AB_L2_COMPLIANCE_MATRIX.json": {
+        "path": "WORKBENCH/AUDITS/STAGE2_CORR4_L2_HISTORICAL_PROOF_OWNER_CLOSURE_1/STAGE2_CORR4_STRATIFIER_A_IV1_AB_L2_COMPLIANCE_MATRIX.json",
+        "bytes": 11813,
+        "sha256": "f6eed76f786fdaec6770322f249bed0ece15cf17d833c217ad6cc20555aff6b6",
+        "byteIdenticalToSource": true
+      }
+    }
+  }
+}

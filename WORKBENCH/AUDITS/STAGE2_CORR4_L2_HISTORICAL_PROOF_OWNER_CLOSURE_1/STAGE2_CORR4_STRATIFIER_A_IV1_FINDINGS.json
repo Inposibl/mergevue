@@ -1,0 +1,100 @@
+{
+  "act": "STAGE2_CORR4_STRATIFIER_A_EXECUTION_EVIDENCE_RECOVERY_1.IV1",
+  "audit_verdict": "PASS",
+  "scope": "documentary archive identity, original client execution provenance and frozen-output linkage",
+  "full_L2_compliance": "NOT_ESTABLISHED",
+  "severity_counts": {
+    "BLOCKING": 0,
+    "MAJOR": 0,
+    "MINOR": 2,
+    "ADVISORY": 3
+  },
+  "findings": [
+    {
+      "id": "IV1-M01",
+      "severity": "MINOR",
+      "title": "Parent historical prefix digest has wrong boundary and newline convention",
+      "evidence_class": "SOURCE/MECHANICAL FACT",
+      "confidence": "HIGH",
+      "locators": [
+        "derived/PREFIX_INTEGRITY_PROOF.json#/operatorRollout",
+        "A_EXECUTION_PROVENANCE_REPORT.md:77",
+        "A_SESSION_IDENTITY_EVIDENCE.json#/operatorChain",
+        "originals/*__OPERATOR_LAUNCHER.jsonl:79",
+        "originals/*__OPERATOR_LAUNCHER.jsonl:80"
+      ],
+      "evidence": "79 original-byte records (377267 bytes) hash 9328605d4a8e99fe4fec4e0a5c5034355003047125df9f07f073fea579f5c729. 80 records with original final LF hash e1700e13c313fd8d6a2e462cd1677ff4eb99e69b2bc23662fa4edaa7f2f575e6. Author aae3b90afb36106eab3855137397ad96e11b5d8a4a828faede577291622dcc85 equals 80 records without final LF (380230 bytes), including Oct-6 settings.",
+      "consequence": "Incorrect documentary temporal pin. September-26 launch, all historical judgments and original-output linkage remain independently reproducible; later material is settings only and excluded from audit conclusions. No BLOCKING/MAJOR impact established.",
+      "disposition": "Preserve originals; use independent prefix resolution for review. No author-file correction performed."
+    },
+    {
+      "id": "IV1-M02",
+      "severity": "MINOR",
+      "title": "Recovery report falsely denies A-side field-name diagnostics",
+      "evidence_class": "SOURCE/MECHANICAL FACT",
+      "confidence": "HIGH",
+      "locators": [
+        "A_EXECUTION_PROVENANCE_REPORT.md:73",
+        "AB_L2_INDEPENDENCE_PRELIMINARY_MATRIX.json#/bSideVocabularyFindingParityNote",
+        "originals/*01a0df1b*.jsonl:30",
+        "originals/*01a0df1b*.jsonl:33"
+      ],
+      "evidence": "A source-map shape output prints evidenceForm, planCurrentState, requiredReadPresence, stage1Generation and derivedFrom keys. Schema output also contains prohibited proxy tokens as explicit prohibitions. The claim that these names appear only in the task prompt and never diagnostics is false.",
+      "consequence": "Narrows the clean-input narrative. Structural names/types and prohibition text are visible; no per-fact forbidden state values, proxy assignment, registry contents or peer marks are identified. No affirmative scientific L-2 breach established from these names alone. Unlike B, A did not print false/zero occurrence values in this shape call.",
+      "disposition": "Carry qualified actual-access assessment. Original A report makes no categorical no-vocabulary assertion; the error is in recovery prose/matrix."
+    },
+    {
+      "id": "IV1-A01",
+      "severity": "ADVISORY",
+      "title": "Client-record proof ceiling and full L-2 boundary",
+      "evidence_class": "INFERENCE / NOT DETERMINABLE",
+      "confidence": "HIGH",
+      "locators": [
+        "originals/*01a0df1b*.jsonl:1",
+        "originals/*01a0df1b*.jsonl:7",
+        "originals/*01a0df1b*.jsonl:8",
+        "IV1_AB_L2_COMPLIANCE_MATRIX.json"
+      ],
+      "evidence": "Client records positively establish model routing, fresh delegation, 905 allowed visible facts on each side and distinct original judgments. No provider-authenticated inference receipt, complete API-context attestation or independent OS access telemetry is supplied.",
+      "consequence": "Observable bilateral independence is supported with limitations; unlogged access is not universally excluded. Missing receipts alone prove neither a breach nor a requirement to rerun. Documentary PASS does not waive mandatory independence or open science eligibility."
+    },
+    {
+      "id": "IV1-A02",
+      "severity": "ADVISORY",
+      "title": "B copied-file birth times are not checkout-delivery times",
+      "evidence_class": "SOURCE/MECHANICAL FACT / INFERENCE",
+      "confidence": "HIGH",
+      "locators": [
+        "A_EXECUTION_PROVENANCE_REPORT.md:69",
+        "native B messages#/messages/122",
+        "native B messages#/messages/123",
+        "native B messages#/messages/132",
+        "native B messages#/messages/133"
+      ],
+      "evidence": "B assembles scratch marks at 19:23:35Z and later copies with cp -p, with successful repository transfer recorded by 19:25:11.854Z. Repository marks birth/mtime remain 19:23:35.857925Z.",
+      "consequence": "Birth timestamps corroborate artifact age but do not independently date delivery into the shared checkout. Corrected observable ordering still puts A freeze first; B was generating judgments while A marks existed, so independence requires actual-read inspection, not freeze order alone."
+    },
+    {
+      "id": "IV1-A03",
+      "severity": "ADVISORY",
+      "title": "Prior B attribution and vocabulary qualifications remain applicable",
+      "evidence_class": "OWNER FACT / SOURCE/MECHANICAL FACT",
+      "confidence": "HIGH",
+      "locators": [
+        "originals/REFERENCE_B_PROVENANCE_IV1_REPORT.md",
+        "native B metadata#/model",
+        "native B messages#/messages/17",
+        "native B messages#/messages/128",
+        "native B messages#/messages/134"
+      ],
+      "evidence": "Owner-accepted B IV1 PASS 0/0/1/3 remains the prior audit. Native metadata and all 67 assistant modelInfo entries identify moonshotai/kimi-k3 via Cline. Historical Claude self-attribution and no-vocabulary-emitted prose are already reconciled/qualified by that IV1.",
+      "consequence": "Historical Kimi K3 Extra tier and backend identity are not independently attested. No new waiver, retroactive acceptance or rewriting of B reports is supplied."
+    }
+  ],
+  "no_owner_question_needed_to_complete_audit": true,
+  "quality_gate": {
+    "mode": "B focused independent verification",
+    "hard_fail_scan": "No hard-fail found in this auditor act; recovery clean-input overclaim diagnosed under HF-05/RC-REPORTING at documentary scope.",
+    "improvement": "In a separately authorized future correction, derive input-access assertions from every decoded tool-result payload; pin prefix count, exact byte length and LF convention together. No governance/skill edit made."
+  }
+}

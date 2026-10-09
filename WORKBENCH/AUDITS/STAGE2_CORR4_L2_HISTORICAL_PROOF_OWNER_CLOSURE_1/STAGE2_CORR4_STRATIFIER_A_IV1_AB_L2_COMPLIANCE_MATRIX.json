@@ -1,0 +1,221 @@
+{
+  "act": "STAGE2_CORR4_STRATIFIER_A_EXECUTION_EVIDENCE_RECOVERY_1.IV1",
+  "documentary_verdict": "PASS",
+  "full_historical_L2_compliance": "NOT_ESTABLISHED",
+  "observable_bilateral_independence": "SUPPORTED_WITH_EVIDENCE_LIMITATION",
+  "scientific_breach_affirmatively_established": false,
+  "prior_B_IV1": {
+    "verdict": "PASS",
+    "counts": {
+      "BLOCKING": 0,
+      "MAJOR": 0,
+      "MINOR": 1,
+      "ADVISORY": 3
+    },
+    "scope": "client-model provenance and frozen-output linkage",
+    "Owner_acceptance_source": "current Owner IV1 authorization §8"
+  },
+  "requirements": [
+    {
+      "id": "L2-01",
+      "requirement": "Two distinct original client sessions and recorded model routes",
+      "A": "INDEPENDENTLY_ESTABLISHED",
+      "B": "INDEPENDENTLY_ESTABLISHED",
+      "bilateral": "INDEPENDENTLY_ESTABLISHED",
+      "evidence": "A UUID/model metadata; B session UUID, metadata and 67 assistant modelInfo entries.",
+      "limitation": "Identity is client routing, not provider backend attestation."
+    },
+    {
+      "id": "L2-02",
+      "requirement": "Provider-authenticated backend identity / historical Extra tier",
+      "A": "NOT_ESTABLISHED",
+      "B": "NOT_ESTABLISHED",
+      "bilateral": "NOT_ESTABLISHED",
+      "evidence": "No provider attestation supplied.",
+      "limitation": "These are proof ceilings, not automatic L-2 breaches; Extra is intended configuration, not a CORR4 L-2 field."
+    },
+    {
+      "id": "L2-03",
+      "requirement": "Fresh independent scientific contexts with no inherited project semantic history",
+      "A": "SUPPORTED_WITH_EVIDENCE_LIMITATION",
+      "B": "SUPPORTED_WITH_EVIDENCE_LIMITATION",
+      "bilateral": "SUPPORTED_WITH_EVIDENCE_LIMITATION",
+      "evidence": "Parent line49 projectless create_thread; A line9 identical received delegation; A line7 agents_md={}; B messages0 task attachment + generic system prompt.",
+      "limitation": "Unsigned local contexts and generic host instructions/catalogs remain; projectless alone is not cryptographic isolation."
+    },
+    {
+      "id": "L2-04",
+      "requirement": "Earlier failed A attempt excluded from successful A context",
+      "A": "SUPPORTED_WITH_EVIDENCE_LIMITATION",
+      "B": "NOT_APPLICABLE",
+      "bilateral": "SUPPORTED_WITH_EVIDENCE_LIMITATION",
+      "evidence": "Parent line18 reads AGENTS; line26 STRATIFIER_ISOLATION_BREACH; line38 refusal; Owner line45 создай; new A session lines1/9.",
+      "limitation": "Parent was the failed earlier A attempt before launcher role; no judgments generated there. No parent semantic transcript or Environment values appear in successful child input."
+    },
+    {
+      "id": "L2-05",
+      "requirement": "Assigned bounded prompt consumed",
+      "A": "INDEPENDENTLY_ESTABLISHED",
+      "B": "INDEPENDENTLY_ESTABLISHED",
+      "bilateral": "INDEPENDENTLY_ESTABLISHED",
+      "evidence": "A line13 call/line16 result matches ef379cd9…; B messages0 attached prompt.",
+      "limitation": "Task/prohibition text is operational context, not additional fact classification."
+    },
+    {
+      "id": "L2-06",
+      "requirement": "13 exact neutral D questions only as D semantic input",
+      "A": "INDEPENDENTLY_ESTABLISHED",
+      "B": "INDEPENDENTLY_ESTABLISHED",
+      "bilateral": "INDEPENDENTLY_ESTABLISHED",
+      "evidence": "Visible neutral question results; independently equal CORR4 neutral-question column; bf673a3f… pin.",
+      "limitation": "No full dispatch/M/TT registry content identified as a read."
+    },
+    {
+      "id": "L2-07",
+      "requirement": "Nine sealed source-package integrity and exact 905-fact population",
+      "A": "INDEPENDENTLY_ESTABLISHED",
+      "B": "INDEPENDENTLY_ESTABLISHED",
+      "bilateral": "INDEPENDENTLY_ESTABLISHED",
+      "evidence": "Source map 665aac81…; nine independently rehashed packages; original extraction calls.",
+      "limitation": "Machine parsing accesses complete packages; semantic exposure is assessed at visible outputs."
+    },
+    {
+      "id": "L2-08",
+      "requirement": "905 visible facts each have exactly four permitted logical fields and sealed values",
+      "A": "INDEPENDENTLY_ESTABLISHED",
+      "B": "INDEPENDENTLY_ESTABLISHED",
+      "bilateral": "INDEPENDENTLY_ESTABLISHED",
+      "evidence": "Independent parsing: A complete indices0..904; B complete 905 fact tuples; zero field/value mismatch.",
+      "limitation": "This positive result does not exclude an unlogged channel."
+    },
+    {
+      "id": "L2-09",
+      "requirement": "Prohibited per-fact Stage-2 values not supplied, inferred or proxied",
+      "A": "SUPPORTED_WITH_EVIDENCE_LIMITATION",
+      "B": "SUPPORTED_WITH_EVIDENCE_LIMITATION",
+      "bilateral": "SUPPORTED_WITH_EVIDENCE_LIMITATION",
+      "evidence": "Decoded all original execution calls/results; no per-fact evidenceForm/planCurrentState value or proxy assignment identified.",
+      "limitation": "Prohibition vocabulary is visible in schema/prompt; shape/presence diagnostics are separately disclosed."
+    },
+    {
+      "id": "L2-10",
+      "requirement": "No incidental forbidden-field vocabulary outside task prohibitions",
+      "A": "CONTRADICTED",
+      "B": "CONTRADICTED",
+      "bilateral": "CONTRADICTED",
+      "evidence": "A line33 shape diagnostics; B messages17 false/zero presence diagnostics.",
+      "limitation": "This is a documentary assertion test, not a literal no-word condition imposed by CORR4. Names alone do not prove semantic classification contamination."
+    },
+    {
+      "id": "L2-11",
+      "requirement": "No A access to B prompt/scratch/marks/report/manifest before A freeze",
+      "A": "SUPPORTED_WITH_EVIDENCE_LIMITATION",
+      "B": "NOT_APPLICABLE",
+      "bilateral": "SUPPORTED_WITH_EVIDENCE_LIMITATION",
+      "evidence": "All 17 A execution calls/results; only peer-slot declarations in view schema, no B path read.",
+      "limitation": "B original prompt was accessible elsewhere on disk, B scratch may exist; no OS prohibition or universal negative proven."
+    },
+    {
+      "id": "L2-12",
+      "requirement": "No B access to A materials before B freeze",
+      "A": "NOT_APPLICABLE",
+      "B": "SUPPORTED_WITH_EVIDENCE_LIMITATION",
+      "bilateral": "SUPPORTED_WITH_EVIDENCE_LIMITATION",
+      "evidence": "All B tool-use inputs/results; peer filenames in early searches only; last STRATIFIER listing messages20/21 is 19:01:12Z before A marks exist. No late peer-content read.",
+      "limitation": "A shared checkout marks exist during B later judgments; capacity to read is not observed reading. Concurrency/freeze order alone does not prove independence."
+    },
+    {
+      "id": "L2-13",
+      "requirement": "No M/TT dispatch, Environment assignment or analytical-coder content used",
+      "A": "SUPPORTED_WITH_EVIDENCE_LIMITATION",
+      "B": "SUPPORTED_WITH_EVIDENCE_LIMITATION",
+      "bilateral": "SUPPORTED_WITH_EVIDENCE_LIMITATION",
+      "evidence": "Actual-read inventory and decoded results show no such content. A general project AGENTS absent; B lists AGENTS filenames only.",
+      "limitation": "Generic host instructions and skill catalog are present. Raw-package processing has a larger mechanical envelope than visible four-field view."
+    },
+    {
+      "id": "L2-14",
+      "requirement": "Outcome / post-T0 / Prediction Seal blindness",
+      "A": "SUPPORTED_WITH_EVIDENCE_LIMITATION",
+      "B": "SUPPORTED_WITH_EVIDENCE_LIMITATION",
+      "bilateral": "SUPPORTED_WITH_EVIDENCE_LIMITATION",
+      "evidence": "Only pinned Stage-1 facts are visible scientific facts; no separate outcome or seal content read identified.",
+      "limitation": "Not a new audit of each sealed fact temporal eligibility or a universal unlogged-access attestation."
+    },
+    {
+      "id": "L2-15",
+      "requirement": "Approval assessor threads remain outside scientific semantic input",
+      "A": "SUPPORTED_WITH_EVIDENCE_LIMITATION",
+      "B": "NOT_APPLICABLE",
+      "bilateral": "SUPPORTED_WITH_EVIDENCE_LIMITATION",
+      "evidence": "Three distinct guardian_review sessions; allow decisions at their line12; no assessor semantic content forwarded in A outputs.",
+      "limitation": "Auto-review is action approval, not scientific acceptance; write assessor reports user_authorization unknown."
+    },
+    {
+      "id": "L2-16",
+      "requirement": "Every fact/D tuple gets exactly one binary judgment",
+      "A": "INDEPENDENTLY_ESTABLISHED",
+      "B": "INDEPENDENTLY_ESTABLISHED",
+      "bilateral": "INDEPENDENTLY_ESTABLISHED",
+      "evidence": "Each original judgment set expands to exact 11765 tuples, no duplicate/missing/invalid marks.",
+      "limitation": "No new semantic evaluation of whether any YES/NO is correct."
+    },
+    {
+      "id": "L2-17",
+      "requirement": "Original historical judgments mechanically generate frozen marks",
+      "A": "INDEPENDENTLY_ESTABLISHED",
+      "B": "INDEPENDENTLY_ESTABLISHED",
+      "bilateral": "INDEPENDENTLY_ESTABLISHED",
+      "evidence": "Eight successful batches on each side; both independently reproduced complete original bytes and SHAs.",
+      "limitation": "Scientific judgment quality was not rerun or accepted."
+    },
+    {
+      "id": "L2-18",
+      "requirement": "No peer comparison/selection by either stratifier before freeze",
+      "A": "SUPPORTED_WITH_EVIDENCE_LIMITATION",
+      "B": "SUPPORTED_WITH_EVIDENCE_LIMITATION",
+      "bilateral": "SUPPORTED_WITH_EVIDENCE_LIMITATION",
+      "evidence": "No peer-mark comparison or selection engine executed in original A/B trace.",
+      "limitation": "Subsequent selected sample identity/count preserved; no new selection."
+    },
+    {
+      "id": "L2-19",
+      "requirement": "Historical order of starts, judgments and freezes",
+      "A": "INDEPENDENTLY_ESTABLISHED",
+      "B": "INDEPENDENTLY_ESTABLISHED",
+      "bilateral": "INDEPENDENTLY_ESTABLISHED",
+      "evidence": "B start18:59:01; A start19:04:50; A judgments19:06:51–19:10:12; A freeze19:11:42; B successful judgment writes19:16:06–19:22:51; B scratch marks19:23:35; transfer19:25:11; terminal19:25:31.",
+      "limitation": "B thinking/read work began earlier; metadata ended_at Sep30 is lifecycle, not execution completion."
+    },
+    {
+      "id": "L2-20",
+      "requirement": "Measured agreement / deterministic intersection / sample preservation",
+      "A": "INDEPENDENTLY_ESTABLISHED",
+      "B": "INDEPENDENTLY_ESTABLISHED",
+      "bilateral": "INDEPENDENTLY_ESTABLISHED",
+      "evidence": "Exact ledger tuple/value equality 1094; agreement counts in prior B IV1; sample30 with original SHA preserved.",
+      "limitation": "Only mechanical checks; semantic L-4 disposition and sample selection not executed."
+    },
+    {
+      "id": "L2-21",
+      "requirement": "L-4 disagreement disposition and affected repair complete",
+      "A": "OUTSIDE_THIS_ACT",
+      "B": "OUTSIDE_THIS_ACT",
+      "bilateral": "NOT_ESTABLISHED",
+      "evidence": "CORR4 L-4 mandates four classes; this act prohibits disposition.",
+      "limitation": "No scientific credit for the 1094 unresolved historical disagreement classifications is granted."
+    },
+    {
+      "id": "L2-22",
+      "requirement": "Full scientific L-2 acceptance and G-L2-ELIG opening",
+      "A": "NOT_ESTABLISHED",
+      "B": "NOT_ESTABLISHED",
+      "bilateral": "NOT_ESTABLISHED",
+      "evidence": "Process independence/restricted inputs supported at observable client scope; no full process acceptance or gate disposition is issued.",
+      "limitation": "Owner may review admissibility and unresolved mandatory process evidence; ordinary limitation acceptance cannot waive L-2. Subsequent L-4 / §M gates remain separate."
+    }
+  ],
+  "Owner_review_supportable": true,
+  "automatic_HOLD6_closure": false,
+  "automatic_GL2ELIG_opening": false
+}
