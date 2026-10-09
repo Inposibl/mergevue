@@ -1,0 +1,52 @@
+{
+  "actId": "MERGEVUE_B5_5_B5_6_B5_7_DOCUMENTARY_EVIDENCE_RESTORATION_1",
+  "baseTreeIdentity": "MERGEVUE_VERIFIED_CURRENT_CONTROL_TREE_RECONSTRUCTION_1.CORR4; Git bound via 9b57f0cb567d5a36e4ebcf3292cdbd18439f4faa",
+  "semanticScope": "ADDITIVE_EVIDENCE_ONLY; no authoritative schema/methodology promotion",
+  "nodeCount": 3,
+  "records": [
+    {
+      "id": "B5.5",
+      "governanceBaseline": "CANDIDATE",
+      "gitBindingBaseline": "BOUND@d52e7f4",
+      "independentVerificationBaseline": "NOT_ESTABLISHED",
+      "evidenceUpdate": "RECOVERED_CANDIDATE_SPECIFIC_IV1_PASS_TRANSCRIPT_COPY",
+      "proposedIvEvidenceInterpretation": "PASS_PER_RECOVERED_GROK_AUDITOR_TRANSCRIPT",
+      "verdictAuthor": "Grok",
+      "verdictArtifactSha256": "9aea5e0ed4badaa2d59c3ac6529b78e8822f96a0db4721fb1998c227abe0c421",
+      "ownerAcceptance": "ATTESTED_BY_HANDOFF_ONLY_NOT_DIRECT_OWNER_MESSAGE",
+      "authoritativeNodeStatusChange": "NONE"
+    },
+    {
+      "id": "B5.6",
+      "governanceBaseline": "OWNER_ACCEPTED",
+      "gitBindingBaseline": "N/A",
+      "independentVerificationBaseline": "PASS",
+      "evidenceUpdate": "MISSING_IV1_REPORT_BYTES_RECOVERED",
+      "proposedIvEvidenceInterpretation": "PASS_AS_ALREADY_RECORDED",
+      "verdictAuthor": "Codex",
+      "verdictArtifactSha256": "8eb434e40b24bd4d2ad29a1c3a2bfa4a86403d0ac7f86c8c37daf809d781c830",
+      "scopeLimit": "FOUR_CORRECTION_PACKAGES_DC001_DC019; downstream analytic debt remains",
+      "ownerAcceptance": "PREVIOUSLY_RECORDED_AND_ATTESTED_IN_BOUND_SUCCESSOR",
+      "authoritativeNodeStatusChange": "NONE"
+    },
+    {
+      "id": "B5.7",
+      "governanceBaseline": "CANDIDATE",
+      "gitBindingBaseline": "BOUND@92236dc",
+      "independentVerificationBaseline": "NOT_ESTABLISHED",
+      "evidenceUpdate": "RECOVERED_CANDIDATE_SPECIFIC_IV1_PASS_REPORT",
+      "proposedIvEvidenceInterpretation": "PASS_PER_RECOVERED_CODEX_IV1_REPORT",
+      "verdictAuthor": "Codex",
+      "verdictArtifactSha256": "0484044485d7ad2986331148293f1ba05dd162fa3dc7c535f0bfded3516ec1b9",
+      "ownerAcceptance": "ATTESTED_BY_HANDOFF_ONLY_NOT_DIRECT_OWNER_MESSAGE",
+      "authoritativeNodeStatusChange": "NONE"
+    }
+  ],
+  "safety": {
+    "canonicalTreeMutation": false,
+    "otherNodesMutation": false,
+    "noOwnerAcceptancePromotion": true,
+    "noRegression": true,
+    "needsLaterOwnerControlledStatusAdjudication": true
+  }
+}

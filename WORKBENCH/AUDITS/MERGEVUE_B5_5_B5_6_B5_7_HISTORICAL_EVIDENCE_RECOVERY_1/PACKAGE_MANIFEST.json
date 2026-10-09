@@ -1,0 +1,71 @@
+{
+  "packageIdentity": "MERGEVUE_B5_5_B5_6_B5_7_EVIDENCE_BINDING_INPUT_2026-10-09",
+  "selfExclusion": "PACKAGE_MANIFEST.json not listed to avoid circular SHA reference",
+  "members": [
+    {
+      "path": "CONTROL_TREE_B5_5_B5_6_B5_7_EVIDENCE_DELTA.json",
+      "bytes": 2393,
+      "sha256": "1d9c2039f39ef8cb3e4d4cfc0260a9352ce53cc5026b54894dba25c965865369"
+    },
+    {
+      "path": "RECOVERY_EVIDENCE_INDEX.json",
+      "bytes": 5010,
+      "sha256": "a9d295bdc3e3e0f8931d979a62260b109ffb1b0c85259727b672f429a49df9f5"
+    },
+    {
+      "path": "RECOVERY_README.md",
+      "bytes": 1171,
+      "sha256": "dea747c953742e2f5f104cdab32a3abe6ac63715b7b4c340b8a8d800f522000c"
+    },
+    {
+      "path": "SOURCE_FILE_MANIFEST.json",
+      "bytes": 5197,
+      "sha256": "4e088a16f477c3e6263be208ed1ba60976d1a76ed54bdc123a9aebba0c9bfff6"
+    },
+    {
+      "path": "TREE_EVIDENCE_ADDENDUM_CANDIDATE.md",
+      "bytes": 4153,
+      "sha256": "229b3c79ec9fc1d28111997666d171122d34d00954f98b15ec2b982a6cac73a2"
+    },
+    {
+      "path": "source/CONTEMPORANEOUS_HANDOFFS/B5_5_POST_ACCEPTANCE_HANDOFF.txt",
+      "bytes": 16453,
+      "sha256": "1748f2dcf7227487ead14dc670b4f350c28cced5a4f434c31bac46eb36b6c1f2"
+    },
+    {
+      "path": "source/CONTEMPORANEOUS_HANDOFFS/B5_7_POST_CLOSURE_HANDOFF.txt",
+      "bytes": 23276,
+      "sha256": "ce04a4c6eebcbfb3453c415e57e3242c16a36725f8085ddf15ff3b865cb2ed7d"
+    },
+    {
+      "path": "source/CORRECTION_REPORTS/B5_6_CORRECTION_REPORT.md",
+      "bytes": 39854,
+      "sha256": "c5a8e7ef48f07b77ced9b33e0b796312fa34c66de4f45f8229a40359f5bacc55"
+    },
+    {
+      "path": "source/HISTORICAL_CANDIDATES/B5_5_FREEZE_CANDIDATE.md",
+      "bytes": 20173,
+      "sha256": "da9b9de2ab9c49cf98100c008eb980225cf8595b2873cc4eb6eb6d8e9733cbd6"
+    },
+    {
+      "path": "source/HISTORICAL_CANDIDATES/B5_7_SUCCESSOR_CANDIDATE.md",
+      "bytes": 22517,
+      "sha256": "be9593a767edfa1d61787458db3de1c7034d49ac60b65fe0ce8e11402fe70237"
+    },
+    {
+      "path": "source/RECOVERED_IV/B5_5_GROK_IV1_TRANSCRIPT.txt",
+      "bytes": 19807,
+      "sha256": "9aea5e0ed4badaa2d59c3ac6529b78e8822f96a0db4721fb1998c227abe0c421"
+    },
+    {
+      "path": "source/RECOVERED_IV/B5_6_CODEX_IV1_REPORT_NEW_RECOVERY.md",
+      "bytes": 20771,
+      "sha256": "8eb434e40b24bd4d2ad29a1c3a2bfa4a86403d0ac7f86c8c37daf809d781c830"
+    },
+    {
+      "path": "source/RECOVERED_IV/B5_7_CODEX_IV1_REPORT.md",
+      "bytes": 15287,
+      "sha256": "0484044485d7ad2986331148293f1ba05dd162fa3dc7c535f0bfded3516ec1b9"
+    }
+  ]
+}

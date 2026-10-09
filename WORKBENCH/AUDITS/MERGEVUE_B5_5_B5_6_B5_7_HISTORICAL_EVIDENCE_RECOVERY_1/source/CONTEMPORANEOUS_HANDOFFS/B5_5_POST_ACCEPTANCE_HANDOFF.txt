@@ -1,0 +1,627 @@
+MERGEVUE M&A — ORCHESTRATOR HANDOFF
+POST-10 CALIBRATION — BEGIN STAGE 1 FACTUAL RE-VERIFICATION
+DATE: 2026-09-25
+
+OWNER-FACING LANGUAGE:
+Russian.
+
+ROLE:
+ORCHESTRATOR.
+
+Do NOT silently become CODER, AUDITOR, Git Agent, methodology authority,
+or Owner.
+
+======================================================================
+1. CURRENT TOP-LEVEL PRODUCT OBJECTIVE
+======================================================================
+
+The main MergeVue application direction remains:
+
+REAL ANALYTICAL DATA
+→ DOCUMENTARY MECHANISM / DISCRIMINATOR EVIDENCE
+→ ENVIRONMENT
+→ ACQUIRER × TARGET PAIR
+→ ECS
+→ FIRST SUBSTANTIVE FREE REPORT
+
+The Owner selected the CALIBRATION-TRACK SUPPLY route.
+
+Therefore the historical calibration program is currently load-bearing
+because it must produce lawful reusable:
+
+- documentary discriminator authority;
+- evidence semantics;
+- sufficiency / insufficiency;
+- stopping conditions;
+- Environment-determination authority.
+
+Do NOT treat historical cases as production user data.
+
+The nine historical cases enter the main product pipeline by supplying
+validated/calibrated methodology, not by being copied into a new client's
+analysis.
+
+======================================================================
+2. CORPUS FREEZE — FULLY CLOSED
+======================================================================
+
+Act:
+
+POST-10-CALIBRATION-9-CASE-CORPUS-FREEZE-1
+
+Exact Owner-accepted candidate:
+
+SHA-256:
+da9b9de2ab9c49cf98100c008eb980225cf8595b2873cc4eb6eb6d8e9733cbd6
+
+Byte size:
+20,173
+
+Independent verification:
+
+POST-10-CALIBRATION-9-CASE-CORPUS-FREEZE-1.IV1
+
+Verdict:
+PASS
+
+BLOCKING = 0
+MAJOR = 0
+MINOR = 0
+
+Three IV1 advisories were explicitly Owner-accepted as NON-BLOCKING.
+
+Owner decision:
+
+THE 9-CASE / 18-SIDE HISTORICAL METHODOLOGY/CALIBRATION CORPUS
+IS OWNER-ACCEPTED AS FROZEN INPUT AUTHORITY.
+
+No methodology promotion was implied.
+No FREE D2/D3 activation was implied.
+Stage 1 was not executed by the freeze act.
+
+======================================================================
+3. GIT CLOSURE — VERIFIED LOCAL + REMOTE
+======================================================================
+
+Repository:
+
+Inposibl/mergevue
+
+Branch:
+
+main
+
+Current remote main:
+
+d52e7f499eff4b2c9ee290380fe7cb7db5ec8e5f
+
+Subject:
+
+docs: freeze nine-case calibration corpus
+
+Parent:
+
+6ad8933dd0d2d742f8f352f0870bb164bc6053a4
+
+Exact committed paths:
+
+docs/governance/historical-corpus/
+MERGEVUE_POST_10_CALIBRATION_9_CASE_CORPUS_FREEZE_2026-09-25.md
+
+docs/governance/historical-corpus/
+MERGEVUE_POST_10_CALIBRATION_9_CASE_CORPUS_FREEZE_2026-09-25.sha256
+
+Remote push has been independently checked against GitHub.
+
+Current controlling state:
+
+CORPUS FREEZE =
+OWNER-ACCEPTED
++
+INDEPENDENTLY VERIFIED
++
+GIT-CLOSED LOCAL
++
+GIT-CLOSED REMOTE
+
+IMPORTANT:
+
+The immutable freeze Markdown still contains historical author-time wording
+such as:
+
+OWNER_ACCEPTED = NO
+CORPUS_FREEZE_FINAL = NO
+
+Do NOT edit these accepted bytes merely to update status prose.
+
+Their present authority comes from:
+- exact candidate identity;
+- later IV1 PASS;
+- explicit Owner acceptance;
+- Git closure local + remote.
+
+Do not "clean up" immutable accepted history.
+
+======================================================================
+4. FROZEN ACTIVE CORPUS
+======================================================================
+
+Exactly 9 historical transactions / 18 organizational sides:
+
+1. daimler-chrysler
+   - Daimler-Benz
+   - Chrysler
+
+2. deutsche-bankers-trust
+   - Deutsche Bank AG
+   - Bankers Trust Corporation
+
+3. pfizer-megamergers
+   - Pfizer
+   - Wyeth
+
+4. aol-time-warner
+   - America Online, Inc.
+   - Time Warner Inc.
+
+5. aecom-urs
+   - AECOM Technology Corporation
+   - URS Corporation
+
+6. exxon-mobil
+   - Exxon Corporation
+   - Mobil Corporation
+
+7. jpmorgan-bank-one
+   - J.P. Morgan Chase & Co.
+   - Bank One Corporation
+
+8. google-android
+   - Google Inc.
+   - Android, Inc.
+
+9. amazon-whole-foods
+   - Amazon.com, Inc.
+   - Whole Foods Market, Inc.
+
+Pfizer-megamergers counts once.
+
+Historical Warner-Lambert / Pharmacia episodes do not create extra cases
+or sides.
+
+Merger vehicles do not create extra sides.
+
+======================================================================
+5. DISNEY STATUS
+======================================================================
+
+disney-pixar:
+
+PRESERVED_HISTORICAL_CASE
+
+EXCLUDED_FROM_METHODOLOGY_CALIBRATION_CORPUS
+
+Disney contributes:
+
+0 active cases
+0 active sides
+
+Disney is NOT:
+
+- a Stage-1 side;
+- a calibration case;
+- a LOCO fold;
+- a final replay case;
+- Pair/ECS calibration evidence.
+
+Do not reopen Disney during Stage 1.
+
+======================================================================
+6. WHAT STAGE 1 IS
+======================================================================
+
+Next controlling stage:
+
+POST-10 CALIBRATION
+STAGE 1 — CORPUS-WIDE FACTUAL RE-VERIFICATION
+
+Population:
+
+18 organizational-side pre-T0 baselines
+from the 9 frozen active cases.
+
+Stage 1 asks:
+
+"What factual propositions about each organization could MergeVue lawfully
+have known before T0, and are those propositions consistently supported
+across the frozen corpus?"
+
+It does NOT ask:
+
+"What Environment was this organization?"
+
+It does NOT infer mechanisms.
+
+It does NOT infer Pair/ECS.
+
+It does NOT use outcomes to repair facts.
+
+It does NOT search for replacement cases.
+
+It does NOT re-author the nine cases merely to improve them.
+
+Historical sealed facts are calibration inputs.
+
+======================================================================
+7. REQUIRED STAGE-1 CHECKS
+======================================================================
+
+Across all 18 sides, verify the existing frozen pre-T0 factual baselines for:
+
+- source provenance;
+- temporal eligibility;
+- factual atomicity;
+- documentary scope;
+- contradiction treatment;
+- current-vs-plan classification where applicable;
+- correct organizational-side identity;
+- normalization consistency;
+- missing-data handling;
+- source-role consistency;
+- cross-case schema consistency.
+
+Also preserve:
+
+- documentary gaps;
+- uncertainty;
+- counterevidence;
+- limitations;
+- exact frozen package identity.
+
+No fact may be strengthened because later outcome makes it look plausible.
+
+No factual gap may be repaired using post-T0 knowledge.
+
+No missing evidence may be converted into negative evidence.
+
+======================================================================
+8. OUTCOME FIREWALL
+======================================================================
+
+Stage 1 must remain PRE-T0 factual verification.
+
+Outcome artifacts exist physically because the blind cycles are complete,
+but they are NOT evidence for factual admission.
+
+Outcome knowledge may not be used to:
+
+- add a pre-T0 fact;
+- delete a pre-T0 fact;
+- strengthen a weak proposition;
+- resolve a contradiction;
+- decide which fact "must have mattered";
+- select an Environment-compatible interpretation.
+
+Where practical, the Stage-1 author should work from the frozen factual
+authority/sources and avoid exposure to downstream outcome reasoning.
+
+If downstream files must be inspected for identity/lineage control,
+their content must not influence factual adjudication.
+
+======================================================================
+9. OWNER-ESTABLISHED AGENT ROUTING FOR STAGE 1
+======================================================================
+
+The Owner explicitly selected:
+
+PRIMARY STAGE-1 EXECUTOR:
+Z.ai
+
+INDEPENDENT STAGE-1 AUDITOR:
+Codex
+
+CORRECTIVE FACTUAL AUTHOR IF A REAL LOAD-BEARING DEFECT IS FOUND:
+Grok
+
+GIT AGENT:
+Antigravity only, and only after separate Owner Git authorization.
+
+Exact intended sequence:
+
+Z.ai
+→ Stage 1 factual re-verification of all 18 sides
+→ Codex independent Stage-1 IV
+
+If PASS:
+→ Owner acceptance
+→ Stage 1 CLOSED
+→ next stage: outcome-hidden mechanism normalization
+
+If a genuine load-bearing factual defect is established:
+→ do NOT silently edit frozen baseline
+→ isolate exact defect
+→ Orchestrator classifies scope
+→ Owner separately authorizes narrow correction
+→ Grok performs the narrow factual correction
+→ a different eligible auditor verifies the correction
+→ return to Stage-1 closure
+
+Grok is NOT the default Stage-1 executor.
+
+======================================================================
+10. Z.AI ROLE
+======================================================================
+
+Z.ai is the MAIN STAGE-1 FACTUAL RE-VERIFICATION AUTHOR.
+
+This is a bounded factual/corpus act.
+
+Z.ai must NOT:
+
+- change Environment methodology;
+- infer Environment;
+- normalize mechanisms;
+- inspect outcomes to decide factual truth;
+- modify Prediction Seals;
+- modify outcome packages;
+- silently alter factual package identities;
+- silently replace frozen files;
+- commit;
+- push;
+- launch Stage 2.
+
+The author-side result must distinguish:
+
+- verified frozen fact;
+- preserved contradiction;
+- preserved gap;
+- factual statement whose support is weaker than represented;
+- potential load-bearing factual defect;
+- non-load-bearing documentary/provenance debt;
+
+using controlling existing terminology where available.
+
+Do NOT invent a new semantic state machine merely for convenience.
+
+======================================================================
+11. CODEX ROLE
+======================================================================
+
+Codex performs independent IV only AFTER Z.ai finishes the exact Stage-1
+candidate/output.
+
+Codex must verify independently:
+
+- exact Stage-1 candidate identity;
+- all 18/18 sides were actually covered;
+- frozen factual package identities were used;
+- source → factual proposition linkage;
+- temporal eligibility relative to exact T0;
+- atomicity;
+- scope;
+- contradiction handling;
+- missing-data treatment;
+- cross-case schema consistency;
+- no outcome leakage;
+- no mechanism/Environment inference;
+- no silent mutation of frozen input authority;
+- no side or case omitted;
+- no Disney admission.
+
+Codex must not merely validate Z.ai's validator.
+
+Independent evidence inspection is required.
+
+======================================================================
+12. GROK ROLE
+======================================================================
+
+Grok is reserved for a separately authorized narrow factual correction
+only if Stage 1 establishes a real load-bearing defect.
+
+Examples of a possible load-bearing defect:
+
+- a frozen proposition is materially unsupported by its claimed source;
+- the source is post-T0 when pre-T0 was required;
+- wrong company/side is bound;
+- a materially compound claim was admitted as one fact and changes meaning;
+- contradiction treatment makes the factual baseline materially false;
+- the controlling frozen package cannot physically support a required fact.
+
+A mere formatting problem, old status text, accepted advisory, or cosmetic
+normalization issue is not enough.
+
+Do NOT start Grok automatically.
+
+======================================================================
+13. STAGE-1 OUTPUT BOUNDARY
+======================================================================
+
+Stage 1 should produce a corpus-level re-verification candidate covering
+all 18 sides.
+
+It should include enough side-level detail to prove that every active side
+was checked under one common factual contract.
+
+The output should provide at minimum:
+
+- act identity;
+- exact frozen corpus authority;
+- repository baseline;
+- frozen case / side membership;
+- per-side T0;
+- per-side frozen factual package identity;
+- source/provenance checks;
+- temporal checks;
+- atomicity checks;
+- scope checks;
+- contradiction/gap treatment;
+- schema consistency observations;
+- any defect/debt finding;
+- explicit outcome-firewall statement;
+- overall Stage-1 candidate verdict;
+- exact artifact identity.
+
+Do not make Stage-1 output a narrative historical essay.
+
+Do not produce Environment labels.
+
+Do not produce mechanisms.
+
+======================================================================
+14. WRITE / GIT POLICY FOR STAGE 1
+======================================================================
+
+Do not modify existing frozen case packages.
+
+Do not modify accepted governance.
+
+Do not modify application source.
+
+Do not modify runtime.
+
+Do not modify report/UI.
+
+Prefer new Stage-1 candidate artifacts outside tracked canonical history
+until the author act is complete and independently verified.
+
+If a repo path is proposed for final durable Stage-1 authority,
+that requires the normal:
+
+candidate
+→ independent IV
+→ Owner acceptance
+→ explicit Git closure authorization
+→ Antigravity
+→ Owner push
+→ remote verification.
+
+No automatic commit/push.
+
+======================================================================
+15. CURRENT APPLICATION STATE — DO NOT REOPEN
+======================================================================
+
+Already closed / not current blockers:
+
+- Level-1 public factual runtime;
+- public-report projection foundation;
+- SEC company resolution plumbing;
+- FREE value-ranked evidence acquisition contract;
+- tree-bound analytical ingestion principle;
+- report-product canon.
+
+Old failed:
+
+LIVE-FREE-PRIMARY-DOCUMENT-RETRIEVAL-CONTRACT-1.IMPLEMENTATION-1.CORR1
+
+remains subordinate / parked.
+
+Do not repair it by inertia.
+
+FREE D2/D3 remains inactive until lawful methodology authority exists.
+
+======================================================================
+16. WHAT COMES AFTER STAGE 1
+======================================================================
+
+Do not execute yet.
+
+Expected sequence after Stage 1 closes:
+
+18 stable pre-T0 factual baselines
+→ outcome-hidden mechanism normalization
+→ independent dual coding
+→ candidate Historical Environment Determination Contract
+→ rule freeze
+→ blind replay over all 18 sides
+→ independent reproduction
+→ outcome-based behavioral falsification
+→ LOCO 8+1 × 9
+→ realized coverage analysis
+→ T10 / MD verdict work
+→ Owner acceptance of final determination authority
+→ final calibrated replay 9 cases / 18 sides
+→ independent verification
+→ reusable discriminator / sufficiency authority
+→ main FREE analytical pipeline
+→ Environment
+→ Pair
+→ ECS
+→ substantive FREE report.
+
+Do not skip from Stage 1 directly to production coding.
+
+======================================================================
+17. FIRST ACTION IN THE NEW SESSION
+======================================================================
+
+First verify:
+
+repository:
+Inposibl/mergevue
+
+branch:
+main
+
+HEAD:
+d52e7f499eff4b2c9ee290380fe7cb7db5ec8e5f
+
+origin/main:
+d52e7f499eff4b2c9ee290380fe7cb7db5ec8e5f
+
+freeze artifact SHA:
+da9b9de2ab9c49cf98100c008eb980225cf8595b2873cc4eb6eb6d8e9733cbd6
+
+Then begin:
+
+POST-10-CALIBRATION-STAGE1-FACTUAL-REVERIFICATION-1
+
+EXECUTOR:
+Z.ai
+
+ROLE:
+FACTUAL RE-VERIFICATION AUTHOR / ANALYST
+
+The act should cover the complete frozen population:
+
+18/18 organizational sides.
+
+Do NOT begin with one arbitrary case unless the act design explicitly proves
+that a segmented execution preserves one common corpus-wide contract and a
+later exact corpus-level closure.
+
+The preferred design is one common Stage-1 contract over all 18 sides with
+side-level traceability.
+
+Before giving Z.ai the prompt, perform the normal orchestration preflight:
+- verify current authority;
+- verify exact physical frozen inputs;
+- define permitted output location;
+- enforce outcome firewall;
+- define STOP conditions for load-bearing defect;
+- prohibit mutation of frozen case packages and Git.
+
+Then launch Z.ai.
+
+======================================================================
+18. NEW-SESSION OPENING MESSAGE
+======================================================================
+
+Tell the Owner:
+
+"Freeze закрыт полностью: Owner-accepted, IV PASS и Git-closed local + remote
+на `d52e7f499eff4b2c9ee290380fe7cb7db5ec8e5f`.
+
+Начинаем Stage 1 — corpus-wide factual re-verification 18 pre-T0 сторон.
+
+Маршрут Owner зафиксировал:
+Z.ai выполняет Stage 1,
+Codex делает независимый IV,
+Grok подключается только если обнаружится настоящий load-bearing factual
+defect и будет отдельно авторизована узкая correction.
+
+Сейчас готовлю точный Stage-1 act для Z.ai. Environment, mechanisms, outcome,
+D2/D3 и production coding на этом этапе не трогаем."
+
+END HANDOFF

@@ -1,0 +1,108 @@
+{
+  "identity": "MERGEVUE_B5_5_B5_6_B5_7_EVIDENCE_BINDING_INPUT_2026-10-09",
+  "sourceEvidence": [
+    {
+      "node": "B5.5",
+      "evidenceTier": "original_candidate",
+      "relativePath": "source/HISTORICAL_CANDIDATES/B5_5_FREEZE_CANDIDATE.md",
+      "bytes": 20173,
+      "sha256": "da9b9de2ab9c49cf98100c008eb980225cf8595b2873cc4eb6eb6d8e9733cbd6",
+      "alreadyInGit": true,
+      "gitPath": "docs/governance/historical-corpus/MERGEVUE_POST_10_CALIBRATION_9_CASE_CORPUS_FREEZE_2026-09-25.md",
+      "gitCommit": "d52e7f499eff4b2c9ee290380fe7cb7db5ec8e5f",
+      "sourceArchive": "MERGEVUE_TEN_ARCHIVE_RECONCILIATION_2026-10-09.zip",
+      "sourceMember": "RECOVERED_PRIMARY_AND_SESSION_EVIDENCE/B5_5_FREEZE_CANDIDATE.md"
+    },
+    {
+      "node": "B5.5",
+      "evidenceTier": "auditor_transcript_copy",
+      "relativePath": "source/RECOVERED_IV/B5_5_GROK_IV1_TRANSCRIPT.txt",
+      "bytes": 19807,
+      "sha256": "9aea5e0ed4badaa2d59c3ac6529b78e8822f96a0db4721fb1998c227abe0c421",
+      "alreadyInGit": false,
+      "gitPath": null,
+      "gitCommit": null,
+      "sourceArchive": "MERGEVUE_TEN_ARCHIVE_RECONCILIATION_2026-10-09.zip",
+      "sourceMember": "RECOVERED_PRIMARY_AND_SESSION_EVIDENCE/B5_5_GROK_IV1_TRANSCRIPT.txt"
+    },
+    {
+      "node": "B5.5",
+      "evidenceTier": "historical_handoff_secondary",
+      "relativePath": "source/CONTEMPORANEOUS_HANDOFFS/B5_5_POST_ACCEPTANCE_HANDOFF.txt",
+      "bytes": 16453,
+      "sha256": "1748f2dcf7227487ead14dc670b4f350c28cced5a4f434c31bac46eb36b6c1f2",
+      "alreadyInGit": false,
+      "gitPath": null,
+      "gitCommit": null,
+      "sourceArchive": "MERGEVUE_TEN_ARCHIVE_RECONCILIATION_2026-10-09.zip",
+      "sourceMember": "RECOVERED_PRIMARY_AND_SESSION_EVIDENCE/B5_5_POST_ACCEPTANCE_HANDOFF.txt"
+    },
+    {
+      "node": "B5.6",
+      "evidenceTier": "author_report",
+      "relativePath": "source/CORRECTION_REPORTS/B5_6_CORRECTION_REPORT.md",
+      "bytes": 39854,
+      "sha256": "c5a8e7ef48f07b77ced9b33e0b796312fa34c66de4f45f8229a40359f5bacc55",
+      "alreadyInGit": false,
+      "gitPath": null,
+      "gitCommit": null,
+      "sourceArchive": "MERGEVUE_TEN_ARCHIVE_RECONCILIATION_2026-10-09.zip",
+      "sourceMember": "RECOVERED_PRIMARY_AND_SESSION_EVIDENCE/B5_6_CORRECTION_REPORT.md"
+    },
+    {
+      "node": "B5.6",
+      "evidenceTier": "auditor_report_copy",
+      "relativePath": "source/RECOVERED_IV/B5_6_CODEX_IV1_REPORT_NEW_RECOVERY.md",
+      "bytes": 20771,
+      "sha256": "8eb434e40b24bd4d2ad29a1c3a2bfa4a86403d0ac7f86c8c37daf809d781c830",
+      "alreadyInGit": false,
+      "gitPath": null,
+      "gitCommit": null,
+      "sourceArchive": "MERGEVUE_TEN_ARCHIVE_RECONCILIATION_2026-10-09.zip",
+      "sourceMember": "RECOVERED_PRIMARY_AND_SESSION_EVIDENCE/B5_6_CODEX_IV1_REPORT_NEW_RECOVERY.md"
+    },
+    {
+      "node": "B5.7",
+      "evidenceTier": "original_candidate",
+      "relativePath": "source/HISTORICAL_CANDIDATES/B5_7_SUCCESSOR_CANDIDATE.md",
+      "bytes": 22517,
+      "sha256": "be9593a767edfa1d61787458db3de1c7034d49ac60b65fe0ce8e11402fe70237",
+      "alreadyInGit": true,
+      "gitPath": "docs/governance/historical-corpus/MERGEVUE_STAGE1_FACTUAL_AUTHORITY_SUCCESSOR_BINDING_AND_CLOSURE_2026-09-25.md",
+      "gitCommit": "92236dc1341c3f85565514c60029af388bc51422",
+      "sourceArchive": "MERGEVUE_TEN_ARCHIVE_RECONCILIATION_2026-10-09.zip",
+      "sourceMember": "RECOVERED_PRIMARY_AND_SESSION_EVIDENCE/B5_7_SUCCESSOR_CANDIDATE.md"
+    },
+    {
+      "node": "B5.7",
+      "evidenceTier": "auditor_report_copy",
+      "relativePath": "source/RECOVERED_IV/B5_7_CODEX_IV1_REPORT.md",
+      "bytes": 15287,
+      "sha256": "0484044485d7ad2986331148293f1ba05dd162fa3dc7c535f0bfded3516ec1b9",
+      "alreadyInGit": false,
+      "gitPath": null,
+      "gitCommit": null,
+      "sourceArchive": "MERGEVUE_TEN_ARCHIVE_RECONCILIATION_2026-10-09.zip",
+      "sourceMember": "RECOVERED_PRIMARY_AND_SESSION_EVIDENCE/B5_7_CODEX_IV1_REPORT.md"
+    },
+    {
+      "node": "B5.7",
+      "evidenceTier": "historical_handoff_secondary",
+      "relativePath": "source/CONTEMPORANEOUS_HANDOFFS/B5_7_POST_CLOSURE_HANDOFF.txt",
+      "bytes": 23276,
+      "sha256": "ce04a4c6eebcbfb3453c415e57e3242c16a36725f8085ddf15ff3b865cb2ed7d",
+      "alreadyInGit": false,
+      "gitPath": null,
+      "gitCommit": null,
+      "sourceArchive": "MERGEVUE_TEN_ARCHIVE_RECONCILIATION_2026-10-09.zip",
+      "sourceMember": "RECOVERED_PRIMARY_AND_SESSION_EVIDENCE/B5_7_POST_CLOSURE_HANDOFF.txt"
+    }
+  ],
+  "preparedAddendumSha256": "229b3c79ec9fc1d28111997666d171122d34d00954f98b15ec2b982a6cac73a2",
+  "existingGitCandidatePaths": [
+    "docs/governance/historical-corpus/MERGEVUE_POST_10_CALIBRATION_9_CASE_CORPUS_FREEZE_2026-09-25.md",
+    "docs/governance/historical-corpus/MERGEVUE_STAGE1_FACTUAL_AUTHORITY_SUCCESSOR_BINDING_AND_CLOSURE_2026-09-25.md"
+  ],
+  "governance": "evidence recovery; no automatic current-state promotions",
+  "controlTreeEvidenceDelta": "CONTROL_TREE_B5_5_B5_6_B5_7_EVIDENCE_DELTA.json"
+}

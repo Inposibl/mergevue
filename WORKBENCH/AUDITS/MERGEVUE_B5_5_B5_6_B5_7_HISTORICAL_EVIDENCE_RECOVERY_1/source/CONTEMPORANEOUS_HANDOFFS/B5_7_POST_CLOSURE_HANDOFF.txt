@@ -1,0 +1,909 @@
+MERGEVUE M&A — ORCHESTRATOR HANDOFF
+POST-10 CALIBRATION — STAGE 1 CLOSED / BEGIN OUTCOME-HIDDEN MECHANISM NORMALIZATION
+DATE: 2026-09-25 / continuation in next session
+
+OWNER-FACING LANGUAGE:
+Russian.
+
+ROLE:
+ORCHESTRATOR — ChatGPT.
+
+Do NOT silently become:
+- analytical author;
+- mechanism coder;
+- independent auditor;
+- Git agent;
+- methodology authority;
+- Owner.
+
+The first substantive act in the new session is NOT execution by inertia.
+
+The Owner intends to explicitly authorize beginning:
+
+POST-10-CALIBRATION-STAGE2-OUTCOME-HIDDEN-MECHANISM-NORMALIZATION-1
+
+Until that Owner authorization appears:
+- do not launch an agent;
+- do not create a mechanism candidate;
+- do not modify files;
+- do not begin dual coding;
+- do not infer Environment.
+
+======================================================================
+1. TOP-LEVEL PRODUCT OBJECTIVE
+======================================================================
+
+MergeVue's load-bearing product path remains:
+
+REAL ANALYTICAL DATA
+→ DOCUMENTARY MECHANISM / DISCRIMINATOR EVIDENCE
+→ ENVIRONMENT
+→ ACQUIRER × TARGET PAIR
+→ ECS
+→ SUBSTANTIVE FREE REPORT
+
+The historical calibration program exists to produce lawful reusable:
+
+- documentary discriminator authority;
+- evidence semantics;
+- sufficiency / insufficiency rules;
+- stopping conditions;
+- reproducible Environment-determination authority.
+
+Historical cases are methodology/calibration supply.
+
+They are NOT production client data.
+
+======================================================================
+2. CURRENT TREE POSITION
+======================================================================
+
+The controlling historical-calibration sequence is now:
+
+9 independently verified historical cases / 18 organizational sides
+→ sealed pre-T0 factual baselines
+→ corpus-wide source / fact re-verification
+→ factual correction / successor authority
+→ STAGE 1 CLOSED
+→ CURRENT NEXT NODE:
+   OUTCOME-HIDDEN MECHANISM NORMALIZATION
+→ independent dual coding
+→ candidate Historical Environment Determination Contract
+→ RULE FREEZE
+→ blind replay over all 18 organizational sides
+→ independent reproduction
+→ outcome-based falsification
+→ LOCO 8+1 × 9
+→ realized coverage analysis
+→ T10 / MD verdict work
+→ Owner acceptance of final determination authority
+→ Final Calibrated Replay
+→ independent full-corpus verification
+→ reusable methodology authority
+→ main FREE analytical pipeline.
+
+Do NOT insert unrelated cleanup, runtime work, UI work, report work,
+old-analysis repair, or engineering optimization between Stage 1 and the
+mechanism-normalization node.
+
+======================================================================
+3. STAGE 1 IS FULLY CLOSED
+======================================================================
+
+Stage 1 is no longer merely CLOSURE_READY.
+
+It is physically closed.
+
+Successor factual-authority act:
+
+POST-10-CALIBRATION-STAGE1-FACTUAL-AUTHORITY-SUCCESSOR-BINDING-AND-CLOSURE-1
+
+Exact Owner-accepted successor artifact SHA-256:
+
+be9593a767edfa1d61787458db3de1c7034d49ac60b65fe0ce8e11402fe70237
+
+Independent verification:
+
+POST-10-CALIBRATION-STAGE1-FACTUAL-AUTHORITY-SUCCESSOR-BINDING-AND-CLOSURE-1.IV1
+
+Verdict:
+
+PASS
+
+Exact IV1 report SHA-256:
+
+0484044485d7ad2986331148293f1ba05dd162fa3dc7c535f0bfded3516ec1b9
+
+Git closure commit:
+
+92236dc1341c3f85565514c60029af388bc51422
+
+Commit subject:
+
+docs: bind Stage 1 factual successor authority
+
+Parent:
+
+d52e7f499eff4b2c9ee290380fe7cb7db5ec8e5f
+
+Repository:
+
+Inposibl/mergevue
+
+Branch:
+
+main
+
+REMOTE VERIFICATION:
+
+GitHub remote `main` was independently checked after Owner push.
+
+Remote `main` points exactly to:
+
+92236dc1341c3f85565514c60029af388bc51422
+
+Comparison against prior parent:
+
+ahead = 1
+behind = 0
+total commits = 1
+
+The commit contains exactly two added governance files:
+
+docs/governance/historical-corpus/
+MERGEVUE_STAGE1_FACTUAL_AUTHORITY_SUCCESSOR_BINDING_AND_CLOSURE_2026-09-25.md
+
+docs/governance/historical-corpus/
+MERGEVUE_STAGE1_FACTUAL_AUTHORITY_SUCCESSOR_BINDING_AND_CLOSURE_2026-09-25.sha256
+
+Therefore current state is:
+
+STAGE1_CLOSED = YES
+
+STAGE1_PHYSICAL_CLOSURE = VERIFIED_REMOTE
+
+SUCCESSOR_FACTUAL_AUTHORITY =
+OWNER-ACCEPTED
++
+INDEPENDENTLY VERIFIED
++
+GIT-BOUND LOCAL
++
+GIT-BOUND REMOTE
+
+Do NOT create another Stage-1 closure record.
+
+Do NOT perform another Stage-1 preflight act.
+
+======================================================================
+4. WHAT STAGE 1 ESTABLISHED
+======================================================================
+
+Exact completed factual population:
+
+CASES = 9 / 9
+SIDES = 18 / 18
+TRANSFER-REVIEWED FACTS = 905 / 905
+
+Confirmed factual transfer defects:
+
+DC-001 … DC-019
+
+Total:
+
+19
+
+Severity:
+
+BLOCKING = 8
+MAJOR = 8
+MINOR = 3
+
+Current disposition:
+
+CORRECTED = 19 / 19
+INDEPENDENTLY VERIFIED = 19 / 19
+UNRESOLVED CONFIRMED DC = NONE
+UNRESOLVED FACT IDS = NONE
+
+Source artifacts were not changed.
+
+Outcome evidence was not used to decide factual truth.
+
+======================================================================
+5. CONTROLLING SUCCESSOR FACTUAL AUTHORITY — EXACT NINE PACKAGES
+======================================================================
+
+The following exact factual package set is the CURRENT authoritative
+pre-T0 factual input to mechanism normalization.
+
+----------------------------------------------------------------------
+CASE 1 — DAIMLER–CHRYSLER
+Sides:
+- Daimler-Benz
+- Chrysler
+
+CURRENT successor:
+
+Manifest:
+d72b8125fee09866a6a25c1415a021f891aadc15449f758a2b2f10ee521abaeb
+
+ZIP:
+3951b0167f01d196da53b9df758d2bf4fff8b00df6feb9158aae366e5377544d
+
+Corrected successor generation:
+v1.0.7
+
+Old v1.0.6 remains historical only.
+
+----------------------------------------------------------------------
+CASE 2 — DEUTSCHE–BANKERS TRUST
+Sides:
+- Deutsche Bank AG
+- Bankers Trust Corporation
+
+CURRENT:
+
+d5e42537d39f52385944f9f7c1794ce5648a4f6e21439c65c834a0a8417621a0
+
+UNCHANGED.
+
+----------------------------------------------------------------------
+CASE 3 — PFIZER–MEGAMERGERS
+Sides:
+- Pfizer
+- Wyeth
+
+CURRENT CORR2:
+
+5f4e698bf696911a525e7b77b5758f8496f1cb31904c9cf8fac64ee534766af5
+
+Old CORR1 remains historical only.
+
+Pfizer-megamergers remains ONE active case.
+
+Warner-Lambert and Pharmacia remain longitudinal prior episodes,
+not additional active sides.
+
+----------------------------------------------------------------------
+CASE 4 — AOL–TIME WARNER
+Sides:
+- America Online, Inc.
+- Time Warner Inc.
+
+CURRENT:
+
+9bfe1b32ab25b882b0bed81f60e550f43fcf594ca59d77275b762be6d76d468e
+
+UNCHANGED.
+
+Known manifest-footer parsing issue was independently resolved:
+
+actual physical members = 26 / 26 PASS
+
+The footer metadata is not a file-member defect.
+
+----------------------------------------------------------------------
+CASE 5 — AECOM–URS
+Sides:
+- AECOM Technology Corporation
+- URS Corporation
+
+CURRENT CORR2:
+
+d8b6d21e32198c6d240954c04715ad10561af5383461c7cc56b32d56efa94517
+
+Old generation remains historical only.
+
+----------------------------------------------------------------------
+CASE 6 — EXXON–MOBIL
+Sides:
+- Exxon Corporation
+- Mobil Corporation
+
+CURRENT CORR8:
+
+f50f6c74512b1c13d9253c1f6f8345136c824bf51e18587cbccfa339eb732833
+
+Old CORR7 remains historical only.
+
+----------------------------------------------------------------------
+CASE 7 — JPMORGAN–BANK ONE
+Sides:
+- J.P. Morgan Chase & Co.
+- Bank One Corporation
+
+CURRENT:
+
+243f5cd41e0ef72cc8dc12efa56c41edbf7dd51e9d79f729c94db39008cb9b55
+
+UNCHANGED.
+
+----------------------------------------------------------------------
+CASE 8 — GOOGLE–ANDROID
+Sides:
+- Google Inc.
+- Android, Inc.
+
+CURRENT:
+
+3acd3a77b0272c26c7e2d3736ab370cccf043aa8401bc1398720e393e8140edf
+
+UNCHANGED.
+
+----------------------------------------------------------------------
+CASE 9 — AMAZON–WHOLE FOODS
+Sides:
+- Amazon.com, Inc.
+- Whole Foods Market, Inc.
+
+CURRENT:
+
+e804bafb70636b2fcc3680f33672d4a794d20b7caaadc7934993d6e68b2f9039
+
+UNCHANGED.
+
+----------------------------------------------------------------------
+
+DISNEY–PIXAR:
+
+PRESERVED_HISTORICAL_CASE
+EXCLUDED_FROM_METHODOLOGY_CALIBRATION_CORPUS
+
+ACTIVE CASES = 0
+ACTIVE SIDES = 0
+
+Do not reopen Disney.
+
+======================================================================
+6. HISTORICAL GOVERNANCE PRESERVATION
+======================================================================
+
+The old factual seals and original nine-case freeze remain immutable
+historical records of the generations they originally sealed.
+
+They were NOT rewritten.
+
+The successor governance artifact establishes CURRENT factual precedence
+for the four corrected cases.
+
+Do not edit the historical:
+
+- original nine-case freeze;
+- factual seals;
+- CASES_2_5 index;
+- Daimler DISC-2;
+- old factual packages;
+- old correction/audit records.
+
+Current authority comes from the later bound successor artifact.
+
+======================================================================
+7. FOUR STALE ANALYTICAL LINEAGES — HARD FIREWALL
+======================================================================
+
+Four historical analytical lineages contain meanings derived from
+pre-correction factual states.
+
+They are preserved historical calibration evidence.
+
+They are NOT current mechanism-normalization input.
+
+Classification for all four:
+
+HISTORICAL_PRE_CORRECTION_ANALYTICAL_DEPENDENCY
+NOT_CURRENT_INPUT_TO_NEW_MECHANISM_NORMALIZATION
+
+1. DAIMLER–CHRYSLER
+
+Historical analysis contains M-C02 / equivalent:
+
+"Early prototyping with manual production tools"
+
+as an observed mechanism.
+
+Corrected factual C-B02 establishes intent/want rather than completed use.
+
+Do not import the old M-C02 conclusion.
+
+2. PFIZER–MEGAMERGERS
+
+Historical analysis repeats CFO eligibility "regardless of age"
+without the restored condition that other eligibility criteria must also
+be satisfied.
+
+Do not import that historical analytical conclusion.
+
+3. AECOM–URS
+
+Historical analytical package retains:
+
+- Creil actor wording;
+- sole-versus-primary consultant interpretation.
+
+Do not import those historical analytical conclusions.
+
+4. EXXON–MOBIL
+
+Historical fact-to-mechanism ledger M-MO-15 retains pre-CORR8 meaning
+for F-M-0233 / F-M-0234 / F-M-0235.
+
+Do not import those mechanism rows.
+
+IMPORTANT:
+
+These four historical analytical packages are NOT to be retroactively repaired
+merely to make them agree with Stage 1.
+
+They remain blind historical records.
+
+The NEW normalization starts again from CURRENT successor sealed facts.
+
+======================================================================
+8. NEXT STAGE — CONTROLLING DEFINITION
+======================================================================
+
+The next stage is:
+
+OUTCOME-HIDDEN MECHANISM NORMALIZATION
+
+Controlling transformation:
+
+sealed documentary facts
+→ normalized observed mechanisms
+
+The purpose is to transform the exact 18-side successor factual authority
+into a common mechanism representation.
+
+This transformation must remain outcome-hidden.
+
+The mechanism layer must not become stronger than the underlying evidence.
+
+Examples of mechanism domains named by the controlling recalibration track
+include, where lawfully supported:
+
+- decision authority;
+- formal authority;
+- operating authority;
+- delegation;
+- veto power;
+- escalation;
+- closure;
+- accountability;
+- resource allocation;
+- business-unit autonomy;
+- portfolio authority;
+- centralization;
+- decentralization;
+- incentive structure;
+- control structure;
+- management architecture;
+- formal-vs-operative authority conflict.
+
+IMPORTANT:
+
+This list is not permission to invent a new closed ontology.
+
+Before execution, inspect current controlling methodology / accepted mechanism
+schema and use existing authority where it exists.
+
+If no accepted common normalization schema sufficient for this act exists,
+do NOT invent one silently.
+
+Return:
+
+OWNER_DECISION_REQUIRED
+
+with the exact missing semantic authority.
+
+======================================================================
+9. MECHANISM-NORMALIZATION HARD BOUNDARIES
+======================================================================
+
+The new act MAY reason:
+
+sealed factual proposition
+→ bounded observed mechanism
+
+It must NOT perform:
+
+fact → Environment
+mechanism → Environment
+resource → Environment
+synthetic questionnaire answers
+Environment determination
+Pair determination
+ECS
+friction scoring
+outcome comparison
+prediction evaluation
+behavioral falsification
+LOCO
+T10 / MD verdicts
+
+Those belong later.
+
+No Environment label is assigned merely because a mechanism looks suggestive.
+
+======================================================================
+10. OUTCOME FIREWALL
+======================================================================
+
+The normalization author must NOT use:
+
+- outcome packages;
+- post-T0 observed outcomes;
+- prediction correctness;
+- integration results;
+- stock-market outcomes;
+- synergy realization;
+- later success/failure;
+- post-seal reconstruction;
+
+to decide what mechanism a pre-T0 fact means.
+
+Do not inspect them substantively.
+
+If a downstream file must be opened only for identity/lineage control,
+its substantive content must not influence mechanism coding.
+
+Required:
+
+OUTCOME_LEAKAGE = 0
+
+======================================================================
+11. CURRENT FACTUAL INPUT FIREWALL
+======================================================================
+
+Only the successor factual authority in §5 is current factual input.
+
+Forbidden as current mechanism input:
+
+- Daimler v1.0.6;
+- Pfizer CORR1;
+- old AECOM generation;
+- Exxon CORR7;
+- the four stale historical analytical lineages;
+- old mechanism ledgers derived from superseded facts;
+- Prediction Seals;
+- outcomes.
+
+Do not create two competing current baselines.
+
+======================================================================
+12. LAWFUL AMBIGUITY MUST SURVIVE
+======================================================================
+
+Stage 1 intentionally did NOT eliminate every lawful ambiguity.
+
+Mechanism normalization must preserve:
+
+- contradictory lawful facts;
+- formal-vs-operative distinctions;
+- plan-vs-current distinctions;
+- unresolved continuity;
+- gaps;
+- incomplete documentary support;
+- competing mechanism interpretations where evidence permits more than one.
+
+Do NOT force a single mechanism merely to make the later classifier easier.
+
+A valid normalization state may remain ambiguous.
+
+The later independent-dual-coding stage exists partly to test whether this
+observational layer is reproducible.
+
+======================================================================
+13. EVIDENCE STRENGTH RULE
+======================================================================
+
+Never upgrade:
+
+weak fact
+→ strong mechanism
+
+Never convert:
+
+intent
+→ implementation
+
+eligibility
+→ receipt
+
+primary
+→ sole
+
+formal authority
+→ operative control
+
+annual review
+→ annual adjustment
+
+historical occurrence
+→ universal frequency
+
+conditional statement
+→ unconditional mechanism
+
+absence of evidence
+→ negative evidence.
+
+Every normalized mechanism must be traceable back to exact CURRENT factual
+propositions and preserve material qualifiers.
+
+======================================================================
+14. COMMON-CORPUS REQUIREMENT
+======================================================================
+
+This is a corpus-wide normalization stage.
+
+The same normalization contract must apply to all:
+
+9 cases
+18 organizational sides.
+
+Do not begin by improvising a special semantic rule for one case.
+
+If execution is physically segmented for context/resource reasons, the
+segmentation must preserve:
+
+ONE COMMON MECHANISM-NORMALIZATION CONTRACT
++
+ONE FINAL CORPUS-LEVEL CLOSURE.
+
+No per-case retuning.
+
+======================================================================
+15. REQUIRED TRACEABILITY
+======================================================================
+
+The normalization output must permit later independent coders/auditors to
+inspect, for each normalized mechanism at minimum:
+
+- organizational side;
+- relevant factual proposition ID(s);
+- exact current factual-package identity;
+- mechanism statement;
+- scope/domain;
+- temporal state where material;
+- supporting facts;
+- counterevidence / contradiction where material;
+- gaps / limitations where material;
+- ambiguity status where material;
+- why the mechanism does not claim more than the evidence supports.
+
+Do not invent a new field taxonomy if an accepted schema already defines it.
+
+Use controlling terminology first.
+
+======================================================================
+16. INDEPENDENT DUAL CODING IS THE NEXT NODE, NOT THIS ONE
+======================================================================
+
+The controlling track separates:
+
+OUTCOME-HIDDEN MECHANISM NORMALIZATION
+
+from:
+
+INDEPENDENT DUAL CODING.
+
+Do not collapse the two stages silently.
+
+The first authorized mechanism-normalization act should produce a
+corpus-wide normalization candidate under one common contract.
+
+Independent dual coding follows as its own governed stage/act unless the Owner
+explicitly authorizes a combined architecture.
+
+At least two independent analytical actors later need to work from the same
+sealed facts / normalization contract without seeing each other's conclusions.
+
+Disagreement is material evidence, not model noise.
+
+======================================================================
+17. NO OLD-ANALYSIS REPAIR BY INERTIA
+======================================================================
+
+Do NOT fix:
+
+- Daimler old M-C02;
+- Pfizer historical CFO analysis;
+- AECOM old Creil / sole wording;
+- Exxon old M-MO-15;
+
+inside this act.
+
+Their purpose now is historical calibration evidence.
+
+The NEW mechanism layer is separate.
+
+======================================================================
+18. TREE / MODEL-NEED-FIRST RULE
+======================================================================
+
+Before agent execution, perform the normal orchestration preflight INSIDE the
+authorized act.
+
+Do NOT create a separate bureaucratic preflight act unless a real authority
+gap appears.
+
+Apply the required order:
+
+CURRENT CONTROLLING TREE / OWNER AUTHORITY
+→ CURRENT MODEL / ANALYTICAL DATA NEED
+→ REQUIRED SOURCE
+→ MECHANISM / DISCRIMINATOR
+→ ENVIRONMENT-TREE SEMANTICS
+→ DOWNSTREAM MATH / ECS CONSUMER
+→ CURRENT IMPLEMENTATION
+→ ACTUAL GAP
+→ SMALLEST LAWFUL ACT
+→ INDEPENDENT VERIFICATION
+→ STATE REBASE
+
+For this stage the immediate model need is:
+
+a reproducible, evidence-bounded, outcome-hidden mechanism representation
+over all 18 historical organizational sides.
+
+Do not drift into product implementation.
+
+======================================================================
+19. FIRST NEW-SESSION AUTHORIZATION EXPECTED FROM OWNER
+======================================================================
+
+The new session should WAIT for the Owner to explicitly authorize:
+
+OWNER AUTHORIZES
+`POST-10-CALIBRATION-STAGE2-OUTCOME-HIDDEN-MECHANISM-NORMALIZATION-1`
+
+Only after that authorization:
+
+1. verify the current remote Stage-1 successor authority;
+2. read the controlling mechanism/methodology authority needed for this act;
+3. inspect current model-routing authority and current agent availability;
+4. select the lawful mechanism-normalization AUTHOR;
+5. preserve author ↔ auditor independence;
+6. issue one bounded corpus-wide execution prompt.
+
+Do NOT assume the Stage-1 Z.ai/Codex routing automatically carries into
+Stage 2.
+
+Do NOT assume Grok, Claude, Codex, Z.ai, Kimi, DeepSeek, or another model
+without checking current routing/availability and Owner authority.
+
+======================================================================
+20. EXECUTION-LOCATION RULE
+======================================================================
+
+Prefer new Stage-2 analytical candidate artifacts outside tracked canonical
+history until:
+
+author complete
+→ independent verification
+→ Owner acceptance
+→ explicit Git closure.
+
+No automatic Git mutation.
+
+No production wiring.
+
+No source/runtime changes.
+
+======================================================================
+21. STOP CONDITIONS FOR THE FIRST STAGE-2 ACT
+======================================================================
+
+STOP and route back to Owner if:
+
+- any of the nine successor factual identities no longer matches;
+- remote main no longer contains the accepted successor binding;
+- an accepted mechanism-normalization schema required for consistent
+  corpus-wide coding cannot be established;
+- evidence would need to be strengthened beyond factual authority;
+- old analytical conclusions are required to fill a gap;
+- outcome knowledge would be required to select a mechanism;
+- an Environment label is required to decide a mechanism;
+- a case needs a bespoke rule not shared by the common corpus contract;
+- the requested act would silently combine normalization with dual coding,
+  Environment determination, or Stage-3 work;
+- a newer Owner authority changes the track.
+
+Use:
+
+OWNER_DECISION_REQUIRED
+
+or the exact authority/identity HOLD state.
+
+Do not improvise around the gap.
+
+======================================================================
+22. CURRENT CONTROL CARD FOR NEW SESSION
+======================================================================
+
+OWNER OBJECTIVE:
+
+Begin the next load-bearing historical-calibration stage:
+outcome-hidden mechanism normalization from the exact successor sealed
+factual set.
+
+ACTIVE ACT / PRIORITY:
+
+WAITING FOR OWNER AUTHORIZATION OF:
+
+POST-10-CALIBRATION-STAGE2-OUTCOME-HIDDEN-MECHANISM-NORMALIZATION-1
+
+CURRENT STATE:
+
+Stage 1:
+CLOSED
+
+Cases:
+9 / 9
+
+Sides:
+18 / 18
+
+Facts transfer-reviewed:
+905 / 905
+
+Confirmed factual defects:
+19
+
+Corrected:
+19 / 19
+
+Independently verified:
+19 / 19
+
+Current successor factual authority:
+Owner-accepted + IV PASS + Git-bound local + Git-bound remote.
+
+Remote main:
+92236dc1341c3f85565514c60029af388bc51422
+
+BLOCKERS:
+
+NONE to entering mechanism normalization once Owner authorizes it.
+
+ACTIVE CONSTRAINTS:
+
+- outcome-hidden;
+- successor facts only;
+- no old analytical mechanisms as input;
+- preserve ambiguity/counterevidence/gaps;
+- no evidence strengthening;
+- no Environment;
+- no Pair/ECS;
+- no dual coding unless separately authorized;
+- no Git by default;
+- no production coding.
+
+NEXT STEP:
+
+Owner authorization of Stage-2 outcome-hidden mechanism normalization.
+
+======================================================================
+23. OPENING MESSAGE TO OWNER IN NEW SESSION
+======================================================================
+
+Say:
+
+"Stage 1 is fully closed and remote-verified at
+`92236dc1341c3f85565514c60029af388bc51422`.
+
+The exact successor factual authority is now the controlling sealed pre-T0
+input for 9 cases / 18 sides.
+
+I am waiting for your authorization to begin:
+
+`POST-10-CALIBRATION-STAGE2-OUTCOME-HIDDEN-MECHANISM-NORMALIZATION-1`
+
+After authorization I will first resolve the current mechanism-normalization
+authority/schema and current model routing inside the act, then issue the
+bounded corpus-wide author prompt.
+
+The four stale historical analytical lineages will remain excluded, no
+outcomes will be used, and no Environment determination will occur in this
+stage."

@@ -1,0 +1,217 @@
+1. ROLE / INDEPENDENCE
+
+Role for this act: Independent Governance Auditor. Executor: Grok. Mode: read only.
+
+The current Owner instruction appoints Grok to audit these candidate bytes and sets the independence boundary. Codex authored the freeze candidate. Grok did not author it.
+
+Grok’s earlier outcome-IV work on deutsche-bankers-trust, pfizer-megamergers, aol-time-warner, and amazon-whole-foods was not reopened as a new semantic audit. For those four cases the check was binding fidelity only: current outcome identity, the existing IV act, the recorded verdict and findings, the later Owner acceptance, and the durable authority-binding artifact.
+
+Repository root: MergeVue-M&A (August 2026). Branch main. HEAD and origin/main are both 6ad8933dd0d2d742f8f352f0870bb164bc6053a4.
+
+2. CANDIDATE IDENTITY
+
+docs/governance/historical-corpus/MERGEVUE_POST_10_CALIBRATION_9_CASE_CORPUS_FREEZE_2026-09-25.md
+
+┌───────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ Check     │ Result                                                                                                       │
+├───────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Byte size │ 20173 exact                                                                                                  │
+├───────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ SHA-256   │ da9b9de2ab9c49cf98100c008eb980225cf8595b2873cc4eb6eb6d8e9733cbd6 exact                                       │
+├───────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ Sidecar   │ Valid. One line, two spaces, filename, trailing newline. Hash matches the candidate bytes. Sidecar size 130. │
+└───────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+Gate A passes.
+
+3. GOVERNANCE AUTHORITY CHECK
+
+The nine-case addendum docs/governance/MERGEVUE_CALIBRATION_9_CASE_CORPUS_ADDENDUM_2026-09-25.md hashes to fb602181de969bcc91d5ff76f01afefcc2bc1705870e51a677eb2135877b8229. Its sidecar matches. The working tree matches HEAD. The file is in d177386a54f08e57a203350db709636c5c92ef1f, which is an ancestor of HEAD and is on origin/main. Its embedded status line remains historical candidate wording. The later durable record, and the controlling state for this act, treat that addendum as Owner-accepted and Git-closed local and remote.
+
+The outcome-IV binding docs/governance/historical-corpus/outcome-iv/MERGEVUE_OUTCOME_IV_DURABLE_AUTHORITY_BINDING_2026-09-25.md hashes to 568b51643d4103d0777bd35acf37d514ad9166516aec7748a0addc6b98bb8f94. Its sidecar matches. It is the Git blob at 6ad8933dd0d2d742f8f352f0870bb164bc6053a4. The working tree matches that commit.
+
+All nine factual-seal file hashes match the candidate and their sidecars. Cases 2–5 match CASES_2_5_FACTUAL_SEAL_SHA256SUMS.txt. Cases 1 and 6–9, plus Amazon’s seal, match their per-file sidecars.
+
+4. ACTIVE MEMBERSHIP CHECK
+
+The active set is exactly:
+
+1. daimler-chrysler
+2. deutsche-bankers-trust
+3. pfizer-megamergers
+4. aol-time-warner
+5. aecom-urs
+6. exxon-mobil
+7. jpmorgan-bank-one
+8. google-android
+9. amazon-whole-foods
+
+pfizer-megamergers appears once. The factual seal keeps Warner-Lambert and Pharmacia as pre-T0 Pfizer episodes. They are not extra cases or sides.
+
+5. 9/18 GEOMETRY
+
+ACTIVE_CASE_COUNT = 9. ACTIVE_ORGANIZATIONAL_SIDE_COUNT = 18. Each active transaction has two canonical sides. Merger vehicles are not counted as sides. Amazon’s older artifacts keep historical ordinal 10. The freeze states that this does not create a tenth active case. The active table has nine rows.
+
+6. DISNEY EXCLUSION CHECK
+
+disney-pixar is PRESERVED_HISTORICAL_CASE and EXCLUDED_FROM_METHODOLOGY_CALIBRATION_CORPUS. It contributes 0 active cases and 0 active sides. It is absent from the active table, from the Stage-1 population, from LOCO membership, and from the final replay population. No Disney file was modified in the freeze-authoring window.
+
+7. CASE 1 BINDING
+
+daimler-chrysler. Sides: Daimler-Benz and Chrysler. T0: 1998-05-07T11:07:00Z.
+
+Factual seal f8817aa2344915b95fed974b34473752893e14bf9a21dedc68cb7101e1840b38 binds v1.0.6. Recomputed manifest 652273f1d0a6c8a827b32c66794ce0ee332e66864a915b498ea5edb79cb80236. Recomputed archive f31893aec80d35ec6eda4f998aaf9e28bf29f917d9658cbf38b84082b381899a. The seal records v1.0.5 as superseded.
+
+Analytical ZIP 16adb118d1dd802021a002630b0a97bc309e93558b744fa421da734973c5b0e8. Targeted re-verification report 9fc7a2d43187307aa07429f61a295ec36af8d5e45968d1e55ed1b143fcd8442c is PASS for that ZIP. The corrected analytical package names the v1.0.6 manifest and archive.
+
+Prediction Seal ZIP 9b011e128e21bd5cf8f42aa3d904c7aa9285c419831f04600ee96acf61b74340. Outcome ZIP 3aea873ca67b70291e682e64b9f6f771fb59d0769c97d877a1c5b6dac70aa8e2. Outcome-IV report 9ec35b756b2cd2c302938b6d129d191e00e52f37f225b98c7e675099d6476fab is PASS for that ZIP. The outcome ZIP contains the comparison matrix, the calibration observation, and a pre-outcome seal binding that names this Prediction Seal and this analytical ZIP.
+
+Current stale parent link: none. v1.0.5 is not the bound parent.
+
+8. CASE 2 BINDING
+
+deutsche-bankers-trust. Sides: Deutsche Bank AG and Bankers Trust Corporation. T0: 1998-11-23.
+
+Factual seal 04537ab2df46236b1fddfd0943cc8279f7748f1bcb8fa629502ce7d3ec735d7a. Carrier identity d5e42537d39f52385944f9f7c1794ce5648a4f6e21439c65c834a0a8417621a0, with 29/29 member hashes matching.
+
+Analytical identity c27a1365fa9036073a75ce8bd930d93297068f782ff28c03638881acac952849. Analytical IV 2e0dd123ddeea4ef614fa2ab3e8ed806f989144b0369f7fde3abca5759a1c0dd is PASS_WITH_NONBLOCKING_FINDINGS for that identity. Prediction Seal 92b9d374ba58d5b181134b92ba54a9009ec6027fba9a25b5df7de2943364e6b1. Outcome acc282d14f70a883c68679b963103468af85fafc8006c7e8874c7d160f55faa1.
+
+The durable binding’s Case 2 section records POST-10-OUTCOME-CANDIDATES-2-4.IV1, auditor Grok, verdict PASS, BLOCKING = 0, MAJOR = 0, MINOR = 1, and Owner-accepted non-blocking DB-01. The freeze cites that section and that identity. The outcome binding names the current factual, analytical, and Prediction Seal identities.
+
+9. CASE 3 BINDING
+
+pfizer-megamergers. Sides: Pfizer and Wyeth. T0: 2009-01-26. Counted once.
+
+Factual seal 56fadc023367a0291540076e05609459dc9f5cb16affee43c1dec6452f00beda. CORR1 carrier 30f5feab45ce6f034641fd095e6a25ce82e3b66a13037b708c3d0e136c5ea94a, 31/31 members matching. The older uncorrected carrier is a different hash and is not the bound parent.
+
+Analytical 993d5ccf5913459e08e5dc1405ad22c3c4310d97c3c58308bd8e938438cd5a90. Analytical IV b7c7365f5587b4765e96f981e0487ffc221b959ee0cdd15a0081295a5a283e47, PASS_WITH_NONBLOCKING_FINDINGS. Prediction Seal 38023b88bea203cf75b6975a9b9880da5a07d92153bdca817279d58aa7dbc984. Outcome 91da4fc8f9e65cc6448d73acdf7faa45b74c1d2c5a96d868a084d0300c76f567.
+
+The durable binding’s Case 3 section records PASS, MINOR = 0, and the same Owner acceptance. The freeze cites that section and that identity.
+
+10. CASE 4 BINDING
+
+aol-time-warner. Sides: America Online, Inc. and Time Warner Inc. T0: 2000-01-10.
+
+Factual seal 603c46c578bd51825a44a648c0956708ebc00aab79f42d93b46b54eea48a7f84. Inventory identity 9bfe1b32ab25b882b0bed81f60e550f43fcf594ca59d77275b762be6d76d468e, 26/26 members matching.
+
+Analytical 7cc7e1c13d575573e5603cbd2c14c1fb82e23b335b3dbc04b151ebff509315d5. Analytical IV 7e8fa406186de598709041a0c8967e793c626ced93edccf8713fc250c399004d, PASS_WITH_NONBLOCKING_FINDINGS. Prediction Seal d264c888744e356da28895371def9e44ad1cc7e8260b921ad7a77972197b334e. Outcome 4f6a4c0006850a2b51cd34fc0f569c4aabe7912a178c1c49f0d277ba8c358e0d.
+
+The durable binding’s Case 4 section records PASS, MINOR = 0, and the same Owner acceptance. The freeze cites that section and that identity.
+
+11. CASE 5 BINDING
+
+aecom-urs. Sides: AECOM Technology Corporation and URS Corporation. T0: 2014-07-13.
+
+Factual seal cc00e9cc1ff1cfbeb9094e296f69e152fc1437dc50e29376c41fcffec741755a. Live inventory c95a623cfccdcba8e35d2069bda11de523e7f039a81c51095e6081deec4466b8, 32/32 members matching. The checksum carrier names pre-CORR1 80bad15f… as superseded and names c95a623c… as the candidate identity. The Prediction Seal binds c95a623c….
+
+Analytical 733d61d4a4935f02601582e2a198ff5040068adf2421395360f9e270076b49a2. Analytical IV 2e0939fd6dfd27302613feaa1cdf51c45f1d45af233181537743fb0319687be6, PASS_WITH_NONBLOCKING_FINDINGS. Prediction Seal c5023f2a5f9c66a00daa1272ddc98dd4745cea71dad0c5449a3a07e9f181950c. Outcome c7b636d310f5c23f9400e481aae269cfbc6575c63aeceb0d1daca5d9b21f8679. Outcome IV 81bbb0fb713305a4f8d720666f7be5b85de867051413db60a92e62a5814f2622 is PASS for that identity, with 4 non-load-bearing MINOR findings and 2 ADVISORY findings. No later outcome generation exists.
+
+12. CASE 6 BINDING
+
+exxon-mobil. Sides: Exxon Corporation and Mobil Corporation. T0: 1998-11-27.
+
+Factual seal 679fc03e41bd06423986bd58ed57e0beddd32998c803762a5b8cb0f4f7af9b5d. candidate_corr7 inventory 995453defabd9ff9a57a89396f8dfda338e0c55a1c8ee17b305a79fbf15cf4f0, 38/38 members matching. Earlier factual candidates remain on disk with different identities and are not the bound parent.
+
+Analytical 9634dc91710b5eac8d19824a21866058f9529e254b77147202ae33d1e4fb2f75. Analytical IV f4831afc159f0f3739950a51c1a9151cb1127c12bccc4556e5bc8d8523703da6, PASS_WITH_NONBLOCKING_FINDINGS. Prediction Seal aafc6d1ab55e0b97df81a96e1ee38662b424e4e2101c0b5aa905d371d5eab1c3. Current outcome 698139e0ad736df8dec6b054b3fba4ae6b97ae67c5cfeaed2cc63bf8e6a04ffd. Outcome IV 3788aa9e6c429049543aa5625ab2b93d46d4c3135ee68b7f08daee55f7da0749 is PASS for that identity, with 1 MINOR and 3 ADVISORY findings, none blocking. The earlier outcome carrier is a different hash.
+
+13. CASE 7 BINDING
+
+jpmorgan-bank-one. Sides: J.P. Morgan Chase & Co. and Bank One Corporation. T0: 2004-01-14.
+
+Factual seal d4ff37935f40f9cbc7d98a82f377b2af2114767ff819ab90043ca59754566b11. Inventory 243f5cd41e0ef72cc8dc12efa56c41edbf7dd51e9d79f729c94db39008cb9b55, 30/30 members and declared sizes matching.
+
+Analytical 9e6134bb88fa597aee392017b54b4f8ed9b6c0a09f11a81d69c127b5541c5b3f. Analytical IV 49eb2cd484e92b76142ec7805ae2274ef51ae0ff7cc6d45e7bf2be048321d36a, PASS_WITH_NONBLOCKING_FINDINGS. Prediction Seal e89ad3a74a3aba69b4e5afee0dceac44eafc3a2d940af5e940ed5a7ca814b63e. Current outcome c71f35d06509def964c2e919e5fab8f4a49aa5cf8e4e87553c703acb1e2fce6b. Outcome IV 75abb69d75c8c891f07e3ab5f6228e6059cc1f8ef378c6f4c5831e6d34860272 is PASS for that identity, with 2 ADVISORY findings. The earlier outcome carrier is a different hash.
+
+14. CASE 8 BINDING
+
+google-android. Sides: Google Inc. and Android, Inc. T0: 2005-08-17.
+
+Factual seal 0d8105d9a34d91fef5eb874849171c0571f40fd4191d2f6404fcce52d1b4ff0b. Inventory 3acd3a77b0272c26c7e2d3736ab370cccf043aa8401bc1398720e393e8140edf, 27 files, 6,401,481 bytes, 27/27 members matching.
+
+Analytical 287ca53f6f54911bf1695638ab2362d3e66d0c3e7bded7b45c8588156e2bccb9. Analytical IV 51ce04f6111bb8b09d1b203c6b5a90177945642ec575ca4445237e3f96bcd014, PASS_WITH_NONBLOCKING_FINDINGS. Prediction Seal 8959f18d06bcfd64f6b920b0bde4516702175c2ad5225fa9024da9a258b40de3. Current outcome 1d38ff70447b7ed7a7df5d63866803dfbc22dde5294d0e3720ab591cdc43dc60 at 11_OUTCOME_REVEAL_CALIBRATION_CORR3_ZAI/. Outcome IV 152e908676d10574afb5d69c0da77fea5ac6a5729d85eea8d386754642bd59cd is PASS for that identity, with ADVISORY = 12 and BLOCKING = 0, MAJOR = 0, MINOR = 0. Earlier outcome generations 05, 07, and 09 have different identities. No generation after CORR3 exists.
+
+15. CASE 9 AMAZON BINDING
+
+amazon-whole-foods. Sides: Amazon.com, Inc. and Whole Foods Market, Inc. T0: 2017-06-16.
+
+Factual seal 3ebe124d83a0d23ba494ba825a1df58928439ba7a064cf72cb9841ccd55b59bc. Inventory e804bafb70636b2fcc3680f33672d4a794d20b7caaadc7934993d6e68b2f9039, 30/30 members matching.
+
+Analytical 3cee66505a0586d1a4a37568808780f5571fd65368b671d30dfe894147b7e6a2. Analytical IV 42aac5b0852df995881dc2bd95fc5e515ec962d3f48bb3e925eb65c694c11a0c is PASS_WITH_NONBLOCKING_FINDINGS for that identity. Prediction Seal 8ff32872ad13000a4a06cb8174c85a2bf85d718b527e0758660cf1a514c54353. Outcome f7c446d4dc978e00e3dc33540fb4a6e8277702188ef821bae0a10b9da67df54c.
+
+The durable binding’s Amazon section records AMAZON-WHOLE-FOODS-OUTCOME-REVEAL-CALIBRATION-1.IV1, auditor Grok, verdict PASS, BLOCKING = 0, MAJOR = 0, MINOR = 0, terminal status PASS_AMAZON_WHOLE_FOODS_OUTCOME_IV, and the later Owner acceptance. The freeze cites that section and that identity. The outcome binding names the current Prediction Seal, factual identity, and analytical identity.
+
+16. BLIND-CYCLE ORDER CHECK
+
+Every selected chain runs pre-T0 factual authority, then analytical candidate, then analytical IV, then Prediction Seal, then outcome, then comparison and calibration observation, then outcome IV.
+
+For the eight standard cases, the Prediction Seal source binding contains the current factual and analytical identities, and 01_PRE_OUTCOME_SEAL_BINDING.json contains the current Prediction Seal identity. Those outcome packages contain 05_SEALED_CLAIM_COMPARISON_MATRIX.json and 06_CALIBRATION_OBSERVATION.md.
+
+Case 1 uses ZIP identities. Its outcome ZIP binds the Prediction Seal ZIP and the analytical ZIP, and it contains the comparison and calibration files. The sealed analytical package names the current v1.0.6 factual manifest and archive. Recomputed upstream identities still match the seals, so the outcome packages have not replaced the factual packages, analytical packages, or Prediction Seals.
+
+17. OUTCOME-IV AUTHORITY CHECK
+
+All nine current outcomes have a current IV authority aimed at the identity the freeze names.
+
+Cases 2–4 and Amazon are bound through the durable authority record and its exact case sections, including the recorded verdicts, findings, and Owner-acceptance text. DB-01 remains visible and non-blocking. Google’s 12 advisory findings remain visible and non-blocking.
+
+The other current outcome IVs are PASS on the exact current identities: Case 1 Z-Ai report, and the Claude packages for AECOM, Exxon-Mobil, JPMorgan-Bank One, and Google-Android CORR3. Their non-blocking MINOR and ADVISORY findings stay inside those bound reports. They were not upgraded.
+
+18. STALE/SUPERSEDED CHECK
+
+The selected identities are the current ones. Earlier generations that remain on disk are different hashes and are not the bound parents: Daimler v1.0.5, Pfizer’s pre-CORR1 factual carrier, Exxon pre-candidate_corr7 factual generations and the pre-CORR1 outcome, AECOM pre-CORR1 factual identity 80bad15f…, JPMorgan’s pre-CORR1 outcome, and Google outcome generations 05, 07, and 09.
+
+No later unverified active candidate was found after the selected generation in any active case. Immutable pre-IV status wording inside frozen packages was left in place. The freeze treats that wording as historical bytes and points authority to the later IV and, for Cases 2–4 and Amazon, to the durable acceptance record.
+
+19. FREEZE-EFFECT CHECK
+
+The candidate freezes active case membership, active side membership, and the referenced factual, analytical, Prediction Seal, outcome, and controlling verification identities. It states that, after independent verification and explicit Owner acceptance of these exact bytes, changing any of those requires a separately authorized supersession or reopening act. It leaves methodology, runtime, report semantics, and case-package bytes unchanged.
+
+OWNER_ACCEPTED = NO and CORPUS_FREEZE_FINAL = NO inside the candidate.
+
+20. STAGE-1 BOUNDARY CHECK
+
+The next population is stated as 18 organizational-side pre-T0 baselines from the 9 frozen active cases. Stage 1 is described only as factual re-verification. The candidate states that Stage 1 is not a new case search, not outcome-based factual repair, not mechanism normalization, not Environment determination, and not prediction replay. It states that Stage 1 was not executed.
+
+21. METHODOLOGY NON-PROMOTION CHECK
+
+The candidate states that this freeze does not validate an Environment classifier, prove T10, close MD-1 through MD-6, establish prediction accuracy, establish statistical representativeness, empirically validate all nine Environments, activate FREE D2/D3, or establish public predictive validity. It states that the act changes no FREE runtime, Prediction Seal, outcome, case package, methodology rule, or public claim. No affirmative claim of those effects is present.
+
+22. FINDINGS
+
+BLOCKING: none.
+
+MAJOR: none.
+
+MINOR: none.
+
+ADVISORY:
+
+• A-01. Case 1’s Prediction Seal binding names the current analytical ZIP and the targeted re-verification report directly. The current v1.0.6 factual manifest and archive hashes sit inside that sealed analytical package. The chain reaches v1.0.6. v1.0.5 is not the bound parent.
+• A-02. In the authoring minute, macOS also touched docs/governance/.DS_Store. No workbench, case, source, or runtime file was modified in that window. The substantive authoring products are the candidate and its sidecar.
+• A-03. DB-01 and Google’s 12 advisory findings are named. Other accepted non-blocking debt remains visible in the bound IV reports and is covered by the candidate’s class-level retention sentence: AECOM outcome 4 MINOR and 2 ADVISORY; Exxon outcome 1 MINOR and 3 ADVISORY; JPMorgan outcome 2 ADVISORY; Amazon analytical IV 1 MINOR and 1 ADVISORY. None is load-bearing for this freeze.
+
+23. VERDICT
+
+PASS
+
+NINE_CASE_CORPUS_FREEZE_IV = PASS
+
+ACTIVE_CASES_VERIFIED = 9/9
+
+ACTIVE_SIDES_VERIFIED = 18/18
+
+CORPUS_FREEZE_OWNER_ACCEPTANCE_ELIGIBLE = YES
+
+CORPUS_FREEZE_FINAL = NO
+
+Final authority still requires explicit Owner acceptance of these exact bytes.
+
+24. OWNER-ACCEPTANCE ELIGIBILITY
+
+Eligible for Owner acceptance. The eligible object is this exact candidate, SHA-256 da9b9de2ab9c49cf98100c008eb980225cf8595b2873cc4eb6eb6d8e9733cbd6, 20,173 bytes, with its matching sidecar. Acceptance would fix the 9-case / 18-side input population and the package identities verified above. It would still require a separate act before Git closure or Stage 1.
+
+25. TERMINAL STATUS
+
+PASS_9_CASE_CORPUS_FREEZE_IV
+
+Stopping point: independent verification report only. The candidate was not corrected. No file was modified. Nothing was committed, pushed, or Owner-accepted. Stage 1 was not started.
