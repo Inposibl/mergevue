@@ -1,0 +1,291 @@
+{
+  "act": "MERGEVUE_B5_8_MINIMUM_LAWFUL_ENTRY_PREFLIGHT_1.CORR1",
+  "actor": "Z.ai",
+  "role": "ANALYST / CORRECTION AUTHOR under AGENTS.md / AGENTS_A.md (Owner-assigned in the CORR1 act text)",
+  "date": "2026-10-09",
+  "head": "3852ca460c44df7c36d4c159a37125c6048f8548",
+  "originMainCached": "3852ca460c44df7c36d4c159a37125c6048f8548",
+  "trackedDirty": 0,
+  "status": "ANALYTICAL CORR1 CANDIDATE — not independent verification, not Owner decision, not a methodological waiver, not a Control Tree edit",
+  "artifact": "B5_8_INPUT_AUTHORITY_AND_FIREWALL.json",
+
+  "correctionLineage": {
+    "parentArtifact": "B5_8_INPUT_AUTHORITY_AND_FIREWALL.json of MERGEVUE_B5_8_MINIMUM_LAWFUL_ENTRY_PREFLIGHT_1 (Claude, immutable)",
+    "parentIdentity": { "bytes": 15782, "sha256": "c305a4c6c37a019646045829a990ba3ce2b2f5fde20d0d4575b9c6be5daa9fb8" },
+    "iv1Audit": "MERGEVUE_B5_8_MINIMUM_LAWFUL_ENTRY_PREFLIGHT_1.IV1 (Codex) — FAIL; this firewall artifact was not itself a named finding target (IV1 gate G4: PASS_AS_PROPOSED_BOUNDARY_ONLY), but its recomputation attributions are restated to the CORR1 evidence standard and the fencing boundary is corrected per IV1-F03.",
+    "correctionsCarried": ["IV1-F03 fencing boundary", "IV1-F01 historical-marks role note", "recomputation attribution discipline"]
+  },
+
+  "requiredInputs": {
+    "factualSubstrate": {
+      "authority": "B5.7 successor binding §10/§16",
+      "authorityPath": "docs/governance/historical-corpus/MERGEVUE_STAGE1_FACTUAL_AUTHORITY_SUCCESSOR_BINDING_AND_CLOSURE_2026-09-25.md",
+      "authoritySha256": "be9593a767edfa1d61787458db3de1c7034d49ac60b65fe0ce8e11402fe70237",
+      "authorityGit": "92236dc",
+      "scope": "9 cases / 18 sides / 905 sealed pre-T0 facts; Disney–Pixar excluded",
+      "locatorMap": {
+        "path": "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_STAGE1_SOURCE_MAP.json",
+        "sha256": "665aac81c2e0127d08f0406186891959255391cb99ec34611a972209565f4a7f",
+        "tracked": false,
+        "archiveMember": "byte-identical member of Git-bound archive 5741423f… (per B17 CORR1)"
+      },
+      "recomputation": {
+        "method": "§10 identity formulas recomputed from bytes by the ORIGINAL AUTHOR (Claude) in the parent act, and INDEPENDENTLY REPRODUCED by Codex IV1 (nineCaseRecomputation: 9/9 identities, 905 unique tuples, 18 side pairs, tuple-set digest 73a548d967c9295315fdfcdcb311cc44bfb910f97e1bc3df14530e2a8ec00c50).",
+        "zaiDisclosure": "Z.ai did NOT re-parse the nine record files in this CORR1 act. The per-case enumerations below are carried verbatim from the parent artifact with their recomputed values; their evidentiary basis is the parent recomputation plus the Codex IV1 independent reproduction, not a new Z.ai parse.",
+        "cases": [
+          {
+            "case": "daimler-chrysler",
+            "stage1Generation": "BASELINE_v1.0.7_CANDIDATE",
+            "packageDir": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/Downloads/CASE-3.5_DAIMLER_CHRYSLER_BASELINE_v1.0.7_CANDIDATE",
+            "identityFormula": "sha256(CANONICAL_BASELINE_MANIFEST.json) + sha256(sibling ZIP)",
+            "recomputed": [
+              "d72b8125fee09866a6a25c1415a021f891aadc15449f758a2b2f10ee521abaeb",
+              "3951b0167f01d196da53b9df758d2bf4fff8b00df6feb9158aae366e5377544d"
+            ],
+            "match": true,
+            "supersededIdentityUsed": false,
+            "recordFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/Downloads/CASE-3.5_DAIMLER_CHRYSLER_BASELINE_v1.0.7_CANDIDATE/CERTIFIED_FACT_REGISTER.json",
+            "recordFileSha256": "268ee5818a3fc6f660a634cc125679c365c759b0a5c0c226f4bca11aca37f532",
+            "recordFileBytes": 95230,
+            "recordFileMatchesSourceMap": true,
+            "factCountRecomputed": 43,
+            "recordKeysOutcomeLike": [],
+            "pathOutcomeLike": false
+          },
+          {
+            "case": "deutsche-bankers-trust",
+            "stage1Generation": "candidate",
+            "packageDir": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/deutsche-bankers-trust/01_T0_PRE_T0_BASELINE/candidate",
+            "identityFormula": "sha256(11_SHA256SUMS.txt)",
+            "recomputed": "d5e42537d39f52385944f9f7c1794ce5648a4f6e21439c65c834a0a8417621a0",
+            "match": true,
+            "supersededIdentityUsed": false,
+            "recordFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/deutsche-bankers-trust/01_T0_PRE_T0_BASELINE/candidate/04_ATOMIC_FACT_LEDGER.jsonl",
+            "recordFileSha256": "9bfa11faac6a7619c6ee212db305fe0aca2ddcda0bc7c191f4be4c0937e3c69f",
+            "recordFileBytes": 37579,
+            "recordFileMatchesSourceMap": true,
+            "factCountRecomputed": 35,
+            "recordKeysOutcomeLike": [],
+            "pathOutcomeLike": false
+          },
+          {
+            "case": "pfizer-megamergers",
+            "stage1Generation": "CORR2/candidate",
+            "packageDir": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/pfizer-megamergers/01_T0_PRE_T0_BASELINE/CORR2/candidate",
+            "identityFormula": "sha256(11_SHA256SUMS.txt)",
+            "recomputed": "5f4e698bf696911a525e7b77b5758f8496f1cb31904c9cf8fac64ee534766af5",
+            "match": true,
+            "supersededIdentityUsed": false,
+            "recordFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/pfizer-megamergers/01_T0_PRE_T0_BASELINE/CORR2/candidate/04_ATOMIC_FACT_LEDGER.jsonl",
+            "recordFileSha256": "b1f0e206a0233b3a5bf4929286173160352c2524a8b0bbfc70b4d96d2fd12ca7",
+            "recordFileBytes": 41133,
+            "recordFileMatchesSourceMap": true,
+            "factCountRecomputed": 38,
+            "recordKeysOutcomeLike": [],
+            "pathOutcomeLike": false
+          },
+          {
+            "case": "aol-time-warner",
+            "stage1Generation": "candidate",
+            "packageDir": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/aol-time-warner/01_T0_PRE_T0_BASELINE/candidate",
+            "identityFormula": "sha256(sorted rel\\tsha\\tsize\\n lines excl 12_SHA256SUMS.txt)",
+            "recomputed": "9bfe1b32ab25b882b0bed81f60e550f43fcf594ca59d77275b762be6d76d468e",
+            "match": true,
+            "supersededIdentityUsed": false,
+            "recordFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/aol-time-warner/01_T0_PRE_T0_BASELINE/candidate/06_FACTS.json",
+            "recordFileSha256": "88b20920149b3fcde03e4e060cf4361e9494fe0137540bbc654c526337fd5f10",
+            "recordFileBytes": 61728,
+            "recordFileMatchesSourceMap": true,
+            "factCountRecomputed": 50,
+            "recordKeysOutcomeLike": [],
+            "pathOutcomeLike": false,
+            "memberCount": 26
+          },
+          {
+            "case": "aecom-urs",
+            "stage1Generation": "candidate_corr2",
+            "packageDir": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/aecom-urs/01_T0_PRE_T0_BASELINE/candidate_corr2",
+            "identityFormula": "sha256(sorted rel\\tsha\\tsize\\n lines excl 12_SHA256SUMS.txt)",
+            "recomputed": "d8b6d21e32198c6d240954c04715ad10561af5383461c7cc56b32d56efa94517",
+            "match": true,
+            "supersededIdentityUsed": false,
+            "recordFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/aecom-urs/01_T0_PRE_T0_BASELINE/candidate_corr2/06_FACTS.json",
+            "recordFileSha256": "a341928f14d8ff44fe4699bbf751cee3f1ac8993ab546d967c2c3ce537a879c4",
+            "recordFileBytes": 153454,
+            "recordFileMatchesSourceMap": true,
+            "factCountRecomputed": 86,
+            "recordKeysOutcomeLike": [],
+            "pathOutcomeLike": false,
+            "memberCount": 32
+          },
+          {
+            "case": "exxon-mobil",
+            "stage1Generation": "candidate_corr8",
+            "packageDir": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/exxon-mobil/01_T0_PRE_T0_BASELINE/candidate_corr8",
+            "identityFormula": "sha256(sorted rel\\tsha\\tsize\\n lines excl 12_SHA256SUMS.txt)",
+            "recomputed": "f50f6c74512b1c13d9253c1f6f8345136c824bf51e18587cbccfa339eb732833",
+            "match": true,
+            "supersededIdentityUsed": false,
+            "recordFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/exxon-mobil/01_T0_PRE_T0_BASELINE/candidate_corr8/06_FACTS.json",
+            "recordFileSha256": "415907847a64479d38298e6c48b38a727c93d26397867d7c6897843b7f05da36",
+            "recordFileBytes": 737400,
+            "recordFileMatchesSourceMap": true,
+            "factCountRecomputed": 428,
+            "recordKeysOutcomeLike": [],
+            "pathOutcomeLike": false,
+            "memberCount": 39
+          },
+          {
+            "case": "jpmorgan-bank-one",
+            "stage1Generation": "candidate",
+            "packageDir": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/jpmorgan-bank-one/01_T0_PRE_T0_BASELINE/candidate",
+            "identityFormula": "sha256(sorted rel\\tsha\\tsize\\n lines excl 12_SHA256SUMS.txt)",
+            "recomputed": "243f5cd41e0ef72cc8dc12efa56c41edbf7dd51e9d79f729c94db39008cb9b55",
+            "match": true,
+            "supersededIdentityUsed": false,
+            "recordFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/jpmorgan-bank-one/01_T0_PRE_T0_BASELINE/candidate/06_FACTS.json",
+            "recordFileSha256": "6150e8f45337d07d17b5ec6132b41bda724a72346ae7967b01fe6dcb996bbec0",
+            "recordFileBytes": 99055,
+            "recordFileMatchesSourceMap": true,
+            "factCountRecomputed": 61,
+            "recordKeysOutcomeLike": [],
+            "pathOutcomeLike": false,
+            "memberCount": 30
+          },
+          {
+            "case": "google-android",
+            "stage1Generation": "candidate",
+            "packageDir": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/google-android/01_T0_PRE_T0_BASELINE/candidate",
+            "identityFormula": "sha256(sorted rel\\tsha\\tsize\\n lines excl 12_SHA256SUMS.txt)",
+            "recomputed": "3acd3a77b0272c26c7e2d3736ab370cccf043aa8401bc1398720e393e8140edf",
+            "match": true,
+            "supersededIdentityUsed": false,
+            "recordFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/google-android/01_T0_PRE_T0_BASELINE/candidate/06_FACTS.json",
+            "recordFileSha256": "1a9ed535c66128b88a18904bc55a9fafd9f4faa37e350325c8fbf00325e02120",
+            "recordFileBytes": 61587,
+            "recordFileMatchesSourceMap": true,
+            "factCountRecomputed": 51,
+            "recordKeysOutcomeLike": [],
+            "pathOutcomeLike": false,
+            "memberCount": 27
+          },
+          {
+            "case": "amazon-whole-foods",
+            "stage1Generation": "candidate",
+            "packageDir": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/amazon-whole-foods/01_T0_PRE_T0_BASELINE/candidate",
+            "identityFormula": "sha256(sorted rel\\tsha\\tsize\\n lines excl 12_SHA256SUMS.txt)",
+            "recomputed": "e804bafb70636b2fcc3680f33672d4a794d20b7caaadc7934993d6e68b2f9039",
+            "match": true,
+            "supersededIdentityUsed": false,
+            "recordFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/amazon-whole-foods/01_T0_PRE_T0_BASELINE/candidate/06_FACTS.json",
+            "recordFileSha256": "4d58905e077bb3a6e6181f33272cb3488ec064b7b9c1d525413cdf368b59317c",
+            "recordFileBytes": 134974,
+            "recordFileMatchesSourceMap": true,
+            "factCountRecomputed": 113,
+            "recordKeysOutcomeLike": [],
+            "pathOutcomeLike": false,
+            "memberCount": 30
+          }
+        ],
+        "totalFacts": 905,
+        "identityMatches": 9,
+        "permission": "PERMITTED — B5.7 §16 names this exact set as the authoritative next-stage input"
+      }
+    },
+    "codingInstrument": {
+      "required": "FINAL frozen post-pilot contract (CORR4 §M)",
+      "current": "CORR4 2de49862…0bb0 accepted as PILOT VERSION only",
+      "state": "BLOCKED — not yet available (S4–S6)"
+    },
+    "coderView": {
+      "required": "full-corpus coder view + permitted-input allow-list (CORR4 §H/§I/§L-2 blindness)",
+      "existing": "STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json 0cb5a6b5d2239855eeabe0bfd0e9ceb6c545dc2a86b4b34a90b65187592721b5 (pilot-bound, AUTHOR CORRECTION CANDIDATE header; lock lineage IV PASS per B17.2)",
+      "state": "NOT_ESTABLISHED for B5.8 — to be fixed inside the B5.8 act packet (S7)"
+    }
+  },
+
+  "fencingBoundary": {
+    "correctionBasis": "IV1-F03 — the parent's blanket statement 'no past execution is available for reuse, and none needs to be fenced off' is RETRACTED.",
+    "examinedScopeState": "NO_EXECUTION_ESTABLISHED strictly within the examined scope (repository WORKBENCH, external WORKBENCH, ten Cline worktrees, one Codex worktree, /private/tmp, available project session records, scoped Git subjects). No reusable accepted full B5.8 result was recovered in the examined locations.",
+    "notClaimed": [
+      "B5.8 never ran anywhere — not claimed; unexamined cloud/other sessions, archives and incomplete historic logs remain outside scope",
+      "reference counts equal binding coverage — the Codex census figures (max 36 parsed fact references including fixtures; max 32 admitted-population references in artifact-index material) are reference counts, not proof of executed 905-fact normalization",
+      "no discovered result requires preservation — not claimed"
+    ],
+    "futureExecutionRequirements": [
+      "validate exact source and output identities before any write",
+      "perform destination-collision checks before any write",
+      "preserve any discovered accepted result or historical candidate — no silent replacement",
+      "keep the full sanitized view, allow-list and identity checks inside the authorized B5.8 act packet before coder access"
+    ]
+  },
+
+  "exclusions": [
+    {
+      "rule": "No superseded factual generations for Cases 1, 3, 5, 6",
+      "superseded": {
+        "daimler-chrysler": [
+          "manifest 652273f1d0a6c8a827b32c66794ce0ee332e66864a915b498ea5edb79cb80236",
+          "ZIP f31893aec80d35ec6eda4f998aaf9e28bf29f917d9658cbf38b84082b381899a"
+        ],
+        "pfizer-megamergers": [ "30f5feab45ce6f034641fd095e6a25ce82e3b66a13037b708c3d0e136c5ea94a" ],
+        "aecom-urs": [ "c95a623cfccdcba8e35d2069bda11de523e7f039a81c51095e6081deec4466b8" ],
+        "exxon-mobil": [ "995453defabd9ff9a57a89396f8dfda338e0c55a1c8ee17b305a79fbf15cf4f0" ]
+      },
+      "check": "0 superseded identities in the recomputed set; package dirs v1.0.7 / CORR2 / candidate_corr2 / candidate_corr8",
+      "state": "SATISFIED"
+    },
+    {
+      "rule": "No four stale analytical lineages (B5.7 §15)",
+      "lineages": [
+        "daimler-chrysler 02_CASE_RESEARCH/CASE-3.5/PRE_OUTCOME_ANALYSIS/CASE-3.6.CORR1_2026-09-05 (M-C02 / C-B02)",
+        "pfizer-megamergers/04_PRE_OUTCOME_NATIVE_PAEC_ANALYTICAL_ZAI/candidate (993d5ccf…)",
+        "aecom-urs/04_PRE_OUTCOME_NATIVE_PAEC_ANALYTICAL_ZAI/candidate (733d61d4…)",
+        "exxon-mobil/02_PRE_OUTCOME_NATIVE_PAEC_ANALYTICAL_ZAI/candidate (9634dc91…)"
+      ],
+      "state": "CONSTRAINT — must appear on the B5.8 deny-list; not referenced by the source map"
+    },
+    {
+      "rule": "No Prediction Seal outputs",
+      "locations": "per-case PRE_OUTCOME_ANALYSIS / seal packages (B5.3)",
+      "state": "CONSTRAINT — deny-list"
+    },
+    {
+      "rule": "No post-T0 outcomes",
+      "basis": "CORR4 TM-T0; RT §7; B5.7 §16–§17",
+      "state": "CONSTRAINT — record keys checked: no outcome/seal/prediction/environment-like key in any of 9 record files"
+    },
+    {
+      "rule": "No leakage through metadata, filenames, selectors, unrestricted source views",
+      "notes": [
+        "package dirs contain sources/ sub-trees: coder view must expose fact records only, not unrestricted source views",
+        "caseId slugs and company names are visible (as in the pilot coder input a87409c3…); no accepted rule requires masking; model prior knowledge of famous outcomes is an UNMITIGATED_DISCLOSED_LIMITATION, not a new gate",
+        "stratification marks, stratum labels and other coders' work must not reach B5.8 coders (§L-2 blindness carried)"
+      ],
+      "state": "PARTIAL — view design NOT_ESTABLISHED (S7)"
+    },
+    {
+      "rule": "No replacement of current factual authority by an older historical package",
+      "check": "source map points to successor generations; 9/9 identities match (parent recomputation, Codex IV1 reproduction)",
+      "state": "SATISFIED"
+    }
+  ],
+
+  "notInputsToB58": {
+    "stratifierMarks": [
+      "A 5d4c0a681b7ecdb1cef403dc91bd0603a666e070798326cc97893c1e6cf1c27d",
+      "B 7b91967b69bf5f95e831bac14e32bc1246836e2e9c2bcb3ef965874ba7dc2603"
+    ],
+    "pilotSelectedSample": "ce9a2bd1d44103c2a527be767af3300e3d14d516518be774b15262e19ca5f702",
+    "FEVA": "5b37071a5fa5374c77b149bfde5c230c228cdf73d9785e5ea55346f9fab28daa",
+    "role": "They shape the instrument (post-pilot contract evidence) but are never coder inputs to the 905 binding",
+    "historicalStatusCorrection_IV1_F01": "Marks A and B, the frozen ledger and the 30-fact sample are retained as immutable HISTORICAL evidence with disclosed limitations. Historical B process compliance is NOT_ESTABLISHED; retention of these bytes is not accepted §L-2 compliance and does not clear the §M lawful-pilot predecessor. If a separately authorized B-only rerun changes the effective disagreement set, only affected downstream classification and dependent calculations require reassessment."
+  },
+
+  "blockedSources": [
+    {
+      "source": "any post-pilot contract candidate as B5.8 instrument",
+      "reason": "not Owner-accepted, not frozen"
+    }
+  ]
+}

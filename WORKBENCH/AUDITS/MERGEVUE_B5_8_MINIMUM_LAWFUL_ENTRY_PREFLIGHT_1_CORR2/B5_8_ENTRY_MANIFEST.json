@@ -1,0 +1,265 @@
+{
+  "schemaVersion": "1.0",
+  "artifact": "B5_8_ENTRY_MANIFEST.json",
+  "completionDate": "2026-10-09",
+
+  "corr2Act": "MERGEVUE_B5_8_MINIMUM_LAWFUL_ENTRY_PREFLIGHT_1.CORR2",
+  "originalAct": "MERGEVUE_B5_8_MINIMUM_LAWFUL_ENTRY_PREFLIGHT_1",
+  "corr1Act": "MERGEVUE_B5_8_MINIMUM_LAWFUL_ENTRY_PREFLIGHT_1.CORR1",
+  "correctionAuthor": "Z.ai",
+  "correctionAuthorRole": "ANALYST / TARGETED CORRECTION AUTHOR under AGENTS.md / AGENTS_A.md, Owner-assigned in the CORR2 act text",
+  "correctionScope": "Exactly the single remaining BLOCKING finding of the independent Codex audit CORR1.IV1: IV1-CORR1-F01 (Route A shortest lawful path reaches scientific execution authorization while measured pilot independence remains unestablished), plus its synchronized dependents. Documentary and methodological-interpretation correction only. No scientific execution, no B-only rerun, no §L-4 classification, no HOLD-6 Owner decision, no methodology waiver, no contract acceptance, no FINAL CONTRACT FREEZE, no B5.8 execution, no Git mutation, no self-IV, no downstream act.",
+
+  "immutableInputs": {
+    "corr1Candidate": {
+      "note": "The exact CORR1 candidate and its Codex IV1 FAIL remain immutable. Both were read from the frozen transport and were not modified.",
+      "files": [
+        { "filename": "B5_8_ENTRY_MANIFEST.json", "bytes": 23884, "sha256": "bfb1a54db730f44c7accf6080c5164543757da72d9723a8ba50245d7d022a9ec" },
+        { "filename": "B5_8_ENTRY_REPORT.md", "bytes": 21586, "sha256": "50ddae4451f4ccc6c1814278e478ac3b81cde884975731579ff7845dfa32dff2" },
+        { "filename": "B5_8_GATE_MATRIX.json", "bytes": 24741, "sha256": "c83c32f1a8cdb1d01a1473e264465cbaeb05f7d4ca3f2e7401e1d8b125cc7849" },
+        { "filename": "B5_8_INPUT_AUTHORITY_AND_FIREWALL.json", "bytes": 19036, "sha256": "b1694e0aafd64efb673d2833d9a8f544300b549c0c2dcaa1261a7363dbab44fd" },
+        { "filename": "B5_8_SHORTEST_LAWFUL_SEQUENCE.md", "bytes": 21653, "sha256": "51df69e8621d64dfd22c612298f7204f29b2a53ce9f238785ef9229a597ffca2" }
+      ]
+    },
+    "corr1Iv1FailRecord": {
+      "act": "MERGEVUE_B5_8_MINIMUM_LAWFUL_ENTRY_PREFLIGHT_1.CORR1.IV1",
+      "auditor": "Codex",
+      "verdict": "FAIL",
+      "counts": { "BLOCKING": 1, "MAJOR": 0, "MINOR": 0, "ADVISORY": 0 },
+      "files": [
+        { "filename": "IV1_REPORT.md", "bytes": 19650, "sha256": "38686673835db228354afc78c905da1c5faaef794970fce072c2c1525c81ab1b" },
+        { "filename": "IV1_FINDINGS.json", "bytes": 17625, "sha256": "5da5c94408ba1297e55c17650c8ff116f0f47c194325c0bb888dd70c2ef236d4" },
+        { "filename": "IV1_EVIDENCE_RECOMPUTATION.json", "bytes": 179039, "sha256": "f3adab95a9340054f72e8e15f65eeae7ddb7bfcefe47a9ec7f8ab568fc626d39" },
+        { "filename": "IV1_CRITICAL_PATH_AUDIT.md", "bytes": 11900, "sha256": "de8e3989cd967c169f0cb1719914e3758705ba8fee3d977e07e5967460640f7b" },
+        { "filename": "IV1_MANIFEST.json", "bytes": 13161, "sha256": "c04e064b8b9d30ebcb4a6bb39fab658328a0b64a6d2f460e6e3adde350bd7254" }
+      ]
+    },
+    "frozenCorrectionInput": {
+      "transport": "MERGEVUE_B5_8_CORR2_AUTHOR_INPUT_2026-10-09.zip",
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/DOWNLOADS/MERGEVUE_B5_8_CORR2_AUTHOR_INPUT_2026-10-09.zip",
+      "bytes": 245103,
+      "sha256": "ae8917f3c40fbb5b9d0fe8d8c517dc664890d6fc1f8472d3e4fc4510c3bec7ec",
+      "structure": "CORR1_CANDIDATE/ (5 files) + CORR1_IV1_FAIL/ (5 files) + LINEAGE/ (1 zip); exactly eleven members; no member edited",
+      "lineageIntegrity": "LINEAGE/MERGEVUE_B5_8_CORR1_IV1_FULL_INPUT_2026-10-09.zip equals the IV1 frozen transport 47bd9688c87886187a1460a4e6d4632bfd8ec2f0fbd524c63ff8541e609a5430 (158,113 bytes)"
+    }
+  },
+
+  "repositoryBaseline": {
+    "head": "3852ca460c44df7c36d4c159a37125c6048f8548",
+    "branch": "main",
+    "note": "Same candidate-time HEAD as CORR1 and CORR1.IV1",
+    "trackedDirtyFiles": 0,
+    "untrackedPaths": 431,
+    "stagedFiles": 0,
+    "verificationMethod": "read-only: git rev-parse HEAD; git rev-parse --abbrev-ref HEAD; git status --porcelain; git diff --cached --name-only. No fetch, no staging, no commit, no push, no reset, no clean, no checkout."
+  },
+
+  "packageInventory": [
+    {
+      "filename": "B5_8_ENTRY_REPORT.md",
+      "bytes": 26840,
+      "sha256": "32505d808c014e22a12f67c83275e48aac51fbed94ea02d2ef939162d1071514",
+      "author": "Z.ai — CORR2 TARGETED CORRECTION AUTHOR",
+      "provenance": "Corrected successor of the CORR1 report (50ddae44…dff2); §3.A–§3.E substance preserved, §3.F extended, §3.G added, §4 diagram corrected"
+    },
+    {
+      "filename": "B5_8_GATE_MATRIX.json",
+      "bytes": 38854,
+      "sha256": "d77d638e745b68b2c6e919839c746367567e41a214c6de92b919e751f25a677d",
+      "author": "Z.ai — CORR2 TARGETED CORRECTION AUTHOR",
+      "provenance": "Corrected successor of the CORR1 matrix (c83c32f1…7849); F02–F04 gate content preserved; new G-L2-ELIG gate, eligibilityPredicate, routeAReachabilityNegativeTest NT-1, corrected terminalBasis and findingDisposition"
+    },
+    {
+      "filename": "B5_8_INPUT_AUTHORITY_AND_FIREWALL.json",
+      "bytes": 19036,
+      "sha256": "b1694e0aafd64efb673d2833d9a8f544300b549c0c2dcaa1261a7363dbab44fd",
+      "author": "Z.ai — CORR1 CORRECTION AUTHOR (carried byte-identically into CORR2)",
+      "provenance": "BYTE-IDENTICAL CARRY under the Owner's express authorization in the CORR2 act text ('may be carried byte-identically where no change is necessary, with provenance disclosed'). Necessity assessment: this artifact contains no Route A→S8 path claim and no equivalent inference; its historicalStatusCorrection_IV1_F01 note already records that retention of the historical bytes is not accepted §L-2 compliance and does not clear the §M lawful-pilot predecessor; it was not a named target of IV1-CORR1-F01 (whose surfaces were the sequence, report, matrix and manifest VCH-05/VCH-06). Its internal 'act' header therefore still reads MERGEVUE_B5_8_MINIMUM_LAWFUL_ENTRY_PREFLIGHT_1.CORR1 by design; the carrying act is recorded here. SHA-256 equals the CORR1 identity exactly."
+    },
+    {
+      "filename": "B5_8_SHORTEST_LAWFUL_SEQUENCE.md",
+      "bytes": 30700,
+      "sha256": "aa0cd326c2a2b7a9b90dfee621920f35f93e884e61096bfc2d14d53c01a6ea6b",
+      "author": "Z.ai — CORR2 TARGETED CORRECTION AUTHOR",
+      "provenance": "Corrected successor of the CORR1 sequence (51df69e8…fca2); the IV1-CORR1-F01 line-68 shortcut is removed, the §L-2 science-eligibility gate is inserted in §1/§2, §2A negative control added, §3 updated; T1 ∥ T2 parallel structure and scheduling note preserved"
+    },
+    {
+      "filename": "B5_8_ENTRY_MANIFEST.json",
+      "bytes": null,
+      "sha256": null,
+      "selfHashExclusionNote": "Byte count and SHA-256 of this manifest are deliberately absent here and are reported externally by the author after writing; no self-referential identity is placed inside this file.",
+      "author": "Z.ai — CORR2 TARGETED CORRECTION AUTHOR"
+    }
+  ],
+  "filenameStabilityNote": "All five filenames are identical to the parent and CORR1 packages'; the new output directory and the new identities distinguish this CORR2 successor.",
+  "outputDirectory": {
+    "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/DOWNLOADS/MERGEVUE_B5_8_MINIMUM_LAWFUL_ENTRY_PREFLIGHT_1_CORR2/",
+    "external": true,
+    "note": "New external directory created by this act; outside the Git repository (the repository root is …/MergeVue-M&A (August 2026)). Exactly these five files were written; no other path was created or modified."
+  },
+
+  "packageStatus": "CORR2_READY_FOR_INDEPENDENT_IV",
+  "packageStatusMeaning": "Author-declared CORR2 readiness based exclusively on the validation checks below. This is NOT IV_PASS, NOT independent verification, NOT Owner acceptance, and NOT authority to cite the package as a preflight.",
+
+  "independentVerificationOfCorr2": "ABSENT — no independent verification of this CORR2 exists. Recommended IV actor: Claude (preferred) or Codex (alternate), per the model routing and verification policy preferred pairings for a Z-Ai-authored analytical artifact (policy file MERGEVUE_MODEL_ROUTING_AND_VERIFICATION_POLICY_2026-09-08.md, sha256 07fdf43043c3a2245c7cb0eae2e89ff42f88d66100736751227f2ddfb7d34a23, sidecar-verified 2026-10-09); the Owner appoints. Z.ai must not verify its own correction. The IV must test CORR2 against IV1-CORR1-F01.",
+
+  "ownerAcceptanceOfCorr2": "ABSENT — this CORR2 is not Owner-accepted and makes no acceptance claim. It grants no methodological exception or waiver, decides no HOLD-6 question, authorizes no §L-4 classification and no B-only rerun, and is not a Control Tree edit.",
+
+  "findingDisposition": [
+    {
+      "finding": "IV1-CORR1-F01",
+      "severity": "BLOCKING",
+      "title": "Route A shortest lawful path reaches scientific execution authorization while measured pilot independence remains unestablished",
+      "disposition": "CORRECTED",
+      "correction": "The CORR1 line-68 Route A shortcut ('shortest path is then T1 ∥ T2 → C1 → S4 (identity selection only) → S5 → S6 → S8') and every equivalent inference are removed. Verified CORR4 §L-2 independent-stratifier process compliance is now an explicit mandatory element of scientific convergence (C1) and lawful progression toward B5.8, enforced by the new fail-closed gate G-L2-ELIG placed before S5/S6 can be credited as the lawful §M-chain predecessor of full binding. Route A is preserved solely for historical retention and appropriately bounded documentary activity while §L-2 remains NOT_ESTABLISHED (separately authorized historical-ledger analysis, documentary preparation/review, explicitly scoped conditional document acceptance). Documentary preparation and conditional document acceptance are explicitly distinguished from the eligibility-producing §M post-pilot acceptance (S5) and FINAL CONTRACT FREEZE (S6). Before S8, the path requires admissible historical §L-2 process proof or a separately authorized, independently verified replacement plus affected-only recomputation/repair; any explicit methodological exception is a different Owner-authorized methodology act, none supplied or granted. The sequence, report diagram, gate matrix (including terminalBasis carrying G-F1-HISTB/G-L2-ELIG as explicit outstanding eligibility conditions) and manifest VCH-05/VCH-06 are synchronized, with S7 retained in the execution packet. Negative test NT-1 demonstrates that Route A with §L-2 NOT_ESTABLISHED cannot reach S8 even if all documentary labels are present.",
+      "correctedIn": [
+        "B5_8_SHORTEST_LAWFUL_SEQUENCE.md §1 (T1, T1b, C1, S5, S6, S7, S8), §2 (G-L2-ELIG gate + corrected paragraph), §2A, §3",
+        "B5_8_ENTRY_REPORT.md §3.F (determinations 7–9), §3.G, §4",
+        "B5_8_GATE_MATRIX.json (G-L2-ELIG, G-F1-HISTB, G-D4-POSTPILOT-FREEZE, G-2-AUTH, eligibilityPredicate, routeAReachabilityNegativeTest NT-1, terminalBasis, findingDisposition)",
+        "B5_8_ENTRY_MANIFEST.json (VCH-05/VCH-06 strengthened)"
+      ]
+    },
+    {
+      "finding": "IV1-F01 (parent audit)",
+      "severity": "BLOCKING (parent audit)",
+      "disposition": "CORRECTED — CORR1's epistemic corrections preserved; the residual operational defect IV1-CORR1-F01 is corrected by CORR2. This closes the parent residual that Codex CORR1.IV1 recorded as PARTIALLY_ADDRESSED."
+    },
+    {
+      "finding": "IV1-F02 (parent audit)",
+      "severity": "MAJOR (parent audit)",
+      "disposition": "PRESERVED — CORR1 correction stands as VERIFIED_ADDRESSED per Codex CORR1.IV1. T1/T2 remain independent parallel tracks; scheduling note preserved verbatim; no Control Tree edge; not reopened by CORR2."
+    },
+    {
+      "finding": "IV1-F03 (parent audit)",
+      "severity": "MAJOR (parent audit)",
+      "disposition": "PRESERVED — CORR1 correction stands as VERIFIED_ADDRESSED per Codex CORR1.IV1. Census attribution, bounded NO_EXECUTION_ESTABLISHED, fencing boundary (byte-identical firewall artifact) all preserved; not reopened by CORR2."
+    },
+    {
+      "finding": "IV1-F04 (parent audit)",
+      "severity": "MINOR (parent audit)",
+      "disposition": "PRESERVED — CORR1 correction stands as VERIFIED_ADDRESSED per Codex CORR1.IV1. DEFERRED / NO_MANDATORY_EDGE_RECOVERED / G3_NOT_DETERMINED preserved everywhere; not reopened by CORR2."
+    }
+  ],
+
+  "performedChecks": [
+    {
+      "id": "VCH-01",
+      "check": "Frozen correction input transport identity",
+      "method": "shasum -a 256 on the Owner-supplied CORR2 author input zip",
+      "outcome": "PASS — SHA-256 equals the recomputed ae8917f3c40fbb5b9d0fe8d8c517dc664890d6fc1f8472d3e4fc4510c3bec7ec; 245,103 bytes"
+    },
+    {
+      "id": "VCH-02",
+      "check": "All eleven input members intact and identical to their recorded identities",
+      "method": "unzip to a private scratch area; find; shasum -a 256 + byte lengths on all eleven members",
+      "outcome": "PASS — CORR1_CANDIDATE/ five files match the frozen CORR1 identities exactly; CORR1_IV1_FAIL/ five files match the IV1-recorded output identities exactly; LINEAGE/ zip equals the IV1 frozen transport 47bd9688…5430 (158,113 B); no member edited"
+    },
+    {
+      "id": "VCH-03",
+      "check": "All new JSON documents parse",
+      "method": "python3 json.load on B5_8_GATE_MATRIX.json, B5_8_INPUT_AUTHORITY_AND_FIREWALL.json, and this manifest after writing",
+      "outcome": "PASS — matrix and firewall parse without error (manifest parse confirmed in post-write validation)"
+    },
+    {
+      "id": "VCH-04",
+      "check": "Complete IV1-CORR1-F01 mapping and parent F02–F04 preservation",
+      "method": "grep census of finding identifiers across the three analytical files + inspection of the gate-matrix findingDisposition block and this manifest's findingDisposition array",
+      "outcome": "PASS — IV1-CORR1-F01 appears and is dispositioned in all three analytical files (sequence 14, report 11, matrix 14 occurrences) and in both disposition blocks; parent IV1-F02/F03/F04 dispositions appear as PRESERVED with their CORR1 locations intact; no parent correction surface was removed"
+    },
+    {
+      "id": "VCH-05",
+      "check": "Cross-artifact consistency (STRENGTHENED versus CORR1, whose version IV1-CORR1-F01 found too weak)",
+      "method": "mechanical string/JSON comparison across the five files: act identifier, HEAD, terminal determination, T1/T2 parallel relationship, statuses, NOT_ESTABLISHED historical-B classification — PLUS the new consistency class required by IV1-CORR1-F01: the fail-closed §L-2 science-eligibility gate (G-L2-ELIG) present in sequence §1/§2, report §3.G/§4 diagram, matrix gate set; S8_reachable=false negative control present and mutually consistent in matrix NT-1 and sequence §2A; terminalBasis carries G-F1-HISTB/G-L2-ELIG as explicit outstanding eligibility conditions; byte-identity of the carried firewall artifact",
+      "outcome": "PASS — act MERGEVUE_B5_8_MINIMUM_LAWFUL_ENTRY_PREFLIGHT_1.CORR2 and HEAD 3852ca460c44df7c36d4c159a37125c6048f8548 consistent in all three analytical files; terminalDetermination REQUIRES_SPECIFIC_OWNER_DECISION identical in report and matrix; T1 ∥ T2 INDEPENDENT PARALLEL consistent in sequence and matrix; G-L2-ELIG present in all three analytical surfaces (matrix 20, report 6, sequence 6 occurrences); S8_reachable=false present in matrix NT-1 and sequence §2A; terminalBasis explicitly conditions S4–S6 credit and S8 reachability on the gate; firewall artifact byte-identical to CORR1 (b1694e0a…44fd, both copies); no file asserts completion of B5.8, §L-4, HOLD-6, freeze, binding, dual coding or regression"
+    },
+    {
+      "id": "VCH-06",
+      "check": "No Route A scientific-compliance promotion survives (STRENGTHENED versus CORR1, whose phrase-scan IV1-CORR1-F01 found insufficient because it matched status tokens but missed the operational path contradiction)",
+      "method": "three-layer scan: (1) banned parent phrases ('stand as the second independent stratification coder', 'supports a real second coder', affirmative 'Parent of S2', 'every later step depends on HOLD-6', 'none needs to be fenced off', 'RECOMMENDATION: A'); (2) NEW path-pattern scan for any affirmative Route-A-to-S8 path expression ('shortest path is then', 'identity selection only) → S5 → S6 → S8'); (3) line-level context inspection of every residual hit, requiring retraction/quotation/correction context",
+      "outcome": "PASS, reported accurately for CORR2: layer (1) — all residual hits are retraction/quotation contexts ('are retracted', 'is RETRACTED'); no RECOMMENDATION: A. Layer (2) — four residual hits of the CORR1 shortcut string, each in explicit withdrawal/correction/contrast context (sequence §2 corrected paragraph 'withdrawn in full'; report §3.G defect description; matrix NT-1 contrastWithCorr1; matrix correctionElements.1_routeAShortcutRemoved); no affirmative use. Layer (3) — every S8 mention in a path context is gated: S8 is reachable only after G-L2-ELIG opens (admissible historical proof or separately authorized independently verified replacement). No file claims historical B clears §L-2 or the §M pilot predecessor, and no file offers a Route A path to S8."
+    },
+    {
+      "id": "VCH-07",
+      "check": "§L-4 and HOLD-6 represented as parallel (parent F02 preserved)",
+      "method": "gate matrix parallelTracks block; sequence table classes and scheduling note; banned-edge scan",
+      "outcome": "PASS — T1 and T2 are INDEPENDENT PARALLEL in matrix and sequence; T2 stated independently executable now; convergence point defined before S4/S5/S6 and now additionally gated by G-L2-ELIG; newControlTreeEdges = []; serial preference present only as a labeled scheduling recommendation (preserved verbatim from CORR1)"
+    },
+    {
+      "id": "VCH-08",
+      "check": "Execution-census limitation and fencing boundary (parent F03 preserved)",
+      "method": "string verification across the analytical files; firewall artifact byte-identity check",
+      "outcome": "PASS — 'strictly within the examined scope' and destination-collision requirement present in all analytical files; Codex census attributed to Codex with explicit 'not re-performed by Z.ai'; no 'never ran anywhere' claim; preservation-without-silent-replacement required; fencingBoundary carried byte-identically in the firewall artifact"
+    },
+    {
+      "id": "VCH-09",
+      "check": "G-3 stays NOT_DETERMINED (parent F04 preserved)",
+      "method": "string verification",
+      "outcome": "PASS — 'DEFERRED / NO_MANDATORY_EDGE_RECOVERED / G3_NOT_DETERMINED' present in all three F04 surfaces (report §3.D.1, matrix G-D1-REGRESS, sequence P1); no categorical nonblocking or silent resolution outside correction context"
+    },
+    {
+      "id": "VCH-10",
+      "check": "Accepted B5.5/B5.7/FEVA/B17/CORR4 boundaries preserved",
+      "method": "identity re-hash (shasum -a 256) of the cited controlling/untracked artifacts on 2026-10-09 against the identities recorded in CORR1, the parent and the IV1 records",
+      "outcome": "PASS — all match: B5.5 freeze da9b9de2…cbd6; B5.5/B5.7 reaffirmation ce8b7306…ccd6; B5.7 binding be9593a7…0237; FEVA CORR2 records 5b37071a…8daa (104,722 B); adapted harness 82f78f8c…d560; CORR4 candidate 2de49862…0bb0 (250,512 B); pilot lock 0f9daef2…897a; marks A 5d4c0a68…c27d; marks B 7b91967b…2603; ledger 990950c5…3e0b (1,094 rows); agreement 37f4b421…599d; selected sample ce9a2bd1…f702; source map 665aac81…4a7f; B report 7572c68f…65c3; B prompt 50f6653d…d211 (external WORKBENCH); B17 manifest c4545c45…fa7c; B17 report ed5d9941…68b78; B17 sequence b28bc838…c82b1; node matrix 621eca0a…8a97; adapter closure 7f1cd15b… (STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_1_GIT_CLOSURE_1.md, located by hash). Routing policy 07fdf430…4a23 and guardrail 93484e46…f1b7 verified against their .sha256 sidecars. No accepted component is reopened or weakened."
+    },
+    {
+      "id": "VCH-11",
+      "check": "Z.ai mechanical re-verifications of frozen pilot artifacts",
+      "method": "wc -l on marks A, marks B, ledger; JSON inspection of the agreement file's disagreementFreeze.classificationAssigned (re-run by Z.ai for CORR2)",
+      "outcome": "PASS — 11,765 / 11,765 / 1,094 rows confirmed again; classificationAssigned = false confirmed again. Deeper metrics (agreement arithmetic 0.9070123246918828, pair counts, 30-fact selection reproduction) are carried from the parent author's computation and Codex IV1's independent reproduction, NOT re-derived by Z.ai."
+    },
+    {
+      "id": "VCH-12",
+      "check": "No scientific work executed",
+      "method": "authorship attestation plus output-boundary inspection",
+      "outcome": "PASS — no B-only rerun, no §L-4 classification, no new stratifier marks, no HOLD-6 decision, no exception or waiver, no post-pilot contract acceptance, no FINAL CONTRACT FREEZE, no 905-fact binding, no dual coding, no regression execution, no B5.9–B5.19 advancement, no Control Tree alteration, no product modification. The negative control NT-1 is a static logical counterexample; nothing was executed by it."
+    },
+    {
+      "id": "VCH-13",
+      "check": "No repository or Git mutation",
+      "method": "git rev-parse HEAD, git rev-parse --abbrev-ref HEAD, git status --porcelain, git diff --cached --name-only at act start and close; all five outputs written only to the new external CORR2 directory",
+      "outcome": "PASS — HEAD 3852ca460c44df7c36d4c159a37125c6048f8548 unchanged; 431 untracked paths, 0 tracked dirty, 0 staged at act start; closing check re-run before delivery; no staging, commit, push, reset, stash, clean or checkout; output directory is outside the repository"
+    },
+    {
+      "id": "VCH-14",
+      "check": "Negative test present and fails closed (NEW; required by the CORR2 act, requirement 6)",
+      "method": "structural inspection of routeAReachabilityNegativeTest (NT-1) in B5_8_GATE_MATRIX.json and its §2A mirror in B5_8_SHORTEST_LAWFUL_SEQUENCE.md; verification that expectedResult.S8_reachable = false, that S5/S6 labels are classified as documentary/conditional only, and that the governing predicate makes documentary labels insufficient while §L-2 is NOT_ESTABLISHED",
+      "outcome": "PASS — NT-1 present in the matrix (5 occurrences) and mirrored in the sequence (§2A) and report (§3.G/§4); scenario sets documentaryLabelsAllPresent = true with §L-2 NOT_ESTABLISHED; expectedResult: S8_reachable=false, TERMINATES_AT_G_L2_ELIG, S5/S6 = documentary/conditional only, lawfulEntryState = UNQUALIFIED_SCIENTIFIC_ENTRY_NOT_ESTABLISHED; contrastWithCorr1 records that the same scenario reached S8 under the immutable IV1-FAILed CORR1 sequence. Static logic only; nothing executed."
+    },
+    {
+      "id": "VCH-15",
+      "check": "Byte-identical carry of the input-authority/firewall artifact with disclosed provenance (NEW; per the CORR2 act authorization)",
+      "method": "shasum -a 256 of the carried file versus the frozen CORR1 identity; necessity-of-change assessment against the IV1-CORR1-F01 supporting surfaces",
+      "outcome": "PASS — carried SHA-256 b1694e0aafd64efb673d2833d9a8f544300b549c0c2dcaa1261a7363dbab44fd equals the CORR1 identity exactly (19,036 bytes). Necessity assessment: no change necessary — the artifact contains no Route A→S8 claim, was not a named IV1-CORR1-F01 surface, and already records that retention is not accepted §L-2 compliance. Provenance disclosed in packageInventory and in gate G-E-FIREWALL.artifactProvenance; its internal 'act' header intentionally still reads CORR1 and the carrying act is recorded in this manifest."
+    }
+  ],
+
+  "checksNotPerformedByZai": [
+    "Codex's independent parent-IV1 census (22,446 files / 367 token-bearing files / parsed reference maxima) was NOT repeated; it is cited as Codex evidence with attribution.",
+    "The nine Stage-1 record files were NOT re-parsed; per-case identities and the 905 count are carried from the parent author's recomputation and Codex IV1's independent reproduction.",
+    "The agreement arithmetic and the deterministic 30-fact selection were NOT recomputed by Z.ai; they are carried from the same two prior computations.",
+    "Worktree, session-record and Git-subject sweeps were NOT repeated.",
+    "The scientific correctness of the corrected analysis is NOT self-audited (forbidden by the act contract); it is reserved for the independent IV."
+  ],
+
+  "remainingLimits": [
+    "Historical stratifier B: actual platform/model identity, fresh-session isolation, outcome blindness and forbidden-input abstinence remain NOT_ESTABLISHED; no affirmative contamination breach is established either; appointment (Kimi K3 Extra) vs reported executor (Claude/Cline) mismatch stands as a primary documentary fact.",
+    "CORR4 §L-2 measured-pilot process compliance remains NOT_ESTABLISHED: the G-L2-ELIG science-eligibility gate is CLOSED; unqualified lawful B5.8 entry remains NOT_ESTABLISHED; no Route A path to S8 exists. Opening the gate requires admissible historical proof (independently verified) or a separately authorized, independently verified replacement with affected-only recomputation/repair.",
+    "NO_EXECUTION_ESTABLISHED is bounded to examined locations; unexamined cloud/other sessions, archives and incomplete historic logs remain outside scope; absence of a recovered accepted result is not proof of global absence.",
+    "G-3 (regress(path) ↔ B5.8) remains NOT_DETERMINED; full regression is NOT_RUN / DEFERRED and requires separate Owner authorization.",
+    "B17.4 component primary Owner acceptance remains unrecovered; it is retained as a conditional reliance gate at S4b.",
+    "Original September acceptance messages for B5.5/B5.7 remain unrecovered; current Owner reaffirmation at 9b1a501 governs their accepted status.",
+    "One exact post-pilot contract identity and FINAL CONTRACT FREEZE remain NOT_ESTABLISHED / OPEN (S4–S6); any acceptance/freeze recorded before the gate opens is documentary or explicitly conditional only.",
+    "The full-corpus sanitized coder view and permitted-input allow-list remain NOT_ESTABLISHED and belong inside the future B5.8 act packet (S7, retained in the S8 execution packet).",
+    "Clean mark keys and sanitized population structure do not prove semantic blindness of any historical session or absence of leakage from unrestricted source metadata.",
+    "Documentary authorship is Owner-designated; file bytes alone do not forensically authenticate a model author."
+  ],
+
+  "correctedCriticalPathConclusion": "Two independent parallel tracks — T1 (HOLD-6 actor/process disposition, Owner normative; with a conditional, separately authorized and independently verified B-only rerun as the recommended corrective route under unchanged methodology if admissible historical evidence remains unavailable) and T2 (§L-4 classification of the exact frozen 1,094 tuples) — converge at C1, which is a fail-closed science-eligibility gate: CORR4 §L-2 measured-pilot process compliance must be ESTABLISHED (admissible historical proof, or a separately authorized independently verified replacement) alongside settled effective §L-4/repairs before the convergence is science-eligible. Only then does the serial eligibility chain apply: exact post-pilot contract identity (+ conditional B17.4 provenance) → Owner acceptance → FINAL CONTRACT FREEZE → B5.8 act packet (S7 retained: sanitized view, allow-list, exact identity and collision checks) → explicit B5.8 authorization → execution; B5.9 independent dual coding and HEDC remain downstream and cannot retroactively prove pilot independence. While §L-2 compliance is NOT_ESTABLISHED, Route A (bounded historical retention) supports only bounded documentary activity; S4–S6 receive no eligibility-producing §M credit and NO path reaches S8 — demonstrated by negative test NT-1. G-3 stays DEFERRED / NO_MANDATORY_EDGE_RECOVERED / G3_NOT_DETERMINED. B5.8 remains unexecuted as an established accepted full-scope act.",
+
+  "gitNonMutation": "No git staging, commit, push, reset, stash, clean, or any other repository mutation was performed by this CORR2 act. The output directory lies outside the Git repository. The frozen input archive, its extracted members and both prior candidate/audit directories were treated as read-only.",
+
+  "selfHashExclusion": "By design this manifest contains no self-referential SHA-256. The manifest's exact byte count and SHA-256 are reported by the author in the terminal response, outside this file.",
+
+  "terminalBoundary": "STOP after delivering the five files and the external identity report. No continuation into IV, Owner acceptance, HOLD-6 disposition, §L-4 execution, B5.8 or any downstream act."
+}

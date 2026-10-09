@@ -1,0 +1,681 @@
+{
+  "schemaVersion": "1.0",
+  "act": "MERGEVUE_B5_8_MINIMUM_LAWFUL_ENTRY_PREFLIGHT_1.CORR2.IV1",
+  "date": "2026-10-09",
+  "auditor": "Codex",
+  "role": "INDEPENDENT AUDITOR under AGENTS_A.md",
+  "verdict": "PASS",
+  "findingCounts": {
+    "BLOCKING": 0,
+    "MAJOR": 0,
+    "MINOR": 0,
+    "ADVISORY": 1
+  },
+  "parentFindingDisposition": [
+    {
+      "id": "IV1-CORR1-F01",
+      "disposition": "VERIFIED_ADDRESSED",
+      "originalSeverity": "BLOCKING",
+      "evidenceLocations": {
+        "primaryMethod": [
+          {
+            "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SEMANTIC_SUCCESSOR_CANDIDATE_CORR4.md",
+            "lines": [
+              1027,
+              1028,
+              1030,
+              1031,
+              1033,
+              1045,
+              1048,
+              1049
+            ]
+          }
+        ],
+        "acceptedB17": [
+          {
+            "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/AUDITS/MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1_CORR1/B17_MINIMUM_CLOSURE_SEQUENCE.md",
+            "sections": [
+              "2",
+              "3",
+              "4",
+              "6",
+              "7",
+              "8",
+              "9",
+              "11",
+              "16"
+            ]
+          }
+        ],
+        "candidateSequence": [
+          {
+            "path": "CORR2_CANDIDATE/B5_8_SHORTEST_LAWFUL_SEQUENCE.md",
+            "lines": [
+              18,
+              20,
+              21,
+              25,
+              26,
+              27,
+              28,
+              57,
+              59,
+              62,
+              68,
+              89,
+              91,
+              110,
+              241,
+              248,
+              268
+            ]
+          }
+        ],
+        "candidateReport": [
+          {
+            "path": "CORR2_CANDIDATE/B5_8_ENTRY_REPORT.md",
+            "lines": [
+              17,
+              42,
+              76,
+              77,
+              78,
+              79,
+              101,
+              104,
+              106,
+              107,
+              108,
+              118,
+              119,
+              120,
+              125,
+              137,
+              141,
+              144,
+              145
+            ]
+          }
+        ],
+        "candidateMatrix": [
+          {
+            "path": "CORR2_CANDIDATE/B5_8_GATE_MATRIX.json",
+            "jsonPointers": [
+              "/gates/5/gateRule",
+              "/gates/6/routeABoundary",
+              "/gates/10/state",
+              "/gates/13/state",
+              "/eligibilityPredicate/statement",
+              "/eligibilityPredicate/failClosedRule",
+              "/terminalBasis"
+            ]
+          }
+        ],
+        "candidateManifest": [
+          {
+            "path": "CORR2_CANDIDATE/B5_8_ENTRY_MANIFEST.json",
+            "lines": [
+              172,
+              173,
+              178,
+              179,
+              225,
+              226,
+              227,
+              248,
+              258
+            ]
+          }
+        ],
+        "firewall": [
+          {
+            "path": "CORR2_CANDIDATE/B5_8_INPUT_AUTHORITY_AND_FIREWALL.json",
+            "jsonPointers": [
+              "/notInputsToB58/historicalStatusCorrection_IV1_F01",
+              "/requiredInputs/codingInstrument",
+              "/fencingBoundary/futureExecutionRequirements"
+            ]
+          }
+        ]
+      },
+      "reason": "Necessary scientific condition enforced across all operative routing surfaces; N1 reproduces old bypass and proves it unavailable in CORR2."
+    },
+    {
+      "id": "IV1-F02",
+      "disposition": "VERIFIED_ADDRESSED_PRESERVED",
+      "regressionResult": "PASS"
+    },
+    {
+      "id": "IV1-F03",
+      "disposition": "VERIFIED_ADDRESSED_PRESERVED",
+      "regressionResult": "PASS"
+    },
+    {
+      "id": "IV1-F04",
+      "disposition": "VERIFIED_ADDRESSED_PRESERVED",
+      "regressionResult": "PASS"
+    }
+  ],
+  "newFindings": [
+    {
+      "id": "IV1-CORR2-A01",
+      "severity": "ADVISORY",
+      "title": "N2-N4 and P1 author-side completed control records are not established",
+      "locations": [
+        {
+          "file": "CORR2_CANDIDATE/B5_8_GATE_MATRIX.json",
+          "jsonPointer": "/routeAReachabilityNegativeTest",
+          "lines": [
+            332,
+            333
+          ],
+          "detail": "NT-1 is the sole separately recorded logical control; no completed N2/N3/N4/P1 control object"
+        },
+        {
+          "file": "CORR2_CANDIDATE/B5_8_SHORTEST_LAWFUL_SEQUENCE.md",
+          "lines": [
+            93,
+            115
+          ],
+          "detail": "Section 2A records NT-1 only; section 1 P1 is the FEVA regression lane, not the requested positive control"
+        },
+        {
+          "file": "CORR2_CANDIDATE/B5_8_ENTRY_MANIFEST.json",
+          "jsonPointer": "/performedChecks/13",
+          "lines": [
+            224,
+            228
+          ],
+          "detail": "VCH-14 attests NT-1 only; checksNotPerformedByZai does not identify the additional control-record limitation"
+        }
+      ],
+      "controllingRequirement": "Current Owner task G4 establishes that the subsequent executable author prompt specified N2-N4/P1 in addition to the Owner-authorized Route A negative demonstration. This express validation obligation is acknowledged, not retrospectively invented or waived.",
+      "independentEvidence": "All five frozen files were inspected. NT-1 and its mirror are present, but no separately completed author control records for N2-N4/P1 are present. Independent N2/N3/N4/P1 predicate evaluations in this IV1 all return the required results against the actual conjunction. Absence of a record is not proof the author did or did not privately perform a check.",
+      "consequence": "Author-side validation completeness for those four scenarios remains NOT_ESTABLISHED. It does not expose a missing scientific conjunction, a surviving Route A bypass or an invalid positive path. The correction of the sole BLOCKING target can be independently verified.",
+      "smallestCorrectionNecessary": "If author-validation completeness is later required, add an explicitly attributed record of N2-N4/P1 source predicates, inputs and results, or disclose that the author did not complete them, in a separately authorized documentary act. Do not edit frozen CORR2 or backdate these IV1 tests as Z.ai work.",
+      "severityRationale": "ADVISORY evidentiary limitation, not BLOCKING/MAJOR: the Owner authorization expressly required the Route A negative demonstration and NT-1 meets it; the additional executor controls remain an express but unestablished author evidence obligation. The current independent audit directly tests every specified scenario and establishes all load-bearing results. No applicable verdict criterion requires failing an otherwise sound correction solely for absent separate labels/records. This PASS does not certify complete author-prompt performance.",
+      "classification": "SOURCE_TEXT_FACT + OWNER_TASK_OBLIGATION + INDEPENDENT_DERIVATION",
+      "confidence": "HIGH"
+    }
+  ],
+  "gateResults": [
+    {
+      "id": "G1",
+      "result": "PASS",
+      "conclusion": "Exact transport and 16 members; five CORR2 pins; all candidate JSON parses; historical candidate/audit/lineage links match; firewall carry and self exclusion disclosed; 81 embedded manifest links independently checked."
+    },
+    {
+      "id": "G2",
+      "result": "PASS",
+      "conclusion": "Two independent stratifiers are a primary L-2 measured-process condition. Historical process compliance remains NOT_ESTABLISHED; actor appointment/report differ; no affirmative contamination established. G-L2-ELIG faithfully enforces L-2/M without adding a Tree edge."
+    },
+    {
+      "id": "G3",
+      "result": "PASS",
+      "conclusion": "Original line-68 premise reproduces CORR1 S8 reachability; identical L2-unestablished premise in CORR2 stops at G-L2-ELIG across sequence, report, matrix, manifest and compatible carried firewall. Parent finding VERIFIED_ADDRESSED."
+    },
+    {
+      "id": "G4",
+      "result": "PASS_WITH_ADVISORY",
+      "conclusion": "Independent N1-N4/P1 all PASS; missing author N2-N4/P1 records are IV1-CORR2-A01, not a missing conjunction. Author-side completeness NOT_ESTABLISHED and not waived."
+    },
+    {
+      "id": "G5",
+      "result": "PASS",
+      "conclusion": "S4 preparation and conditional document disposition may occur while L2 is open; S5/S6 receive no scientific credit then. Exact accepted bytes/freeze labels do not prove pilot execution. Packet is required, and eligibility to request S8 differs from a separate Owner authorization."
+    },
+    {
+      "id": "G6",
+      "result": "PASS",
+      "conclusion": "T1 parallel T2, then established L2 AND effective L4/repairs; exact accepted contract, distinct freeze, packet, separate S8 authorization, execution, later B5.9. Conditional rerun reassesses affected dependents only; no method waiver/new edge or B5.8/B5.9 advancement."
+    },
+    {
+      "id": "G7",
+      "result": "PASS",
+      "conclusion": "F02-F04 preserved by focused comparisons; no reopening of full scientific histories. Historical nine-case/18-side/905-fact substrate and bounded census reused with provenance."
+    },
+    {
+      "id": "G8",
+      "result": "PASS",
+      "conclusion": "Read-only Git/source inspection and deterministic scratch calculations only. No scientific execution, classification, decision, waiver, acceptance, freeze, binding, regression, Tree mutation or Git mutation. Scope of historical-author nonmutation evidence is bounded to identities/attestations, not a universal process forensic proof."
+    }
+  ],
+  "testCompletenessAdjudication": {
+    "OwnerAuthorizationNegativeDemonstration": "SATISFIED_BY_NT1_AND_MIRROR",
+    "additionalExecutorObligation": "N2-N4/P1 explicitly specified (current Owner task G4); not waived",
+    "authorSeparateCompletedRecords": "NOT_ESTABLISHED",
+    "currentIndependentControls": "N1-N4/P1 all PASS as static source-predicate evaluations",
+    "materialMissingConjunction": false,
+    "adjudication": "ADVISORY_LIMITATION",
+    "findingId": "IV1-CORR2-A01",
+    "notPromoted": "Auditor tests are not author tests or real scientific execution evidence"
+  },
+  "staticControls": [
+    {
+      "id": "N1",
+      "type": "STATIC_SOURCE_PREDICATE_TEST_NOT_RUNTIME",
+      "hypotheticalInputs": {
+        "L2": "NOT_ESTABLISHED",
+        "effectiveL4Settled": true,
+        "exactContractAccepted": true,
+        "lawfulFinalFreeze": true,
+        "packetSatisfied": true,
+        "separateOwnerAuthorization": true,
+        "laterB59Complete": false,
+        "description": "History retained; all documentary labels supplied"
+      },
+      "sourcePredicate": "CORR4 L-2/L-4/M and candidate matrix eligibilityPredicate.statement / failClosedRule; separate G-2-AUTH",
+      "expectedS8LawfulReachability": false,
+      "independentlyDerivedResult": {
+        "L2_effective": "NOT_ESTABLISHED",
+        "SCIENTIFIC_CONVERGENCE": "BLOCKED",
+        "S5_ELIGIBILITY_CREDIT": false,
+        "S6_ELIGIBILITY_CREDIT": false,
+        "S8_LAWFUL_REACHABILITY": false,
+        "B58_execution_authorized_hypothetically": false
+      },
+      "candidateSupportsResult": true,
+      "result": "PASS",
+      "authoredRecord": "NT-1 with sequence mirror",
+      "authorRecordOmissionMaterialToScientificCorrection": false,
+      "sourceLocations": [
+        {
+          "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SEMANTIC_SUCCESSOR_CANDIDATE_CORR4.md",
+          "lines": [
+            1027,
+            1028,
+            1030,
+            1031,
+            1033,
+            1045,
+            1048,
+            1049
+          ]
+        },
+        {
+          "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/AUDITS/MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1_CORR1/B17_MINIMUM_CLOSURE_SEQUENCE.md",
+          "sections": [
+            "2",
+            "3",
+            "4",
+            "6",
+            "7",
+            "8",
+            "9",
+            "11",
+            "16"
+          ]
+        },
+        {
+          "path": "CORR2_CANDIDATE/B5_8_GATE_MATRIX.json",
+          "jsonPointers": [
+            "/gates/5/gateRule",
+            "/gates/6/routeABoundary",
+            "/gates/10/state",
+            "/gates/13/state",
+            "/eligibilityPredicate/statement",
+            "/eligibilityPredicate/failClosedRule",
+            "/terminalBasis"
+          ]
+        }
+      ],
+      "hypotheticalInputRule": "Inputs are counterfactual variables only. No real L2 or L4 evidence is generated.",
+      "candidateLocations": [
+        "sequence:21,25-28,57-70,99-113",
+        "matrix:/eligibilityPredicate/failClosedRule",
+        "matrix:/routeAReachabilityNegativeTest",
+        "report:137-145"
+      ],
+      "reason": "Missing L2 annihilates scientific convergence and S5/S6 credit; all labels remain documentary."
+    },
+    {
+      "id": "N2",
+      "type": "STATIC_SOURCE_PREDICATE_TEST_NOT_RUNTIME",
+      "hypotheticalInputs": {
+        "L2": "ESTABLISHED",
+        "effectiveL4Settled": false,
+        "exactContractAccepted": true,
+        "lawfulFinalFreeze": true,
+        "packetSatisfied": true,
+        "separateOwnerAuthorization": true,
+        "laterB59Complete": false,
+        "description": "Effective L4 disposition incomplete"
+      },
+      "sourcePredicate": "CORR4 L-2/L-4/M and candidate matrix eligibilityPredicate.statement / failClosedRule; separate G-2-AUTH",
+      "expectedS8LawfulReachability": false,
+      "independentlyDerivedResult": {
+        "L2_effective": "ESTABLISHED",
+        "SCIENTIFIC_CONVERGENCE": "BLOCKED",
+        "S5_ELIGIBILITY_CREDIT": false,
+        "S6_ELIGIBILITY_CREDIT": false,
+        "S8_LAWFUL_REACHABILITY": false,
+        "B58_execution_authorized_hypothetically": false
+      },
+      "candidateSupportsResult": true,
+      "result": "PASS",
+      "authoredRecord": "NOT_PRESENT_AS_A_SEPARATE_COMPLETED_CONTROL",
+      "authorRecordOmissionMaterialToScientificCorrection": false,
+      "sourceLocations": [
+        {
+          "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SEMANTIC_SUCCESSOR_CANDIDATE_CORR4.md",
+          "lines": [
+            1027,
+            1028,
+            1030,
+            1031,
+            1033,
+            1045,
+            1048,
+            1049
+          ]
+        },
+        {
+          "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/AUDITS/MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1_CORR1/B17_MINIMUM_CLOSURE_SEQUENCE.md",
+          "sections": [
+            "2",
+            "3",
+            "4",
+            "6",
+            "7",
+            "8",
+            "9",
+            "11",
+            "16"
+          ]
+        },
+        {
+          "path": "CORR2_CANDIDATE/B5_8_GATE_MATRIX.json",
+          "jsonPointers": [
+            "/gates/5/gateRule",
+            "/gates/6/routeABoundary",
+            "/gates/10/state",
+            "/gates/13/state",
+            "/eligibilityPredicate/statement",
+            "/eligibilityPredicate/failClosedRule",
+            "/terminalBasis"
+          ]
+        }
+      ],
+      "hypotheticalInputRule": "Inputs are counterfactual variables only. No real L2 or L4 evidence is generated.",
+      "candidateLocations": [
+        "sequence:20-22",
+        "matrix:/eligibilityPredicate/statement element (2)",
+        "matrix:/gates/5/gateRule"
+      ],
+      "reason": "Effective L4 disposition and required repairs are a mandatory conjunct. L2 alone cannot open convergence."
+    },
+    {
+      "id": "N3",
+      "type": "STATIC_SOURCE_PREDICATE_TEST_NOT_RUNTIME",
+      "hypotheticalInputs": {
+        "L2": "ESTABLISHED",
+        "effectiveL4Settled": true,
+        "exactContractAccepted": false,
+        "lawfulFinalFreeze": true,
+        "packetSatisfied": true,
+        "separateOwnerAuthorization": true,
+        "laterB59Complete": false,
+        "description": "Exact contract not Owner-accepted"
+      },
+      "sourcePredicate": "CORR4 L-2/L-4/M and candidate matrix eligibilityPredicate.statement / failClosedRule; separate G-2-AUTH",
+      "expectedS8LawfulReachability": false,
+      "independentlyDerivedResult": {
+        "L2_effective": "ESTABLISHED",
+        "SCIENTIFIC_CONVERGENCE": "ESTABLISHED",
+        "S5_ELIGIBILITY_CREDIT": false,
+        "S6_ELIGIBILITY_CREDIT": false,
+        "S8_LAWFUL_REACHABILITY": false,
+        "B58_execution_authorized_hypothetically": false
+      },
+      "candidateSupportsResult": true,
+      "result": "PASS",
+      "authoredRecord": "NOT_PRESENT_AS_A_SEPARATE_COMPLETED_CONTROL",
+      "authorRecordOmissionMaterialToScientificCorrection": false,
+      "sourceLocations": [
+        {
+          "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SEMANTIC_SUCCESSOR_CANDIDATE_CORR4.md",
+          "lines": [
+            1027,
+            1028,
+            1030,
+            1031,
+            1033,
+            1045,
+            1048,
+            1049
+          ]
+        },
+        {
+          "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/AUDITS/MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1_CORR1/B17_MINIMUM_CLOSURE_SEQUENCE.md",
+          "sections": [
+            "2",
+            "3",
+            "4",
+            "6",
+            "7",
+            "8",
+            "9",
+            "11",
+            "16"
+          ]
+        },
+        {
+          "path": "CORR2_CANDIDATE/B5_8_GATE_MATRIX.json",
+          "jsonPointers": [
+            "/gates/5/gateRule",
+            "/gates/6/routeABoundary",
+            "/gates/10/state",
+            "/gates/13/state",
+            "/eligibilityPredicate/statement",
+            "/eligibilityPredicate/failClosedRule",
+            "/terminalBasis"
+          ]
+        }
+      ],
+      "hypotheticalInputRule": "Inputs are counterfactual variables only. No real L2 or L4 evidence is generated.",
+      "candidateLocations": [
+        "sequence:23-26",
+        "matrix:/eligibilityPredicate/statement element (3)",
+        "matrix:/gates/10/state"
+      ],
+      "reason": "Exact contract acceptance is a separate necessary conjunct; a freeze label without that lawful acceptance cannot substitute."
+    },
+    {
+      "id": "N4",
+      "type": "STATIC_SOURCE_PREDICATE_TEST_NOT_RUNTIME",
+      "hypotheticalInputs": {
+        "L2": "NOT_ESTABLISHED",
+        "effectiveL4Settled": true,
+        "exactContractAccepted": true,
+        "lawfulFinalFreeze": true,
+        "packetSatisfied": true,
+        "separateOwnerAuthorization": true,
+        "laterB59Complete": true,
+        "description": "Hypothetical later B5.9 complete; no new pilot evidence"
+      },
+      "sourcePredicate": "CORR4 L-2/L-4/M and candidate matrix eligibilityPredicate.statement / failClosedRule; separate G-2-AUTH",
+      "expectedS8LawfulReachability": false,
+      "independentlyDerivedResult": {
+        "L2_effective": "NOT_ESTABLISHED",
+        "SCIENTIFIC_CONVERGENCE": "BLOCKED",
+        "S5_ELIGIBILITY_CREDIT": false,
+        "S6_ELIGIBILITY_CREDIT": false,
+        "S8_LAWFUL_REACHABILITY": false,
+        "B58_execution_authorized_hypothetically": false
+      },
+      "candidateSupportsResult": true,
+      "result": "PASS",
+      "authoredRecord": "NOT_PRESENT_AS_A_SEPARATE_COMPLETED_CONTROL",
+      "authorRecordOmissionMaterialToScientificCorrection": false,
+      "sourceLocations": [
+        {
+          "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SEMANTIC_SUCCESSOR_CANDIDATE_CORR4.md",
+          "lines": [
+            1027,
+            1028,
+            1030,
+            1031,
+            1033,
+            1045,
+            1048,
+            1049
+          ]
+        },
+        {
+          "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/AUDITS/MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1_CORR1/B17_MINIMUM_CLOSURE_SEQUENCE.md",
+          "sections": [
+            "2",
+            "3",
+            "4",
+            "6",
+            "7",
+            "8",
+            "9",
+            "11",
+            "16"
+          ]
+        },
+        {
+          "path": "CORR2_CANDIDATE/B5_8_GATE_MATRIX.json",
+          "jsonPointers": [
+            "/gates/5/gateRule",
+            "/gates/6/routeABoundary",
+            "/gates/10/state",
+            "/gates/13/state",
+            "/eligibilityPredicate/statement",
+            "/eligibilityPredicate/failClosedRule",
+            "/terminalBasis"
+          ]
+        }
+      ],
+      "hypotheticalInputRule": "Inputs are counterfactual variables only. No real L2 or L4 evidence is generated.",
+      "candidateLocations": [
+        "sequence:32,177-181",
+        "matrix:/gates/6/rejectedAsProof",
+        "report:104,146"
+      ],
+      "reason": "Later B5.9 is downstream future activity, not admissible historical L2 process evidence; it is not an input to the eligibility predicate."
+    },
+    {
+      "id": "P1",
+      "type": "STATIC_SOURCE_PREDICATE_TEST_NOT_RUNTIME",
+      "hypotheticalInputs": {
+        "L2": "ESTABLISHED",
+        "effectiveL4Settled": true,
+        "exactContractAccepted": true,
+        "lawfulFinalFreeze": true,
+        "packetSatisfied": true,
+        "separateOwnerAuthorization": true,
+        "laterB59Complete": false,
+        "description": "All necessary scientific/contract/freeze/packet/authorization predicates hypothetically true"
+      },
+      "sourcePredicate": "CORR4 L-2/L-4/M and candidate matrix eligibilityPredicate.statement / failClosedRule; separate G-2-AUTH",
+      "expectedS8LawfulReachability": true,
+      "independentlyDerivedResult": {
+        "L2_effective": "ESTABLISHED",
+        "SCIENTIFIC_CONVERGENCE": "ESTABLISHED",
+        "S5_ELIGIBILITY_CREDIT": true,
+        "S6_ELIGIBILITY_CREDIT": true,
+        "S8_LAWFUL_REACHABILITY": true,
+        "B58_execution_authorized_hypothetically": true
+      },
+      "candidateSupportsResult": true,
+      "result": "PASS",
+      "authoredRecord": "NOT_PRESENT_AS_A_SEPARATE_COMPLETED_CONTROL",
+      "authorRecordOmissionMaterialToScientificCorrection": false,
+      "sourceLocations": [
+        {
+          "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SEMANTIC_SUCCESSOR_CANDIDATE_CORR4.md",
+          "lines": [
+            1027,
+            1028,
+            1030,
+            1031,
+            1033,
+            1045,
+            1048,
+            1049
+          ]
+        },
+        {
+          "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/AUDITS/MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1_CORR1/B17_MINIMUM_CLOSURE_SEQUENCE.md",
+          "sections": [
+            "2",
+            "3",
+            "4",
+            "6",
+            "7",
+            "8",
+            "9",
+            "11",
+            "16"
+          ]
+        },
+        {
+          "path": "CORR2_CANDIDATE/B5_8_GATE_MATRIX.json",
+          "jsonPointers": [
+            "/gates/5/gateRule",
+            "/gates/6/routeABoundary",
+            "/gates/10/state",
+            "/gates/13/state",
+            "/eligibilityPredicate/statement",
+            "/eligibilityPredicate/failClosedRule",
+            "/terminalBasis"
+          ]
+        }
+      ],
+      "hypotheticalInputRule": "Inputs are counterfactual variables only. No real L2 or L4 evidence is generated.",
+      "candidateLocations": [
+        "sequence:70-84",
+        "matrix:/eligibilityPredicate/statement",
+        "matrix:/gates/13/consequence"
+      ],
+      "reason": "All five eligibility conjuncts and hypothetical separate authorization satisfied; no documentary routing blocker under examined rules. No current authorization/completion inferred. S4b satisfied if relied upon and applicable contextual packet controls assumed satisfied."
+    }
+  ],
+  "independenceDisclosure": {
+    "currentAuthor": "Z.ai (Owner-designated; candidate disclosure agrees)",
+    "currentAuditor": "Codex",
+    "priorRelationships": [
+      "Audited the parent Claude/Z.ai candidate",
+      "Authored CORR1.IV1 FAIL, including IV1-CORR1-F01",
+      "Audited B17 CORR1 and previously proposed conditional Route A",
+      "Historical A/adapter/component roles disclosed in prior audit records"
+    ],
+    "decision": "INDEPENDENCE_ESTABLISHED_FOR_CURRENT_DOCUMENTARY_CORRECTION",
+    "basis": "Codex did not author CORR2. The decisive necessary conditions are freshly derived from physical CORR4 L-2/L-4/M and accepted B17 steps 2-9, not from Codex prior recommendation or author CORRECTED labels.",
+    "boundary": "No independent recertification of Codex-authored A marks, adapter, harness or historical components. Historical quantitative computations reused at their recorded scope. No new scientific evidence."
+  },
+  "nonPromotion": {
+    "L2_PROCESS_COMPLIANCE": "NOT_ESTABLISHED",
+    "B58_readyToExecute": false,
+    "OwnerAcceptanceOfCORR2": "NOT_GRANTED_BY_THIS_AUDIT",
+    "B58Authorization": "NOT_GRANTED",
+    "finalContractFreeze": "NOT_ESTABLISHED",
+    "scientificExecution": false,
+    "GitClosure": false,
+    "runtimeOrProductionProof": false,
+    "fullAuthorPromptCompliance": "NOT_CERTIFIED"
+  },
+  "nonMutation": {
+    "beforeHEAD": "3852ca460c44df7c36d4c159a37125c6048f8548",
+    "afterHEAD": "3852ca460c44df7c36d4c159a37125c6048f8548",
+    "HEADUnchanged": true,
+    "statusUnchanged": true,
+    "trackedDiffUnchanged": true,
+    "stagedFilesAfter": "",
+    "expandedUntrackedFiles": 760,
+    "collapsedUntrackedPaths": 431,
+    "inputMembersUnchanged": true,
+    "transportUnchanged": true,
+    "primarySourcesUnchanged": true,
+    "scientificActsPerformed": [],
+    "GitMutationsPerformed": [],
+    "repositoryWritesPerformed": [],
+    "scratchWritesRoot": "/private/tmp/mergevue_corr2_iv1_scratch",
+    "authorizedOutputRoot": "/private/tmp/MERGEVUE_B5_8_MINIMUM_LAWFUL_ENTRY_PREFLIGHT_1_CORR2_IV1",
+    "limitation": "Observed state and relevant hashes plus executed command scope; not a forensic proof about all historical sessions or concurrent processes."
+  },
+  "terminalBoundary": "STOP after five outputs and external manifest identity; no successor authored."
+}

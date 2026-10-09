@@ -1,0 +1,421 @@
+{
+  "act": "MERGEVUE_B5_8_MINIMUM_LAWFUL_ENTRY_PREFLIGHT_1.CORR2",
+  "actor": "Z.ai",
+  "role": "ANALYST / TARGETED CORRECTION AUTHOR under AGENTS.md / AGENTS_A.md (Owner-assigned in the CORR2 act text)",
+  "date": "2026-10-09",
+  "head": "3852ca460c44df7c36d4c159a37125c6048f8548",
+  "originMainCached": "3852ca460c44df7c36d4c159a37125c6048f8548",
+  "trackedDirty": 0,
+  "status": "ANALYTICAL CORR2 CANDIDATE — not independent verification, not Owner decision, not a methodological waiver, not a Control Tree edit",
+  "artifact": "B5_8_GATE_MATRIX.json",
+
+  "correctionLineage": {
+    "originalAct": "MERGEVUE_B5_8_MINIMUM_LAWFUL_ENTRY_PREFLIGHT_1",
+    "originalActors": {
+      "fourAnalyticalFiles": "Claude (Opus 5.5) — immutable",
+      "documentaryCompletionManifest": "Z.ai — immutable"
+    },
+    "corr1Correction": {
+      "act": "MERGEVUE_B5_8_MINIMUM_LAWFUL_ENTRY_PREFLIGHT_1.CORR1",
+      "author": "Z.ai",
+      "scope": "Parent IV1-F01, F02, F03, F04",
+      "status": "IMMUTABLE — exactly the Codex-audited candidate remains as authored"
+    },
+    "corr1IndependentAudit": {
+      "act": "MERGEVUE_B5_8_MINIMUM_LAWFUL_ENTRY_PREFLIGHT_1.CORR1.IV1",
+      "auditor": "Codex",
+      "verdict": "FAIL",
+      "counts": { "BLOCKING": 1, "MAJOR": 0, "MINOR": 0, "ADVISORY": 0 },
+      "soleFinding": "IV1-CORR1-F01 (BLOCKING) — Route A shortest lawful path reaches scientific execution authorization while measured pilot independence remains unestablished",
+      "parentFindingDispositions": {
+        "IV1-F01": "PARTIALLY_ADDRESSED (residual = IV1-CORR1-F01)",
+        "IV1-F02": "VERIFIED_ADDRESSED",
+        "IV1-F03": "VERIFIED_ADDRESSED",
+        "IV1-F04": "VERIFIED_ADDRESSED"
+      }
+    },
+    "thisCorrection": "MERGEVUE_B5_8_MINIMUM_LAWFUL_ENTRY_PREFLIGHT_1.CORR2",
+    "correctionAuthor": "Z.ai",
+    "scope": "Exactly IV1-CORR1-F01 and its synchronized dependents. CORR1's F02–F04 corrections are preserved (VERIFIED_ADDRESSED per Codex CORR1.IV1); all accepted factual predecessors preserved (17/17 identities re-verified 2026-10-09); T1 ∥ T2 independent-parallel structure unchanged. No prior authorship changed or backdated."
+  },
+
+  "b58Identity": {
+    "treeNode": "B5.8 Mechanism normalization (18 sides, outcome-hidden)",
+    "matrix": {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_VERIFIED_CURRENT_CONTROL_TREE_RECONSTRUCTION_1_CORR4/MERGEVUE_NODE_STATUS_MATRIX.json",
+      "sha256": "621eca0afeadca4b40450a41d3277fb69df9843b73c9663e93042e7d76b98a97"
+    },
+    "derivedExecutionForm": "CORR4 §M '905/905 sealed-fact binding across 18/18 sides' under the FINAL frozen contract",
+    "derivationClass": "B (necessary derivation)",
+    "iv1Qualification": "Bounded derivation only (parent IV1 gate G6 PASS_WITH_SCOPE_QUALIFICATION): not an authorized node rename; no execution may omit normalization or traceability states; NON_ANALYTICAL / UNMAPPED / abstention remain lawful fail-closed outcomes."
+  },
+
+  "currentStatusesNotRestored": {
+    "B5.5": "OWNER_ACCEPTED / PASS / BOUND@d52e7f4 (+9b1a501)",
+    "B5.7": "OWNER_ACCEPTED / PASS / BOUND@92236dc (+9b1a501)",
+    "B17.5": "FEVA CORR2 Owner-accepted / Codex CORR2.IV1 PASS / BOUND@2f7bcc5",
+    "B17_CORR1": "Accepted documentary preflight, Git-bound@3852ca4 — not scientific closure, not an L-2 waiver",
+    "CORR4": "Owner-accepted PILOT VERSION, BOUND@2567223 — not FINAL CONTRACT FREEZE, not full binding authorization"
+  },
+
+  "gates": [
+    {
+      "id": "G-PRED-B5.5",
+      "question": "B5.5 accepted predecessor",
+      "state": "ALREADY_SATISFIED",
+      "class": "OWNER-ACCEPTED FACT",
+      "evidence": [
+        { "path": "docs/governance/historical-corpus/MERGEVUE_POST_10_CALIBRATION_9_CASE_CORPUS_FREEZE_2026-09-25.md", "sha256": "da9b9de2ab9c49cf98100c008eb980225cf8595b2873cc4eb6eb6d8e9733cbd6", "git": "d52e7f4" },
+        { "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1/CANDIDATE_MANIFEST.json", "sha256": "ce8b7306f2ef8c5342affe4a6025d4dccf765d1b34a13f822af7b75accddccd6", "git": "9b1a501" }
+      ],
+      "iv": "Grok IV1 PASS 0/0/0 (transcript 9aea5e0e…c421)",
+      "owner": "Reaffirmed 2026-10-09",
+      "restrictions": [
+        "methodology non-promotion clause",
+        "residual R-1 original September message NOT RECOVERED",
+        "own bytes OWNER_ACCEPTED: NO / CORPUS_FREEZE_FINAL: NO preserved as authoring-time text"
+      ],
+      "consequence": "Tree edge B5.5→B5.8 met; not reopened"
+    },
+    {
+      "id": "G-PRED-B5.7",
+      "question": "B5.7 accepted predecessor",
+      "state": "ALREADY_SATISFIED",
+      "class": "OWNER-ACCEPTED FACT",
+      "evidence": [
+        { "path": "docs/governance/historical-corpus/MERGEVUE_STAGE1_FACTUAL_AUTHORITY_SUCCESSOR_BINDING_AND_CLOSURE_2026-09-25.md", "sha256": "be9593a767edfa1d61787458db3de1c7034d49ac60b65fe0ce8e11402fe70237", "git": "92236dc" }
+      ],
+      "iv": "Codex IV1 PASS (report 0484044485d7ad2986331148293f1ba05dd162fa3dc7c535f0bfded3516ec1b9)",
+      "owner": "Reaffirmed 2026-10-09; bound 9b1a501",
+      "restrictions": [
+        "§15 four stale analytical lineages NOT_CURRENT_INPUT_TO_NEW_MECHANISM_NORMALIZATION",
+        "§16 next-stage input rule",
+        "§17 outcome firewall"
+      ],
+      "consequence": "Supplies the exact B5.8 factual input set (9/18/905)"
+    },
+    {
+      "id": "G-PRED-B17.5",
+      "question": "B17.5 accepted predecessor",
+      "state": "ALREADY_SATISFIED (artifact scope)",
+      "class": "OWNER-ACCEPTED FACT",
+      "evidence": [
+        { "path": "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_RECORDS.jsonl", "sha256": "5b37071a5fa5374c77b149bfde5c230c228cdf73d9785e5ea55346f9fab28daa", "bytes": 104722, "git": "2f7bcc5" },
+        { "path": "WORKBENCH/AUDITS/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_1/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_FEVA_CORR2/ADAPTED_REGRESSION_HARNESS.py", "sha256": "82f78f8c6db43473fb0c79676374227384354fee8e46537427584cd2a39fd560", "git": "7f544af/8f0085b" }
+      ],
+      "iv": "Codex CORR2.IV1 PASS 0/0/0 + 2 ADVISORY; adapter Grok IV1 PASS 0/0/1/4",
+      "owner": "Accepted",
+      "restrictions": [ "full Stage-2 measurement NOT_RUN / DEFERRED / REQUIRES_NEW_OWNER_AUTHORIZATION" ],
+      "consequence": "CORR4-snapshot CANDIDATE/NOT_RUN/UNTRACKED values are outdated and not restored"
+    },
+    {
+      "id": "G-A-EXECUTION",
+      "question": "Has B5.8 already been performed? (corrects parent IV1-F03; preserved unchanged by CORR2)",
+      "state": "NO_EXECUTION_ESTABLISHED — strictly within the examined scope; no reusable accepted full B5.8 result recovered in examined locations",
+      "class": "SOURCE FACT (bounded negative search) + INFERENCE — not proof of historical absence",
+      "evidence": [
+        "CODEX PARENT-IV1 CENSUS (cited, not re-performed by Z.ai): 22,446 JSON/JSONL files read (repository WORKBENCH, external WORKBENCH, 10 Cline worktrees, 1 Codex worktree, /private/tmp; dependency/Git/venv internals excluded); 367 files carry coding tokens",
+        "CODEX PARENT-IV1 CENSUS: parsed fact references max 36 per artifact INCLUDING TEST FIXTURES; max 32 references matching the admitted 905-fact population in examined artifact-index material — reference counts, not proof of executed 905-fact normalization",
+        "DISTINCTION PRESERVED: raw fact references vs test fixtures vs partial pilot results (30-fact universe) vs actual semantic binding records; no examined file contains an established full 905-fact execution result",
+        "STAGE2_CORR4_PILOT_VERSION_LOCK.md 0f9daef2…897a §15: 905_FACT_BINDING_EXECUTED = NO",
+        "STAGE2_SEMANTIC_SUCCESSOR_CORR4_IV5_REPORT.md 2aa5362e…7b37 :74: 905_BINDING_EXECUTED = NO",
+        "PARENT MAX-27 COVERAGE MEASURE RETRACTED: regex missed valid compact IDs (e.g. F0011); unsound as a coverage measure",
+        "PARENT BLANKET STATEMENT RETRACTED: 'none needs to be fenced off' is not licensed by a negative search"
+      ],
+      "limits": [
+        "Unexamined cloud/other sessions, archives not exhaustively expanded, and incomplete historic logs remain outside examined scope",
+        "No assertion is made that B5.8 never ran anywhere"
+      ],
+      "consequence": "Future execution packet must validate exact source/output identities and perform destination-collision checks before any write; any discovered accepted result must be preserved, never silently replaced"
+    },
+    {
+      "id": "G-B-SCHEMA",
+      "question": "Accepted common normalization schema for B5.8?",
+      "state": "NOT_ACCEPTED (pilot-version acceptance only)",
+      "class": "OWNER-ACCEPTED FACT + METHOD FACT",
+      "evidence": [
+        { "path": "WORKBENCH/DOWNLOADS/STAGE2_SEMANTIC_SUCCESSOR_CANDIDATE_CORR4.md", "sha256": "2de49862fb0d63c5f1cd1745531199137e73b7b37abceecef6e735d497d38bb0", "bytes": 250512, "git": "2567223", "role": "Class-A mechanism-measurement contract (§D M-registry, §H binding grammar, §I record); RT §7–§12 anchored; Owner-accepted as PILOT VERSION only" },
+        { "path": "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_VERSION_LOCK.md", "sha256": "0f9daef23d9105fa2507bd71847a76bff1f128b5b0003cce08456a9491aa897a", "tracked": false, "role": "§4 Owner acceptance as PILOT VERSION; no 905 binding / no final freeze authorized" }
+      ],
+      "candidatesNotToPromote": [
+        { "artifact": "STAGE2_CORR4_POST_PILOT_CONTRACT_CORRECTION_1_CANDIDATE.md", "sha256": "5e373e1604f89a0f6e3719fccf46f8f2eeadfce056a6bde3d2551008ab61381d", "selfStatus": "NOT INDEPENDENTLY VERIFIED · NOT OWNER-ACCEPTED · NOT FROZEN" },
+        { "artifact": "STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md (cumulative chain head RD-01→RC-1→RC-5→RC-2→RC-4→RC-3→RC3.CORR1→PD3-CLAR-1→CORR1)", "sha256prefix": "cb08b51e1c2fbaec", "selfStatus": "FROZEN_CANDIDATE_ONLY; wrapper asserts RC3.CORR1 Owner-accepted 'per its own binding record' — AGENT-REPORTED, no Git binding, no Owner instrument located" }
+      ],
+      "consequence": "B5.8 has no frozen instrument; §M requires S4–S6 first"
+    },
+    {
+      "id": "G-L2-ELIG",
+      "question": "Is CORR4 §L-2 measured-pilot process compliance ESTABLISHED at convergence? (NEW fail-closed science-eligibility gate; resolves IV1-CORR1-F01)",
+      "state": "NOT_ESTABLISHED — GATE CLOSED for science eligibility. Route A bounded documentary activity only; no Route A path to S8.",
+      "class": "METHOD FACT (CORR4 §L-2/§M) + NOT_ESTABLISHED (historical process) + INFERENCE (fail-closed gate derivation)",
+      "evidence": [
+        { "path": "WORKBENCH/DOWNLOADS/STAGE2_SEMANTIC_SUCCESSOR_CANDIDATE_CORR4.md", "sha256": "2de49862fb0d63c5f1cd1745531199137e73b7b37abceecef6e735d497d38bb0", "section": "§L-2/§M", "fact": "Measured stratification by TWO independent stratification coders under restricted inputs is part of the pilot; disagreement classification and conditional repair precede post-pilot acceptance, final freeze and full binding" },
+        { "path": "WORKBENCH/AUDITS/MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1_CORR1/B17_MINIMUM_CLOSURE_SEQUENCE.md", "sha256": "b28bc838176461b66903f87ec74d29820692cc4fdf39cba79661ea99767c82b1", "git": "3852ca4", "sections": "steps 3–4", "fact": "Route A is not compliance; accepting a limitation does not verify facts" },
+        { "path": "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_VERSION_LOCK.md", "sha256": "0f9daef23d9105fa2507bd71847a76bff1f128b5b0003cce08456a9491aa897a", "sections": "1/4/9/15", "fact": "Pilot-only acceptance and authorization; no full binding or final freeze granted" },
+        { "path": "CORR1_IV1_FAIL/IV1_FINDINGS.json + IV1_REPORT.md (Codex, CORR1.IV1)", "fact": "IV1-CORR1-F01 BLOCKING: the Route A shortest-path sentence reached S8 without establishing L-2; required correction = remove the path, make L-2 an explicit necessary eligibility condition at convergence, bound Route A to documentary activity, and synchronize all surfaces" }
+      ],
+      "gateRule": "Convergence (C1) is science-eligible only if BOTH elements are established: (i) settled effective §L-4 disagreement classification/repairs, AND (ii) established CORR4 §L-2 measured-pilot process compliance. While (ii) is NOT_ESTABLISHED: convergence is documentary-only; S4–S6 may proceed only as documentary preparation or explicitly scoped conditional document acceptance and are NOT the eligibility-producing §M post-pilot acceptance / FINAL CONTRACT FREEZE; S8 is unreachable; unqualified lawful B5.8 entry remains NOT_ESTABLISHED.",
+      "pathsToOpen": [
+        "established admissible historical §L-2 process proof, independently verified, OR",
+        "a separately authorized, independently verified B-only replacement (T1b) plus affected-only recomputation/repair"
+      ],
+      "exceptionBoundary": "Any explicit methodological exception is a different Owner-authorized methodology act with changed applicability; none is supplied, granted or requested by CORR2.",
+      "nonClaims": [
+        "not a new Control Tree edge",
+        "not a new prerequisite invented outside accepted methodology — derived from CORR4 §L-2/§M and accepted B17 CORR1",
+        "not a waiver, acceptance, authorization or HOLD-6 disposition"
+      ],
+      "consequence": "Unqualified lawful B5.8 entry remains NOT_ESTABLISHED until this gate opens; Route A does not open it"
+    },
+    {
+      "id": "G-F1-HISTB",
+      "question": "Does historical stratifier B satisfy CORR4 §L-2's second-independent-stratifier condition? (corrects parent IV1-F01; operational consequence carried into G-L2-ELIG per IV1-CORR1-F01)",
+      "state": "PROCESS COMPLIANCE: NOT_ESTABLISHED. MARKS: RETAINED AS HISTORICAL EVIDENCE WITH DISCLOSED LIMITATIONS. ROUTE A DOES NOT CLEAR §L-2 AND DOES NOT OPEN G-L2-ELIG.",
+      "class": "SOURCE FACT (appointment/report) + NOT_ESTABLISHED (process) + INFERENCE (route boundary)",
+      "establishedFacts": [
+        "Distinct complete mark sets: A 5d4c0a68…c27d (11,765 tuples, 1,598 YES), B 7b91967b…2603 (11,765 tuples, 956 YES); pair counts NO/NO 9,941, YES/YES 730, YES/NO 868, NO/YES 226; agreements 10,671; disagreements 1,094 exactly equal to frozen ledger 990950c5…e0b; zero §L-4 classifications assigned",
+        "Appointment: B prompt 50f6653d…d211 appoints Kimi K3 Extra, fresh isolated session",
+        "Reported executor: B report 7572c68f…65c3 :5 states Claude/Cline — primary documentary appointment/executor mismatch",
+        "No affirmative contamination breach established by the available audit"
+      ],
+      "notEstablished": [
+        "actual B platform/model identity",
+        "fresh-session execution isolation",
+        "outcome blindness",
+        "forbidden-input abstinence"
+      ],
+      "rejectedAsProof": [
+        "differences between A and B marks prove independent execution — NO: distinct outputs are compatible with independent or non-independent processes",
+        "future B5.9 full-scale dual coding retroactively proves B17 pilot independence — NO: a later re-test cannot reconstruct the historical pilot selection process",
+        "ordinary Owner acceptance of uncertainty equals a methodological waiver — NO: a limitation disposition preserves history; it does not convert unknown process facts into verified compliance; no accepted §L-2 exception was recovered",
+        "documentary labels (acceptance, freeze, contract identity selection) substitute for the unestablished process condition — NO: a downstream label does not supply evidence of an upstream condition (IV1-CORR1-F01 proof rule)"
+      ],
+      "distinctionsPreserved": [
+        "historical retention",
+        "verified process compliance",
+        "explicit methodology exception",
+        "new independently verified execution",
+        "documentary preparation / explicitly scoped conditional document acceptance vs the eligibility-producing §M post-pilot acceptance and FINAL CONTRACT FREEZE (CORR2)"
+      ],
+      "routeABoundedActivityWhileGateClosed": [
+        "separately authorized historical-ledger analysis (including T2 classification of the frozen 1,094-tuple ledger as historical evidence)",
+        "documentary preparation and review of future act materials",
+        "explicitly scoped conditional document acceptance"
+      ],
+      "routeABoundary": "None of the bounded activities establishes scientific entry, produces the eligibility-producing §M post-pilot acceptance or FINAL CONTRACT FREEZE, or reaches S8.",
+      "evidence": [
+        { "path": "WORKBENCH/DOWNLOADS/STAGE2_SEMANTIC_SUCCESSOR_CANDIDATE_CORR4.md", "section": "§L-2", "fact": "Stratification is EXPLICITLY PART OF THE MEASURED PROCESS; performed by TWO independent stratification coders" },
+        { "path": "WORKBENCH/AUDITS/MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1_CORR1/B17_MINIMUM_CLOSURE_SEQUENCE.md", "sha256": "b28bc838176461b66903f87ec74d29820692cc4fdf39cba79661ea99767c82b1", "git": "3852ca4", "sections": "steps 3–4", "fact": "Route A is not a compliant-process finding; limitation acceptance does not convert unverified process facts into verified facts" },
+        { "path": "external WORKBENCH/DOWNLOADS/MERGEVUE_CORR4_PILOT_STRATIFIER_B_PROMPT.md", "sha256": "50f6653d282582a05e47574418cb605dfd335ec04e04b21cdb3d2a1423cbd211", "fact": "appoints Kimi K3 Extra" },
+        { "path": "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_STRATIFIER_B_REPORT.md", "sha256": "7572c68fa6c4313db1f06ea229eaab0fcc945f6b2231c7017b9a4f888d9a65c3", "fact": ":5 executing runtime Claude/Cline" }
+      ],
+      "recommendedCorrectiveRoute": {
+        "route": "Under unchanged methodology: a separately authorized, verifiably independent B-only rerun (frozen permitted inputs, Owner-designated eligible executor, fresh isolation, attributable execution record, independent process/output verification) IF admissible historical compliance evidence remains unavailable",
+        "attribution": "Recommendation of the independent Codex parent-IV1 (IV1-F01 requiredCorrection; IV1_REPORT §9), adopted by CORR1 with reasoning and carried unchanged by CORR2 — NOT a new accepted Owner decision",
+        "impactBoundary": "Impact of a B-only rerun is conditional and exact-input dependent; it does not require wholesale recreation of the factual corpus or automatic invalidation of every downstream artifact; A marks and the 905 factual identities are unchanged unless separate established cause requires correction"
+      },
+      "consequence": "HOLD-6 remains an Owner normative decision, not decided by this act; no exception granted or implied; operational enforcement is the G-L2-ELIG gate"
+    },
+    {
+      "id": "G-D1-REGRESS",
+      "question": "Is full FEVA regress(path) a prerequisite of B5.8? (G-3) (corrects parent IV1-F04; preserved unchanged by CORR2)",
+      "state": "DEFERRED / NO_MANDATORY_EDGE_RECOVERED / G3_NOT_DETERMINED",
+      "class": "DERIVATION + PRESERVED RESIDUAL",
+      "evidence": [
+        "CORR4 §M does not name FEVA regress(path)",
+        "adapter closure 7f1cd15b…e968 §§36–41: deferred full run requires new Owner authorization; silent on B5.8",
+        "B17 CORR1 step 11: DIAGNOSTIC_SCOPE; 'does not make B5.8–B5.19 prerequisites'",
+        "B17 CORR1 step 16: G-3 stays NOT DETERMINED"
+      ],
+      "prohibitions": [
+        "no regression prerequisite is invented",
+        "no categorical nonblocking settlement in every future context",
+        "G-3 is not silently marked resolved; the residual is preserved for the eventual B5.8 entry packet"
+      ],
+      "consequence": "Continued deferral is lawful under §14A gate 6 (NOW): the §M contract gates block B5.8 first"
+    },
+    {
+      "id": "G-D2-HOLD6",
+      "question": "HOLD-6: actor disposition and process-evidence limitation of stratifier B (T1) (corrects parent IV1-F02 dependency; preserved by CORR2)",
+      "state": "OPEN — Owner normative decision (T1). PARALLEL TRACK with G-D3-L4 (T2). NOT a parent of §L-4. Its resolution does not by itself open G-L2-ELIG.",
+      "class": "OWNER DECISION REQUIRED",
+      "evidence": [
+        { "path": "external WORKBENCH/DOWNLOADS/MERGEVUE_CORR4_PILOT_STRATIFIER_B_PROMPT.md", "sha256": "50f6653d282582a05e47574418cb605dfd335ec04e04b21cdb3d2a1423cbd211", "says": "appoints Kimi K3 Extra" },
+        { "path": "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_STRATIFIER_B_REPORT.md", "sha256": "7572c68fa6c4313db1f06ea229eaab0fcc945f6b2231c7017b9a4f888d9a65c3", "says": ":5 executing runtime Claude/Cline" },
+        { "path": "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_STRATIFIER_B_MARKS.jsonl", "sha256": "7b91967b69bf5f95e831bac14e32bc1246836e2e9c2bcb3ef965874ba7dc2603", "tracked": false },
+        "/private/tmp/mv_stage2_corr4_stratifier_b absent (re-checked by parent and IV1)",
+        "B17 CORR1 steps 3–4: actor disposition and process evidence are separate; step 3 INDEPENDENT_PARALLEL relative to step 2; Route A is not a compliant-process finding"
+      ],
+      "dependencyCorrection": "The parent's 'Parent of S2' / 'every later step depends on HOLD-6' edge is RETRACTED. T1 and T2 are independent parallel tracks converging before final post-pilot contract acceptance and freeze. Resolving T1 first is at most a scheduling recommendation against potentially duplicated §L-4 work.",
+      "consequence": "Factual input unaffected; the §L-2 two-independent-stratifier condition and the post-pilot evidence base are affected; decision is the Owner's; an Option-A disposition records a limitation and does NOT open G-L2-ELIG"
+    },
+    {
+      "id": "G-D3-L4",
+      "question": "Do the 1,094 stratifier disagreements affect admission, and may they be classified now? (T2)",
+      "state": "OPEN — MANDATORY_BEFORE_B5_8 for use of the ledger; classification of the existing immutable ledger is independently executable NOW, in PARALLEL with HOLD-6",
+      "class": "METHOD FACT + OWNER-ACCEPTED (B17 CORR1)",
+      "evidence": [
+        { "path": "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_STRATIFICATION_DISAGREEMENTS.jsonl", "sha256": "990950c5822df47f4b7afe27c86498d413e872c57b1b62b5de5bf2f5fd037e0b", "rows": 1094, "tracked": false, "reVerifiedByZai": "line count 1,094 mechanically re-verified 2026-10-09 (CORR2)" },
+        { "path": "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_STRATIFICATION_AGREEMENT.json", "sha256": "37f4b42100924479202d98d503c4e89b6d3787fd5f4d5b19cf1bd26617bf599d", "says": "disagreementFreeze.classificationAssigned = false (re-verified by Z.ai, CORR2)" },
+        "CORR4 §L-2/§L-4: stratifier disagreements receive the four-way disposition CODER_ERROR / DEFINITION_AMBIGUITY / MISSING_M / GRAMMAR_GAP; no accepted exception recovered",
+        "B17 CORR1 step 2: L4_STRATIFIER_DISAGREEMENT_DISPOSITION = OPEN, MANDATORY_PREDECESSOR; step 3 is INDEPENDENT_PARALLEL relative to step 2",
+        "B17 CORR1 'What may share one Owner round': step 2 is a different decision; it must not be treated as answered by actor ratification"
+      ],
+      "classificationWithoutRatification": "The historical ledger can be classified as that historical ledger without first ratifying its future accepted use. If a later B-only execution changes the effective disagreement set, only affected classification and dependent calculations require reassessment; unchanged tuples may retain applicable classification evidence.",
+      "consequence": "MISSING_M / GRAMMAR_GAP can change the contract B5.8 executes; convergence with T1 occurs before final post-pilot contract acceptance and freeze; classification settles only §L-4 element (i) of convergence and does not open G-L2-ELIG"
+    },
+    {
+      "id": "G-D4-POSTPILOT-FREEZE",
+      "question": "Post-pilot Owner acceptance and FINAL CONTRACT FREEZE mandatory before B5.8?",
+      "state": "YES — both OPEN (S5, S6); single exact contract identity NOT_ESTABLISHED (S4). ELIGIBILITY BOUNDARY (CORR2, per IV1-CORR1-F01): S5/S6 are the eligibility-producing §M acceptance/freeze only after G-L2-ELIG has opened; labels recorded while the gate is closed are documentary preparation or explicitly scoped conditional document acceptance and do not complete the §M predecessor chain.",
+      "class": "METHOD FACT (Class A)",
+      "evidence": [
+        "CORR4 §M: '905-fact semantic binding before the final freeze is forbidden'",
+        "B17 CORR1 steps 7–8: POST_PILOT_CONTRACT_OWNER_ACCEPTANCE = OPEN; STAGE2_FINAL_SEMANTIC_CONTRACT_FREEZE = OPEN",
+        "git log --all: no commit binds RD-01/RC/PD3 successor chain",
+        "IV1-CORR1-F01 proof rule: a downstream label does not supply evidence of an upstream condition"
+      ],
+      "consequence": "B5.8 cannot lawfully begin before S6; T1/T2 converge into this chain; the chain is eligibility-producing only after G-L2-ELIG opens"
+    },
+    {
+      "id": "G-D5-BINDING-DUALCODING",
+      "question": "Where do 905/905 binding and dual coding sit?",
+      "state": "Binding = WITHIN B5.8 (derived identity); dual coding = LATER (B5.9); concurrent-pass design NOT_DETERMINED",
+      "class": "DERIVATION",
+      "evidence": [
+        "CORR4 §M order binding → dual coding → stabilization → HEDC",
+        "RT §7 → §8 → §9",
+        "Tree B5.8 'mechanism normalization', B5.9 'independent dual coding → HEDC'",
+        "9-case addendum §4 steps 3 → 4"
+      ],
+      "f01Boundary": "B5.9 dual coding is future work; it cannot retroactively prove B17 pilot independence",
+      "consequence": "Mapping ambiguity (B5.8 as later 'stabilization') is immaterial to entry: both readings follow FINAL CONTRACT FREEZE"
+    },
+    {
+      "id": "G-E-FIREWALL",
+      "question": "Input identities and exclusions",
+      "state": "IDENTITIES ALREADY_SATISFIED (9/9 recomputed by parent author, independently reproduced by Codex IV1); full-corpus coder view NOT_ESTABLISHED (inside B5.8 act packet, S7)",
+      "class": "SOURCE FACT",
+      "zaiDisclosure": "Z.ai did not re-parse the nine record files in CORR1 or CORR2; identities and 905 count are carried from the parent recomputation and Codex IV1 reproduction",
+      "artifactProvenance": "B5_8_INPUT_AUTHORITY_AND_FIREWALL.json is carried byte-identically from CORR1 (sha256 b1694e0aafd64efb673d2833d9a8f544300b549c0c2dcaa1261a7363dbab44fd) under the Owner's express authorization in the CORR2 act text; no change was necessary — it contains no Route A→S8 path claim and already records that retention is not accepted §L-2 compliance",
+      "evidence": [ "see B5_8_INPUT_AUTHORITY_AND_FIREWALL.json" ],
+      "consequence": "No substitution of sources; act packet must fix view, allow-list, exact source/output identity checks and destination-collision checks"
+    },
+    {
+      "id": "G-2-AUTH",
+      "question": "Explicit Owner authorization of the B5.8 act",
+      "state": "OPEN (S8). ADDITIONAL PRECONDITION (CORR2): G-L2-ELIG must have opened (established §L-2 compliance) before S8 is reachable; S7 remains inside the S8 execution packet.",
+      "class": "GOVERNANCE",
+      "evidence": [
+        "B5.5/B5.7 check G-2",
+        "AGENTS.md §14A.5: a decision settles a choice; it does not authorize the work the choice implies",
+        "routing policy / guardrail: eligible node work still requires explicit act authorization",
+        "IV1-CORR1-F01: documentary labels do not substitute for the unestablished upstream §L-2 condition"
+      ],
+      "consequence": "Eligibility is not authorization; and neither documentary labels nor eligibility alone reach S8 without the other required conditions"
+    }
+  ],
+
+  "eligibilityPredicate": {
+    "statement": "S8 (bounded Owner authorization of 905/905 binding) is reachable ONLY IF ALL of the following are ESTABLISHED: (1) CORR4 §L-2 measured-pilot process compliance — TWO independent stratification coders under restricted inputs — via admissible historical process proof or a separately authorized, independently verified replacement; (2) settled effective §L-4 disagreement classification/repairs; (3) one exact Owner-accepted post-pilot contract identity; (4) a distinct lawful FINAL CONTRACT FREEZE that is the eligibility-producing §M freeze; (5) the bounded B5.8 act packet (S7: full-corpus coder view, permitted-input allow-list, exact source/output identity validation, destination-collision checks) inside the authorization.",
+    "failClosedRule": "A downstream label does not supply evidence of an upstream condition. While (1) is NOT_ESTABLISHED: convergence is documentary-only; S4–S6 may exist only as documentary preparation or explicitly scoped conditional document acceptance and do NOT constitute the eligibility-producing §M post-pilot acceptance or FINAL CONTRACT FREEZE; the path terminates before science eligibility; S8 is unreachable; unqualified lawful B5.8 entry is NOT_ESTABLISHED.",
+    "derivation": "Necessary condition derived from CORR4 §L-2/§M (2de49862…0bb0), the accepted B17 CORR1 preflight (b28bc838…c82b1, Git-bound 3852ca4) and the pilot lock (0f9daef2…897a); per IV1-CORR1-F01. Not a new Control Tree edge; not a methodological change.",
+    "exceptionBoundary": "An explicit methodological exception is a different Owner-authorized methodology act with changed applicability; none is supplied, granted or requested by CORR2.",
+    "enforcementSurfaces": [
+      "B5_8_SHORTEST_LAWFUL_SEQUENCE.md §1 (C1/S5/S6/S8 rows), §2 diagram (G-L2-ELIG), §2A (negative control)",
+      "B5_8_ENTRY_REPORT.md §3.F determinations 7–9, §3.G, §4 diagram",
+      "this matrix: gate G-L2-ELIG, G-F1-HISTB, G-D4-POSTPILOT-FREEZE, G-2-AUTH, eligibilityPredicate, routeAReachabilityNegativeTest",
+      "B5_8_ENTRY_MANIFEST.json checks VCH-05/VCH-06 (strengthened)"
+    ]
+  },
+
+  "routeAReachabilityNegativeTest": {
+    "testId": "NT-1",
+    "title": "Route A with §L-2 NOT_ESTABLISHED cannot reach S8 even if all documentary labels are present",
+    "requiredBy": "CORR2 act text, requirement 6; IV1-CORR1-F01 negativeControl",
+    "type": "Static logical counterexample using source predicates; no scientific or runtime execution; classifies nothing; authorizes nothing",
+    "scenario": {
+      "T1_outcome": "Option A — bounded historical retention; actor/limitation disposition recorded",
+      "L2_process_compliance": "NOT_ESTABLISHED",
+      "T2_outcome": "historical 1,094-tuple ledger classified; no MISSING_M / GRAMMAR_GAP finding",
+      "S4": "exact post-pilot contract identity selected",
+      "S5_label": "Owner-acceptance label recorded",
+      "S6_label": "freeze label recorded",
+      "documentaryLabelsAllPresent": true
+    },
+    "expectedResult": {
+      "S8_reachable": false,
+      "pathTermination": "TERMINATES_AT_G_L2_ELIG — before any eligibility-producing §M credit",
+      "S5_S6_credit": "documentary preparation or explicitly scoped conditional document acceptance only; NOT the eligibility-producing §M post-pilot acceptance; NOT the eligibility-producing FINAL CONTRACT FREEZE",
+      "lawfulEntryState": "UNQUALIFIED_SCIENTIFIC_ENTRY_NOT_ESTABLISHED",
+      "rationale": "The eligibilityPredicate fails conjunctively: element (1) is NOT_ESTABLISHED, so the fail-closed rule applies regardless of how many downstream documentary labels exist"
+    },
+    "governingPredicate": "Established eligibility requires established measured-pilot process (§L-2) AND settled effective §L-4/repairs AND exact accepted post-pilot contract AND distinct lawful FINAL CONTRACT FREEZE AND bounded packet/authorization. A downstream label does not supply evidence of an upstream condition.",
+    "remedyPaths": [
+      "admissible historical §L-2 process proof, established and independently verified, OR",
+      "a separately authorized, independently verified B-only replacement (T1b) plus affected-only recomputation/repair"
+    ],
+    "exceptionBoundary": "Any explicit methodological exception is a different Owner-authorized methodology act; none is supplied, granted or requested by CORR2",
+    "contrastWithCorr1": "Under the CORR1 sequence (immutable, IV1-FAILed), this same scenario reached S8 via 'T1 ∥ T2 → C1 → S4 (identity selection only) → S5 → S6 → S8'. Under this CORR2 sequence it terminates at G-L2-ELIG."
+  },
+
+  "parallelTracks": {
+    "T1_HOLD6": "Owner normative disposition of historical B actor provenance and process-evidence limitation (B17 CORR1 steps 3–4)",
+    "T2_L4_CLASSIFICATION": "Classification of the exact existing frozen 1,094 disagreement tuples under CORR4 §L-4 (B17 CORR1 step 2)",
+    "relationship": "INDEPENDENT PARALLEL — no mandatory edge in either direction; no new Control Tree edge; converge before S4/S5/S6",
+    "convergenceGate": "G-L2-ELIG (fail-closed §L-2 science-eligibility gate) — convergence is science-eligible only when the gate is open; preserved from CORR1: T1/T2 parallelism is unchanged by CORR2",
+    "conditionalRecompute": "If T1 orders a B-only rerun, recompute affected A/B relationships and the effective disagreement ledger; revisit only affected classification and dependent calculations (conditional affected-cell correction, independent verification, targeted reruns where required)"
+  },
+
+  "terminalDetermination": "REQUIRES_SPECIFIC_OWNER_DECISION",
+  "terminalBasis": "Two parallel normative decisions are open (T1 HOLD-6 disposition; T2 §L-4 classification authorization). Convergence is science-eligible only after the fail-closed G-L2-ELIG gate (G-F1-HISTB consequence) opens — via admissible historical §L-2 process proof or a separately authorized, independently verified replacement with affected-only recomputation/repair. Thereafter S4, S5, S6 remain MANDATORY_BEFORE_B5_8 as the eligibility-producing §M chain (S5/S6 hold that status only after the gate opens), S7 stays inside the S8 execution packet, and S8 authorization is separate. While G-L2-ELIG is NOT_ESTABLISHED, Route A supports bounded documentary activity only and NO path reaches S8; unqualified lawful B5.8 entry remains NOT_ESTABLISHED. Epistemic questions (whether historical B actually complied) are evidence questions, not Owner truth-choices. Ordinary acceptance of uncertainty is not a methodological waiver.",
+  "newControlTreeEdges": [],
+  "forbiddenActsPerformed": [],
+
+  "findingDisposition": {
+    "IV1-CORR1-F01": {
+      "severity": "BLOCKING",
+      "title": "Route A shortest lawful path reaches scientific execution authorization while measured pilot independence remains unestablished",
+      "disposition": "CORRECTED",
+      "where": [
+        "B5_8_SHORTEST_LAWFUL_SEQUENCE.md §1 (T1, T1b, C1, S5, S6, S7, S8 rows), §2 (G-L2-ELIG gate + corrected paragraph replacing the line-68 shortcut), §2A (negative control), §3 (Option A consequence, eliminations)",
+        "B5_8_ENTRY_REPORT.md §3.F determinations 7–9, §3.G, §4 diagram (gate inserted)",
+        "B5_8_GATE_MATRIX.json gates G-L2-ELIG (new), G-F1-HISTB, G-D4-POSTPILOT-FREEZE, G-2-AUTH; eligibilityPredicate; routeAReachabilityNegativeTest NT-1; terminalBasis",
+        "B5_8_ENTRY_MANIFEST.json strengthened VCH-05/VCH-06"
+      ],
+      "correctionElements": {
+        "1_routeAShortcutRemoved": "The CORR1 line-68 sentence ('shortest path is then T1 ∥ T2 → C1 → S4 (identity selection only) → S5 → S6 → S8') is withdrawn in full, and every equivalent inference is removed; no surface proposes a Route A path to S8",
+        "2_l2MandatoryAtConvergence": "CORR4 §L-2 verified independent-stratifier process compliance is an explicit mandatory element of scientific convergence (C1) and lawful progression toward B5.8, enforced by the fail-closed G-L2-ELIG gate before S5/S6 can be credited as the lawful §M-chain predecessor of full binding",
+        "3_routeABoundedToDocumentary": "While §L-2 remains NOT_ESTABLISHED, Route A is preserved solely for historical retention and appropriately bounded documentary activity (separately authorized historical-ledger analysis, documentary preparation/review, explicitly scoped conditional document acceptance)",
+        "4_documentaryVsEligibilityProducing": "Documentary preparation and conditional document acceptance are distinguished from the eligibility-producing §M post-pilot acceptance (S5) and FINAL CONTRACT FREEZE (S6): labels recorded under a closed gate do not complete the §M predecessor chain",
+        "5_synchronizedSurfaces": "Sequence table/diagram, report diagram, gate matrix (including terminalBasis carrying G-F1-HISTB/G-L2-ELIG as explicit outstanding eligibility conditions) and manifest VCH-05/VCH-06 synchronized; S7 retained in the execution packet",
+        "6_negativeTest": "NT-1 demonstrates that Route A with §L-2 NOT_ESTABLISHED cannot reach S8 even if all documentary labels are present (mirrored in sequence §2A)",
+        "7_exceptionBoundary": "Any explicit methodological exception is a different Owner-authorized methodology act; none supplied, granted or requested"
+      }
+    },
+    "parent_IV1-F01": {
+      "severity": "BLOCKING (parent audit)",
+      "title": "Route A carries an unproven independent-stratifier condition into lawful entry",
+      "disposition": "CORRECTED — CORR1 epistemic corrections preserved; the residual operational defect (IV1-CORR1-F01) is now corrected by CORR2",
+      "where": "B5_8_ENTRY_REPORT.md §3.F; B5_8_GATE_MATRIX.json gates G-F1-HISTB and G-L2-ELIG; B5_8_SHORTEST_LAWFUL_SEQUENCE.md §1 T1/T1b, §2, §2A, §3"
+    },
+    "parent_IV1-F02": {
+      "severity": "MAJOR (parent audit)",
+      "title": "Unsupported HOLD-6 → §L-4 mandatory scheduling dependency",
+      "disposition": "CORRECTED (CORR1) — VERIFIED_ADDRESSED per Codex CORR1.IV1; preserved unchanged by CORR2",
+      "where": "B5_8_ENTRY_REPORT.md §3.D.2, §4; B5_8_GATE_MATRIX.json gates G-D2-HOLD6/G-D3-L4 and parallelTracks; B5_8_SHORTEST_LAWFUL_SEQUENCE.md §1–§2 and scheduling note"
+    },
+    "parent_IV1-F03": {
+      "severity": "MAJOR (parent audit)",
+      "title": "Incomplete ID census is used to over-clear prior-result reuse and fencing",
+      "disposition": "CORRECTED (CORR1) — VERIFIED_ADDRESSED per Codex CORR1.IV1; preserved unchanged by CORR2",
+      "where": "B5_8_ENTRY_REPORT.md §3.A; B5_8_GATE_MATRIX.json gate G-A-EXECUTION; B5_8_INPUT_AUTHORITY_AND_FIREWALL.json fencingBoundary (carried byte-identically); B5_8_SHORTEST_LAWFUL_SEQUENCE.md §1 S0c"
+    },
+    "parent_IV1-F04": {
+      "severity": "MINOR (parent audit)",
+      "title": "Regression lane categorically nonblocking while G-3 remains undetermined",
+      "disposition": "CORRECTED (CORR1) — VERIFIED_ADDRESSED per Codex CORR1.IV1; preserved unchanged by CORR2",
+      "where": "B5_8_ENTRY_REPORT.md §3.D.1; B5_8_GATE_MATRIX.json gate G-D1-REGRESS; B5_8_SHORTEST_LAWFUL_SEQUENCE.md §1 P1"
+    }
+  }
+}
