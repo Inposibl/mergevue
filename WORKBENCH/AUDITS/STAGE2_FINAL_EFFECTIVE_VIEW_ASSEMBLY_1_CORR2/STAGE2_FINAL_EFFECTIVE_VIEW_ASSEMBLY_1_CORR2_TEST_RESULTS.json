@@ -1,0 +1,726 @@
+{
+ "pass": true,
+ "upstream_present:STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_RECORDS.jsonl": {
+  "result": "PASS",
+  "detail": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_2026-10-07/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_RECORDS.jsonl"
+ },
+ "upstream_sha:STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_RECORDS.jsonl": {
+  "result": "PASS",
+  "detail": "3603c3169d7bdd67763ac0d2468d08cbb508d23dfeece4f7b396900b11dc68ec"
+ },
+ "upstream_present:STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_BUILD.py": {
+  "result": "PASS",
+  "detail": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_2026-10-07/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_BUILD.py"
+ },
+ "upstream_sha:STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_BUILD.py": {
+  "result": "PASS",
+  "detail": "c3b31e1ed76b7047314bdba75799d2601b45f43e81a03de0f464857a68c8eb98"
+ },
+ "upstream_present:STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_MANIFEST.json": {
+  "result": "PASS",
+  "detail": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_2026-10-07/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_MANIFEST.json"
+ },
+ "upstream_sha:STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_MANIFEST.json": {
+  "result": "PASS",
+  "detail": "8aee45913bfe6cc720fbad89f7759392edde0d3040f7fa6970d935c1742f6810"
+ },
+ "upstream_present:STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_RECORDS.jsonl": {
+  "result": "PASS",
+  "detail": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_2026-10-07/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_RECORDS.jsonl"
+ },
+ "upstream_sha:STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_RECORDS.jsonl": {
+  "result": "PASS",
+  "detail": "ea0de2f072f0b13f15d36ff053ef047128de15b529d31cefeb1a3337462f6f0a"
+ },
+ "upstream_present:REPORT.md": {
+  "result": "PASS",
+  "detail": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_IV1_CONTINUATION_1/REPORT.md"
+ },
+ "upstream_present:IDENTITY_CHECKS.json": {
+  "result": "PASS",
+  "detail": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_IV1_CONTINUATION_1/IDENTITY_CHECKS.json"
+ },
+ "upstream_present:REPRODUCTION_RESULTS.json": {
+  "result": "PASS",
+  "detail": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_IV1_CONTINUATION_1/REPRODUCTION_RESULTS.json"
+ },
+ "manifest_pin:STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_RECORDS.jsonl": {
+  "result": "PASS",
+  "detail": "5b37071a5fa5374c\u2026/104722B"
+ },
+ "manifest_pin:STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_DELTA_PROVENANCE.json": {
+  "result": "PASS",
+  "detail": "e8c4e6274fc62490\u2026/7840B"
+ },
+ "manifest_pin:STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_REPORT.md": {
+  "result": "PASS",
+  "detail": "00fac47a73bf16c8\u2026/7914B"
+ },
+ "manifest_pin:STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_BUILD.py": {
+  "result": "PASS",
+  "detail": "a34aaddbc4d4f66b\u2026/47542B"
+ },
+ "input_pin:STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_RECORDS.jsonl": {
+  "result": "PASS",
+  "detail": "CORR1_RECORDS"
+ },
+ "input_pin:STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md": {
+  "result": "PASS",
+  "detail": "FROZEN_REGISTRY_PD3_CLAR1_CORR1"
+ },
+ "input_pin:STAGE2_CORR4_PILOT_ANALYTICAL_SOURCECLASS_BINDING_CORR2.jsonl": {
+  "result": "PASS",
+  "detail": "PI7_SOURCECLASS_BINDING"
+ },
+ "input_pin:STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json": {
+  "result": "PASS",
+  "detail": "FROZEN_CODER_VIEW_SCHEMA"
+ },
+ "input_pin:STAGE2_SEMANTIC_SUCCESSOR_CANDIDATE_CORR4.md": {
+  "result": "PASS",
+  "detail": "STAGE2_SEMANTIC_SUCCESSOR_CORR4"
+ },
+ "records_ascii": {
+  "result": "PASS",
+  "detail": ""
+ },
+ "records_lf_terminated": {
+  "result": "PASS",
+  "detail": ""
+ },
+ "record_count_116": {
+  "result": "PASS",
+  "detail": "116"
+ },
+ "census_cells_equal_permitted": {
+  "result": "PASS",
+  "detail": "[(113, 'discriminatorIds'), (114, 'discriminatorIds'), (115, 'discriminatorIds'), (115, 'sourceClass'), (116, 'discriminatorIds'), (116, 'sourceClass')]"
+ },
+ "census_records_4": {
+  "result": "PASS",
+  "detail": "[113, 114, 115, 116]"
+ },
+ "census_fields_6": {
+  "result": "PASS",
+  "detail": "6"
+ },
+ "untouched_lines_verbatim": {
+  "result": "PASS",
+  "detail": "all lines outside {113,114,115,116} byte-identical"
+ },
+ "registry_row_unique:M-INQUIRY-OPERATION": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-THEORY-PRODUCTION": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-OPEN-CRITICAL-EXCHANGE": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-ADJ-ARGUMENT-QUALITY": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-AUTH-EPISTEMIC": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-RES-KNOWLEDGE-PRIMARY": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-RES-CONCEPTUAL-GENERATION (NEW)": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-STRUCTURED-IMPLEMENTATION": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-HIERARCHY-EFFICIENCY": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-STRATEGY-TO-SCALE": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-ADV-REALISED-RESULT": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-AUTH-DELIVERY": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-RES-CAPABILITY-ADVANTAGE": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-AUTH-TECHNICAL-CREDIBILITY (NEW)": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-CAPABILITY-YIELDS-CONTROL (NEW)": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-EMPIRICAL-TEST-ITERATE": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-IMMEDIATE-EMPIRICAL-ITERATION (NEW)": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-ADJ-TEST-RESULT": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-WORKING-RESULT": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-RES-STAKE-UNPROVEN": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-RES-REALLOC-BY-RESULT": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-NO-EXTERNAL-ARBITER": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-INTERPRETIVE-CONTROL": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-MEANING-GOVERNED-COMPLIANCE (NEW)": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-RES-UPWARD-TRANSFER": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-RULE-EXEMPT-UPPER": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-ADV-DOCTRINAL-ALIGNMENT": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-THREAT-AMPLIFICATION": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-INTERNAL-ENEMY-DESIGNATION": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-SACRED-UNITY-PERSISTENCE-FUNCTION": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-RES-EXPRESSIVE-EXPENDITURE": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-RES-NO-INTERNAL-REPLENISHMENT": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-AUTH-TOPDOWN-EXPLICIT": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-ENFORCE-STRENGTH": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-ENFORCE-SANCTION": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-ENFORCE-RESOURCE-CONTROL": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-ENFORCE-RESOURCE-INFORMATION-CONTROL (NEW)": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-ZERO-SUM-PRIMACY-CONTEST": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-POSITION-BY-RESOURCE-HOLD": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-RES-COERCIVE-REDISTRIBUTION": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-RES-NETWORK-PRESERVATION": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-CONTINUITY-VIA-RELATIONS": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-RES-NETWORK-AS-PRINCIPAL-RESOURCE (NEW)": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-MEMBERSHIP-ASCRIBED": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-MEMBERSHIP-ACQUIRED": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-TRUST-BY-DEMONSTRATED-LOYALTY": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-ACCESS-BY-LOYALTY-RELIABILITY (NEW)": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-INFORMAL-LOYALTY-AUTHORITY": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-DECISIONS-SEEK-RELATIONAL-SAFETY (NEW)": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-PRECEDENCE-CONTINUITY": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-EXTERNAL-ADAPTIVE-DEMAND": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-OUTWARD-TACTICAL-DISCRETION": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-RECOGNISED-COMMAND-ORDER": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-INSIDER-OUTSIDER-RULE-ASYMMETRY": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-DELEGATION-HOW-VS-WHAT": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-RES-TACTICAL-EXTERNAL-ACQUISITION": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-RES-ROLE-CONTROLLED-ACCESS": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-RES-HIERARCHICAL-RETENTION (NEW)": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-RES-PROTECTED-ACCESS-EXCHANGE (NEW)": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-RES-ADAPTING-PERSON-RECRUITMENT (NEW)": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-ORDER-SUSTAINED-FLEXIBILITY": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-PARTICIPATION-ARCHITECTURE-CONTROL": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-PARTICIPATION-RETENTION": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-PARTICIPATION-REPLACEMENT": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-COST-MINIMISING-SURPLUS-RETENTION (NEW)": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "registry_row_unique:M-RES-ASYMMETRIC-RETENTION": {
+  "result": "PASS",
+  "detail": "duplicate \u00a7D row"
+ },
+ "pi7_unique:('CASE-3.5', 'CHRYSLER', 'C-B04', 0, 'C33-S01')": {
+  "result": "PASS",
+  "detail": "duplicate PI-7 identity"
+ },
+ "pi7_unique:('aecom-urs', 'AECOM', 'F-A-0008', 0, 'S-A1')": {
+  "result": "PASS",
+  "detail": "duplicate PI-7 identity"
+ },
+ "pi7_unique:('aecom-urs', 'URS', 'F-U-0008', 0, 'S-U1')": {
+  "result": "PASS",
+  "detail": "duplicate PI-7 identity"
+ },
+ "pi7_unique:('amazon-whole-foods', 'AMAZON', 'F-A-0019', 0, 'S-A2')": {
+  "result": "PASS",
+  "detail": "duplicate PI-7 identity"
+ },
+ "pi7_unique:('amazon-whole-foods', 'WHOLE_FOODS', 'F-B-0025', 0, 'S-B1')": {
+  "result": "PASS",
+  "detail": "duplicate PI-7 identity"
+ },
+ "pi7_unique:('amazon-whole-foods', 'WHOLE_FOODS', 'F-B-0037', 0, 'S-B1')": {
+  "result": "PASS",
+  "detail": "duplicate PI-7 identity"
+ },
+ "pi7_unique:('amazon-whole-foods', 'WHOLE_FOODS', 'F-B-0071', 0, 'S-B15')": {
+  "result": "PASS",
+  "detail": "duplicate PI-7 identity"
+ },
+ "pi7_unique:('aol-time-warner', 'AOL', 'F0011', 0, 'S0009')": {
+  "result": "PASS",
+  "detail": "duplicate PI-7 identity"
+ },
+ "pi7_unique:('aol-time-warner', 'AOL', 'F0011', 1, 'S0007')": {
+  "result": "PASS",
+  "detail": "duplicate PI-7 identity"
+ },
+ "pi7_unique:('aol-time-warner', 'AOL', 'F0024', 0, 'S0009')": {
+  "result": "PASS",
+  "detail": "duplicate PI-7 identity"
+ },
+ "pi7_unique:('aol-time-warner', 'TIME_WARNER', 'F0034', 0, 'S0013')": {
+  "result": "PASS",
+  "detail": "duplicate PI-7 identity"
+ },
+ "pi7_unique:('aol-time-warner', 'TIME_WARNER', 'F0034', 1, 'S0014')": {
+  "result": "PASS",
+  "detail": "duplicate PI-7 identity"
+ },
+ "pi7_unique:('deutsche-bankers-trust', 'BANKERS_TRUST', 'F0015', 0, 'S0001')": {
+  "result": "PASS",
+  "detail": "duplicate PI-7 identity"
+ },
+ "pi7_unique:('deutsche-bankers-trust', 'DEUTSCHE_BANK', 'F0023', 0, 'S0004')": {
+  "result": "PASS",
+  "detail": "duplicate PI-7 identity"
+ },
+ "pi7_unique:('exxon-mobil', 'EXXON', 'F-E-0068', 0, 'S-E2')": {
+  "result": "PASS",
+  "detail": "duplicate PI-7 identity"
+ },
+ "pi7_unique:('exxon-mobil', 'EXXON', 'F-E-0123', 0, 'S-E3')": {
+  "result": "PASS",
+  "detail": "duplicate PI-7 identity"
+ },
+ "pi7_unique:('exxon-mobil', 'EXXON', 'F-E-0171', 0, 'S-E2')": {
+  "result": "PASS",
+  "detail": "duplicate PI-7 identity"
+ },
+ "pi7_unique:('exxon-mobil', 'EXXON', 'F-E-0182', 0, 'S-E2')": {
+  "result": "PASS",
+  "detail": "duplicate PI-7 identity"
+ },
+ "pi7_unique:('exxon-mobil', 'MOBIL', 'F-M-0160', 0, 'S-M2')": {
+  "result": "PASS",
+  "detail": "duplicate PI-7 identity"
+ },
+ "pi7_unique:('exxon-mobil', 'MOBIL', 'F-M-0199', 0, 'S-M1')": {
+  "result": "PASS",
+  "detail": "duplicate PI-7 identity"
+ },
+ "pi7_unique:('exxon-mobil', 'MOBIL', 'F-M-0205', 0, 'S-M1')": {
+  "result": "PASS",
+  "detail": "duplicate PI-7 identity"
+ },
+ "pi7_unique:('exxon-mobil', 'MOBIL', 'F-M-0279', 0, 'S-M2')": {
+  "result": "PASS",
+  "detail": "duplicate PI-7 identity"
+ },
+ "pi7_unique:('exxon-mobil', 'MOBIL', 'F-M-0302', 0, 'S-M2')": {
+  "result": "PASS",
+  "detail": "duplicate PI-7 identity"
+ },
+ "pi7_unique:('exxon-mobil', 'MOBIL', 'F-M-0304', 0, 'S-M2')": {
+  "result": "PASS",
+  "detail": "duplicate PI-7 identity"
+ },
+ "pi7_unique:('google-android', 'ANDROID_INC', 'F-A-0004', 0, 'S-A4')": {
+  "result": "PASS",
+  "detail": "duplicate PI-7 identity"
+ },
+ "pi7_unique:('google-android', 'ANDROID_INC', 'F-A-0007', 0, 'S-A5')": {
+  "result": "PASS",
+  "detail": "duplicate PI-7 identity"
+ },
+ "pi7_unique:('google-android', 'ANDROID_INC', 'F-A-0011', 0, 'S-A7')": {
+  "result": "PASS",
+  "detail": "duplicate PI-7 identity"
+ },
+ "pi7_unique:('google-android', 'GOOGLE_INC', 'F-G-0004', 0, 'S-G1')": {
+  "result": "PASS",
+  "detail": "duplicate PI-7 identity"
+ },
+ "pi7_unique:('jpmorgan-bank-one', 'BANK_ONE', 'F-B-0015', 0, 'S-B1')": {
+  "result": "PASS",
+  "detail": "duplicate PI-7 identity"
+ },
+ "pi7_unique:('jpmorgan-bank-one', 'JPMORGAN_CHASE', 'F-J-0003', 0, 'S-J1')": {
+  "result": "PASS",
+  "detail": "duplicate PI-7 identity"
+ },
+ "pi7_unique:('jpmorgan-bank-one', 'JPMORGAN_CHASE', 'F-J-0009', 0, 'S-J1')": {
+  "result": "PASS",
+  "detail": "duplicate PI-7 identity"
+ },
+ "pi7_unique:('pfizer-megamergers', 'WYETH', 'F0032', 0, 'S0007')": {
+  "result": "PASS",
+  "detail": "duplicate PI-7 identity"
+ },
+ "section_i_surface": {
+  "result": "PASS",
+  "detail": "[111, 112, 113, 114, 115, 116]"
+ },
+ "mech_known:M-RES-ROLE-CONTROLLED-ACCESS": {
+  "result": "PASS",
+  "detail": "line 112"
+ },
+ "conform_D_line111": {
+  "result": "PASS",
+  "detail": "persisted ['D-07'] vs derived ['D-07']"
+ },
+ "pi7_exactly_one_line111": {
+  "result": "PASS",
+  "detail": "('amazon-whole-foods', 'WHOLE_FOODS', 'F-B-0025', 0, 'S-B1')"
+ },
+ "conform_sourceClass_line111": {
+  "result": "PASS",
+  "detail": "persisted 'OUTSIDE_FROZEN_VOCABULARY' vs PI-7 'OUTSIDE_FROZEN_VOCABULARY'"
+ },
+ "conform_D_line112": {
+  "result": "PASS",
+  "detail": "persisted ['D-07'] vs derived ['D-07']"
+ },
+ "pi7_exactly_one_line112": {
+  "result": "PASS",
+  "detail": "('aol-time-warner', 'AOL', 'F0024', 0, 'S0009')"
+ },
+ "conform_sourceClass_line112": {
+  "result": "PASS",
+  "detail": "persisted 'compensation plans' vs PI-7 'compensation plans'"
+ },
+ "mech_known:M-RECOGNISED-COMMAND-ORDER": {
+  "result": "PASS",
+  "detail": "line 114"
+ },
+ "conform_D_line113": {
+  "result": "PASS",
+  "detail": "persisted ['D-04'] vs derived ['D-04']"
+ },
+ "pi7_exactly_one_line113": {
+  "result": "PASS",
+  "detail": "('exxon-mobil', 'EXXON', 'F-E-0182', 0, 'S-E2')"
+ },
+ "conform_sourceClass_line113": {
+  "result": "PASS",
+  "detail": "persisted 'access-rights/role matrices' vs PI-7 'access-rights/role matrices'"
+ },
+ "conform_D_line114": {
+  "result": "PASS",
+  "detail": "persisted ['D-04'] vs derived ['D-04']"
+ },
+ "pi7_exactly_one_line114": {
+  "result": "PASS",
+  "detail": "('exxon-mobil', 'EXXON', 'F-E-0182', 0, 'S-E2')"
+ },
+ "conform_sourceClass_line114": {
+  "result": "PASS",
+  "detail": "persisted 'access-rights/role matrices' vs PI-7 'access-rights/role matrices'"
+ },
+ "mech_known:M-ENFORCE-SANCTION": {
+  "result": "PASS",
+  "detail": "line 115"
+ },
+ "conform_D_line115": {
+  "result": "PASS",
+  "detail": "persisted ['D-06'] vs derived ['D-06']"
+ },
+ "pi7_exactly_one_line115": {
+  "result": "PASS",
+  "detail": "('CASE-3.5', 'CHRYSLER', 'C-B04', 0, 'C33-S01')"
+ },
+ "conform_sourceClass_line115": {
+  "result": "PASS",
+  "detail": "persisted 'OUTSIDE_FROZEN_VOCABULARY' vs PI-7 'OUTSIDE_FROZEN_VOCABULARY'"
+ },
+ "mech_known:M-RES-CAPABILITY-ADVANTAGE": {
+  "result": "PASS",
+  "detail": "line 116"
+ },
+ "conform_D_line116": {
+  "result": "PASS",
+  "detail": "persisted ['D-07'] vs derived ['D-07']"
+ },
+ "pi7_exactly_one_line116": {
+  "result": "PASS",
+  "detail": "('exxon-mobil', 'MOBIL', 'F-M-0205', 0, 'S-M1')"
+ },
+ "conform_sourceClass_line116": {
+  "result": "PASS",
+  "detail": "persisted 'OUTSIDE_FROZEN_VOCABULARY' vs PI-7 'OUTSIDE_FROZEN_VOCABULARY'"
+ },
+ "census_value_line113.discriminatorIds": {
+  "result": "PASS",
+  "detail": "('D-01', 'D-04')"
+ },
+ "census_value_line114.discriminatorIds": {
+  "result": "PASS",
+  "detail": "('D-01', 'D-04')"
+ },
+ "census_value_line115.discriminatorIds": {
+  "result": "PASS",
+  "detail": "('D-02', 'D-06')"
+ },
+ "census_value_line115.sourceClass": {
+  "result": "PASS",
+  "detail": "('PERIODICAL_PRINT_ARCHIVE', 'OUTSIDE_FROZEN_VOCABULARY')"
+ },
+ "census_value_line116.discriminatorIds": {
+  "result": "PASS",
+  "detail": "('D-06', 'D-07')"
+ },
+ "census_value_line116.sourceClass": {
+  "result": "PASS",
+  "detail": "('FORM_10K', 'OUTSIDE_FROZEN_VOCABULARY')"
+ },
+ "F01_no_dual_support": {
+  "result": "PASS",
+  "detail": "[]"
+ },
+ "F02_no_ledger_keys": {
+  "result": "PASS",
+  "detail": ""
+ },
+ "AE001_bearing_preserved": {
+  "result": "PASS",
+  "detail": ""
+ },
+ "F0024_preserved": {
+  "result": "PASS",
+  "detail": ""
+ },
+ "delta_pred_sha": {
+  "result": "PASS",
+  "detail": ""
+ },
+ "delta_succ_sha": {
+  "result": "PASS",
+  "detail": ""
+ },
+ "delta_counts": {
+  "result": "PASS",
+  "detail": ""
+ },
+ "report_embeds_records_sha": {
+  "result": "PASS",
+  "detail": ""
+ },
+ "subprocess_build_exit0": {
+  "result": "PASS",
+  "detail": ""
+ },
+ "deterministic_rebuild": {
+  "result": "PASS",
+  "detail": "set()"
+ },
+ "nc:NCA_staleSourceIdentityRejected": {
+  "result": "PASS",
+  "detail": "REJECTED (PI7_NO_MATCH)"
+ },
+ "nc:NCB_duplicatePi7IdentityRejected": {
+  "result": "PASS",
+  "detail": "REJECTED (PI7_DUPLICATE_IDENTITY)"
+ },
+ "nc:NCC_missingPi7EntryRejected": {
+  "result": "PASS",
+  "detail": "REJECTED (PI7_NO_MATCH)"
+ },
+ "nc:NCD_registryRowLossRejected": {
+  "result": "PASS",
+  "detail": "REJECTED (MECHANISM_NOT_IN_REGISTRY)"
+ },
+ "nc:NCE_conflictingRegistryRowRejected": {
+  "result": "PASS",
+  "detail": "REJECTED (REGISTRY_ROW_CONFLICT)"
+ },
+ "nc:NCF_outOfScopeDerivedChangeRejected": {
+  "result": "PASS",
+  "detail": "REJECTED (DERIVED_CHANGE_OUTSIDE_AUTHORIZED_SCOPE)"
+ },
+ "nc:NCG_unexpectedFieldChangeRejected": {
+  "result": "PASS",
+  "detail": "REJECTED (CHANGE_CENSUS_MISMATCH)"
+ },
+ "nc:NCH_recordLossRejected": {
+  "result": "PASS",
+  "detail": "REJECTED (RECORD_COUNT)"
+ },
+ "nc:NCI_recordReorderRejected": {
+  "result": "PASS",
+  "detail": "REJECTED (PIN_SHA_MISMATCH)"
+ },
+ "nc:NCJ_staleBaselineRejected": {
+  "result": "PASS",
+  "detail": "REJECTED (PIN_BYTES_MISMATCH)"
+ },
+ "nc:NCK_dualSupportReintroductionRejected": {
+  "result": "PASS",
+  "detail": "REJECTED (F01_DUAL_SUPPORT)"
+ },
+ "nc:NCL_ledgerKeyOnRecordRejected": {
+  "result": "PASS",
+  "detail": "REJECTED (F02_LEDGER_KEY_ON_RECORD)"
+ },
+ "manifest_nc_consistent": {
+  "result": "PASS",
+  "detail": ""
+ },
+ "git_head_unchanged": {
+  "result": "PASS",
+  "detail": "9b57f0cb567d5a36e4ebcf3292cdbd18439f4faa"
+ },
+ "git_tracked_clean": {
+  "result": "PASS",
+  "detail": ""
+ },
+ "observedIdentities": {
+  "corr2RecordsSha256": "5b37071a5fa5374c77b149bfde5c230c228cdf73d9785e5ea55346f9fab28daa",
+  "corr2RecordsBytes": 104722,
+  "testsPySha256": "d105868a1754ab3d3e535531d465dabc67d795cc42f90ff617341e7a852928b4",
+  "gitHead": "9b57f0cb567d5a36e4ebcf3292cdbd18439f4faa"
+ },
+ "scope": "author-side verification only; not independent verification; not Owner acceptance; no Git mutation performed"
+}

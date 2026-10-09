@@ -1,0 +1,144 @@
+{
+ "act": "STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1.CORR2",
+ "actor": "Z.ai",
+ "role": "IMPLEMENTATION AUTHOR",
+ "mode": "BOUNDED CORRECTION (fail-closed deterministic; safe publication)",
+ "date": "2026-10-08",
+ "repositoryRoot": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)",
+ "branch": "main",
+ "baseHead": "9b57f0cb567d5a36e4ebcf3292cdbd18439f4faa",
+ "parentAct": {
+  "act": "STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1.CORR1",
+  "recordsSha256": "3603c3169d7bdd67763ac0d2468d08cbb508d23dfeece4f7b396900b11dc68ec",
+  "iv1": "STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1.CORR1.IV1 (Codex, 2026-10-07) VERDICT FAIL",
+  "iv1Continuation1": "STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1.CORR1.IV1.CONTINUATION_1 (Codex, 2026-10-08) VERDICT FAIL - 0 BLOCKING / 2 MAJOR / 0 MINOR / 2 ADVISORY; open findings CONT1-M01, CONT1-M02"
+ },
+ "inputs": [
+  {
+   "role": "CORR1_RECORDS",
+   "path": "WORKBENCH/DOWNLOADS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_2026-10-07/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_RECORDS.jsonl",
+   "sha256": "3603c3169d7bdd67763ac0d2468d08cbb508d23dfeece4f7b396900b11dc68ec",
+   "bytes": 104704
+  },
+  {
+   "role": "FROZEN_REGISTRY_PD3_CLAR1_CORR1",
+   "path": "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md",
+   "sha256": "cb08b51e1c2fbaec7765989a7a4e15db1788c53eb5fec43f2628ecb88c1d6c73",
+   "bytes": 344754
+  },
+  {
+   "role": "PI7_SOURCECLASS_BINDING",
+   "path": "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_SOURCECLASS_BINDING_CORR2.jsonl",
+   "sha256": "3eee72d088f9f72cb95671df14393912659081827719b589cc8a278cddc61591",
+   "bytes": 95720
+  },
+  {
+   "role": "FROZEN_CODER_VIEW_SCHEMA",
+   "path": "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json",
+   "sha256": "0cb5a6b5d2239855eeabe0bfd0e9ceb6c545dc2a86b4b34a90b65187592721b5",
+   "bytes": 28839
+  },
+  {
+   "role": "STAGE2_SEMANTIC_SUCCESSOR_CORR4",
+   "path": "WORKBENCH/DOWNLOADS/STAGE2_SEMANTIC_SUCCESSOR_CANDIDATE_CORR4.md",
+   "sha256": "2de49862fb0d63c5f1cd1745531199137e73b7b37abceecef6e735d497d38bb0",
+   "bytes": 250512
+  }
+ ],
+ "permittedChangeSet": [
+  "line113.discriminatorIds",
+  "line114.discriminatorIds",
+  "line115.discriminatorIds",
+  "line115.sourceClass",
+  "line116.discriminatorIds",
+  "line116.sourceClass"
+ ],
+ "changeInventory": {
+  "changedRecordCount": 4,
+  "changedFieldCount": 6,
+  "changedCells": [
+   [
+    113,
+    "discriminatorIds"
+   ],
+   [
+    114,
+    "discriminatorIds"
+   ],
+   [
+    115,
+    "discriminatorIds"
+   ],
+   [
+    115,
+    "sourceClass"
+   ],
+   [
+    116,
+    "discriminatorIds"
+   ],
+   [
+    116,
+    "sourceClass"
+   ]
+  ],
+  "censusCoverage": "all 116 records deep-diffed; \u00a7I conformance derived for all 6 SECTION_I records (the complete applicable surface: the other 110 records are POST_RECONCILIATION_EXECUTION_CELL_RECORDs carrying neither discriminatorIds nor sourceClass)"
+ },
+ "serialization": {
+  "convention": "json.dumps(ensure_ascii=True, separators=(', ', ': ')); LF; exactly one trailing newline",
+  "pureAscii": true,
+  "unchangedLinesEmittedVerbatim": 112
+ },
+ "firewalls": {
+  "corr1BaselineUnchanged": true,
+  "fevaV1PackageUnchanged": true,
+  "originalBuildUnmodified": true,
+  "acceptedContractsUnmodified": true,
+  "gitMutations": 0,
+  "writesOutsidePackageDir": 0
+ },
+ "negativeControls": {
+  "NCA_staleSourceIdentityRejected": "REJECTED (PI7_NO_MATCH)",
+  "NCB_duplicatePi7IdentityRejected": "REJECTED (PI7_DUPLICATE_IDENTITY)",
+  "NCC_missingPi7EntryRejected": "REJECTED (PI7_NO_MATCH)",
+  "NCD_registryRowLossRejected": "REJECTED (MECHANISM_NOT_IN_REGISTRY)",
+  "NCE_conflictingRegistryRowRejected": "REJECTED (REGISTRY_ROW_CONFLICT)",
+  "NCF_outOfScopeDerivedChangeRejected": "REJECTED (DERIVED_CHANGE_OUTSIDE_AUTHORIZED_SCOPE)",
+  "NCG_unexpectedFieldChangeRejected": "REJECTED (CHANGE_CENSUS_MISMATCH)",
+  "NCH_recordLossRejected": "REJECTED (RECORD_COUNT)",
+  "NCI_recordReorderRejected": "REJECTED (PIN_SHA_MISMATCH)",
+  "NCJ_staleBaselineRejected": "REJECTED (PIN_BYTES_MISMATCH)",
+  "NCK_dualSupportReintroductionRejected": "REJECTED (F01_DUAL_SUPPORT)",
+  "NCL_ledgerKeyOnRecordRejected": "REJECTED (F02_LEDGER_KEY_ON_RECORD)"
+ },
+ "selfValidation": {
+  "executed": true,
+  "note": "author-side self-validation only; not independent verification",
+  "deterministicRepeatBuild": true
+ },
+ "independentlyVerified": false,
+ "ownerAccepted": false,
+ "gitClosed": false,
+ "status": "READY_FOR_INDEPENDENT_VERIFICATION",
+ "stoppingPoint": "CORR2 candidate assembly + self-validation complete. No CORR2.IV1 started.",
+ "manifestSelfHashPolicy": "This manifest pins every other output member by SHA-256 and byte count. It does NOT include its own digest (circular self-hash forbidden). Its identity is established post-write by external hashing; the CORR2 report documents this policy as the package's external identity anchor.",
+ "additionalArtifacts": "STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_TESTS.py and STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_TEST_RESULTS.json are additional act-local author-side test artifacts under act brief \u00a79; they are not pinned here. TEST_RESULTS.json records the package-member identities it observed at run time.",
+ "outputs": {
+  "STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_RECORDS.jsonl": {
+   "bytes": 104722,
+   "sha256": "5b37071a5fa5374c77b149bfde5c230c228cdf73d9785e5ea55346f9fab28daa"
+  },
+  "STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_DELTA_PROVENANCE.json": {
+   "bytes": 7840,
+   "sha256": "e8c4e6274fc624908718724f30324ae3187d88f1bf5038b711d9a5c3febf5b9e"
+  },
+  "STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_REPORT.md": {
+   "bytes": 7914,
+   "sha256": "00fac47a73bf16c823d925d0adfdc2ddbb2233035cffe505865df43a0dc22859"
+  },
+  "STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_BUILD.py": {
+   "bytes": 47542,
+   "sha256": "a34aaddbc4d4f66b970c6c9bc9e1d4668889e17d92b0566060d5576dc4e34a8d"
+  }
+ }
+}

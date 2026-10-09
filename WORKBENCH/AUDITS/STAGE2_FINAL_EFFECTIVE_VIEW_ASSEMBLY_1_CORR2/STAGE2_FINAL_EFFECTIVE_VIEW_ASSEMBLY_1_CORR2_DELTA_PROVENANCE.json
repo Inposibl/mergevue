@@ -1,0 +1,215 @@
+{
+ "act": "STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1.CORR2",
+ "predecessorSha256": "3603c3169d7bdd67763ac0d2468d08cbb508d23dfeece4f7b396900b11dc68ec",
+ "successorSha256": "5b37071a5fa5374c77b149bfde5c230c228cdf73d9785e5ea55346f9fab28daa",
+ "changedRecordCount": 4,
+ "changedFieldCount": 6,
+ "unchangedRecordCount": 112,
+ "valueSemanticsLegend": {
+  "presence": "PRESENT values are wrapped; ABSENT keys are null-wrapped in oldValue/newValue slots (absent vs null distinct)",
+  "typeStrictness": "bool vs int and int vs float distinct",
+  "serialization": "json.dumps(ensure_ascii=True, separators=(', ', ': ')); LF; exactly one trailing newline"
+ },
+ "changedRecords": [
+  {
+   "line": 113,
+   "edgeId": "A-RERUN1-CORR1:F-E-0182:M-RECOGNISED-COMMAND-ORDER:TT-STPSTJ-ESS",
+   "mechanismPropositionIds": [
+    "M-RECOGNISED-COMMAND-ORDER"
+   ],
+   "authority": {
+    "discriminatorRule": "frozen registry (PD3-CLAR-1.CORR1) \u00a7C.0 C-1/C-2: emitted set = union of \u00a7D-row D-sets of the edge's mechanismPropositionIds; CORR4 \u00a7D cross-checked equal",
+    "registrySha256": "cb08b51e1c2fbaec7765989a7a4e15db1788c53eb5fec43f2628ecb88c1d6c73",
+    "registryDSet": [
+     "D-04"
+    ],
+    "sourceClassRule": "frozen coder-view schema sourceClassBindingRule: copy PI-7 sectionIFill exactly (ASSIGNED sourceClass, otherwise fail-closed state verbatim)",
+    "schemaSha256": "0cb5a6b5d2239855eeabe0bfd0e9ceb6c545dc2a86b4b34a90b65187592721b5",
+    "pi7BindingSha256": "3eee72d088f9f72cb95671df14393912659081827719b589cc8a278cddc61591",
+    "pi7Identity": [
+     "exxon-mobil",
+     "EXXON",
+     "F-E-0182",
+     0,
+     "S-E2"
+    ],
+    "pi7SourceClassAssignmentState": "ASSIGNED",
+    "pi7Derivation": "SINGLE_ASSIGNED_SUPPORT: exactly one bounded segment carrying exactly one satisfied class predicate (deterministic procedure STEP 7); the section I edge records this sourceClass (R-EDGE); it counts toward srcDiv subject to R-COUNT anti-inflation grouping."
+   },
+   "changedFields": [
+    {
+     "field": "discriminatorIds",
+     "oldValue": {
+      "presence": "PRESENT",
+      "value": [
+       "D-01"
+      ]
+     },
+     "newValue": {
+      "presence": "PRESENT",
+      "value": [
+       "D-04"
+      ]
+     },
+     "authorityPath": "frozen registry \u00a7D row for M-RECOGNISED-COMMAND-ORDER (C-1/C-2)"
+    }
+   ]
+  },
+  {
+   "line": 114,
+   "edgeId": "A-RERUN1-CORR1:F-E-0182:M-RECOGNISED-COMMAND-ORDER:TT-STPSTJ-PW",
+   "mechanismPropositionIds": [
+    "M-RECOGNISED-COMMAND-ORDER"
+   ],
+   "authority": {
+    "discriminatorRule": "frozen registry (PD3-CLAR-1.CORR1) \u00a7C.0 C-1/C-2: emitted set = union of \u00a7D-row D-sets of the edge's mechanismPropositionIds; CORR4 \u00a7D cross-checked equal",
+    "registrySha256": "cb08b51e1c2fbaec7765989a7a4e15db1788c53eb5fec43f2628ecb88c1d6c73",
+    "registryDSet": [
+     "D-04"
+    ],
+    "sourceClassRule": "frozen coder-view schema sourceClassBindingRule: copy PI-7 sectionIFill exactly (ASSIGNED sourceClass, otherwise fail-closed state verbatim)",
+    "schemaSha256": "0cb5a6b5d2239855eeabe0bfd0e9ceb6c545dc2a86b4b34a90b65187592721b5",
+    "pi7BindingSha256": "3eee72d088f9f72cb95671df14393912659081827719b589cc8a278cddc61591",
+    "pi7Identity": [
+     "exxon-mobil",
+     "EXXON",
+     "F-E-0182",
+     0,
+     "S-E2"
+    ],
+    "pi7SourceClassAssignmentState": "ASSIGNED",
+    "pi7Derivation": "SINGLE_ASSIGNED_SUPPORT: exactly one bounded segment carrying exactly one satisfied class predicate (deterministic procedure STEP 7); the section I edge records this sourceClass (R-EDGE); it counts toward srcDiv subject to R-COUNT anti-inflation grouping."
+   },
+   "changedFields": [
+    {
+     "field": "discriminatorIds",
+     "oldValue": {
+      "presence": "PRESENT",
+      "value": [
+       "D-01"
+      ]
+     },
+     "newValue": {
+      "presence": "PRESENT",
+      "value": [
+       "D-04"
+      ]
+     },
+     "authorityPath": "frozen registry \u00a7D row for M-RECOGNISED-COMMAND-ORDER (C-1/C-2)"
+    }
+   ]
+  },
+  {
+   "line": 115,
+   "edgeId": "A-E001",
+   "mechanismPropositionIds": [
+    "M-ENFORCE-SANCTION"
+   ],
+   "authority": {
+    "discriminatorRule": "frozen registry (PD3-CLAR-1.CORR1) \u00a7C.0 C-1/C-2: emitted set = union of \u00a7D-row D-sets of the edge's mechanismPropositionIds; CORR4 \u00a7D cross-checked equal",
+    "registrySha256": "cb08b51e1c2fbaec7765989a7a4e15db1788c53eb5fec43f2628ecb88c1d6c73",
+    "registryDSet": [
+     "D-06"
+    ],
+    "sourceClassRule": "frozen coder-view schema sourceClassBindingRule: copy PI-7 sectionIFill exactly (ASSIGNED sourceClass, otherwise fail-closed state verbatim)",
+    "schemaSha256": "0cb5a6b5d2239855eeabe0bfd0e9ceb6c545dc2a86b4b34a90b65187592721b5",
+    "pi7BindingSha256": "3eee72d088f9f72cb95671df14393912659081827719b589cc8a278cddc61591",
+    "pi7Identity": [
+     "CASE-3.5",
+     "CHRYSLER",
+     "C-B04",
+     0,
+     "C33-S01"
+    ],
+    "pi7SourceClassAssignmentState": "OUTSIDE_FROZEN_VOCABULARY",
+    "pi7Derivation": "NO_ASSIGNED_SEGMENT: every segment of this supplying record is OUTSIDE_FROZEN_VOCABULARY; the section I edge records this fail-closed state verbatim and contributes nothing to srcDiv (R-COUNT PRE-5); it must NOT be converted to ASSIGNED."
+   },
+   "changedFields": [
+    {
+     "field": "discriminatorIds",
+     "oldValue": {
+      "presence": "PRESENT",
+      "value": [
+       "D-02"
+      ]
+     },
+     "newValue": {
+      "presence": "PRESENT",
+      "value": [
+       "D-06"
+      ]
+     },
+     "authorityPath": "frozen registry \u00a7D row for M-ENFORCE-SANCTION (C-1/C-2)"
+    },
+    {
+     "field": "sourceClass",
+     "oldValue": {
+      "presence": "PRESENT",
+      "value": "PERIODICAL_PRINT_ARCHIVE"
+     },
+     "newValue": {
+      "presence": "PRESENT",
+      "value": "OUTSIDE_FROZEN_VOCABULARY"
+     },
+     "authorityPath": "PI-7 sectionIFill for identity ['CASE-3.5', 'CHRYSLER', 'C-B04', 0, 'C33-S01']"
+    }
+   ]
+  },
+  {
+   "line": 116,
+   "edgeId": "A-E023",
+   "mechanismPropositionIds": [
+    "M-RES-CAPABILITY-ADVANTAGE"
+   ],
+   "authority": {
+    "discriminatorRule": "frozen registry (PD3-CLAR-1.CORR1) \u00a7C.0 C-1/C-2: emitted set = union of \u00a7D-row D-sets of the edge's mechanismPropositionIds; CORR4 \u00a7D cross-checked equal",
+    "registrySha256": "cb08b51e1c2fbaec7765989a7a4e15db1788c53eb5fec43f2628ecb88c1d6c73",
+    "registryDSet": [
+     "D-07"
+    ],
+    "sourceClassRule": "frozen coder-view schema sourceClassBindingRule: copy PI-7 sectionIFill exactly (ASSIGNED sourceClass, otherwise fail-closed state verbatim)",
+    "schemaSha256": "0cb5a6b5d2239855eeabe0bfd0e9ceb6c545dc2a86b4b34a90b65187592721b5",
+    "pi7BindingSha256": "3eee72d088f9f72cb95671df14393912659081827719b589cc8a278cddc61591",
+    "pi7Identity": [
+     "exxon-mobil",
+     "MOBIL",
+     "F-M-0205",
+     0,
+     "S-M1"
+    ],
+    "pi7SourceClassAssignmentState": "OUTSIDE_FROZEN_VOCABULARY",
+    "pi7Derivation": "NO_ASSIGNED_SEGMENT: every segment of this supplying record is OUTSIDE_FROZEN_VOCABULARY; the section I edge records this fail-closed state verbatim and contributes nothing to srcDiv (R-COUNT PRE-5); it must NOT be converted to ASSIGNED."
+   },
+   "changedFields": [
+    {
+     "field": "discriminatorIds",
+     "oldValue": {
+      "presence": "PRESENT",
+      "value": [
+       "D-06"
+      ]
+     },
+     "newValue": {
+      "presence": "PRESENT",
+      "value": [
+       "D-07"
+      ]
+     },
+     "authorityPath": "frozen registry \u00a7D row for M-RES-CAPABILITY-ADVANTAGE (C-1/C-2)"
+    },
+    {
+     "field": "sourceClass",
+     "oldValue": {
+      "presence": "PRESENT",
+      "value": "FORM_10K"
+     },
+     "newValue": {
+      "presence": "PRESENT",
+      "value": "OUTSIDE_FROZEN_VOCABULARY"
+     },
+     "authorityPath": "PI-7 sectionIFill for identity ['exxon-mobil', 'MOBIL', 'F-M-0205', 0, 'S-M1']"
+    }
+   ]
+  }
+ ]
+}
