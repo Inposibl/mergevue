@@ -1,0 +1,172 @@
+{
+  "schemaVersion": "1.0",
+  "actId": "MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1.CORR1.IV1",
+  "role": "AUDITOR",
+  "verdict": "PASS",
+  "originalParentVerdict": "FAIL — 2 BLOCKING / 2 MAJOR / 2 MINOR",
+  "candidateScope": "Exact six-file CORR1 documentary candidate",
+  "findingDispositions": [
+    {
+      "findingId": "IV1-B01",
+      "originalSeverity": "BLOCKING",
+      "originalDefect": "Missing §L-4 stratifier classification obligation",
+      "disposition": "VERIFIED_ADDRESSED",
+      "scope": "CORR1 documentary correction only",
+      "independentReason": "CORR1 restores L4_STRATIFIER_DISAGREEMENT_DISPOSITION=OPEN. Fresh mark/ledger set comparison and CORR4 L-2/L-4 establish 1,094 unclassified tuples. No applicable primary accepted exemption was recovered.",
+      "correctionLocation": {
+        "path": "/private/tmp/MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1_CORR1/B17_FULL_CLOSURE_PREFLIGHT_REPORT.md",
+        "line": 62
+      },
+      "consistencyReviewed": [
+        "B17_FULL_CLOSURE_PREFLIGHT_REPORT.md",
+        "B17_NODE_AUTHORITY_MATRIX.json",
+        "B17_HOLD_AND_DISCREPANCY_REGISTER.json",
+        "B17_EVIDENCE_INDEX.json",
+        "B17_MINIMUM_CLOSURE_SEQUENCE.md",
+        "B17_PREFLIGHT_MANIFEST.json"
+      ],
+      "controllingEvidence": "CORR4 §§L-2,L-4; original comparison report; reconciliation ledger authority conflict",
+      "remainingUnderlyingObligation": "L4_STRATIFIER_DISAGREEMENT_DISPOSITION remains OPEN.",
+      "scientificClosure": false,
+      "ownerAcceptance": false
+    },
+    {
+      "findingId": "IV1-B02",
+      "originalSeverity": "BLOCKING",
+      "originalDefect": "Missing post-pilot acceptance and final semantic freeze",
+      "disposition": "VERIFIED_ADDRESSED",
+      "scope": "CORR1 documentary correction only",
+      "independentReason": "CORR1 restores two separate OPEN gates before 905-fact binding and independent dual coding. CORR4 §M establishes the order. A pilot lock, accepted FEVA/adapter or empirical/HEDC freeze does not satisfy these gates.",
+      "correctionLocation": {
+        "path": "/private/tmp/MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1_CORR1/B17_FULL_CLOSURE_PREFLIGHT_REPORT.md",
+        "line": 90
+      },
+      "consistencyReviewed": [
+        "B17_FULL_CLOSURE_PREFLIGHT_REPORT.md",
+        "B17_NODE_AUTHORITY_MATRIX.json",
+        "B17_HOLD_AND_DISCREPANCY_REGISTER.json",
+        "B17_EVIDENCE_INDEX.json",
+        "B17_MINIMUM_CLOSURE_SEQUENCE.md",
+        "B17_PREFLIGHT_MANIFEST.json"
+      ],
+      "controllingEvidence": "CORR4 §M, pilot-version-lock lineage, adapter closure, accepted reconstruction",
+      "remainingUnderlyingObligation": "POST_PILOT_CONTRACT_OWNER_ACCEPTANCE and STAGE2_FINAL_SEMANTIC_CONTRACT_FREEZE remain OPEN.",
+      "scientificClosure": false,
+      "ownerAcceptance": false
+    },
+    {
+      "findingId": "IV1-M01",
+      "originalSeverity": "MAJOR",
+      "originalDefect": "Actor ratification conflated with process proof",
+      "disposition": "VERIFIED_ADDRESSED",
+      "scope": "CORR1 documentary correction only",
+      "independentReason": "Original B prompt appoints Kimi K3 Extra; original B report reports Claude/Cline. CORR1 separates actor disposition from unverified model/session/read/blindness evidence and retains conditional Routes A/B, preserving A.",
+      "correctionLocation": {
+        "path": "/private/tmp/MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1_CORR1/B17_FULL_CLOSURE_PREFLIGHT_REPORT.md",
+        "line": 113
+      },
+      "consistencyReviewed": [
+        "B17_FULL_CLOSURE_PREFLIGHT_REPORT.md",
+        "B17_NODE_AUTHORITY_MATRIX.json",
+        "B17_HOLD_AND_DISCREPANCY_REGISTER.json",
+        "B17_EVIDENCE_INDEX.json",
+        "B17_MINIMUM_CLOSURE_SEQUENCE.md",
+        "B17_PREFLIGHT_MANIFEST.json"
+      ],
+      "controllingEvidence": "Original A/B prompts, reports and frozen marks; current scratch availability",
+      "remainingUnderlyingObligation": "HOLD-6 actor disposition and process limitation disposition remain OPEN; no rerun authorized.",
+      "scientificClosure": false,
+      "ownerAcceptance": false
+    },
+    {
+      "findingId": "IV1-M02",
+      "originalSeverity": "MAJOR",
+      "originalDefect": "Four erroneous Git bindings",
+      "disposition": "VERIFIED_ADDRESSED",
+      "scope": "CORR1 documentary correction only",
+      "independentReason": "Fresh Git-object checks show three live inputs absent at 2567223087d99b40bdfd174eed32566be7080e44 and untracked. Source-map snapshot alone is recovered in the bound archive. Current closure SHA belongs to 8f0085b699938f8f7d6adc2fbfd20cbbcea44fc9; historical SHA belongs to 7f544afa071658bdd9d0d243c8e172e1061a5944. CORR1 uses these relationships consistently.",
+      "correctionLocation": {
+        "path": "/private/tmp/MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1_CORR1/B17_FULL_CLOSURE_PREFLIGHT_REPORT.md",
+        "line": 138
+      },
+      "consistencyReviewed": [
+        "B17_FULL_CLOSURE_PREFLIGHT_REPORT.md",
+        "B17_NODE_AUTHORITY_MATRIX.json",
+        "B17_HOLD_AND_DISCREPANCY_REGISTER.json",
+        "B17_EVIDENCE_INDEX.json",
+        "B17_MINIMUM_CLOSURE_SEQUENCE.md",
+        "B17_PREFLIGHT_MANIFEST.json"
+      ],
+      "controllingEvidence": "git ls-files / cat-file / log --find-object (no -w); ZIP member bytes",
+      "remainingUnderlyingObligation": "No surviving material binding defect; live-byte durability remains separately documented.",
+      "scientificClosure": false,
+      "ownerAcceptance": false
+    },
+    {
+      "findingId": "IV1-N01",
+      "originalSeverity": "MINOR",
+      "originalDefect": "Incomplete reproducibility/preservation inventory",
+      "disposition": "VERIFIED_ADDRESSED",
+      "scope": "CORR1 documentary correction only",
+      "independentReason": "All 40 inventory objects reproduce their hashes, sizes and tracking states. Nine have verified Git/archive locators; 31 are available now without such locators. All nine Stage-1 substrate files and all 143 archive members were independently examined. Reasons and present-versus-durable status are explicit.",
+      "correctionLocation": {
+        "path": "/private/tmp/MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1_CORR1/B17_FULL_CLOSURE_PREFLIGHT_REPORT.md",
+        "line": 155
+      },
+      "consistencyReviewed": [
+        "B17_FULL_CLOSURE_PREFLIGHT_REPORT.md",
+        "B17_NODE_AUTHORITY_MATRIX.json",
+        "B17_HOLD_AND_DISCREPANCY_REGISTER.json",
+        "B17_EVIDENCE_INDEX.json",
+        "B17_MINIMUM_CLOSURE_SEQUENCE.md",
+        "B17_PREFLIGHT_MANIFEST.json"
+      ],
+      "controllingEvidence": "B17_EVIDENCE_INDEX.json/preservationInventory; fresh 40-object and 143-member computations",
+      "remainingUnderlyingObligation": "Future preservation is a storage/reproducibility act; no blanket classification of 31 scientific blockers.",
+      "scientificClosure": false,
+      "ownerAcceptance": false
+    },
+    {
+      "findingId": "IV1-N02",
+      "originalSeverity": "MINOR",
+      "originalDefect": "Truncated SourceClass commit identity",
+      "disposition": "VERIFIED_ADDRESSED",
+      "scope": "CORR1 documentary correction only",
+      "independentReason": "Full 40-hex commit 31fd56e7e8df29ab5f7ff854be75453686f37758 resolves. The earlier 38-hex form resolves to the same object and is labeled abbreviated. Historical punctuation residual and validator counts are preserved.",
+      "correctionLocation": {
+        "path": "/private/tmp/MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1_CORR1/B17_FULL_CLOSURE_PREFLIGHT_REPORT.md",
+        "line": 167
+      },
+      "consistencyReviewed": [
+        "B17_FULL_CLOSURE_PREFLIGHT_REPORT.md",
+        "B17_NODE_AUTHORITY_MATRIX.json",
+        "B17_HOLD_AND_DISCREPANCY_REGISTER.json",
+        "B17_EVIDENCE_INDEX.json",
+        "B17_MINIMUM_CLOSURE_SEQUENCE.md",
+        "B17_PREFLIGHT_MANIFEST.json"
+      ],
+      "controllingEvidence": "git rev-parse; SourceClass bound closure and historical IV",
+      "remainingUnderlyingObligation": "Accepted punctuation residual remains historically acknowledged and is not reopened.",
+      "scientificClosure": false,
+      "ownerAcceptance": false
+    }
+  ],
+  "newFindings": [],
+  "counts": {
+    "BLOCKING": 0,
+    "MAJOR": 0,
+    "MINOR": 0,
+    "ADVISORY": 0
+  },
+  "limitationsAreNotScientificAcceptance": true,
+  "remainingOpenGates": {
+    "L4_STRATIFIER_DISAGREEMENT_DISPOSITION": "OPEN",
+    "POST_PILOT_CONTRACT_OWNER_ACCEPTANCE": "OPEN",
+    "STAGE2_FINAL_SEMANTIC_CONTRACT_FREEZE": "OPEN",
+    "final905Binding": "NOT_CERTIFIED_OR_EXECUTED",
+    "independentDualCoding": "NOT_CERTIFIED_OR_EXECUTED"
+  },
+  "requiredCorrections": [],
+  "terminal": "STOP"
+}
+

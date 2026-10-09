@@ -1,0 +1,219 @@
+{
+  "actId": "MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1.CORR1",
+  "documentRole": "AUTHOR_EVIDENCE",
+  "predecessorAct": "MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1",
+  "predecessorAudit": "MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1.IV1",
+  "predecessorVerdict": "FAIL — BLOCKING 2 / MAJOR 2 / MINOR 2",
+  "reservedVerifierVerdict": null,
+  "authorDispositionIsNotIndependentClosure": true,
+  "findingClosure": [
+    {
+      "findingId": "IV1-B01",
+      "originalFinding": "CORR4 L-2 explicitly requires stratification disagreements to be classified in the L-4 taxonomy. The exact 1,094-row frozen ledger has no classification field; agreement declares classificationAssigned=false. Original analytical comparison reserves a separately authorized L-4 disposition. A later diagnostic reconciliation asserts a metric-only exclusion attributed to an accepted comparison IV, but that primary IV and an accepted overriding disposition were not recovered in this bounded search. Preflight neither identifies nor resolves this authority conflict. Analytical-coder classifications do not classify the stratifier tuple universe.",
+      "originalSeverity": "BLOCKING",
+      "originalTitle": "Unresolved stratifier L-4 obligation is missing from the three-blocker route",
+      "exactOriginalAffectedClaim": "The original route treated the B17.7 inventory as proof that no further candidate must be implemented, and it did not place stratifier disagreement classification on the closure path.",
+      "correctionPerformed": "Recorded L4_STRATIFIER_DISAGREEMENT_DISPOSITION = OPEN. No accepted exception or supersession of CORR4 section L-2/L-4 for stratifier disagreements was recovered. The 1,094 tuples were not classified.",
+      "supportingOriginalSource": [
+        "STAGE2_SEMANTIC_SUCCESSOR_CANDIDATE_CORR4.md sha256 2de49862fb0d63c5f1cd1745531199137e73b7b37abceecef6e735d497d38bb0",
+        "Agreement disagreementFreeze.classificationAssigned false, sha256 37f4b42100924479202d98d503c4e89b6d3787fd5f4d5b19cf1bd26617bf599d",
+        "Ledger sha256 990950c5822df47f4b7afe27c86498d413e872c57b1b62b5de5bf2f5fd037e0b, 1094 rows, no taxonomy field",
+        "Original comparison author report sha256 4f6a55c78ae2957be63cadeb0a335a7283b2a0fef5600444e70a64d2f0cf162b reserves stratifier L-4 disposition and is not Owner acceptance",
+        "Five byte-identical post-pilot candidates sha256 5e373e1604f89a0f6e3719fccf46f8f2eeadfce056a6bde3d2551008ab61381d declare themselves not Owner-accepted and not frozen, and leave section L-4 byte-identical to frozen CORR4"
+      ],
+      "independentEvidenceOrAuthority": "Codex IV1 established the arithmetic and the missing classification. This act re-counted the marks and the ledger. No Owner instrument narrowing L-4 was recovered. The later metric-only sentence is an agent attribution.",
+      "remainingUncertainties": "An inaccessible session could still hold an instrument. Absence in this search is NOT_RECOVERED, not proof that the Owner never decided.",
+      "futureAuthorizationRequired": true,
+      "originalScientificWorkLeftUntouched": true,
+      "newCorrectedArtifactAndLocation": "/private/tmp/MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1_CORR1/B17_FULL_CLOSURE_PREFLIGHT_REPORT.md section 4 and B17_MINIMUM_CLOSURE_SEQUENCE.md step 2",
+      "authorDisposition": "ADDRESSED",
+      "addressedMeans": "The documentary defect is corrected, or the open dependency is accurately recognized and allocated. The underlying science was not executed.",
+      "independentIvStillRequired": true,
+      "authorDispositionIsNotClosure": true
+    },
+    {
+      "findingId": "IV1-B02",
+      "originalFinding": "CORR4 M requires post-pilot contract acceptance and FINAL CONTRACT FREEZE before 905/905 semantic binding and subsequent dual coding. Pilot-version lock is expressly a different event. No exact executed post-pilot freeze instrument was established. The minimum sequence ends with measurement acceptance/Git closure and does not locate this obligation, establish completion, or allocate an explicit still-open handoff gate. B7.1 is later empirical methodology acceptance after B5.18, and B5.10 is HEDC-rule freeze; neither silently discharges the Stage-2 semantic freeze.",
+      "originalSeverity": "BLOCKING",
+      "originalTitle": "Full-closure route omits post-pilot acceptance and FINAL CONTRACT FREEZE",
+      "exactOriginalAffectedClaim": "The original minimum sequence presented measurement acceptance and Git closure as enough for genuine Stage-2 completion and did not locate post-pilot acceptance or FINAL CONTRACT FREEZE.",
+      "correctionPerformed": "Recorded two open gates before 905-fact binding: POST_PILOT_CONTRACT_OWNER_ACCEPTANCE and STAGE2_FINAL_SEMANTIC_CONTRACT_FREEZE. Distinguished a possible diagnostic measurement from unqualified closure without inventing a Control Tree edge.",
+      "supportingOriginalSource": [
+        "CORR4 section M in sha256 2de49862fb0d63c5f1cd1745531199137e73b7b37abceecef6e735d497d38bb0",
+        "Pilot lock prose is a different event",
+        "B7.1 remains NOT_REACHED and is not this freeze",
+        "B5.10 is the later HEDC-rule freeze"
+      ],
+      "independentEvidenceOrAuthority": "No executed post-pilot Owner instrument or final freeze was recovered. Codex IV1 is the independent finding that the original route omitted the gates. Codex's proposed future acts are not authorization.",
+      "remainingUncertainties": "A later instrument outside the searched roots could exist. Until it is produced with identity and scope, both gates stay open.",
+      "futureAuthorizationRequired": true,
+      "originalScientificWorkLeftUntouched": true,
+      "newCorrectedArtifactAndLocation": "/private/tmp/MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1_CORR1/B17_MINIMUM_CLOSURE_SEQUENCE.md steps 7 and 8",
+      "authorDisposition": "ADDRESSED",
+      "addressedMeans": "The documentary defect is corrected, or the open dependency is accurately recognized and allocated. The underlying science was not executed.",
+      "independentIvStillRequired": true,
+      "authorDispositionIsNotClosure": true
+    },
+    {
+      "findingId": "IV1-M01",
+      "originalFinding": "The candidate correctly says process independence is not independently audited and agreement does not prove it. Yet the route then says no IV before actor decision and that ratification is enough, relying partly on different outputs. Permitted-view prompts, matched pins and author attestations establish instructions and reported compliance; they do not authenticate actual session isolation, read sets or outcome blindness. The actual B actor is reported Claude/Cline versus the authorized Kimi K3 Extra prompt; runtime model identity is not externally attested by these files.",
+      "originalSeverity": "MAJOR",
+      "originalTitle": "Actor ratification is treated as sufficient without resolving process-proof limits",
+      "exactOriginalAffectedClaim": "The original route said ratification of the reported Claude/Cline execution would be enough for a compliant independent-coder process.",
+      "correctionPerformed": "Split actor appointment from process proof. Retained Route A and Route B. Did not rerun B and did not reclassify agent-reported isolation as verified.",
+      "supportingOriginalSource": [
+        "B prompt sha256 50f6653d282582a05e47574418cb605dfd335ec04e04b21cdb3d2a1423cbd211 appoints Kimi K3 Extra",
+        "B report sha256 7572c68fa6c4313db1f06ea229eaab0fcc945f6b2231c7017b9a4f888d9a65c3 reports Claude/Cline",
+        "B marks sha256 7b91967b69bf5f95e831bac14e32bc1246836e2e9c2bcb3ef965874ba7dc2603"
+      ],
+      "independentEvidenceOrAuthority": "Distinct mark bytes and 1,094 disagreements were recomputed. Prompt files remain available. No non-author session verification was found. Scratch directories are absent.",
+      "remainingUncertainties": "Surviving logs outside the inspected paths were not found. Owner acceptance of the limitation would still leave the process facts unverified.",
+      "futureAuthorizationRequired": true,
+      "originalScientificWorkLeftUntouched": true,
+      "newCorrectedArtifactAndLocation": "/private/tmp/MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1_CORR1/B17_FULL_CLOSURE_PREFLIGHT_REPORT.md section 4 IV1-M01 and sequence steps 3 and 4",
+      "authorDisposition": "ADDRESSED",
+      "addressedMeans": "The documentary defect is corrected, or the open dependency is accurately recognized and allocated. The underlying science was not executed.",
+      "independentIvStillRequired": true,
+      "authorDispositionIsNotClosure": true
+    },
+    {
+      "findingId": "IV1-M02",
+      "originalFinding": "Neutral-D, stratifier-view schema and Stage-1 source map are available with exact hashes but untracked at their stated paths; none exists at commit 2567223087d99b40bdfd174eed32566be7080e44, contrary to the evidence index binding. Current adapter-closure markdown SHA 7f1cd15bfd5a44f376acd80ddafd2cc87a072499e5788c090632e765a145e968 is incorrectly paired with 7f544afa; that commit carries SHA 84f2e402b4616ca7a830f73bf958d66da60c3aa3a6c755c12e288410bff24f24. Current bytes reproduce at 8f0085b699938f8f7d6adc2fbfd20cbbcea44fc9.",
+      "originalSeverity": "MAJOR",
+      "originalTitle": "Four source-hash/Git-binding pairs do not reproduce",
+      "exactOriginalAffectedClaim": "Three live files were described as Git-bound at 2567223087d99b40bdfd174eed32566be7080e44, and the current adapter-closure markdown was paired with 7f544afa.",
+      "correctionPerformed": "Reproduced the four relationships. The three live paths are untracked and absent from that commit. Current closure bytes are bound at 8f0085b6. Commit 7f544afa retains the prior markdown and its historical acceptance role. The coder-view binding at 2567223 was left intact. Source bytes were not edited.",
+      "supportingOriginalSource": [
+        "Live neutral-D, stratifier-view schema, and Stage-1 source map hashes",
+        "git log --find-object returned no commit for those three blobs",
+        "git show of both closure commits"
+      ],
+      "independentEvidenceOrAuthority": "Codex IV1 identified the mismatch. This act reproduced it against HEAD 9b1a501 and against the archive ZIP.",
+      "remainingUncertainties": "None for these four relationships. Archive protection was not inferred for neutral-D or the stratifier-view schema.",
+      "futureAuthorizationRequired": false,
+      "originalScientificWorkLeftUntouched": true,
+      "newCorrectedArtifactAndLocation": "/private/tmp/MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1_CORR1/B17_EVIDENCE_INDEX.json correctedGitBindings",
+      "authorDisposition": "ADDRESSED",
+      "addressedMeans": "The documentary defect is corrected, or the open dependency is accurately recognized and allocated. The underlying science was not executed.",
+      "independentIvStillRequired": true,
+      "authorDispositionIsNotClosure": true
+    },
+    {
+      "findingId": "IV1-N01",
+      "originalFinding": "Optional Git binding is legitimate as a choice of storage mechanism, but the proposed list does not explicitly preserve the original disagreement ledger, selected sample, selection engine/manifest, original role prompts and the exact nine source-map substrate files. The adapter archive contains 143 members, but no A/B marks, reports, agreement, selected sample, neutral-D or stratifier schema snapshot was found in it. Source-map bytes are present in that bound archive. Hash-only locators cannot restore lost bytes.",
+      "originalSeverity": "MINOR",
+      "originalTitle": "Preservation step omits load-bearing pilot reproduction members",
+      "exactOriginalAffectedClaim": "The original preservation step did not list recoverable locators for the disagreement ledger, selected sample, selection engine, role prompts, and nine substrate files.",
+      "correctionPerformed": "Embedded the 40-object inventory with path, SHA-256, bytes, availability, tracked or archive status, locator or its absence, reason, and whether a future preservation act is needed. Rehashed all 40. Did not Git-bind them.",
+      "supportingOriginalSource": "Codex durability inventory, rehashed from the live paths in this act.",
+      "independentEvidenceOrAuthority": "All 40 digests and sizes matched. Archive membership of the source map and lock prose was recomputed from the ZIP. Marks, prompts, agreement, ledger, and selected sample are not in that archive.",
+      "remainingUncertainties": "Live-only files can still disappear. /private/tmp is not durable storage for the predecessor packages.",
+      "futureAuthorizationRequired": true,
+      "originalScientificWorkLeftUntouched": true,
+      "newCorrectedArtifactAndLocation": "/private/tmp/MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1_CORR1/B17_EVIDENCE_INDEX.json preservationInventory",
+      "authorDisposition": "ADDRESSED",
+      "addressedMeans": "The documentary defect is corrected, or the open dependency is accurately recognized and allocated. The underlying science was not executed.",
+      "independentIvStillRequired": true,
+      "authorDispositionIsNotClosure": true
+    },
+    {
+      "findingId": "IV1-N02",
+      "originalFinding": "SourceClass binding is written as 31fd56e7e8df29ab5f7ff854be75453686f377 (38 hex characters) in candidate provenance fields. It resolves as a unique abbreviated ref locally, but is not the full 40-character commit identity.",
+      "originalSeverity": "MINOR",
+      "originalTitle": "SourceClass binding is presented with a truncated full commit identity",
+      "exactOriginalAffectedClaim": "SourceClass binding was written as the 38-hex string 31fd56e7e8df29ab5f7ff854be75453686f377 and presented as a full commit identity.",
+      "correctionPerformed": "Replaced the working identity with 31fd56e7e8df29ab5f7ff854be75453686f37758. The 38-hex form is labeled abbreviated. The accepted residual was not reopened.",
+      "supportingOriginalSource": "git rev-parse of the full object and of the abbreviated ref.",
+      "independentEvidenceOrAuthority": "The abbreviated ref resolves locally to the full object. Resolution is not itself the full identity.",
+      "remainingUncertainties": "None for the identifier. The punctuation residual remains an accepted non-blocking residual.",
+      "futureAuthorizationRequired": false,
+      "originalScientificWorkLeftUntouched": true,
+      "newCorrectedArtifactAndLocation": "/private/tmp/MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1_CORR1/B17_NODE_AUTHORITY_MATRIX.json B17.6.commit",
+      "authorDisposition": "ADDRESSED",
+      "addressedMeans": "The documentary defect is corrected, or the open dependency is accurately recognized and allocated. The underlying science was not executed.",
+      "independentIvStillRequired": true,
+      "authorDispositionIsNotClosure": true
+    }
+  ],
+  "openObligations": [
+    {
+      "id": "L4_STRATIFIER_DISAGREEMENT_DISPOSITION",
+      "state": "OPEN",
+      "blocksUnqualifiedClosure": true,
+      "scienceExecutedThisAct": false
+    },
+    {
+      "id": "POST_PILOT_CONTRACT_OWNER_ACCEPTANCE",
+      "state": "OPEN",
+      "before": "905/905 semantic binding",
+      "blocksUnqualifiedClosure": true
+    },
+    {
+      "id": "STAGE2_FINAL_SEMANTIC_CONTRACT_FREEZE",
+      "state": "OPEN",
+      "before": "905/905 semantic binding",
+      "blocksUnqualifiedClosure": true
+    },
+    {
+      "id": "HOLD6_ACTOR_APPOINTMENT_DISPOSITION",
+      "state": "OPEN",
+      "routes": [
+        "A_ACCEPT_REPORTED_CLAUDE_CLINE",
+        "B_REJECT_AND_RERUN_B_ONLY"
+      ]
+    },
+    {
+      "id": "HOLD6_PROCESS_PROOF",
+      "state": "OPEN_NOT_SETTLED_BY_ACTOR_RATIFICATION",
+      "classes": {
+        "scratchDirectoriesExist": {
+          "stratifier_a": false,
+          "stratifier_b": false
+        },
+        "isolation": "AGENT_REPORTED_ONLY",
+        "forbiddenInputAbstinence": "AGENT_REPORTED_ONLY",
+        "outcomeBlindness": "AGENT_REPORTED_ONLY",
+        "promptEqualityAfterRoleModelScratchSwap": "INDEPENDENTLY_SUPPORTED_BY_PRIOR_IV_AND_PRESERVED_PROMPT_FILES",
+        "distinctOutputs": "INDEPENDENTLY_RECOMPUTED",
+        "runtimeModelIdentity": "AGENT_REPORTED_AND_CONTRADICTS_KIMI_APPOINTMENT",
+        "nonAuthorSessionCheck": "NOT_FOUND"
+      }
+    },
+    {
+      "id": "B17_4_PRIMARY_OWNER_ACCEPTANCE",
+      "state": "OWNER_ACCEPTANCE_NOT_ESTABLISHED",
+      "recoveredFromB5Provenance": false
+    },
+    {
+      "id": "B17_5_FULL_MEASUREMENT",
+      "state": "NOT_RUN_DEFERRED_REQUIRES_NEW_OWNER_AUTHORIZATION",
+      "historicalOriginal": "FAIL",
+      "historicalCorrectionIv1": "HOLD_INCLUDING_REG-007"
+    }
+  ],
+  "notOpenScientificBlockers": [
+    {
+      "id": "EVIDENCE_PRESERVATION",
+      "class": "OPTIONAL_DURABILITY",
+      "futureActNeededForLiveOnlyObjects": true,
+      "blocksClosure": false
+    }
+  ],
+  "historicalHoldsPreserved": [
+    "HOLD-6 actor and process remain open",
+    "Original measurement regression remains FAIL",
+    "Correction IV1 remains HOLD, including REG-007",
+    "SourceClass IV1-F1 punctuation residual remains accepted and non-blocking",
+    "Pilot-lock IV1-M1 remains a non-blocking stale-prose minor",
+    "CORR4 historical HOLD-1 through HOLD-9 are not additional B17 blockers except the still-open HOLD-6"
+  ],
+  "postPilotCandidateExactPathsForCitedSha": [
+    "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/03_SOURCE_ARTIFACTS/STAGE2_POST_PILOT_AFFECTED_CELL_RERUN_2026-10-02/B_RERUN_PACKET/STAGE2_CORR4_POST_PILOT_CONTRACT_CORRECTION_1_CANDIDATE.md",
+    "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/03_SOURCE_ARTIFACTS/STAGE2_POST_PILOT_AFFECTED_CELL_RERUN_2026-10-02/A_RERUN_PACKET/STAGE2_CORR4_POST_PILOT_CONTRACT_CORRECTION_1_CANDIDATE.md",
+    "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/03_SOURCE_ARTIFACTS/STAGE2_CORR4_POST_PILOT_METHODOLOGY_CORRECTION_2026-10-02/STAGE2_CORR4_POST_PILOT_CONTRACT_CORRECTION_1_CANDIDATE.md",
+    "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/03_SOURCE_ARTIFACTS/STAGE2_POST_PILOT_AFFECTED_CELL_RERUN_CORR1_2026-10-02/B_RERUN_PACKET/STAGE2_CORR4_POST_PILOT_CONTRACT_CORRECTION_1_CANDIDATE.md",
+    "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/03_SOURCE_ARTIFACTS/STAGE2_POST_PILOT_AFFECTED_CELL_RERUN_CORR1_2026-10-02/A_RERUN_PACKET/STAGE2_CORR4_POST_PILOT_CONTRACT_CORRECTION_1_CANDIDATE.md"
+  ],
+  "citedPostPilotCandidateSha256": "5e373e1604f89a0f6e3719fccf46f8f2eeadfce056a6bde3d2551008ab61381d",
+  "candidateIsNotAnAcceptanceOrFreeze": true
+}

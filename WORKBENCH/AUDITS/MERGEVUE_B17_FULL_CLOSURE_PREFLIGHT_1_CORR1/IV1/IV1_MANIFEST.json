@@ -1,0 +1,67 @@
+{
+  "schemaVersion": "1.0",
+  "actId": "MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1.CORR1.IV1",
+  "actor": "Codex",
+  "role": "AUDITOR",
+  "verdict": "PASS",
+  "outputDirectory": "/private/tmp/MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1_CORR1_IV1",
+  "outputFileCount": 5,
+  "files": [
+    {
+      "file": "IV1_REPORT.md",
+      "path": "/private/tmp/MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1_CORR1_IV1/IV1_REPORT.md",
+      "bytes": 29593,
+      "sha256": "a785e8261925afffb28034555b331b696b228587f1f4dc99682050e9f6a4c348",
+      "format": "Markdown",
+      "parseStatus": "NOT_APPLICABLE",
+      "schemaStatus": "REQUIRED_REPORT_CONTENT_CHECKED"
+    },
+    {
+      "file": "IV1_FINDINGS.json",
+      "path": "/private/tmp/MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1_CORR1_IV1/IV1_FINDINGS.json",
+      "bytes": 8617,
+      "sha256": "00f63ff05ce2089aae746b2cc50638746c75d25337caf70c3b107254cb69ddfb",
+      "format": "JSON",
+      "parseStatus": "PASS",
+      "schemaStatus": "ACT_OUTPUT_CONTRACT_CHECKED; NO_EXTERNAL_JSON_SCHEMA"
+    },
+    {
+      "file": "IV1_EVIDENCE_RECOMPUTATION.json",
+      "path": "/private/tmp/MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1_CORR1_IV1/IV1_EVIDENCE_RECOMPUTATION.json",
+      "bytes": 246499,
+      "sha256": "d67d8ed8a634a5ee6afa40493a5b5a38fd147b31a48a908ec228b95fffe5c875",
+      "format": "JSON",
+      "parseStatus": "PASS",
+      "schemaStatus": "ACT_OUTPUT_CONTRACT_CHECKED; NO_EXTERNAL_JSON_SCHEMA"
+    },
+    {
+      "file": "IV1_CRITICAL_PATH_AUDIT.md",
+      "path": "/private/tmp/MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1_CORR1_IV1/IV1_CRITICAL_PATH_AUDIT.md",
+      "bytes": 15687,
+      "sha256": "0f594624fd212b49e4b8969ec83a7ae4cc39f32dafe32766cc06c02160bf718d",
+      "format": "Markdown",
+      "parseStatus": "NOT_APPLICABLE",
+      "schemaStatus": "REQUIRED_REPORT_CONTENT_CHECKED"
+    }
+  ],
+  "self": {
+    "file": "IV1_MANIFEST.json",
+    "path": "/private/tmp/MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1_CORR1_IV1/IV1_MANIFEST.json",
+    "sha256": "EXCLUDED_SELF_HASH; RETURNED_EXTERNALLY",
+    "bytes": "EXCLUDED_SELF_LENGTH",
+    "parseStatus": "VALIDATED_AFTER_WRITE",
+    "schemaStatus": "ACT_OUTPUT_CONTRACT_CHECKED; NO_EXTERNAL_JSON_SCHEMA"
+  },
+  "nonMutationVerification": {
+    "postOutputChecks": 164,
+    "allCheckedSourcesUnchanged": true,
+    "refsUnchanged": true,
+    "porcelainUnchanged": true,
+    "trackedAndStagedDiffEmpty": true,
+    "indexMatchesPreOutputEndDigest": true,
+    "indexMatchesInitialDigest": false,
+    "initialIndexAndCensusLimits": "See report section 13 and evidence/nonMutationLimits; no global .git or whole-untracked-byte immutability claim."
+  },
+  "authorizedScope": "Exact CORR1 documentary IV only; no Owner acceptance/scientific closure/next-act/Git authorization",
+  "terminal": "STOP"
+}

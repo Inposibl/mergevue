@@ -1,0 +1,89 @@
+{
+  "actId": "MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1.CORR1",
+  "documentRole": "AUTHOR_MANIFEST",
+  "author": "Grok 4.7",
+  "role": "ANALYST",
+  "boundedAppointment": "Documentary correction author for this act only. The standing model router is unchanged.",
+  "repository": {
+    "name": "Inposibl/mergevue",
+    "branch": "main",
+    "head": "9b1a50120461a41ce1365584866631cb1204fb2b",
+    "originMainCached": "9b1a50120461a41ce1365584866631cb1204fb2b",
+    "fetchPerformed": false,
+    "trackedDirtyFiles": 0
+  },
+  "predecessorCandidate": {
+    "actId": "MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1",
+    "directory": "/private/tmp/MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1",
+    "manifestSha256": "da34d2e7ce0028ef5ba1f2655fd7ddcedb2841e7ed2cdb7554dc0088439048c9",
+    "sixFileSha256": {
+      "B17_FULL_CLOSURE_PREFLIGHT_REPORT.md": "f2040259671f30ce09feafafd5b21f005a715f789d81d02af2bddf983168312b",
+      "B17_NODE_AUTHORITY_MATRIX.json": "eeb0a6a526ad691c5632affde7942639c61a5879b39e1e8a6aa3a88e9fe1e595",
+      "B17_HOLD_AND_DISCREPANCY_REGISTER.json": "32181c9817531aeb1212ff4915907373eb1df61fda9cc2bece07095dffa4cfd0",
+      "B17_MINIMUM_CLOSURE_SEQUENCE.md": "803a5d36191c2b9777279337d274006dde2d1d8545ea86c995f78aba7cdf83cb",
+      "B17_EVIDENCE_INDEX.json": "cb6b221ada031d26c083e6cf1b504e858fdf4f96db2e32a1313e0457bb92c54b",
+      "B17_PREFLIGHT_MANIFEST.json": "da34d2e7ce0028ef5ba1f2655fd7ddcedb2841e7ed2cdb7554dc0088439048c9"
+    },
+    "leftByteIdentical": true
+  },
+  "predecessorAudit": {
+    "actId": "MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1.IV1",
+    "verdict": "FAIL — BLOCKING 2 / MAJOR 2 / MINOR 2",
+    "directory": "/private/tmp/MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1_IV1",
+    "manifestSha256": "3b923f21afb159c865412eddf7b971ea0308f69f2086aefc8acca8fa353601ae",
+    "reportSha256": "9f000560a101e9eb78fd84de35c1fd1325e566e35dd8e0318e39b35677a116d4",
+    "findingsSha256": "d2c312560ecef74ae048042d60f49bda0983af2161901106bdf554105606a54b",
+    "evidenceRecomputationSha256": "b8fcfab668be6248fa129314ba477bab76f55108342bd9008d05c1e0b4a57b44",
+    "correctedCriticalPathSha256": "ecb30909f77b4beaed74368e64f58248e331de196d596e1163a13f0ed930957c",
+    "leftByteIdentical": true
+  },
+  "deliverablesExcludingThisManifest": [
+    {
+      "file": "B17_FULL_CLOSURE_PREFLIGHT_REPORT.md",
+      "bytes": 21941,
+      "sha256": "ed5d994130308ab3501b94d789326533348fed32a86c7843d454c37545868b78",
+      "jsonParse": "NOT_JSON"
+    },
+    {
+      "file": "B17_NODE_AUTHORITY_MATRIX.json",
+      "bytes": 23211,
+      "sha256": "0b65009c84f3a4ab1dd7b1fec789175588711099ad4f3598f928a856698086ca",
+      "jsonParse": "PASS"
+    },
+    {
+      "file": "B17_HOLD_AND_DISCREPANCY_REGISTER.json",
+      "bytes": 18686,
+      "sha256": "53ad68a9d7cd02aa7aef8b8d2ed327404fce2ae4597467001beedcaae4409d53",
+      "jsonParse": "PASS"
+    },
+    {
+      "file": "B17_MINIMUM_CLOSURE_SEQUENCE.md",
+      "bytes": 12485,
+      "sha256": "b28bc838176461b66903f87ec74d29820692cc4fdf39cba79661ea99767c82b1",
+      "jsonParse": "NOT_JSON"
+    },
+    {
+      "file": "B17_EVIDENCE_INDEX.json",
+      "bytes": 83793,
+      "sha256": "79743962c8694ad487ebc30c0ffa92e6cb46c504bd279d1a4345ead44105b8d0",
+      "jsonParse": "PASS"
+    }
+  ],
+  "jsonParseStatus": {
+    "B17_FULL_CLOSURE_PREFLIGHT_REPORT.md": "NOT_JSON",
+    "B17_NODE_AUTHORITY_MATRIX.json": "PASS",
+    "B17_HOLD_AND_DISCREPANCY_REGISTER.json": "PASS",
+    "B17_MINIMUM_CLOSURE_SEQUENCE.md": "NOT_JSON",
+    "B17_EVIDENCE_INDEX.json": "PASS"
+  },
+  "selfHash": "EXCLUDED",
+  "selfHashExclusion": "This manifest intentionally does not record its own SHA-256. The author report states the SHA-256 recomputed after this file was written.",
+  "candidateStatus": "READY_FOR_INDEPENDENT_IV1",
+  "reservedVerifierVerdict": null,
+  "authorStatusIsNotAnIndependentVerdict": true,
+  "notOwnerAcceptance": true,
+  "notAControlTreeEdit": true,
+  "scienceExecuted": false,
+  "gitMutationPerformed": false,
+  "outputDirectory": "/private/tmp/MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1_CORR1"
+}

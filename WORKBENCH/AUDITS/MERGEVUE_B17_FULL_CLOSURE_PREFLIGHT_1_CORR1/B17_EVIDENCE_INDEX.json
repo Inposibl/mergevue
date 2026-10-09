@@ -1,0 +1,1449 @@
+{
+  "actId": "MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1.CORR1",
+  "documentRole": "AUTHOR_EVIDENCE",
+  "predecessorAct": "MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1",
+  "predecessorAudit": "MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1.IV1",
+  "author": "Grok 4.7",
+  "role": "ANALYST",
+  "boundedAppointment": "Documentary correction author for this act only. The standing model router is unchanged.",
+  "reservedVerifierVerdict": null,
+  "notAnIndependentVerdict": true,
+  "notOwnerAcceptance": true,
+  "notAControlTreeEdit": true,
+  "repository": {
+    "name": "Inposibl/mergevue",
+    "root": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)",
+    "branch": "main",
+    "head": "9b1a50120461a41ce1365584866631cb1204fb2b",
+    "originMainCached": "9b1a50120461a41ce1365584866631cb1204fb2b",
+    "fetchPerformed": false,
+    "parentPreflightHead": "1c694b3db3a27e6385fd7716d7e59153d8df4e46",
+    "trackedDirtyCount": 0,
+    "untrackedPorcelainCount": 431,
+    "commitsAfterParentPreflightHead": [
+      "9b1a50120461a41ce1365584866631cb1204fb2b"
+    ],
+    "deltaPaths": [
+      "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1/AUTHOR_REPORT.md",
+      "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1/B5_5_B5_6_B5_7_STATUS_DELTA.json",
+      "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1/CANDIDATE_MANIFEST.json",
+      "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1/DOWNSTREAM_DEPENDENCY_NON_PROMOTION_CHECK.md",
+      "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1/EVIDENCE_AND_AUTHORITY_CROSSWALK.json",
+      "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1/IV1/IV1_FINDINGS.json",
+      "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1/IV1/IV1_IDENTITY_AND_STATUS_RECOMPUTATION.json",
+      "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1/IV1/IV1_MANIFEST.json",
+      "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1/IV1/IV1_REPORT.md",
+      "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1/IV1/IV1_REQUIRED_CORRECTIONS.md",
+      "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1/IV1/OWNER_CLARIFICATION_REASSESSMENT_1/REASSESSMENT_MANIFEST.json",
+      "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1/IV1/OWNER_CLARIFICATION_REASSESSMENT_1/REASSESSMENT_REPORT.md",
+      "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1/IV1/OWNER_CLARIFICATION_REASSESSMENT_1/REASSESSMENT_VERIFICATION.json",
+      "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1/OWNER_DECISION_PROVENANCE.md",
+      "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1/OWNER_REAFFIRMATION_STATUS_ADDENDUM_CANDIDATE.md"
+    ],
+    "deltaInterpretation": "The only commit after the original preflight HEAD adds the B5.5/B5.7 reconciliation package. It does not modify CORR4, marks, FEVA, the adapter, SourceClass, or the historical regression artifacts. It changes the present-tense reading of B5.5 and B5.7. It does not close B17.3, B17.4, section L-4, section M, the regression, or B5.8."
+  },
+  "predecessorPackage": {
+    "directory": "/private/tmp/MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1",
+    "files": [
+      {
+        "file": "B17_FULL_CLOSURE_PREFLIGHT_REPORT.md",
+        "path": "/private/tmp/MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1/B17_FULL_CLOSURE_PREFLIGHT_REPORT.md",
+        "bytes": 36963,
+        "sha256": "f2040259671f30ce09feafafd5b21f005a715f789d81d02af2bddf983168312b",
+        "matchesAuthorizedTable": true
+      },
+      {
+        "file": "B17_NODE_AUTHORITY_MATRIX.json",
+        "path": "/private/tmp/MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1/B17_NODE_AUTHORITY_MATRIX.json",
+        "bytes": 13810,
+        "sha256": "eeb0a6a526ad691c5632affde7942639c61a5879b39e1e8a6aa3a88e9fe1e595",
+        "matchesAuthorizedTable": true
+      },
+      {
+        "file": "B17_HOLD_AND_DISCREPANCY_REGISTER.json",
+        "path": "/private/tmp/MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1/B17_HOLD_AND_DISCREPANCY_REGISTER.json",
+        "bytes": 8079,
+        "sha256": "32181c9817531aeb1212ff4915907373eb1df61fda9cc2bece07095dffa4cfd0",
+        "matchesAuthorizedTable": true
+      },
+      {
+        "file": "B17_MINIMUM_CLOSURE_SEQUENCE.md",
+        "path": "/private/tmp/MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1/B17_MINIMUM_CLOSURE_SEQUENCE.md",
+        "bytes": 9323,
+        "sha256": "803a5d36191c2b9777279337d274006dde2d1d8545ea86c995f78aba7cdf83cb",
+        "matchesAuthorizedTable": true
+      },
+      {
+        "file": "B17_EVIDENCE_INDEX.json",
+        "path": "/private/tmp/MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1/B17_EVIDENCE_INDEX.json",
+        "bytes": 37065,
+        "sha256": "cb6b221ada031d26c083e6cf1b504e858fdf4f96db2e32a1313e0457bb92c54b",
+        "matchesAuthorizedTable": true
+      },
+      {
+        "file": "B17_PREFLIGHT_MANIFEST.json",
+        "path": "/private/tmp/MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1/B17_PREFLIGHT_MANIFEST.json",
+        "bytes": 1276,
+        "sha256": "da34d2e7ce0028ef5ba1f2655fd7ddcedb2841e7ed2cdb7554dc0088439048c9",
+        "matchesAuthorizedTable": true
+      }
+    ],
+    "leftByteIdentical": true,
+    "transportZip": {
+      "name": "MERGEVUE_B17_PREFLIGHT_CODEX_IV1_INPUT_2026-10-09.zip",
+      "citedSha256": "b0ec4bbd81f7d8b5695ee471b19651f3b7f0cec775f490fb3966761ecd2fa09b",
+      "foundUnderPrivateTmp": [],
+      "status": "NOT_REQUIRED_LIVE_DIRECTORY_MATCHED"
+    }
+  },
+  "iv1Package": {
+    "directory": "/private/tmp/MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1_IV1",
+    "files": [
+      {
+        "file": "IV1_REPORT.md",
+        "path": "/private/tmp/MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1_IV1/IV1_REPORT.md",
+        "bytes": 39491,
+        "sha256": "9f000560a101e9eb78fd84de35c1fd1325e566e35dd8e0318e39b35677a116d4",
+        "matchesAuthorizedTable": true
+      },
+      {
+        "file": "IV1_FINDINGS.json",
+        "path": "/private/tmp/MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1_IV1/IV1_FINDINGS.json",
+        "bytes": 25874,
+        "sha256": "d2c312560ecef74ae048042d60f49bda0983af2161901106bdf554105606a54b",
+        "matchesAuthorizedTable": true
+      },
+      {
+        "file": "IV1_EVIDENCE_RECOMPUTATION.json",
+        "path": "/private/tmp/MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1_IV1/IV1_EVIDENCE_RECOMPUTATION.json",
+        "bytes": 284180,
+        "sha256": "b8fcfab668be6248fa129314ba477bab76f55108342bd9008d05c1e0b4a57b44",
+        "matchesAuthorizedTable": true
+      },
+      {
+        "file": "IV1_CORRECTED_CRITICAL_PATH.md",
+        "path": "/private/tmp/MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1_IV1/IV1_CORRECTED_CRITICAL_PATH.md",
+        "bytes": 10428,
+        "sha256": "ecb30909f77b4beaed74368e64f58248e331de196d596e1163a13f0ed930957c",
+        "matchesAuthorizedTable": true
+      },
+      {
+        "file": "IV1_MANIFEST.json",
+        "path": "/private/tmp/MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1_IV1/IV1_MANIFEST.json",
+        "bytes": 6464,
+        "sha256": "3b923f21afb159c865412eddf7b971ea0308f69f2086aefc8acca8fa353601ae",
+        "matchesAuthorizedTable": true
+      }
+    ],
+    "leftByteIdentical": true
+  },
+  "reproduction": {
+    "markField": "eligible",
+    "aRows": 11765,
+    "bRows": 11765,
+    "uniqueKeysEqual": true,
+    "agree": 10671,
+    "disagree": 1094,
+    "bothYes": 730,
+    "bothNo": 9941,
+    "aYesBNo": 868,
+    "aNoBYes": 226,
+    "aYes": 1598,
+    "aNo": 10167,
+    "bYes": 956,
+    "bNo": 10809,
+    "agreementFraction": "10671/11765",
+    "agreementRate": 0.9070123246918828,
+    "invalidValues": 0,
+    "ledgerRows": 1094,
+    "ledgerFields": [
+      "caseId",
+      "d",
+      "factId",
+      "sideId",
+      "stratifierA",
+      "stratifierB"
+    ],
+    "ledgerTupleSetEqualsRecomputedDisagreements": true,
+    "ledgerSha256": "990950c5822df47f4b7afe27c86498d413e872c57b1b62b5de5bf2f5fd037e0b",
+    "classificationAssigned": false,
+    "classificationAssignedPath": "disagreementFreeze.classificationAssigned",
+    "selectedSampleCounts": {
+      "D_SELECTED_COUNT": 24,
+      "NON_ANALYTICAL_SELECTED_COUNT": 6,
+      "TOTAL_SELECTED_COUNT": 30,
+      "MAX_PILOT_TARGET": 32,
+      "TOTAL_SELECTED_COUNT_LE_MAX_PILOT_TARGET": true
+    },
+    "nonAnalyticalPoolAvailable": 107,
+    "theseFiguresAreNot": [
+      "provenance",
+      "process proof",
+      "predictive accuracy",
+      "L-4 classification"
+    ]
+  },
+  "correctedGitBindings": {
+    "group1LiveUntrackedNotAt2567223": [
+      {
+        "path": "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_NEUTRAL_D_QUESTIONS.json",
+        "sha256": "bf673a3f86f56697966a9cdf62fd5d67a720b934db76176312c6e66da3fbe7fb",
+        "bytes": 2279,
+        "gitTrackedAtHEAD": false,
+        "gitBlob": "2559dee1220f421bfbf620dab01cb7c26f632dd3",
+        "commitsContainingBlob": [],
+        "presentAt2567223087d99b40bdfd174eed32566be7080e44": false,
+        "correctedStatement": "Live exact file is untracked. It is not a member of commit 2567223087d99b40bdfd174eed32566be7080e44."
+      },
+      {
+        "path": "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_STRATIFIER_VIEW_SCHEMA.json",
+        "sha256": "1cc135a338c40a73882d5e21cd7cbdf1493809aeeedc775ef40ec53a60c31849",
+        "bytes": 8259,
+        "gitTrackedAtHEAD": false,
+        "gitBlob": "d502820a9f78832fd585e4cc034f1acac35dbe64",
+        "commitsContainingBlob": [],
+        "presentAt2567223087d99b40bdfd174eed32566be7080e44": false,
+        "correctedStatement": "Live exact file is untracked. It is not a member of commit 2567223087d99b40bdfd174eed32566be7080e44."
+      },
+      {
+        "path": "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_STAGE1_SOURCE_MAP.json",
+        "sha256": "665aac81c2e0127d08f0406186891959255391cb99ec34611a972209565f4a7f",
+        "bytes": 17490,
+        "gitTrackedAtHEAD": false,
+        "gitBlob": "93903fdaed269348d26c11a382800d4e0de6db13",
+        "commitsContainingBlob": [],
+        "presentAt2567223087d99b40bdfd174eed32566be7080e44": false,
+        "correctedStatement": "Live exact file is untracked. It is not a member of commit 2567223087d99b40bdfd174eed32566be7080e44."
+      }
+    ],
+    "coderViewRemainsBoundAt2567223": {
+      "path": "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json",
+      "sha256": "0cb5a6b5d2239855eeabe0bfd0e9ceb6c545dc2a86b4b34a90b65187592721b5",
+      "bytes": 28839,
+      "note": "This true binding was not an IV1-M02 defect and is preserved."
+    },
+    "group2AdapterClosureMarkdown": {
+      "path": "WORKBENCH/AUDITS/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_1_GIT_CLOSURE_1.md",
+      "currentSha256": "7f1cd15bfd5a44f376acd80ddafd2cc87a072499e5788c090632e765a145e968",
+      "currentBytes": 19148,
+      "gitIdentityOfCurrentBytes": "8f0085b699938f8f7d6adc2fbfd20cbbcea44fc9",
+      "historicalAcceptanceCommit": "7f544afa071658bdd9d0d243c8e172e1061a5944",
+      "priorMarkdownSha256": "84f2e402b4616ca7a830f73bf958d66da60c3aa3a6c755c12e288410bff24f24",
+      "priorMarkdownBytes": 15882,
+      "note": "7f544afa remains the historical acceptance and binding event. It is not the Git identity of the current markdown bytes."
+    },
+    "archiveDoesNotTransfer": "Byte-identical archive protection of the Stage-1 source map and the pilot-lock prose does not extend to neutral-D questions or the stratifier-view schema."
+  },
+  "archiveMembershipRecheck": {
+    "archiveSha256": "5741423ff019be78232144446fd50a7f715aa72b00cc9be7df169bae4a9056a5",
+    "archiveBytes": 2297667,
+    "memberCount": 143,
+    "names": {
+      "STAGE2_CORR4_PILOT_NEUTRAL_D_QUESTIONS.json": [],
+      "STAGE2_CORR4_PILOT_STRATIFIER_VIEW_SCHEMA.json": [],
+      "STAGE2_CORR4_PILOT_STAGE1_SOURCE_MAP.json": [
+        {
+          "member": "STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_FEVA_CORR2/FROZEN_INPUTS/WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_STAGE1_SOURCE_MAP.json",
+          "bytes": 17490,
+          "sha256": "665aac81c2e0127d08f0406186891959255391cb99ec34611a972209565f4a7f"
+        }
+      ],
+      "STAGE2_CORR4_PILOT_VERSION_LOCK.md": [
+        {
+          "member": "STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_FEVA_CORR2/FROZEN_INPUTS/WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_VERSION_LOCK.md",
+          "bytes": 22408,
+          "sha256": "0f9daef23d9105fa2507bd71847a76bff1f128b5b0003cce08456a9491aa897a"
+        }
+      ],
+      "STAGE2_CORR4_PILOT_STRATIFIER_A_MARKS.jsonl": [],
+      "STAGE2_CORR4_PILOT_STRATIFIER_B_MARKS.jsonl": [],
+      "MERGEVUE_CORR4_PILOT_STRATIFIER_A_PROMPT.md": [],
+      "MERGEVUE_CORR4_PILOT_STRATIFIER_B_PROMPT.md": [],
+      "STAGE2_CORR4_PILOT_STRATIFICATION_AGREEMENT.json": [],
+      "STAGE2_CORR4_PILOT_STRATIFICATION_DISAGREEMENTS.jsonl": [],
+      "STAGE2_CORR4_PILOT_SELECTED_SAMPLE.json": []
+    }
+  },
+  "sourceClassCommit": {
+    "full": "31fd56e7e8df29ab5f7ff854be75453686f37758",
+    "abbreviated38HexExplicitlyNotFull": "31fd56e7e8df29ab5f7ff854be75453686f377",
+    "abbreviatedRefResolvesLocallyToFull": true,
+    "subject": "docs: close sourceClass sentence-boundary integrity correction",
+    "residualReopened": false
+  },
+  "sourceIdentitiesRehashed": {
+    "B17.1-CONTRACT": {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SEMANTIC_SUCCESSOR_CANDIDATE_CORR4.md",
+      "sha256": "2de49862fb0d63c5f1cd1745531199137e73b7b37abceecef6e735d497d38bb0",
+      "bytes": 250512
+    },
+    "B17.1-IV5": {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SEMANTIC_SUCCESSOR_CORR4_IV5_REPORT.md",
+      "sha256": "2aa5362e3b8d4f63bf4774819cb5f33e3c6d7fd41e9a4696e1a0b21ef89d7b37",
+      "bytes": 21447
+    },
+    "B17.2-LOCK": {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_VERSION_LOCK.md",
+      "sha256": "0f9daef23d9105fa2507bd71847a76bff1f128b5b0003cce08456a9491aa897a",
+      "bytes": 22408
+    },
+    "B17.2-IV1": {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_LOCK_CORR1_CORR2_CORR1_CORR2_CORR1_CORR1_CORR1_IV1_REPORT.md",
+      "sha256": "61d363175eedf23fe7e2e69e877ace3243c557b234e8b2dc0a39ea8b17dfd3d4",
+      "bytes": 27690
+    },
+    "B17.4-CORR10-IV": {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_IV1_2026-10-07/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_IV1_REPORT.md",
+      "sha256": "716b5035d0eb1980f3f4aaa4ceba32c3bfda8518d5338384171921bcf85f3c3d",
+      "bytes": 32637
+    },
+    "B17.4-AE001-IV": {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/A_E001_SEMANTIC_READJUDICATION_1_IV1_2026-10-07/A_E001_SEMANTIC_READJUDICATION_1_IV1_REPORT.md",
+      "sha256": "633afd19601a2ab3a583cc6f5ea957b1241b41f205668ebec0d1f3ff21b6acbd",
+      "bytes": 26217
+    },
+    "B17.4-F0024-IV": {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/AOL_F0024_RECONCILIATION_1_IV1_2026-10-07/AOL_F0024_RECONCILIATION_1_IV1_REPORT.md",
+      "sha256": "e25306bc4930ce1e432aa784110d3adfaec4004dc67a2ab75c097c2e7ef70a50",
+      "bytes": 14582
+    },
+    "B17.5-FEVA-RECORDS": {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_RECORDS.jsonl",
+      "sha256": "5b37071a5fa5374c77b149bfde5c230c228cdf73d9785e5ea55346f9fab28daa",
+      "bytes": 104722
+    },
+    "B17.5-FEVA-IV": {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_IV1/REPORT.md",
+      "sha256": "f85b1b02199c0ca0d7d7f83127105e561b1440f8a323b9e99671301149a5d70d",
+      "bytes": 22639
+    },
+    "B17.5-FEVA-CLOSURE": {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_GIT_CLOSURE_1.md",
+      "sha256": "c5226bc80fb48c604c4171f3518bd1afb5abfda6aa04590609e489c6f823ed51",
+      "bytes": 11513
+    },
+    "B17.5-HARNESS": {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/AUDITS/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_1/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_FEVA_CORR2/ADAPTED_REGRESSION_HARNESS.py",
+      "sha256": "82f78f8c6db43473fb0c79676374227384354fee8e46537427584cd2a39fd560",
+      "bytes": 28712
+    },
+    "B17.5-ADAPTER-IV": {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/AUDITS/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_1/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_IV1/IV1_REPORT.md",
+      "sha256": "ee95ed9efd1022f6c3b382b09739fe3574e44a142822d966669b0ab692223b7f",
+      "bytes": 17640
+    },
+    "B17.5-ADAPTER-CLOSURE": {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/AUDITS/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_1_GIT_CLOSURE_1.md",
+      "sha256": "7f1cd15bfd5a44f376acd80ddafd2cc87a072499e5788c090632e765a145e968",
+      "bytes": 19148
+    },
+    "B17.5-ORIG-FAIL": {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_FINAL_MEASUREMENT_REGRESSION_1_2026-10-05/STAGE2_FINAL_MEASUREMENT_REGRESSION_1_REPORT.md",
+      "sha256": "9a58d38785b7dba5b6a9164985e5ac9c6fc6ac10115f2229df900e4e68f5f2c3",
+      "bytes": 23332
+    },
+    "B17.5-CORR-HOLD": {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_FINAL_MEASUREMENT_REGRESSION_1_CORRECTION_1_IV1_2026-10-05/STAGE2_FINAL_MEASUREMENT_REGRESSION_1_CORRECTION_1_IV1_REPORT.md",
+      "sha256": "7fa1a13318f6386d2d471b378bab60cbb4ea7c24f91857cfdd19853aa6c60b65",
+      "bytes": 26067
+    },
+    "B17.6-CONTRACT": {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/MERGEVUE_SOURCECLASS_ASSIGNMENT_CONTRACT_v1.0_SOURCECLASS_SENTENCE_BOUNDARY_EVIDENCE_INTEGRITY_CLOSURE_1_CORR1_CANDIDATE.md",
+      "sha256": "14b83dace55e33faedd9e1830537868e30a87a461fefe924884ffa65aa4a2bd3",
+      "bytes": 355392
+    },
+    "B17.6-IV": {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/SOURCECLASS-SENTENCE-BOUNDARY-EVIDENCE-INTEGRITY-CLOSURE-1.CORR1.IV1_REPORT.md",
+      "sha256": "8daad06750499162a22493ebecc0d205dfb937c7e19fef9e5228f4b3e5df34de",
+      "bytes": 21740
+    }
+  },
+  "b174CommitMembership": {
+    "CORR10": {
+      "commit": "9b1545e1fd85bd6cbbd6c76728e871d68ac33cbf",
+      "objectType": "commit",
+      "commitBodyEmpty": true,
+      "files": [
+        {
+          "id": "B17.4-CORR10-MANIFEST",
+          "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_2026-10-07/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_MANIFEST.json",
+          "sha256": "34b78865d296e952f6a87f36733da482d130104858224f8ed62df36b524c5782",
+          "bytes": 617556,
+          "inClaimedCommit": true
+        },
+        {
+          "id": "B17.4-CORR10-BUILDER",
+          "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_2026-10-07/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_SUCCESSOR_VIEW_BUILDER.py",
+          "sha256": "4fabec820660e9399ece1314142e5bdc99a3196c9794fa71a3dc5ddb80551cc9",
+          "bytes": 89501,
+          "inClaimedCommit": true
+        },
+        {
+          "id": "B17.4-CORR10-IV",
+          "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_IV1_2026-10-07/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_IV1_REPORT.md",
+          "sha256": "716b5035d0eb1980f3f4aaa4ceba32c3bfda8518d5338384171921bcf85f3c3d",
+          "bytes": 32637,
+          "inClaimedCommit": true
+        }
+      ]
+    },
+    "A-E001": {
+      "commit": "3d7b7779903cc04a43929a9e8f6f2b371d9be377",
+      "objectType": "commit",
+      "commitBodyEmpty": true,
+      "files": [
+        {
+          "id": "B17.4-AE001-SCOPE",
+          "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/A_E001_SCOPE_DISPOSITION_READJUDICATION_1_2026-10-07/A_E001_SCOPE_DISPOSITION_READJUDICATION_1_DECISION.json",
+          "sha256": "b390038365f0d8e6e637feac22db801f68874dd1bc78df706adada1f20afd02c",
+          "bytes": 7482,
+          "inClaimedCommit": true
+        },
+        {
+          "id": "B17.4-AE001-SCOPE-REPORT",
+          "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/A_E001_SCOPE_DISPOSITION_READJUDICATION_1_2026-10-07/A_E001_SCOPE_DISPOSITION_READJUDICATION_1_REPORT.md",
+          "sha256": "9c79e38480406e30b99cc11fb6b0e78b0b907994a320d76d74ce807898501fcb",
+          "bytes": 22295,
+          "inClaimedCommit": true
+        },
+        {
+          "id": "B17.4-AE001-SCOPE-MANIFEST",
+          "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/A_E001_SCOPE_DISPOSITION_READJUDICATION_1_2026-10-07/A_E001_SCOPE_DISPOSITION_READJUDICATION_1_MANIFEST.json",
+          "sha256": "1ac315f02f53c092224ba6900567bb7d1616b23b883078a3b1ce1985337a83f8",
+          "bytes": 5505,
+          "inClaimedCommit": true
+        },
+        {
+          "id": "B17.4-AE001-BEARING",
+          "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/A_E001_BEARING_DIRECTIONALITY_READJUDICATION_1_2026-10-07/A_E001_BEARING_DIRECTIONALITY_READJUDICATION_1_DECISION.json",
+          "sha256": "e7624316fb7b38711220318d78d5a5180fb4a3e6d70543f507675eb1b09a67b8",
+          "bytes": 11468,
+          "inClaimedCommit": true
+        },
+        {
+          "id": "B17.4-AE001-BEARING-REPORT",
+          "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/A_E001_BEARING_DIRECTIONALITY_READJUDICATION_1_2026-10-07/A_E001_BEARING_DIRECTIONALITY_READJUDICATION_1_REPORT.md",
+          "sha256": "3bbdcebb69c8271f2e4a4e40e20cc8c7032d581cffacaacd305fd9b3c26d59f2",
+          "bytes": 16478,
+          "inClaimedCommit": true
+        },
+        {
+          "id": "B17.4-AE001-IV",
+          "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/A_E001_SEMANTIC_READJUDICATION_1_IV1_2026-10-07/A_E001_SEMANTIC_READJUDICATION_1_IV1_REPORT.md",
+          "sha256": "633afd19601a2ab3a583cc6f5ea957b1241b41f205668ebec0d1f3ff21b6acbd",
+          "bytes": 26217,
+          "inClaimedCommit": true
+        }
+      ]
+    },
+    "F0024": {
+      "commit": "fcbcf86fbaafe7711caf4ab76d0c8d852f243d5a",
+      "objectType": "commit",
+      "commitBodyEmpty": true,
+      "files": [
+        {
+          "id": "B17.4-F0024-REPORT",
+          "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/AOL_F0024_RECONCILIATION_1_2026-10-07/AOL_F0024_RECONCILIATION_1_REPORT.md",
+          "sha256": "189edc9cc6528f0ad584770157b5638e2206b0d8f730f59534a65d2171bd2019",
+          "bytes": 14721,
+          "inClaimedCommit": true
+        },
+        {
+          "id": "B17.4-F0024-MANIFEST",
+          "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/AOL_F0024_RECONCILIATION_1_2026-10-07/AOL_F0024_RECONCILIATION_1_MANIFEST.json",
+          "sha256": "4ae6d08af2eb8309dca4a63360292c7d093ec5769ab89009185f16ed1a8291ec",
+          "bytes": 22731,
+          "inClaimedCommit": true
+        },
+        {
+          "id": "B17.4-F0024-COMPARISON",
+          "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/AOL_F0024_RECONCILIATION_1_2026-10-07/AOL_F0024_RECONCILIATION_1_COMPARISON.json",
+          "sha256": "3b6cbd10589eba2ec97b9cbda4eccc5d69f4f9f210682aef3567113597b6e7c4",
+          "bytes": 27316,
+          "inClaimedCommit": true
+        },
+        {
+          "id": "B17.4-F0024-PATCH",
+          "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/AOL_F0024_RECONCILIATION_1_2026-10-07/AOL_F0024_RECONCILIATION_1_PROVENANCE_PATCH.json",
+          "sha256": "bf5d832f846bb0034ec384e815d2434d39548a5530cb70b0375289b7b9d3b828",
+          "bytes": 5003,
+          "inClaimedCommit": true
+        },
+        {
+          "id": "B17.4-F0024-IV",
+          "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/AOL_F0024_RECONCILIATION_1_IV1_2026-10-07/AOL_F0024_RECONCILIATION_1_IV1_REPORT.md",
+          "sha256": "e25306bc4930ce1e432aa784110d3adfaec4004dc67a2ab75c097c2e7ef70a50",
+          "bytes": 14582,
+          "inClaimedCommit": true
+        }
+      ]
+    }
+  },
+  "authoritySearchExhibits": [
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/03_SOURCE_ARTIFACTS/STAGE2_POST_PILOT_AFFECTED_CELL_RECONCILIATION_CORR1_2026-10-02/STAGE2_POST_PILOT_RESIDUAL_DISAGREEMENT_LEDGER.json",
+      "sha256": "b178e1755f28b78350fb9bf9e4f1b1ed6df5e6f561382e5cce585cdff4bc972d",
+      "bytes": 20810,
+      "currentAvailability": "AVAILABLE",
+      "gitTracked": false,
+      "insideGitRepository": false,
+      "mentionsMetricOnly": true,
+      "mentionsAcceptedComparisonIv": true,
+      "mentionsFinalContractFreeze": false,
+      "headerStatusLine": null
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/03_SOURCE_ARTIFACTS/STAGE2_POST_PILOT_AFFECTED_CELL_RERUN_2026-10-02/B_RERUN_PACKET/STAGE2_CORR4_POST_PILOT_CONTRACT_CORRECTION_1_CANDIDATE.md",
+      "sha256": "5e373e1604f89a0f6e3719fccf46f8f2eeadfce056a6bde3d2551008ab61381d",
+      "bytes": 282829,
+      "currentAvailability": "AVAILABLE",
+      "gitTracked": false,
+      "insideGitRepository": false,
+      "mentionsMetricOnly": false,
+      "mentionsAcceptedComparisonIv": false,
+      "mentionsFinalContractFreeze": true,
+      "headerStatusLine": "STATUS: AUTHOR CORRECTION CANDIDATE · POST-PILOT METHODOLOGY CORRECTION-1 — COMPLETE AT ALL EIGHT BOUNDARIES (B1–B7 derived; B8 resolved by the Owner's Option-A decision and implemented in §L-5 + the successor pilot result schema) · NOT INDEPENDENTLY VERIFIED · NOT OWNER-ACCEPTED · NOT FROZEN (the frozen CORR4, SHA-256 2de49862fb0d63c5f1cd1745531199137e73b7b37abceecef6e735d497d38bb0, remains the Owner-accepted controlling contract and the locked pilot authority until this candidate passes fresh independent verification and receives explicit Owner acceptance)"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/03_SOURCE_ARTIFACTS/STAGE2_POST_PILOT_AFFECTED_CELL_RERUN_2026-10-02/A_RERUN_PACKET/STAGE2_CORR4_POST_PILOT_CONTRACT_CORRECTION_1_CANDIDATE.md",
+      "sha256": "5e373e1604f89a0f6e3719fccf46f8f2eeadfce056a6bde3d2551008ab61381d",
+      "bytes": 282829,
+      "currentAvailability": "AVAILABLE",
+      "gitTracked": false,
+      "insideGitRepository": false,
+      "mentionsMetricOnly": false,
+      "mentionsAcceptedComparisonIv": false,
+      "mentionsFinalContractFreeze": true,
+      "headerStatusLine": "STATUS: AUTHOR CORRECTION CANDIDATE · POST-PILOT METHODOLOGY CORRECTION-1 — COMPLETE AT ALL EIGHT BOUNDARIES (B1–B7 derived; B8 resolved by the Owner's Option-A decision and implemented in §L-5 + the successor pilot result schema) · NOT INDEPENDENTLY VERIFIED · NOT OWNER-ACCEPTED · NOT FROZEN (the frozen CORR4, SHA-256 2de49862fb0d63c5f1cd1745531199137e73b7b37abceecef6e735d497d38bb0, remains the Owner-accepted controlling contract and the locked pilot authority until this candidate passes fresh independent verification and receives explicit Owner acceptance)"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/03_SOURCE_ARTIFACTS/STAGE2_CORR4_AB_COMPARISON_2026-10-02/STAGE2_CORR4_PILOT_AB_COMPARISON_AUTHOR_REPORT.md",
+      "sha256": "4f6a55c78ae2957be63cadeb0a335a7283b2a0fef5600444e70a64d2f0cf162b",
+      "bytes": 16009,
+      "currentAvailability": "AVAILABLE",
+      "gitTracked": false,
+      "insideGitRepository": false,
+      "mentionsMetricOnly": false,
+      "mentionsAcceptedComparisonIv": false,
+      "mentionsFinalContractFreeze": false,
+      "headerStatusLine": null
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/03_SOURCE_ARTIFACTS/STAGE2_POST_PILOT_AFFECTED_CELL_RECONCILIATION_2026-10-02/STAGE2_POST_PILOT_RESIDUAL_DISAGREEMENT_LEDGER.json",
+      "sha256": "ef39c3a6716bf36e440bc4ae51c98300d0b25ffb13c63d4178e2550678ed537a",
+      "bytes": 16730,
+      "currentAvailability": "AVAILABLE",
+      "gitTracked": false,
+      "insideGitRepository": false,
+      "mentionsMetricOnly": true,
+      "mentionsAcceptedComparisonIv": true,
+      "mentionsFinalContractFreeze": false,
+      "headerStatusLine": null
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/03_SOURCE_ARTIFACTS/STAGE2_CORR4_POST_PILOT_METHODOLOGY_CORRECTION_2026-10-02/STAGE2_CORR4_POST_PILOT_CONTRACT_CORRECTION_1_CANDIDATE.md",
+      "sha256": "5e373e1604f89a0f6e3719fccf46f8f2eeadfce056a6bde3d2551008ab61381d",
+      "bytes": 282829,
+      "currentAvailability": "AVAILABLE",
+      "gitTracked": false,
+      "insideGitRepository": false,
+      "mentionsMetricOnly": false,
+      "mentionsAcceptedComparisonIv": false,
+      "mentionsFinalContractFreeze": true,
+      "headerStatusLine": "STATUS: AUTHOR CORRECTION CANDIDATE · POST-PILOT METHODOLOGY CORRECTION-1 — COMPLETE AT ALL EIGHT BOUNDARIES (B1–B7 derived; B8 resolved by the Owner's Option-A decision and implemented in §L-5 + the successor pilot result schema) · NOT INDEPENDENTLY VERIFIED · NOT OWNER-ACCEPTED · NOT FROZEN (the frozen CORR4, SHA-256 2de49862fb0d63c5f1cd1745531199137e73b7b37abceecef6e735d497d38bb0, remains the Owner-accepted controlling contract and the locked pilot authority until this candidate passes fresh independent verification and receives explicit Owner acceptance)"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/03_SOURCE_ARTIFACTS/STAGE2_POST_PILOT_AFFECTED_CELL_RECONCILIATION_CORR2_2026-10-02/STAGE2_POST_PILOT_RESIDUAL_DISAGREEMENT_LEDGER.json",
+      "sha256": "4dfb570f8f5013101dc8e3b6b8de29b805e97d3ef2b49b090832b9ae931a94df",
+      "bytes": 21824,
+      "currentAvailability": "AVAILABLE",
+      "gitTracked": false,
+      "insideGitRepository": false,
+      "mentionsMetricOnly": true,
+      "mentionsAcceptedComparisonIv": true,
+      "mentionsFinalContractFreeze": false,
+      "headerStatusLine": null
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/03_SOURCE_ARTIFACTS/STAGE2_POST_PILOT_AFFECTED_CELL_RERUN_CORR1_2026-10-02/B_RERUN_PACKET/STAGE2_CORR4_POST_PILOT_CONTRACT_CORRECTION_1_CANDIDATE.md",
+      "sha256": "5e373e1604f89a0f6e3719fccf46f8f2eeadfce056a6bde3d2551008ab61381d",
+      "bytes": 282829,
+      "currentAvailability": "AVAILABLE",
+      "gitTracked": false,
+      "insideGitRepository": false,
+      "mentionsMetricOnly": false,
+      "mentionsAcceptedComparisonIv": false,
+      "mentionsFinalContractFreeze": true,
+      "headerStatusLine": "STATUS: AUTHOR CORRECTION CANDIDATE · POST-PILOT METHODOLOGY CORRECTION-1 — COMPLETE AT ALL EIGHT BOUNDARIES (B1–B7 derived; B8 resolved by the Owner's Option-A decision and implemented in §L-5 + the successor pilot result schema) · NOT INDEPENDENTLY VERIFIED · NOT OWNER-ACCEPTED · NOT FROZEN (the frozen CORR4, SHA-256 2de49862fb0d63c5f1cd1745531199137e73b7b37abceecef6e735d497d38bb0, remains the Owner-accepted controlling contract and the locked pilot authority until this candidate passes fresh independent verification and receives explicit Owner acceptance)"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/03_SOURCE_ARTIFACTS/STAGE2_POST_PILOT_AFFECTED_CELL_RERUN_CORR1_2026-10-02/A_RERUN_PACKET/STAGE2_CORR4_POST_PILOT_CONTRACT_CORRECTION_1_CANDIDATE.md",
+      "sha256": "5e373e1604f89a0f6e3719fccf46f8f2eeadfce056a6bde3d2551008ab61381d",
+      "bytes": 282829,
+      "currentAvailability": "AVAILABLE",
+      "gitTracked": false,
+      "insideGitRepository": false,
+      "mentionsMetricOnly": false,
+      "mentionsAcceptedComparisonIv": false,
+      "mentionsFinalContractFreeze": true,
+      "headerStatusLine": "STATUS: AUTHOR CORRECTION CANDIDATE · POST-PILOT METHODOLOGY CORRECTION-1 — COMPLETE AT ALL EIGHT BOUNDARIES (B1–B7 derived; B8 resolved by the Owner's Option-A decision and implemented in §L-5 + the successor pilot result schema) · NOT INDEPENDENTLY VERIFIED · NOT OWNER-ACCEPTED · NOT FROZEN (the frozen CORR4, SHA-256 2de49862fb0d63c5f1cd1745531199137e73b7b37abceecef6e735d497d38bb0, remains the Owner-accepted controlling contract and the locked pilot authority until this candidate passes fresh independent verification and receives explicit Owner acceptance)"
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1/OWNER_DECISION_PROVENANCE.md",
+      "sha256": "e07ef6479a45818fc3041883d56e09bf563c739b5623b0f70726dd27eb534473",
+      "bytes": 4827,
+      "currentAvailability": "AVAILABLE",
+      "gitTracked": true,
+      "insideGitRepository": true,
+      "mentionsMetricOnly": false,
+      "mentionsAcceptedComparisonIv": false,
+      "mentionsFinalContractFreeze": false,
+      "headerStatusLine": null
+    },
+    {
+      "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1/DOWNSTREAM_DEPENDENCY_NON_PROMOTION_CHECK.md",
+      "sha256": "8589143a58630f35f302a9b5727828bc6b26f67209d463089639a0d06f887686",
+      "bytes": 8180,
+      "currentAvailability": "AVAILABLE",
+      "gitTracked": true,
+      "insideGitRepository": true,
+      "mentionsMetricOnly": false,
+      "mentionsAcceptedComparisonIv": false,
+      "mentionsFinalContractFreeze": false,
+      "headerStatusLine": null
+    }
+  ],
+  "postPilotCandidatePathsMatchingCitedSha": [
+    "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/03_SOURCE_ARTIFACTS/STAGE2_POST_PILOT_AFFECTED_CELL_RERUN_2026-10-02/B_RERUN_PACKET/STAGE2_CORR4_POST_PILOT_CONTRACT_CORRECTION_1_CANDIDATE.md",
+    "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/03_SOURCE_ARTIFACTS/STAGE2_POST_PILOT_AFFECTED_CELL_RERUN_2026-10-02/A_RERUN_PACKET/STAGE2_CORR4_POST_PILOT_CONTRACT_CORRECTION_1_CANDIDATE.md",
+    "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/03_SOURCE_ARTIFACTS/STAGE2_CORR4_POST_PILOT_METHODOLOGY_CORRECTION_2026-10-02/STAGE2_CORR4_POST_PILOT_CONTRACT_CORRECTION_1_CANDIDATE.md",
+    "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/03_SOURCE_ARTIFACTS/STAGE2_POST_PILOT_AFFECTED_CELL_RERUN_CORR1_2026-10-02/B_RERUN_PACKET/STAGE2_CORR4_POST_PILOT_CONTRACT_CORRECTION_1_CANDIDATE.md",
+    "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/03_SOURCE_ARTIFACTS/STAGE2_POST_PILOT_AFFECTED_CELL_RERUN_CORR1_2026-10-02/A_RERUN_PACKET/STAGE2_CORR4_POST_PILOT_CONTRACT_CORRECTION_1_CANDIDATE.md"
+  ],
+  "phraseSearch": {
+    "phrases": [
+      "accepted comparison IV",
+      "metric-only",
+      "classification not required"
+    ],
+    "roots": [
+      "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/AUDITS",
+      "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/03_SOURCE_ARTIFACTS"
+    ],
+    "hitCount": 5,
+    "possibleIvFileHits": [],
+    "otherHits": [
+      {
+        "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/03_SOURCE_ARTIFACTS/STAGE2_POST_PILOT_AFFECTED_CELL_RECONCILIATION_CORR1_2026-10-02/STAGE2_POST_PILOT_RESIDUAL_DISAGREEMENT_LEDGER.json",
+        "phrases": [
+          "accepted comparison IV",
+          "metric-only",
+          "classification not required"
+        ],
+        "class": "mention"
+      },
+      {
+        "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/03_SOURCE_ARTIFACTS/STAGE2_POST_PILOT_AFFECTED_CELL_RECONCILIATION_2026-10-02/STAGE2_POST_PILOT_RESIDUAL_DISAGREEMENT_LEDGER.json",
+        "phrases": [
+          "accepted comparison IV",
+          "metric-only",
+          "classification not required"
+        ],
+        "class": "mention"
+      },
+      {
+        "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/03_SOURCE_ARTIFACTS/STAGE2_POST_PILOT_AFFECTED_CELL_RECONCILIATION_2026-10-02/STAGE2_POST_PILOT_RECONCILIATION_AUTHOR_REPORT.md",
+        "phrases": [
+          "metric-only"
+        ],
+        "class": "mention"
+      },
+      {
+        "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/03_SOURCE_ARTIFACTS/STAGE2_POST_PILOT_AFFECTED_CELL_RECONCILIATION_2026-10-02/STAGE2_POST_PILOT_COMPARISON_RESULT.json",
+        "phrases": [
+          "metric-only"
+        ],
+        "class": "mention"
+      },
+      {
+        "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/03_SOURCE_ARTIFACTS/STAGE2_POST_PILOT_AFFECTED_CELL_RECONCILIATION_CORR2_2026-10-02/STAGE2_POST_PILOT_RESIDUAL_DISAGREEMENT_LEDGER.json",
+        "phrases": [
+          "accepted comparison IV",
+          "metric-only",
+          "classification not required"
+        ],
+        "class": "mention"
+      }
+    ],
+    "limits": "Text files under the two roots, at most 2 MB each. Not an exhaustive search of external chats or inaccessible sessions."
+  },
+  "comparisonDirectoryListing": [
+    "STAGE2_CORR4_PILOT_AB_COMPARISON_AUTHOR_REPORT.md",
+    "STAGE2_CORR4_PILOT_AB_COMPARISON_RESULT.json",
+    "STAGE2_CORR4_PILOT_DISAGREEMENT_LEDGER.jsonl"
+  ],
+  "processEvidence": {
+    "scratchDirectoriesExist": {
+      "stratifier_a": false,
+      "stratifier_b": false
+    },
+    "isolation": "AGENT_REPORTED_ONLY",
+    "forbiddenInputAbstinence": "AGENT_REPORTED_ONLY",
+    "outcomeBlindness": "AGENT_REPORTED_ONLY",
+    "promptEqualityAfterRoleModelScratchSwap": "INDEPENDENTLY_SUPPORTED_BY_PRIOR_IV_AND_PRESERVED_PROMPT_FILES",
+    "distinctOutputs": "INDEPENDENTLY_RECOMPUTED",
+    "runtimeModelIdentity": "AGENT_REPORTED_AND_CONTRADICTS_KIMI_APPOINTMENT",
+    "nonAuthorSessionCheck": "NOT_FOUND"
+  },
+  "preservationInventory": {
+    "objectCount": 40,
+    "rehashMatches": 40,
+    "stableLocatorCount": 9,
+    "futurePreservationActNeededCount": 31,
+    "objects": [
+      {
+        "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SEMANTIC_SUCCESSOR_CANDIDATE_CORR4.md",
+        "sha256": "2de49862fb0d63c5f1cd1745531199137e73b7b37abceecef6e735d497d38bb0",
+        "bytes": 250512,
+        "currentAvailability": "AVAILABLE",
+        "gitTracked": true,
+        "archiveStatus": "VERIFIED_ARCHIVE_SNAPSHOT",
+        "stableLocator": [
+          {
+            "kind": "git-tracked-path-at-HEAD",
+            "commit": "9b1a50120461a41ce1365584866631cb1204fb2b",
+            "gitBlob": "42ae0dc6fc7128c7bfa90db4278b903b3512ea05",
+            "path": "WORKBENCH/DOWNLOADS/STAGE2_SEMANTIC_SUCCESSOR_CANDIDATE_CORR4.md"
+          },
+          {
+            "kind": "verified-archive-member",
+            "archiveSha256": "5741423ff019be78232144446fd50a7f715aa72b00cc9be7df169bae4a9056a5",
+            "member": "STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_FEVA_CORR2/FROZEN_INPUTS/WORKBENCH/DOWNLOADS/STAGE2_SEMANTIC_SUCCESSOR_CANDIDATE_CORR4.md"
+          }
+        ],
+        "reasonRequired": "Controlling Stage-2 semantic contract, including sections L-2, L-4, and M.",
+        "futurePreservationActNeeded": false,
+        "preservationBlocksScientificClosure": false,
+        "codexPreservationNeed": "retain existing bound bytes",
+        "rehashedThisAct": true
+      },
+      {
+        "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SEMANTIC_SUCCESSOR_CORR4_IV5_REPORT.md",
+        "sha256": "2aa5362e3b8d4f63bf4774819cb5f33e3c6d7fd41e9a4696e1a0b21ef89d7b37",
+        "bytes": 21447,
+        "currentAvailability": "AVAILABLE",
+        "gitTracked": false,
+        "archiveStatus": "NO_VERIFIED_ARCHIVE_MEMBER",
+        "stableLocator": {
+          "status": "ABSENT",
+          "note": "Live path and SHA-256 only. No Git-tracked path and no verified archive member."
+        },
+        "reasonRequired": "Historical independent IV5 of the accepted semantic contract.",
+        "futurePreservationActNeeded": true,
+        "preservationBlocksScientificClosure": false,
+        "codexPreservationNeed": "add stable recoverable manifested locator in a separately authorized preservation act",
+        "rehashedThisAct": true
+      },
+      {
+        "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SEMANTIC_SUCCESSOR_CORR4_IV5_REPRO.py",
+        "sha256": "0286d98202538ae06e73c3cd2d273ac08b834309e5deb4bed93325dd7044dabf",
+        "bytes": 20052,
+        "currentAvailability": "AVAILABLE",
+        "gitTracked": false,
+        "archiveStatus": "NO_VERIFIED_ARCHIVE_MEMBER",
+        "stableLocator": {
+          "status": "ABSENT",
+          "note": "Live path and SHA-256 only. No Git-tracked path and no verified archive member."
+        },
+        "reasonRequired": "IV5 reproduction script for the accepted contract.",
+        "futurePreservationActNeeded": true,
+        "preservationBlocksScientificClosure": false,
+        "codexPreservationNeed": "add stable recoverable manifested locator in a separately authorized preservation act",
+        "rehashedThisAct": true
+      },
+      {
+        "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SEMANTIC_SUCCESSOR_CORR4_IV5_REPRO.txt",
+        "sha256": "a2f9691827dc6025b10aed1b4020ec5b1451b681eaaad4b263beaa610c873304",
+        "bytes": 25481,
+        "currentAvailability": "AVAILABLE",
+        "gitTracked": false,
+        "archiveStatus": "NO_VERIFIED_ARCHIVE_MEMBER",
+        "stableLocator": {
+          "status": "ABSENT",
+          "note": "Live path and SHA-256 only. No Git-tracked path and no verified archive member."
+        },
+        "reasonRequired": "IV5 reproduction output.",
+        "futurePreservationActNeeded": true,
+        "preservationBlocksScientificClosure": false,
+        "codexPreservationNeed": "add stable recoverable manifested locator in a separately authorized preservation act",
+        "rehashedThisAct": true
+      },
+      {
+        "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SEMANTIC_SUCCESSOR_CORR4_IV5_MANIFEST.sha256",
+        "sha256": "85b72bf5c124c95ce3e8a3c2ac6b631114e8e09ea3cdb224caa958797b53625b",
+        "bytes": 335,
+        "currentAvailability": "AVAILABLE",
+        "gitTracked": false,
+        "archiveStatus": "NO_VERIFIED_ARCHIVE_MEMBER",
+        "stableLocator": {
+          "status": "ABSENT",
+          "note": "Live path and SHA-256 only. No Git-tracked path and no verified archive member."
+        },
+        "reasonRequired": "IV5 manifest of the files that IV hashed.",
+        "futurePreservationActNeeded": true,
+        "preservationBlocksScientificClosure": false,
+        "codexPreservationNeed": "add stable recoverable manifested locator in a separately authorized preservation act",
+        "rehashedThisAct": true
+      },
+      {
+        "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_SEMANTIC_SUCCESSOR_CORR4_MANIFEST.sha256",
+        "sha256": "7d419929dac135e0eba4d64d42daef28be95d579dd426d23a95b363ecd4d1305",
+        "bytes": 456,
+        "currentAvailability": "AVAILABLE",
+        "gitTracked": false,
+        "archiveStatus": "NO_VERIFIED_ARCHIVE_MEMBER",
+        "stableLocator": {
+          "status": "ABSENT",
+          "note": "Live path and SHA-256 only. No Git-tracked path and no verified archive member."
+        },
+        "reasonRequired": "Author manifest of the semantic-successor candidate.",
+        "futurePreservationActNeeded": true,
+        "preservationBlocksScientificClosure": false,
+        "codexPreservationNeed": "add stable recoverable manifested locator in a separately authorized preservation act",
+        "rehashedThisAct": true
+      },
+      {
+        "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_VERSION_LOCK.md",
+        "sha256": "0f9daef23d9105fa2507bd71847a76bff1f128b5b0003cce08456a9491aa897a",
+        "bytes": 22408,
+        "currentAvailability": "AVAILABLE",
+        "gitTracked": false,
+        "archiveStatus": "VERIFIED_ARCHIVE_SNAPSHOT",
+        "stableLocator": [
+          {
+            "kind": "verified-archive-member",
+            "archiveSha256": "5741423ff019be78232144446fd50a7f715aa72b00cc9be7df169bae4a9056a5",
+            "member": "STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_FEVA_CORR2/FROZEN_INPUTS/WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_VERSION_LOCK.md"
+          }
+        ],
+        "reasonRequired": "Pilot-version lock. It is not FINAL CONTRACT FREEZE.",
+        "futurePreservationActNeeded": false,
+        "preservationBlocksScientificClosure": false,
+        "codexPreservationNeed": "retain existing bound bytes",
+        "rehashedThisAct": true
+      },
+      {
+        "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_VERSION_LOCK_MANIFEST.sha256",
+        "sha256": "daa11831143285f1d279aedd8b3c89d998d36787d1d266e6fde6e5fa9008a6af",
+        "bytes": 974,
+        "currentAvailability": "AVAILABLE",
+        "gitTracked": false,
+        "archiveStatus": "NO_VERIFIED_ARCHIVE_MEMBER",
+        "stableLocator": {
+          "status": "ABSENT",
+          "note": "Live path and SHA-256 only. No Git-tracked path and no verified archive member."
+        },
+        "reasonRequired": "Manifest of the pilot-version lock package.",
+        "futurePreservationActNeeded": true,
+        "preservationBlocksScientificClosure": false,
+        "codexPreservationNeed": "add stable recoverable manifested locator in a separately authorized preservation act",
+        "rehashedThisAct": true
+      },
+      {
+        "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_LOCK_CORR1_CORR2_CORR1_CORR2_CORR1_CORR1_CORR1_IV1_REPORT.md",
+        "sha256": "61d363175eedf23fe7e2e69e877ace3243c557b234e8b2dc0a39ea8b17dfd3d4",
+        "bytes": 27690,
+        "currentAvailability": "AVAILABLE",
+        "gitTracked": true,
+        "archiveStatus": "NO_VERIFIED_ARCHIVE_MEMBER",
+        "stableLocator": [
+          {
+            "kind": "git-tracked-path-at-HEAD",
+            "commit": "9b1a50120461a41ce1365584866631cb1204fb2b",
+            "gitBlob": "c0f150ce839dea2641fb4ded9d5723ca89b41a9c",
+            "path": "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_LOCK_CORR1_CORR2_CORR1_CORR2_CORR1_CORR1_CORR1_IV1_REPORT.md"
+          }
+        ],
+        "reasonRequired": "Terminal independent IV of the pilot-lock lineage.",
+        "futurePreservationActNeeded": false,
+        "preservationBlocksScientificClosure": false,
+        "codexPreservationNeed": "retain existing bound bytes",
+        "rehashedThisAct": true
+      },
+      {
+        "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json",
+        "sha256": "0cb5a6b5d2239855eeabe0bfd0e9ceb6c545dc2a86b4b34a90b65187592721b5",
+        "bytes": 28839,
+        "currentAvailability": "AVAILABLE",
+        "gitTracked": true,
+        "archiveStatus": "VERIFIED_ARCHIVE_SNAPSHOT",
+        "stableLocator": [
+          {
+            "kind": "git-tracked-path-at-HEAD",
+            "commit": "9b1a50120461a41ce1365584866631cb1204fb2b",
+            "gitBlob": "9d784ce3df40613ca5ec26b4f942edd9596a08c9",
+            "path": "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json"
+          },
+          {
+            "kind": "verified-archive-member",
+            "archiveSha256": "5741423ff019be78232144446fd50a7f715aa72b00cc9be7df169bae4a9056a5",
+            "member": "STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_FEVA_CORR2/FROZEN_INPUTS/WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json"
+          }
+        ],
+        "reasonRequired": "Frozen restricted analytical-coder view.",
+        "futurePreservationActNeeded": false,
+        "preservationBlocksScientificClosure": false,
+        "codexPreservationNeed": "retain existing bound bytes",
+        "rehashedThisAct": true
+      },
+      {
+        "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_RESULT_SCHEMA.json",
+        "sha256": "816f26cc616af20d9f9f54640acb426cbddd7698c1cf1a08c494e5e11674c12c",
+        "bytes": 8850,
+        "currentAvailability": "AVAILABLE",
+        "gitTracked": true,
+        "archiveStatus": "NO_VERIFIED_ARCHIVE_MEMBER",
+        "stableLocator": [
+          {
+            "kind": "git-tracked-path-at-HEAD",
+            "commit": "9b1a50120461a41ce1365584866631cb1204fb2b",
+            "gitBlob": "45e22efb5eeeaad51e787c55f57ff1171d82a7c1",
+            "path": "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_RESULT_SCHEMA.json"
+          }
+        ],
+        "reasonRequired": "Frozen pilot result schema.",
+        "futurePreservationActNeeded": false,
+        "preservationBlocksScientificClosure": false,
+        "codexPreservationNeed": "retain existing bound bytes",
+        "rehashedThisAct": true
+      },
+      {
+        "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_NEUTRAL_D_QUESTIONS.json",
+        "sha256": "bf673a3f86f56697966a9cdf62fd5d67a720b934db76176312c6e66da3fbe7fb",
+        "bytes": 2279,
+        "currentAvailability": "AVAILABLE",
+        "gitTracked": false,
+        "archiveStatus": "NO_VERIFIED_ARCHIVE_MEMBER",
+        "stableLocator": {
+          "status": "ABSENT",
+          "note": "Live path and SHA-256 only. No Git-tracked path and no verified archive member."
+        },
+        "reasonRequired": "Neutral-D questions used as permitted pilot input.",
+        "futurePreservationActNeeded": true,
+        "preservationBlocksScientificClosure": false,
+        "codexPreservationNeed": "add stable recoverable manifested locator in a separately authorized preservation act",
+        "rehashedThisAct": true
+      },
+      {
+        "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_STRATIFIER_VIEW_SCHEMA.json",
+        "sha256": "1cc135a338c40a73882d5e21cd7cbdf1493809aeeedc775ef40ec53a60c31849",
+        "bytes": 8259,
+        "currentAvailability": "AVAILABLE",
+        "gitTracked": false,
+        "archiveStatus": "NO_VERIFIED_ARCHIVE_MEMBER",
+        "stableLocator": {
+          "status": "ABSENT",
+          "note": "Live path and SHA-256 only. No Git-tracked path and no verified archive member."
+        },
+        "reasonRequired": "Frozen restricted stratifier view.",
+        "futurePreservationActNeeded": true,
+        "preservationBlocksScientificClosure": false,
+        "codexPreservationNeed": "add stable recoverable manifested locator in a separately authorized preservation act",
+        "rehashedThisAct": true
+      },
+      {
+        "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_STAGE1_SOURCE_MAP.json",
+        "sha256": "665aac81c2e0127d08f0406186891959255391cb99ec34611a972209565f4a7f",
+        "bytes": 17490,
+        "currentAvailability": "AVAILABLE",
+        "gitTracked": false,
+        "archiveStatus": "VERIFIED_ARCHIVE_SNAPSHOT",
+        "stableLocator": [
+          {
+            "kind": "verified-archive-member",
+            "archiveSha256": "5741423ff019be78232144446fd50a7f715aa72b00cc9be7df169bae4a9056a5",
+            "member": "STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_FEVA_CORR2/FROZEN_INPUTS/WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_STAGE1_SOURCE_MAP.json"
+          }
+        ],
+        "reasonRequired": "Stage-1 source map that pins the nine substrate files.",
+        "futurePreservationActNeeded": false,
+        "preservationBlocksScientificClosure": false,
+        "codexPreservationNeed": "retain existing bound bytes",
+        "rehashedThisAct": true
+      },
+      {
+        "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/DOWNLOADS/MERGEVUE_CORR4_PILOT_STRATIFIER_A_PROMPT.md",
+        "sha256": "ef379cd940c03f09567edf089455a7608522b026b7a262ecacc08bc807a678ed",
+        "bytes": 10377,
+        "currentAvailability": "AVAILABLE",
+        "gitTracked": false,
+        "archiveStatus": "NO_VERIFIED_ARCHIVE_MEMBER",
+        "stableLocator": {
+          "status": "ABSENT",
+          "note": "Live path and SHA-256 only. No Git-tracked path and no verified archive member."
+        },
+        "reasonRequired": "Original stratifier A prompt, including the appointed actor.",
+        "futurePreservationActNeeded": true,
+        "preservationBlocksScientificClosure": false,
+        "codexPreservationNeed": "add stable recoverable manifested locator in a separately authorized preservation act",
+        "rehashedThisAct": true
+      },
+      {
+        "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/DOWNLOADS/MERGEVUE_CORR4_PILOT_STRATIFIER_B_PROMPT.md",
+        "sha256": "50f6653d282582a05e47574418cb605dfd335ec04e04b21cdb3d2a1423cbd211",
+        "bytes": 10385,
+        "currentAvailability": "AVAILABLE",
+        "gitTracked": false,
+        "archiveStatus": "NO_VERIFIED_ARCHIVE_MEMBER",
+        "stableLocator": {
+          "status": "ABSENT",
+          "note": "Live path and SHA-256 only. No Git-tracked path and no verified archive member."
+        },
+        "reasonRequired": "Original stratifier B prompt. It appoints Kimi K3 Extra.",
+        "futurePreservationActNeeded": true,
+        "preservationBlocksScientificClosure": false,
+        "codexPreservationNeed": "add stable recoverable manifested locator in a separately authorized preservation act",
+        "rehashedThisAct": true
+      },
+      {
+        "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_STRATIFIER_A_MARKS.jsonl",
+        "sha256": "5d4c0a681b7ecdb1cef403dc91bd0603a666e070798326cc97893c1e6cf1c27d",
+        "bytes": 1086162,
+        "currentAvailability": "AVAILABLE",
+        "gitTracked": false,
+        "archiveStatus": "NO_VERIFIED_ARCHIVE_MEMBER",
+        "stableLocator": {
+          "status": "ABSENT",
+          "note": "Live path and SHA-256 only. No Git-tracked path and no verified archive member."
+        },
+        "reasonRequired": "Stratifier A marks. Preserved unless an independent fact requires otherwise.",
+        "futurePreservationActNeeded": true,
+        "preservationBlocksScientificClosure": false,
+        "codexPreservationNeed": "add stable recoverable manifested locator in a separately authorized preservation act",
+        "rehashedThisAct": true
+      },
+      {
+        "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_STRATIFIER_A_REPORT.md",
+        "sha256": "13277cb6366c17de06c8aca3c9f8295678fc8bbd9de98db4d21d3578659b644f",
+        "bytes": 3814,
+        "currentAvailability": "AVAILABLE",
+        "gitTracked": false,
+        "archiveStatus": "NO_VERIFIED_ARCHIVE_MEMBER",
+        "stableLocator": {
+          "status": "ABSENT",
+          "note": "Live path and SHA-256 only. No Git-tracked path and no verified archive member."
+        },
+        "reasonRequired": "Stratifier A execution report.",
+        "futurePreservationActNeeded": true,
+        "preservationBlocksScientificClosure": false,
+        "codexPreservationNeed": "add stable recoverable manifested locator in a separately authorized preservation act",
+        "rehashedThisAct": true
+      },
+      {
+        "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_STRATIFIER_A_MANIFEST.sha256",
+        "sha256": "b378c5aa92ab41e08b0158b63c0dd65850435e20c8e11ac2937c432ccf964539",
+        "bytes": 218,
+        "currentAvailability": "AVAILABLE",
+        "gitTracked": false,
+        "archiveStatus": "NO_VERIFIED_ARCHIVE_MEMBER",
+        "stableLocator": {
+          "status": "ABSENT",
+          "note": "Live path and SHA-256 only. No Git-tracked path and no verified archive member."
+        },
+        "reasonRequired": "Stratifier A output manifest.",
+        "futurePreservationActNeeded": true,
+        "preservationBlocksScientificClosure": false,
+        "codexPreservationNeed": "add stable recoverable manifested locator in a separately authorized preservation act",
+        "rehashedThisAct": true
+      },
+      {
+        "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_STRATIFIER_B_MARKS.jsonl",
+        "sha256": "7b91967b69bf5f95e831bac14e32bc1246836e2e9c2bcb3ef965874ba7dc2603",
+        "bytes": 1191405,
+        "currentAvailability": "AVAILABLE",
+        "gitTracked": false,
+        "archiveStatus": "NO_VERIFIED_ARCHIVE_MEMBER",
+        "stableLocator": {
+          "status": "ABSENT",
+          "note": "Live path and SHA-256 only. No Git-tracked path and no verified archive member."
+        },
+        "reasonRequired": "Stratifier B marks whose actor and process status remain open.",
+        "futurePreservationActNeeded": true,
+        "preservationBlocksScientificClosure": false,
+        "codexPreservationNeed": "add stable recoverable manifested locator in a separately authorized preservation act",
+        "rehashedThisAct": true
+      },
+      {
+        "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_STRATIFIER_B_REPORT.md",
+        "sha256": "7572c68fa6c4313db1f06ea229eaab0fcc945f6b2231c7017b9a4f888d9a65c3",
+        "bytes": 5235,
+        "currentAvailability": "AVAILABLE",
+        "gitTracked": false,
+        "archiveStatus": "NO_VERIFIED_ARCHIVE_MEMBER",
+        "stableLocator": {
+          "status": "ABSENT",
+          "note": "Live path and SHA-256 only. No Git-tracked path and no verified archive member."
+        },
+        "reasonRequired": "Stratifier B report. It states Claude/Cline rather than the appointed Kimi actor.",
+        "futurePreservationActNeeded": true,
+        "preservationBlocksScientificClosure": false,
+        "codexPreservationNeed": "add stable recoverable manifested locator in a separately authorized preservation act",
+        "rehashedThisAct": true
+      },
+      {
+        "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_STRATIFIER_B_MANIFEST.sha256",
+        "sha256": "825ee929f442e0a0b07ffe8e8c203a76f80cc1354cd59c6bb19073f79de43a4e",
+        "bytes": 218,
+        "currentAvailability": "AVAILABLE",
+        "gitTracked": false,
+        "archiveStatus": "NO_VERIFIED_ARCHIVE_MEMBER",
+        "stableLocator": {
+          "status": "ABSENT",
+          "note": "Live path and SHA-256 only. No Git-tracked path and no verified archive member."
+        },
+        "reasonRequired": "Stratifier B output manifest.",
+        "futurePreservationActNeeded": true,
+        "preservationBlocksScientificClosure": false,
+        "codexPreservationNeed": "add stable recoverable manifested locator in a separately authorized preservation act",
+        "rehashedThisAct": true
+      },
+      {
+        "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_STRATIFICATION_AGREEMENT.json",
+        "sha256": "37f4b42100924479202d98d503c4e89b6d3787fd5f4d5b19cf1bd26617bf599d",
+        "bytes": 6912,
+        "currentAvailability": "AVAILABLE",
+        "gitTracked": false,
+        "archiveStatus": "NO_VERIFIED_ARCHIVE_MEMBER",
+        "stableLocator": {
+          "status": "ABSENT",
+          "note": "Live path and SHA-256 only. No Git-tracked path and no verified archive member."
+        },
+        "reasonRequired": "Frozen agreement matrix. classificationAssigned is false.",
+        "futurePreservationActNeeded": true,
+        "preservationBlocksScientificClosure": false,
+        "codexPreservationNeed": "add stable recoverable manifested locator in a separately authorized preservation act",
+        "rehashedThisAct": true
+      },
+      {
+        "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_SELECTION_REPORT.md",
+        "sha256": "65d40570615ff5ca0907ced4a42e5d32ac82abfe204e35e73913d03229426ba2",
+        "bytes": 19308,
+        "currentAvailability": "AVAILABLE",
+        "gitTracked": false,
+        "archiveStatus": "NO_VERIFIED_ARCHIVE_MEMBER",
+        "stableLocator": {
+          "status": "ABSENT",
+          "note": "Live path and SHA-256 only. No Git-tracked path and no verified archive member."
+        },
+        "reasonRequired": "Selection report for the 30-fact pilot sample.",
+        "futurePreservationActNeeded": true,
+        "preservationBlocksScientificClosure": false,
+        "codexPreservationNeed": "add stable recoverable manifested locator in a separately authorized preservation act",
+        "rehashedThisAct": true
+      },
+      {
+        "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_FINAL_MEASUREMENT_REGRESSION_1_2026-10-05/STAGE2_FINAL_MEASUREMENT_REGRESSION_1_REPORT.md",
+        "sha256": "9a58d38785b7dba5b6a9164985e5ac9c6fc6ac10115f2229df900e4e68f5f2c3",
+        "bytes": 23332,
+        "currentAvailability": "AVAILABLE",
+        "gitTracked": false,
+        "archiveStatus": "VERIFIED_ARCHIVE_SNAPSHOT",
+        "stableLocator": [
+          {
+            "kind": "verified-archive-member",
+            "archiveSha256": "5741423ff019be78232144446fd50a7f715aa72b00cc9be7df169bae4a9056a5",
+            "member": "STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_FEVA_CORR2/FROZEN_INPUTS/WORKBENCH/DOWNLOADS/STAGE2_FINAL_MEASUREMENT_REGRESSION_1_2026-10-05/STAGE2_FINAL_MEASUREMENT_REGRESSION_1_REPORT.md"
+          }
+        ],
+        "reasonRequired": "Historical original regression FAIL. It must stay visible.",
+        "futurePreservationActNeeded": false,
+        "preservationBlocksScientificClosure": false,
+        "codexPreservationNeed": "retain existing bound bytes",
+        "rehashedThisAct": true
+      },
+      {
+        "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_FINAL_MEASUREMENT_REGRESSION_1_CORRECTION_1_IV1_2026-10-05/STAGE2_FINAL_MEASUREMENT_REGRESSION_1_CORRECTION_1_IV1_REPORT.md",
+        "sha256": "7fa1a13318f6386d2d471b378bab60cbb4ea7c24f91857cfdd19853aa6c60b65",
+        "bytes": 26067,
+        "currentAvailability": "AVAILABLE",
+        "gitTracked": false,
+        "archiveStatus": "VERIFIED_ARCHIVE_SNAPSHOT",
+        "stableLocator": [
+          {
+            "kind": "verified-archive-member",
+            "archiveSha256": "5741423ff019be78232144446fd50a7f715aa72b00cc9be7df169bae4a9056a5",
+            "member": "STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_FEVA_CORR2/FROZEN_INPUTS/WORKBENCH/DOWNLOADS/STAGE2_FINAL_MEASUREMENT_REGRESSION_1_CORRECTION_1_IV1_2026-10-05/STAGE2_FINAL_MEASUREMENT_REGRESSION_1_CORRECTION_1_IV1_REPORT.md"
+          }
+        ],
+        "reasonRequired": "Historical correction IV1 HOLD, including REG-007.",
+        "futurePreservationActNeeded": false,
+        "preservationBlocksScientificClosure": false,
+        "codexPreservationNeed": "retain existing bound bytes",
+        "rehashedThisAct": true
+      },
+      {
+        "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_SELECTED_SAMPLE.json",
+        "sha256": "ce9a2bd1d44103c2a527be767af3300e3d14d516518be774b15262e19ca5f702",
+        "bytes": 11277,
+        "currentAvailability": "AVAILABLE",
+        "gitTracked": false,
+        "archiveStatus": "NO_VERIFIED_ARCHIVE_MEMBER",
+        "stableLocator": {
+          "status": "ABSENT",
+          "note": "Live path and SHA-256 only. No Git-tracked path and no verified archive member."
+        },
+        "reasonRequired": "Selected 30-fact sample and its order.",
+        "futurePreservationActNeeded": true,
+        "preservationBlocksScientificClosure": false,
+        "codexPreservationNeed": "add stable recoverable manifested locator in a separately authorized preservation act",
+        "rehashedThisAct": true
+      },
+      {
+        "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_STRATIFICATION_DISAGREEMENTS.jsonl",
+        "sha256": "990950c5822df47f4b7afe27c86498d413e872c57b1b62b5de5bf2f5fd037e0b",
+        "bytes": 125520,
+        "currentAvailability": "AVAILABLE",
+        "gitTracked": false,
+        "archiveStatus": "NO_VERIFIED_ARCHIVE_MEMBER",
+        "stableLocator": {
+          "status": "ABSENT",
+          "note": "Live path and SHA-256 only. No Git-tracked path and no verified archive member."
+        },
+        "reasonRequired": "Exact frozen 1,094-row stratifier disagreement ledger. No taxonomy field.",
+        "futurePreservationActNeeded": true,
+        "preservationBlocksScientificClosure": false,
+        "codexPreservationNeed": "add stable recoverable manifested locator in a separately authorized preservation act",
+        "rehashedThisAct": true
+      },
+      {
+        "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_SELECTION_ENGINE.py",
+        "sha256": "43d01469c7ac1da6315277498a8a60b44ec161e02e3e3fbefe5c8727f1c7def9",
+        "bytes": 21707,
+        "currentAvailability": "AVAILABLE",
+        "gitTracked": false,
+        "archiveStatus": "NO_VERIFIED_ARCHIVE_MEMBER",
+        "stableLocator": {
+          "status": "ABSENT",
+          "note": "Live path and SHA-256 only. No Git-tracked path and no verified archive member."
+        },
+        "reasonRequired": "Selection engine that produced the 30-fact sample.",
+        "futurePreservationActNeeded": true,
+        "preservationBlocksScientificClosure": false,
+        "codexPreservationNeed": "add stable recoverable manifested locator in a separately authorized preservation act",
+        "rehashedThisAct": true
+      },
+      {
+        "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_SELECTION_MANIFEST.sha256",
+        "sha256": "d22495d308036409aa9f5e5986a823fed0192cc4a4ae98c944a9fcc925e6bb2f",
+        "bytes": 560,
+        "currentAvailability": "AVAILABLE",
+        "gitTracked": false,
+        "archiveStatus": "NO_VERIFIED_ARCHIVE_MEMBER",
+        "stableLocator": {
+          "status": "ABSENT",
+          "note": "Live path and SHA-256 only. No Git-tracked path and no verified archive member."
+        },
+        "reasonRequired": "Selection-package manifest.",
+        "futurePreservationActNeeded": true,
+        "preservationBlocksScientificClosure": false,
+        "codexPreservationNeed": "add stable recoverable manifested locator in a separately authorized preservation act",
+        "rehashedThisAct": true
+      },
+      {
+        "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_INPUT.jsonl",
+        "sha256": "a87409c3f4c1d7d097443233284bceee1cbed49c59e57a8aeb9eed651ff0c883",
+        "bytes": 9199,
+        "currentAvailability": "AVAILABLE",
+        "gitTracked": true,
+        "archiveStatus": "VERIFIED_ARCHIVE_SNAPSHOT",
+        "stableLocator": [
+          {
+            "kind": "git-tracked-path-at-HEAD",
+            "commit": "9b1a50120461a41ce1365584866631cb1204fb2b",
+            "gitBlob": "2a2ac5e33fcf4d83d9093a7db62717cb39ed861b",
+            "path": "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_INPUT.jsonl"
+          },
+          {
+            "kind": "verified-archive-member",
+            "archiveSha256": "5741423ff019be78232144446fd50a7f715aa72b00cc9be7df169bae4a9056a5",
+            "member": "STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_FEVA_CORR2/FROZEN_INPUTS/WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_INPUT.jsonl"
+          }
+        ],
+        "reasonRequired": "Blinded analytical-coder input derived from the selected sample.",
+        "futurePreservationActNeeded": false,
+        "preservationBlocksScientificClosure": false,
+        "codexPreservationNeed": "retain existing bound archive bytes and exact member locator",
+        "rehashedThisAct": true
+      },
+      {
+        "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/Downloads/CASE-3.5_DAIMLER_CHRYSLER_BASELINE_v1.0.7_CANDIDATE/CERTIFIED_FACT_REGISTER.json",
+        "sha256": "268ee5818a3fc6f660a634cc125679c365c759b0a5c0c226f4bca11aca37f532",
+        "bytes": 95230,
+        "currentAvailability": "AVAILABLE",
+        "gitTracked": false,
+        "archiveStatus": "NO_VERIFIED_ARCHIVE_MEMBER",
+        "stableLocator": {
+          "status": "ABSENT",
+          "note": "Live path and SHA-256 only. No Git-tracked path and no verified archive member."
+        },
+        "reasonRequired": "One of the nine Stage-1 source-map substrate files. Case locator: MergeVue-M&A (August 2026)/Downloads/CASE-3.5_DAIMLER_CHRYSLER_BASELINE_v1.0.7_CANDIDATE/CERTIFIED_FACT_REGISTER.json",
+        "futurePreservationActNeeded": true,
+        "preservationBlocksScientificClosure": false,
+        "codexPreservationNeed": "add stable recoverable manifested locator in a separately authorized preservation act",
+        "rehashedThisAct": true
+      },
+      {
+        "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/deutsche-bankers-trust/01_T0_PRE_T0_BASELINE/candidate/04_ATOMIC_FACT_LEDGER.jsonl",
+        "sha256": "9bfa11faac6a7619c6ee212db305fe0aca2ddcda0bc7c191f4be4c0937e3c69f",
+        "bytes": 37579,
+        "currentAvailability": "AVAILABLE",
+        "gitTracked": false,
+        "archiveStatus": "NO_VERIFIED_ARCHIVE_MEMBER",
+        "stableLocator": {
+          "status": "ABSENT",
+          "note": "Live path and SHA-256 only. No Git-tracked path and no verified archive member."
+        },
+        "reasonRequired": "One of the nine Stage-1 source-map substrate files. Case locator: deutsche-bankers-trust/01_T0_PRE_T0_BASELINE/candidate/04_ATOMIC_FACT_LEDGER.jsonl",
+        "futurePreservationActNeeded": true,
+        "preservationBlocksScientificClosure": false,
+        "codexPreservationNeed": "add stable recoverable manifested locator in a separately authorized preservation act",
+        "rehashedThisAct": true
+      },
+      {
+        "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/pfizer-megamergers/01_T0_PRE_T0_BASELINE/CORR2/candidate/04_ATOMIC_FACT_LEDGER.jsonl",
+        "sha256": "b1f0e206a0233b3a5bf4929286173160352c2524a8b0bbfc70b4d96d2fd12ca7",
+        "bytes": 41133,
+        "currentAvailability": "AVAILABLE",
+        "gitTracked": false,
+        "archiveStatus": "NO_VERIFIED_ARCHIVE_MEMBER",
+        "stableLocator": {
+          "status": "ABSENT",
+          "note": "Live path and SHA-256 only. No Git-tracked path and no verified archive member."
+        },
+        "reasonRequired": "One of the nine Stage-1 source-map substrate files. Case locator: 01_T0_PRE_T0_BASELINE/CORR2/candidate/04_ATOMIC_FACT_LEDGER.jsonl",
+        "futurePreservationActNeeded": true,
+        "preservationBlocksScientificClosure": false,
+        "codexPreservationNeed": "add stable recoverable manifested locator in a separately authorized preservation act",
+        "rehashedThisAct": true
+      },
+      {
+        "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/aol-time-warner/01_T0_PRE_T0_BASELINE/candidate/06_FACTS.json",
+        "sha256": "88b20920149b3fcde03e4e060cf4361e9494fe0137540bbc654c526337fd5f10",
+        "bytes": 61728,
+        "currentAvailability": "AVAILABLE",
+        "gitTracked": false,
+        "archiveStatus": "NO_VERIFIED_ARCHIVE_MEMBER",
+        "stableLocator": {
+          "status": "ABSENT",
+          "note": "Live path and SHA-256 only. No Git-tracked path and no verified archive member."
+        },
+        "reasonRequired": "One of the nine Stage-1 source-map substrate files. Case locator: aol-time-warner/01_T0_PRE_T0_BASELINE/candidate/06_FACTS.json",
+        "futurePreservationActNeeded": true,
+        "preservationBlocksScientificClosure": false,
+        "codexPreservationNeed": "add stable recoverable manifested locator in a separately authorized preservation act",
+        "rehashedThisAct": true
+      },
+      {
+        "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/aecom-urs/01_T0_PRE_T0_BASELINE/candidate_corr2/06_FACTS.json",
+        "sha256": "a341928f14d8ff44fe4699bbf751cee3f1ac8993ab546d967c2c3ce537a879c4",
+        "bytes": 153454,
+        "currentAvailability": "AVAILABLE",
+        "gitTracked": false,
+        "archiveStatus": "NO_VERIFIED_ARCHIVE_MEMBER",
+        "stableLocator": {
+          "status": "ABSENT",
+          "note": "Live path and SHA-256 only. No Git-tracked path and no verified archive member."
+        },
+        "reasonRequired": "One of the nine Stage-1 source-map substrate files. Case locator: aecom-urs/01_T0_PRE_T0_BASELINE/candidate_corr2/06_FACTS.json",
+        "futurePreservationActNeeded": true,
+        "preservationBlocksScientificClosure": false,
+        "codexPreservationNeed": "add stable recoverable manifested locator in a separately authorized preservation act",
+        "rehashedThisAct": true
+      },
+      {
+        "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/exxon-mobil/01_T0_PRE_T0_BASELINE/candidate_corr8/06_FACTS.json",
+        "sha256": "415907847a64479d38298e6c48b38a727c93d26397867d7c6897843b7f05da36",
+        "bytes": 737400,
+        "currentAvailability": "AVAILABLE",
+        "gitTracked": false,
+        "archiveStatus": "NO_VERIFIED_ARCHIVE_MEMBER",
+        "stableLocator": {
+          "status": "ABSENT",
+          "note": "Live path and SHA-256 only. No Git-tracked path and no verified archive member."
+        },
+        "reasonRequired": "One of the nine Stage-1 source-map substrate files. Case locator: exxon-mobil/01_T0_PRE_T0_BASELINE/candidate_corr8/06_FACTS.json",
+        "futurePreservationActNeeded": true,
+        "preservationBlocksScientificClosure": false,
+        "codexPreservationNeed": "add stable recoverable manifested locator in a separately authorized preservation act",
+        "rehashedThisAct": true
+      },
+      {
+        "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/jpmorgan-bank-one/01_T0_PRE_T0_BASELINE/candidate/06_FACTS.json",
+        "sha256": "6150e8f45337d07d17b5ec6132b41bda724a72346ae7967b01fe6dcb996bbec0",
+        "bytes": 99055,
+        "currentAvailability": "AVAILABLE",
+        "gitTracked": false,
+        "archiveStatus": "NO_VERIFIED_ARCHIVE_MEMBER",
+        "stableLocator": {
+          "status": "ABSENT",
+          "note": "Live path and SHA-256 only. No Git-tracked path and no verified archive member."
+        },
+        "reasonRequired": "One of the nine Stage-1 source-map substrate files. Case locator: jpmorgan-bank-one/01_T0_PRE_T0_BASELINE/candidate/06_FACTS.json",
+        "futurePreservationActNeeded": true,
+        "preservationBlocksScientificClosure": false,
+        "codexPreservationNeed": "add stable recoverable manifested locator in a separately authorized preservation act",
+        "rehashedThisAct": true
+      },
+      {
+        "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/google-android/01_T0_PRE_T0_BASELINE/candidate/06_FACTS.json",
+        "sha256": "1a9ed535c66128b88a18904bc55a9fafd9f4faa37e350325c8fbf00325e02120",
+        "bytes": 61587,
+        "currentAvailability": "AVAILABLE",
+        "gitTracked": false,
+        "archiveStatus": "NO_VERIFIED_ARCHIVE_MEMBER",
+        "stableLocator": {
+          "status": "ABSENT",
+          "note": "Live path and SHA-256 only. No Git-tracked path and no verified archive member."
+        },
+        "reasonRequired": "One of the nine Stage-1 source-map substrate files. Case locator: google-android/01_T0_PRE_T0_BASELINE/candidate/06_FACTS.json",
+        "futurePreservationActNeeded": true,
+        "preservationBlocksScientificClosure": false,
+        "codexPreservationNeed": "add stable recoverable manifested locator in a separately authorized preservation act",
+        "rehashedThisAct": true
+      },
+      {
+        "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/amazon-whole-foods/01_T0_PRE_T0_BASELINE/candidate/06_FACTS.json",
+        "sha256": "4d58905e077bb3a6e6181f33272cb3488ec064b7b9c1d525413cdf368b59317c",
+        "bytes": 134974,
+        "currentAvailability": "AVAILABLE",
+        "gitTracked": false,
+        "archiveStatus": "NO_VERIFIED_ARCHIVE_MEMBER",
+        "stableLocator": {
+          "status": "ABSENT",
+          "note": "Live path and SHA-256 only. No Git-tracked path and no verified archive member."
+        },
+        "reasonRequired": "One of the nine Stage-1 source-map substrate files. Case locator: amazon-whole-foods/01_T0_PRE_T0_BASELINE/candidate/06_FACTS.json",
+        "futurePreservationActNeeded": true,
+        "preservationBlocksScientificClosure": false,
+        "codexPreservationNeed": "add stable recoverable manifested locator in a separately authorized preservation act",
+        "rehashedThisAct": true
+      }
+    ],
+    "additionalAlreadyBoundLineage": "Retain B17.4 exact component sources/IVs, accepted FEVA/adapter/Grok IV/closures and SourceClass sources referenced in source_identities; no duplicate binding required. Preserve any later actor/process/classification/post-pilot-freeze/measurement/IV/Owner decision instruments when actually created.",
+    "storageChoice": "Git via separately authorized Git actor, or durable manifested park; exact hashes alone do not preserve missing bytes.",
+    "shaAloneIsNotARecoverableFile": true,
+    "gitBindingPerformedThisAct": false
+  },
+  "l4Disposition": "OPEN",
+  "postPilotContractOwnerAcceptance": "OPEN",
+  "stage2FinalSemanticContractFreeze": "OPEN",
+  "gatesNotSatisfiedBy": [
+    "PILOT VERSION LOCK",
+    "IV PASS",
+    "FEVA acceptance",
+    "adapter acceptance",
+    "Git commit",
+    "B7.1",
+    "B5.10"
+  ]
+}
