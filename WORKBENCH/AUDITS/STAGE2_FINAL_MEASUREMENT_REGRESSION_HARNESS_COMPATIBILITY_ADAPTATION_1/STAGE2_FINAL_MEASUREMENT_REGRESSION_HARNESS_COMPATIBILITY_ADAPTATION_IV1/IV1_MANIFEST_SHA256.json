@@ -1,0 +1,83 @@
+{
+  "act": "STAGE-2 FINAL MEASUREMENT REGRESSION — HARNESS COMPATIBILITY ADAPTATION.IV1",
+  "auditor": "Grok 4.7",
+  "role": "INDEPENDENT AUDITOR",
+  "authorOfCandidate": "Codex",
+  "verdict": "PASS",
+  "verdictScope": "Bounded compatibility of this exact adapter. Not Owner acceptance, not Git closure, and not a Stage-2 measurement PASS.",
+  "generatedAt": "2026-10-08",
+  "directory": "/private/tmp/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_IV1",
+  "manifestExcludesItself": true,
+  "selfHash": null,
+  "requiredArtifacts": [
+    {
+      "path": "IV1_REPORT.md",
+      "bytes": 17640,
+      "sha256": "ee95ed9efd1022f6c3b382b09739fe3574e44a142822d966669b0ab692223b7f"
+    },
+    {
+      "path": "IV1_FINDINGS.json",
+      "bytes": 4445,
+      "sha256": "061c835f5b09ca09cbfa213d87d5627a7c32539539d37236dfc16d315122935f"
+    },
+    {
+      "path": "IV1_IDENTITY_CHECKS.json",
+      "bytes": 4889,
+      "sha256": "9f20d467774c978e1b8cc7d5cc3c8d0f1e39581ecc54251b792b106f6a2512e6"
+    },
+    {
+      "path": "IV1_REPRODUCTION_RESULTS.json",
+      "bytes": 4855,
+      "sha256": "99c2c56029eadba3a83d9bc332237133e30465801bf16c49365cf4f18b37a504"
+    },
+    {
+      "path": "IV1_NEGATIVE_CONTROLS.json",
+      "bytes": 5659,
+      "sha256": "76533faa27b9f219e33a914235d87535f817deaa668fd0c2ba255d4b88a8263c"
+    },
+    {
+      "path": "IV1_AUTHORITY_TRACEABILITY.json",
+      "bytes": 7126,
+      "sha256": "e1c069f7573b453e11f1545e9ff622dade190fe222046fc1fe77fc833c883aa8"
+    }
+  ],
+  "supportingEvidence": [
+    {
+      "path": "_evidence_bundle.json",
+      "bytes": 114667,
+      "sha256": "999b4a7cef25d41853bbe7dbfb88d0b29112f00331b3a721478741feb5a80c39"
+    },
+    {
+      "path": "historical_original_summary.json",
+      "bytes": 1159,
+      "sha256": "ed525552e0296a7b02bbf9d60a399e086761ed503184559b792881a458376d64"
+    },
+    {
+      "path": "neg_same_len.jsonl",
+      "bytes": 104722,
+      "sha256": "ee07ea1df0478d28ee3fdd228aeff9fef64bf85d42cc1f0bea950f432d5b04ec"
+    }
+  ],
+  "candidateUnchanged": {
+    "path": "/private/tmp/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_FEVA_CORR2/ADAPTED_REGRESSION_HARNESS.py",
+    "bytes": 28712,
+    "sha256": "82f78f8c6db43473fb0c79676374227384354fee8e46537427584cd2a39fd560"
+  },
+  "repositoryPost": {
+    "HEAD": "2f7bcc5d33cf8009145aa85cbb39d2ae9084ec26",
+    "trackedDirtyPorcelainEntries": 0,
+    "untrackedPorcelainEntries": 431,
+    "untrackedFileCount": 760,
+    "countingNote": "431 matches git status --porcelain untracked entries, the same method recorded before the audit. 760 is git ls-files --others --exclude-standard, which expands untracked directories. No repository path was added.",
+    "gitMutationPerformed": false,
+    "candidatePackageMutated": false,
+    "fullAdaptedRegressExecuted": false
+  },
+  "counts": {
+    "BLOCKING": 0,
+    "MAJOR": 0,
+    "MINOR": 1,
+    "ADVISORY": 4
+  },
+  "contractAuthorityGap": false
+}

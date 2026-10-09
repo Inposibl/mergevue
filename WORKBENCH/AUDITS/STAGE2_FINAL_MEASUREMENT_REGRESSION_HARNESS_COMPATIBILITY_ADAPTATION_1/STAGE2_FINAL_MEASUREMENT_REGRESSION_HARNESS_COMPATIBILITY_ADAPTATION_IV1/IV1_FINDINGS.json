@@ -1,0 +1,55 @@
+{
+  "act": "STAGE-2 FINAL MEASUREMENT REGRESSION — HARNESS COMPATIBILITY ADAPTATION.IV1",
+  "auditor": "Grok 4.7",
+  "role": "INDEPENDENT AUDITOR",
+  "candidateSha256": "82f78f8c6db43473fb0c79676374227384354fee8e46537427584cd2a39fd560",
+  "counts": {"BLOCKING": 0, "MAJOR": 0, "MINOR": 1, "ADVISORY": 4},
+  "contractAuthorityGap": false,
+  "findings": [
+    {
+      "id": "IV1-F01",
+      "severity": "MINOR",
+      "classification": "SOURCE/RUNTIME FACT",
+      "title": "Private measurement seam can describe mutated rows under the accepted file identity",
+      "evidence": "ADAPTED_REGRESSION_HARNESS.py _measure_subset calls load_exact_input, then applies an optional mutation to the parsed rows. The returned identities.effectiveView is identity(Path(input_path)), which remains SHA-256 5b37071a5fa5374c77b149bfde5c230c228cdf73d9785e5ea55346f9fab28daa after an in-memory planCurrentState mutation. regress(input_path) has no mutation parameter. The CLI calls only verify_dependency_bundle and load_exact_input.",
+      "consequence": "A caller of _measure_subset can obtain measurement diagnostics for rows that are not the file named in the result identity. The public regress entry and the CLI cannot. An authorized full regression must call regress or the CLI, not the private seam.",
+      "confidence": "HIGH"
+    },
+    {
+      "id": "IV1-F02",
+      "severity": "ADVISORY",
+      "classification": "SOURCE/RUNTIME FACT",
+      "title": "Nested factIds inside a shape-valid componentSupply item are not referentially checked",
+      "evidence": "On edge A-EXEC1:F-B-0025:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS, a replacement item with the six required keys, a dict linkageEvidence, and factIds ['MISSING_NESTED_IV1'] produced only SECTION_I_componentSupply. It did not produce ORPHAN_ or ACTUAL_SOURCE_BINDING. The same loop is present in ORIGINAL_FROZEN_HARNESS.py. The accepted record's own componentSupply item is already shape-invalid and is reported as COMPONENT_SCHEMA.",
+      "consequence": "Unreachable through regress or the CLI, because those entrypoints accept only the exact FEVA bytes. The gap would matter only if a later act removed the exact-input gate.",
+      "confidence": "HIGH"
+    },
+    {
+      "id": "IV1-F03",
+      "severity": "ADVISORY",
+      "classification": "SOURCE FACT",
+      "title": "Duplicate edge identity is counted inside measurement and rejected earlier by composition",
+      "evidence": "physicalCensus.duplicateSectionIEdgeIdentities is a count. check_composition rejects any 116-record reordering or substitution through COMPOSITION_ORDERED_IDENTITIES or UNAUTHORIZED_COMPOSITION before measurement. load_exact_input rejects any byte change as EXACT_INPUT_IDENTITY before composition.",
+      "consequence": "No second edge-identity gate is required for this exact-input adapter. The count is not itself fail-closed.",
+      "confidence": "HIGH"
+    },
+    {
+      "id": "IV1-F04",
+      "severity": "ADVISORY",
+      "classification": "SOURCE/RUNTIME FACT",
+      "title": "Fifty-seven pinned dependencies are untracked worktree files",
+      "evidence": "INPUT_IDENTITIES.json pins 107 inputs. Fifty matched canonical Git blobs at HEAD 2f7bcc5d33cf8009145aa85cbb39d2ae9084ec26. Fifty-seven are untracked and matched the current worktree bytes. None were symlinks or escaped FROZEN_INPUTS. verify_dependency_bundle re-reads and re-hashes them on each call and raises DEPENDENCY_IDENTITY on drift. FEVA CORR2 Git closure §8 already records that several assembly inputs remain outside Git.",
+      "consequence": "The adapter is hash-closed against its frozen package. It is not closed against Git alone. Disk drift fails closed rather than being silently read.",
+      "confidence": "HIGH"
+    },
+    {
+      "id": "IV1-F05",
+      "severity": "ADVISORY",
+      "classification": "SOURCE/RUNTIME FACT",
+      "title": "FORBIDDEN_OUTPUT is not reached when an extra key is rejected as SECTION_SCHEMA",
+      "evidence": "The edge loop raises InputRejected SECTION_SCHEMA when the key set differs, before the forbiddenOutputFields scan. Adding realizedOutcome produced SECTION_SCHEMA. The forbidden list still includes realizedOutcome, outcome, environment, environmentAssignment, environmentCode, ecs, and prediction.",
+      "consequence": "The early rejection is stricter than the later diagnostic. It does not admit the prohibited field.",
+      "confidence": "HIGH"
+    }
+  ]
+}

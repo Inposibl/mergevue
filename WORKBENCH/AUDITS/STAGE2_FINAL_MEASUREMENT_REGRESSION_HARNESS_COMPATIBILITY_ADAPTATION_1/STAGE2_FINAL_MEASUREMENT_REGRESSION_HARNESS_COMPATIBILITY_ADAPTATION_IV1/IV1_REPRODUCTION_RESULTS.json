@@ -1,0 +1,101 @@
+{
+  "act": "STAGE-2 FINAL MEASUREMENT REGRESSION — HARNESS COMPATIBILITY ADAPTATION.IV1",
+  "fullAdaptedRegressExecuted": false,
+  "authorTestsExecuted": false,
+  "commands": [
+    {
+      "purpose": "Identity, composition, pins, bounded single-edge checks, predeclared negatives, and historical original reproduction",
+      "command": "PYTHONDONTWRITEBYTECODE=1 python3 -B /tmp/iv1_audit.py",
+      "cwd": "repository root for the historical child; collector itself does not require the repository cwd",
+      "exit": 0
+    },
+    {
+      "purpose": "Public CLI composition gate from a non-repository working directory",
+      "command": "python3 -B ADAPTED_REGRESSION_HARNESS.py --exact-input FEVA_CORR2_EXACT_INPUT.jsonl",
+      "cwd": "/tmp",
+      "exit": 0,
+      "stdout": {
+        "mode": "INPUT_COMPOSITION_COMPATIBILITY_ONLY",
+        "measurementExecuted": false,
+        "bytes": 104722,
+        "sha256": "5b37071a5fa5374c77b149bfde5c230c228cdf73d9785e5ea55346f9fab28daa",
+        "census": {"records": 116, "legacy": 110, "sectionI": 6, "orderedIdentitiesPreserved": true, "rawLegacyPreserved": true}
+      }
+    },
+    {
+      "purpose": "Same-length digest mismatch through the CLI",
+      "exit": 2,
+      "stderrCode": "EXACT_INPUT_IDENTITY"
+    }
+  ],
+  "determinism": {
+    "loadExactInputRepeatedEqual": true,
+    "singleLegacyEdgeRepeatedEqual": true,
+    "singleEdgeDerivedOutputCount": 1,
+    "publicRegressExposesMutation": false
+  },
+  "boundedAE001": {
+    "entry": "_measure_subset edge_ids=('A-E001',) only; not regress()",
+    "comparisonCounts": {"MATCH": 23, "MISMATCH": 1, "NOT_DETERMINABLE": 26},
+    "loadBearingMatches": ["discriminatorIds", "sourceClass", "edgeState", "missingComponents", "scopeBridgeState", "sufficiencyExpressionResult", "prOnlyBasis", "bearingEvaluability", "bearingIndeterminacyReasons", "supportBearing"],
+    "retainedDefects": ["COMPONENT_SCHEMA", "ORPHAN_EXPRESSION_MECHANISM", "SECTION_I_sufficiencyExpression"],
+    "mismatch": {
+      "field": "sufficiencyExpression",
+      "stored": "ALL_OF(M-ENFORCE-SANCTION, M-FORMAL-RULES)",
+      "registry": "ALL_OF(M-AUTH-TOPDOWN-EXPLICIT, M-ENFORCE-STRENGTH, M-ENFORCE-SANCTION, M-ENFORCE-RESOURCE-CONTROL)",
+      "orphanToken": "M-FORMAL-RULES",
+      "registryContainsToken": false
+    },
+    "derived": {
+      "sufficiencyExpressionResult": "OPEN",
+      "leafValue": "OPEN",
+      "targetState": "TARGET_NOT_ESTABLISHED_WITHIN_BOUND"
+    },
+    "environmentCodeEmitted": false,
+    "environmentAssignmentFields": []
+  },
+  "boundedF0024": {
+    "entry": "_measure_subset on A-EXEC1:F0024:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS only",
+    "factualPackageIdentity": "MATCH",
+    "equalsFrozenSidecar": true,
+    "correctionFlagsTrue": ["A-E023.planCurrentState", "A-E023.evidenceForm", "A-E023.formalOperativeState", "A-E001.evidenceForm", "A-E001.planCurrentState", "F0024.completeCorrectedIdentity", "F0024.13OtherKeysPreserved"]
+  },
+  "independentSuccessorEvaluate": {
+    "module": "STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_SUCCESSOR_VIEW_BUILDER.py",
+    "context": {"traces": {}, "witness": {}, "coderOutput": {}},
+    "contextAuthority": "FEVA CORR1 BUILD.py run_machinery lines 312-313",
+    "admission": "ADMITTED",
+    "bearingEvaluability": "EVALUABLE",
+    "bearingIndeterminacyReasons": null,
+    "supportBearing": "NON_DISCRIMINATING",
+    "capFired": "B-1b",
+    "prOnlyBasisEqualsDecision": true,
+    "adapterSuccessorComparisonMatchesEvaluate": true
+  },
+  "pi7RawBinding": {
+    "method": "FEVA CORR2 BUILD.load_pi7_index on raw JSONL bytes, then derive_source_class",
+    "edgesMatched": 6,
+    "edgesFailed": 0
+  },
+  "historicalOriginalReproduction": {
+    "label": "HISTORICAL_REPRODUCTION_OF_FROZEN_FAIL",
+    "notANewStage2Measurement": true,
+    "harness": "ORIGINAL_FROZEN_HARNESS.py",
+    "cwd": "repository root",
+    "resultStructureSha256": "58c2080b9d038ce91330fa8af7cf30ebb9d6b1920b9dc238a62e2904ec6b8e37",
+    "matchesHistoricalArtifactReplayHash": true,
+    "historicalArtifact": "WORKBENCH/DOWNLOADS/STAGE2_FINAL_MEASUREMENT_REGRESSION_1_2026-10-05/STAGE2_FINAL_MEASUREMENT_REGRESSION_1_RESULTS.json",
+    "defectCount": 37,
+    "unexpectedDiffCount": 0,
+    "executionCellCounts": {"PASS": 107, "FAIL": 3},
+    "originalNegativeControlsDetected": 4,
+    "originalNegativeControls": ["CORRECTION_PRESERVATION", "CELL_BINDING", "ORPHAN_factIds", "SECTION_I_missingComponents"],
+    "historicalVerdict": "FAIL"
+  },
+  "historicalCorrectionIv1": {
+    "path": "FROZEN_INPUTS/WORKBENCH/DOWNLOADS/STAGE2_FINAL_MEASUREMENT_REGRESSION_1_CORRECTION_1_IV1_2026-10-05/STAGE2_FINAL_MEASUREMENT_REGRESSION_1_CORRECTION_1_IV1_REPORT.md",
+    "verdict": "HOLD",
+    "recordedCounts": "BLOCKING 1 / MAJOR 1 / MINOR 0 / ADVISORY 1",
+    "readjudicatedByThisAudit": false
+  }
+}

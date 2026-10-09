@@ -1,0 +1,715 @@
+{
+  "authorityGapCount": 0,
+  "fields": [
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7I; \u00a7H-1",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "CARRIER_WHEN_UNCHANGED; NOT_DETERMINABLE_IF_NO_CURRENT_DERIVATION",
+      "field": "edgeId",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7I; \u00a7H-1",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "DERIVED_FROM_BOUND_REGISTRY_INPUT_RECORDED_SUPPLY",
+      "field": "caseId",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7I; \u00a7H-1",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "DERIVED_FROM_BOUND_REGISTRY_INPUT_RECORDED_SUPPLY",
+      "field": "side",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7I; \u00a7H-1",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "DERIVED_FROM_BOUND_REGISTRY_INPUT_RECORDED_SUPPLY",
+      "field": "factualPackageIdentity",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7I; \u00a7H-1",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "DERIVED_FROM_BOUND_REGISTRY_INPUT_RECORDED_SUPPLY",
+      "field": "factIds",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7I; \u00a7H-1",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "DERIVED_FROM_BOUND_REGISTRY_INPUT_RECORDED_SUPPLY",
+      "field": "sourceRefs",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7I; \u00a7H-1",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "CARRIER_WHEN_UNCHANGED; NOT_DETERMINABLE_IF_NO_CURRENT_DERIVATION",
+      "field": "coderIdentity",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7I; \u00a7H-1",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "CARRIER_WHEN_UNCHANGED; NOT_DETERMINABLE_IF_NO_CURRENT_DERIVATION",
+      "field": "vocabularyVersion",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7I; \u00a7H-1",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "CARRIER_WHEN_UNCHANGED; NOT_DETERMINABLE_IF_NO_CURRENT_DERIVATION",
+      "field": "contractIdentity",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7H-2, \u00a7H-4, \u00a7C routing invariant, \u00a7I",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "DERIVED_FROM_BOUND_REGISTRY_INPUT_RECORDED_SUPPLY",
+      "field": "mechanismPropositionIds",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7H-2, \u00a7H-4, \u00a7C routing invariant, \u00a7I",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "DERIVED_FROM_BOUND_REGISTRY_INPUT_RECORDED_SUPPLY",
+      "field": "mechanismObjectTypes",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7H-2, \u00a7H-4, \u00a7C routing invariant, \u00a7I",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "DERIVED_FROM_BOUND_REGISTRY_INPUT_RECORDED_SUPPLY",
+      "field": "discriminatorIds",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7H-2, \u00a7H-4, \u00a7C routing invariant, \u00a7I",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "DERIVED_FROM_BOUND_REGISTRY_INPUT_RECORDED_SUPPLY",
+      "field": "treeTargetIds",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7H-2, \u00a7H-4, \u00a7C routing invariant, \u00a7I",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "DERIVED_FROM_BOUND_REGISTRY_INPUT_RECORDED_SUPPLY",
+      "field": "relation",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7H-3, \u00a7H-5, \u00a7F.4, \u00a7F.4.1, \u00a7I",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "CARRIER_WHEN_UNCHANGED; NOT_DETERMINABLE_IF_NO_CURRENT_DERIVATION",
+      "field": "componentSupply",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7H-3, \u00a7H-5, \u00a7F.4, \u00a7F.4.1, \u00a7I",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "DERIVED_FROM_BOUND_REGISTRY_INPUT_RECORDED_SUPPLY",
+      "field": "missingComponents",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7F.4 (J-R1..J-R6), \u00a7F.4.1 (L-1..L-6, L-N, LINKAGE_AMBIGUOUS), \u00a7I",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "CARRIER_WHEN_UNCHANGED; NOT_DETERMINABLE_IF_NO_CURRENT_DERIVATION",
+      "field": "relationInstanceId",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7F.4 (J-R1..J-R6), \u00a7F.4.1 (L-1..L-6, L-N, LINKAGE_AMBIGUOUS), \u00a7I",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "CARRIER_WHEN_UNCHANGED; NOT_DETERMINABLE_IF_NO_CURRENT_DERIVATION",
+      "field": "organizationalObjectRef",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7F.4 (J-R1..J-R6), \u00a7F.4.1 (L-1..L-6, L-N, LINKAGE_AMBIGUOUS), \u00a7I",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "CARRIER_WHEN_UNCHANGED; NOT_DETERMINABLE_IF_NO_CURRENT_DERIVATION",
+      "field": "decisionRef",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7F.4 (J-R1..J-R6), \u00a7F.4.1 (L-1..L-6, L-N, LINKAGE_AMBIGUOUS), \u00a7I",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "CARRIER_WHEN_UNCHANGED; NOT_DETERMINABLE_IF_NO_CURRENT_DERIVATION",
+      "field": "resourceFlowRef",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7F.4 (J-R1..J-R6), \u00a7F.4.1 (L-1..L-6, L-N, LINKAGE_AMBIGUOUS), \u00a7I",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "CARRIER_WHEN_UNCHANGED; NOT_DETERMINABLE_IF_NO_CURRENT_DERIVATION",
+      "field": "participationSystemRef",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7F.4 (J-R1..J-R6), \u00a7F.4.1 (L-1..L-6, L-N, LINKAGE_AMBIGUOUS), \u00a7I",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "CARRIER_WHEN_UNCHANGED; NOT_DETERMINABLE_IF_NO_CURRENT_DERIVATION",
+      "field": "beliefSystemRef",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7E, \u00a7G-9, \u00a7I",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "CARRIER_WHEN_UNCHANGED; NOT_DETERMINABLE_IF_NO_CURRENT_DERIVATION",
+      "field": "observedScope",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7E, \u00a7G-9, \u00a7I",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "CARRIER_WHEN_UNCHANGED; NOT_DETERMINABLE_IF_NO_CURRENT_DERIVATION",
+      "field": "claimedScope",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7E, \u00a7G-9, \u00a7I",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "DERIVED_FROM_BOUND_REGISTRY_INPUT_RECORDED_SUPPLY",
+      "field": "scopeBridgeState",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7E, \u00a7G-9, \u00a7I",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "CARRIER_WHEN_UNCHANGED; NOT_DETERMINABLE_IF_NO_CURRENT_DERIVATION",
+      "field": "scopeBridgeFactIds",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7E, \u00a7I",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "CARRIER_WHEN_UNCHANGED; NOT_DETERMINABLE_IF_NO_CURRENT_DERIVATION",
+      "field": "temporalState",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7E, \u00a7I",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "CARRIER_WHEN_UNCHANGED; NOT_DETERMINABLE_IF_NO_CURRENT_DERIVATION",
+      "field": "continuityBridgeFactIds",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7E, \u00a7K (K-1..K-6, charGate CH-FRAME / CH-OP / CH-NA), \u00a7I",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "CARRIER_WHEN_UNCHANGED; NOT_DETERMINABLE_IF_NO_CURRENT_DERIVATION",
+      "field": "characteristicityState",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7E, \u00a7K (K-1..K-6, charGate CH-FRAME / CH-OP / CH-NA), \u00a7I",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "CARRIER_WHEN_UNCHANGED; NOT_DETERMINABLE_IF_NO_CURRENT_DERIVATION",
+      "field": "characteristicityFactIds",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7E, \u00a7G-2, \u00a7G-3, \u00a7G-5, \u00a7I",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "CARRIER_WHEN_UNCHANGED; NOT_DETERMINABLE_IF_NO_CURRENT_DERIVATION",
+      "field": "formalOperativeState",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7E, \u00a7H-6, \u00a7I",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "CARRIER_WHEN_UNCHANGED; NOT_DETERMINABLE_IF_NO_CURRENT_DERIVATION",
+      "field": "planCurrentState",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7E, \u00a7H-6, \u00a7G-2, \u00a7I",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "CARRIER_WHEN_UNCHANGED; NOT_DETERMINABLE_IF_NO_CURRENT_DERIVATION",
+      "field": "evidenceForm",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7E, \u00a7G-1..\u00a7G-9, \u00a7J-1..\u00a7J-6, \u00a7I",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "CARRIER_WHEN_UNCHANGED; NOT_DETERMINABLE_IF_NO_CURRENT_DERIVATION",
+      "field": "sourceQualityState",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7E, \u00a7G-1..\u00a7G-9, \u00a7J-1..\u00a7J-6, \u00a7I",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "CARRIER_WHEN_UNCHANGED; NOT_DETERMINABLE_IF_NO_CURRENT_DERIVATION",
+      "field": "absenceEvidenceState",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7E, \u00a7G-1..\u00a7G-9, \u00a7J-1..\u00a7J-6, \u00a7I",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "DERIVED_FROM_BOUND_REGISTRY_INPUT_RECORDED_SUPPLY",
+      "field": "sourceClass",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7E, \u00a7H-2, \u00a7H-7, \u00a7H-8, \u00a7I",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "CARRIER_WHEN_UNCHANGED; NOT_DETERMINABLE_IF_NO_CURRENT_DERIVATION",
+      "field": "relevanceState",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7E, \u00a7H-2, \u00a7H-7, \u00a7H-8, \u00a7I",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "DERIVED_FROM_BOUND_REGISTRY_INPUT_RECORDED_SUPPLY",
+      "field": "edgeState",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7E, \u00a7H-2, \u00a7H-7, \u00a7H-8, \u00a7I",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md",
+        "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR2_CORR1_CORR1_CORR1_CORR1_2026-10-05/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR2_CORR1_CORR1_CORR1_CORR1_CANDIDATE.md \u00a714 Decision 1/Architecture C",
+        "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_2026-10-05/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_METHODOLOGY_SUCCESSOR.md \u00a72/SEP-I-4; \u00a77/BC-1/BC-2/BC-5",
+        "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_GIT_CLOSURE_1.md \u00a73 migrated A-E001"
+      ],
+      "comparison": "CARRIER_WHEN_UNCHANGED; NOT_DETERMINABLE_IF_NO_CURRENT_DERIVATION",
+      "field": "supportClass",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "FORBIDDEN/REPLACED_BY_SEP_TRIPLE",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7H-2, \u00a7F.5 E-R6/E-R7/E-R8, \u00a7H-4, \u00a7I",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "CARRIER_WHEN_UNCHANGED; NOT_DETERMINABLE_IF_NO_CURRENT_DERIVATION",
+      "field": "ambiguity",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7F.3, \u00a7F.5, \u00a7I",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "DERIVED_FROM_BOUND_REGISTRY_INPUT_RECORDED_SUPPLY",
+      "field": "sufficiencyExpression",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7F.3, \u00a7F.5, \u00a7I",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "DERIVED_FROM_BOUND_REGISTRY_INPUT_RECORDED_SUPPLY",
+      "field": "sufficiencyExpressionResult",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7F.3, \u00a7F.5, \u00a7I",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "DERIVED_FROM_BOUND_REGISTRY_INPUT_RECORDED_SUPPLY",
+      "field": "counterevidenceFactIds",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7F.3, \u00a7F.5, \u00a7I",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "DERIVED_FROM_BOUND_REGISTRY_INPUT_RECORDED_SUPPLY",
+      "field": "conflictFactIds",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7E (NOT_DETERMINABLE), \u00a7F.3, \u00a7G-7, \u00a7G-8, \u00a7H-7, \u00a7J-3, \u00a7K-2",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "CARRIER_WHEN_UNCHANGED; NOT_DETERMINABLE_IF_NO_CURRENT_DERIVATION",
+      "field": "abstention",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7H-9",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "CARRIER_WHEN_UNCHANGED; NOT_DETERMINABLE_IF_NO_CURRENT_DERIVATION",
+      "field": "nonExpansionRationale",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json CORR4 \u00a7F.3 PRES-LANE NON-CONSUMABILITY; \u00a7I",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md"
+      ],
+      "comparison": "CARRIER_WHEN_UNCHANGED; NOT_DETERMINABLE_IF_NO_CURRENT_DERIVATION",
+      "field": "presentationLaneOnly",
+      "legacyFiveSectionI": "RETAINED \u2014 frozen predecessor 47-field schema; no invented analytical recoding",
+      "original": "legacy schema required; enum/derived/carrier or NOT_DETERMINABLE as applicable",
+      "successorAE001": "RETAINED \u2014 accepted field state and original applicable checks",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR2_CORR1_CORR1_CORR1_CORR1_2026-10-05/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR2_CORR1_CORR1_CORR1_CORR1_CANDIDATE.md SEP-EV/SEP-B/\u00a714",
+        "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_2026-10-05/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_METHODOLOGY_SUCCESSOR.md \u00a74/\u00a75/\u00a76",
+        "WORKBENCH/DOWNLOADS/A_E001_BEARING_DIRECTIONALITY_READJUDICATION_1_2026-10-07/A_E001_BEARING_DIRECTIONALITY_READJUDICATION_1_DECISION.json recordedPrOnlyBasisForMaterialization",
+        "WORKBENCH/DOWNLOADS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_2026-10-07/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_BUILD.py evaluate_record, exact empty W/T context",
+        "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR2_CORR1_CORR1_CORR1_CORR1_2026-10-05/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR2_CORR1_CORR1_CORR1_CORR1_CANDIDATE.md \u00a714 Decision 1/Architecture C",
+        "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_2026-10-05/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_METHODOLOGY_SUCCESSOR.md \u00a72/SEP-I-4; \u00a77/BC-1/BC-2/BC-5",
+        "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_GIT_CLOSURE_1.md \u00a73 migrated A-E001"
+      ],
+      "comparison": "Exact accepted PR basis / accepted CORR10 evaluate() result; held evaluation rejected; no field mapping invented",
+      "field": "prOnlyBasis",
+      "legacyFiveSectionI": "FORBIDDEN",
+      "original": "NOT_A_PREDECESSOR_FIELD",
+      "successorAE001": "REQUIRED; old supportClass forbidden",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR2_CORR1_CORR1_CORR1_CORR1_2026-10-05/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR2_CORR1_CORR1_CORR1_CORR1_CANDIDATE.md SEP-EV/SEP-B/\u00a714",
+        "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_2026-10-05/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_METHODOLOGY_SUCCESSOR.md \u00a74/\u00a75/\u00a76",
+        "WORKBENCH/DOWNLOADS/A_E001_BEARING_DIRECTIONALITY_READJUDICATION_1_2026-10-07/A_E001_BEARING_DIRECTIONALITY_READJUDICATION_1_DECISION.json recordedPrOnlyBasisForMaterialization",
+        "WORKBENCH/DOWNLOADS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_2026-10-07/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_BUILD.py evaluate_record, exact empty W/T context",
+        "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR2_CORR1_CORR1_CORR1_CORR1_2026-10-05/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR2_CORR1_CORR1_CORR1_CORR1_CANDIDATE.md \u00a714 Decision 1/Architecture C",
+        "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_2026-10-05/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_METHODOLOGY_SUCCESSOR.md \u00a72/SEP-I-4; \u00a77/BC-1/BC-2/BC-5",
+        "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_GIT_CLOSURE_1.md \u00a73 migrated A-E001"
+      ],
+      "comparison": "Exact accepted PR basis / accepted CORR10 evaluate() result; held evaluation rejected; no field mapping invented",
+      "field": "bearingEvaluability",
+      "legacyFiveSectionI": "FORBIDDEN",
+      "original": "NOT_A_PREDECESSOR_FIELD",
+      "successorAE001": "REQUIRED; old supportClass forbidden",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR2_CORR1_CORR1_CORR1_CORR1_2026-10-05/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR2_CORR1_CORR1_CORR1_CORR1_CANDIDATE.md SEP-EV/SEP-B/\u00a714",
+        "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_2026-10-05/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_METHODOLOGY_SUCCESSOR.md \u00a74/\u00a75/\u00a76",
+        "WORKBENCH/DOWNLOADS/A_E001_BEARING_DIRECTIONALITY_READJUDICATION_1_2026-10-07/A_E001_BEARING_DIRECTIONALITY_READJUDICATION_1_DECISION.json recordedPrOnlyBasisForMaterialization",
+        "WORKBENCH/DOWNLOADS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_2026-10-07/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_BUILD.py evaluate_record, exact empty W/T context",
+        "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR2_CORR1_CORR1_CORR1_CORR1_2026-10-05/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR2_CORR1_CORR1_CORR1_CORR1_CANDIDATE.md \u00a714 Decision 1/Architecture C",
+        "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_2026-10-05/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_METHODOLOGY_SUCCESSOR.md \u00a72/SEP-I-4; \u00a77/BC-1/BC-2/BC-5",
+        "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_GIT_CLOSURE_1.md \u00a73 migrated A-E001"
+      ],
+      "comparison": "Exact accepted PR basis / accepted CORR10 evaluate() result; held evaluation rejected; no field mapping invented",
+      "field": "bearingIndeterminacyReasons",
+      "legacyFiveSectionI": "FORBIDDEN",
+      "original": "NOT_A_PREDECESSOR_FIELD",
+      "successorAE001": "REQUIRED; old supportClass forbidden",
+      "weakeningPermitted": false
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR2_CORR1_CORR1_CORR1_CORR1_2026-10-05/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR2_CORR1_CORR1_CORR1_CORR1_CANDIDATE.md SEP-EV/SEP-B/\u00a714",
+        "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_2026-10-05/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_METHODOLOGY_SUCCESSOR.md \u00a74/\u00a75/\u00a76",
+        "WORKBENCH/DOWNLOADS/A_E001_BEARING_DIRECTIONALITY_READJUDICATION_1_2026-10-07/A_E001_BEARING_DIRECTIONALITY_READJUDICATION_1_DECISION.json recordedPrOnlyBasisForMaterialization",
+        "WORKBENCH/DOWNLOADS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_2026-10-07/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_BUILD.py evaluate_record, exact empty W/T context",
+        "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR2_CORR1_CORR1_CORR1_CORR1_2026-10-05/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR2_CORR1_CORR1_CORR1_CORR1_CANDIDATE.md \u00a714 Decision 1/Architecture C",
+        "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_2026-10-05/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_METHODOLOGY_SUCCESSOR.md \u00a72/SEP-I-4; \u00a77/BC-1/BC-2/BC-5",
+        "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_GIT_CLOSURE_1.md \u00a73 migrated A-E001"
+      ],
+      "comparison": "Exact accepted PR basis / accepted CORR10 evaluate() result; held evaluation rejected; no field mapping invented",
+      "field": "supportBearing",
+      "legacyFiveSectionI": "FORBIDDEN",
+      "original": "NOT_A_PREDECESSOR_FIELD",
+      "successorAE001": "REQUIRED; old supportClass forbidden",
+      "weakeningPermitted": false
+    }
+  ],
+  "noGeneralSuccessorProjectionInvented": true,
+  "scope": "exact accepted FEVA only",
+  "specialChecks": [
+    {
+      "authority": [
+        "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_GIT_CLOSURE_1.md \u00a73 raw legacy preservation; \u00a77 no measurement PASS",
+        "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_REPORT.md \u00a75/\u00a76 legacy outside \u00a7I emission rule",
+        "accepted presence-aware predecessor\u2192CORR2 delta; immutable legacy values are not a new analytical judgment",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md \u00a7I; frozen historical source lines 130\u2013160"
+      ],
+      "check": "110 legacy outer/sparse field/census/fact/M-TT/binding checks",
+      "oldToNew": "Preserved; immutable raw legacy and historical defects are not erased. Accepted changed \u00a7I fields no longer treat stale legacy carriers as current analytical oracles. Existing cell SOURCECLASS/PROVENANCE/D/schema diagnostics remain."
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md \u00a7I",
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json requiredCodingFields.component satisfaction"
+      ],
+      "check": "nested componentSupply shape",
+      "oldToNew": "Retain typed six-key requirement and linkageEvidence object requirement. Current accepted legacy encoding can therefore produce COMPONENT_SCHEMA. No automatic conversion, copied nested references or invented supply."
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json sourceClassBindingRule",
+        "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_BUILD.py load_pi7_index/derive_source_class",
+        "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_SOURCECLASS_BINDING_CORR2.jsonl"
+      ],
+      "check": "sourceClass",
+      "oldToNew": "Use exact accepted PI-7 supplier identity (case/side/fact/refIndex/sourceId); non-ASSIGNED state copied verbatim. Frozen predecessor cell diagnostics remain separate."
+    },
+    {
+      "authority": [
+        "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_GIT_CLOSURE_1.md \u00a73 line112",
+        "WORKBENCH/DOWNLOADS/AOL_F0024_RECONCILIATION_1_2026-10-07/AOL_F0024_RECONCILIATION_1_PROVENANCE_PATCH.json",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md \u00a7I"
+      ],
+      "check": "F0024 provenance",
+      "oldToNew": "Current PI-3 sidecar and accepted patch supply \u00a7I provenance. Immutable execution-cell identity remains unchanged and can remain discrepant."
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR2_CORR1_CORR1_CORR1_CORR1_2026-10-05/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR2_CORR1_CORR1_CORR1_CORR1_CANDIDATE.md \u00a714 Decision 1/Architecture C",
+        "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_2026-10-05/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_METHODOLOGY_SUCCESSOR.md \u00a72/SEP-I-4; \u00a77/BC-1/BC-2/BC-5",
+        "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_GIT_CLOSURE_1.md \u00a73 migrated A-E001",
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md \u00a7F.3/\u00a7F.4/\u00a7F.5",
+        "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_2026-10-05/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_METHODOLOGY_SUCCESSOR.md SEP-I-9; \u00a710.1 non-superseded semantics"
+      ],
+      "check": "legacy supportClass vs successor supportBearing",
+      "oldToNew": "Five legacy supportClass records remain legacy; only accepted A-E001 reads SEP triple. No automatic migration of A-E023 or other DE4 records, no conversion of bearing into establishment."
+    },
+    {
+      "authority": [
+        "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md \u00a7F.3/\u00a7F.5/\u00a7J; original harness supports-only assert",
+        "current Owner exact-input and fail-closed requirements"
+      ],
+      "check": "negative/control input domain",
+      "oldToNew": "Original supports-only assertion is an explicit InputRejected now. Changed relation/absence/counter/conflict is an author negative fixture and is not given a fabricated FALSE/CONFLICTED interpretation. Public exact-input gate rejects such changes before measurement."
+    },
+    {
+      "authority": [
+        "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_GIT_CLOSURE_1.md \u00a73/\u00a74/\u00a76",
+        "accepted Git object 2f7bcc5d33cf8009145aa85cbb39d2ae9084ec26:WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_RECORDS.jsonl"
+      ],
+      "check": "composition eight-path oracle",
+      "oldToNew": "Replace with exact accepted 116-record oracle, ordered IDs, 110 raw lines, all six \u00a7I bytes, presence-aware accepted delta and bound provenance. No looser allowed-diff list."
+    },
+    {
+      "authority": [
+        "current Owner mandatory design \u00a78\u2013\u00a710",
+        "original frozen source scenarios/negative_controls/adv2_analysis"
+      ],
+      "check": "historical sensitivity/ADV2 and negative controls",
+      "oldToNew": "Original helpers unmodified in original source and reproducible. New tests use single edge/cell fixtures, new specific diagnostics or stronger early input rejection, not merely pre-existing FAIL."
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "act": "STAGE-2 FINAL MEASUREMENT REGRESSION — HARNESS COMPATIBILITY ADAPTATION.IV1",
+  "rule": "Each control names one predeclared diagnostic. A pass requires that diagnostic, or an early InputRejected code, caused by the perturbation. A baseline defect alone is not a pass.",
+  "authorTestsUsedAsOracle": false,
+  "results": [
+    {"name": "old_view_impersonation", "predeclared": "EXACT_INPUT_IDENTITY", "actual": "EXACT_INPUT_IDENTITY", "pass": true},
+    {"name": "same_length_different_sha", "predeclared": "EXACT_INPUT_IDENTITY", "actual": "EXACT_INPUT_IDENTITY", "pass": true, "note": "104722 bytes retained; digest ee07ea1d…; CLI exit 2"},
+    {"name": "reordered_records", "predeclared": "COMPOSITION_ORDERED_IDENTITIES", "actual": "COMPOSITION_ORDERED_IDENTITIES", "pass": true},
+    {"name": "dropped_record", "predeclared": "COMPOSITION_RECORD_CENSUS", "actual": "COMPOSITION_RECORD_CENSUS", "pass": true},
+    {"name": "duplicated_trailing_record", "predeclared": "COMPOSITION_RECORD_CENSUS", "actual": "COMPOSITION_RECORD_CENSUS", "pass": true},
+    {"name": "duplicate_json_key", "predeclared": "CORRUPTED_RECORDS", "actual": "CORRUPTED_RECORDS", "pass": true},
+    {"name": "null_versus_absent_on_section_I", "predeclared": "UNAUTHORIZED_COMPOSITION", "actual": "UNAUTHORIZED_COMPOSITION", "pass": true, "note": "Deleted present null bearingIndeterminacyReasons on line 115"},
+    {"name": "extra_successor_field_on_legacy", "predeclared": "ILLEGAL_SCHEMA_VARIANT", "actual": "ILLEGAL_SCHEMA_VARIANT", "pass": true},
+    {"name": "missing_successor_field", "predeclared": "SECTION_SCHEMA", "actual": "SECTION_SCHEMA", "pass": true},
+    {"name": "supportClass_written_onto_successor", "predeclared": "SECTION_SCHEMA", "actual": "SECTION_SCHEMA", "pass": true},
+    {"name": "invented_pr_basis", "predeclared": "SUCCESSOR_PR_BASIS", "actual": "SUCCESSOR_PR_BASIS", "pass": true},
+    {"name": "unsupported_scope", "predeclared": "UPWARD_SCOPE_WITHOUT_BRIDGE", "actual": ["SECTION_I_claimedScope", "SECTION_I_observedScope", "SECTION_I_scopeBridgeState", "UPWARD_SCOPE_WITHOUT_BRIDGE"], "pass": true},
+    {"name": "post_t0_support", "predeclared": "POST_T0_SUPPORT", "actual": ["DE4_OPERATIVE_SUPPORT", "POST_T0_SUPPORT", "SECTION_I_edgeState", "SECTION_I_temporalState"], "pass": true},
+    {"name": "changed_source_id", "predeclared": "ACTUAL_SOURCE_BINDING", "actual": "ACTUAL_SOURCE_BINDING", "pass": true},
+    {"name": "changed_side", "predeclared": "ACTUAL_SOURCE_BINDING", "actual": "ACTUAL_SOURCE_BINDING", "detail": "PI7_NO_MATCH for side IV1_OTHER_SIDE", "pass": true},
+    {"name": "corrupted_provenance", "predeclared": "SECTION_I_factualPackageIdentity", "actual": ["SECTION_I_factualPackageIdentity"], "pass": true},
+    {"name": "missing_components_marked_supported", "predeclared": "SECTION_I_edgeState", "actual": ["DE4_OPERATIVE_SUPPORT", "SECTION_I_componentSupply", "SECTION_I_edgeState", "SECTION_I_missingComponents"], "pass": true},
+    {"name": "held_successor_relevance", "predeclared": "SUCCESSOR_ADMISSION_HELD", "actual": "SUCCESSOR_ADMISSION_HELD", "pass": true},
+    {"name": "nc_revert_accepted_value", "predeclared": "CORRECTION_PRESERVATION", "actual": ["CORRECTION_PRESERVATION"], "pass": true},
+    {"name": "nc_invalid_tree_target", "predeclared": "CELL_BINDING", "actual": ["CELL_BINDING", "ORPHAN_EDGE_CARRIER"], "pass": true},
+    {"name": "nc_missing_referenced_fact", "predeclared": "ACTUAL_SOURCE_BINDING", "actual": "ACTUAL_SOURCE_BINDING", "detail": "MULTI_FACT_EDGE factIds include MISSING_FACT_IV1", "pass": true, "note": "Original historical detector remains ORPHAN_factIds on the unmodified original harness. This adapter rejects earlier at the PI-7 singular-fact gate. The new code names the perturbed fact list."},
+    {"name": "nc_inconsistent_aggregate", "predeclared": "SECTION_I_missingComponents", "actual": ["SECTION_I_missingComponents"], "pass": true},
+    {"name": "de4_supported", "predeclared": "DE4_OPERATIVE_SUPPORT", "actual": ["DE4_OPERATIVE_SUPPORT", "SECTION_I_edgeState"], "pass": true},
+    {"name": "forbidden_outcome_field", "predeclared": "SECTION_SCHEMA", "actual": "SECTION_SCHEMA", "pass": true},
+    {"name": "counterfactual_relation", "predeclared": "COUNTERFACTUAL_SUPPORT_REJECTED", "actual": "COUNTERFACTUAL_SUPPORT_REJECTED", "pass": true},
+    {"name": "duplicate_pi7_identity", "predeclared": "ACTUAL_SOURCE_BINDING", "actual": "ACTUAL_SOURCE_BINDING", "pass": true}
+  ],
+  "inconclusiveProbe": {
+    "name": "component_linkage_not_dict",
+    "predeclared": "COMPONENT_SCHEMA",
+    "actualNewCodes": ["SECTION_I_componentSupply"],
+    "pass": false,
+    "disposition": "TEST_DESIGN",
+    "reason": "The accepted F-B-0025 componentSupply item already has linkageEvidence type str, extra keys status and entailmentBasis, and missing factIds, mechanismPropositionId, organizationalObjectRef, and relationInstanceId. Baseline already emits that exact COMPONENT_SCHEMA detail. Replacing one string with another string does not create a new type diagnostic. It does create SECTION_I_componentSupply."
+  },
+  "isolationRetest": {
+    "edgeId": "A-EXEC1:F-B-0025:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS",
+    "predeclared": "COMPONENT_SCHEMA appears only when linkageEvidence is not a dict",
+    "exactKeysDictAndRealFactCodes": ["SECTION_I_componentSupply"],
+    "exactKeysStringAndRealFactCodes": ["COMPONENT_SCHEMA", "SECTION_I_componentSupply"],
+    "pass": true
+  },
+  "summary": {
+    "predeclaredControlsPassed": 26,
+    "predeclaredControlsInconclusiveByTestDesign": 1,
+    "isolationRetestPassed": true,
+    "harnessDefectEstablished": false
+  }
+}

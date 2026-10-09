@@ -1,0 +1,3926 @@
+{
+  "acceptedCommit": "2f7bcc5d33cf8009145aa85cbb39d2ae9084ec26",
+  "acceptedDifferenceFromHistoricalPredecessor": [
+    {
+      "after": {
+        "present": true,
+        "value": "record-level key 'case_id'"
+      },
+      "before": {
+        "present": true,
+        "value": "package-level key 'case_id'"
+      },
+      "path": "[111].factualPackageIdentity.caseIdLocator"
+    },
+    {
+      "after": {
+        "present": true,
+        "value": 50
+      },
+      "before": {
+        "present": true,
+        "value": 105
+      },
+      "path": "[111].factualPackageIdentity.packageFactCount"
+    },
+    {
+      "after": {
+        "present": true,
+        "value": 61728
+      },
+      "before": {
+        "present": true,
+        "value": 139589
+      },
+      "path": "[111].factualPackageIdentity.recordFileBytes"
+    },
+    {
+      "after": {
+        "present": true,
+        "value": "88b20920149b3fcde03e4e060cf4361e9494fe0137540bbc654c526337fd5f10"
+      },
+      "before": {
+        "present": true,
+        "value": "4b686b245e412a83424168da6c87db9b392b4ea16eeadff48c0b62e49c7198bb"
+      },
+      "path": "[111].factualPackageIdentity.recordFileSha256"
+    },
+    {
+      "after": {
+        "present": true,
+        "value": "D-04"
+      },
+      "before": {
+        "present": true,
+        "value": "D-01"
+      },
+      "path": "[112].discriminatorIds[0]"
+    },
+    {
+      "after": {
+        "present": true,
+        "value": "D-04"
+      },
+      "before": {
+        "present": true,
+        "value": "D-01"
+      },
+      "path": "[113].discriminatorIds[0]"
+    },
+    {
+      "after": {
+        "present": true,
+        "value": "EVALUABLE"
+      },
+      "before": {
+        "present": false
+      },
+      "path": "[114].bearingEvaluability"
+    },
+    {
+      "after": {
+        "present": true,
+        "value": null
+      },
+      "before": {
+        "present": false
+      },
+      "path": "[114].bearingIndeterminacyReasons"
+    },
+    {
+      "after": {
+        "present": true,
+        "value": "D-06"
+      },
+      "before": {
+        "present": true,
+        "value": "D-02"
+      },
+      "path": "[114].discriminatorIds[0]"
+    },
+    {
+      "after": {
+        "present": true,
+        "value": "PARTIAL"
+      },
+      "before": {
+        "present": true,
+        "value": "SUPPORTED"
+      },
+      "path": "[114].edgeState"
+    },
+    {
+      "after": {
+        "present": true,
+        "value": [
+          "c2"
+        ]
+      },
+      "before": {
+        "present": true,
+        "value": []
+      },
+      "path": "[114].missingComponents"
+    },
+    {
+      "after": {
+        "present": true,
+        "value": {
+          "adjudicatedBy": "A_E001_BEARING_DIRECTIONALITY_READJUDICATION_1",
+          "authority": "E9/07 \u00a712 (OWNER-CORR2-STJSTP); cb08b51e \u00a7F.3 l.1157; SEP-B-1b",
+          "basisComponents": [
+            "c1"
+          ],
+          "basisFactIds": [
+            "C-B04"
+          ],
+          "criterion": "one hard rule",
+          "prohibId": "PR-STJSTP",
+          "ttId": "TT-STJSTP-PW"
+        }
+      },
+      "before": {
+        "present": false
+      },
+      "path": "[114].prOnlyBasis"
+    },
+    {
+      "after": {
+        "present": true,
+        "value": "UNRESOLVED_FAIL_CLOSED"
+      },
+      "before": {
+        "present": true,
+        "value": "NOT_REQUIRED"
+      },
+      "path": "[114].scopeBridgeState"
+    },
+    {
+      "after": {
+        "present": true,
+        "value": "OUTSIDE_FROZEN_VOCABULARY"
+      },
+      "before": {
+        "present": true,
+        "value": "PERIODICAL_PRINT_ARCHIVE"
+      },
+      "path": "[114].sourceClass"
+    },
+    {
+      "after": {
+        "present": true,
+        "value": "OPEN"
+      },
+      "before": {
+        "present": true,
+        "value": "TRUE"
+      },
+      "path": "[114].sufficiencyExpressionResult"
+    },
+    {
+      "after": {
+        "present": true,
+        "value": "NON_DISCRIMINATING"
+      },
+      "before": {
+        "present": false
+      },
+      "path": "[114].supportBearing"
+    },
+    {
+      "after": {
+        "present": false
+      },
+      "before": {
+        "present": true,
+        "value": "DIRECT_SUPPORT"
+      },
+      "path": "[114].supportClass"
+    },
+    {
+      "after": {
+        "present": true,
+        "value": "D-07"
+      },
+      "before": {
+        "present": true,
+        "value": "D-06"
+      },
+      "path": "[115].discriminatorIds[0]"
+    },
+    {
+      "after": {
+        "present": true,
+        "value": "OUTSIDE_FROZEN_VOCABULARY"
+      },
+      "before": {
+        "present": true,
+        "value": "FORM_10K"
+      },
+      "path": "[115].sourceClass"
+    }
+  ],
+  "acceptedIdentity": {
+    "bytes": 104722,
+    "sha256": "5b37071a5fa5374c77b149bfde5c230c228cdf73d9785e5ea55346f9fab28daa"
+  },
+  "acceptedPath": "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_RECORDS.jsonl",
+  "assemblyAuthority": "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_GIT_CLOSURE_1.md \u00a71, \u00a73, \u00a76",
+  "authorityDoesNotAssertMeasurementPass": true,
+  "historicalPredecessor": {
+    "bytes": 104310,
+    "path": "WORKBENCH/DOWNLOADS/STAGE2_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_2026-10-05/STAGE2_EFFECTIVE_VIEW_ASSEMBLY_1_RECORDS.jsonl",
+    "sha256": "a1fcae68939decd0a3c4a39c0a0bc48e8d285bd9cd7ce1928b0d025056244047"
+  },
+  "legacyCount": 110,
+  "legacyRawSha256": "b382ffc52a626cc8eb796f01d1456d531cdea959bc6c23f7d31b0d392031ceca",
+  "lineIdentities": [
+    {
+      "bytes": 713,
+      "line": 1,
+      "record": {
+        "assignedValue": "A-EXEC1:F-B-0025:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS",
+        "cellIndex": 1,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "edgeId",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "54713b5760ea06bb13c5de2f14a07228b289906beba5da17f9b17be976d2e57a"
+    },
+    {
+      "bytes": 673,
+      "line": 2,
+      "record": {
+        "assignedValue": "amazon-whole-foods",
+        "cellIndex": 2,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "caseId",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "df9a9f2adf241197a2c2ddcff21ea4bf04786f43c192bdd1e829047e1cb713bf"
+    },
+    {
+      "bytes": 664,
+      "line": 3,
+      "record": {
+        "assignedValue": "WHOLE_FOODS",
+        "cellIndex": 3,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "side",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "05772e9fda7a7d944aa13bc8fd94912500d97f3a7b2f3b15c2231bfc884f4015"
+    },
+    {
+      "bytes": 1678,
+      "line": 4,
+      "record": {
+        "assignedValue": {
+          "caseIdKey": "case_id",
+          "caseIdLocator": "package-level key 'case_id'",
+          "caseSlug": "amazon-whole-foods",
+          "factIdKey": "fact_id",
+          "factIdLocator": "record-level key 'fact_id'",
+          "identityAuthority": "STAGE2_CORR4_PILOT_STAGE1_SOURCE_MAP.json",
+          "identityAuthoritySha256": "665aac81c2e0127d08f0406186891959255391cb99ec34611a972209565f4a7f",
+          "packageDir": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/amazon-whole-foods/01_T0_PRE_T0_BASELINE/candidate",
+          "packageFactCount": 113,
+          "packageSideCount": 2,
+          "recordFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/amazon-whole-foods/01_T0_PRE_T0_BASELINE/candidate/06_FACTS.json",
+          "recordFileBytes": 134974,
+          "recordFileSha256": "4d58905e077bb3a6e6181f33272cb3488ec064b7b9c1d525413cdf368b59317c",
+          "recordFormat": "json",
+          "sideIdKey": "side",
+          "sideIdLocator": "record-level key 'side'",
+          "stage1Generation": "candidate"
+        },
+        "cellIndex": 4,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "factualPackageIdentity",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "2bbaed1f0b73a87f47d06ade46f82ffebc1384ed90c2825569a4a20093361a6c"
+    },
+    {
+      "bytes": 666,
+      "line": 5,
+      "record": {
+        "assignedValue": [
+          "F-B-0025"
+        ],
+        "cellIndex": 5,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "factIds",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "1597b0753ebb689acf7617ad1d1199b205fb393888310289b8f117e363a7154a"
+    },
+    {
+      "bytes": 1581,
+      "line": 6,
+      "record": {
+        "assignedValue": [
+          {
+            "documentaryIdentity": {
+              "documentaryIssuerOrPublisher": {
+                "key": "issuer_publisher",
+                "value": "Whole Foods Market, Inc."
+              },
+              "documentaryTitle": {
+                "key": "canonical_title",
+                "value": "Whole Foods Market, Inc. Form 10-K for fiscal year ended September 25, 2016"
+              },
+              "documentaryType": {
+                "key": "document_type",
+                "value": "FORM_10K"
+              }
+            },
+            "factLevelLocator": "Item 1. Business",
+            "factLevelLocatorAbsent": false,
+            "refIndex": 0,
+            "registryFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/amazon-whole-foods/01_T0_PRE_T0_BASELINE/candidate/03_SOURCE_REGISTRY.json",
+            "registryFileSha256": "608e9767a9521c9c062759e2d6dc34c0acd22411c2fe0d799470f8b2e54e81f8",
+            "registryRecordIndex": 3,
+            "registryRecordSha256": "ec67850252187bfdb46c117c3601168322afde67135d29006e83e4ded15fc8cc",
+            "sourceId": "S-B1",
+            "sourceIdBindingLocator": "record-level key 'sources'[] .source_id"
+          }
+        ],
+        "cellIndex": 6,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "sourceRefs",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "27a7f35db9d78966bddacd7046b108e2a30201ec6b685843970fe059d98b6a1f"
+    },
+    {
+      "bytes": 702,
+      "line": 7,
+      "record": {
+        "assignedValue": [
+          "M-RES-ROLE-CONTROLLED-ACCESS"
+        ],
+        "cellIndex": 7,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "mechanismPropositionIds",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "a5f083d9332acf57f029655b9a59d941088598558a1b30e73e8292a583259465"
+    },
+    {
+      "bytes": 695,
+      "line": 8,
+      "record": {
+        "assignedValue": [
+          "ORGANIZATIONAL_MECHANISM"
+        ],
+        "cellIndex": 8,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "mechanismObjectTypes",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "61a1009f6f51d925bdf791a3303a213f8135b599535ef65f3ba64529487c6bda"
+    },
+    {
+      "bytes": 965,
+      "line": 9,
+      "record": {
+        "assignedValue": [
+          {
+            "componentId": "c1",
+            "entailmentBasis": "Identified compensation and benefits program satisfying c1 organizational resource access program definition",
+            "linkageEvidence": "Whole Foods Market states that its salary and benefits programs reflect its philosophy of egalitarianism",
+            "status": "SUPPLIED"
+          }
+        ],
+        "cellIndex": 9,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "componentSupply",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "116490fa000ed9307a1129e7ded2a93815453bf07d4d861496d7cd6608ce07b9"
+    },
+    {
+      "bytes": 695,
+      "line": 10,
+      "record": {
+        "assignedValue": "REL-F-B-0025-ROLE-ACCESS-01",
+        "cellIndex": 10,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "relationInstanceId",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "e95060aa885aaeb8f3611c8d3585219d96c631ddb373f1b9f4dd135d62d38310"
+    },
+    {
+      "bytes": 713,
+      "line": 11,
+      "record": {
+        "assignedValue": "WHOLE_FOODS:SALARY_AND_BENEFITS_PROGRAMS",
+        "cellIndex": 11,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "organizationalObjectRef",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "b793f2666464a587f1def89ad3325519e7dde5dee1b2f61d1fcf21d27f7f696f"
+    },
+    {
+      "bytes": 663,
+      "line": 12,
+      "record": {
+        "assignedValue": null,
+        "cellIndex": 12,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "decisionRef",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "743cd915a41d5c81efb245515b3f10f071988548d698b48b7970c16cdbf8db5c"
+    },
+    {
+      "bytes": 693,
+      "line": 13,
+      "record": {
+        "assignedValue": "RES-F-B-0025-SALARY-BENEFITS",
+        "cellIndex": 13,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "resourceFlowRef",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "355aff56d3b2abcd653cabfbfc8d3b8a7aaf8514de73d0c4078a48c4b70f93b3"
+    },
+    {
+      "bytes": 674,
+      "line": 14,
+      "record": {
+        "assignedValue": null,
+        "cellIndex": 14,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "participationSystemRef",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "927ac364a49b50aeb18f2f7e61eed5e320abbef61ebca6702cb21921b1f520b2"
+    },
+    {
+      "bytes": 667,
+      "line": 15,
+      "record": {
+        "assignedValue": null,
+        "cellIndex": 15,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "beliefSystemRef",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "4ab52219c7f96c136e916d8596752bd0d85709aefea5b3661d73bebfaf061f48"
+    },
+    {
+      "bytes": 686,
+      "line": 16,
+      "record": {
+        "assignedValue": "OUTSIDE_FROZEN_VOCABULARY",
+        "cellIndex": 16,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "sourceClass",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "36b7cf3b4fcdf4f73d3c244f1e1550009329752ec1bc805c15d3c2e140e99bf5"
+    },
+    {
+      "bytes": 672,
+      "line": 17,
+      "record": {
+        "assignedValue": "NO",
+        "cellIndex": 17,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "presentationLaneOnly",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "e28dae15778dd825cc19b5d58b34514e9b68d70de1791c9c1253abc7d43bb426"
+    },
+    {
+      "bytes": 672,
+      "line": 18,
+      "record": {
+        "assignedValue": [
+          "D-07"
+        ],
+        "cellIndex": 18,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "discriminatorIds",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "deb68df50a49653234429c91de16d7eab2ea3566b545893d6ebfbf94d0c2292b"
+    },
+    {
+      "bytes": 677,
+      "line": 19,
+      "record": {
+        "assignedValue": [
+          "TT-STPSTJ-RS"
+        ],
+        "cellIndex": 19,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "treeTargetIds",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "d9b34eb5a775d47e1e30ddd3aa2487b9908df7b72f91a4edc9f6f5396b9e4c5b"
+    },
+    {
+      "bytes": 671,
+      "line": 20,
+      "record": {
+        "assignedValue": "SUPPORTS_LEAF",
+        "cellIndex": 20,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "relation",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "c8d2cd97bd28b4562745504ebfc54f7f8bc6b147cb3962545b8b4bfca143e253"
+    },
+    {
+      "bytes": 681,
+      "line": 21,
+      "record": {
+        "assignedValue": "ANALYTICAL_MAPPED",
+        "cellIndex": 21,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "relevanceState",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "4f2d3123aba15956bac8ccaacc339ded49c6242fafda0789f265e2b83a0bf912"
+    },
+    {
+      "bytes": 666,
+      "line": 22,
+      "record": {
+        "assignedValue": "DE-4",
+        "cellIndex": 22,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "evidenceForm",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "7faf61521f002217163ebfd17413b7457ace2b7713e456eb69a89c1b0763f015"
+    },
+    {
+      "bytes": 666,
+      "line": 23,
+      "record": {
+        "assignedValue": "PARTIAL",
+        "cellIndex": 23,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "edgeState",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "143fa038ed4cae5155b17fcf86aa12a716449fe37ae729f3b7bfced83f4c9f4d"
+    },
+    {
+      "bytes": 676,
+      "line": 24,
+      "record": {
+        "assignedValue": "DIRECT_SUPPORT",
+        "cellIndex": 24,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "supportClass",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "883070b492c0d6f37b98fa0f1c3ab412953947e9a670eee66c182fbcb0b8f708"
+    },
+    {
+      "bytes": 673,
+      "line": 25,
+      "record": {
+        "assignedValue": "enterprise",
+        "cellIndex": 25,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "observedScope",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "5f0da3736df42d0d5a00b06ec50e7a42a100e15c2f4d3113b7acbf8eee436535"
+    },
+    {
+      "bytes": 672,
+      "line": 26,
+      "record": {
+        "assignedValue": "enterprise",
+        "cellIndex": 26,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "claimedScope",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "aff23a9dad7ef0ca489f252be27e464a56822d3df2cdb822c13f7b0b90ccaa74"
+    },
+    {
+      "bytes": 678,
+      "line": 27,
+      "record": {
+        "assignedValue": "NOT_REQUIRED",
+        "cellIndex": 27,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "scopeBridgeState",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "48a005f5f589bb81cb62268489db61723c64b75c396b1ca031b99cbb1ed74337"
+    },
+    {
+      "bytes": 668,
+      "line": 28,
+      "record": {
+        "assignedValue": [],
+        "cellIndex": 28,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "scopeBridgeFactIds",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "b4ebd32abf03042a748f4f55ce3df7810fc8d565b7e91416c5dff7e31539014b"
+    },
+    {
+      "bytes": 691,
+      "line": 29,
+      "record": {
+        "assignedValue": "PRE_T0_CONTINUITY_UNRESOLVED",
+        "cellIndex": 29,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "temporalState",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "fe3d062b216e20593cd29d1bd162395ad3685ba9debab0272b9980899d4a0a3d"
+    },
+    {
+      "bytes": 673,
+      "line": 30,
+      "record": {
+        "assignedValue": [],
+        "cellIndex": 30,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "continuityBridgeFactIds",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "dee5eb974860db3d7b5c195c8a38325f898b52220c2762d80db0852cd399d0c4"
+    },
+    {
+      "bytes": 688,
+      "line": 31,
+      "record": {
+        "assignedValue": "NOT_DETERMINABLE",
+        "cellIndex": 31,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "characteristicityState",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "ee2028e9f2ee142ea73bcbd0d1e7a30cf1c16f31e64f21e1363cbb073d6ef729"
+    },
+    {
+      "bytes": 674,
+      "line": 32,
+      "record": {
+        "assignedValue": [],
+        "cellIndex": 32,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "characteristicityFactIds",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "71a69c1a71cd3cc0d969a5692cc660d0e7e68a0345ff6f91cb2f08c420fee71e"
+    },
+    {
+      "bytes": 681,
+      "line": 33,
+      "record": {
+        "assignedValue": "FORMAL_ONLY",
+        "cellIndex": 33,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "formalOperativeState",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "396f35dc4a372e6049687f3f2823aaa81029f53220d8aec8e514f25d3fa80693"
+    },
+    {
+      "bytes": 682,
+      "line": 34,
+      "record": {
+        "assignedValue": "ELIGIBILITY_ONLY",
+        "cellIndex": 34,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "planCurrentState",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "944642427d0f8e3e5ec5a7581f2380b6172fbb62f674df0008b37912ac0c3604"
+    },
+    {
+      "bytes": 677,
+      "line": 35,
+      "record": {
+        "assignedValue": "COMPETENT",
+        "cellIndex": 35,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "sourceQualityState",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "12d9fdaef63f05010e4c7993e302b9ee498dbe3b96c37dc391b51101f9f1d693"
+    },
+    {
+      "bytes": 674,
+      "line": 36,
+      "record": {
+        "assignedValue": "NONE",
+        "cellIndex": 36,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "absenceEvidenceState",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "5f90497ead449bff7d70f52eb0f6e6aa68324478a49db493bd66612c40168ef5"
+    },
+    {
+      "bytes": 842,
+      "line": 37,
+      "record": {
+        "assignedValue": "ALL_OF(M-RES-TACTICAL-EXTERNAL-ACQUISITION, M-RES-ROLE-CONTROLLED-ACCESS, M-RES-HIERARCHICAL-RETENTION, M-RES-PROTECTED-ACCESS-EXCHANGE, M-RES-ADAPTING-PERSON-RECRUITMENT)",
+        "cellIndex": 37,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "sufficiencyExpression",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "c2a76d80f2e0b5d3fcc07794f8f7d285b7032e55f9959040408d64d3eca77c2a"
+    },
+    {
+      "bytes": 681,
+      "line": 38,
+      "record": {
+        "assignedValue": "OPEN",
+        "cellIndex": 38,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "sufficiencyExpressionResult",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "d2511562cb0721d5f4bb62fd10b37e5e23fbaa30aeba78e7aa52124bc8f8575b"
+    },
+    {
+      "bytes": 677,
+      "line": 39,
+      "record": {
+        "assignedValue": [
+          "c2",
+          "c3"
+        ],
+        "cellIndex": 39,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "missingComponents",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "95648aaaa37b9808297b3606341d337bf8309366eedc6be771e293ca52ed53b9"
+    },
+    {
+      "bytes": 713,
+      "line": 40,
+      "record": {
+        "assignedValue": {
+          "competingMechanismIds": [],
+          "resolutionState": "NONE"
+        },
+        "cellIndex": 40,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "ambiguity",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "ed0f94eb98479f60da50088139fcd7c39b7204b1cff79890b5394417ec4fa1e0"
+    },
+    {
+      "bytes": 672,
+      "line": 41,
+      "record": {
+        "assignedValue": [],
+        "cellIndex": 41,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "counterevidenceFactIds",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "bc6a648ddabe2604fb24ad5dc3451fcfe17c5b910d27008de4f4fb959081049f"
+    },
+    {
+      "bytes": 665,
+      "line": 42,
+      "record": {
+        "assignedValue": [],
+        "cellIndex": 42,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "conflictFactIds",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "01205abd9c565bde66d4ac6d1df43e164d8a87d76d6e2c4694f25eb8a0373c6b"
+    },
+    {
+      "bytes": 822,
+      "line": 43,
+      "record": {
+        "assignedValue": "Does not establish role-differentiated access exclusions, hierarchical control of resource distribution, actual benefit receipt, or post-T0 continuity.",
+        "cellIndex": 43,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "nonExpansionRationale",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "309a7af50f3e271ccd39d9d6a6ed1e662b3e731e1dd1db9a99dca62986c692a2"
+    },
+    {
+      "bytes": 678,
+      "line": 44,
+      "record": {
+        "assignedValue": "ANTIGRAVITY 3.8",
+        "cellIndex": 44,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "coderIdentity",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "e1bd261d9329ef92691b2e4dde8fc3c2c9cc8ea17e25a6cc12634939593863a7"
+    },
+    {
+      "bytes": 709,
+      "line": 45,
+      "record": {
+        "assignedValue": "CORR4 section I nine-class vocabulary v1.0",
+        "cellIndex": 45,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "vocabularyVersion",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "53a95e133b2e80cc9cbceeca3962bacecdc4d1061662ed23e9fd6bd8a8e2733b"
+    },
+    {
+      "bytes": 784,
+      "line": 46,
+      "record": {
+        "assignedValue": "RC3_CORR1_METHODOLOGY_SUCCESSOR_CANDIDATE.md (sha256 e0dc81f017ff02418b81a0bcb74c808fdae5748fddc5416b2ba42883da497817)",
+        "cellIndex": 46,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "contractIdentity",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "991266fdc3367fd4f45ab451a5cc83bf8e5293ff86c67ce78bfd9301f8ebe185"
+    },
+    {
+      "bytes": 662,
+      "line": 47,
+      "record": {
+        "assignedValue": null,
+        "cellIndex": 47,
+        "censusCellRef": "CC-017",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S-B1, and sourceClass binding OUTSIDE_FROZEN_VOCABULARY.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F-B-0025",
+        "field": "abstention",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 1: F-B-0025)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "69251a02539fd2d0c0235956cb858e9b2696009bd23c20e9b3ba7a026e45ea6d"
+    },
+    {
+      "bytes": 699,
+      "line": 48,
+      "record": {
+        "assignedValue": "A-EXEC1:F0024:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS",
+        "cellIndex": 48,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "edgeId",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "3122024559b63079b567f195369a952c75c79b161dd5e5f20ca9531c00fabb0d"
+    },
+    {
+      "bytes": 659,
+      "line": 49,
+      "record": {
+        "assignedValue": "aol-time-warner",
+        "cellIndex": 49,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "caseId",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "a870eda6efbbc79af0d0bc4b22ed3644dbbee6a51198c9c685c112a2d62a9397"
+    },
+    {
+      "bytes": 645,
+      "line": 50,
+      "record": {
+        "assignedValue": "AOL",
+        "cellIndex": 50,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "side",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "884e0d10c7a15235baa36ed375bc5431e5cfbf8afb070cc850f8eb72ebb717d7"
+    },
+    {
+      "bytes": 1655,
+      "line": 51,
+      "record": {
+        "assignedValue": {
+          "caseIdKey": "case_id",
+          "caseIdLocator": "record-level key 'case_id'",
+          "caseSlug": "aol-time-warner",
+          "factIdKey": "fact_id",
+          "factIdLocator": "record-level key 'fact_id'",
+          "identityAuthority": "STAGE2_CORR4_PILOT_STAGE1_SOURCE_MAP.json",
+          "identityAuthoritySha256": "665aac81c2e0127d08f0406186891959255391cb99ec34611a972209565f4a7f",
+          "packageDir": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/aol-time-warner/01_T0_PRE_T0_BASELINE/candidate",
+          "packageFactCount": 50,
+          "packageSideCount": 2,
+          "recordFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/aol-time-warner/01_T0_PRE_T0_BASELINE/candidate/06_FACTS.json",
+          "recordFileBytes": 61728,
+          "recordFileSha256": "88b20920149b3fcde03e4e060cf4361e9494fe0137540bbc654c526337fd5f10",
+          "recordFormat": "json",
+          "sideIdKey": "side",
+          "sideIdLocator": "record-level key 'side'",
+          "stage1Generation": "candidate"
+        },
+        "cellIndex": 51,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "factualPackageIdentity",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "7c7560340c371e46491f749508f7b221b80df1c4cfe7312216b3c938b0c76ac0"
+    },
+    {
+      "bytes": 652,
+      "line": 52,
+      "record": {
+        "assignedValue": [
+          "F0024"
+        ],
+        "cellIndex": 52,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "factIds",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "55e1bf25c697f4f8574fb045061bc1da7bd908861710372b920b763bd5fa5174"
+    },
+    {
+      "bytes": 1634,
+      "line": 53,
+      "record": {
+        "assignedValue": [
+          {
+            "documentaryIdentity": {
+              "documentaryIssuerOrPublisher": {
+                "key": "publisher",
+                "value": "U.S. Securities and Exchange Commission / America Online, Inc."
+              },
+              "documentaryTitle": {
+                "key": "title",
+                "value": "America Online, Inc. Definitive Proxy Statement (DEF 14A) for 1999 annual meeting"
+              },
+              "documentaryType": {
+                "key": "document_type",
+                "value": "DEF_14A"
+              }
+            },
+            "factLevelLocator": "S0009 Employment Contracts / 1992 Plan change-in-control paragraph",
+            "factLevelLocatorAbsent": false,
+            "refIndex": 0,
+            "registryFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/aol-time-warner/01_T0_PRE_T0_BASELINE/candidate/03_SOURCE_REGISTRY.json",
+            "registryFileSha256": "bcc4576b6f1a94e8417340fe49a9f2a9a00aadd0db776acb4c9878579893dd09",
+            "registryRecordIndex": 8,
+            "registryRecordSha256": "df0f7cafb55087e317af99c02731f41e32691eab11ca829baac0b210dd27bea9",
+            "sourceId": "S0009",
+            "sourceIdBindingLocator": "record-level key 'source_ids'"
+          }
+        ],
+        "cellIndex": 53,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "sourceRefs",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "66c4adab504bd50e9b0a93ec9809e16f53ebe7addd45e838f209b3cfd60deac4"
+    },
+    {
+      "bytes": 691,
+      "line": 54,
+      "record": {
+        "assignedValue": [
+          "M-RES-ROLE-CONTROLLED-ACCESS"
+        ],
+        "cellIndex": 54,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "mechanismPropositionIds",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "28b2c59d8c1bca0be980f730f8d084ed3b50228dcdc0df5fa8772f76a5c97e32"
+    },
+    {
+      "bytes": 684,
+      "line": 55,
+      "record": {
+        "assignedValue": [
+          "ORGANIZATIONAL_MECHANISM"
+        ],
+        "cellIndex": 55,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "mechanismObjectTypes",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "04cbc62173113a4e055f1315cd89d8fec2f4cc69135db14597f02de2d47e2a38"
+    },
+    {
+      "bytes": 1017,
+      "line": 56,
+      "record": {
+        "assignedValue": [
+          {
+            "componentId": "c1",
+            "entailmentBasis": "Identified stock option plan satisfying c1 organizational resource access program definition",
+            "linkageEvidence": "America Online's 1992 Employee, Director and Consultant Stock Option Plan provided that upon specified change-in-control events, outstanding unvested options would become fully vested",
+            "status": "SUPPLIED"
+          }
+        ],
+        "cellIndex": 56,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "componentSupply",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "be303ba13e962e50ee0f7203fb3a65e9880136d466e3760bd326da7b2dd5bf63"
+    },
+    {
+      "bytes": 680,
+      "line": 57,
+      "record": {
+        "assignedValue": "REL-F0024-ROLE-ACCESS-01",
+        "cellIndex": 57,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "relationInstanceId",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "9d8ffe569b5ce939d11faf2d7b042b910603e18fff1de4e55985f2580a7eca5f"
+    },
+    {
+      "bytes": 687,
+      "line": 58,
+      "record": {
+        "assignedValue": "AOL:1992_STOCK_OPTION_PLAN",
+        "cellIndex": 58,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "organizationalObjectRef",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "228767de4ead3a7dd8a309deffcae66e459a1daae61e13c9f3f1107aa3da6613"
+    },
+    {
+      "bytes": 651,
+      "line": 59,
+      "record": {
+        "assignedValue": null,
+        "cellIndex": 59,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "decisionRef",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "cc546fd9ba4322350c0f5170e5808c3dcfda798150687c9d48720ba239b4ab52"
+    },
+    {
+      "bytes": 676,
+      "line": 60,
+      "record": {
+        "assignedValue": "RES-F0024-STOCK-OPTIONS",
+        "cellIndex": 60,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "resourceFlowRef",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "29fa4c1133abf31edc64dc82e00f9bae37f17819cff9516d555a8797656da224"
+    },
+    {
+      "bytes": 662,
+      "line": 61,
+      "record": {
+        "assignedValue": null,
+        "cellIndex": 61,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "participationSystemRef",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "cc16c368f529b68ac24d9611b355f8f938101b667fc7b6bae43f5e85db6f1c72"
+    },
+    {
+      "bytes": 655,
+      "line": 62,
+      "record": {
+        "assignedValue": null,
+        "cellIndex": 62,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "beliefSystemRef",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "fd0526a1654811c71f6fe8f164c6191be545e9d15b123bc0d247a14e517744f1"
+    },
+    {
+      "bytes": 667,
+      "line": 63,
+      "record": {
+        "assignedValue": "compensation plans",
+        "cellIndex": 63,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "sourceClass",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "d0808fbdb41b523c029e45938f215d1d2f3ab3de6df633b7143a67f901bfbc25"
+    },
+    {
+      "bytes": 660,
+      "line": 64,
+      "record": {
+        "assignedValue": "NO",
+        "cellIndex": 64,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "presentationLaneOnly",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "ce9af5d76d9f3b296788d3fac4577ca22963155fedc2dd1c789d0a0332d66eef"
+    },
+    {
+      "bytes": 660,
+      "line": 65,
+      "record": {
+        "assignedValue": [
+          "D-07"
+        ],
+        "cellIndex": 65,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "discriminatorIds",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "418d7d47d99e72d91c5e1d3c85ee0ef916eb1a0698177951a1aff6eef8003926"
+    },
+    {
+      "bytes": 665,
+      "line": 66,
+      "record": {
+        "assignedValue": [
+          "TT-STPSTJ-RS"
+        ],
+        "cellIndex": 66,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "treeTargetIds",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "91f1e82a0a27b627415cf23a1bd967350bec0dc3ae196b5da9d2e9a9136db6fd"
+    },
+    {
+      "bytes": 659,
+      "line": 67,
+      "record": {
+        "assignedValue": "SUPPORTS_LEAF",
+        "cellIndex": 67,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "relation",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "9a0c26b2bff90d097baab6258b01c10a80335fda6bebd9ec136e8aa1c2a274a4"
+    },
+    {
+      "bytes": 669,
+      "line": 68,
+      "record": {
+        "assignedValue": "ANALYTICAL_MAPPED",
+        "cellIndex": 68,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "relevanceState",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "2be7fd9562b45524940969ae0d601a0119617e67c4d0e064fd67f8255f82059f"
+    },
+    {
+      "bytes": 654,
+      "line": 69,
+      "record": {
+        "assignedValue": "DE-4",
+        "cellIndex": 69,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "evidenceForm",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "5b01b7fd0979682854ad3881315b50de88222e9d97d32c82588198e81eb1aaf2"
+    },
+    {
+      "bytes": 654,
+      "line": 70,
+      "record": {
+        "assignedValue": "PARTIAL",
+        "cellIndex": 70,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "edgeState",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "8e106e4843acab6c5ca1a692a774f256cd5854d14c7470d9279f073d22b4c872"
+    },
+    {
+      "bytes": 664,
+      "line": 71,
+      "record": {
+        "assignedValue": "DIRECT_SUPPORT",
+        "cellIndex": 71,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "supportClass",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "9ec5b9c7d5fc5bb9bd06dfa986ef32abefea7281bc78d1ceb1bed30326281550"
+    },
+    {
+      "bytes": 661,
+      "line": 72,
+      "record": {
+        "assignedValue": "enterprise",
+        "cellIndex": 72,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "observedScope",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "4bca7c6c09805a1b5be2cb68d7dc1acaeb36bc7363a0910eb71b595ad7c3cf2b"
+    },
+    {
+      "bytes": 660,
+      "line": 73,
+      "record": {
+        "assignedValue": "enterprise",
+        "cellIndex": 73,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "claimedScope",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "531726d67e1a5953a3cfab7dab6d586aa1930cfee4c6fb28b341c147f419575d"
+    },
+    {
+      "bytes": 666,
+      "line": 74,
+      "record": {
+        "assignedValue": "NOT_REQUIRED",
+        "cellIndex": 74,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "scopeBridgeState",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "9c885e09a8b63e92ab9a64848d1368b463fb679291f12b61b1c42679038696d0"
+    },
+    {
+      "bytes": 656,
+      "line": 75,
+      "record": {
+        "assignedValue": [],
+        "cellIndex": 75,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "scopeBridgeFactIds",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "5c3b6a366d0781d11fdb35b58367d6c4dd3753d5febc092695c2db6c0dd6b6a8"
+    },
+    {
+      "bytes": 679,
+      "line": 76,
+      "record": {
+        "assignedValue": "PRE_T0_CONTINUITY_UNRESOLVED",
+        "cellIndex": 76,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "temporalState",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "ecc60da58eef968f98b03f3775952918196d9f6d5a4179764a10e100eee5da65"
+    },
+    {
+      "bytes": 661,
+      "line": 77,
+      "record": {
+        "assignedValue": [],
+        "cellIndex": 77,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "continuityBridgeFactIds",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "5864468509466d6ac9e8f1e6e2652fac3057733e886525555df4154f28d2faed"
+    },
+    {
+      "bytes": 676,
+      "line": 78,
+      "record": {
+        "assignedValue": "NOT_DETERMINABLE",
+        "cellIndex": 78,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "characteristicityState",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "e0a476f8c3e913d97810e38440af2cc1d720aa5116cd3986d66c90b4ee633a3b"
+    },
+    {
+      "bytes": 662,
+      "line": 79,
+      "record": {
+        "assignedValue": [],
+        "cellIndex": 79,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "characteristicityFactIds",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "4054e068caa7fe61a3dda9d54078204924e1869dbc8922f0d8080a16de6493e9"
+    },
+    {
+      "bytes": 669,
+      "line": 80,
+      "record": {
+        "assignedValue": "FORMAL_ONLY",
+        "cellIndex": 80,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "formalOperativeState",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "d01d13be499044a6b21b771039b611ec89fbf9d0f73cc68caa608b01bba705b2"
+    },
+    {
+      "bytes": 670,
+      "line": 81,
+      "record": {
+        "assignedValue": "ELIGIBILITY_ONLY",
+        "cellIndex": 81,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "planCurrentState",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "d14b0ba4c41f520743d074a248a93d6df6f4e6b7f53fdaa908ad38228d05a91f"
+    },
+    {
+      "bytes": 665,
+      "line": 82,
+      "record": {
+        "assignedValue": "COMPETENT",
+        "cellIndex": 82,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "sourceQualityState",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "3a9e772b8c40f0a89092687e67744ebb53aa801572a9f4370be5eb0a0d23d632"
+    },
+    {
+      "bytes": 662,
+      "line": 83,
+      "record": {
+        "assignedValue": "NONE",
+        "cellIndex": 83,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "absenceEvidenceState",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "458d06aa26319a7289c2e85b73d4a4250e6c6010b922b3ebfc5e53c11f012d39"
+    },
+    {
+      "bytes": 830,
+      "line": 84,
+      "record": {
+        "assignedValue": "ALL_OF(M-RES-TACTICAL-EXTERNAL-ACQUISITION, M-RES-ROLE-CONTROLLED-ACCESS, M-RES-HIERARCHICAL-RETENTION, M-RES-PROTECTED-ACCESS-EXCHANGE, M-RES-ADAPTING-PERSON-RECRUITMENT)",
+        "cellIndex": 84,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "sufficiencyExpression",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "7b2fd22839478501976b3ec65a5626ab555483ae115a05e079e2eb38f206174b"
+    },
+    {
+      "bytes": 669,
+      "line": 85,
+      "record": {
+        "assignedValue": "OPEN",
+        "cellIndex": 85,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "sufficiencyExpressionResult",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "766377ee33b371765551ffa50afa6b44a5bf8caa003582a86c61f8e83e098c7c"
+    },
+    {
+      "bytes": 665,
+      "line": 86,
+      "record": {
+        "assignedValue": [
+          "c2",
+          "c3"
+        ],
+        "cellIndex": 86,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "missingComponents",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "529b02d78afe2032879d753fd60c326b3d304f44254d9347f42fbce0f78f1a26"
+    },
+    {
+      "bytes": 701,
+      "line": 87,
+      "record": {
+        "assignedValue": {
+          "competingMechanismIds": [],
+          "resolutionState": "NONE"
+        },
+        "cellIndex": 87,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "ambiguity",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "01aa8666a1589b6ed2c90e5ef4e1c1f0e9d4f2bb30317fd1bb9a23f15557ef95"
+    },
+    {
+      "bytes": 660,
+      "line": 88,
+      "record": {
+        "assignedValue": [],
+        "cellIndex": 88,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "counterevidenceFactIds",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "e7a6ffa21a1a9ce5cb0fe11d974f51b973c1f08656650cbdb7a2c8f82ad4f1f3"
+    },
+    {
+      "bytes": 653,
+      "line": 89,
+      "record": {
+        "assignedValue": [],
+        "cellIndex": 89,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "conflictFactIds",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "d189cd13244a6eef75862952ced3974ae827086f38f1b642a7bbe73f3c5cd7c7"
+    },
+    {
+      "bytes": 841,
+      "line": 90,
+      "record": {
+        "assignedValue": "Does not establish role-gated access conditions beyond corporate transaction events, hierarchical control of resource distribution, actual option acceleration, or post-T0 continuity.",
+        "cellIndex": 90,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "nonExpansionRationale",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "bcf5835556f4ef14c5012619fed5c287e34393752f1f30de196654a81a5cd8d0"
+    },
+    {
+      "bytes": 666,
+      "line": 91,
+      "record": {
+        "assignedValue": "ANTIGRAVITY 3.8",
+        "cellIndex": 91,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "coderIdentity",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "ae1b3c6c8f38933cd388f8913a273770072efa69170841653ce6f3bcc9847cba"
+    },
+    {
+      "bytes": 697,
+      "line": 92,
+      "record": {
+        "assignedValue": "CORR4 section I nine-class vocabulary v1.0",
+        "cellIndex": 92,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "vocabularyVersion",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "0cb561cf55c49d7c6aa961502b1a0a10ce7ec2ee1e48b59b63d393d5d46b754c"
+    },
+    {
+      "bytes": 772,
+      "line": 93,
+      "record": {
+        "assignedValue": "RC3_CORR1_METHODOLOGY_SUCCESSOR_CANDIDATE.md (sha256 e0dc81f017ff02418b81a0bcb74c808fdae5748fddc5416b2ba42883da497817)",
+        "cellIndex": 93,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "contractIdentity",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "835043516d647515406e9a54cc247a1286ae7c286374eac54160bea187752e58"
+    },
+    {
+      "bytes": 650,
+      "line": 94,
+      "record": {
+        "assignedValue": null,
+        "cellIndex": 94,
+        "censusCellRef": "CC-018",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Constructed from scratch under preserved boundary (selectionResult=SELECTED, c1=SUPPLIED, c2/c3=NOT_SUPPLIED), bound provenance sidecar S0009, and sourceClass binding compensation plans.",
+        "executionType": "NEW_SECTION_I_ROW_CONSTRUCTION",
+        "factId": "F0024",
+        "field": "abstention",
+        "mechanismPropositionId": "M-RES-ROLE-CONTROLLED-ACCESS",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A1",
+        "subtaskDescription": "Two Missing Section-I Rows (Row 2: F0024)",
+        "targetId": "TT-STPSTJ-RS"
+      },
+      "sha256": "490b8eb0642ababcc6eedce246997f55b1072913a2f043af5d736e744f87ae18"
+    },
+    {
+      "bytes": 689,
+      "line": 95,
+      "record": {
+        "assignedValue": "NOT_DETERMINABLE",
+        "cellIndex": 95,
+        "censusCellRef": "CC-003",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "RC5 / P-D ladder: committee function/authority description without date, period, amount, or enumeration; set cannot substitute for an application witness under RC4-L1; P-D1..P-D4 fail -> P-D5 NOT_DETERMINABLE.",
+        "executionType": "ANALYTICAL_RERUN",
+        "factId": "F-E-0182",
+        "field": "planCurrentState",
+        "mechanismPropositionId": "M-RECOGNISED-COMMAND-ORDER",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A2",
+        "subtaskDescription": "F-E-0182 Analytical Rerun (Target: TT-STPSTJ-ESS)",
+        "targetId": "TT-STPSTJ-ESS"
+      },
+      "sha256": "734c4a7b62d0530efc96389077c0298f835ad7a797a7b62e6c3da30b1db37fca"
+    },
+    {
+      "bytes": 594,
+      "line": 96,
+      "record": {
+        "assignedValue": "NOT_DETERMINABLE",
+        "cellIndex": 96,
+        "censusCellRef": "CC-007",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "RC3 / RC3-L1/L3: authority remit alone without recurring practice or bounded occurrence -> NOT_DETERMINABLE.",
+        "executionType": "ANALYTICAL_RERUN",
+        "factId": "F-E-0182",
+        "field": "characteristicityState",
+        "mechanismPropositionId": "M-RECOGNISED-COMMAND-ORDER",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A2",
+        "subtaskDescription": "F-E-0182 Analytical Rerun (Target: TT-STPSTJ-ESS)",
+        "targetId": "TT-STPSTJ-ESS"
+      },
+      "sha256": "9d5e77fb60d5361130f74d81a5a21229f233c89b7897d40ce92261c9155109ce"
+    },
+    {
+      "bytes": 581,
+      "line": 97,
+      "record": {
+        "assignedValue": [],
+        "cellIndex": 97,
+        "censusCellRef": "CC-117",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "RC3 / RC3-L5: schema-coupled companion witness ID list empty when characteristicityState is NOT_DETERMINABLE.",
+        "executionType": "ANALYTICAL_RERUN",
+        "factId": "F-E-0182",
+        "field": "characteristicityFactIds",
+        "mechanismPropositionId": "M-RECOGNISED-COMMAND-ORDER",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A2",
+        "subtaskDescription": "F-E-0182 Analytical Rerun (Target: TT-STPSTJ-ESS)",
+        "targetId": "TT-STPSTJ-ESS"
+      },
+      "sha256": "c9f5377adb6b6247f4beac598ca53493e763f3f068c02072dcf5f2b181577742"
+    },
+    {
+      "bytes": 591,
+      "line": 98,
+      "record": {
+        "assignedValue": "DE-4",
+        "cellIndex": 98,
+        "censusCellRef": "CC-113",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "C34 section 6 / H-6: proxy statement description of committee remit/function is formal structure/policy existence only -> DE-4.",
+        "executionType": "ANALYTICAL_RERUN",
+        "factId": "F-E-0182",
+        "field": "evidenceForm",
+        "mechanismPropositionId": "M-RECOGNISED-COMMAND-ORDER",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A2",
+        "subtaskDescription": "F-E-0182 Analytical Rerun (Target: TT-STPSTJ-ESS)",
+        "targetId": "TT-STPSTJ-ESS"
+      },
+      "sha256": "63f33c1743c8b16bce1380a569199b83a0f6aa12d58b93f6798b617d67479e54"
+    },
+    {
+      "bytes": 680,
+      "line": 99,
+      "record": {
+        "assignedValue": "NON_DISCRIMINATING",
+        "cellIndex": 99,
+        "censusCellRef": "CC-121",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "C34 section 6 / section 14 / section 7.5 / H-8: default support treatment for DE-4 is NON_DISCRIMINATING; DE-4 cannot establish an operative authority mechanism; constitutive exception is NOT AVAILABLE.",
+        "executionType": "ANALYTICAL_RERUN",
+        "factId": "F-E-0182",
+        "field": "supportClass",
+        "mechanismPropositionId": "M-RECOGNISED-COMMAND-ORDER",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A2",
+        "subtaskDescription": "F-E-0182 Analytical Rerun (Target: TT-STPSTJ-ESS)",
+        "targetId": "TT-STPSTJ-ESS"
+      },
+      "sha256": "e804af180ed1bdedc91473061f14dfa8fc794ecf9e662efc72a9ae8761f24a4a"
+    },
+    {
+      "bytes": 688,
+      "line": 100,
+      "record": {
+        "assignedValue": "NOT_DETERMINABLE",
+        "cellIndex": 100,
+        "censusCellRef": "CC-011",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "RC5 / P-D ladder: committee function/authority description without date, period, amount, or enumeration; set cannot substitute for an application witness under RC4-L1; P-D1..P-D4 fail -> P-D5 NOT_DETERMINABLE.",
+        "executionType": "ANALYTICAL_RERUN",
+        "factId": "F-E-0182",
+        "field": "planCurrentState",
+        "mechanismPropositionId": "M-RECOGNISED-COMMAND-ORDER",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A2",
+        "subtaskDescription": "F-E-0182 Analytical Rerun (Target: TT-STPSTJ-PW)",
+        "targetId": "TT-STPSTJ-PW"
+      },
+      "sha256": "7201a1a1efd0601fdb71c3aa67b1753b8b257ce998dd82af343bd2c5ef02f910"
+    },
+    {
+      "bytes": 593,
+      "line": 101,
+      "record": {
+        "assignedValue": "NOT_DETERMINABLE",
+        "cellIndex": 101,
+        "censusCellRef": "CC-015",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "RC3 / RC3-L1/L3: authority remit alone without recurring practice or bounded occurrence -> NOT_DETERMINABLE.",
+        "executionType": "ANALYTICAL_RERUN",
+        "factId": "F-E-0182",
+        "field": "characteristicityState",
+        "mechanismPropositionId": "M-RECOGNISED-COMMAND-ORDER",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A2",
+        "subtaskDescription": "F-E-0182 Analytical Rerun (Target: TT-STPSTJ-PW)",
+        "targetId": "TT-STPSTJ-PW"
+      },
+      "sha256": "03e07492065b2c03354f1c8e208fb7ec578cd433cd0d567b174892e7518866f3"
+    },
+    {
+      "bytes": 580,
+      "line": 102,
+      "record": {
+        "assignedValue": [],
+        "cellIndex": 102,
+        "censusCellRef": "CC-119",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "RC3 / RC3-L5: schema-coupled companion witness ID list empty when characteristicityState is NOT_DETERMINABLE.",
+        "executionType": "ANALYTICAL_RERUN",
+        "factId": "F-E-0182",
+        "field": "characteristicityFactIds",
+        "mechanismPropositionId": "M-RECOGNISED-COMMAND-ORDER",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A2",
+        "subtaskDescription": "F-E-0182 Analytical Rerun (Target: TT-STPSTJ-PW)",
+        "targetId": "TT-STPSTJ-PW"
+      },
+      "sha256": "b88d51c7bb3840ecbd5602120c2d90792df90550f84b134ec049807f7c7d5ca7"
+    },
+    {
+      "bytes": 590,
+      "line": 103,
+      "record": {
+        "assignedValue": "DE-4",
+        "cellIndex": 103,
+        "censusCellRef": "CC-115",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "C34 section 6 / H-6: proxy statement description of committee remit/function is formal structure/policy existence only -> DE-4.",
+        "executionType": "ANALYTICAL_RERUN",
+        "factId": "F-E-0182",
+        "field": "evidenceForm",
+        "mechanismPropositionId": "M-RECOGNISED-COMMAND-ORDER",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A2",
+        "subtaskDescription": "F-E-0182 Analytical Rerun (Target: TT-STPSTJ-PW)",
+        "targetId": "TT-STPSTJ-PW"
+      },
+      "sha256": "96aa75f9c3ff484b2d3905d699995dc1d4f406d09271771cb3f819b3b20ff5ab"
+    },
+    {
+      "bytes": 679,
+      "line": 104,
+      "record": {
+        "assignedValue": "NON_DISCRIMINATING",
+        "cellIndex": 104,
+        "censusCellRef": "CC-123",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "C34 section 6 / section 14 / section 7.5 / H-8: default support treatment for DE-4 is NON_DISCRIMINATING; DE-4 cannot establish an operative authority mechanism; constitutive exception is NOT AVAILABLE.",
+        "executionType": "ANALYTICAL_RERUN",
+        "factId": "F-E-0182",
+        "field": "supportClass",
+        "mechanismPropositionId": "M-RECOGNISED-COMMAND-ORDER",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A2",
+        "subtaskDescription": "F-E-0182 Analytical Rerun (Target: TT-STPSTJ-PW)",
+        "targetId": "TT-STPSTJ-PW"
+      },
+      "sha256": "fa9eefe91937771a3b9047f88458de3354af28b306b8f7edbb60234f3cb8ed10"
+    },
+    {
+      "bytes": 623,
+      "line": 105,
+      "record": {
+        "assignedValue": "FORMAL_ONLY",
+        "cellIndex": 105,
+        "censusCellRef": "CC-005",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Already Owner-accepted canonical value (reconciliation records 13-14); materialised on physical row copy without re-derivation.",
+        "executionType": "REPRESENTATION_MATERIALISATION",
+        "factId": "F-E-0182",
+        "field": "formalOperativeState",
+        "mechanismPropositionId": "M-RECOGNISED-COMMAND-ORDER",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A3",
+        "subtaskDescription": "Representation Materialisation (Accepted Canonical)",
+        "targetId": "TT-STPSTJ-ESS"
+      },
+      "sha256": "1aea27866a0506b08e2d2d5a81f57ba420c3874a4ce6d8055ef5a01bdb6adef4"
+    },
+    {
+      "bytes": 622,
+      "line": 106,
+      "record": {
+        "assignedValue": "FORMAL_ONLY",
+        "cellIndex": 106,
+        "censusCellRef": "CC-013",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Already Owner-accepted canonical value (reconciliation records 13-14); materialised on physical row copy without re-derivation.",
+        "executionType": "REPRESENTATION_MATERIALISATION",
+        "factId": "F-E-0182",
+        "field": "formalOperativeState",
+        "mechanismPropositionId": "M-RECOGNISED-COMMAND-ORDER",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A3",
+        "subtaskDescription": "Representation Materialisation (Accepted Canonical)",
+        "targetId": "TT-STPSTJ-PW"
+      },
+      "sha256": "1176309d6ea14c5c5892321f26fd669e4752984175baca1cbf39216c3a0f8bf9"
+    },
+    {
+      "bytes": 612,
+      "line": 107,
+      "record": {
+        "assignedValue": "CHARACTERISTIC",
+        "cellIndex": 107,
+        "censusCellRef": "CC-127",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Already Owner-accepted canonical value (reconciliation record 12); materialised on physical row copy without re-derivation.",
+        "executionType": "REPRESENTATION_MATERIALISATION",
+        "factId": "C-B04",
+        "field": "characteristicityState",
+        "mechanismPropositionId": "M-ENFORCE-SANCTION",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A3",
+        "subtaskDescription": "Representation Materialisation (Accepted Canonical)",
+        "targetId": "TT-STJSTP-PW"
+      },
+      "sha256": "db97e9c73dd9deb969855163baaca3997915a3eba9cdfdb186635bb0e06e31f6"
+    },
+    {
+      "bytes": 627,
+      "line": 108,
+      "record": {
+        "assignedValue": [
+          "C-B04"
+        ],
+        "cellIndex": 108,
+        "censusCellRef": "CC-133",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Already Owner-accepted canonical companion witness ID (reconciliation record 12 witness basis, CORR2 D-02); materialised without re-derivation.",
+        "executionType": "REPRESENTATION_MATERIALISATION",
+        "factId": "C-B04",
+        "field": "characteristicityFactIds",
+        "mechanismPropositionId": "M-ENFORCE-SANCTION",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A3",
+        "subtaskDescription": "Representation Materialisation (Accepted Canonical)",
+        "targetId": "TT-STJSTP-PW"
+      },
+      "sha256": "5bc7a5cbc7c5e4078fdd182820da07b7b7f1b28f6df9d2bb4a1496b09d6e3483"
+    },
+    {
+      "bytes": 620,
+      "line": 109,
+      "record": {
+        "assignedValue": "EPISODE_ONLY",
+        "cellIndex": 109,
+        "censusCellRef": "CC-128",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Already Owner-accepted canonical value (reconciliation record 15); materialised on physical row copy without re-derivation.",
+        "executionType": "REPRESENTATION_MATERIALISATION",
+        "factId": "F-M-0205",
+        "field": "characteristicityState",
+        "mechanismPropositionId": "M-RES-CAPABILITY-ADVANTAGE",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A3",
+        "subtaskDescription": "Representation Materialisation (Accepted Canonical)",
+        "targetId": "TT-NTSTJ-RS"
+      },
+      "sha256": "e52b4dfca46720fce0acd7a9ceadf4167a0663a2915f33c4aa9a2957934a879c"
+    },
+    {
+      "bytes": 640,
+      "line": 110,
+      "record": {
+        "assignedValue": [
+          "F-M-0205"
+        ],
+        "cellIndex": 110,
+        "censusCellRef": "CC-134",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "derivationOrBasis": "Already Owner-accepted canonical companion witness ID (reconciliation record 15 witness basis, CORR2 D-02); materialised without re-derivation.",
+        "executionType": "REPRESENTATION_MATERIALISATION",
+        "factId": "F-M-0205",
+        "field": "characteristicityFactIds",
+        "mechanismPropositionId": "M-RES-CAPABILITY-ADVANTAGE",
+        "recordType": "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        "side": "A",
+        "subtask": "A3",
+        "subtaskDescription": "Representation Materialisation (Accepted Canonical)",
+        "targetId": "TT-NTSTJ-RS"
+      },
+      "sha256": "7285e06af6010c2edd08365b536322bf6518bcb93e484e953544ad4d8d8d4c23"
+    },
+    {
+      "bytes": 4415,
+      "line": 111,
+      "record": {
+        "absenceEvidenceState": "NONE",
+        "abstention": null,
+        "ambiguity": {
+          "competingMechanismIds": [],
+          "resolutionState": "NONE"
+        },
+        "beliefSystemRef": null,
+        "caseId": "amazon-whole-foods",
+        "characteristicityFactIds": [],
+        "characteristicityState": "NOT_DETERMINABLE",
+        "claimedScope": "enterprise",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "componentSupply": [
+          {
+            "componentId": "c1",
+            "entailmentBasis": "Identified compensation and benefits program satisfying c1 organizational resource access program definition",
+            "linkageEvidence": "Whole Foods Market states that its salary and benefits programs reflect its philosophy of egalitarianism",
+            "status": "SUPPLIED"
+          }
+        ],
+        "conflictFactIds": [],
+        "continuityBridgeFactIds": [],
+        "contractIdentity": "RC3_CORR1_METHODOLOGY_SUCCESSOR_CANDIDATE.md (sha256 e0dc81f017ff02418b81a0bcb74c808fdae5748fddc5416b2ba42883da497817)",
+        "counterevidenceFactIds": [],
+        "decisionRef": null,
+        "discriminatorIds": [
+          "D-07"
+        ],
+        "edgeId": "A-EXEC1:F-B-0025:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS",
+        "edgeState": "PARTIAL",
+        "evidenceForm": "DE-4",
+        "factIds": [
+          "F-B-0025"
+        ],
+        "factualPackageIdentity": {
+          "caseIdKey": "case_id",
+          "caseIdLocator": "package-level key 'case_id'",
+          "caseSlug": "amazon-whole-foods",
+          "factIdKey": "fact_id",
+          "factIdLocator": "record-level key 'fact_id'",
+          "identityAuthority": "STAGE2_CORR4_PILOT_STAGE1_SOURCE_MAP.json",
+          "identityAuthoritySha256": "665aac81c2e0127d08f0406186891959255391cb99ec34611a972209565f4a7f",
+          "packageDir": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/amazon-whole-foods/01_T0_PRE_T0_BASELINE/candidate",
+          "packageFactCount": 113,
+          "packageSideCount": 2,
+          "recordFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/amazon-whole-foods/01_T0_PRE_T0_BASELINE/candidate/06_FACTS.json",
+          "recordFileBytes": 134974,
+          "recordFileSha256": "4d58905e077bb3a6e6181f33272cb3488ec064b7b9c1d525413cdf368b59317c",
+          "recordFormat": "json",
+          "sideIdKey": "side",
+          "sideIdLocator": "record-level key 'side'",
+          "stage1Generation": "candidate"
+        },
+        "formalOperativeState": "FORMAL_ONLY",
+        "mechanismObjectTypes": [
+          "ORGANIZATIONAL_MECHANISM"
+        ],
+        "mechanismPropositionIds": [
+          "M-RES-ROLE-CONTROLLED-ACCESS"
+        ],
+        "missingComponents": [
+          "c2",
+          "c3"
+        ],
+        "nonExpansionRationale": "Does not establish role-differentiated access exclusions, hierarchical control of resource distribution, actual benefit receipt, or post-T0 continuity.",
+        "observedScope": "enterprise",
+        "organizationalObjectRef": "WHOLE_FOODS:SALARY_AND_BENEFITS_PROGRAMS",
+        "participationSystemRef": null,
+        "planCurrentState": "ELIGIBILITY_ONLY",
+        "presentationLaneOnly": "NO",
+        "recordType": "SECTION_I_RECORD",
+        "relation": "SUPPORTS_LEAF",
+        "relationInstanceId": "REL-F-B-0025-ROLE-ACCESS-01",
+        "relevanceState": "ANALYTICAL_MAPPED",
+        "resourceFlowRef": "RES-F-B-0025-SALARY-BENEFITS",
+        "scopeBridgeFactIds": [],
+        "scopeBridgeState": "NOT_REQUIRED",
+        "side": "WHOLE_FOODS",
+        "sourceClass": "OUTSIDE_FROZEN_VOCABULARY",
+        "sourceQualityState": "COMPETENT",
+        "sourceRefs": [
+          {
+            "documentaryIdentity": {
+              "documentaryIssuerOrPublisher": {
+                "key": "issuer_publisher",
+                "value": "Whole Foods Market, Inc."
+              },
+              "documentaryTitle": {
+                "key": "canonical_title",
+                "value": "Whole Foods Market, Inc. Form 10-K for fiscal year ended September 25, 2016"
+              },
+              "documentaryType": {
+                "key": "document_type",
+                "value": "FORM_10K"
+              }
+            },
+            "factLevelLocator": "Item 1. Business",
+            "factLevelLocatorAbsent": false,
+            "refIndex": 0,
+            "registryFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/amazon-whole-foods/01_T0_PRE_T0_BASELINE/candidate/03_SOURCE_REGISTRY.json",
+            "registryFileSha256": "608e9767a9521c9c062759e2d6dc34c0acd22411c2fe0d799470f8b2e54e81f8",
+            "registryRecordIndex": 3,
+            "registryRecordSha256": "ec67850252187bfdb46c117c3601168322afde67135d29006e83e4ded15fc8cc",
+            "sourceId": "S-B1",
+            "sourceIdBindingLocator": "record-level key 'sources'[] .source_id"
+          }
+        ],
+        "sufficiencyExpression": "ALL_OF(M-RES-TACTICAL-EXTERNAL-ACQUISITION, M-RES-ROLE-CONTROLLED-ACCESS, M-RES-HIERARCHICAL-RETENTION, M-RES-PROTECTED-ACCESS-EXCHANGE, M-RES-ADAPTING-PERSON-RECRUITMENT)",
+        "sufficiencyExpressionResult": "OPEN",
+        "supportClass": "DIRECT_SUPPORT",
+        "temporalState": "PRE_T0_CONTINUITY_UNRESOLVED",
+        "treeTargetIds": [
+          "TT-STPSTJ-RS"
+        ],
+        "vocabularyVersion": "CORR4 section I nine-class vocabulary v1.0"
+      },
+      "sha256": "5d64995d4a38b50aa465ed5667d1d7b98ca065eb18b051bce6ef33436bebb1ca"
+    },
+    {
+      "bytes": 4515,
+      "line": 112,
+      "record": {
+        "absenceEvidenceState": "NONE",
+        "abstention": null,
+        "ambiguity": {
+          "competingMechanismIds": [],
+          "resolutionState": "NONE"
+        },
+        "beliefSystemRef": null,
+        "caseId": "aol-time-warner",
+        "characteristicityFactIds": [],
+        "characteristicityState": "NOT_DETERMINABLE",
+        "claimedScope": "enterprise",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "componentSupply": [
+          {
+            "componentId": "c1",
+            "entailmentBasis": "Identified stock option plan satisfying c1 organizational resource access program definition",
+            "linkageEvidence": "America Online's 1992 Employee, Director and Consultant Stock Option Plan provided that upon specified change-in-control events, outstanding unvested options would become fully vested",
+            "status": "SUPPLIED"
+          }
+        ],
+        "conflictFactIds": [],
+        "continuityBridgeFactIds": [],
+        "contractIdentity": "RC3_CORR1_METHODOLOGY_SUCCESSOR_CANDIDATE.md (sha256 e0dc81f017ff02418b81a0bcb74c808fdae5748fddc5416b2ba42883da497817)",
+        "counterevidenceFactIds": [],
+        "decisionRef": null,
+        "discriminatorIds": [
+          "D-07"
+        ],
+        "edgeId": "A-EXEC1:F0024:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS",
+        "edgeState": "PARTIAL",
+        "evidenceForm": "DE-4",
+        "factIds": [
+          "F0024"
+        ],
+        "factualPackageIdentity": {
+          "caseIdKey": "case_id",
+          "caseIdLocator": "record-level key 'case_id'",
+          "caseSlug": "aol-time-warner",
+          "factIdKey": "fact_id",
+          "factIdLocator": "record-level key 'fact_id'",
+          "identityAuthority": "STAGE2_CORR4_PILOT_STAGE1_SOURCE_MAP.json",
+          "identityAuthoritySha256": "665aac81c2e0127d08f0406186891959255391cb99ec34611a972209565f4a7f",
+          "packageDir": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/aol-time-warner/01_T0_PRE_T0_BASELINE/candidate",
+          "packageFactCount": 50,
+          "packageSideCount": 2,
+          "recordFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/aol-time-warner/01_T0_PRE_T0_BASELINE/candidate/06_FACTS.json",
+          "recordFileBytes": 61728,
+          "recordFileSha256": "88b20920149b3fcde03e4e060cf4361e9494fe0137540bbc654c526337fd5f10",
+          "recordFormat": "json",
+          "sideIdKey": "side",
+          "sideIdLocator": "record-level key 'side'",
+          "stage1Generation": "candidate"
+        },
+        "formalOperativeState": "FORMAL_ONLY",
+        "mechanismObjectTypes": [
+          "ORGANIZATIONAL_MECHANISM"
+        ],
+        "mechanismPropositionIds": [
+          "M-RES-ROLE-CONTROLLED-ACCESS"
+        ],
+        "missingComponents": [
+          "c2",
+          "c3"
+        ],
+        "nonExpansionRationale": "Does not establish role-gated access conditions beyond corporate transaction events, hierarchical control of resource distribution, actual option acceleration, or post-T0 continuity.",
+        "observedScope": "enterprise",
+        "organizationalObjectRef": "AOL:1992_STOCK_OPTION_PLAN",
+        "participationSystemRef": null,
+        "planCurrentState": "ELIGIBILITY_ONLY",
+        "presentationLaneOnly": "NO",
+        "recordType": "SECTION_I_RECORD",
+        "relation": "SUPPORTS_LEAF",
+        "relationInstanceId": "REL-F0024-ROLE-ACCESS-01",
+        "relevanceState": "ANALYTICAL_MAPPED",
+        "resourceFlowRef": "RES-F0024-STOCK-OPTIONS",
+        "scopeBridgeFactIds": [],
+        "scopeBridgeState": "NOT_REQUIRED",
+        "side": "AOL",
+        "sourceClass": "compensation plans",
+        "sourceQualityState": "COMPETENT",
+        "sourceRefs": [
+          {
+            "documentaryIdentity": {
+              "documentaryIssuerOrPublisher": {
+                "key": "publisher",
+                "value": "U.S. Securities and Exchange Commission / America Online, Inc."
+              },
+              "documentaryTitle": {
+                "key": "title",
+                "value": "America Online, Inc. Definitive Proxy Statement (DEF 14A) for 1999 annual meeting"
+              },
+              "documentaryType": {
+                "key": "document_type",
+                "value": "DEF_14A"
+              }
+            },
+            "factLevelLocator": "S0009 Employment Contracts / 1992 Plan change-in-control paragraph",
+            "factLevelLocatorAbsent": false,
+            "refIndex": 0,
+            "registryFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/aol-time-warner/01_T0_PRE_T0_BASELINE/candidate/03_SOURCE_REGISTRY.json",
+            "registryFileSha256": "bcc4576b6f1a94e8417340fe49a9f2a9a00aadd0db776acb4c9878579893dd09",
+            "registryRecordIndex": 8,
+            "registryRecordSha256": "df0f7cafb55087e317af99c02731f41e32691eab11ca829baac0b210dd27bea9",
+            "sourceId": "S0009",
+            "sourceIdBindingLocator": "record-level key 'source_ids'"
+          }
+        ],
+        "sufficiencyExpression": "ALL_OF(M-RES-TACTICAL-EXTERNAL-ACQUISITION, M-RES-ROLE-CONTROLLED-ACCESS, M-RES-HIERARCHICAL-RETENTION, M-RES-PROTECTED-ACCESS-EXCHANGE, M-RES-ADAPTING-PERSON-RECRUITMENT)",
+        "sufficiencyExpressionResult": "OPEN",
+        "supportClass": "DIRECT_SUPPORT",
+        "temporalState": "PRE_T0_CONTINUITY_UNRESOLVED",
+        "treeTargetIds": [
+          "TT-STPSTJ-RS"
+        ],
+        "vocabularyVersion": "CORR4 section I nine-class vocabulary v1.0"
+      },
+      "sha256": "8362573a67c08ab44c41f60b9a1cef40289dfd5e200744186fcef4d953db441d"
+    },
+    {
+      "bytes": 4246,
+      "line": 113,
+      "record": {
+        "absenceEvidenceState": "NONE",
+        "abstention": null,
+        "ambiguity": null,
+        "beliefSystemRef": null,
+        "caseId": "exxon-mobil",
+        "characteristicityFactIds": [],
+        "characteristicityState": "NOT_DETERMINABLE",
+        "claimedScope": "enterprise",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "componentSupply": [
+          {
+            "componentId": "c1",
+            "entailmentBasis": "Identified board committee setting executive compensation satisfies c1 formal authority definition",
+            "linkageEvidence": "Board Compensation Committee set salaries for elected officers",
+            "status": "SUPPLIED"
+          }
+        ],
+        "conflictFactIds": [],
+        "continuityBridgeFactIds": [],
+        "contractIdentity": "RC3_CORR1_METHODOLOGY_SUCCESSOR_CANDIDATE.md (sha256 e0dc81f017ff02418b81a0bcb74c808fdae5748fddc5416b2ba42883da497817)",
+        "counterevidenceFactIds": [],
+        "decisionRef": "DEC-F-E-0182-SALARY-SETTING",
+        "discriminatorIds": [
+          "D-04"
+        ],
+        "edgeId": "A-RERUN1-CORR1:F-E-0182:M-RECOGNISED-COMMAND-ORDER:TT-STPSTJ-ESS",
+        "edgeState": "PARTIAL",
+        "evidenceForm": "DE-4",
+        "factIds": [
+          "F-E-0182"
+        ],
+        "factualPackageIdentity": {
+          "caseIdKey": "case_id",
+          "caseIdLocator": "package-level key 'case_id'",
+          "caseSlug": "exxon-mobil",
+          "factIdKey": "fact_id",
+          "factIdLocator": "record-level key 'fact_id'",
+          "identityAuthority": "STAGE2_CORR4_PILOT_STAGE1_SOURCE_MAP.json",
+          "identityAuthoritySha256": "665aac81c2e0127d08f0406186891959255391cb99ec34611a972209565f4a7f",
+          "packageDir": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/exxon-mobil/01_T0_PRE_T0_BASELINE/candidate_corr8",
+          "packageFactCount": 428,
+          "packageSideCount": 2,
+          "recordFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/exxon-mobil/01_T0_PRE_T0_BASELINE/candidate_corr8/06_FACTS.json",
+          "recordFileBytes": 737400,
+          "recordFileSha256": "415907847a64479d38298e6c48b38a727c93d26397867d7c6897843b7f05da36",
+          "recordFormat": "json",
+          "sideIdKey": "side",
+          "sideIdLocator": "record-level key 'side'",
+          "stage1Generation": "candidate_corr8"
+        },
+        "formalOperativeState": "FORMAL_ONLY",
+        "mechanismObjectTypes": [
+          "ORGANIZATIONAL_MECHANISM"
+        ],
+        "mechanismPropositionIds": [
+          "M-RECOGNISED-COMMAND-ORDER"
+        ],
+        "missingComponents": [
+          "c2",
+          "c3"
+        ],
+        "nonExpansionRationale": "Does not establish binding internal rules beyond salary setting, answerability lines, or post-T0 continuity.",
+        "observedScope": "enterprise",
+        "organizationalObjectRef": "EXXON:BOARD_COMPENSATION_COMMITTEE",
+        "participationSystemRef": null,
+        "planCurrentState": "NOT_DETERMINABLE",
+        "presentationLaneOnly": "NO",
+        "recordType": "SECTION_I_RECORD",
+        "relation": "SUPPORTS_LEAF",
+        "relationInstanceId": "REL-F-E-0182-SALARY-SETTING-01",
+        "relevanceState": "ANALYTICAL_MAPPED",
+        "resourceFlowRef": null,
+        "scopeBridgeFactIds": [],
+        "scopeBridgeState": "NOT_REQUIRED",
+        "side": "EXXON",
+        "sourceClass": "access-rights/role matrices",
+        "sourceQualityState": "COMPETENT",
+        "sourceRefs": [
+          {
+            "documentaryIdentity": {
+              "documentaryIssuerOrPublisher": {
+                "absentReason": "PACKAGE_SOURCE_REGISTRY_CARRIES_NO_ISSUER_PUBLISHER_FIELD",
+                "key": null,
+                "value": null
+              },
+              "documentaryTitle": {
+                "key": "title",
+                "value": "Exxon Corporation DEF 14A for 1998 Annual Meeting (April 29, 1998)"
+              },
+              "documentaryType": {
+                "key": "document_type",
+                "value": "DEF_14A"
+              }
+            },
+            "factLevelLocator": "Board Committees \u2014 Board Compensation Committee; Base Salary",
+            "factLevelLocatorAbsent": false,
+            "refIndex": 0,
+            "registryFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/exxon-mobil/01_T0_PRE_T0_BASELINE/candidate_corr8/03_SOURCE_REGISTRY.json",
+            "registryFileSha256": "23577f9a1116f47e7df1036d60644ea4524cb828ac73ff29f2667a404a34c9af",
+            "registryRecordIndex": 1,
+            "registryRecordSha256": "bcd0facffb31972eca2e6bf56aaf3a5430cc1cfbb1ce2b35a8ef96a688d16faa",
+            "sourceId": "S-E2",
+            "sourceIdBindingLocator": "record-level key 'sources'[] .source_id"
+          }
+        ],
+        "sufficiencyExpression": "ALL_OF(M-RECOGNISED-COMMAND-ORDER, M-DISCIPLINARY-ESCALATION, M-SUPERVISORY-DIRECT-AUDIT)",
+        "sufficiencyExpressionResult": "OPEN",
+        "supportClass": "NON_DISCRIMINATING",
+        "temporalState": "PRE_T0_CONTINUITY_UNRESOLVED",
+        "treeTargetIds": [
+          "TT-STPSTJ-ESS"
+        ],
+        "vocabularyVersion": "CORR4 section I nine-class vocabulary v1.0"
+      },
+      "sha256": "ed96a146cf63445ee463b7149200fdce798eedda84dff980280e503edbd1d419"
+    },
+    {
+      "bytes": 4254,
+      "line": 114,
+      "record": {
+        "absenceEvidenceState": "NONE",
+        "abstention": null,
+        "ambiguity": null,
+        "beliefSystemRef": null,
+        "caseId": "exxon-mobil",
+        "characteristicityFactIds": [],
+        "characteristicityState": "NOT_DETERMINABLE",
+        "claimedScope": "enterprise",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "componentSupply": [
+          {
+            "componentId": "c1",
+            "entailmentBasis": "Identified board committee setting executive compensation satisfies c1 formal authority definition",
+            "linkageEvidence": "Board Compensation Committee set salaries for elected officers",
+            "status": "SUPPLIED"
+          }
+        ],
+        "conflictFactIds": [],
+        "continuityBridgeFactIds": [],
+        "contractIdentity": "RC3_CORR1_METHODOLOGY_SUCCESSOR_CANDIDATE.md (sha256 e0dc81f017ff02418b81a0bcb74c808fdae5748fddc5416b2ba42883da497817)",
+        "counterevidenceFactIds": [],
+        "decisionRef": "DEC-F-E-0182-SALARY-SETTING",
+        "discriminatorIds": [
+          "D-04"
+        ],
+        "edgeId": "A-RERUN1-CORR1:F-E-0182:M-RECOGNISED-COMMAND-ORDER:TT-STPSTJ-PW",
+        "edgeState": "PARTIAL",
+        "evidenceForm": "DE-4",
+        "factIds": [
+          "F-E-0182"
+        ],
+        "factualPackageIdentity": {
+          "caseIdKey": "case_id",
+          "caseIdLocator": "package-level key 'case_id'",
+          "caseSlug": "exxon-mobil",
+          "factIdKey": "fact_id",
+          "factIdLocator": "record-level key 'fact_id'",
+          "identityAuthority": "STAGE2_CORR4_PILOT_STAGE1_SOURCE_MAP.json",
+          "identityAuthoritySha256": "665aac81c2e0127d08f0406186891959255391cb99ec34611a972209565f4a7f",
+          "packageDir": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/exxon-mobil/01_T0_PRE_T0_BASELINE/candidate_corr8",
+          "packageFactCount": 428,
+          "packageSideCount": 2,
+          "recordFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/exxon-mobil/01_T0_PRE_T0_BASELINE/candidate_corr8/06_FACTS.json",
+          "recordFileBytes": 737400,
+          "recordFileSha256": "415907847a64479d38298e6c48b38a727c93d26397867d7c6897843b7f05da36",
+          "recordFormat": "json",
+          "sideIdKey": "side",
+          "sideIdLocator": "record-level key 'side'",
+          "stage1Generation": "candidate_corr8"
+        },
+        "formalOperativeState": "FORMAL_ONLY",
+        "mechanismObjectTypes": [
+          "ORGANIZATIONAL_MECHANISM"
+        ],
+        "mechanismPropositionIds": [
+          "M-RECOGNISED-COMMAND-ORDER"
+        ],
+        "missingComponents": [
+          "c2",
+          "c3"
+        ],
+        "nonExpansionRationale": "Does not establish personal loyalty gating, delegation how vs what, resource/information control, or post-T0 continuity.",
+        "observedScope": "enterprise",
+        "organizationalObjectRef": "EXXON:BOARD_COMPENSATION_COMMITTEE",
+        "participationSystemRef": null,
+        "planCurrentState": "NOT_DETERMINABLE",
+        "presentationLaneOnly": "NO",
+        "recordType": "SECTION_I_RECORD",
+        "relation": "SUPPORTS_LEAF",
+        "relationInstanceId": "REL-F-E-0182-SALARY-SETTING-02",
+        "relevanceState": "ANALYTICAL_MAPPED",
+        "resourceFlowRef": null,
+        "scopeBridgeFactIds": [],
+        "scopeBridgeState": "NOT_REQUIRED",
+        "side": "EXXON",
+        "sourceClass": "access-rights/role matrices",
+        "sourceQualityState": "COMPETENT",
+        "sourceRefs": [
+          {
+            "documentaryIdentity": {
+              "documentaryIssuerOrPublisher": {
+                "absentReason": "PACKAGE_SOURCE_REGISTRY_CARRIES_NO_ISSUER_PUBLISHER_FIELD",
+                "key": null,
+                "value": null
+              },
+              "documentaryTitle": {
+                "key": "title",
+                "value": "Exxon Corporation DEF 14A for 1998 Annual Meeting (April 29, 1998)"
+              },
+              "documentaryType": {
+                "key": "document_type",
+                "value": "DEF_14A"
+              }
+            },
+            "factLevelLocator": "Board Committees \u2014 Board Compensation Committee; Base Salary",
+            "factLevelLocatorAbsent": false,
+            "refIndex": 0,
+            "registryFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/exxon-mobil/01_T0_PRE_T0_BASELINE/candidate_corr8/03_SOURCE_REGISTRY.json",
+            "registryFileSha256": "23577f9a1116f47e7df1036d60644ea4524cb828ac73ff29f2667a404a34c9af",
+            "registryRecordIndex": 1,
+            "registryRecordSha256": "bcd0facffb31972eca2e6bf56aaf3a5430cc1cfbb1ce2b35a8ef96a688d16faa",
+            "sourceId": "S-E2",
+            "sourceIdBindingLocator": "record-level key 'sources'[] .source_id"
+          }
+        ],
+        "sufficiencyExpression": "ALL_OF(M-RECOGNISED-COMMAND-ORDER, M-FORMAL-PROCEDURAL-APPEAL, M-SANCTION-SYSTEM-AUDIT)",
+        "sufficiencyExpressionResult": "OPEN",
+        "supportClass": "NON_DISCRIMINATING",
+        "temporalState": "PRE_T0_CONTINUITY_UNRESOLVED",
+        "treeTargetIds": [
+          "TT-STPSTJ-PW"
+        ],
+        "vocabularyVersion": "CORR4 section I nine-class vocabulary v1.0"
+      },
+      "sha256": "fc79d45024587ac4c4bf188223dac0d4f38770bcd449d816b04745397447e122"
+    },
+    {
+      "bytes": 4419,
+      "line": 115,
+      "record": {
+        "absenceEvidenceState": "NONE",
+        "abstention": null,
+        "ambiguity": null,
+        "bearingEvaluability": "EVALUABLE",
+        "bearingIndeterminacyReasons": null,
+        "beliefSystemRef": null,
+        "caseId": "CASE-3.5",
+        "characteristicityFactIds": [
+          "C-B04"
+        ],
+        "characteristicityState": "CHARACTERISTIC",
+        "claimedScope": "enterprise",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "componentSupply": [
+          {
+            "componentId": "c1",
+            "entailmentBasis": "Removal of non-conforming team members satisfies sanction enforcement definition",
+            "linkageEvidence": "Chrysler platform team members who did not conform to the program management discipline were asked to leave",
+            "status": "SUPPLIED"
+          }
+        ],
+        "conflictFactIds": [],
+        "continuityBridgeFactIds": [],
+        "contractIdentity": "RC3_CORR1_METHODOLOGY_SUCCESSOR_CANDIDATE.md (sha256 e0dc81f017ff02418b81a0bcb74c808fdae5748fddc5416b2ba42883da497817)",
+        "counterevidenceFactIds": [],
+        "decisionRef": "DEC-C-B04-SANCTION-REMOVAL",
+        "discriminatorIds": [
+          "D-06"
+        ],
+        "edgeId": "A-E001",
+        "edgeState": "PARTIAL",
+        "evidenceForm": "DE-1",
+        "factIds": [
+          "C-B04"
+        ],
+        "factualPackageIdentity": {
+          "caseIdKey": "caseId",
+          "caseIdLocator": "package-level key 'caseId'",
+          "caseSlug": "daimler-chrysler",
+          "factIdKey": "factId",
+          "factIdLocator": "record-level key 'factId'",
+          "identityAuthority": "STAGE2_CORR4_PILOT_STAGE1_SOURCE_MAP.json",
+          "identityAuthoritySha256": "665aac81c2e0127d08f0406186891959255391cb99ec34611a972209565f4a7f",
+          "packageDir": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/Downloads/CASE-3.5_DAIMLER_CHRYSLER_BASELINE_v1.0.7_CANDIDATE",
+          "packageFactCount": 43,
+          "packageSideCount": 2,
+          "recordFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/Downloads/CASE-3.5_DAIMLER_CHRYSLER_BASELINE_v1.0.7_CANDIDATE/CERTIFIED_FACT_REGISTER.json",
+          "recordFileBytes": 95230,
+          "recordFileSha256": "268ee5818a3fc6f660a634cc125679c365c759b0a5c0c226f4bca11aca37f532",
+          "recordFormat": "json",
+          "sideIdKey": "side",
+          "sideIdLocator": "record-level key 'side'",
+          "stage1Generation": "BASELINE_v1.0.7_CANDIDATE"
+        },
+        "formalOperativeState": "FORMAL_PLUS_OPERATIVE",
+        "mechanismObjectTypes": [
+          "ORGANIZATIONAL_MECHANISM"
+        ],
+        "mechanismPropositionIds": [
+          "M-ENFORCE-SANCTION"
+        ],
+        "missingComponents": [
+          "c2"
+        ],
+        "nonExpansionRationale": "Does not establish cross-enterprise sanction authority outside platform teams or post-T0 continuity.",
+        "observedScope": "unit",
+        "organizationalObjectRef": "CHRYSLER:PLATFORM_TEAM_PROGRAM_MANAGEMENT",
+        "participationSystemRef": null,
+        "planCurrentState": "CURRENT",
+        "prOnlyBasis": {
+          "adjudicatedBy": "A_E001_BEARING_DIRECTIONALITY_READJUDICATION_1",
+          "authority": "E9/07 \u00a712 (OWNER-CORR2-STJSTP); cb08b51e \u00a7F.3 l.1157; SEP-B-1b",
+          "basisComponents": [
+            "c1"
+          ],
+          "basisFactIds": [
+            "C-B04"
+          ],
+          "criterion": "one hard rule",
+          "prohibId": "PR-STJSTP",
+          "ttId": "TT-STJSTP-PW"
+        },
+        "presentationLaneOnly": "NO",
+        "recordType": "SECTION_I_RECORD",
+        "relation": "SUPPORTS_LEAF",
+        "relationInstanceId": "REL-C-B04-SANCTION-01",
+        "relevanceState": "ANALYTICAL_MAPPED",
+        "resourceFlowRef": null,
+        "scopeBridgeFactIds": [],
+        "scopeBridgeState": "UNRESOLVED_FAIL_CLOSED",
+        "side": "CHRYSLER",
+        "sourceClass": "OUTSIDE_FROZEN_VOCABULARY",
+        "sourceQualityState": "COMPETENT",
+        "sourceRefs": [
+          {
+            "documentaryIdentity": {
+              "documentaryIssuerOrPublisher": {
+                "key": "publisher",
+                "value": "Los Angeles Times"
+              },
+              "documentaryTitle": {
+                "key": "title",
+                "value": "Teamwork: Chrysler Builds a Concept as Well as a Car"
+              },
+              "documentaryType": {
+                "key": "sourceType",
+                "value": "PERIODICAL_PRINT_ARCHIVE"
+              }
+            },
+            "factLevelLocator": null,
+            "factLevelLocatorAbsent": true,
+            "refIndex": 0,
+            "registryFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/Downloads/CASE-3.5_DAIMLER_CHRYSLER_BASELINE_v1.0.7_CANDIDATE/SOURCE_REGISTER.json",
+            "registryFileSha256": "64ca097dccaa95ec17642c6ceaed495e2d1064462627cad3ed47c8de04226109",
+            "registryRecordIndex": 0,
+            "registryRecordSha256": "ee254d3842a71ac04b733dce4fac0550fa0ae852c0739fc8d3c4d7fb74bc1cc2",
+            "sourceId": "C33-S01",
+            "sourceIdBindingLocator": "record-level key 'sourceIds'"
+          }
+        ],
+        "sufficiencyExpression": "ALL_OF(M-ENFORCE-SANCTION, M-FORMAL-RULES)",
+        "sufficiencyExpressionResult": "OPEN",
+        "supportBearing": "NON_DISCRIMINATING",
+        "temporalState": "PRE_T0_CONTINUITY_UNRESOLVED",
+        "treeTargetIds": [
+          "TT-STJSTP-PW"
+        ],
+        "vocabularyVersion": "CORR4 section I nine-class vocabulary v1.0"
+      },
+      "sha256": "79eef885eb2fdefe8e77bedf831de040ae1e930a33688649336fc3e160441acb"
+    },
+    {
+      "bytes": 4229,
+      "line": 116,
+      "record": {
+        "absenceEvidenceState": "NONE",
+        "abstention": null,
+        "ambiguity": null,
+        "beliefSystemRef": null,
+        "caseId": "exxon-mobil",
+        "characteristicityFactIds": [
+          "F-M-0205"
+        ],
+        "characteristicityState": "EPISODE_ONLY",
+        "claimedScope": "enterprise",
+        "coderIdentity": "ANTIGRAVITY 3.8",
+        "componentSupply": [
+          {
+            "componentId": "c1",
+            "entailmentBasis": "Jointly owned petrochemical capacity expansion project satisfies capability advantage resource investment",
+            "linkageEvidence": "Yanpet II expansion of Yanpet petrochemical complex in Yanbu, Saudi Arabia ($2.5B) to increase worldwide olefins derivatives capacity by almost 50%",
+            "status": "SUPPLIED"
+          }
+        ],
+        "conflictFactIds": [],
+        "continuityBridgeFactIds": [],
+        "contractIdentity": "RC3_CORR1_METHODOLOGY_SUCCESSOR_CANDIDATE.md (sha256 e0dc81f017ff02418b81a0bcb74c808fdae5748fddc5416b2ba42883da497817)",
+        "counterevidenceFactIds": [],
+        "decisionRef": "DEC-F-M-0205-YANPET-EXPANSION",
+        "discriminatorIds": [
+          "D-07"
+        ],
+        "edgeId": "A-E023",
+        "edgeState": "SUPPORTED",
+        "evidenceForm": "DE-4",
+        "factIds": [
+          "F-M-0205"
+        ],
+        "factualPackageIdentity": {
+          "caseIdKey": "case_id",
+          "caseIdLocator": "package-level key 'case_id'",
+          "caseSlug": "exxon-mobil",
+          "factIdKey": "fact_id",
+          "factIdLocator": "record-level key 'fact_id'",
+          "identityAuthority": "STAGE2_CORR4_PILOT_STAGE1_SOURCE_MAP.json",
+          "identityAuthoritySha256": "665aac81c2e0127d08f0406186891959255391cb99ec34611a972209565f4a7f",
+          "packageDir": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/exxon-mobil/01_T0_PRE_T0_BASELINE/candidate_corr8",
+          "packageFactCount": 428,
+          "packageSideCount": 2,
+          "recordFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/exxon-mobil/01_T0_PRE_T0_BASELINE/candidate_corr8/06_FACTS.json",
+          "recordFileBytes": 737400,
+          "recordFileSha256": "415907847a64479d38298e6c48b38a727c93d26397867d7c6897843b7f05da36",
+          "recordFormat": "json",
+          "sideIdKey": "side",
+          "sideIdLocator": "record-level key 'side'",
+          "stage1Generation": "candidate_corr8"
+        },
+        "formalOperativeState": "FORMAL_ONLY",
+        "mechanismObjectTypes": [
+          "ORGANIZATIONAL_MECHANISM"
+        ],
+        "mechanismPropositionIds": [
+          "M-RES-CAPABILITY-ADVANTAGE"
+        ],
+        "missingComponents": [],
+        "nonExpansionRationale": "Does not establish permanent organizational capability acquisition outside Yanpet joint venture or post-T0 continuity.",
+        "observedScope": "program",
+        "organizationalObjectRef": "MOBIL:YANPET_II_EXPANSION",
+        "participationSystemRef": null,
+        "planCurrentState": "PLAN",
+        "presentationLaneOnly": "NO",
+        "recordType": "SECTION_I_RECORD",
+        "relation": "SUPPORTS_LEAF",
+        "relationInstanceId": "REL-F-M-0205-CAPABILITY-01",
+        "relevanceState": "ANALYTICAL_MAPPED",
+        "resourceFlowRef": "RES-F-M-0205-YANPET-CAPITAL",
+        "scopeBridgeFactIds": [],
+        "scopeBridgeState": "NOT_REQUIRED",
+        "side": "MOBIL",
+        "sourceClass": "OUTSIDE_FROZEN_VOCABULARY",
+        "sourceQualityState": "COMPETENT",
+        "sourceRefs": [
+          {
+            "documentaryIdentity": {
+              "documentaryIssuerOrPublisher": {
+                "absentReason": "PACKAGE_SOURCE_REGISTRY_CARRIES_NO_ISSUER_PUBLISHER_FIELD",
+                "key": null,
+                "value": null
+              },
+              "documentaryTitle": {
+                "key": "title",
+                "value": "Mobil Corporation Form 10-K for fiscal year ended December 31, 1997"
+              },
+              "documentaryType": {
+                "key": "document_type",
+                "value": "FORM_10K"
+              }
+            },
+            "factLevelLocator": "EX-13, Staying Ahead of the Curve in Chemicals",
+            "factLevelLocatorAbsent": false,
+            "refIndex": 0,
+            "registryFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/exxon-mobil/01_T0_PRE_T0_BASELINE/candidate_corr8/03_SOURCE_REGISTRY.json",
+            "registryFileSha256": "23577f9a1116f47e7df1036d60644ea4524cb828ac73ff29f2667a404a34c9af",
+            "registryRecordIndex": 4,
+            "registryRecordSha256": "665d9b58bf5439507512d015c93d59b3ebe9b8fd9b723cfa323ae96e409484b2",
+            "sourceId": "S-M1",
+            "sourceIdBindingLocator": "record-level key 'sources'[] .source_id"
+          }
+        ],
+        "sufficiencyExpression": "ALL_OF(M-RES-CAPABILITY-ADVANTAGE, M-MARKET-POSITIONING)",
+        "sufficiencyExpressionResult": "TRUE",
+        "supportClass": "DIRECT_SUPPORT",
+        "temporalState": "PRE_T0_CONTINUITY_UNRESOLVED",
+        "treeTargetIds": [
+          "TT-NTSTJ-RS"
+        ],
+        "vocabularyVersion": "CORR4 section I nine-class vocabulary v1.0"
+      },
+      "sha256": "c7e9a35a64801a63c5f11d662e2336c2d4f26b158866d173f266c54b9b6d6cce"
+    }
+  ],
+  "orderedIdentities": [
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      1
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      2
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      3
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      4
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      5
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      6
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      7
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      8
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      9
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      10
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      11
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      12
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      13
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      14
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      15
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      16
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      17
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      18
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      19
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      20
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      21
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      22
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      23
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      24
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      25
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      26
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      27
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      28
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      29
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      30
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      31
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      32
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      33
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      34
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      35
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      36
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      37
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      38
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      39
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      40
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      41
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      42
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      43
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      44
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      45
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      46
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      47
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      48
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      49
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      50
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      51
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      52
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      53
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      54
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      55
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      56
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      57
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      58
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      59
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      60
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      61
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      62
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      63
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      64
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      65
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      66
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      67
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      68
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      69
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      70
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      71
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      72
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      73
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      74
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      75
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      76
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      77
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      78
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      79
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      80
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      81
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      82
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      83
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      84
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      85
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      86
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      87
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      88
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      89
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      90
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      91
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      92
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      93
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      94
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      95
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      96
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      97
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      98
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      99
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      100
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      101
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      102
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      103
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      104
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      105
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      106
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      107
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      108
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      109
+    ],
+    [
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+      110
+    ],
+    [
+      "SECTION_I_RECORD",
+      "A-EXEC1:F-B-0025:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS"
+    ],
+    [
+      "SECTION_I_RECORD",
+      "A-EXEC1:F0024:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS"
+    ],
+    [
+      "SECTION_I_RECORD",
+      "A-RERUN1-CORR1:F-E-0182:M-RECOGNISED-COMMAND-ORDER:TT-STPSTJ-ESS"
+    ],
+    [
+      "SECTION_I_RECORD",
+      "A-RERUN1-CORR1:F-E-0182:M-RECOGNISED-COMMAND-ORDER:TT-STPSTJ-PW"
+    ],
+    [
+      "SECTION_I_RECORD",
+      "A-E001"
+    ],
+    [
+      "SECTION_I_RECORD",
+      "A-E023"
+    ]
+  ],
+  "provenanceArtifacts": [
+    "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_TESTS.py",
+    "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_RECORDS.jsonl",
+    "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_TEST_RESULTS.json",
+    "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_MANIFEST.json",
+    "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_DELTA_PROVENANCE.json",
+    "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_REPORT.md",
+    "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_BUILD.py",
+    "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_IV1/REPORT.md",
+    "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_IV1/IDENTITY_CHECKS.json",
+    "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_IV1/REPRODUCTION_RESULTS.json",
+    "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_GIT_CLOSURE_1.md",
+    "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_GIT_CLOSURE_1.md.sha256",
+    "WORKBENCH/DOWNLOADS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_2026-10-07/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_RECORDS.jsonl",
+    "WORKBENCH/DOWNLOADS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_2026-10-07/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_RECORDS.jsonl",
+    "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR2_CORR1_CORR1_CORR1_CORR1_2026-10-05/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR2_CORR1_CORR1_CORR1_CORR1_CANDIDATE.md",
+    "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR1_2026-10-05/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR1_CANDIDATE.md",
+    "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_2026-10-05/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_METHODOLOGY_SUCCESSOR.md",
+    "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_2026-10-05/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CODER_VIEW_SCHEMA_SUCCESSOR.json",
+    "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_2026-10-05/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_FIELD_SOURCE_MATRIX_SUCCESSOR.json",
+    "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_2026-10-07/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_SUCCESSOR_VIEW_BUILDER.py",
+    "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_2026-10-07/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_CONTRACT_MODEL.json",
+    "WORKBENCH/DOWNLOADS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_2026-10-07/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_BUILD.py",
+    "WORKBENCH/DOWNLOADS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_2026-10-07/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_REPORT.md",
+    "WORKBENCH/DOWNLOADS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_2026-10-07/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_MANIFEST.json",
+    "WORKBENCH/DOWNLOADS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_2026-10-07/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_DELTA_PROVENANCE.json",
+    "WORKBENCH/DOWNLOADS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_2026-10-07/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_MIGRATION_LEDGER.json",
+    "WORKBENCH/DOWNLOADS/A_E001_SCOPE_DISPOSITION_READJUDICATION_1_2026-10-07/A_E001_SCOPE_DISPOSITION_READJUDICATION_1_DECISION.json",
+    "WORKBENCH/DOWNLOADS/A_E001_BEARING_DIRECTIONALITY_READJUDICATION_1_2026-10-07/A_E001_BEARING_DIRECTIONALITY_READJUDICATION_1_DECISION.json",
+    "WORKBENCH/DOWNLOADS/A_E001_SEMANTIC_READJUDICATION_1_IV1_2026-10-07/A_E001_SEMANTIC_READJUDICATION_1_IV1_REPORT.md",
+    "WORKBENCH/DOWNLOADS/AOL_F0024_RECONCILIATION_1_2026-10-07/AOL_F0024_RECONCILIATION_1_PROVENANCE_PATCH.json"
+  ],
+  "recordCount": 116,
+  "sectionICount": 6,
+  "sourceOfExpectedBytes": "git show exact accepted commit:path, independently of adaptation execution"
+}

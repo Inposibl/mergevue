@@ -1,0 +1,3396 @@
+{
+  "identity": {
+    "repositoryRoot": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)",
+    "branch": "main",
+    "HEAD": "2f7bcc5d33cf8009145aa85cbb39d2ae9084ec26",
+    "HEADMatchesExpected": true,
+    "trackedDirtyCount": 0,
+    "trackedDirtySample": [],
+    "untrackedCount": 431,
+    "fevaGitBytes": 104722,
+    "fevaGitSha256": "5b37071a5fa5374c77b149bfde5c230c228cdf73d9785e5ea55346f9fab28daa",
+    "fevaMatchesExpected": true,
+    "harnessBytes": 28712,
+    "harnessSha256": "82f78f8c6db43473fb0c79676374227384354fee8e46537427584cd2a39fd560",
+    "harnessMatchesExpected": true,
+    "candidatePackageMutatedByThisScript": false,
+    "postTrackedDirtyCount": 0,
+    "postUntrackedCount": 431,
+    "harnessShaUnchanged": true,
+    "candidatePycCreated": false
+  },
+  "manifest": {
+    "declaredFileCountExcludingManifest": 132,
+    "manifestMemberCount": 132,
+    "diskFileCountExcludingManifest": 132,
+    "missingFromManifest": [],
+    "manifestPathsAbsentOnDisk": [],
+    "duplicateManifestPaths": [],
+    "hashOrByteMismatches": [],
+    "manifestCoversCandidate": true
+  },
+  "pins": {
+    "pinCount": 107,
+    "pinMismatches": [],
+    "symlinkOrEscape": [],
+    "gitMismatches": [],
+    "untrackedWorktreeMismatches": [],
+    "untrackedMissingFromWorktree": [],
+    "gitTrackedCount": 50,
+    "untrackedCount": 57
+  },
+  "pinRows": [
+    {
+      "rel": "AGENTS.md",
+      "frozenBytes": 23511,
+      "frozenSha256": "f1f34b93c33ff6feea0611aa01b0d4df325dcb51c844b02180404337c9f4194d",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "f1f34b93c33ff6feea0611aa01b0d4df325dcb51c844b02180404337c9f4194d",
+      "gitMatch": true
+    },
+    {
+      "rel": "AGENTS_A.md",
+      "frozenBytes": 12303,
+      "frozenSha256": "3c73d681c25d9ed751e9b8298dd3772c15f99fc5095cc177b763416f655baa9d",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "3c73d681c25d9ed751e9b8298dd3772c15f99fc5095cc177b763416f655baa9d",
+      "gitMatch": true
+    },
+    {
+      "rel": "MERGEVUE_CAUSALITY_PROOF_AND_AGENT_CONTROL.md",
+      "frozenBytes": 23137,
+      "frozenSha256": "06770667d4abeff499d5e24b60d5af53af638a0ca1283aee0d188c17f7d1caf5",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "06770667d4abeff499d5e24b60d5af53af638a0ca1283aee0d188c17f7d1caf5",
+      "gitMatch": true
+    },
+    {
+      "rel": "WORKBENCH/AUDITS/ACT_MANIFEST_MERGEVUE_VERIFIED_CURRENT_CONTROL_TREE_RECONSTRUCTION_1_CORR4_GIT-CLOSURE-1.json",
+      "frozenBytes": 7871,
+      "frozenSha256": "620b2092f3dbb86c31b16ecf1157ecbcaf1b45a0b71293bbb00f33496e6a296f",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "620b2092f3dbb86c31b16ecf1157ecbcaf1b45a0b71293bbb00f33496e6a296f",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/AUDITS/MERGEVUE_STAGE2_CURRENT_STATE_RECONSTRUCTION_1/ACT_MANIFEST.json",
+      "frozenBytes": 9306,
+      "frozenSha256": "bc11880f99dd8405fb2882278bdfb6e34b5c79b1acae2c2016e24db470dbb61a",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "bc11880f99dd8405fb2882278bdfb6e34b5c79b1acae2c2016e24db470dbb61a",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/AUDITS/MERGEVUE_STAGE2_CURRENT_STATE_RECONSTRUCTION_1/STAGE2_CURRENT_STATE_REPORT.md",
+      "frozenBytes": 23212,
+      "frozenSha256": "21e24302dcda21f9d993d8fbb9293cf00cc3f4e3e0386a686e121d03e4550308",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "21e24302dcda21f9d993d8fbb9293cf00cc3f4e3e0386a686e121d03e4550308",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/AUDITS/MERGEVUE_STAGE2_CURRENT_STATE_RECONSTRUCTION_1/STAGE2_EVIDENCE_INDEX.md",
+      "frozenBytes": 15789,
+      "frozenSha256": "40372a52b1d72c01a5a214dbac9e35220a50652321c572603e3c5d8f01000af6",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "40372a52b1d72c01a5a214dbac9e35220a50652321c572603e3c5d8f01000af6",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/AUDITS/MERGEVUE_STAGE2_CURRENT_STATE_RECONSTRUCTION_1/STAGE2_LIFECYCLE_MATRIX.md",
+      "frozenBytes": 10499,
+      "frozenSha256": "26ec18fcc35d5499fe579f80d0b9b7e6867e71aaac77ee24e469205e6c1647d9",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "26ec18fcc35d5499fe579f80d0b9b7e6867e71aaac77ee24e469205e6c1647d9",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/AUDITS/MERGEVUE_VERIFIED_CURRENT_CONTROL_TREE_RECONSTRUCTION_1_CORR4/MERGEVUE_CORRECTION_LEDGER.md",
+      "frozenBytes": 12411,
+      "frozenSha256": "8c886c440a242068ab733214adfc30943139481d724ead5724ac38a79e868086",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "8c886c440a242068ab733214adfc30943139481d724ead5724ac38a79e868086",
+      "gitMatch": true
+    },
+    {
+      "rel": "WORKBENCH/AUDITS/MERGEVUE_VERIFIED_CURRENT_CONTROL_TREE_RECONSTRUCTION_1_CORR4/MERGEVUE_CRITICAL_PATH.md",
+      "frozenBytes": 10683,
+      "frozenSha256": "e32c74d831f8076ee91a7158f5ee5b5c746e45df352d679d5d401131cf0961ec",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "e32c74d831f8076ee91a7158f5ee5b5c746e45df352d679d5d401131cf0961ec",
+      "gitMatch": true
+    },
+    {
+      "rel": "WORKBENCH/AUDITS/MERGEVUE_VERIFIED_CURRENT_CONTROL_TREE_RECONSTRUCTION_1_CORR4/MERGEVUE_CURRENT_CONTROL_TREE_CANDIDATE.md",
+      "frozenBytes": 38032,
+      "frozenSha256": "823739148801e078b47dd6933904b8b9580b63ceddc0e5ba0b3dd9ebce865107",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "823739148801e078b47dd6933904b8b9580b63ceddc0e5ba0b3dd9ebce865107",
+      "gitMatch": true
+    },
+    {
+      "rel": "WORKBENCH/AUDITS/MERGEVUE_VERIFIED_CURRENT_CONTROL_TREE_RECONSTRUCTION_1_CORR4/MERGEVUE_EVIDENCE_INDEX.json",
+      "frozenBytes": 35011,
+      "frozenSha256": "7ffa355ce60d9cc83c12d1c21bbeaa65009d91963e927676ce27ea4c08dc9011",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "7ffa355ce60d9cc83c12d1c21bbeaa65009d91963e927676ce27ea4c08dc9011",
+      "gitMatch": true
+    },
+    {
+      "rel": "WORKBENCH/AUDITS/MERGEVUE_VERIFIED_CURRENT_CONTROL_TREE_RECONSTRUCTION_1_CORR4/MERGEVUE_MANIFEST.json",
+      "frozenBytes": 23019,
+      "frozenSha256": "b76789f97184028616cbf698b5204f39951f5e44955f7ced6a0248cdfd9bc932",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "b76789f97184028616cbf698b5204f39951f5e44955f7ced6a0248cdfd9bc932",
+      "gitMatch": true
+    },
+    {
+      "rel": "WORKBENCH/AUDITS/MERGEVUE_VERIFIED_CURRENT_CONTROL_TREE_RECONSTRUCTION_1_CORR4/MERGEVUE_NODE_STATUS_MATRIX.json",
+      "frozenBytes": 73443,
+      "frozenSha256": "621eca0afeadca4b40450a41d3277fb69df9843b73c9663e93042e7d76b98a97",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "621eca0afeadca4b40450a41d3277fb69df9843b73c9663e93042e7d76b98a97",
+      "gitMatch": true
+    },
+    {
+      "rel": "WORKBENCH/AUDITS/MERGEVUE_VERIFIED_CURRENT_CONTROL_TREE_RECONSTRUCTION_1_CORR4/MERGEVUE_RECONSTRUCTION_REPORT.md",
+      "frozenBytes": 22026,
+      "frozenSha256": "236be0de00321ae14f25dcd86957149bc6ddef3be6f1ac858fbdea66a0e60220",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "236be0de00321ae14f25dcd86957149bc6ddef3be6f1ac858fbdea66a0e60220",
+      "gitMatch": true
+    },
+    {
+      "rel": "WORKBENCH/AUDITS/MERGEVUE_VERIFIED_CURRENT_CONTROL_TREE_RECONSTRUCTION_1_CORR4/build_matrix.py",
+      "frozenBytes": 77319,
+      "frozenSha256": "5b3fce30c96dbb2507eebe46007e8ff8c4288d6d237ef5a27e0a142dd57f7a12",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "5b3fce30c96dbb2507eebe46007e8ff8c4288d6d237ef5a27e0a142dd57f7a12",
+      "gitMatch": true
+    },
+    {
+      "rel": "WORKBENCH/AUDITS/MERGEVUE_VERIFIED_CURRENT_CONTROL_TREE_RECONSTRUCTION_1_CORR4_IV5_MINOR_CLOSURE_1.md",
+      "frozenBytes": 14596,
+      "frozenSha256": "7d04fe5f105138b7e174ef1302af9e9867fc78a5d79acebd3eb43bf4d300a9e0",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "7d04fe5f105138b7e174ef1302af9e9867fc78a5d79acebd3eb43bf4d300a9e0",
+      "gitMatch": true
+    },
+    {
+      "rel": "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_BUILD.py",
+      "frozenBytes": 47542,
+      "frozenSha256": "a34aaddbc4d4f66b970c6c9bc9e1d4668889e17d92b0566060d5576dc4e34a8d",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "a34aaddbc4d4f66b970c6c9bc9e1d4668889e17d92b0566060d5576dc4e34a8d",
+      "gitMatch": true
+    },
+    {
+      "rel": "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_DELTA_PROVENANCE.json",
+      "frozenBytes": 7840,
+      "frozenSha256": "e8c4e6274fc624908718724f30324ae3187d88f1bf5038b711d9a5c3febf5b9e",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "e8c4e6274fc624908718724f30324ae3187d88f1bf5038b711d9a5c3febf5b9e",
+      "gitMatch": true
+    },
+    {
+      "rel": "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_MANIFEST.json",
+      "frozenBytes": 6048,
+      "frozenSha256": "e8b0e1c024e9da8a446950e20eebcb9dddc2402273c1da9817b995973b51a20e",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "e8b0e1c024e9da8a446950e20eebcb9dddc2402273c1da9817b995973b51a20e",
+      "gitMatch": true
+    },
+    {
+      "rel": "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_RECORDS.jsonl",
+      "frozenBytes": 104722,
+      "frozenSha256": "5b37071a5fa5374c77b149bfde5c230c228cdf73d9785e5ea55346f9fab28daa",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "5b37071a5fa5374c77b149bfde5c230c228cdf73d9785e5ea55346f9fab28daa",
+      "gitMatch": true
+    },
+    {
+      "rel": "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_REPORT.md",
+      "frozenBytes": 7914,
+      "frozenSha256": "00fac47a73bf16c823d925d0adfdc2ddbb2233035cffe505865df43a0dc22859",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "00fac47a73bf16c823d925d0adfdc2ddbb2233035cffe505865df43a0dc22859",
+      "gitMatch": true
+    },
+    {
+      "rel": "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_TESTS.py",
+      "frozenBytes": 14940,
+      "frozenSha256": "d105868a1754ab3d3e535531d465dabc67d795cc42f90ff617341e7a852928b4",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "d105868a1754ab3d3e535531d465dabc67d795cc42f90ff617341e7a852928b4",
+      "gitMatch": true
+    },
+    {
+      "rel": "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_TEST_RESULTS.json",
+      "frozenBytes": 22630,
+      "frozenSha256": "0f11109cec813b689e4ee5e9fc453fe95f7a4441a6829983659f6e813daccfb8",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "0f11109cec813b689e4ee5e9fc453fe95f7a4441a6829983659f6e813daccfb8",
+      "gitMatch": true
+    },
+    {
+      "rel": "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_GIT_CLOSURE_1.md",
+      "frozenBytes": 11513,
+      "frozenSha256": "c5226bc80fb48c604c4171f3518bd1afb5abfda6aa04590609e489c6f823ed51",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "c5226bc80fb48c604c4171f3518bd1afb5abfda6aa04590609e489c6f823ed51",
+      "gitMatch": true
+    },
+    {
+      "rel": "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_GIT_CLOSURE_1.md.sha256",
+      "frozenBytes": 128,
+      "frozenSha256": "892ac9e646aa9d02e039aa27b07f0fee37af9f0a27da9a9bdb007d11ee447a6e",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "892ac9e646aa9d02e039aa27b07f0fee37af9f0a27da9a9bdb007d11ee447a6e",
+      "gitMatch": true
+    },
+    {
+      "rel": "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_IV1/IDENTITY_CHECKS.json",
+      "frozenBytes": 548248,
+      "frozenSha256": "bcca2b6b5eb3276afa27edd973a39d6c1c7a866a4393d202fc822732db6ceab3",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "bcca2b6b5eb3276afa27edd973a39d6c1c7a866a4393d202fc822732db6ceab3",
+      "gitMatch": true
+    },
+    {
+      "rel": "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_IV1/REPORT.md",
+      "frozenBytes": 22639,
+      "frozenSha256": "f85b1b02199c0ca0d7d7f83127105e561b1440f8a323b9e99671301149a5d70d",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "f85b1b02199c0ca0d7d7f83127105e561b1440f8a323b9e99671301149a5d70d",
+      "gitMatch": true
+    },
+    {
+      "rel": "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_IV1/REPRODUCTION_RESULTS.json",
+      "frozenBytes": 298093,
+      "frozenSha256": "e6ed7f8d946762f606c51310577879f2a8441b182151f7c54d05284f5ee526ae",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "e6ed7f8d946762f606c51310577879f2a8441b182151f7c54d05284f5ee526ae",
+      "gitMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/AOL_F0024_RECONCILIATION_1_2026-10-07/AOL_F0024_RECONCILIATION_1_PROVENANCE_PATCH.json",
+      "frozenBytes": 5003,
+      "frozenSha256": "bf5d832f846bb0034ec384e815d2434d39548a5530cb70b0375289b7b9d3b828",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "bf5d832f846bb0034ec384e815d2434d39548a5530cb70b0375289b7b9d3b828",
+      "gitMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/A_E001_BEARING_DIRECTIONALITY_READJUDICATION_1_2026-10-07/A_E001_BEARING_DIRECTIONALITY_READJUDICATION_1_DECISION.json",
+      "frozenBytes": 11468,
+      "frozenSha256": "e7624316fb7b38711220318d78d5a5180fb4a3e6d70543f507675eb1b09a67b8",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "e7624316fb7b38711220318d78d5a5180fb4a3e6d70543f507675eb1b09a67b8",
+      "gitMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/A_E001_SCOPE_DISPOSITION_READJUDICATION_1_2026-10-07/A_E001_SCOPE_DISPOSITION_READJUDICATION_1_DECISION.json",
+      "frozenBytes": 7482,
+      "frozenSha256": "b390038365f0d8e6e637feac22db801f68874dd1bc78df706adada1f20afd02c",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "b390038365f0d8e6e637feac22db801f68874dd1bc78df706adada1f20afd02c",
+      "gitMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/A_E001_SEMANTIC_READJUDICATION_1_IV1_2026-10-07/A_E001_SEMANTIC_READJUDICATION_1_IV1_REPORT.md",
+      "frozenBytes": 26217,
+      "frozenSha256": "633afd19601a2ab3a583cc6f5ea957b1241b41f205668ebec0d1f3ff21b6acbd",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "633afd19601a2ab3a583cc6f5ea957b1241b41f205668ebec0d1f3ff21b6acbd",
+      "gitMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_INPUT.jsonl",
+      "frozenBytes": 9199,
+      "frozenSha256": "a87409c3f4c1d7d097443233284bceee1cbed49c59e57a8aeb9eed651ff0c883",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "a87409c3f4c1d7d097443233284bceee1cbed49c59e57a8aeb9eed651ff0c883",
+      "gitMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1.json",
+      "frozenBytes": 27150,
+      "frozenSha256": "0d08c7e1f88a408967be157f73e9bd04c59bee5e977b4efe7b266cfc3ab8278c",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "0d08c7e1f88a408967be157f73e9bd04c59bee5e977b4efe7b266cfc3ab8278c",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json",
+      "frozenBytes": 28839,
+      "frozenSha256": "0cb5a6b5d2239855eeabe0bfd0e9ceb6c545dc2a86b4b34a90b65187592721b5",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "0cb5a6b5d2239855eeabe0bfd0e9ceb6c545dc2a86b4b34a90b65187592721b5",
+      "gitMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_FIELD_SOURCE_MATRIX_CORR2.json",
+      "frozenBytes": 21176,
+      "frozenSha256": "1fb84aed8aadeb2b4c2fc85eb6e01cd2ea3849fae5be28a39e0b65ca4e4e2cdd",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "1fb84aed8aadeb2b4c2fc85eb6e01cd2ea3849fae5be28a39e0b65ca4e4e2cdd",
+      "gitMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_PROVENANCE_SIDECAR_CORR1.jsonl",
+      "frozenBytes": 82425,
+      "frozenSha256": "84ab83d23209eae9f775844502676d462490ca8954f8d7a135d28acf5234d6af",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "84ab83d23209eae9f775844502676d462490ca8954f8d7a135d28acf5234d6af",
+      "gitMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_ANALYTICAL_SOURCECLASS_BINDING_CORR2.jsonl",
+      "frozenBytes": 95720,
+      "frozenSha256": "3eee72d088f9f72cb95671df14393912659081827719b589cc8a278cddc61591",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "3eee72d088f9f72cb95671df14393912659081827719b589cc8a278cddc61591",
+      "gitMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_CASE34_BOUNDED_AUTHORITY_CORR1.md",
+      "frozenBytes": 25348,
+      "frozenSha256": "f756a802f6842c203c14142ecb8dc8a49ce6edfb9eec9fea85565b3f1c80b1fd",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "f756a802f6842c203c14142ecb8dc8a49ce6edfb9eec9fea85565b3f1c80b1fd",
+      "gitMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_STAGE1_SOURCE_MAP.json",
+      "frozenBytes": 17490,
+      "frozenSha256": "665aac81c2e0127d08f0406186891959255391cb99ec34611a972209565f4a7f",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "665aac81c2e0127d08f0406186891959255391cb99ec34611a972209565f4a7f",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_VERSION_LOCK.md",
+      "frozenBytes": 22408,
+      "frozenSha256": "0f9daef23d9105fa2507bd71847a76bff1f128b5b0003cce08456a9491aa897a",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "0f9daef23d9105fa2507bd71847a76bff1f128b5b0003cce08456a9491aa897a",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_CO_PHYSICAL_STATE_DRIFT_CORRECTION_1_2026-10-04/STAGE2_CO_PHYSICAL_STATE_DRIFT_CORRECTION_1.json",
+      "frozenBytes": 13892,
+      "frozenSha256": "3319e912014bfd1f2e5c84da5c141c4e1a329d6095c102f2c081a82dced5f84a",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "3319e912014bfd1f2e5c84da5c141c4e1a329d6095c102f2c081a82dced5f84a",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_CO_PHYSICAL_STATE_DRIFT_DETERMINATION_1_CORR2_IV1_REPORT.md",
+      "frozenBytes": 28053,
+      "frozenSha256": "b0645ed312aca4bac7c300a53441f929e3cc6c3ca231e052fb5ae49ef66da944",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "b0645ed312aca4bac7c300a53441f929e3cc6c3ca231e052fb5ae49ef66da944",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_2026-10-05/STAGE2_EFFECTIVE_VIEW_ASSEMBLY_1_RECORDS.jsonl",
+      "frozenBytes": 104310,
+      "frozenSha256": "a1fcae68939decd0a3c4a39c0a0bc48e8d285bd9cd7ce1928b0d025056244047",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "a1fcae68939decd0a3c4a39c0a0bc48e8d285bd9cd7ce1928b0d025056244047",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_2026-10-05/STAGE2_EFFECTIVE_VIEW_ASSEMBLY_CONTRACT_1.md",
+      "frozenBytes": 16515,
+      "frozenSha256": "4e2ff3d00baa05dc82dc4f72318c413b0683cbe0d050ee026bb8b6ad7c6eee66",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "4e2ff3d00baa05dc82dc4f72318c413b0683cbe0d050ee026bb8b6ad7c6eee66",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_IV1_2026-10-05/STAGE2_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_IV1_REPORT.md",
+      "frozenBytes": 37107,
+      "frozenSha256": "f3dc0bcfd7672f20cdd53025605cdd7afcd480eec3947371a88778b6b4767f31",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "f3dc0bcfd7672f20cdd53025605cdd7afcd480eec3947371a88778b6b4767f31",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_F0024_FACTUAL_PACKAGE_IDENTITY_CORRECTION_1_2026-10-04/STAGE2_F0024_FACTUAL_PACKAGE_IDENTITY_CORRECTION_1.json",
+      "frozenBytes": 11108,
+      "frozenSha256": "0711b74240ddeecac7a95f15a0093ce44f3288f440929d6b803516e53ba6f983",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "0711b74240ddeecac7a95f15a0093ce44f3288f440929d6b803516e53ba6f983",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_F0024_FACTUAL_PACKAGE_IDENTITY_CORRECTION_1_IV1_REPORT.md",
+      "frozenBytes": 16831,
+      "frozenSha256": "3df572b2d8fffe8727fa872b3ab354b2accaaef4571d663fb4410160a2692eb6",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "3df572b2d8fffe8727fa872b3ab354b2accaaef4571d663fb4410160a2692eb6",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_2026-10-07/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_RECORDS.jsonl",
+      "frozenBytes": 104937,
+      "frozenSha256": "ea0de2f072f0b13f15d36ff053ef047128de15b529d31cefeb1a3337462f6f0a",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "ea0de2f072f0b13f15d36ff053ef047128de15b529d31cefeb1a3337462f6f0a",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_2026-10-07/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_BUILD.py",
+      "frozenBytes": 72873,
+      "frozenSha256": "c3b31e1ed76b7047314bdba75799d2601b45f43e81a03de0f464857a68c8eb98",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "c3b31e1ed76b7047314bdba75799d2601b45f43e81a03de0f464857a68c8eb98",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_2026-10-07/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_DELTA_PROVENANCE.json",
+      "frozenBytes": 9092,
+      "frozenSha256": "5b0428500f08754e65ad9db2dbaa02feaab280407f4b5a41628d983743f3a61c",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "5b0428500f08754e65ad9db2dbaa02feaab280407f4b5a41628d983743f3a61c",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_2026-10-07/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_MANIFEST.json",
+      "frozenBytes": 27877,
+      "frozenSha256": "8aee45913bfe6cc720fbad89f7759392edde0d3040f7fa6970d935c1742f6810",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "8aee45913bfe6cc720fbad89f7759392edde0d3040f7fa6970d935c1742f6810",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_2026-10-07/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_MIGRATION_LEDGER.json",
+      "frozenBytes": 5169,
+      "frozenSha256": "2d1f23d873821fd45259a51e54fef7b3088e94bcd99a79c864e82ded32e15c05",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "2d1f23d873821fd45259a51e54fef7b3088e94bcd99a79c864e82ded32e15c05",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_2026-10-07/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_RECORDS.jsonl",
+      "frozenBytes": 104704,
+      "frozenSha256": "3603c3169d7bdd67763ac0d2468d08cbb508d23dfeece4f7b396900b11dc68ec",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "3603c3169d7bdd67763ac0d2468d08cbb508d23dfeece4f7b396900b11dc68ec",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_2026-10-07/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_REPORT.md",
+      "frozenBytes": 10084,
+      "frozenSha256": "2906dccc4fee4bbbd1da47a6dfea28b406a12990a936fe739cda283439280935",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "2906dccc4fee4bbbd1da47a6dfea28b406a12990a936fe739cda283439280935",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_FINAL_MEASUREMENT_REGRESSION_1_2026-10-05/STAGE2_FINAL_MEASUREMENT_REGRESSION_1_FINDINGS.json",
+      "frozenBytes": 108654,
+      "frozenSha256": "6ae866578f01a6b04780a3150ed293387c46acc736820e698d2a43f9407cb758",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "6ae866578f01a6b04780a3150ed293387c46acc736820e698d2a43f9407cb758",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_FINAL_MEASUREMENT_REGRESSION_1_2026-10-05/STAGE2_FINAL_MEASUREMENT_REGRESSION_1_MANIFEST.json",
+      "frozenBytes": 26757,
+      "frozenSha256": "0e97785c3536dafe5ddf7153ce9a97032826765086696ad054d67fb9730ee88f",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "0e97785c3536dafe5ddf7153ce9a97032826765086696ad054d67fb9730ee88f",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_FINAL_MEASUREMENT_REGRESSION_1_2026-10-05/STAGE2_FINAL_MEASUREMENT_REGRESSION_1_REPORT.md",
+      "frozenBytes": 23332,
+      "frozenSha256": "9a58d38785b7dba5b6a9164985e5ac9c6fc6ac10115f2229df900e4e68f5f2c3",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "9a58d38785b7dba5b6a9164985e5ac9c6fc6ac10115f2229df900e4e68f5f2c3",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_FINAL_MEASUREMENT_REGRESSION_1_2026-10-05/STAGE2_FINAL_MEASUREMENT_REGRESSION_1_RESULTS.json",
+      "frozenBytes": 276802,
+      "frozenSha256": "fe252b713322f65590e204115a4adbfd6e66ff6b2247b1f25270f9fb0b49a855",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "fe252b713322f65590e204115a4adbfd6e66ff6b2247b1f25270f9fb0b49a855",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_FINAL_MEASUREMENT_REGRESSION_1_CORRECTION_1_2026-10-05/STAGE2_EFFECTIVE_VIEW_MEASUREMENT_CORR1_RECORDS.jsonl",
+      "frozenBytes": 104402,
+      "frozenSha256": "3737bd5d5aa3b92f7f737fb6b35170ae35e936c2541d8b6fe053f8cb88a816c5",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "3737bd5d5aa3b92f7f737fb6b35170ae35e936c2541d8b6fe053f8cb88a816c5",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_FINAL_MEASUREMENT_REGRESSION_1_CORRECTION_1_2026-10-05/STAGE2_FINAL_MEASUREMENT_REGRESSION_1_CORRECTION_1.json",
+      "frozenBytes": 200862,
+      "frozenSha256": "b7c26c16e2c383be256e96ff425e29c97a37f92b72ccb8be85e54d2822d9d1dd",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "b7c26c16e2c383be256e96ff425e29c97a37f92b72ccb8be85e54d2822d9d1dd",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_FINAL_MEASUREMENT_REGRESSION_1_CORRECTION_1_2026-10-05/STAGE2_FINAL_MEASUREMENT_REGRESSION_1_CORRECTION_1_MANIFEST.json",
+      "frozenBytes": 12200,
+      "frozenSha256": "3b0ec4db13a8699af73142a1dedbce572b773df10f427b59332fda297cd21e9c",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "3b0ec4db13a8699af73142a1dedbce572b773df10f427b59332fda297cd21e9c",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_FINAL_MEASUREMENT_REGRESSION_1_CORRECTION_1_2026-10-05/STAGE2_FINAL_MEASUREMENT_REGRESSION_1_CORRECTION_1_REPORT.md",
+      "frozenBytes": 17313,
+      "frozenSha256": "ee122a4baf00847c9ff78c8d2fcc2200253ec7f4ac0d35002ff0115f34a329a2",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "ee122a4baf00847c9ff78c8d2fcc2200253ec7f4ac0d35002ff0115f34a329a2",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_FINAL_MEASUREMENT_REGRESSION_1_CORRECTION_1_IV1_2026-10-05/STAGE2_FINAL_MEASUREMENT_REGRESSION_1_CORRECTION_1_IV1_FINDINGS.json",
+      "frozenBytes": 149195,
+      "frozenSha256": "7ef53357fb567a7914f8a1cf2d362a6d364ea747e5ff1a86f63b536f95c904b8",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "7ef53357fb567a7914f8a1cf2d362a6d364ea747e5ff1a86f63b536f95c904b8",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_FINAL_MEASUREMENT_REGRESSION_1_CORRECTION_1_IV1_2026-10-05/STAGE2_FINAL_MEASUREMENT_REGRESSION_1_CORRECTION_1_IV1_MANIFEST.json",
+      "frozenBytes": 4959,
+      "frozenSha256": "6ff1030e1295447b615c58f763905980f3fc659315a56e38547f56157b535bcc",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "6ff1030e1295447b615c58f763905980f3fc659315a56e38547f56157b535bcc",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_FINAL_MEASUREMENT_REGRESSION_1_CORRECTION_1_IV1_2026-10-05/STAGE2_FINAL_MEASUREMENT_REGRESSION_1_CORRECTION_1_IV1_REPORT.md",
+      "frozenBytes": 26067,
+      "frozenSha256": "7fa1a13318f6386d2d471b378bab60cbb4ea7c24f91857cfdd19853aa6c60b65",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "7fa1a13318f6386d2d471b378bab60cbb4ea7c24f91857cfdd19853aa6c60b65",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_FM0205_PLAN_CURRENT_DRIFT_CORRECTION_1_2026-10-04/STAGE2_FM0205_PLAN_CURRENT_DRIFT_CORRECTION_1.json",
+      "frozenBytes": 11015,
+      "frozenSha256": "64f489d7569a58d86d4996d1e9abf8538580915ac37ef31e542a0f13188660c4",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "64f489d7569a58d86d4996d1e9abf8538580915ac37ef31e542a0f13188660c4",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_FM0205_PLAN_CURRENT_DRIFT_DETERMINATION_1_IV1_REPORT.md",
+      "frozenBytes": 25315,
+      "frozenSha256": "60b3f8b438d2ffdd6a71ac58c39c72df56c7fc11ead5a43106f64947a4a573cb",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "60b3f8b438d2ffdd6a71ac58c39c72df56c7fc11ead5a43106f64947a4a573cb",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_MEASUREMENT_AUTHORITY_CLARIFICATION_1_2026-10-05/STAGE2_MEASUREMENT_AUTHORITY_CLARIFICATION_1.md",
+      "frozenBytes": 28763,
+      "frozenSha256": "8988e49e427b0b8ea58c102459963031cee7d406ab49bf16340d091935779ca2",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "8988e49e427b0b8ea58c102459963031cee7d406ab49bf16340d091935779ca2",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_MEASUREMENT_AUTHORITY_CLARIFICATION_1_2026-10-05/STAGE2_MEASUREMENT_AUTHORITY_CLARIFICATION_1_MANIFEST.json",
+      "frozenBytes": 10744,
+      "frozenSha256": "21d0430eb7c03e6ee1e9bf64f851cc37b393c4bd0178df37a26822a156aaf8b9",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "21d0430eb7c03e6ee1e9bf64f851cc37b393c4bd0178df37a26822a156aaf8b9",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_PD3_CORR1_AFFECTED_EXECUTION_1_AB_COMPARISON_1_IV1_2026-10-04/STAGE2_PD3_CORR1_AFFECTED_EXECUTION_1_AB_COMPARISON_1_IV1_REPORT.md",
+      "frozenBytes": 29338,
+      "frozenSha256": "6ac7af43c656351133eed1ca8f6867c377f08fde6faed98ba6e282560b33439a",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "6ac7af43c656351133eed1ca8f6867c377f08fde6faed98ba6e282560b33439a",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CANDIDATE.md",
+      "frozenBytes": 340151,
+      "frozenSha256": "5ad884abb1af2d04f0acea3e70067a0747485a4f2b7adaf96bc8bb405e3faea6",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "5ad884abb1af2d04f0acea3e70067a0747485a4f2b7adaf96bc8bb405e3faea6",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md",
+      "frozenBytes": 344754,
+      "frozenSha256": "cb08b51e1c2fbaec7765989a7a4e15db1788c53eb5fec43f2628ecb88c1d6c73",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "cb08b51e1c2fbaec7765989a7a4e15db1788c53eb5fec43f2628ecb88c1d6c73",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_POST_RECONCILIATION_DOWNSTREAM_CONSEQUENCE_CENSUS_1_2026-10-03/STAGE2_POST_RECONCILIATION_DOWNSTREAM_CONSEQUENCE_CENSUS_1.json",
+      "frozenBytes": 207469,
+      "frozenSha256": "76473325c04b428741ddd66c3d55f6961066f1bdd269d59bbc460a0d94325688",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "76473325c04b428741ddd66c3d55f6961066f1bdd269d59bbc460a0d94325688",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_POST_RECONCILIATION_DOWNSTREAM_CONSEQUENCE_CENSUS_1_CORR1_2026-10-04/STAGE2_POST_RECONCILIATION_DOWNSTREAM_CONSEQUENCE_CENSUS_1_CORR1.json",
+      "frozenBytes": 73983,
+      "frozenSha256": "4015f573b7d0ba219a4ee762418826aa4e7964231d8957cbf8d1ac250504f210",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "4015f573b7d0ba219a4ee762418826aa4e7964231d8957cbf8d1ac250504f210",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_POST_RECONCILIATION_DOWNSTREAM_CONSEQUENCE_CENSUS_1_CORR2_2026-10-04/STAGE2_POST_RECONCILIATION_DOWNSTREAM_CONSEQUENCE_CENSUS_1_CORR2.json",
+      "frozenBytes": 31649,
+      "frozenSha256": "383350fb7c90fe7824ce191eca42edfd3232816f4d56de8e6fc1fbb9f20e5a9a",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "383350fb7c90fe7824ce191eca42edfd3232816f4d56de8e6fc1fbb9f20e5a9a",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_POST_RECONCILIATION_DOWNSTREAM_CONSEQUENCE_CENSUS_1_CORR2_DELTA_IV1_REPORT.md",
+      "frozenBytes": 12929,
+      "frozenSha256": "1378ee4191220f8d1aa3e5d54877d404e3ddbcdfc47020cf1949e8d703c657f2",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "1378ee4191220f8d1aa3e5d54877d404e3ddbcdfc47020cf1949e8d703c657f2",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_POST_RECONCILIATION_EXECUTION_1_AB_COMPARISON_2026-10-04/STAGE2_POST_RECONCILIATION_EXECUTION_1_AB_COMPARISON.json",
+      "frozenBytes": 87506,
+      "frozenSha256": "2e8256657225f36612dd00e79a69e755b5fc0d96631ce1523949e57cd49f1f20",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "2e8256657225f36612dd00e79a69e755b5fc0d96631ce1523949e57cd49f1f20",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_POST_RECONCILIATION_EXECUTION_1_CODER_A_2026-10-04/STAGE2_POST_RECONCILIATION_EXECUTION_1_CODER_A_RECORDS.jsonl",
+      "frozenBytes": 104314,
+      "frozenSha256": "8914e745d5df3fbcfc4c4d47be3643ab44a0a3e89fae3d3445b9a94a0b042c71",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "8914e745d5df3fbcfc4c4d47be3643ab44a0a3e89fae3d3445b9a94a0b042c71",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_RC1_ROLE_CONDITIONED_RESOURCE_ACCESS_REPAIR_CANDIDATE_1/RC1_METHODOLOGY_SUCCESSOR_CANDIDATE.md",
+      "frozenBytes": 310919,
+      "frozenSha256": "1afe86df1a54b543ea9468184910cf39caed8d667bc6a156881214fd4217c193",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "1afe86df1a54b543ea9468184910cf39caed8d667bc6a156881214fd4217c193",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_RC2_EFFECTIVE_PERIOD_T0_REACH_REPAIR_CANDIDATE_1/RC2_METHODOLOGY_SUCCESSOR_CANDIDATE.md",
+      "frozenBytes": 319604,
+      "frozenSha256": "c63d23950db712f10efe8dc46a29f16c6a664c72ffd0d7f6c6a1fd86e0eac0e5",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "c63d23950db712f10efe8dc46a29f16c6a664c72ffd0d7f6c6a1fd86e0eac0e5",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_RC3_STANDING_ARRANGEMENT_CHARACTERISTICITY_REPAIR_CANDIDATE_1/RC3_METHODOLOGY_SUCCESSOR_CANDIDATE.md",
+      "frozenBytes": 332431,
+      "frozenSha256": "cbe1fbd843e7a278ede3c642214fc7011efd09f934f5bec66e865ff9077291e2",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "cbe1fbd843e7a278ede3c642214fc7011efd09f934f5bec66e865ff9077291e2",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_RC3_STANDING_ARRANGEMENT_CHARACTERISTICITY_REPAIR_CANDIDATE_1_CORR1/RC3_CORR1_METHODOLOGY_SUCCESSOR_CANDIDATE.md",
+      "frozenBytes": 334493,
+      "frozenSha256": "e0dc81f017ff02418b81a0bcb74c808fdae5748fddc5416b2ba42883da497817",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "e0dc81f017ff02418b81a0bcb74c808fdae5748fddc5416b2ba42883da497817",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_RC4_OPERATIVE_EVIDENCE_BOUNDARY_REPAIR_CANDIDATE_1/RC4_METHODOLOGY_SUCCESSOR_CANDIDATE.md",
+      "frozenBytes": 324815,
+      "frozenSha256": "16250b25e2f0f258ebe667208dfc69cc79f62f84a2ad5e9e6837c76bd2053c7a",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "16250b25e2f0f258ebe667208dfc69cc79f62f84a2ad5e9e6837c76bd2053c7a",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_RC5_COMMENCEMENT_EVIDENCE_REPAIR_CANDIDATE_1/RC5_METHODOLOGY_SUCCESSOR_CANDIDATE.md",
+      "frozenBytes": 315382,
+      "frozenSha256": "7d377a0dc364c4b3ea056cbf85d96b8fa06847660cb0d3df939827a6ab755467",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "7d377a0dc364c4b3ea056cbf85d96b8fa06847660cb0d3df939827a6ab755467",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_SEMANTIC_SUCCESSOR_CANDIDATE_CORR4.md",
+      "frozenBytes": 250512,
+      "frozenSha256": "2de49862fb0d63c5f1cd1745531199137e73b7b37abceecef6e735d497d38bb0",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "2de49862fb0d63c5f1cd1745531199137e73b7b37abceecef6e735d497d38bb0",
+      "gitMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR1_2026-10-05/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR1_CANDIDATE.md",
+      "frozenBytes": 102697,
+      "frozenSha256": "02505e92fd018439f9aba7d4b551fe5542c1be92c7bbb7d4f63994dc1dfa51e9",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "02505e92fd018439f9aba7d4b551fe5542c1be92c7bbb7d4f63994dc1dfa51e9",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR2_CORR1_CORR1_CORR1_CORR1_2026-10-05/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_CORR2_CORR1_CORR1_CORR1_CORR1_CANDIDATE.md",
+      "frozenBytes": 111635,
+      "frozenSha256": "2f595ab5ddecc7e8149f751c661470bbae1fa3abfb1fb207b2b65c4c4565d6c8",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "2f595ab5ddecc7e8149f751c661470bbae1fa3abfb1fb207b2b65c4c4565d6c8",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_2026-10-05/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CODER_VIEW_SCHEMA_SUCCESSOR.json",
+      "frozenBytes": 13130,
+      "frozenSha256": "a480e853a841762524d931abd1f5235c414a5fd1437e25a608544c0e8420d434",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "a480e853a841762524d931abd1f5235c414a5fd1437e25a608544c0e8420d434",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_2026-10-05/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_FIELD_SOURCE_MATRIX_SUCCESSOR.json",
+      "frozenBytes": 29036,
+      "frozenSha256": "6491195a15d699cb1ac76f487f2fba3248b301516ddac90bf6375892332a6c21",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "6491195a15d699cb1ac76f487f2fba3248b301516ddac90bf6375892332a6c21",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_2026-10-05/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_METHODOLOGY_SUCCESSOR.md",
+      "frozenBytes": 34054,
+      "frozenSha256": "c5b2bdf0cc21f2219b630ce81f481369f9b916e998c2ae28da3ac9dc2ec69455",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": false,
+      "worktreeExists": true,
+      "worktreeSha256": "c5b2bdf0cc21f2219b630ce81f481369f9b916e998c2ae28da3ac9dc2ec69455",
+      "worktreeMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_2026-10-07/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_CONTRACT_MODEL.json",
+      "frozenBytes": 107403,
+      "frozenSha256": "433a8bf310d255860f04ad5147908a6003aaacf74d61f7dde892d481373de85d",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "433a8bf310d255860f04ad5147908a6003aaacf74d61f7dde892d481373de85d",
+      "gitMatch": true
+    },
+    {
+      "rel": "WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_2026-10-07/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_SUCCESSOR_VIEW_BUILDER.py",
+      "frozenBytes": 89501,
+      "frozenSha256": "4fabec820660e9399ece1314142e5bdc99a3196c9794fa71a3dc5ddb80551cc9",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "4fabec820660e9399ece1314142e5bdc99a3196c9794fa71a3dc5ddb80551cc9",
+      "gitMatch": true
+    },
+    {
+      "rel": "docs/governance/MERGEVUE_CONTROL_TREE_REPORT_PRODUCT_ADDENDUM_2026-09-21.md",
+      "frozenBytes": 13915,
+      "frozenSha256": "83cdd1ec02f11579167ef24737fd8f2c24e8f6bd7993909054649dcc3e776815",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "83cdd1ec02f11579167ef24737fd8f2c24e8f6bd7993909054649dcc3e776815",
+      "gitMatch": true
+    },
+    {
+      "rel": "docs/governance/MERGEVUE_CONTROL_TREE_REPORT_PRODUCT_ADDENDUM_2026-09-21.sha256",
+      "frozenBytes": 126,
+      "frozenSha256": "c532dfb724f9807bad99e05b172cc55f8854296d905fad3e312dac201f1f8381",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "c532dfb724f9807bad99e05b172cc55f8854296d905fad3e312dac201f1f8381",
+      "gitMatch": true
+    },
+    {
+      "rel": "docs/governance/MERGEVUE_CONTROL_TREE_v2.1_2026-09-04.md",
+      "frozenBytes": 36971,
+      "frozenSha256": "360bafa29bad5ea93752323d4a217bf59aaec628e0e2b236350a2edd9c1f7128",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "360bafa29bad5ea93752323d4a217bf59aaec628e0e2b236350a2edd9c1f7128",
+      "gitMatch": true
+    },
+    {
+      "rel": "docs/governance/MERGEVUE_CONTROL_TREE_v2.1_2026-09-04.sha256",
+      "frozenBytes": 107,
+      "frozenSha256": "253650e871f6f2e1cc7eabbcc2875544faeed1b154385c763dce3352c37f7fa4",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "253650e871f6f2e1cc7eabbcc2875544faeed1b154385c763dce3352c37f7fa4",
+      "gitMatch": true
+    },
+    {
+      "rel": "docs/governance/MERGEVUE_GIT_WORKTREE_CLOSURE_GOVERNANCE_2026-09-05.md",
+      "frozenBytes": 12453,
+      "frozenSha256": "27aa43abd0d8ce93b500231ded6b47d98949ba2a475f991098081c320b270a85",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "27aa43abd0d8ce93b500231ded6b47d98949ba2a475f991098081c320b270a85",
+      "gitMatch": true
+    },
+    {
+      "rel": "docs/governance/MERGEVUE_GIT_WORKTREE_CLOSURE_GOVERNANCE_2026-09-05.md.sha256",
+      "frozenBytes": 121,
+      "frozenSha256": "add0ac70d6d634df81020de8dee935f0e7d08f8feb37e11fdbfc7b8c929d0f58",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "add0ac70d6d634df81020de8dee935f0e7d08f8feb37e11fdbfc7b8c929d0f58",
+      "gitMatch": true
+    },
+    {
+      "rel": "docs/governance/MERGEVUE_MODEL_ROUTING_AND_VERIFICATION_POLICY_2026-09-08.md",
+      "frozenBytes": 21120,
+      "frozenSha256": "07fdf43043c3a2245c7cb0eae2e89ff42f88d66100736751227f2ddfb7d34a23",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "07fdf43043c3a2245c7cb0eae2e89ff42f88d66100736751227f2ddfb7d34a23",
+      "gitMatch": true
+    },
+    {
+      "rel": "docs/governance/MERGEVUE_MODEL_ROUTING_AND_VERIFICATION_POLICY_2026-09-08.md.sha256",
+      "frozenBytes": 127,
+      "frozenSha256": "fce0e53da09b5c7c7ab6ab320eecb9716b3510e0924f0554b0c5d8165d18de64",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "fce0e53da09b5c7c7ab6ab320eecb9716b3510e0924f0554b0c5d8165d18de64",
+      "gitMatch": true
+    },
+    {
+      "rel": "docs/governance/MERGEVUE_TREE_MODEL_NEED_FIRST_ORCHESTRATION_GUARDRAIL_v1.0_2026-09-21.md",
+      "frozenBytes": 16731,
+      "frozenSha256": "93484e4647045884912a89b0931a330acb504614bd6cbd480c4c1a30eb4bf1b7",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "93484e4647045884912a89b0931a330acb504614bd6cbd480c4c1a30eb4bf1b7",
+      "gitMatch": true
+    },
+    {
+      "rel": "docs/governance/MERGEVUE_TREE_MODEL_NEED_FIRST_ORCHESTRATION_GUARDRAIL_v1.0_2026-09-21.sha256",
+      "frozenBytes": 140,
+      "frozenSha256": "7e26fe3a14c7e5fd1a4fbbdade00121110a6e48914b7512504e47945aada278a",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "7e26fe3a14c7e5fd1a4fbbdade00121110a6e48914b7512504e47945aada278a",
+      "gitMatch": true
+    },
+    {
+      "rel": "docs/governance/historical-corpus/MERGEVUE_STAGE1_FACTUAL_AUTHORITY_SUCCESSOR_BINDING_AND_CLOSURE_2026-09-25.md",
+      "frozenBytes": 22517,
+      "frozenSha256": "be9593a767edfa1d61787458db3de1c7034d49ac60b65fe0ce8e11402fe70237",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "be9593a767edfa1d61787458db3de1c7034d49ac60b65fe0ce8e11402fe70237",
+      "gitMatch": true
+    },
+    {
+      "rel": "docs/reference/root-definitional-v1.7/contract/CASE-3.4_CONTRACT_v1.3.md",
+      "frozenBytes": 27762,
+      "frozenSha256": "dae8143899cd4fb7e406b4b410e9730a6f8bf7853989f3ef9757edeec293ae39",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "dae8143899cd4fb7e406b4b410e9730a6f8bf7853989f3ef9757edeec293ae39",
+      "gitMatch": true
+    },
+    {
+      "rel": "skills/mergevue-agent-quality-gate/SKILL.md",
+      "frozenBytes": 32781,
+      "frozenSha256": "c80d3aa92ec16cde41eec0a7c3e22d6b6cd1767a910d5e26e40cee59615dacdb",
+      "pinMatch": true,
+      "symlink": false,
+      "escapesRoot": false,
+      "gitTracked": true,
+      "gitSha256": "c80d3aa92ec16cde41eec0a7c3e22d6b6cd1767a910d5e26e40cee59615dacdb",
+      "gitMatch": true
+    }
+  ],
+  "composition": {
+    "recordCount": 116,
+    "lineCount": 116,
+    "trailingNewline": true,
+    "types": {
+      "POST_RECONCILIATION_EXECUTION_CELL_RECORD": 110,
+      "SECTION_I_RECORD": 6
+    },
+    "duplicateJsonKeys": [],
+    "edgePositions": [
+      110,
+      111,
+      112,
+      113,
+      114,
+      115
+    ],
+    "first110AreCells": true,
+    "last6AreSectionI": true,
+    "legacyRawSha256": "b382ffc52a626cc8eb796f01d1456d531cdea959bc6c23f7d31b0d392031ceca",
+    "legacyRawBytes": 78644,
+    "orderedIdentities": [
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        1
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        2
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        3
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        4
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        5
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        6
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        7
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        8
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        9
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        10
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        11
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        12
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        13
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        14
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        15
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        16
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        17
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        18
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        19
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        20
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        21
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        22
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        23
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        24
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        25
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        26
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        27
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        28
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        29
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        30
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        31
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        32
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        33
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        34
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        35
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        36
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        37
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        38
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        39
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        40
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        41
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        42
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        43
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        44
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        45
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        46
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        47
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        48
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        49
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        50
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        51
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        52
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        53
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        54
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        55
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        56
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        57
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        58
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        59
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        60
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        61
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        62
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        63
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        64
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        65
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        66
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        67
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        68
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        69
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        70
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        71
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        72
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        73
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        74
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        75
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        76
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        77
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        78
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        79
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        80
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        81
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        82
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        83
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        84
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        85
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        86
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        87
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        88
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        89
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        90
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        91
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        92
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        93
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        94
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        95
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        96
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        97
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        98
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        99
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        100
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        101
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        102
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        103
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        104
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        105
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        106
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        107
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        108
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        109
+      ],
+      [
+        "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+        110
+      ],
+      [
+        "SECTION_I_RECORD",
+        "A-EXEC1:F-B-0025:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS"
+      ],
+      [
+        "SECTION_I_RECORD",
+        "A-EXEC1:F0024:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS"
+      ],
+      [
+        "SECTION_I_RECORD",
+        "A-RERUN1-CORR1:F-E-0182:M-RECOGNISED-COMMAND-ORDER:TT-STPSTJ-ESS"
+      ],
+      [
+        "SECTION_I_RECORD",
+        "A-RERUN1-CORR1:F-E-0182:M-RECOGNISED-COMMAND-ORDER:TT-STPSTJ-PW"
+      ],
+      [
+        "SECTION_I_RECORD",
+        "A-E001"
+      ],
+      [
+        "SECTION_I_RECORD",
+        "A-E023"
+      ]
+    ],
+    "duplicateCellOrEdgeIds": 0,
+    "family": [
+      {
+        "line": 111,
+        "index": 110,
+        "edgeId": "A-EXEC1:F-B-0025:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS",
+        "hasSupportClass": true,
+        "supportClass": "DIRECT_SUPPORT",
+        "successorKeysPresent": [],
+        "nullKeys": [
+          "abstention",
+          "beliefSystemRef",
+          "decisionRef",
+          "participationSystemRef"
+        ],
+        "factIds": [
+          "F-B-0025"
+        ],
+        "side": "WHOLE_FOODS",
+        "sourceClass": "OUTSIDE_FROZEN_VOCABULARY",
+        "discriminatorIds": [
+          "D-07"
+        ],
+        "caseId": "amazon-whole-foods",
+        "sourceRefCount": 1,
+        "sourceRef0": {
+          "refIndex": 0,
+          "sourceId": "S-B1",
+          "sourceIdBindingLocator": "record-level key 'sources'[] .source_id",
+          "factLevelLocator": "Item 1. Business",
+          "factLevelLocatorAbsent": false,
+          "registryFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/amazon-whole-foods/01_T0_PRE_T0_BASELINE/candidate/03_SOURCE_REGISTRY.json",
+          "registryFileSha256": "608e9767a9521c9c062759e2d6dc34c0acd22411c2fe0d799470f8b2e54e81f8",
+          "registryRecordIndex": 3,
+          "registryRecordSha256": "ec67850252187bfdb46c117c3601168322afde67135d29006e83e4ded15fc8cc",
+          "documentaryIdentity": {
+            "documentaryType": {
+              "key": "document_type",
+              "value": "FORM_10K"
+            },
+            "documentaryTitle": {
+              "key": "canonical_title",
+              "value": "Whole Foods Market, Inc. Form 10-K for fiscal year ended September 25, 2016"
+            },
+            "documentaryIssuerOrPublisher": {
+              "key": "issuer_publisher",
+              "value": "Whole Foods Market, Inc."
+            }
+          }
+        },
+        "componentKeySets": [
+          [
+            "componentId",
+            "entailmentBasis",
+            "linkageEvidence",
+            "status"
+          ]
+        ]
+      },
+      {
+        "line": 112,
+        "index": 111,
+        "edgeId": "A-EXEC1:F0024:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS",
+        "hasSupportClass": true,
+        "supportClass": "DIRECT_SUPPORT",
+        "successorKeysPresent": [],
+        "nullKeys": [
+          "abstention",
+          "beliefSystemRef",
+          "decisionRef",
+          "participationSystemRef"
+        ],
+        "factIds": [
+          "F0024"
+        ],
+        "side": "AOL",
+        "sourceClass": "compensation plans",
+        "discriminatorIds": [
+          "D-07"
+        ],
+        "caseId": "aol-time-warner",
+        "sourceRefCount": 1,
+        "sourceRef0": {
+          "refIndex": 0,
+          "sourceId": "S0009",
+          "sourceIdBindingLocator": "record-level key 'source_ids'",
+          "factLevelLocator": "S0009 Employment Contracts / 1992 Plan change-in-control paragraph",
+          "factLevelLocatorAbsent": false,
+          "registryFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/aol-time-warner/01_T0_PRE_T0_BASELINE/candidate/03_SOURCE_REGISTRY.json",
+          "registryFileSha256": "bcc4576b6f1a94e8417340fe49a9f2a9a00aadd0db776acb4c9878579893dd09",
+          "registryRecordIndex": 8,
+          "registryRecordSha256": "df0f7cafb55087e317af99c02731f41e32691eab11ca829baac0b210dd27bea9",
+          "documentaryIdentity": {
+            "documentaryType": {
+              "key": "document_type",
+              "value": "DEF_14A"
+            },
+            "documentaryTitle": {
+              "key": "title",
+              "value": "America Online, Inc. Definitive Proxy Statement (DEF 14A) for 1999 annual meeting"
+            },
+            "documentaryIssuerOrPublisher": {
+              "key": "publisher",
+              "value": "U.S. Securities and Exchange Commission / America Online, Inc."
+            }
+          }
+        },
+        "componentKeySets": [
+          [
+            "componentId",
+            "entailmentBasis",
+            "linkageEvidence",
+            "status"
+          ]
+        ]
+      },
+      {
+        "line": 113,
+        "index": 112,
+        "edgeId": "A-RERUN1-CORR1:F-E-0182:M-RECOGNISED-COMMAND-ORDER:TT-STPSTJ-ESS",
+        "hasSupportClass": true,
+        "supportClass": "NON_DISCRIMINATING",
+        "successorKeysPresent": [],
+        "nullKeys": [
+          "abstention",
+          "ambiguity",
+          "beliefSystemRef",
+          "participationSystemRef",
+          "resourceFlowRef"
+        ],
+        "factIds": [
+          "F-E-0182"
+        ],
+        "side": "EXXON",
+        "sourceClass": "access-rights/role matrices",
+        "discriminatorIds": [
+          "D-04"
+        ],
+        "caseId": "exxon-mobil",
+        "sourceRefCount": 1,
+        "sourceRef0": {
+          "refIndex": 0,
+          "sourceId": "S-E2",
+          "sourceIdBindingLocator": "record-level key 'sources'[] .source_id",
+          "factLevelLocator": "Board Committees \u2014 Board Compensation Committee; Base Salary",
+          "factLevelLocatorAbsent": false,
+          "registryFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/exxon-mobil/01_T0_PRE_T0_BASELINE/candidate_corr8/03_SOURCE_REGISTRY.json",
+          "registryFileSha256": "23577f9a1116f47e7df1036d60644ea4524cb828ac73ff29f2667a404a34c9af",
+          "registryRecordIndex": 1,
+          "registryRecordSha256": "bcd0facffb31972eca2e6bf56aaf3a5430cc1cfbb1ce2b35a8ef96a688d16faa",
+          "documentaryIdentity": {
+            "documentaryType": {
+              "key": "document_type",
+              "value": "DEF_14A"
+            },
+            "documentaryTitle": {
+              "key": "title",
+              "value": "Exxon Corporation DEF 14A for 1998 Annual Meeting (April 29, 1998)"
+            },
+            "documentaryIssuerOrPublisher": {
+              "key": null,
+              "value": null,
+              "absentReason": "PACKAGE_SOURCE_REGISTRY_CARRIES_NO_ISSUER_PUBLISHER_FIELD"
+            }
+          }
+        },
+        "componentKeySets": [
+          [
+            "componentId",
+            "entailmentBasis",
+            "linkageEvidence",
+            "status"
+          ]
+        ]
+      },
+      {
+        "line": 114,
+        "index": 113,
+        "edgeId": "A-RERUN1-CORR1:F-E-0182:M-RECOGNISED-COMMAND-ORDER:TT-STPSTJ-PW",
+        "hasSupportClass": true,
+        "supportClass": "NON_DISCRIMINATING",
+        "successorKeysPresent": [],
+        "nullKeys": [
+          "abstention",
+          "ambiguity",
+          "beliefSystemRef",
+          "participationSystemRef",
+          "resourceFlowRef"
+        ],
+        "factIds": [
+          "F-E-0182"
+        ],
+        "side": "EXXON",
+        "sourceClass": "access-rights/role matrices",
+        "discriminatorIds": [
+          "D-04"
+        ],
+        "caseId": "exxon-mobil",
+        "sourceRefCount": 1,
+        "sourceRef0": {
+          "refIndex": 0,
+          "sourceId": "S-E2",
+          "sourceIdBindingLocator": "record-level key 'sources'[] .source_id",
+          "factLevelLocator": "Board Committees \u2014 Board Compensation Committee; Base Salary",
+          "factLevelLocatorAbsent": false,
+          "registryFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/exxon-mobil/01_T0_PRE_T0_BASELINE/candidate_corr8/03_SOURCE_REGISTRY.json",
+          "registryFileSha256": "23577f9a1116f47e7df1036d60644ea4524cb828ac73ff29f2667a404a34c9af",
+          "registryRecordIndex": 1,
+          "registryRecordSha256": "bcd0facffb31972eca2e6bf56aaf3a5430cc1cfbb1ce2b35a8ef96a688d16faa",
+          "documentaryIdentity": {
+            "documentaryType": {
+              "key": "document_type",
+              "value": "DEF_14A"
+            },
+            "documentaryTitle": {
+              "key": "title",
+              "value": "Exxon Corporation DEF 14A for 1998 Annual Meeting (April 29, 1998)"
+            },
+            "documentaryIssuerOrPublisher": {
+              "key": null,
+              "value": null,
+              "absentReason": "PACKAGE_SOURCE_REGISTRY_CARRIES_NO_ISSUER_PUBLISHER_FIELD"
+            }
+          }
+        },
+        "componentKeySets": [
+          [
+            "componentId",
+            "entailmentBasis",
+            "linkageEvidence",
+            "status"
+          ]
+        ]
+      },
+      {
+        "line": 115,
+        "index": 114,
+        "edgeId": "A-E001",
+        "hasSupportClass": false,
+        "supportClass": "ABSENT",
+        "successorKeysPresent": [
+          "bearingEvaluability",
+          "bearingIndeterminacyReasons",
+          "prOnlyBasis",
+          "supportBearing"
+        ],
+        "nullKeys": [
+          "abstention",
+          "ambiguity",
+          "bearingIndeterminacyReasons",
+          "beliefSystemRef",
+          "participationSystemRef",
+          "resourceFlowRef"
+        ],
+        "factIds": [
+          "C-B04"
+        ],
+        "side": "CHRYSLER",
+        "sourceClass": "OUTSIDE_FROZEN_VOCABULARY",
+        "discriminatorIds": [
+          "D-06"
+        ],
+        "caseId": "CASE-3.5",
+        "sourceRefCount": 1,
+        "sourceRef0": {
+          "refIndex": 0,
+          "sourceId": "C33-S01",
+          "sourceIdBindingLocator": "record-level key 'sourceIds'",
+          "factLevelLocator": null,
+          "factLevelLocatorAbsent": true,
+          "registryFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/Downloads/CASE-3.5_DAIMLER_CHRYSLER_BASELINE_v1.0.7_CANDIDATE/SOURCE_REGISTER.json",
+          "registryFileSha256": "64ca097dccaa95ec17642c6ceaed495e2d1064462627cad3ed47c8de04226109",
+          "registryRecordIndex": 0,
+          "registryRecordSha256": "ee254d3842a71ac04b733dce4fac0550fa0ae852c0739fc8d3c4d7fb74bc1cc2",
+          "documentaryIdentity": {
+            "documentaryType": {
+              "key": "sourceType",
+              "value": "PERIODICAL_PRINT_ARCHIVE"
+            },
+            "documentaryTitle": {
+              "key": "title",
+              "value": "Teamwork: Chrysler Builds a Concept as Well as a Car"
+            },
+            "documentaryIssuerOrPublisher": {
+              "key": "publisher",
+              "value": "Los Angeles Times"
+            }
+          }
+        },
+        "componentKeySets": [
+          [
+            "componentId",
+            "entailmentBasis",
+            "linkageEvidence",
+            "status"
+          ]
+        ]
+      },
+      {
+        "line": 116,
+        "index": 115,
+        "edgeId": "A-E023",
+        "hasSupportClass": true,
+        "supportClass": "DIRECT_SUPPORT",
+        "successorKeysPresent": [],
+        "nullKeys": [
+          "abstention",
+          "ambiguity",
+          "beliefSystemRef",
+          "participationSystemRef"
+        ],
+        "factIds": [
+          "F-M-0205"
+        ],
+        "side": "MOBIL",
+        "sourceClass": "OUTSIDE_FROZEN_VOCABULARY",
+        "discriminatorIds": [
+          "D-07"
+        ],
+        "caseId": "exxon-mobil",
+        "sourceRefCount": 1,
+        "sourceRef0": {
+          "refIndex": 0,
+          "sourceId": "S-M1",
+          "sourceIdBindingLocator": "record-level key 'sources'[] .source_id",
+          "factLevelLocator": "EX-13, Staying Ahead of the Curve in Chemicals",
+          "factLevelLocatorAbsent": false,
+          "registryFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/exxon-mobil/01_T0_PRE_T0_BASELINE/candidate_corr8/03_SOURCE_REGISTRY.json",
+          "registryFileSha256": "23577f9a1116f47e7df1036d60644ea4524cb828ac73ff29f2667a404a34c9af",
+          "registryRecordIndex": 4,
+          "registryRecordSha256": "665d9b58bf5439507512d015c93d59b3ebe9b8fd9b723cfa323ae96e409484b2",
+          "documentaryIdentity": {
+            "documentaryType": {
+              "key": "document_type",
+              "value": "FORM_10K"
+            },
+            "documentaryTitle": {
+              "key": "title",
+              "value": "Mobil Corporation Form 10-K for fiscal year ended December 31, 1997"
+            },
+            "documentaryIssuerOrPublisher": {
+              "key": null,
+              "value": null,
+              "absentReason": "PACKAGE_SOURCE_REGISTRY_CARRIES_NO_ISSUER_PUBLISHER_FIELD"
+            }
+          }
+        },
+        "componentKeySets": [
+          [
+            "componentId",
+            "entailmentBasis",
+            "linkageEvidence",
+            "status"
+          ]
+        ]
+      }
+    ],
+    "nullVsAbsentSample": "null keys listed per edge; absent keys are simply not in the object"
+  },
+  "oracle": {
+    "oracleShaMatchesEmbedded": true,
+    "historicalPredecessorSha": "a1fcae68939decd0a3c4a39c0a0bc48e8d285bd9cd7ce1928b0d025056244047",
+    "historicalPredecessorMatchesOracleClaim": true,
+    "historicalDuplicateKeys": [],
+    "historicalRecordCount": 116,
+    "identityOrderEqual": true,
+    "legacyRawMatchesOracle": true,
+    "orderedIdentitiesMatchOracle": true,
+    "lineIdentityMismatches": [],
+    "oracleRecordCount": 116,
+    "independentDiffCount": 19,
+    "oracleDiffCount": 19,
+    "diffSetEqual": true,
+    "oracleOnlyPaths": [],
+    "independentOnlyPaths": [],
+    "circularity": "Oracle line records were compared to git-object parses. Equality means the oracle freezes the accepted file. It is not a measurement self-check."
+  },
+  "schemaFields": [
+    "edgeId",
+    "caseId",
+    "side",
+    "factualPackageIdentity",
+    "factIds",
+    "sourceRefs",
+    "coderIdentity",
+    "vocabularyVersion",
+    "contractIdentity",
+    "mechanismPropositionIds",
+    "mechanismObjectTypes",
+    "discriminatorIds",
+    "treeTargetIds",
+    "relation",
+    "componentSupply",
+    "missingComponents",
+    "relationInstanceId",
+    "organizationalObjectRef",
+    "decisionRef",
+    "resourceFlowRef",
+    "participationSystemRef",
+    "beliefSystemRef",
+    "observedScope",
+    "claimedScope",
+    "scopeBridgeState",
+    "scopeBridgeFactIds",
+    "temporalState",
+    "continuityBridgeFactIds",
+    "characteristicityState",
+    "characteristicityFactIds",
+    "formalOperativeState",
+    "planCurrentState",
+    "evidenceForm",
+    "sourceQualityState",
+    "absenceEvidenceState",
+    "sourceClass",
+    "relevanceState",
+    "edgeState",
+    "supportClass",
+    "ambiguity",
+    "sufficiencyExpression",
+    "sufficiencyExpressionResult",
+    "counterevidenceFactIds",
+    "conflictFactIds",
+    "abstention",
+    "nonExpansionRationale",
+    "presentationLaneOnly"
+  ],
+  "augmentedSchemaFields": [
+    "edgeId",
+    "caseId",
+    "side",
+    "factualPackageIdentity",
+    "factIds",
+    "sourceRefs",
+    "coderIdentity",
+    "vocabularyVersion",
+    "contractIdentity",
+    "mechanismPropositionIds",
+    "mechanismObjectTypes",
+    "discriminatorIds",
+    "treeTargetIds",
+    "relation",
+    "componentSupply",
+    "missingComponents",
+    "relationInstanceId",
+    "organizationalObjectRef",
+    "decisionRef",
+    "resourceFlowRef",
+    "participationSystemRef",
+    "beliefSystemRef",
+    "observedScope",
+    "claimedScope",
+    "scopeBridgeState",
+    "scopeBridgeFactIds",
+    "temporalState",
+    "continuityBridgeFactIds",
+    "characteristicityState",
+    "characteristicityFactIds",
+    "formalOperativeState",
+    "planCurrentState",
+    "evidenceForm",
+    "sourceQualityState",
+    "absenceEvidenceState",
+    "sourceClass",
+    "relevanceState",
+    "edgeState",
+    "supportClass",
+    "ambiguity",
+    "sufficiencyExpression",
+    "sufficiencyExpressionResult",
+    "counterevidenceFactIds",
+    "conflictFactIds",
+    "abstention",
+    "nonExpansionRationale",
+    "presentationLaneOnly"
+  ],
+  "presentationLaneOnlyAdded": false,
+  "forbiddenOutputFields": [
+    "score",
+    "probability",
+    "confidence",
+    "weight",
+    "threshold",
+    "environment",
+    "environmentAssignment",
+    "environmentCode",
+    "prediction",
+    "predictionAccuracy",
+    "ecs",
+    "outcome",
+    "realizedOutcome",
+    "success",
+    "failure",
+    "stratificationMark",
+    "stratumLabel",
+    "sampleDLabel",
+    "peerCoderResult"
+  ],
+  "dispatch": [
+    {
+      "edgeId": "A-EXEC1:F-B-0025:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS",
+      "sectionFields": [
+        "edgeId",
+        "caseId",
+        "side",
+        "factualPackageIdentity",
+        "factIds",
+        "sourceRefs",
+        "coderIdentity",
+        "vocabularyVersion",
+        "contractIdentity",
+        "mechanismPropositionIds",
+        "mechanismObjectTypes",
+        "discriminatorIds",
+        "treeTargetIds",
+        "relation",
+        "componentSupply",
+        "missingComponents",
+        "relationInstanceId",
+        "organizationalObjectRef",
+        "decisionRef",
+        "resourceFlowRef",
+        "participationSystemRef",
+        "beliefSystemRef",
+        "observedScope",
+        "claimedScope",
+        "scopeBridgeState",
+        "scopeBridgeFactIds",
+        "temporalState",
+        "continuityBridgeFactIds",
+        "characteristicityState",
+        "characteristicityFactIds",
+        "formalOperativeState",
+        "planCurrentState",
+        "evidenceForm",
+        "sourceQualityState",
+        "absenceEvidenceState",
+        "sourceClass",
+        "relevanceState",
+        "edgeState",
+        "supportClass",
+        "ambiguity",
+        "sufficiencyExpression",
+        "sufficiencyExpressionResult",
+        "counterevidenceFactIds",
+        "conflictFactIds",
+        "abstention",
+        "nonExpansionRationale",
+        "presentationLaneOnly"
+      ],
+      "recordKeysMinusRecordType": [
+        "absenceEvidenceState",
+        "abstention",
+        "ambiguity",
+        "beliefSystemRef",
+        "caseId",
+        "characteristicityFactIds",
+        "characteristicityState",
+        "claimedScope",
+        "coderIdentity",
+        "componentSupply",
+        "conflictFactIds",
+        "continuityBridgeFactIds",
+        "contractIdentity",
+        "counterevidenceFactIds",
+        "decisionRef",
+        "discriminatorIds",
+        "edgeId",
+        "edgeState",
+        "evidenceForm",
+        "factIds",
+        "factualPackageIdentity",
+        "formalOperativeState",
+        "mechanismObjectTypes",
+        "mechanismPropositionIds",
+        "missingComponents",
+        "nonExpansionRationale",
+        "observedScope",
+        "organizationalObjectRef",
+        "participationSystemRef",
+        "planCurrentState",
+        "presentationLaneOnly",
+        "relation",
+        "relationInstanceId",
+        "relevanceState",
+        "resourceFlowRef",
+        "scopeBridgeFactIds",
+        "scopeBridgeState",
+        "side",
+        "sourceClass",
+        "sourceQualityState",
+        "sourceRefs",
+        "sufficiencyExpression",
+        "sufficiencyExpressionResult",
+        "supportClass",
+        "temporalState",
+        "treeTargetIds",
+        "vocabularyVersion"
+      ],
+      "exactMatch": true,
+      "supportClassRequired": true,
+      "successorRequired": []
+    },
+    {
+      "edgeId": "A-EXEC1:F0024:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS",
+      "sectionFields": [
+        "edgeId",
+        "caseId",
+        "side",
+        "factualPackageIdentity",
+        "factIds",
+        "sourceRefs",
+        "coderIdentity",
+        "vocabularyVersion",
+        "contractIdentity",
+        "mechanismPropositionIds",
+        "mechanismObjectTypes",
+        "discriminatorIds",
+        "treeTargetIds",
+        "relation",
+        "componentSupply",
+        "missingComponents",
+        "relationInstanceId",
+        "organizationalObjectRef",
+        "decisionRef",
+        "resourceFlowRef",
+        "participationSystemRef",
+        "beliefSystemRef",
+        "observedScope",
+        "claimedScope",
+        "scopeBridgeState",
+        "scopeBridgeFactIds",
+        "temporalState",
+        "continuityBridgeFactIds",
+        "characteristicityState",
+        "characteristicityFactIds",
+        "formalOperativeState",
+        "planCurrentState",
+        "evidenceForm",
+        "sourceQualityState",
+        "absenceEvidenceState",
+        "sourceClass",
+        "relevanceState",
+        "edgeState",
+        "supportClass",
+        "ambiguity",
+        "sufficiencyExpression",
+        "sufficiencyExpressionResult",
+        "counterevidenceFactIds",
+        "conflictFactIds",
+        "abstention",
+        "nonExpansionRationale",
+        "presentationLaneOnly"
+      ],
+      "recordKeysMinusRecordType": [
+        "absenceEvidenceState",
+        "abstention",
+        "ambiguity",
+        "beliefSystemRef",
+        "caseId",
+        "characteristicityFactIds",
+        "characteristicityState",
+        "claimedScope",
+        "coderIdentity",
+        "componentSupply",
+        "conflictFactIds",
+        "continuityBridgeFactIds",
+        "contractIdentity",
+        "counterevidenceFactIds",
+        "decisionRef",
+        "discriminatorIds",
+        "edgeId",
+        "edgeState",
+        "evidenceForm",
+        "factIds",
+        "factualPackageIdentity",
+        "formalOperativeState",
+        "mechanismObjectTypes",
+        "mechanismPropositionIds",
+        "missingComponents",
+        "nonExpansionRationale",
+        "observedScope",
+        "organizationalObjectRef",
+        "participationSystemRef",
+        "planCurrentState",
+        "presentationLaneOnly",
+        "relation",
+        "relationInstanceId",
+        "relevanceState",
+        "resourceFlowRef",
+        "scopeBridgeFactIds",
+        "scopeBridgeState",
+        "side",
+        "sourceClass",
+        "sourceQualityState",
+        "sourceRefs",
+        "sufficiencyExpression",
+        "sufficiencyExpressionResult",
+        "supportClass",
+        "temporalState",
+        "treeTargetIds",
+        "vocabularyVersion"
+      ],
+      "exactMatch": true,
+      "supportClassRequired": true,
+      "successorRequired": []
+    },
+    {
+      "edgeId": "A-RERUN1-CORR1:F-E-0182:M-RECOGNISED-COMMAND-ORDER:TT-STPSTJ-ESS",
+      "sectionFields": [
+        "edgeId",
+        "caseId",
+        "side",
+        "factualPackageIdentity",
+        "factIds",
+        "sourceRefs",
+        "coderIdentity",
+        "vocabularyVersion",
+        "contractIdentity",
+        "mechanismPropositionIds",
+        "mechanismObjectTypes",
+        "discriminatorIds",
+        "treeTargetIds",
+        "relation",
+        "componentSupply",
+        "missingComponents",
+        "relationInstanceId",
+        "organizationalObjectRef",
+        "decisionRef",
+        "resourceFlowRef",
+        "participationSystemRef",
+        "beliefSystemRef",
+        "observedScope",
+        "claimedScope",
+        "scopeBridgeState",
+        "scopeBridgeFactIds",
+        "temporalState",
+        "continuityBridgeFactIds",
+        "characteristicityState",
+        "characteristicityFactIds",
+        "formalOperativeState",
+        "planCurrentState",
+        "evidenceForm",
+        "sourceQualityState",
+        "absenceEvidenceState",
+        "sourceClass",
+        "relevanceState",
+        "edgeState",
+        "supportClass",
+        "ambiguity",
+        "sufficiencyExpression",
+        "sufficiencyExpressionResult",
+        "counterevidenceFactIds",
+        "conflictFactIds",
+        "abstention",
+        "nonExpansionRationale",
+        "presentationLaneOnly"
+      ],
+      "recordKeysMinusRecordType": [
+        "absenceEvidenceState",
+        "abstention",
+        "ambiguity",
+        "beliefSystemRef",
+        "caseId",
+        "characteristicityFactIds",
+        "characteristicityState",
+        "claimedScope",
+        "coderIdentity",
+        "componentSupply",
+        "conflictFactIds",
+        "continuityBridgeFactIds",
+        "contractIdentity",
+        "counterevidenceFactIds",
+        "decisionRef",
+        "discriminatorIds",
+        "edgeId",
+        "edgeState",
+        "evidenceForm",
+        "factIds",
+        "factualPackageIdentity",
+        "formalOperativeState",
+        "mechanismObjectTypes",
+        "mechanismPropositionIds",
+        "missingComponents",
+        "nonExpansionRationale",
+        "observedScope",
+        "organizationalObjectRef",
+        "participationSystemRef",
+        "planCurrentState",
+        "presentationLaneOnly",
+        "relation",
+        "relationInstanceId",
+        "relevanceState",
+        "resourceFlowRef",
+        "scopeBridgeFactIds",
+        "scopeBridgeState",
+        "side",
+        "sourceClass",
+        "sourceQualityState",
+        "sourceRefs",
+        "sufficiencyExpression",
+        "sufficiencyExpressionResult",
+        "supportClass",
+        "temporalState",
+        "treeTargetIds",
+        "vocabularyVersion"
+      ],
+      "exactMatch": true,
+      "supportClassRequired": true,
+      "successorRequired": []
+    },
+    {
+      "edgeId": "A-RERUN1-CORR1:F-E-0182:M-RECOGNISED-COMMAND-ORDER:TT-STPSTJ-PW",
+      "sectionFields": [
+        "edgeId",
+        "caseId",
+        "side",
+        "factualPackageIdentity",
+        "factIds",
+        "sourceRefs",
+        "coderIdentity",
+        "vocabularyVersion",
+        "contractIdentity",
+        "mechanismPropositionIds",
+        "mechanismObjectTypes",
+        "discriminatorIds",
+        "treeTargetIds",
+        "relation",
+        "componentSupply",
+        "missingComponents",
+        "relationInstanceId",
+        "organizationalObjectRef",
+        "decisionRef",
+        "resourceFlowRef",
+        "participationSystemRef",
+        "beliefSystemRef",
+        "observedScope",
+        "claimedScope",
+        "scopeBridgeState",
+        "scopeBridgeFactIds",
+        "temporalState",
+        "continuityBridgeFactIds",
+        "characteristicityState",
+        "characteristicityFactIds",
+        "formalOperativeState",
+        "planCurrentState",
+        "evidenceForm",
+        "sourceQualityState",
+        "absenceEvidenceState",
+        "sourceClass",
+        "relevanceState",
+        "edgeState",
+        "supportClass",
+        "ambiguity",
+        "sufficiencyExpression",
+        "sufficiencyExpressionResult",
+        "counterevidenceFactIds",
+        "conflictFactIds",
+        "abstention",
+        "nonExpansionRationale",
+        "presentationLaneOnly"
+      ],
+      "recordKeysMinusRecordType": [
+        "absenceEvidenceState",
+        "abstention",
+        "ambiguity",
+        "beliefSystemRef",
+        "caseId",
+        "characteristicityFactIds",
+        "characteristicityState",
+        "claimedScope",
+        "coderIdentity",
+        "componentSupply",
+        "conflictFactIds",
+        "continuityBridgeFactIds",
+        "contractIdentity",
+        "counterevidenceFactIds",
+        "decisionRef",
+        "discriminatorIds",
+        "edgeId",
+        "edgeState",
+        "evidenceForm",
+        "factIds",
+        "factualPackageIdentity",
+        "formalOperativeState",
+        "mechanismObjectTypes",
+        "mechanismPropositionIds",
+        "missingComponents",
+        "nonExpansionRationale",
+        "observedScope",
+        "organizationalObjectRef",
+        "participationSystemRef",
+        "planCurrentState",
+        "presentationLaneOnly",
+        "relation",
+        "relationInstanceId",
+        "relevanceState",
+        "resourceFlowRef",
+        "scopeBridgeFactIds",
+        "scopeBridgeState",
+        "side",
+        "sourceClass",
+        "sourceQualityState",
+        "sourceRefs",
+        "sufficiencyExpression",
+        "sufficiencyExpressionResult",
+        "supportClass",
+        "temporalState",
+        "treeTargetIds",
+        "vocabularyVersion"
+      ],
+      "exactMatch": true,
+      "supportClassRequired": true,
+      "successorRequired": []
+    },
+    {
+      "edgeId": "A-E001",
+      "sectionFields": [
+        "edgeId",
+        "caseId",
+        "side",
+        "factualPackageIdentity",
+        "factIds",
+        "sourceRefs",
+        "coderIdentity",
+        "vocabularyVersion",
+        "contractIdentity",
+        "mechanismPropositionIds",
+        "mechanismObjectTypes",
+        "discriminatorIds",
+        "treeTargetIds",
+        "relation",
+        "componentSupply",
+        "missingComponents",
+        "relationInstanceId",
+        "organizationalObjectRef",
+        "decisionRef",
+        "resourceFlowRef",
+        "participationSystemRef",
+        "beliefSystemRef",
+        "observedScope",
+        "claimedScope",
+        "scopeBridgeState",
+        "scopeBridgeFactIds",
+        "temporalState",
+        "continuityBridgeFactIds",
+        "characteristicityState",
+        "characteristicityFactIds",
+        "formalOperativeState",
+        "planCurrentState",
+        "evidenceForm",
+        "sourceQualityState",
+        "absenceEvidenceState",
+        "sourceClass",
+        "relevanceState",
+        "edgeState",
+        "ambiguity",
+        "sufficiencyExpression",
+        "sufficiencyExpressionResult",
+        "counterevidenceFactIds",
+        "conflictFactIds",
+        "abstention",
+        "nonExpansionRationale",
+        "presentationLaneOnly",
+        "prOnlyBasis",
+        "bearingEvaluability",
+        "bearingIndeterminacyReasons",
+        "supportBearing"
+      ],
+      "recordKeysMinusRecordType": [
+        "absenceEvidenceState",
+        "abstention",
+        "ambiguity",
+        "bearingEvaluability",
+        "bearingIndeterminacyReasons",
+        "beliefSystemRef",
+        "caseId",
+        "characteristicityFactIds",
+        "characteristicityState",
+        "claimedScope",
+        "coderIdentity",
+        "componentSupply",
+        "conflictFactIds",
+        "continuityBridgeFactIds",
+        "contractIdentity",
+        "counterevidenceFactIds",
+        "decisionRef",
+        "discriminatorIds",
+        "edgeId",
+        "edgeState",
+        "evidenceForm",
+        "factIds",
+        "factualPackageIdentity",
+        "formalOperativeState",
+        "mechanismObjectTypes",
+        "mechanismPropositionIds",
+        "missingComponents",
+        "nonExpansionRationale",
+        "observedScope",
+        "organizationalObjectRef",
+        "participationSystemRef",
+        "planCurrentState",
+        "prOnlyBasis",
+        "presentationLaneOnly",
+        "relation",
+        "relationInstanceId",
+        "relevanceState",
+        "resourceFlowRef",
+        "scopeBridgeFactIds",
+        "scopeBridgeState",
+        "side",
+        "sourceClass",
+        "sourceQualityState",
+        "sourceRefs",
+        "sufficiencyExpression",
+        "sufficiencyExpressionResult",
+        "supportBearing",
+        "temporalState",
+        "treeTargetIds",
+        "vocabularyVersion"
+      ],
+      "exactMatch": true,
+      "supportClassRequired": false,
+      "successorRequired": [
+        "bearingEvaluability",
+        "bearingIndeterminacyReasons",
+        "prOnlyBasis",
+        "supportBearing"
+      ]
+    },
+    {
+      "edgeId": "A-E023",
+      "sectionFields": [
+        "edgeId",
+        "caseId",
+        "side",
+        "factualPackageIdentity",
+        "factIds",
+        "sourceRefs",
+        "coderIdentity",
+        "vocabularyVersion",
+        "contractIdentity",
+        "mechanismPropositionIds",
+        "mechanismObjectTypes",
+        "discriminatorIds",
+        "treeTargetIds",
+        "relation",
+        "componentSupply",
+        "missingComponents",
+        "relationInstanceId",
+        "organizationalObjectRef",
+        "decisionRef",
+        "resourceFlowRef",
+        "participationSystemRef",
+        "beliefSystemRef",
+        "observedScope",
+        "claimedScope",
+        "scopeBridgeState",
+        "scopeBridgeFactIds",
+        "temporalState",
+        "continuityBridgeFactIds",
+        "characteristicityState",
+        "characteristicityFactIds",
+        "formalOperativeState",
+        "planCurrentState",
+        "evidenceForm",
+        "sourceQualityState",
+        "absenceEvidenceState",
+        "sourceClass",
+        "relevanceState",
+        "edgeState",
+        "supportClass",
+        "ambiguity",
+        "sufficiencyExpression",
+        "sufficiencyExpressionResult",
+        "counterevidenceFactIds",
+        "conflictFactIds",
+        "abstention",
+        "nonExpansionRationale",
+        "presentationLaneOnly"
+      ],
+      "recordKeysMinusRecordType": [
+        "absenceEvidenceState",
+        "abstention",
+        "ambiguity",
+        "beliefSystemRef",
+        "caseId",
+        "characteristicityFactIds",
+        "characteristicityState",
+        "claimedScope",
+        "coderIdentity",
+        "componentSupply",
+        "conflictFactIds",
+        "continuityBridgeFactIds",
+        "contractIdentity",
+        "counterevidenceFactIds",
+        "decisionRef",
+        "discriminatorIds",
+        "edgeId",
+        "edgeState",
+        "evidenceForm",
+        "factIds",
+        "factualPackageIdentity",
+        "formalOperativeState",
+        "mechanismObjectTypes",
+        "mechanismPropositionIds",
+        "missingComponents",
+        "nonExpansionRationale",
+        "observedScope",
+        "organizationalObjectRef",
+        "participationSystemRef",
+        "planCurrentState",
+        "presentationLaneOnly",
+        "relation",
+        "relationInstanceId",
+        "relevanceState",
+        "resourceFlowRef",
+        "scopeBridgeFactIds",
+        "scopeBridgeState",
+        "side",
+        "sourceClass",
+        "sourceQualityState",
+        "sourceRefs",
+        "sufficiencyExpression",
+        "sufficiencyExpressionResult",
+        "supportClass",
+        "temporalState",
+        "treeTargetIds",
+        "vocabularyVersion"
+      ],
+      "exactMatch": true,
+      "supportClassRequired": true,
+      "successorRequired": []
+    }
+  ],
+  "dispatchRaises": [],
+  "bindingRows": [
+    {
+      "edgeId": "A-EXEC1:F-B-0025:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS",
+      "derived": "OUTSIDE_FROZEN_VOCABULARY",
+      "stored": "OUTSIDE_FROZEN_VOCABULARY",
+      "match": true,
+      "key": [
+        "amazon-whole-foods",
+        "WHOLE_FOODS",
+        "F-B-0025",
+        0,
+        "S-B1"
+      ],
+      "state": "OUTSIDE_FROZEN_VOCABULARY"
+    },
+    {
+      "edgeId": "A-EXEC1:F0024:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS",
+      "derived": "compensation plans",
+      "stored": "compensation plans",
+      "match": true,
+      "key": [
+        "aol-time-warner",
+        "AOL",
+        "F0024",
+        0,
+        "S0009"
+      ],
+      "state": "ASSIGNED"
+    },
+    {
+      "edgeId": "A-RERUN1-CORR1:F-E-0182:M-RECOGNISED-COMMAND-ORDER:TT-STPSTJ-ESS",
+      "derived": "access-rights/role matrices",
+      "stored": "access-rights/role matrices",
+      "match": true,
+      "key": [
+        "exxon-mobil",
+        "EXXON",
+        "F-E-0182",
+        0,
+        "S-E2"
+      ],
+      "state": "ASSIGNED"
+    },
+    {
+      "edgeId": "A-RERUN1-CORR1:F-E-0182:M-RECOGNISED-COMMAND-ORDER:TT-STPSTJ-PW",
+      "derived": "access-rights/role matrices",
+      "stored": "access-rights/role matrices",
+      "match": true,
+      "key": [
+        "exxon-mobil",
+        "EXXON",
+        "F-E-0182",
+        0,
+        "S-E2"
+      ],
+      "state": "ASSIGNED"
+    },
+    {
+      "edgeId": "A-E001",
+      "derived": "OUTSIDE_FROZEN_VOCABULARY",
+      "stored": "OUTSIDE_FROZEN_VOCABULARY",
+      "match": true,
+      "key": [
+        "CASE-3.5",
+        "CHRYSLER",
+        "C-B04",
+        0,
+        "C33-S01"
+      ],
+      "state": "OUTSIDE_FROZEN_VOCABULARY"
+    },
+    {
+      "edgeId": "A-E023",
+      "derived": "OUTSIDE_FROZEN_VOCABULARY",
+      "stored": "OUTSIDE_FROZEN_VOCABULARY",
+      "match": true,
+      "key": [
+        "exxon-mobil",
+        "MOBIL",
+        "F-M-0205",
+        0,
+        "S-M1"
+      ],
+      "state": "OUTSIDE_FROZEN_VOCABULARY"
+    }
+  ],
+  "pi7DuplicateKeysInFile": [],
+  "classmapRows": [
+    {
+      "edgeId": "A-EXEC1:F-B-0025:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS",
+      "factId": "F-B-0025",
+      "classmap": "OUTSIDE_FROZEN_VOCABULARY",
+      "stored": "OUTSIDE_FROZEN_VOCABULARY",
+      "match": true
+    },
+    {
+      "edgeId": "A-EXEC1:F0024:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS",
+      "factId": "F0024",
+      "classmap": "compensation plans",
+      "stored": "compensation plans",
+      "match": true
+    },
+    {
+      "edgeId": "A-RERUN1-CORR1:F-E-0182:M-RECOGNISED-COMMAND-ORDER:TT-STPSTJ-ESS",
+      "factId": "F-E-0182",
+      "classmap": "access-rights/role matrices",
+      "stored": "access-rights/role matrices",
+      "match": true
+    },
+    {
+      "edgeId": "A-RERUN1-CORR1:F-E-0182:M-RECOGNISED-COMMAND-ORDER:TT-STPSTJ-PW",
+      "factId": "F-E-0182",
+      "classmap": "access-rights/role matrices",
+      "stored": "access-rights/role matrices",
+      "match": true
+    },
+    {
+      "edgeId": "A-E001",
+      "factId": "C-B04",
+      "classmap": "OUTSIDE_FROZEN_VOCABULARY",
+      "stored": "OUTSIDE_FROZEN_VOCABULARY",
+      "match": true
+    },
+    {
+      "edgeId": "A-E023",
+      "factId": "F-M-0205",
+      "classmap": "OUTSIDE_FROZEN_VOCABULARY",
+      "stored": "OUTSIDE_FROZEN_VOCABULARY",
+      "match": true
+    }
+  ],
+  "successor": {
+    "prOnlyBasisEqualsDecision": true,
+    "oracleLine114IsAE001": true,
+    "oraclePrEqualsRecord": true,
+    "adapterReturned": {
+      "bearingEvaluability": "EVALUABLE",
+      "bearingIndeterminacyReasons": null,
+      "supportBearing": "NON_DISCRIMINATING",
+      "prOnlyBasis": {
+        "adjudicatedBy": "A_E001_BEARING_DIRECTIONALITY_READJUDICATION_1",
+        "authority": "E9/07 \u00a712 (OWNER-CORR2-STJSTP); cb08b51e \u00a7F.3 l.1157; SEP-B-1b",
+        "basisComponents": [
+          "c1"
+        ],
+        "basisFactIds": [
+          "C-B04"
+        ],
+        "criterion": "one hard rule",
+        "prohibId": "PR-STJSTP",
+        "ttId": "TT-STJSTP-PW"
+      }
+    },
+    "adapterMatchesIndependentEvaluate": true,
+    "adapterPrEqualsDecision": true,
+    "outcomeCheck": {
+      "admission": {
+        "expected": "ADMITTED",
+        "actual": "ADMITTED",
+        "match": true
+      },
+      "bearingEvaluability": {
+        "expected": "EVALUABLE",
+        "actual": "EVALUABLE",
+        "match": true
+      },
+      "bearingIndeterminacyReasons": {
+        "expected": null,
+        "actual": null,
+        "match": true
+      },
+      "supportBearing": {
+        "expected": "NON_DISCRIMINATING",
+        "actual": "NON_DISCRIMINATING",
+        "match": true
+      },
+      "capFired": {
+        "expected": "B-1b",
+        "actual": "B-1b",
+        "match": true
+      }
+    },
+    "environmentFieldsInOutcome": []
+  },
+  "negativeResults": [
+    {
+      "name": "old_view_impersonation",
+      "expected": "EXACT_INPUT_IDENTITY",
+      "actual": "EXACT_INPUT_IDENTITY",
+      "detail": "{'path': '/private/tmp/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_FEVA_CORR2/FROZEN_INPUTS/WORKBENCH/DOWNLOADS/STAGE2_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_2026-10-05/STAGE2_EFFECTIVE_VIEW_ASSEMBLY_1_RECORDS.jsonl', 'bytes': 104310, 'sha256': 'a1fcae68939decd0a3c4a39c0a0bc48e8d285bd9cd7ce1928b0d025056244047'}",
+      "pass": true
+    },
+    {
+      "name": "same_length_different_sha",
+      "expected": "EXACT_INPUT_IDENTITY",
+      "actual": "EXACT_INPUT_IDENTITY",
+      "detail": "{'path': '/private/tmp/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_IV1/neg_same_len.jsonl', 'bytes': 104722, 'sha256': 'ee07ea1df0478d28ee3fdd228aeff9fef64bf85d42cc1f0bea950f432d5b04ec'}",
+      "pass": true
+    },
+    {
+      "name": "reordered_records",
+      "expected": "COMPOSITION_ORDERED_IDENTITIES",
+      "actual": "COMPOSITION_ORDERED_IDENTITIES",
+      "detail": "[['POST_RECONCILIATION_EXECUTION_CELL_RECORD', 2], ['POST_RECONCILIATION_EXECUTION_CELL_RECORD', 1], ['POST_RECONCILIATION_EXECUTION_CELL_RECORD', 3], ['POST_RECONCILIATION_EXECUTION_CELL_RECORD', 4], ['POST_RECONCILIATION_EXECUTION_CELL_RECORD', 5], ['POST_RECONCILIATION_EXECUTION_CELL_RECORD', 6], ['POST_RECONCILIATION_EXECUTION_CELL_RECORD', 7], ['POST_RECONCILIATION_EXECUTION_CELL_RECORD', 8], ['POST_RECONCILIATION_EXECUTION_CELL_RECORD', 9], ['POST_RECONCILIATION_EXECUTION_CELL_RECORD', 10]",
+      "pass": true
+    },
+    {
+      "name": "dropped_record",
+      "expected": "COMPOSITION_RECORD_CENSUS",
+      "actual": "COMPOSITION_RECORD_CENSUS",
+      "detail": "115",
+      "pass": true
+    },
+    {
+      "name": "duplicated_trailing_record",
+      "expected": "COMPOSITION_RECORD_CENSUS",
+      "actual": "COMPOSITION_RECORD_CENSUS",
+      "detail": "117",
+      "pass": true
+    },
+    {
+      "name": "duplicate_json_key",
+      "expected": "CORRUPTED_RECORDS",
+      "actual": "CORRUPTED_RECORDS",
+      "detail": "DUPLICATE_JSON_KEY:x",
+      "pass": true
+    },
+    {
+      "name": "null_versus_absent_on_section_I",
+      "expected": "UNAUTHORIZED_COMPOSITION",
+      "actual": "UNAUTHORIZED_COMPOSITION",
+      "detail": "115",
+      "pass": true
+    },
+    {
+      "name": "extra_successor_field_on_legacy",
+      "expected": "ILLEGAL_SCHEMA_VARIANT",
+      "actual": "ILLEGAL_SCHEMA_VARIANT",
+      "detail": "A-EXEC1:F-B-0025:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS",
+      "pass": true
+    },
+    {
+      "name": "missing_successor_field",
+      "expected": "SECTION_SCHEMA",
+      "actual": "SECTION_SCHEMA",
+      "detail": "{'edgeId': 'A-E001', 'unknown': [], 'missing': ['bearingEvaluability']}",
+      "pass": true
+    },
+    {
+      "name": "supportClass_written_onto_successor",
+      "expected": "SECTION_SCHEMA",
+      "actual": "SECTION_SCHEMA",
+      "detail": "{'edgeId': 'A-E001', 'unknown': ['supportClass'], 'missing': []}",
+      "pass": true
+    },
+    {
+      "name": "invented_pr_basis",
+      "expected": "SUCCESSOR_PR_BASIS",
+      "actual": "SUCCESSOR_PR_BASIS",
+      "detail": "{'invented': 'basis'}",
+      "pass": true
+    },
+    {
+      "name": "unsupported_scope",
+      "expected": "UPWARD_SCOPE_WITHOUT_BRIDGE",
+      "actual": [
+        "SECTION_I_claimedScope",
+        "SECTION_I_observedScope",
+        "SECTION_I_scopeBridgeState",
+        "UPWARD_SCOPE_WITHOUT_BRIDGE"
+      ],
+      "pass": true,
+      "note": "pass if predeclared code is among new diagnostics"
+    },
+    {
+      "name": "post_t0_support",
+      "expected": "POST_T0_SUPPORT",
+      "actual": [
+        "DE4_OPERATIVE_SUPPORT",
+        "POST_T0_SUPPORT",
+        "SECTION_I_edgeState",
+        "SECTION_I_temporalState"
+      ],
+      "pass": true,
+      "note": "pass if predeclared code is among new diagnostics"
+    },
+    {
+      "name": "changed_source_id",
+      "expected": "ACTUAL_SOURCE_BINDING",
+      "actual": "ACTUAL_SOURCE_BINDING",
+      "detail": "PI7_NO_MATCH: measurement fixture: no PI-7 entry for ('amazon-whole-foods', 'WHOLE_FOODS', 'F-B-0025', 0, 'IV1_INVENTED_SOURCE')",
+      "pass": true
+    },
+    {
+      "name": "changed_side",
+      "expected": "ACTUAL_SOURCE_BINDING",
+      "actual": "ACTUAL_SOURCE_BINDING",
+      "detail": "PI7_NO_MATCH: measurement fixture: no PI-7 entry for ('amazon-whole-foods', 'IV1_OTHER_SIDE', 'F-B-0025', 0, 'S-B1')",
+      "pass": true
+    },
+    {
+      "name": "corrupted_provenance",
+      "expected": "SECTION_I_factualPackageIdentity",
+      "actual": [
+        "SECTION_I_factualPackageIdentity"
+      ],
+      "pass": true,
+      "note": "pass if predeclared code is among new diagnostics"
+    },
+    {
+      "name": "missing_components_marked_supported",
+      "expected": "SECTION_I_edgeState",
+      "actual": [
+        "DE4_OPERATIVE_SUPPORT",
+        "SECTION_I_componentSupply",
+        "SECTION_I_edgeState",
+        "SECTION_I_missingComponents"
+      ],
+      "pass": true,
+      "note": "pass if predeclared code is among new diagnostics"
+    },
+    {
+      "name": "held_successor_relevance",
+      "expected": "SUCCESSOR_ADMISSION_HELD",
+      "actual": "SUCCESSOR_ADMISSION_HELD",
+      "detail": "{'record': 'A-E001', 'M': 'M-ENFORCE-SANCTION', 'ev0Applicable': True, 'admission': 'HELD', 'holdCode': 'HOLD-NA', 'holdReasons': ['exact relevanceState required'], 'partition': None, 'failingGates': [], 'bearingEvaluability': None, 'bearingIndeterminacyReasons': None, 'supportBearing': None, 'pipelineState': None, 'uniquenessBasis': None, 'alternatives': [], 'unresolvedAlternatives': [], 'capFired': None, 'b3RecordVerdict': None, 'b3PerTT': [], 'b3ComponentVerdicts': {}}",
+      "pass": true
+    },
+    {
+      "name": "nc_revert_accepted_value",
+      "expected": "CORRECTION_PRESERVATION",
+      "actual": [
+        "CORRECTION_PRESERVATION"
+      ],
+      "pass": true,
+      "note": "pass if predeclared code is among new diagnostics"
+    },
+    {
+      "name": "nc_invalid_tree_target",
+      "expected": "CELL_BINDING",
+      "actual": [
+        "CELL_BINDING",
+        "ORPHAN_EDGE_CARRIER"
+      ],
+      "pass": true,
+      "note": "pass if predeclared code is among new diagnostics"
+    },
+    {
+      "name": "nc_missing_referenced_fact",
+      "expected": "ACTUAL_SOURCE_BINDING",
+      "actual": "ACTUAL_SOURCE_BINDING",
+      "detail": "MULTI_FACT_EDGE: measurement fixture: factIds=['F-B-0025', 'MISSING_FACT_IV1']",
+      "pass": true
+    },
+    {
+      "name": "nc_inconsistent_aggregate",
+      "expected": "SECTION_I_missingComponents",
+      "actual": [
+        "SECTION_I_missingComponents"
+      ],
+      "pass": true,
+      "note": "pass if predeclared code is among new diagnostics"
+    },
+    {
+      "name": "de4_supported",
+      "expected": "DE4_OPERATIVE_SUPPORT",
+      "actual": [
+        "DE4_OPERATIVE_SUPPORT",
+        "SECTION_I_edgeState"
+      ],
+      "pass": true,
+      "note": "pass if predeclared code is among new diagnostics"
+    },
+    {
+      "name": "component_linkage_not_dict",
+      "expected": "COMPONENT_SCHEMA",
+      "actual": [
+        "SECTION_I_componentSupply"
+      ],
+      "pass": false,
+      "note": "pass if predeclared code is among new diagnostics"
+    },
+    {
+      "name": "forbidden_outcome_field",
+      "expected": "SECTION_SCHEMA",
+      "actual": "SECTION_SCHEMA",
+      "detail": "{'edgeId': 'A-EXEC1:F-B-0025:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS', 'unknown': ['realizedOutcome'], 'missing': []}",
+      "pass": true
+    },
+    {
+      "name": "counterfactual_relation",
+      "expected": "COUNTERFACTUAL_SUPPORT_REJECTED",
+      "actual": "COUNTERFACTUAL_SUPPORT_REJECTED",
+      "detail": "A-EXEC1:F-B-0025:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS",
+      "pass": true
+    },
+    {
+      "name": "duplicate_pi7_identity",
+      "expected": "ACTUAL_SOURCE_BINDING",
+      "actual": "ACTUAL_SOURCE_BINDING",
+      "detail": "PI7_DUPLICATE_IDENTITY: 2 binding entries for ('CASE-3.5', 'CHRYSLER', 'C-B04', 0, 'C33-S01'): lines [1, 33]",
+      "pass": true
+    }
+  ],
+  "negativePassCount": 26,
+  "negativeCount": 27,
+  "determinism": {
+    "loadExactInputRepeatEqual": true,
+    "singleEdgeRepeatEqual": true,
+    "singleEdgeDerivedOutputCount": 1,
+    "singleEdgeDoesNotAssignEnvironment": true,
+    "returnedIdentityIsFile": true,
+    "mutatedRunStillReportsAcceptedFileSha": true,
+    "publicRegressExposesMutation": false
+  },
+  "cli": {
+    "cwd": "/tmp",
+    "exactExit": 0,
+    "exactStdout": "{\"bytes\": 104722, \"census\": {\"acceptedDifferenceExactlyPreserved\": true, \"legacy\": 110, \"orderedIdentitiesPreserved\": true, \"rawLegacyPreserved\": true, \"records\": 116, \"sectionI\": 6}, \"measurementExecuted\": false, \"mode\": \"INPUT_COMPOSITION_COMPATIBILITY_ONLY\", \"sha256\": \"5b37071a5fa5374c77b149bfde5c230c228cdf73d9785e5ea55346f9fab28daa\"}\n",
+    "badExit": 2,
+    "badStderr": "EXACT_INPUT_IDENTITY: {'path': '/private/tmp/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_IV1/neg_same_len.jsonl', 'bytes': 104722, 'sha256': 'ee07ea1df0478d28ee3fdd228aeff9fef64bf85d42cc1f0bea950f432d5b04ec'}\n"
+  },
+  "authorStatic": {
+    "testRegistrations": 40,
+    "adaptedRegressCalls": 0,
+    "measureSubsetCalls": 1,
+    "originalRegressInReplayString": true,
+    "writesCandidatePackage": true,
+    "notExecutedByThisAudit": true
+  },
+  "historical": {
+    "exit": 0,
+    "stdout": "{\"ok\": true, \"defectCount\": 37, \"sha\": \"58c2080b9d038ce91330fa8af7cf30ebb9d6b1920b9dc238a62e2904ec6b8e37\"}\n",
+    "stderr": "",
+    "summary": {
+      "resultStructureSha256": "58c2080b9d038ce91330fa8af7cf30ebb9d6b1920b9dc238a62e2904ec6b8e37",
+      "bytes": 163133,
+      "defectCount": 37,
+      "defectCodes": [
+        "CELL_COMPONENT_SCHEMA",
+        "CELL_SECTION_I_DIVERGENCE",
+        "COMPONENT_SCHEMA",
+        "DE4_OPERATIVE_SUPPORT",
+        "ORPHAN_EXPRESSION_MECHANISM",
+        "SECTION_I_discriminatorIds",
+        "SECTION_I_edgeState",
+        "SECTION_I_factualPackageIdentity",
+        "SECTION_I_missingComponents",
+        "SECTION_I_scopeBridgeState",
+        "SECTION_I_sourceClass",
+        "SECTION_I_sufficiencyExpression",
+        "SECTION_I_sufficiencyExpressionResult",
+        "UPWARD_SCOPE_WITHOUT_BRIDGE"
+      ],
+      "unexpectedDiffCount": 0,
+      "executionCellCounts": {
+        "PASS": 107,
+        "FAIL": 3
+      },
+      "sectionIComparisonCounts": {
+        "MATCH": 163,
+        "MISMATCH": 19,
+        "NOT_DETERMINABLE": 100
+      },
+      "negativeControls": [
+        {
+          "control": "REVERT_ACCEPTED_VALUE",
+          "detected": true,
+          "expectedNewDetector": "CORRECTION_PRESERVATION"
+        },
+        {
+          "control": "INVALID_TREE_TARGET",
+          "detected": true,
+          "expectedNewDetector": "CELL_BINDING"
+        },
+        {
+          "control": "MISSING_REFERENCED_FACT",
+          "detected": true,
+          "expectedNewDetector": "ORPHAN_factIds"
+        },
+        {
+          "control": "INCONSISTENT_SECTION_I_AGGREGATE",
+          "detected": true,
+          "expectedNewDetector": "SECTION_I_missingComponents"
+        }
+      ]
+    },
+    "historicalArtifactShaClaim": [
+      "58c2080b9d038ce91330fa8af7cf30ebb9d6b1920b9dc238a62e2904ec6b8e37",
+      "58c2080b9d038ce91330fa8af7cf30ebb9d6b1920b9dc238a62e2904ec6b8e37"
+    ],
+    "matchesHistoricalArtifact": true,
+    "historicalArtifactBytes": 276802,
+    "historicalArtifactSha256": "fe252b713322f65590e204115a4adbfd6e66ff6b2247b1f25270f9fb0b49a855"
+  },
+  "legacyEdgeUsed": "A-EXEC1:F-B-0025:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS"
+}

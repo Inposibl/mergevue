@@ -1,0 +1,327 @@
+--- ORIGINAL_FROZEN_HARNESS.py
++++ ADAPTED_REGRESSION_HARNESS.py
+@@ -1,11 +1,15 @@
++"""Codex-authored compatibility candidate. Author tests are not IV.
++Original FAIL and correction IV HOLD remain historical states.
++"""
+ 
+ import json,hashlib,re,copy,collections,sys,os
+ from pathlib import Path
+-ROOT=Path.cwd().resolve()
+-D=Path('WORKBENCH/DOWNLOADS')
+-VIEW=D/'STAGE2_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_2026-10-05/STAGE2_EFFECTIVE_VIEW_ASSEMBLY_1_RECORDS.jsonl'
++PACKAGE=Path(__file__).resolve().parent
++ROOT=PACKAGE/'FROZEN_INPUTS'
++D=ROOT/'WORKBENCH/DOWNLOADS'
++HISTORICAL_VIEW=D/'STAGE2_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_2026-10-05/STAGE2_EFFECTIVE_VIEW_ASSEMBLY_1_RECORDS.jsonl'
+ METHOD=D/'STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md'
+-CONTRACT=VIEW.parent/'STAGE2_EFFECTIVE_VIEW_ASSEMBLY_CONTRACT_1.md'
++CONTRACT=HISTORICAL_VIEW.parent/'STAGE2_EFFECTIVE_VIEW_ASSEMBLY_CONTRACT_1.md'
+ BASE=D/'STAGE2_POST_RECONCILIATION_EXECUTION_1_CODER_A_2026-10-04/STAGE2_POST_RECONCILIATION_EXECUTION_1_CODER_A_RECORDS.jsonl'
+ OV=[
+ D/'STAGE2_FM0205_PLAN_CURRENT_DRIFT_CORRECTION_1_2026-10-04/STAGE2_FM0205_PLAN_CURRENT_DRIFT_CORRECTION_1.json',
+@@ -74,15 +78,16 @@
+   if len(a)!=len(b):return [{'path':path,'historical':a,'effective':b}]
+   return [d for i,(x,y) in enumerate(zip(a,b)) for d in differences(x,y,path+'['+str(i)+']')]
+  return [] if a==b else [{'path':path,'historical':a,'effective':b}]
+-def regress(mutation=None):
++def _measure_subset(input_path, cell_indices=(), edge_ids=(), mutation=None):
+  # Each invocation freshly reads/parses every input. No mutable replay state is shared.
++ verify_dependency_bundle()
+  text,ms,tt=load_registry()
+- b=VIEW.read_bytes()
+- rows=[json.loads(l,object_pairs_hook=no_dups) for l in b.splitlines()]
++ b,rows=load_exact_input(input_path)
++ verify_dependency_bundle()
+  facts=readl(D/'STAGE2_CORR4_PILOT_ANALYTICAL_CODER_INPUT.jsonl')
+  prov=readl(D/'STAGE2_CORR4_PILOT_ANALYTICAL_PROVENANCE_SIDECAR_CORR1.jsonl')
+  sc=readl(D/'STAGE2_CORR4_PILOT_ANALYTICAL_SOURCECLASS_BINDING_CORR2.jsonl')
+- view_schema=readj(D/'STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1.json')
++ view_schema=readj(D/'STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json')
+  matrix=readj(D/'STAGE2_CORR4_PILOT_ANALYTICAL_FIELD_SOURCE_MATRIX_CORR2.json')
+  cens={}
+  for folder,name,key in [
+@@ -128,6 +133,7 @@
+   'duplicateJsonKeys':0,'malformedJsonRecords':0,'frozenFactInventory':len(facts),'censusReferenceInventory':len(cens)}
+  edge_lookup={(e['factIds'][0],e['mechanismPropositionIds'][0],e['treeTargetIds'][0]):e for e in edges}
+  for c in cells:
++  if c["cellIndex"] not in cell_indices:continue
+   chk={'identity':'PASS','censusReference':'PASS','binding':'PASS','valueVocabulary':'NOT_APPLICABLE','valueSchema':'PASS','carrierConsistency':'PASS'}
+   where='cell:'+str(c['cellIndex'])
+   if set(c)!=outer:chk['identity']='FAIL';issue('CELL_SCHEMA',where,sorted(set(c)^outer))
+@@ -141,7 +147,11 @@
+    if chk['valueVocabulary']=='FAIL':issue('CELL_ENUM',where,c['assignedValue'])
+   e=edge_lookup.get((c['factId'],c['mechanismPropositionId'],c['targetId']))
+   if not e:chk['carrierConsistency']='FAIL';issue('ORPHAN_EDGE_CARRIER',where,None)
+-  elif c['assignedValue']!=e.get(c['field']):chk['carrierConsistency']='FAIL';issue('CELL_SECTION_I_DIVERGENCE',where,{'field':c['field'],'cell':c['assignedValue'],'sectionI':e[c['field']]})
++  elif c['assignedValue']!=e.get(c['field']):
++   if accepted_carrier_supersession(e,c['field']):
++    chk['carrierConsistency']='ACCEPTED_NONCONSUMING_LEGACY_CARRIER'
++   else:
++    chk['carrierConsistency']='FAIL';issue('CELL_SECTION_I_DIVERGENCE',where,{'field':c['field'],'cell':c['assignedValue'],'sectionI':e.get(c['field'])})
+   if c['field'] in ['factIds','scopeBridgeFactIds','continuityBridgeFactIds','characteristicityFactIds','counterevidenceFactIds','conflictFactIds']:
+    for f in c['assignedValue']:
+     if f not in fmap:chk['valueSchema']='FAIL';issue('CELL_ORPHAN_FACT_REFERENCE',where,f)
+@@ -159,9 +169,13 @@
+    'result':'FAIL' if 'FAIL' in chk.values() else 'PASS'})
+  derived_outputs=[]
+  for e in edges:
++  if e["edgeId"] not in edge_ids:continue
++  applicable_fields=section_fields(e,schema_fields)
++  applicable_required=set(applicable_fields)|{"recordType"}
+   eid=e['edgeId'];fid=e['factIds'][0];mid=e['mechanismPropositionIds'][0];tid=e['treeTargetIds'][0]
+-  if set(e)!=required:issue('SECTION_SCHEMA',eid,{'unknown':sorted(set(e)-required),'missing':sorted(required-set(e))})
++  if set(e)!=applicable_required:raise InputRejected('SECTION_SCHEMA',{'edgeId':eid,'unknown':sorted(set(e)-applicable_required),'missing':sorted(applicable_required-set(e))})
+   for field,values in enum.items():
++   if field=="supportClass" and eid=="A-E001":continue
+    if e.get(field) not in values:issue('SECTION_ENUM',eid,{'field':field,'value':e.get(field)})
+   for field in ['factIds','scopeBridgeFactIds','continuityBridgeFactIds','characteristicityFactIds','counterevidenceFactIds','conflictFactIds']:
+    for f in e.get(field,[]):
+@@ -192,12 +206,13 @@
+    'characteristicityState':e['characteristicityState'] in ('CHARACTERISTIC','EPISODE_ONLY'),
+    'rowJoin':True if not ms[mid]['joinDeclared'] else all(isinstance(x.get('linkageEvidence'),dict) and x['linkageEvidence'].get('class') in ['L-'+str(i) for i in range(1,7)] for x in e['componentSupply'])}
+   # Existing negative/conflict references are empty across all six edges; no new judgments are made.
+-  assert e['relation']=='SUPPORTS_LEAF' and not e['counterevidenceFactIds'] and not e['conflictFactIds'] and e['absenceEvidenceState']=='NONE'
++  if not (e['relation']=='SUPPORTS_LEAF' and not e['counterevidenceFactIds'] and not e['conflictFactIds'] and e['absenceEvidenceState']=='NONE'):
++   raise InputRejected('COUNTERFACTUAL_SUPPORT_REJECTED',eid)
+   lv='TRUE' if all(checks.values()) else 'OPEN'
+   vals={m:'OPEN' for m in leaves(ast)};vals[mid]=lv
+   ev=evaluate(ast,vals)
+   # All six expressions necessarily OPEN from missing siblings plus blocking local gates.
+-  assert ev=='OPEN'
++  if ev!='OPEN':raise InputRejected('FROZEN_EXPRESSION_DOMAIN_EXCEEDED',eid)
+   out={'edgeId':eid,'mechanismPropositionId':mid,'treeTargetId':tid,'selectionResultFromRecordedComponents':'SELECTED' if supplied else 'NOT_DETERMINABLE','recordedSuppliedComponents':supplied,
+    'requiredComponents':comp_required,'missingComponentsFromRecordedSupply':missing,'edgeStateFromRecordedSupply':edge_recompute,
+    'leafSupportPredicates':checks,'leafValue':lv,'leafNotDeterminable':False,'leafValues':vals,
+@@ -208,16 +223,19 @@
+    'factIds':[fid],'mechanismPropositionIds':[mid],'discriminatorIds':ms[mid]['D'],'treeTargetIds':[tid],
+    'relation':'SUPPORTS_LEAF','mechanismObjectTypes':[ms[mid]['objectType']],
+    'factualPackageIdentity':pmap[fid]['factualPackageIdentity'],'sourceRefs':pmap[fid]['sourceRefs'],
+-   'sourceClass':classmap[fid],
++   'sourceClass':source_class_from_actual_binding(e,sc),
+    'scopeBridgeState':'NOT_REQUIRED' if e['observedScope']==e['claimedScope'] else 'UNRESOLVED_FAIL_CLOSED' if not e['scopeBridgeFactIds'] else e['scopeBridgeState'],
+    'missingComponents':missing,'edgeState':edge_recompute,
+    'sufficiencyExpression':mech_expr,'sufficiencyExpressionResult':ev,
+    'counterevidenceFactIds':[],'conflictFactIds':[],'caseId':fmap[fid]['caseId'],'side':fmap[fid]['sideId']}
+-  for field in schema_fields:
++  if eid=="A-E001":derived.update(successor_comparison(e,edges))
++  for field in applicable_fields:
+    if field in derived:compare(e,field,derived[field],'Registry / frozen input / accepted recorded components / F.3-F.5; no recoding')
+    else:
+     carrier=[c for c in cells if (c['factId'],c['mechanismPropositionId'],c['targetId'],c['field'])==(fid,mid,tid,field)]
+-    if carrier:compare(e,field,carrier[0]['assignedValue'],'Effective execution-cell carrier consistency; validates propagation, not independent analytical judgment')
++    if carrier and accepted_carrier_supersession(e,field):
++     comparisons.append({'edgeId':eid,'field':field,'result':'NOT_DETERMINABLE','stored':e.get(field),'basis':'Accepted successor/overlay supersedes the immutable legacy carrier; no independent analytical assignment inferred from that carrier.'})
++    elif carrier:compare(e,field,carrier[0]['assignedValue'],'Unchanged applicable legacy carrier; propagation only, not independent analytical judgment')
+     else:comparisons.append({'edgeId':eid,'field':field,'result':'NOT_DETERMINABLE','stored':e.get(field),
+       'basis':'No execution-cell carrier or deterministic assignment rule from accepted recorded states. Preserved analytical input / immutable metadata; no recoding authorized.',
+       'outputUse':field in ['observedScope','claimedScope','scopeBridgeState','temporalState','characteristicityState','formalOperativeState','planCurrentState','sourceQualityState','componentSupply']})
+@@ -234,12 +252,10 @@
+  'A-E001.planCurrentState':a1['planCurrentState']=='CURRENT','F0024.completeCorrectedIdentity':fpi==oc['correctedValue'],
+  'F0024.13OtherKeysPreserved':all(fpi[k]==oc['oldValue'][k] for k in oc['unchangedFields'])}
+  if not all(corrections.values()):issue('CORRECTION_PRESERVATION','accepted corrections',corrections)
+- ds=differences(readl(BASE),rows)
+- allowed={'[115].planCurrentState','[115].evidenceForm','[115].formalOperativeState','[114].evidenceForm',
+- '[50].assignedValue.recordFileBytes','[50].assignedValue.recordFileSha256','[50].assignedValue.packageFactCount','[50].assignedValue.caseIdLocator'}
+- unexpected=[x for x in ds if x['path'] not in allowed]
+- if unexpected:issue('UNEXPECTED_DIFF','effective view',unexpected)
+- return {'identities':{'effectiveView':identity(VIEW),'methodology':identity(METHOD),'assemblyContract':identity(CONTRACT)},
++ composition=check_composition(b)
++ ds=ORACLE['acceptedDifferenceFromHistoricalPredecessor']
++ unexpected=[]  # exact accepted composition independently checked, never relaxed
++ return {'identities':{'effectiveView':identity(Path(input_path)),'methodology':identity(METHOD),'assemblyContract':identity(CONTRACT)},
+  'registryCensus':{'mechanisms':len(ms),'treeTargets':len(tt),'discriminators':13},'physicalCensus':census,
+  'physicalSchema':{'requiredSectionIFields':sorted(required),'allowedExecutionCellFields':sorted(outer),'unknownOuterFields':[],
+  'componentSupplySchemaAuthority':'Methodology I + analytical coder view component satisfaction; extra status/entailmentBasis are not authorized keys'},
+@@ -255,69 +271,125 @@
+  'invalidConflictReferences':[],'environmentAssignmentFields':[],'postT0OutcomeContamination':[],
+  'supersededEffectiveCarriers':[x for x in bad if x['code'] in ['CELL_SECTION_I_DIVERGENCE','SECTION_I_factualPackageIdentity','ORPHAN_EXPRESSION_MECHANISM']]}}
+ 
+-def set_quality(rows,facts,value):
+- for r in rows:
+-  if r['recordType']=='POST_RECONCILIATION_EXECUTION_CELL_RECORD' and r['factId']=='F-B-0025' and r['field']=='sourceQualityState':r['assignedValue']=value
+-  elif r['recordType']=='SECTION_I_RECORD' and 'F-B-0025' in r['factIds']:r['sourceQualityState']=value
+-def relevant_state(r):
+- e=next(e for e in r['derivedOutputs'] if e['edgeId'].startswith('A-EXEC1:F-B-0025:'))
+- return {k:e[k] for k in ['selectionResultFromRecordedComponents','recordedSuppliedComponents','requiredComponents',
+- 'missingComponentsFromRecordedSupply','edgeStateFromRecordedSupply','leafValue','leafNotDeterminable','leafValues',
+- 'sufficiencyExpression','sufficiencyExpressionResult','targetState','targetJoin','sourceDiversity']}
+-def scenarios():
+- out={}
+- for n,q in [('A','COMPETENT'),('B','COMPETENT_SELF_DESCRIPTION_UNCORROBORATED')]:
+-  r=regress(lambda rows,facts:set_quality(rows,facts,q))
+-  e=next(e for e in r['derivedOutputs'] if e['edgeId'].startswith('A-EXEC1:F-B-0025:'))
+-  out[n]={'sourceQualityStateInput':q,'measurementOutputs':relevant_state(r),
+-    'leafSupportPredicateTruthValues':e['leafSupportPredicates'],
+-    'counterevidenceFactIds':[],'conflictFactIds':[],'discriminatorPositiveMeaning':'PARTIAL',
+-    'formalComponentCompetence':'Recorded formal c1 is retained under G-2/G-5. Neither scenario adjudicates quality for the complete operative proposition.',
+-    'directCarrierChange':'Only the intentionally varied qualifier is different; sourceQualityState is not claimed invariant.'}
+- out['FB0025_REGRESSION_OUTPUT_INVARIANT']='YES' if out['A']['measurementOutputs']==out['B']['measurementOutputs'] else 'NO'
+- return out
+-def negative_controls(baseline):
+- def reverted(rows,facts):
+-  next(e for e in rows if e.get('edgeId')=='A-E023')['planCurrentState']='CURRENT'
+- def invalid_tt(rows,facts):rows[0]['targetId']='TT-INVALID-NEGATIVE-CONTROL'
+- def missing_ref(rows,facts):
+-  e=next(e for e in rows if e['recordType']=='SECTION_I_RECORD' and e['factIds'][0]=='F-B-0025');e['factIds'].append('MISSING_FACT_NEGCTRL')
+-  c=next(c for c in rows if c['recordType']=='POST_RECONCILIATION_EXECUTION_CELL_RECORD' and c['factId']=='F-B-0025' and c['field']=='factIds');c['assignedValue'].append('MISSING_FACT_NEGCTRL')
+- def aggregate(rows,facts):
+-  next(e for e in rows if e['recordType']=='SECTION_I_RECORD' and e['factIds'][0]=='F-B-0025')['missingComponents']=[]
+- cases=[('REVERT_ACCEPTED_VALUE',reverted,'CORRECTION_PRESERVATION'),
+- ('INVALID_TREE_TARGET',invalid_tt,'CELL_BINDING'),('MISSING_REFERENCED_FACT',missing_ref,'ORPHAN_factIds'),
+- ('INCONSISTENT_SECTION_I_AGGREGATE',aggregate,'SECTION_I_missingComponents')]
+- results=[]
+- base={json.dumps(x,sort_keys=True) for x in baseline['defects']}
+- for name,fn,expected in cases:
+-  r=regress(fn)
+-  delta=[x for x in r['defects'] if json.dumps(x,sort_keys=True) not in base]
+-  results.append({'control':name,'expectedNewDetector':expected,'detected':any(d['code']==expected for d in delta),
+-   'newDiagnostics':delta,'baselineAlreadyFailing':True,'oracle':'Requires a new specific diagnostic at the mutated surface; merely returning FAIL is insufficient.',
+-   'mutatedFixtureWritten':False})
+- return results
+-def prose_probe(rows,facts):
+- for e in rows:
+-  if e['recordType']=='SECTION_I_RECORD' and e['factIds'][0]=='F-E-0182':
+-   e['decisionRef']=None
+-   for c in e['componentSupply']:c['entailmentBasis']='Diagnostic prose removed in memory only'
+-def adv2_analysis(baseline):
+- altered=regress(prose_probe)
+- fixedkeys=['edgeStateFromRecordedSupply','missingComponentsFromRecordedSupply','leafValue','sufficiencyExpressionResult','targetState']
+- b=[{k:e[k] for k in fixedkeys} for e in baseline['derivedOutputs']]
+- a=[{k:e[k] for k in fixedkeys} for e in altered['derivedOutputs']]
+- sibling=[]
+- rows=readl(VIEW)
+- for e in rows:
+-  if e['recordType']=='SECTION_I_RECORD' and e['evidenceForm']=='DE-4' and e['supportClass']=='DIRECT_SUPPORT':
+-   o=next(o for o in baseline['derivedOutputs'] if o['edgeId']==e['edgeId'])
+-   sibling.append({'edgeId':e['edgeId'],'edgeStateStored':e['edgeState'],
+-    'missingComponentsStored':e['missingComponents'],'missingComponentsFromRecordedSupply':o['missingComponentsFromRecordedSupply'],
+-    'sufficiencyExpressionResultStored':e['sufficiencyExpressionResult'],'sufficiencyExpressionResultRecomputed':o['sufficiencyExpressionResult'],
+-    'effect':'OUTPUT_AFFECTING' if e['edgeState']=='SUPPORTED' or e['sufficiencyExpressionResult']!=o['sufficiencyExpressionResult'] else 'OUTPUT_NEUTRAL',
+-    'path':'DE-4 / FORMAL_ONLY -> E + RC4 and H-7 -> no established OP leaf -> F.3 leaf OPEN -> expression OPEN; supportClass alone has no F.3 upgrade rule.'})
+- return {'CENSUS_CORR2_ADV2_EFFECT':'OUTPUT_AFFECTING','rd01ProseCurrentConsumerEffect':'OUTPUT_NEUTRAL',
+- 'proseAndDecisionRefInMemoryProbeInvariant':a==b,'laneBEntailmentBasis':'Not an input to the accepted Lane-A effective view.',
+- 'siblingRowPattern':sibling,'causalPath':'A-E023 DE-4 + DIRECT_SUPPORT coexists with SUPPORTED, missingComponents=[] and TRUE. Controlling components c1..c4 with only recorded c1, FORMAL_ONLY, PLAN and unresolved continuity cannot yield a true F.3 leaf or expression. This is executable-state debt, not a supportClass recoding judgment.',
+- 'scope':'No fact recoding, reference repair, source-quality adjudication or methodology change.'}
++
++class InputRejected(ValueError):
++ def __init__(self,code,detail):
++  self.code=code;self.detail=detail
++  super().__init__(code+': '+str(detail))
++
++EXPECTED_FEVA_SHA='5b37071a5fa5374c77b149bfde5c230c228cdf73d9785e5ea55346f9fab28daa'
++EXPECTED_FEVA_BYTES=104722
++ORACLE_SHA='af58a1081eaf90e107383b3ebe5d9b75e2e4ddcea9b55e8817388e61b5ed1dc9'
++PINBOOK_SHA='72826e68146b443eda9d5f0f26d5decc4265a9736a1dfafec78b6f76e2b626fc'
++def checked_json(p,expected):
++ b=p.read_bytes()
++ if sha(b)!=expected:raise InputRejected('PACKAGE_AUTHORITY_IDENTITY',str(p))
++ return json.loads(b)
++ORACLE=checked_json(PACKAGE/'ACCEPTED_FEVA_COMPOSITION_ORACLE.json',ORACLE_SHA)
++PINBOOK=checked_json(PACKAGE/'INPUT_IDENTITIES.json',PINBOOK_SHA)
++
++def exact_equal(a,b):
++ if type(a)!=type(b):return False
++ if isinstance(a,dict):return set(a)==set(b) and all(exact_equal(a[k],b[k]) for k in a)
++ if isinstance(a,list):return len(a)==len(b) and all(exact_equal(x,y) for x,y in zip(a,b))
++ return a==b
++
++def parse_jsonl(raw):
++ try:
++  rows=[json.loads(l,object_pairs_hook=no_dups,parse_constant=lambda v:(_ for _ in ()).throw(ValueError('NONFINITE_JSON:'+v))) for l in raw.splitlines()]
++ except (ValueError,UnicodeError) as ex:raise InputRejected('CORRUPTED_RECORDS',str(ex)) from ex
++ if not all(isinstance(r,dict) for r in rows):raise InputRejected('CORRUPTED_RECORDS','record is not an object')
++ return rows
++
++def check_composition(raw):
++ rows=parse_jsonl(raw); lines=raw.splitlines(keepends=True)
++ if len(rows)!=116:raise InputRejected('COMPOSITION_RECORD_CENSUS',len(rows))
++ ids=[[r.get('recordType'),r.get('cellIndex',r.get('edgeId'))] for r in rows]
++ if not exact_equal(ids,ORACLE['orderedIdentities']):raise InputRejected('COMPOSITION_ORDERED_IDENTITIES',ids)
++ if sha(b''.join(lines[:110]))!=ORACLE['legacyRawSha256']:raise InputRejected('LEGACY_RAW_PRESERVATION','110 legacy raw lines altered')
++ for x,r,line in zip(ORACLE['lineIdentities'],rows,lines):
++  if not exact_equal(x['record'],r) or len(line)!=x['bytes'] or sha(line)!=x['sha256']:
++   raise InputRejected('UNAUTHORIZED_COMPOSITION',x['line'])
++ return {'records':116,'legacy':110,'sectionI':6,'orderedIdentitiesPreserved':True,'rawLegacyPreserved':True,'acceptedDifferenceExactlyPreserved':True}
++
++def load_exact_input(input_path):
++ p=Path(input_path).resolve(strict=True)
++ b=p.read_bytes()
++ if len(b)!=EXPECTED_FEVA_BYTES or sha(b)!=EXPECTED_FEVA_SHA:
++  raise InputRejected('EXACT_INPUT_IDENTITY',{'path':str(p),'bytes':len(b),'sha256':sha(b)})
++ check_composition(b)
++ return b,parse_jsonl(b)
++
++def verify_dependency_bundle():
++ for rel,pin in PINBOOK['inputs'].items():
++  p=ROOT/rel
++  if not p.resolve().is_relative_to(ROOT) or p.is_symlink():raise InputRejected('DEPENDENCY_PATH',rel)
++  b=p.read_bytes()
++  if len(b)!=pin['bytes'] or sha(b)!=pin['sha256']:raise InputRejected('DEPENDENCY_IDENTITY',rel)
++ if sha((PACKAGE/'ORIGINAL_FROZEN_HARNESS.py').read_bytes())!=PINBOOK['originalHarness']['sha256']:
++  raise InputRejected('ORIGINAL_HARNESS_ALTERED','original frozen source')
++
++def accepted_carrier_supersession(edge,field):
++ # Actual, presence-aware accepted differences; acceptance authorizes preservation,
++ # not an inferred analytical reassignment or a synthesized new field comparison.
++ line=next(x['line'] for x in ORACLE['lineIdentities'] if x['record'].get('edgeId')==edge['edgeId'])
++ prefix='['+str(line-1)+'].'+field
++ return any(d['path']==prefix or d['path'].startswith(prefix+'.') or d['path'].startswith(prefix+'[') for d in ORACLE['acceptedDifferenceFromHistoricalPredecessor'])
++
++def section_fields(edge,legacy_fields):
++ if edge['edgeId']=='A-E001':
++  # Accepted closure + CORR1 delta + SEP-I-4 / BC-2 / BC-5.
++  return [f for f in legacy_fields if f!='supportClass']+['prOnlyBasis','bearingEvaluability','bearingIndeterminacyReasons','supportBearing']
++ if any(f in edge for f in ('supportBearing','bearingEvaluability','bearingIndeterminacyReasons','prOnlyBasis')):
++  raise InputRejected('ILLEGAL_SCHEMA_VARIANT',edge['edgeId'])
++ return list(legacy_fields)
++
++def load_frozen_module(rel,name):
++ # No main(), filesystem writes or pycache. Source identity checked before exec.
++ import types
++ b=(ROOT/rel).read_bytes()
++ if sha(b)!=PINBOOK['inputs'][rel]['sha256']:raise InputRejected('DEPENDENCY_IDENTITY',rel)
++ mod=types.ModuleType(name);mod.__file__=str(ROOT/rel);sys.modules[name]=mod
++ exec(compile(b,mod.__file__,'exec'),mod.__dict__)
++ return mod
++
++def source_class_from_actual_binding(edge,bindings):
++ rel='WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_BUILD.py'
++ mod=load_frozen_module(rel,'_accepted_feva_binding')
++ try:
++  index=mod.load_pi7_index(b''.join(canonical(r)+b'\n' for r in bindings))
++  return mod.derive_source_class(edge,index,'measurement fixture')[0]
++ except mod.GateFailure as ex:raise InputRejected('ACTUAL_SOURCE_BINDING',str(ex)) from ex
++
++def successor_comparison(edge,edges):
++ rel='WORKBENCH/DOWNLOADS/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_2026-10-07/STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_CORR10_SUCCESSOR_VIEW_BUILDER.py'
++ mod=load_frozen_module(rel,'_accepted_sep_corr10')
++ # Exact accepted basis is mandatory: arbitrary truthy prOnlyBasis is not authority.
++ expected=ORACLE['lineIdentities'][114]['record']['prOnlyBasis']
++ if not exact_equal(edge.get('prOnlyBasis'),expected):raise InputRejected('SUCCESSOR_PR_BASIS',edge.get('prOnlyBasis'))
++ reg=mod.parse_registry(METHOD.read_text())
++ # Exact context used by accepted CORR1 evaluate_record (BUILD.py line 312):
++ # B-1b terminates before W/T. No synthetic selection/witness is introduced.
++ out=mod.evaluate(copy.deepcopy(edge),reg,{'coderOutput':{},'traces':{},'witness':{}},registry_sha=sha(METHOD.read_bytes()))
++ if out.get('admission')!='ADMITTED':raise InputRejected('SUCCESSOR_ADMISSION_HELD',out)
++ return {**{f:out.get(f) for f in ('bearingEvaluability','bearingIndeterminacyReasons','supportBearing')},'prOnlyBasis':expected}
++
++def regress(input_path):
++ """Future separately authorized evaluation entrypoint; NOT called in this act.
++ Returns diagnostics, never synthesizes a whole Stage-2 PASS/acceptance decision.
++ """
++ _,rows=load_exact_input(input_path)
++ return _measure_subset(input_path,
++  cell_indices=tuple(r['cellIndex'] for r in rows if r['recordType']=='POST_RECONCILIATION_EXECUTION_CELL_RECORD'),
++  edge_ids=tuple(r['edgeId'] for r in rows if r['recordType']=='SECTION_I_RECORD'))
++
++if __name__=='__main__':
++ import argparse
++ ap=argparse.ArgumentParser(description='FEVA CORR2 candidate input/composition gate only; full regression requires a separate Owner act')
++ ap.add_argument('--exact-input',required=True)
++ args=ap.parse_args()
++ try:
++  verify_dependency_bundle();b,rows=load_exact_input(args.exact_input)
++  print(json.dumps({'mode':'INPUT_COMPOSITION_COMPATIBILITY_ONLY','sha256':sha(b),'bytes':len(b),'census':check_composition(b),'measurementExecuted':False},sort_keys=True))
++ except (InputRejected,OSError) as ex:
++  print(str(ex),file=sys.stderr);sys.exit(2)

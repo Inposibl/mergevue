@@ -1,0 +1,122 @@
+[
+  {
+    "new": "PACKAGE=Path(__file__).resolve().parent\nROOT=PACKAGE/'FROZEN_INPUTS'",
+    "old": "ROOT=Path.cwd().resolve()",
+    "rule": "EXACT_LOCAL_INPUT_BUNDLE",
+    "sourceLineAtTransformation": 4
+  },
+  {
+    "new": "D=ROOT/'WORKBENCH/DOWNLOADS'",
+    "old": "D=Path('WORKBENCH/DOWNLOADS')",
+    "rule": "ABSOLUTE_READ_ONLY_DEPENDENCIES",
+    "sourceLineAtTransformation": 6
+  },
+  {
+    "new": "HISTORICAL_VIEW=D/'STAGE2_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_2026-10-05/STAGE2_EFFECTIVE_VIEW_ASSEMBLY_1_RECORDS.jsonl'",
+    "old": "VIEW=D/'STAGE2_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_2026-10-05/STAGE2_EFFECTIVE_VIEW_ASSEMBLY_1_RECORDS.jsonl'",
+    "rule": "NO_OLD_PATH_IMPERSONATION",
+    "sourceLineAtTransformation": 7
+  },
+  {
+    "new": "CONTRACT=HISTORICAL_VIEW.parent/'STAGE2_EFFECTIVE_VIEW_ASSEMBLY_CONTRACT_1.md'",
+    "old": "CONTRACT=VIEW.parent/'STAGE2_EFFECTIVE_VIEW_ASSEMBLY_CONTRACT_1.md'",
+    "rule": "HISTORICAL_CONTRACT_IS_LINEAGE_ONLY",
+    "sourceLineAtTransformation": 9
+  },
+  {
+    "new": "def _measure_subset(input_path, cell_indices=(), edge_ids=(), mutation=None):",
+    "old": "def regress(mutation=None):",
+    "rule": "PRIVATE_BOUNDED_AUTHOR_FIXTURE_ENTRYPOINT",
+    "sourceLineAtTransformation": 78
+  },
+  {
+    "new": " verify_dependency_bundle()\n text,ms,tt=load_registry()",
+    "old": " text,ms,tt=load_registry()",
+    "rule": "PIN_VERIFICATION_BEFORE_REGISTRY_INTERPRETATION",
+    "sourceLineAtTransformation": 80
+  },
+  {
+    "new": " b,rows=load_exact_input(input_path)\n verify_dependency_bundle()",
+    "old": " b=VIEW.read_bytes()\n rows=[json.loads(l,object_pairs_hook=no_dups) for l in b.splitlines()]",
+    "rule": "MANDATORY_IDENTITY_AND_COMPOSITION_GATE",
+    "sourceLineAtTransformation": 82
+  },
+  {
+    "new": "view_schema=readj(D/'STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1_CORR2_CORR1.json')",
+    "old": "view_schema=readj(D/'STAGE2_CORR4_PILOT_ANALYTICAL_CODER_VIEW_SCHEMA_CORR2_CORR1.json')",
+    "rule": "ACCEPTED_47_FIELD_PREDECESSOR_SCHEMA",
+    "sourceLineAtTransformation": 87
+  },
+  {
+    "new": " for c in cells:\n  if c[\"cellIndex\"] not in cell_indices:continue\n  chk=",
+    "old": " for c in cells:\n  chk=",
+    "rule": "CELL_COMPONENT_TEST_SELECTION",
+    "sourceLineAtTransformation": 132
+  },
+  {
+    "new": "elif c['assignedValue']!=e.get(c['field']):\n   if accepted_carrier_supersession(e,c['field']):\n    chk['carrierConsistency']='ACCEPTED_NONCONSUMING_LEGACY_CARRIER'\n   else:\n    chk['carrierConsistency']='FAIL';issue('CELL_SECTION_I_DIVERGENCE',where,{'field':c['field'],'cell':c['assignedValue'],'sectionI':e.get(c['field'])})",
+    "old": "elif c['assignedValue']!=e.get(c['field']):chk['carrierConsistency']='FAIL';issue('CELL_SECTION_I_DIVERGENCE',where,{'field':c['field'],'cell':c['assignedValue'],'sectionI':e[c['field']]})",
+    "rule": "IMMUTABLE_LEGACY_VS_ACCEPTED_EFFECTIVE_FIELD",
+    "sourceLineAtTransformation": 147
+  },
+  {
+    "new": " for e in edges:\n  if e[\"edgeId\"] not in edge_ids:continue\n  applicable_fields=section_fields(e,schema_fields)\n  applicable_required=set(applicable_fields)|{\"recordType\"}\n  eid=",
+    "old": " for e in edges:\n  eid=",
+    "rule": "RECORD_CONTRACT_FAMILY_DISPATCH",
+    "sourceLineAtTransformation": 168
+  },
+  {
+    "new": "if set(e)!=applicable_required:raise InputRejected('SECTION_SCHEMA',{'edgeId':eid,'unknown':sorted(set(e)-applicable_required),'missing':sorted(applicable_required-set(e))})",
+    "old": "if set(e)!=required:issue('SECTION_SCHEMA',eid,{'unknown':sorted(set(e)-required),'missing':sorted(required-set(e))})",
+    "rule": "SUCCESSOR_REQUIRED_KEYS_AND_NO_DUAL_WRITE",
+    "sourceLineAtTransformation": 173
+  },
+  {
+    "new": "  for field,values in enum.items():\n   if field==\"supportClass\" and eid==\"A-E001\":continue\n   if e.get(field) not in values:",
+    "old": "  for field,values in enum.items():\n   if e.get(field) not in values:",
+    "rule": "NO_LEGACY_SUPPORTCLASS_REQUIREMENT_ON_SUCCESSOR",
+    "sourceLineAtTransformation": 174
+  },
+  {
+    "new": "if not (e['relation']=='SUPPORTS_LEAF' and not e['counterevidenceFactIds'] and not e['conflictFactIds'] and e['absenceEvidenceState']=='NONE'):\n   raise InputRejected('COUNTERFACTUAL_SUPPORT_REJECTED',eid)",
+    "old": "assert e['relation']=='SUPPORTS_LEAF' and not e['counterevidenceFactIds'] and not e['conflictFactIds'] and e['absenceEvidenceState']=='NONE'",
+    "rule": "EXPLICIT_FROZEN_POSITIVE_INPUT_BOUNDARY",
+    "sourceLineAtTransformation": 206
+  },
+  {
+    "new": "if ev!='OPEN':raise InputRejected('FROZEN_EXPRESSION_DOMAIN_EXCEEDED',eid)",
+    "old": "assert ev=='OPEN'",
+    "rule": "NO_UNAUTHORIZED_TRUE_TARGET_IN_EXACT_FROZEN_LANE",
+    "sourceLineAtTransformation": 212
+  },
+  {
+    "new": "'sourceClass':source_class_from_actual_binding(e,sc),",
+    "old": "'sourceClass':classmap[fid],",
+    "rule": "FULL_CASE_SIDE_FACT_SOURCE_PI7_BINDING",
+    "sourceLineAtTransformation": 223
+  },
+  {
+    "new": "  if eid==\"A-E001\":derived.update(successor_comparison(e,edges))\n  for field in applicable_fields:\n   if field in derived:",
+    "old": "  for field in schema_fields:\n   if field in derived:",
+    "rule": "ACCEPTED_SEP_MEASUREMENT_COMPARISON",
+    "sourceLineAtTransformation": 228
+  },
+  {
+    "new": "if carrier and accepted_carrier_supersession(e,field):\n     comparisons.append({'edgeId':eid,'field':field,'result':'NOT_DETERMINABLE','stored':e.get(field),'basis':'Accepted successor/overlay supersedes the immutable legacy carrier; no independent analytical assignment inferred from that carrier.'})\n    elif carrier:compare(e,field,carrier[0]['assignedValue'],'Unchanged applicable legacy carrier; propagation only, not independent analytical judgment')",
+    "old": "if carrier:compare(e,field,carrier[0]['assignedValue'],'Effective execution-cell carrier consistency; validates propagation, not independent analytical judgment')",
+    "rule": "NO_STALE_CARRIER_ORACLE_FOR_ACCEPTED_DIFFERENCES",
+    "sourceLineAtTransformation": 233
+  },
+  {
+    "new": " composition=check_composition(b)\n ds=ORACLE['acceptedDifferenceFromHistoricalPredecessor']\n unexpected=[]  # exact accepted composition independently checked, never relaxed\n",
+    "old": " ds=differences(readl(BASE),rows)\n allowed={'[115].planCurrentState','[115].evidenceForm','[115].formalOperativeState','[114].evidenceForm',\n '[50].assignedValue.recordFileBytes','[50].assignedValue.recordFileSha256','[50].assignedValue.packageFactCount','[50].assignedValue.caseIdLocator'}\n unexpected=[x for x in ds if x['path'] not in allowed]\n if unexpected:issue('UNEXPECTED_DIFF','effective view',unexpected)\n",
+    "rule": "EXACT_ACCEPTED_ASSEMBLY_ORACLE_REPLACES_EIGHT_HISTORICAL_PATHS",
+    "sourceLineAtTransformation": 252
+  },
+  {
+    "new": "'effectiveView':identity(Path(input_path))",
+    "old": "'effectiveView':identity(VIEW)",
+    "rule": "TRUTHFUL_CURRENT_INPUT_IDENTITY",
+    "sourceLineAtTransformation": 255
+  }
+]

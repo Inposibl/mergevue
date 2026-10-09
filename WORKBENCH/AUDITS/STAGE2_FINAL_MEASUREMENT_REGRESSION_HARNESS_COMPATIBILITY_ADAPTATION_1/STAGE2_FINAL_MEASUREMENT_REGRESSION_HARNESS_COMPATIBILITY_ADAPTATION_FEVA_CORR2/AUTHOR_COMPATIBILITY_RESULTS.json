@@ -1,0 +1,1599 @@
+{
+  "adaptedRegressEntryPointCalls": 0,
+  "author": "Codex",
+  "failed": 0,
+  "historicalCorrectionIVVerdict": "HOLD",
+  "historicalOriginalVerdict": "FAIL",
+  "independentlyVerified": false,
+  "noHistoricalFindingClosureClaimed": true,
+  "ownerAccepted": false,
+  "passed": 40,
+  "scope": "bounded compatibility, single-edge/cell fixtures and old-input historical reproduction",
+  "tests": [
+    {
+      "evidence": {
+        "pins": 107
+      },
+      "kind": "author_component_test",
+      "name": "all_dependency_pins",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "acceptedDifferenceExactlyPreserved": true,
+        "legacy": 110,
+        "orderedIdentitiesPreserved": true,
+        "rawLegacyPreserved": true,
+        "records": 116,
+        "sectionI": 6
+      },
+      "kind": "author_component_test",
+      "name": "exact_input_and_composition",
+      "passed": true
+    },
+    {
+      "evidence": null,
+      "kind": "author_component_test",
+      "name": "original_harness_byte_preservation",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "actualDetector": "EXACT_INPUT_IDENTITY",
+        "expectedDetector": "EXACT_INPUT_IDENTITY",
+        "failureDetail": {
+          "bytes": 104310,
+          "path": "/private/tmp/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_FEVA_CORR2/FROZEN_INPUTS/WORKBENCH/DOWNLOADS/STAGE2_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_2026-10-05/STAGE2_EFFECTIVE_VIEW_ASSEMBLY_1_RECORDS.jsonl",
+          "sha256": "a1fcae68939decd0a3c4a39c0a0bc48e8d285bd9cd7ce1928b0d025056244047"
+        },
+        "measurementPrevented": true
+      },
+      "kind": "negative_control",
+      "name": "old_input_cannot_impersonate_FEVA",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "actualDetector": "EXACT_INPUT_IDENTITY",
+        "expectedDetector": "EXACT_INPUT_IDENTITY",
+        "failureDetail": {
+          "bytes": 104722,
+          "path": "/private/tmp/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_FEVA_CORR2/negative_input_2vn7jfm8.jsonl",
+          "sha256": "e50b0da40819d249a5489e455c6d4e4461ce863fe953ee541edb74f2d8ba8451"
+        },
+        "measurementPrevented": true
+      },
+      "kind": "negative_control",
+      "name": "same_length_digest_mismatch",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "actualDetector": "CORRUPTED_RECORDS",
+        "expectedDetector": "CORRUPTED_RECORDS",
+        "failureDetail": "Expecting property name enclosed in double quotes: line 1 column 2 (char 1)",
+        "measurementPrevented": true
+      },
+      "kind": "negative_control",
+      "name": "corrupted_json_is_rejected",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "actualDetector": "CORRUPTED_RECORDS",
+        "expectedDetector": "CORRUPTED_RECORDS",
+        "failureDetail": "DUPLICATE_JSON_KEY:x",
+        "measurementPrevented": true
+      },
+      "kind": "negative_control",
+      "name": "duplicate_JSON_key_is_rejected",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "actualDetector": "CORRUPTED_RECORDS",
+        "expectedDetector": "CORRUPTED_RECORDS",
+        "failureDetail": "NONFINITE_JSON:NaN",
+        "measurementPrevented": true
+      },
+      "kind": "negative_control",
+      "name": "nonfinite_JSON_is_rejected",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "actualDetector": "COMPOSITION_RECORD_CENSUS",
+        "expectedDetector": "COMPOSITION_RECORD_CENSUS",
+        "failureDetail": 115,
+        "measurementPrevented": true
+      },
+      "kind": "negative_control",
+      "name": "record_loss",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "actualDetector": "COMPOSITION_ORDERED_IDENTITIES",
+        "expectedDetector": "COMPOSITION_ORDERED_IDENTITIES",
+        "failureDetail": [
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            2
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            1
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            3
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            4
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            5
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            6
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            7
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            8
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            9
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            10
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            11
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            12
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            13
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            14
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            15
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            16
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            17
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            18
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            19
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            20
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            21
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            22
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            23
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            24
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            25
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            26
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            27
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            28
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            29
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            30
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            31
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            32
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            33
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            34
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            35
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            36
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            37
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            38
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            39
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            40
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            41
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            42
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            43
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            44
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            45
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            46
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            47
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            48
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            49
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            50
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            51
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            52
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            53
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            54
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            55
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            56
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            57
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            58
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            59
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            60
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            61
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            62
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            63
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            64
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            65
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            66
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            67
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            68
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            69
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            70
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            71
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            72
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            73
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            74
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            75
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            76
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            77
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            78
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            79
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            80
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            81
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            82
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            83
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            84
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            85
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            86
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            87
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            88
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            89
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            90
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            91
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            92
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            93
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            94
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            95
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            96
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            97
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            98
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            99
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            100
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            101
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            102
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            103
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            104
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            105
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            106
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            107
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            108
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            109
+          ],
+          [
+            "POST_RECONCILIATION_EXECUTION_CELL_RECORD",
+            110
+          ],
+          [
+            "SECTION_I_RECORD",
+            "A-EXEC1:F-B-0025:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS"
+          ],
+          [
+            "SECTION_I_RECORD",
+            "A-EXEC1:F0024:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS"
+          ],
+          [
+            "SECTION_I_RECORD",
+            "A-RERUN1-CORR1:F-E-0182:M-RECOGNISED-COMMAND-ORDER:TT-STPSTJ-ESS"
+          ],
+          [
+            "SECTION_I_RECORD",
+            "A-RERUN1-CORR1:F-E-0182:M-RECOGNISED-COMMAND-ORDER:TT-STPSTJ-PW"
+          ],
+          [
+            "SECTION_I_RECORD",
+            "A-E001"
+          ],
+          [
+            "SECTION_I_RECORD",
+            "A-E023"
+          ]
+        ],
+        "measurementPrevented": true
+      },
+      "kind": "negative_control",
+      "name": "ordered_record_identity_change",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "actualDetector": "UNAUTHORIZED_COMPOSITION",
+        "expectedDetector": "UNAUTHORIZED_COMPOSITION",
+        "failureDetail": 116,
+        "measurementPrevented": true
+      },
+      "kind": "negative_control",
+      "name": "unauthorized_accepted_overlay_reversion",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "actualDetector": "LEGACY_RAW_PRESERVATION",
+        "expectedDetector": "LEGACY_RAW_PRESERVATION",
+        "failureDetail": "110 legacy raw lines altered",
+        "measurementPrevented": true
+      },
+      "kind": "negative_control",
+      "name": "raw_legacy_reserialization_is_rejected",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "fieldCensus": [
+          {
+            "edgeId": "A-EXEC1:F-B-0025:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS",
+            "fields": [
+              "edgeId",
+              "caseId",
+              "side",
+              "factualPackageIdentity",
+              "factIds",
+              "sourceRefs",
+              "coderIdentity",
+              "vocabularyVersion",
+              "contractIdentity",
+              "mechanismPropositionIds",
+              "mechanismObjectTypes",
+              "discriminatorIds",
+              "treeTargetIds",
+              "relation",
+              "componentSupply",
+              "missingComponents",
+              "relationInstanceId",
+              "organizationalObjectRef",
+              "decisionRef",
+              "resourceFlowRef",
+              "participationSystemRef",
+              "beliefSystemRef",
+              "observedScope",
+              "claimedScope",
+              "scopeBridgeState",
+              "scopeBridgeFactIds",
+              "temporalState",
+              "continuityBridgeFactIds",
+              "characteristicityState",
+              "characteristicityFactIds",
+              "formalOperativeState",
+              "planCurrentState",
+              "evidenceForm",
+              "sourceQualityState",
+              "absenceEvidenceState",
+              "sourceClass",
+              "relevanceState",
+              "edgeState",
+              "supportClass",
+              "ambiguity",
+              "sufficiencyExpression",
+              "sufficiencyExpressionResult",
+              "counterevidenceFactIds",
+              "conflictFactIds",
+              "abstention",
+              "nonExpansionRationale",
+              "presentationLaneOnly"
+            ],
+            "representation": "LEGACY"
+          },
+          {
+            "edgeId": "A-EXEC1:F0024:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS",
+            "fields": [
+              "edgeId",
+              "caseId",
+              "side",
+              "factualPackageIdentity",
+              "factIds",
+              "sourceRefs",
+              "coderIdentity",
+              "vocabularyVersion",
+              "contractIdentity",
+              "mechanismPropositionIds",
+              "mechanismObjectTypes",
+              "discriminatorIds",
+              "treeTargetIds",
+              "relation",
+              "componentSupply",
+              "missingComponents",
+              "relationInstanceId",
+              "organizationalObjectRef",
+              "decisionRef",
+              "resourceFlowRef",
+              "participationSystemRef",
+              "beliefSystemRef",
+              "observedScope",
+              "claimedScope",
+              "scopeBridgeState",
+              "scopeBridgeFactIds",
+              "temporalState",
+              "continuityBridgeFactIds",
+              "characteristicityState",
+              "characteristicityFactIds",
+              "formalOperativeState",
+              "planCurrentState",
+              "evidenceForm",
+              "sourceQualityState",
+              "absenceEvidenceState",
+              "sourceClass",
+              "relevanceState",
+              "edgeState",
+              "supportClass",
+              "ambiguity",
+              "sufficiencyExpression",
+              "sufficiencyExpressionResult",
+              "counterevidenceFactIds",
+              "conflictFactIds",
+              "abstention",
+              "nonExpansionRationale",
+              "presentationLaneOnly"
+            ],
+            "representation": "LEGACY"
+          },
+          {
+            "edgeId": "A-RERUN1-CORR1:F-E-0182:M-RECOGNISED-COMMAND-ORDER:TT-STPSTJ-ESS",
+            "fields": [
+              "edgeId",
+              "caseId",
+              "side",
+              "factualPackageIdentity",
+              "factIds",
+              "sourceRefs",
+              "coderIdentity",
+              "vocabularyVersion",
+              "contractIdentity",
+              "mechanismPropositionIds",
+              "mechanismObjectTypes",
+              "discriminatorIds",
+              "treeTargetIds",
+              "relation",
+              "componentSupply",
+              "missingComponents",
+              "relationInstanceId",
+              "organizationalObjectRef",
+              "decisionRef",
+              "resourceFlowRef",
+              "participationSystemRef",
+              "beliefSystemRef",
+              "observedScope",
+              "claimedScope",
+              "scopeBridgeState",
+              "scopeBridgeFactIds",
+              "temporalState",
+              "continuityBridgeFactIds",
+              "characteristicityState",
+              "characteristicityFactIds",
+              "formalOperativeState",
+              "planCurrentState",
+              "evidenceForm",
+              "sourceQualityState",
+              "absenceEvidenceState",
+              "sourceClass",
+              "relevanceState",
+              "edgeState",
+              "supportClass",
+              "ambiguity",
+              "sufficiencyExpression",
+              "sufficiencyExpressionResult",
+              "counterevidenceFactIds",
+              "conflictFactIds",
+              "abstention",
+              "nonExpansionRationale",
+              "presentationLaneOnly"
+            ],
+            "representation": "LEGACY"
+          },
+          {
+            "edgeId": "A-RERUN1-CORR1:F-E-0182:M-RECOGNISED-COMMAND-ORDER:TT-STPSTJ-PW",
+            "fields": [
+              "edgeId",
+              "caseId",
+              "side",
+              "factualPackageIdentity",
+              "factIds",
+              "sourceRefs",
+              "coderIdentity",
+              "vocabularyVersion",
+              "contractIdentity",
+              "mechanismPropositionIds",
+              "mechanismObjectTypes",
+              "discriminatorIds",
+              "treeTargetIds",
+              "relation",
+              "componentSupply",
+              "missingComponents",
+              "relationInstanceId",
+              "organizationalObjectRef",
+              "decisionRef",
+              "resourceFlowRef",
+              "participationSystemRef",
+              "beliefSystemRef",
+              "observedScope",
+              "claimedScope",
+              "scopeBridgeState",
+              "scopeBridgeFactIds",
+              "temporalState",
+              "continuityBridgeFactIds",
+              "characteristicityState",
+              "characteristicityFactIds",
+              "formalOperativeState",
+              "planCurrentState",
+              "evidenceForm",
+              "sourceQualityState",
+              "absenceEvidenceState",
+              "sourceClass",
+              "relevanceState",
+              "edgeState",
+              "supportClass",
+              "ambiguity",
+              "sufficiencyExpression",
+              "sufficiencyExpressionResult",
+              "counterevidenceFactIds",
+              "conflictFactIds",
+              "abstention",
+              "nonExpansionRationale",
+              "presentationLaneOnly"
+            ],
+            "representation": "LEGACY"
+          },
+          {
+            "edgeId": "A-E001",
+            "fields": [
+              "edgeId",
+              "caseId",
+              "side",
+              "factualPackageIdentity",
+              "factIds",
+              "sourceRefs",
+              "coderIdentity",
+              "vocabularyVersion",
+              "contractIdentity",
+              "mechanismPropositionIds",
+              "mechanismObjectTypes",
+              "discriminatorIds",
+              "treeTargetIds",
+              "relation",
+              "componentSupply",
+              "missingComponents",
+              "relationInstanceId",
+              "organizationalObjectRef",
+              "decisionRef",
+              "resourceFlowRef",
+              "participationSystemRef",
+              "beliefSystemRef",
+              "observedScope",
+              "claimedScope",
+              "scopeBridgeState",
+              "scopeBridgeFactIds",
+              "temporalState",
+              "continuityBridgeFactIds",
+              "characteristicityState",
+              "characteristicityFactIds",
+              "formalOperativeState",
+              "planCurrentState",
+              "evidenceForm",
+              "sourceQualityState",
+              "absenceEvidenceState",
+              "sourceClass",
+              "relevanceState",
+              "edgeState",
+              "ambiguity",
+              "sufficiencyExpression",
+              "sufficiencyExpressionResult",
+              "counterevidenceFactIds",
+              "conflictFactIds",
+              "abstention",
+              "nonExpansionRationale",
+              "presentationLaneOnly",
+              "prOnlyBasis",
+              "bearingEvaluability",
+              "bearingIndeterminacyReasons",
+              "supportBearing"
+            ],
+            "representation": "SUCCESSOR"
+          },
+          {
+            "edgeId": "A-E023",
+            "fields": [
+              "edgeId",
+              "caseId",
+              "side",
+              "factualPackageIdentity",
+              "factIds",
+              "sourceRefs",
+              "coderIdentity",
+              "vocabularyVersion",
+              "contractIdentity",
+              "mechanismPropositionIds",
+              "mechanismObjectTypes",
+              "discriminatorIds",
+              "treeTargetIds",
+              "relation",
+              "componentSupply",
+              "missingComponents",
+              "relationInstanceId",
+              "organizationalObjectRef",
+              "decisionRef",
+              "resourceFlowRef",
+              "participationSystemRef",
+              "beliefSystemRef",
+              "observedScope",
+              "claimedScope",
+              "scopeBridgeState",
+              "scopeBridgeFactIds",
+              "temporalState",
+              "continuityBridgeFactIds",
+              "characteristicityState",
+              "characteristicityFactIds",
+              "formalOperativeState",
+              "planCurrentState",
+              "evidenceForm",
+              "sourceQualityState",
+              "absenceEvidenceState",
+              "sourceClass",
+              "relevanceState",
+              "edgeState",
+              "supportClass",
+              "ambiguity",
+              "sufficiencyExpression",
+              "sufficiencyExpressionResult",
+              "counterevidenceFactIds",
+              "conflictFactIds",
+              "abstention",
+              "nonExpansionRationale",
+              "presentationLaneOnly"
+            ],
+            "representation": "LEGACY"
+          }
+        ],
+        "measurementExecuted": false,
+        "registryCounts": [
+          74,
+          62
+        ]
+      },
+      "kind": "author_component_test",
+      "name": "all_six_schema_family_dispatches",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "bearingEvaluability": "EVALUABLE",
+        "bearingIndeterminacyReasons": null,
+        "prOnlyBasis": {
+          "adjudicatedBy": "A_E001_BEARING_DIRECTIONALITY_READJUDICATION_1",
+          "authority": "E9/07 \u00a712 (OWNER-CORR2-STJSTP); cb08b51e \u00a7F.3 l.1157; SEP-B-1b",
+          "basisComponents": [
+            "c1"
+          ],
+          "basisFactIds": [
+            "C-B04"
+          ],
+          "criterion": "one hard rule",
+          "prohibId": "PR-STJSTP",
+          "ttId": "TT-STJSTP-PW"
+        },
+        "supportBearing": "NON_DISCRIMINATING"
+      },
+      "kind": "author_component_test",
+      "name": "successor_does_not_require_old_supportClass",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "actualDetector": "SECTION_SCHEMA",
+        "expectedDetector": "SECTION_SCHEMA",
+        "failureDetail": {
+          "edgeId": "A-E001",
+          "missing": [],
+          "unknown": [
+            "supportClass"
+          ]
+        },
+        "measurementPrevented": true
+      },
+      "kind": "negative_control",
+      "name": "successor_dual_write_is_illegal",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "actualDetector": "SECTION_SCHEMA",
+        "expectedDetector": "SECTION_SCHEMA",
+        "failureDetail": {
+          "edgeId": "A-E001",
+          "missing": [
+            "bearingEvaluability"
+          ],
+          "unknown": []
+        },
+        "measurementPrevented": true
+      },
+      "kind": "negative_control",
+      "name": "successor_required_field_loss",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "actualDetector": "ILLEGAL_SCHEMA_VARIANT",
+        "expectedDetector": "ILLEGAL_SCHEMA_VARIANT",
+        "failureDetail": "A-EXEC1:F-B-0025:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS",
+        "measurementPrevented": true
+      },
+      "kind": "negative_control",
+      "name": "legacy_record_cannot_take_successor_fields",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "actualDetector": "SUCCESSOR_PR_BASIS",
+        "expectedDetector": "SUCCESSOR_PR_BASIS",
+        "failureDetail": {
+          "invented": "basis"
+        },
+        "measurementPrevented": true
+      },
+      "kind": "negative_control",
+      "name": "successor_PR_basis_cannot_be_arbitrary_truthy_input",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "baselineCanAlreadyContainDefects": true,
+        "control": "missing support",
+        "detected": true,
+        "expectedNewDetector": "SECTION_I_edgeState",
+        "mutation": "IN_MEMORY_ONLY",
+        "newDiagnostics": [
+          {
+            "code": "SECTION_I_componentSupply",
+            "detail": {
+              "recomputed": [
+                {
+                  "componentId": "c1",
+                  "entailmentBasis": "Identified compensation and benefits program satisfying c1 organizational resource access program definition",
+                  "linkageEvidence": "Whole Foods Market states that its salary and benefits programs reflect its philosophy of egalitarianism",
+                  "status": "SUPPLIED"
+                }
+              ],
+              "rule": "Unchanged applicable legacy carrier; propagation only, not independent analytical judgment",
+              "stored": []
+            },
+            "where": "A-EXEC1:F-B-0025:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS"
+          },
+          {
+            "code": "SECTION_I_missingComponents",
+            "detail": {
+              "recomputed": [
+                "c1",
+                "c2",
+                "c3"
+              ],
+              "rule": "Registry / frozen input / accepted recorded components / F.3-F.5; no recoding",
+              "stored": []
+            },
+            "where": "A-EXEC1:F-B-0025:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS"
+          },
+          {
+            "code": "SECTION_I_edgeState",
+            "detail": {
+              "recomputed": "GAP",
+              "rule": "Registry / frozen input / accepted recorded components / F.3-F.5; no recoding",
+              "stored": "SUPPORTED"
+            },
+            "where": "A-EXEC1:F-B-0025:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS"
+          },
+          {
+            "code": "DE4_OPERATIVE_SUPPORT",
+            "detail": {
+              "edgeState": "SUPPORTED",
+              "evidenceForm": "DE-4",
+              "formalOperativeState": "FORMAL_ONLY"
+            },
+            "where": "A-EXEC1:F-B-0025:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS"
+          }
+        ],
+        "wholeRegressionExecuted": false
+      },
+      "kind": "negative_control",
+      "name": "missing_support_cannot_establish_leaf",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "actualDetector": "ACTUAL_SOURCE_BINDING",
+        "expectedDetector": "ACTUAL_SOURCE_BINDING",
+        "failureDetail": "PI7_NO_MATCH: measurement fixture: no PI-7 entry for ('amazon-whole-foods', 'WHOLE_FOODS', 'F-B-0025', 0, 'INVENTED_SOURCE')",
+        "measurementPrevented": true
+      },
+      "kind": "negative_control",
+      "name": "actual_supplying_source_identity_is_checked",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "baselineCanAlreadyContainDefects": true,
+        "control": "unsupported scope",
+        "detected": true,
+        "expectedNewDetector": "UPWARD_SCOPE_WITHOUT_BRIDGE",
+        "mutation": "IN_MEMORY_ONLY",
+        "newDiagnostics": [
+          {
+            "code": "SECTION_I_observedScope",
+            "detail": {
+              "recomputed": "enterprise",
+              "rule": "Unchanged applicable legacy carrier; propagation only, not independent analytical judgment",
+              "stored": "unit"
+            },
+            "where": "A-EXEC1:F-B-0025:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS"
+          },
+          {
+            "code": "SECTION_I_scopeBridgeState",
+            "detail": {
+              "recomputed": "UNRESOLVED_FAIL_CLOSED",
+              "rule": "Registry / frozen input / accepted recorded components / F.3-F.5; no recoding",
+              "stored": "NOT_REQUIRED"
+            },
+            "where": "A-EXEC1:F-B-0025:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS"
+          },
+          {
+            "code": "UPWARD_SCOPE_WITHOUT_BRIDGE",
+            "detail": {
+              "bridgeFactIds": [],
+              "claimed": "enterprise",
+              "observed": "unit"
+            },
+            "where": "A-EXEC1:F-B-0025:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS"
+          }
+        ],
+        "wholeRegressionExecuted": false
+      },
+      "kind": "negative_control",
+      "name": "scope_cannot_propagate_upward",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "baselineCanAlreadyContainDefects": true,
+        "control": "post T0",
+        "detected": true,
+        "expectedNewDetector": "POST_T0_SUPPORT",
+        "mutation": "IN_MEMORY_ONLY",
+        "newDiagnostics": [
+          {
+            "code": "POST_T0_SUPPORT",
+            "detail": "SUPPORTED",
+            "where": "A-EXEC1:F-B-0025:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS"
+          },
+          {
+            "code": "SECTION_I_temporalState",
+            "detail": {
+              "recomputed": "PRE_T0_CONTINUITY_UNRESOLVED",
+              "rule": "Unchanged applicable legacy carrier; propagation only, not independent analytical judgment",
+              "stored": "POST_T0_EXCLUDED"
+            },
+            "where": "A-EXEC1:F-B-0025:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS"
+          },
+          {
+            "code": "SECTION_I_edgeState",
+            "detail": {
+              "recomputed": "PARTIAL",
+              "rule": "Registry / frozen input / accepted recorded components / F.3-F.5; no recoding",
+              "stored": "SUPPORTED"
+            },
+            "where": "A-EXEC1:F-B-0025:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS"
+          },
+          {
+            "code": "DE4_OPERATIVE_SUPPORT",
+            "detail": {
+              "edgeState": "SUPPORTED",
+              "evidenceForm": "DE-4",
+              "formalOperativeState": "FORMAL_ONLY"
+            },
+            "where": "A-EXEC1:F-B-0025:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS"
+          }
+        ],
+        "wholeRegressionExecuted": false
+      },
+      "kind": "negative_control",
+      "name": "post_T0_cannot_supply_positive_support",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "actualDetector": "COUNTERFACTUAL_SUPPORT_REJECTED",
+        "expectedDetector": "COUNTERFACTUAL_SUPPORT_REJECTED",
+        "failureDetail": "A-EXEC1:F-B-0025:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS",
+        "measurementPrevented": true
+      },
+      "kind": "negative_control",
+      "name": "counterfactual_relation_not_silently_positive",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "actualDetector": "COUNTERFACTUAL_SUPPORT_REJECTED",
+        "expectedDetector": "COUNTERFACTUAL_SUPPORT_REJECTED",
+        "failureDetail": "A-EXEC1:F-B-0025:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS",
+        "measurementPrevented": true
+      },
+      "kind": "negative_control",
+      "name": "documentary_silence_not_silently_negative",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "actualDetector": "SECTION_SCHEMA",
+        "expectedDetector": "SECTION_SCHEMA",
+        "failureDetail": {
+          "edgeId": "A-EXEC1:F-B-0025:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS",
+          "missing": [],
+          "unknown": [
+            "realizedOutcome"
+          ]
+        },
+        "measurementPrevented": true
+      },
+      "kind": "negative_control",
+      "name": "forbidden_outcome_field",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "baselineCanAlreadyContainDefects": true,
+        "control": "REVERT_ACCEPTED_VALUE",
+        "detected": true,
+        "expectedNewDetector": "CORRECTION_PRESERVATION",
+        "mutation": "IN_MEMORY_ONLY",
+        "newDiagnostics": [
+          {
+            "code": "CORRECTION_PRESERVATION",
+            "detail": {
+              "A-E001.evidenceForm": true,
+              "A-E001.planCurrentState": true,
+              "A-E023.evidenceForm": true,
+              "A-E023.formalOperativeState": true,
+              "A-E023.planCurrentState": false,
+              "F0024.13OtherKeysPreserved": true,
+              "F0024.completeCorrectedIdentity": true
+            },
+            "where": "accepted corrections"
+          }
+        ],
+        "wholeRegressionExecuted": false
+      },
+      "kind": "negative_control",
+      "name": "original_NC_revert_accepted_value",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "baselineCanAlreadyContainDefects": true,
+        "control": "INVALID_TREE_TARGET",
+        "detected": true,
+        "expectedNewDetector": "CELL_BINDING",
+        "mutation": "IN_MEMORY_ONLY",
+        "newDiagnostics": [
+          {
+            "code": "CELL_BINDING",
+            "detail": [
+              "M-RES-ROLE-CONTROLLED-ACCESS",
+              "TT-INVALID-NEGATIVE-CONTROL"
+            ],
+            "where": "cell:1"
+          },
+          {
+            "code": "ORPHAN_EDGE_CARRIER",
+            "detail": null,
+            "where": "cell:1"
+          }
+        ],
+        "wholeRegressionExecuted": false
+      },
+      "kind": "negative_control",
+      "name": "original_NC_invalid_tree_target",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "actualDetector": "ACTUAL_SOURCE_BINDING",
+        "expectedDetector": "ACTUAL_SOURCE_BINDING",
+        "failureDetail": "MULTI_FACT_EDGE: measurement fixture: factIds=['F-B-0025', 'MISSING_FACT_NEGCTRL']",
+        "measurementPrevented": true
+      },
+      "kind": "negative_control",
+      "name": "original_NC_missing_referenced_fact_fail_closed",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "baselineCanAlreadyContainDefects": true,
+        "control": "orphan ref",
+        "detected": true,
+        "expectedNewDetector": "ORPHAN_scopeBridgeFactIds",
+        "mutation": "IN_MEMORY_ONLY",
+        "newDiagnostics": [
+          {
+            "code": "ORPHAN_scopeBridgeFactIds",
+            "detail": "MISSING_FACT_NEGCTRL",
+            "where": "A-EXEC1:F-B-0025:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS"
+          },
+          {
+            "code": "SECTION_I_scopeBridgeFactIds",
+            "detail": {
+              "recomputed": [],
+              "rule": "Unchanged applicable legacy carrier; propagation only, not independent analytical judgment",
+              "stored": [
+                "MISSING_FACT_NEGCTRL"
+              ]
+            },
+            "where": "A-EXEC1:F-B-0025:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS"
+          }
+        ],
+        "wholeRegressionExecuted": false
+      },
+      "kind": "negative_control",
+      "name": "orphan_support_reference_explicit_diagnostic",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "baselineCanAlreadyContainDefects": true,
+        "control": "INCONSISTENT_SECTION_I_AGGREGATE",
+        "detected": true,
+        "expectedNewDetector": "SECTION_I_missingComponents",
+        "mutation": "IN_MEMORY_ONLY",
+        "newDiagnostics": [
+          {
+            "code": "SECTION_I_missingComponents",
+            "detail": {
+              "recomputed": [
+                "c2",
+                "c3"
+              ],
+              "rule": "Registry / frozen input / accepted recorded components / F.3-F.5; no recoding",
+              "stored": []
+            },
+            "where": "A-EXEC1:F-B-0025:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS"
+          }
+        ],
+        "wholeRegressionExecuted": false
+      },
+      "kind": "negative_control",
+      "name": "original_NC_inconsistent_aggregate",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "boundedSingleEdgeTest": true,
+        "invariant": true,
+        "outputs": [
+          {
+            "edgeStateFromRecordedSupply": "PARTIAL",
+            "leafValue": "OPEN",
+            "missingComponentsFromRecordedSupply": [
+              "c2",
+              "c3"
+            ],
+            "recordedSuppliedComponents": [
+              "c1"
+            ],
+            "sufficiencyExpressionResult": "OPEN",
+            "targetState": "TARGET_NOT_ESTABLISHED_WITHIN_BOUND"
+          },
+          {
+            "edgeStateFromRecordedSupply": "PARTIAL",
+            "leafValue": "OPEN",
+            "missingComponentsFromRecordedSupply": [
+              "c2",
+              "c3"
+            ],
+            "recordedSuppliedComponents": [
+              "c1"
+            ],
+            "sufficiencyExpressionResult": "OPEN",
+            "targetState": "TARGET_NOT_ESTABLISHED_WITHIN_BOUND"
+          }
+        ]
+      },
+      "kind": "author_component_test",
+      "name": "F_B_0025_two_quality_sensitivity_preserved",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "invariant": true,
+        "outputs": {
+          "edgeStateFromRecordedSupply": "PARTIAL",
+          "leafValue": "OPEN",
+          "missingComponentsFromRecordedSupply": [
+            "c2",
+            "c3"
+          ],
+          "sufficiencyExpressionResult": "OPEN",
+          "targetState": "TARGET_NOT_ESTABLISHED_WITHIN_BOUND"
+        }
+      },
+      "kind": "author_component_test",
+      "name": "ADV2_prose_only_component_probe",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "edgesMeasuredPerInvocation": 1,
+        "measurementDefectsAreRetained": 3,
+        "sameStructures": true,
+        "structureSha256": "ca61ec64dc286a0113ce9452cd10b9994660dd9f173c061519c24df2596800b1"
+      },
+      "kind": "author_component_test",
+      "name": "fresh_parse_component_repeat",
+      "passed": true
+    },
+    {
+      "evidence": null,
+      "kind": "author_component_test",
+      "name": "legacy_typed_component_requirement_is_not_removed",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "baselineCanAlreadyContainDefects": true,
+        "control": "D route",
+        "detected": true,
+        "expectedNewDetector": "SECTION_I_discriminatorIds",
+        "mutation": "IN_MEMORY_ONLY",
+        "newDiagnostics": [
+          {
+            "code": "SECTION_I_discriminatorIds",
+            "detail": {
+              "recomputed": [
+                "D-07"
+              ],
+              "rule": "Registry / frozen input / accepted recorded components / F.3-F.5; no recoding",
+              "stored": [
+                "D-01"
+              ]
+            },
+            "where": "A-EXEC1:F-B-0025:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS"
+          }
+        ],
+        "wholeRegressionExecuted": false
+      },
+      "kind": "negative_control",
+      "name": "discriminator_routing_is_recomputed",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "baselineCanAlreadyContainDefects": true,
+        "control": "bearing mismatch",
+        "detected": true,
+        "expectedNewDetector": "SECTION_I_supportBearing",
+        "mutation": "IN_MEMORY_ONLY",
+        "newDiagnostics": [
+          {
+            "code": "SECTION_I_supportBearing",
+            "detail": {
+              "recomputed": "NON_DISCRIMINATING",
+              "rule": "Registry / frozen input / accepted recorded components / F.3-F.5; no recoding",
+              "stored": "DIRECT_SUPPORT"
+            },
+            "where": "A-E001"
+          }
+        ],
+        "wholeRegressionExecuted": false
+      },
+      "kind": "negative_control",
+      "name": "successor_bearing_does_not_manufacture_support",
+      "passed": true
+    },
+    {
+      "evidence": null,
+      "kind": "author_component_test",
+      "name": "successor_evaluability_does_not_read_establishment_scope",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "acceptedProvenanceComparison": {
+          "basis": "Registry / frozen input / accepted recorded components / F.3-F.5; no recoding",
+          "edgeId": "A-EXEC1:F0024:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS",
+          "field": "factualPackageIdentity",
+          "recomputed": {
+            "caseIdKey": "case_id",
+            "caseIdLocator": "record-level key 'case_id'",
+            "caseSlug": "aol-time-warner",
+            "factIdKey": "fact_id",
+            "factIdLocator": "record-level key 'fact_id'",
+            "identityAuthority": "STAGE2_CORR4_PILOT_STAGE1_SOURCE_MAP.json",
+            "identityAuthoritySha256": "665aac81c2e0127d08f0406186891959255391cb99ec34611a972209565f4a7f",
+            "packageDir": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/aol-time-warner/01_T0_PRE_T0_BASELINE/candidate",
+            "packageFactCount": 50,
+            "packageSideCount": 2,
+            "recordFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/aol-time-warner/01_T0_PRE_T0_BASELINE/candidate/06_FACTS.json",
+            "recordFileBytes": 61728,
+            "recordFileSha256": "88b20920149b3fcde03e4e060cf4361e9494fe0137540bbc654c526337fd5f10",
+            "recordFormat": "json",
+            "sideIdKey": "side",
+            "sideIdLocator": "record-level key 'side'",
+            "stage1Generation": "candidate"
+          },
+          "result": "MATCH",
+          "stored": {
+            "caseIdKey": "case_id",
+            "caseIdLocator": "record-level key 'case_id'",
+            "caseSlug": "aol-time-warner",
+            "factIdKey": "fact_id",
+            "factIdLocator": "record-level key 'fact_id'",
+            "identityAuthority": "STAGE2_CORR4_PILOT_STAGE1_SOURCE_MAP.json",
+            "identityAuthoritySha256": "665aac81c2e0127d08f0406186891959255391cb99ec34611a972209565f4a7f",
+            "packageDir": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/aol-time-warner/01_T0_PRE_T0_BASELINE/candidate",
+            "packageFactCount": 50,
+            "packageSideCount": 2,
+            "recordFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/02_CASE_RESEARCH/aol-time-warner/01_T0_PRE_T0_BASELINE/candidate/06_FACTS.json",
+            "recordFileBytes": 61728,
+            "recordFileSha256": "88b20920149b3fcde03e4e060cf4361e9494fe0137540bbc654c526337fd5f10",
+            "recordFormat": "json",
+            "sideIdKey": "side",
+            "sideIdLocator": "record-level key 'side'",
+            "stage1Generation": "candidate"
+          }
+        },
+        "fixture": "one F0024 edge only"
+      },
+      "kind": "author_component_test",
+      "name": "accepted_F0024_provenance_supersedes_old_identity",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "bindings": [
+          {
+            "boundValue": "OUTSIDE_FROZEN_VOCABULARY",
+            "consumer": "sourceClass field only",
+            "edgeId": "A-EXEC1:F-B-0025:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS"
+          },
+          {
+            "boundValue": "compensation plans",
+            "consumer": "sourceClass field only",
+            "edgeId": "A-EXEC1:F0024:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS"
+          },
+          {
+            "boundValue": "access-rights/role matrices",
+            "consumer": "sourceClass field only",
+            "edgeId": "A-RERUN1-CORR1:F-E-0182:M-RECOGNISED-COMMAND-ORDER:TT-STPSTJ-ESS"
+          },
+          {
+            "boundValue": "access-rights/role matrices",
+            "consumer": "sourceClass field only",
+            "edgeId": "A-RERUN1-CORR1:F-E-0182:M-RECOGNISED-COMMAND-ORDER:TT-STPSTJ-PW"
+          },
+          {
+            "boundValue": "OUTSIDE_FROZEN_VOCABULARY",
+            "consumer": "sourceClass field only",
+            "edgeId": "A-E001"
+          },
+          {
+            "boundValue": "OUTSIDE_FROZEN_VOCABULARY",
+            "consumer": "sourceClass field only",
+            "edgeId": "A-E023"
+          }
+        ],
+        "surface": "6/6 source identity bindings only; no expressions/leaf/target evaluation"
+      },
+      "kind": "author_component_test",
+      "name": "full_actual_source_binding_field_census",
+      "passed": true
+    },
+    {
+      "evidence": {
+        "command": [
+          "/usr/local/bin/python3",
+          "-B",
+          "-c",
+          "import runpy,json; n=runpy.run_path('/private/tmp/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_FEVA_CORR2/ORIGINAL_FROZEN_HARNESS.py'); r=n[\"regress\"](); print(json.dumps({\"regression\":r,\"negativeControls\":n[\"negative_controls\"](r),\"sensitivity\":n[\"scenarios\"](),\"ADV2\":n[\"adv2_analysis\"](r)},sort_keys=True,ensure_ascii=True,separators=(\",\",\":\")))"
+        ],
+        "currentFEVARegressed": false,
+        "cwd": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)",
+        "historicalResult": "FAIL",
+        "input": "a1fcae68939decd0a3c4a39c0a0bc48e8d285bd9cd7ce1928b0d025056244047",
+        "matchesHistoricalOriginalExactly": true,
+        "negativeControls": 4,
+        "originalHarnessUnmodified": true,
+        "resultStructureSha256": "58c2080b9d038ce91330fa8af7cf30ebb9d6b1920b9dc238a62e2904ec6b8e37"
+      },
+      "kind": "historical_non_regression_author_test",
+      "name": "historical_original_FAIL_is_reproducible",
+      "passed": true
+    }
+  ],
+  "wholeCurrentFEVARegressionExecuted": false
+}

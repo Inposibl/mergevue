@@ -1,0 +1,1004 @@
+[
+  {
+    "diagnostics": {
+      "acceptedCorrections": {
+        "A-E001.evidenceForm": true,
+        "A-E001.planCurrentState": true,
+        "A-E023.evidenceForm": true,
+        "A-E023.formalOperativeState": true,
+        "A-E023.planCurrentState": true,
+        "F0024.13OtherKeysPreserved": true,
+        "F0024.completeCorrectedIdentity": true
+      },
+      "acceptedCorrectionsPreserved": true,
+      "censusIncidents": {
+        "edgeIdentityDuplicates": 0,
+        "environmentAssignmentFields": [],
+        "executionSemanticDuplicates": 0,
+        "illegalRelations": [],
+        "invalidConflictReferences": [],
+        "invalidCounterevidenceReferences": [],
+        "jsonValidity": "PASS",
+        "orphanFactReferences": [],
+        "postT0OutcomeContamination": [],
+        "recordIdentityDuplicates": 0,
+        "supersededEffectiveCarriers": [
+          {
+            "code": "ORPHAN_EXPRESSION_MECHANISM",
+            "detail": "M-FORMAL-RULES",
+            "where": "A-E001"
+          }
+        ],
+        "unknownDiscriminators": [],
+        "unknownTreeTargetIds": []
+      },
+      "defects": [
+        {
+          "code": "COMPONENT_SCHEMA",
+          "detail": {
+            "componentId": "c1",
+            "extraKeys": [
+              "entailmentBasis",
+              "status"
+            ],
+            "linkageEvidenceType": "str",
+            "missingKeys": [
+              "factIds",
+              "mechanismPropositionId",
+              "organizationalObjectRef",
+              "relationInstanceId"
+            ]
+          },
+          "where": "A-E001"
+        },
+        {
+          "code": "SECTION_I_sufficiencyExpression",
+          "detail": {
+            "recomputed": "ALL_OF(M-AUTH-TOPDOWN-EXPLICIT, M-ENFORCE-STRENGTH, M-ENFORCE-SANCTION, M-ENFORCE-RESOURCE-CONTROL)",
+            "rule": "Registry / frozen input / accepted recorded components / F.3-F.5; no recoding",
+            "stored": "ALL_OF(M-ENFORCE-SANCTION, M-FORMAL-RULES)"
+          },
+          "where": "A-E001"
+        },
+        {
+          "code": "ORPHAN_EXPRESSION_MECHANISM",
+          "detail": "M-FORMAL-RULES",
+          "where": "A-E001"
+        }
+      ],
+      "derivedOutputs": [
+        {
+          "edgeId": "A-E001",
+          "edgeStateFromRecordedSupply": "PARTIAL",
+          "leafNotDeterminable": false,
+          "leafSupportPredicates": {
+            "characteristicityState": true,
+            "componentCoverage": false,
+            "edgeState": false,
+            "evidenceForm": true,
+            "formalOperativeState": true,
+            "planCurrentState": true,
+            "rowJoin": true,
+            "scopeBridgeState": false,
+            "sourceQualityState": true,
+            "temporalState": false
+          },
+          "leafValue": "OPEN",
+          "leafValues": {
+            "M-AUTH-TOPDOWN-EXPLICIT": "OPEN",
+            "M-ENFORCE-RESOURCE-CONTROL": "OPEN",
+            "M-ENFORCE-SANCTION": "OPEN",
+            "M-ENFORCE-STRENGTH": "OPEN"
+          },
+          "mechanismPropositionId": "M-ENFORCE-SANCTION",
+          "missingComponentsFromRecordedSupply": [
+            "c2"
+          ],
+          "recordedSuppliedComponents": [
+            "c1"
+          ],
+          "requiredComponents": [
+            "c1",
+            "c2"
+          ],
+          "selectionResultFromRecordedComponents": "SELECTED",
+          "sourceDiversity": "NOT_APPLICABLE",
+          "sufficiencyExpression": "ALL_OF(M-AUTH-TOPDOWN-EXPLICIT, M-ENFORCE-STRENGTH, M-ENFORCE-SANCTION, M-ENFORCE-RESOURCE-CONTROL)",
+          "sufficiencyExpressionResult": "OPEN",
+          "targetJoin": "NOT_ESTABLISHED_WITHIN_BOUND",
+          "targetState": "TARGET_NOT_ESTABLISHED_WITHIN_BOUND",
+          "treeTargetId": "TT-STJSTP-PW"
+        }
+      ],
+      "executionCellCounts": {},
+      "executionCells": [],
+      "executionCheckCounts": {},
+      "expectedDiffs": [
+        {
+          "after": {
+            "present": true,
+            "value": "record-level key 'case_id'"
+          },
+          "before": {
+            "present": true,
+            "value": "package-level key 'case_id'"
+          },
+          "path": "[111].factualPackageIdentity.caseIdLocator"
+        },
+        {
+          "after": {
+            "present": true,
+            "value": 50
+          },
+          "before": {
+            "present": true,
+            "value": 105
+          },
+          "path": "[111].factualPackageIdentity.packageFactCount"
+        },
+        {
+          "after": {
+            "present": true,
+            "value": 61728
+          },
+          "before": {
+            "present": true,
+            "value": 139589
+          },
+          "path": "[111].factualPackageIdentity.recordFileBytes"
+        },
+        {
+          "after": {
+            "present": true,
+            "value": "88b20920149b3fcde03e4e060cf4361e9494fe0137540bbc654c526337fd5f10"
+          },
+          "before": {
+            "present": true,
+            "value": "4b686b245e412a83424168da6c87db9b392b4ea16eeadff48c0b62e49c7198bb"
+          },
+          "path": "[111].factualPackageIdentity.recordFileSha256"
+        },
+        {
+          "after": {
+            "present": true,
+            "value": "D-04"
+          },
+          "before": {
+            "present": true,
+            "value": "D-01"
+          },
+          "path": "[112].discriminatorIds[0]"
+        },
+        {
+          "after": {
+            "present": true,
+            "value": "D-04"
+          },
+          "before": {
+            "present": true,
+            "value": "D-01"
+          },
+          "path": "[113].discriminatorIds[0]"
+        },
+        {
+          "after": {
+            "present": true,
+            "value": "EVALUABLE"
+          },
+          "before": {
+            "present": false
+          },
+          "path": "[114].bearingEvaluability"
+        },
+        {
+          "after": {
+            "present": true,
+            "value": null
+          },
+          "before": {
+            "present": false
+          },
+          "path": "[114].bearingIndeterminacyReasons"
+        },
+        {
+          "after": {
+            "present": true,
+            "value": "D-06"
+          },
+          "before": {
+            "present": true,
+            "value": "D-02"
+          },
+          "path": "[114].discriminatorIds[0]"
+        },
+        {
+          "after": {
+            "present": true,
+            "value": "PARTIAL"
+          },
+          "before": {
+            "present": true,
+            "value": "SUPPORTED"
+          },
+          "path": "[114].edgeState"
+        },
+        {
+          "after": {
+            "present": true,
+            "value": [
+              "c2"
+            ]
+          },
+          "before": {
+            "present": true,
+            "value": []
+          },
+          "path": "[114].missingComponents"
+        },
+        {
+          "after": {
+            "present": true,
+            "value": {
+              "adjudicatedBy": "A_E001_BEARING_DIRECTIONALITY_READJUDICATION_1",
+              "authority": "E9/07 \u00a712 (OWNER-CORR2-STJSTP); cb08b51e \u00a7F.3 l.1157; SEP-B-1b",
+              "basisComponents": [
+                "c1"
+              ],
+              "basisFactIds": [
+                "C-B04"
+              ],
+              "criterion": "one hard rule",
+              "prohibId": "PR-STJSTP",
+              "ttId": "TT-STJSTP-PW"
+            }
+          },
+          "before": {
+            "present": false
+          },
+          "path": "[114].prOnlyBasis"
+        },
+        {
+          "after": {
+            "present": true,
+            "value": "UNRESOLVED_FAIL_CLOSED"
+          },
+          "before": {
+            "present": true,
+            "value": "NOT_REQUIRED"
+          },
+          "path": "[114].scopeBridgeState"
+        },
+        {
+          "after": {
+            "present": true,
+            "value": "OUTSIDE_FROZEN_VOCABULARY"
+          },
+          "before": {
+            "present": true,
+            "value": "PERIODICAL_PRINT_ARCHIVE"
+          },
+          "path": "[114].sourceClass"
+        },
+        {
+          "after": {
+            "present": true,
+            "value": "OPEN"
+          },
+          "before": {
+            "present": true,
+            "value": "TRUE"
+          },
+          "path": "[114].sufficiencyExpressionResult"
+        },
+        {
+          "after": {
+            "present": true,
+            "value": "NON_DISCRIMINATING"
+          },
+          "before": {
+            "present": false
+          },
+          "path": "[114].supportBearing"
+        },
+        {
+          "after": {
+            "present": false
+          },
+          "before": {
+            "present": true,
+            "value": "DIRECT_SUPPORT"
+          },
+          "path": "[114].supportClass"
+        },
+        {
+          "after": {
+            "present": true,
+            "value": "D-07"
+          },
+          "before": {
+            "present": true,
+            "value": "D-06"
+          },
+          "path": "[115].discriminatorIds[0]"
+        },
+        {
+          "after": {
+            "present": true,
+            "value": "OUTSIDE_FROZEN_VOCABULARY"
+          },
+          "before": {
+            "present": true,
+            "value": "FORM_10K"
+          },
+          "path": "[115].sourceClass"
+        }
+      ],
+      "identities": {
+        "assemblyContract": {
+          "bytes": 16515,
+          "path": "/private/tmp/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_FEVA_CORR2/FROZEN_INPUTS/WORKBENCH/DOWNLOADS/STAGE2_EFFECTIVE_VIEW_ASSEMBLY_1_CORR1_2026-10-05/STAGE2_EFFECTIVE_VIEW_ASSEMBLY_CONTRACT_1.md",
+          "sha256": "4e2ff3d00baa05dc82dc4f72318c413b0683cbe0d050ee026bb8b6ad7c6eee66"
+        },
+        "effectiveView": {
+          "bytes": 104722,
+          "path": "/private/tmp/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_FEVA_CORR2/FEVA_CORR2_EXACT_INPUT.jsonl",
+          "sha256": "5b37071a5fa5374c77b149bfde5c230c228cdf73d9785e5ea55346f9fab28daa"
+        },
+        "methodology": {
+          "bytes": 344754,
+          "path": "/private/tmp/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_FEVA_CORR2/FROZEN_INPUTS/WORKBENCH/DOWNLOADS/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_2026-10-04/STAGE2_PD3_ROLE_BOUNDED_ENTITLEMENT_CLARIFICATION_1_CORR1_CANDIDATE.md",
+          "sha256": "cb08b51e1c2fbaec7765989a7a4e15db1788c53eb5fec43f2628ecb88c1d6c73"
+        }
+      },
+      "physicalCensus": {
+        "EXECUTION_CELL_RECORDS": 110,
+        "SECTION_I_RECORDS": 6,
+        "TOTAL_RECORDS": 116,
+        "censusReferenceInventory": 134,
+        "duplicateExecutionSemanticIdentities": 0,
+        "duplicateJsonKeys": 0,
+        "duplicateRecordIdentities": 0,
+        "duplicateSectionIEdgeIdentities": 0,
+        "frozenFactInventory": 30,
+        "malformedJsonRecords": 0
+      },
+      "physicalSchema": {
+        "allowedExecutionCellFields": [
+          "assignedValue",
+          "cellIndex",
+          "censusCellRef",
+          "coderIdentity",
+          "derivationOrBasis",
+          "executionType",
+          "factId",
+          "field",
+          "mechanismPropositionId",
+          "recordType",
+          "side",
+          "subtask",
+          "subtaskDescription",
+          "targetId"
+        ],
+        "componentSupplySchemaAuthority": "Methodology I + analytical coder view component satisfaction; extra status/entailmentBasis are not authorized keys",
+        "requiredSectionIFields": [
+          "absenceEvidenceState",
+          "abstention",
+          "ambiguity",
+          "beliefSystemRef",
+          "caseId",
+          "characteristicityFactIds",
+          "characteristicityState",
+          "claimedScope",
+          "coderIdentity",
+          "componentSupply",
+          "conflictFactIds",
+          "continuityBridgeFactIds",
+          "contractIdentity",
+          "counterevidenceFactIds",
+          "decisionRef",
+          "discriminatorIds",
+          "edgeId",
+          "edgeState",
+          "evidenceForm",
+          "factIds",
+          "factualPackageIdentity",
+          "formalOperativeState",
+          "mechanismObjectTypes",
+          "mechanismPropositionIds",
+          "missingComponents",
+          "nonExpansionRationale",
+          "observedScope",
+          "organizationalObjectRef",
+          "participationSystemRef",
+          "planCurrentState",
+          "presentationLaneOnly",
+          "recordType",
+          "relation",
+          "relationInstanceId",
+          "relevanceState",
+          "resourceFlowRef",
+          "scopeBridgeFactIds",
+          "scopeBridgeState",
+          "side",
+          "sourceClass",
+          "sourceQualityState",
+          "sourceRefs",
+          "sufficiencyExpression",
+          "sufficiencyExpressionResult",
+          "supportClass",
+          "temporalState",
+          "treeTargetIds",
+          "vocabularyVersion"
+        ],
+        "unknownOuterFields": []
+      },
+      "registryCensus": {
+        "discriminators": 13,
+        "mechanisms": 74,
+        "treeTargets": 62
+      },
+      "sectionIComparisonCounts": {
+        "MATCH": 23,
+        "MISMATCH": 1,
+        "NOT_DETERMINABLE": 26
+      },
+      "sectionIComparisons": [
+        {
+          "basis": "No execution-cell carrier or deterministic assignment rule from accepted recorded states. Preserved analytical input / immutable metadata; no recoding authorized.",
+          "edgeId": "A-E001",
+          "field": "edgeId",
+          "outputUse": false,
+          "result": "NOT_DETERMINABLE",
+          "stored": "A-E001"
+        },
+        {
+          "basis": "Registry / frozen input / accepted recorded components / F.3-F.5; no recoding",
+          "edgeId": "A-E001",
+          "field": "caseId",
+          "recomputed": "CASE-3.5",
+          "result": "MATCH",
+          "stored": "CASE-3.5"
+        },
+        {
+          "basis": "Registry / frozen input / accepted recorded components / F.3-F.5; no recoding",
+          "edgeId": "A-E001",
+          "field": "side",
+          "recomputed": "CHRYSLER",
+          "result": "MATCH",
+          "stored": "CHRYSLER"
+        },
+        {
+          "basis": "Registry / frozen input / accepted recorded components / F.3-F.5; no recoding",
+          "edgeId": "A-E001",
+          "field": "factualPackageIdentity",
+          "recomputed": {
+            "caseIdKey": "caseId",
+            "caseIdLocator": "package-level key 'caseId'",
+            "caseSlug": "daimler-chrysler",
+            "factIdKey": "factId",
+            "factIdLocator": "record-level key 'factId'",
+            "identityAuthority": "STAGE2_CORR4_PILOT_STAGE1_SOURCE_MAP.json",
+            "identityAuthoritySha256": "665aac81c2e0127d08f0406186891959255391cb99ec34611a972209565f4a7f",
+            "packageDir": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/Downloads/CASE-3.5_DAIMLER_CHRYSLER_BASELINE_v1.0.7_CANDIDATE",
+            "packageFactCount": 43,
+            "packageSideCount": 2,
+            "recordFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/Downloads/CASE-3.5_DAIMLER_CHRYSLER_BASELINE_v1.0.7_CANDIDATE/CERTIFIED_FACT_REGISTER.json",
+            "recordFileBytes": 95230,
+            "recordFileSha256": "268ee5818a3fc6f660a634cc125679c365c759b0a5c0c226f4bca11aca37f532",
+            "recordFormat": "json",
+            "sideIdKey": "side",
+            "sideIdLocator": "record-level key 'side'",
+            "stage1Generation": "BASELINE_v1.0.7_CANDIDATE"
+          },
+          "result": "MATCH",
+          "stored": {
+            "caseIdKey": "caseId",
+            "caseIdLocator": "package-level key 'caseId'",
+            "caseSlug": "daimler-chrysler",
+            "factIdKey": "factId",
+            "factIdLocator": "record-level key 'factId'",
+            "identityAuthority": "STAGE2_CORR4_PILOT_STAGE1_SOURCE_MAP.json",
+            "identityAuthoritySha256": "665aac81c2e0127d08f0406186891959255391cb99ec34611a972209565f4a7f",
+            "packageDir": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/Downloads/CASE-3.5_DAIMLER_CHRYSLER_BASELINE_v1.0.7_CANDIDATE",
+            "packageFactCount": 43,
+            "packageSideCount": 2,
+            "recordFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/Downloads/CASE-3.5_DAIMLER_CHRYSLER_BASELINE_v1.0.7_CANDIDATE/CERTIFIED_FACT_REGISTER.json",
+            "recordFileBytes": 95230,
+            "recordFileSha256": "268ee5818a3fc6f660a634cc125679c365c759b0a5c0c226f4bca11aca37f532",
+            "recordFormat": "json",
+            "sideIdKey": "side",
+            "sideIdLocator": "record-level key 'side'",
+            "stage1Generation": "BASELINE_v1.0.7_CANDIDATE"
+          }
+        },
+        {
+          "basis": "Registry / frozen input / accepted recorded components / F.3-F.5; no recoding",
+          "edgeId": "A-E001",
+          "field": "factIds",
+          "recomputed": [
+            "C-B04"
+          ],
+          "result": "MATCH",
+          "stored": [
+            "C-B04"
+          ]
+        },
+        {
+          "basis": "Registry / frozen input / accepted recorded components / F.3-F.5; no recoding",
+          "edgeId": "A-E001",
+          "field": "sourceRefs",
+          "recomputed": [
+            {
+              "documentaryIdentity": {
+                "documentaryIssuerOrPublisher": {
+                  "key": "publisher",
+                  "value": "Los Angeles Times"
+                },
+                "documentaryTitle": {
+                  "key": "title",
+                  "value": "Teamwork: Chrysler Builds a Concept as Well as a Car"
+                },
+                "documentaryType": {
+                  "key": "sourceType",
+                  "value": "PERIODICAL_PRINT_ARCHIVE"
+                }
+              },
+              "factLevelLocator": null,
+              "factLevelLocatorAbsent": true,
+              "refIndex": 0,
+              "registryFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/Downloads/CASE-3.5_DAIMLER_CHRYSLER_BASELINE_v1.0.7_CANDIDATE/SOURCE_REGISTER.json",
+              "registryFileSha256": "64ca097dccaa95ec17642c6ceaed495e2d1064462627cad3ed47c8de04226109",
+              "registryRecordIndex": 0,
+              "registryRecordSha256": "ee254d3842a71ac04b733dce4fac0550fa0ae852c0739fc8d3c4d7fb74bc1cc2",
+              "sourceId": "C33-S01",
+              "sourceIdBindingLocator": "record-level key 'sourceIds'"
+            }
+          ],
+          "result": "MATCH",
+          "stored": [
+            {
+              "documentaryIdentity": {
+                "documentaryIssuerOrPublisher": {
+                  "key": "publisher",
+                  "value": "Los Angeles Times"
+                },
+                "documentaryTitle": {
+                  "key": "title",
+                  "value": "Teamwork: Chrysler Builds a Concept as Well as a Car"
+                },
+                "documentaryType": {
+                  "key": "sourceType",
+                  "value": "PERIODICAL_PRINT_ARCHIVE"
+                }
+              },
+              "factLevelLocator": null,
+              "factLevelLocatorAbsent": true,
+              "refIndex": 0,
+              "registryFile": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/Downloads/CASE-3.5_DAIMLER_CHRYSLER_BASELINE_v1.0.7_CANDIDATE/SOURCE_REGISTER.json",
+              "registryFileSha256": "64ca097dccaa95ec17642c6ceaed495e2d1064462627cad3ed47c8de04226109",
+              "registryRecordIndex": 0,
+              "registryRecordSha256": "ee254d3842a71ac04b733dce4fac0550fa0ae852c0739fc8d3c4d7fb74bc1cc2",
+              "sourceId": "C33-S01",
+              "sourceIdBindingLocator": "record-level key 'sourceIds'"
+            }
+          ]
+        },
+        {
+          "basis": "No execution-cell carrier or deterministic assignment rule from accepted recorded states. Preserved analytical input / immutable metadata; no recoding authorized.",
+          "edgeId": "A-E001",
+          "field": "coderIdentity",
+          "outputUse": false,
+          "result": "NOT_DETERMINABLE",
+          "stored": "ANTIGRAVITY 3.8"
+        },
+        {
+          "basis": "No execution-cell carrier or deterministic assignment rule from accepted recorded states. Preserved analytical input / immutable metadata; no recoding authorized.",
+          "edgeId": "A-E001",
+          "field": "vocabularyVersion",
+          "outputUse": false,
+          "result": "NOT_DETERMINABLE",
+          "stored": "CORR4 section I nine-class vocabulary v1.0"
+        },
+        {
+          "basis": "No execution-cell carrier or deterministic assignment rule from accepted recorded states. Preserved analytical input / immutable metadata; no recoding authorized.",
+          "edgeId": "A-E001",
+          "field": "contractIdentity",
+          "outputUse": false,
+          "result": "NOT_DETERMINABLE",
+          "stored": "RC3_CORR1_METHODOLOGY_SUCCESSOR_CANDIDATE.md (sha256 e0dc81f017ff02418b81a0bcb74c808fdae5748fddc5416b2ba42883da497817)"
+        },
+        {
+          "basis": "Registry / frozen input / accepted recorded components / F.3-F.5; no recoding",
+          "edgeId": "A-E001",
+          "field": "mechanismPropositionIds",
+          "recomputed": [
+            "M-ENFORCE-SANCTION"
+          ],
+          "result": "MATCH",
+          "stored": [
+            "M-ENFORCE-SANCTION"
+          ]
+        },
+        {
+          "basis": "Registry / frozen input / accepted recorded components / F.3-F.5; no recoding",
+          "edgeId": "A-E001",
+          "field": "mechanismObjectTypes",
+          "recomputed": [
+            "ORGANIZATIONAL_MECHANISM"
+          ],
+          "result": "MATCH",
+          "stored": [
+            "ORGANIZATIONAL_MECHANISM"
+          ]
+        },
+        {
+          "basis": "Registry / frozen input / accepted recorded components / F.3-F.5; no recoding",
+          "edgeId": "A-E001",
+          "field": "discriminatorIds",
+          "recomputed": [
+            "D-06"
+          ],
+          "result": "MATCH",
+          "stored": [
+            "D-06"
+          ]
+        },
+        {
+          "basis": "Registry / frozen input / accepted recorded components / F.3-F.5; no recoding",
+          "edgeId": "A-E001",
+          "field": "treeTargetIds",
+          "recomputed": [
+            "TT-STJSTP-PW"
+          ],
+          "result": "MATCH",
+          "stored": [
+            "TT-STJSTP-PW"
+          ]
+        },
+        {
+          "basis": "Registry / frozen input / accepted recorded components / F.3-F.5; no recoding",
+          "edgeId": "A-E001",
+          "field": "relation",
+          "recomputed": "SUPPORTS_LEAF",
+          "result": "MATCH",
+          "stored": "SUPPORTS_LEAF"
+        },
+        {
+          "basis": "No execution-cell carrier or deterministic assignment rule from accepted recorded states. Preserved analytical input / immutable metadata; no recoding authorized.",
+          "edgeId": "A-E001",
+          "field": "componentSupply",
+          "outputUse": true,
+          "result": "NOT_DETERMINABLE",
+          "stored": [
+            {
+              "componentId": "c1",
+              "entailmentBasis": "Removal of non-conforming team members satisfies sanction enforcement definition",
+              "linkageEvidence": "Chrysler platform team members who did not conform to the program management discipline were asked to leave",
+              "status": "SUPPLIED"
+            }
+          ]
+        },
+        {
+          "basis": "Registry / frozen input / accepted recorded components / F.3-F.5; no recoding",
+          "edgeId": "A-E001",
+          "field": "missingComponents",
+          "recomputed": [
+            "c2"
+          ],
+          "result": "MATCH",
+          "stored": [
+            "c2"
+          ]
+        },
+        {
+          "basis": "No execution-cell carrier or deterministic assignment rule from accepted recorded states. Preserved analytical input / immutable metadata; no recoding authorized.",
+          "edgeId": "A-E001",
+          "field": "relationInstanceId",
+          "outputUse": false,
+          "result": "NOT_DETERMINABLE",
+          "stored": "REL-C-B04-SANCTION-01"
+        },
+        {
+          "basis": "No execution-cell carrier or deterministic assignment rule from accepted recorded states. Preserved analytical input / immutable metadata; no recoding authorized.",
+          "edgeId": "A-E001",
+          "field": "organizationalObjectRef",
+          "outputUse": false,
+          "result": "NOT_DETERMINABLE",
+          "stored": "CHRYSLER:PLATFORM_TEAM_PROGRAM_MANAGEMENT"
+        },
+        {
+          "basis": "No execution-cell carrier or deterministic assignment rule from accepted recorded states. Preserved analytical input / immutable metadata; no recoding authorized.",
+          "edgeId": "A-E001",
+          "field": "decisionRef",
+          "outputUse": false,
+          "result": "NOT_DETERMINABLE",
+          "stored": "DEC-C-B04-SANCTION-REMOVAL"
+        },
+        {
+          "basis": "No execution-cell carrier or deterministic assignment rule from accepted recorded states. Preserved analytical input / immutable metadata; no recoding authorized.",
+          "edgeId": "A-E001",
+          "field": "resourceFlowRef",
+          "outputUse": false,
+          "result": "NOT_DETERMINABLE",
+          "stored": null
+        },
+        {
+          "basis": "No execution-cell carrier or deterministic assignment rule from accepted recorded states. Preserved analytical input / immutable metadata; no recoding authorized.",
+          "edgeId": "A-E001",
+          "field": "participationSystemRef",
+          "outputUse": false,
+          "result": "NOT_DETERMINABLE",
+          "stored": null
+        },
+        {
+          "basis": "No execution-cell carrier or deterministic assignment rule from accepted recorded states. Preserved analytical input / immutable metadata; no recoding authorized.",
+          "edgeId": "A-E001",
+          "field": "beliefSystemRef",
+          "outputUse": false,
+          "result": "NOT_DETERMINABLE",
+          "stored": null
+        },
+        {
+          "basis": "No execution-cell carrier or deterministic assignment rule from accepted recorded states. Preserved analytical input / immutable metadata; no recoding authorized.",
+          "edgeId": "A-E001",
+          "field": "observedScope",
+          "outputUse": true,
+          "result": "NOT_DETERMINABLE",
+          "stored": "unit"
+        },
+        {
+          "basis": "No execution-cell carrier or deterministic assignment rule from accepted recorded states. Preserved analytical input / immutable metadata; no recoding authorized.",
+          "edgeId": "A-E001",
+          "field": "claimedScope",
+          "outputUse": true,
+          "result": "NOT_DETERMINABLE",
+          "stored": "enterprise"
+        },
+        {
+          "basis": "Registry / frozen input / accepted recorded components / F.3-F.5; no recoding",
+          "edgeId": "A-E001",
+          "field": "scopeBridgeState",
+          "recomputed": "UNRESOLVED_FAIL_CLOSED",
+          "result": "MATCH",
+          "stored": "UNRESOLVED_FAIL_CLOSED"
+        },
+        {
+          "basis": "No execution-cell carrier or deterministic assignment rule from accepted recorded states. Preserved analytical input / immutable metadata; no recoding authorized.",
+          "edgeId": "A-E001",
+          "field": "scopeBridgeFactIds",
+          "outputUse": false,
+          "result": "NOT_DETERMINABLE",
+          "stored": []
+        },
+        {
+          "basis": "No execution-cell carrier or deterministic assignment rule from accepted recorded states. Preserved analytical input / immutable metadata; no recoding authorized.",
+          "edgeId": "A-E001",
+          "field": "temporalState",
+          "outputUse": true,
+          "result": "NOT_DETERMINABLE",
+          "stored": "PRE_T0_CONTINUITY_UNRESOLVED"
+        },
+        {
+          "basis": "No execution-cell carrier or deterministic assignment rule from accepted recorded states. Preserved analytical input / immutable metadata; no recoding authorized.",
+          "edgeId": "A-E001",
+          "field": "continuityBridgeFactIds",
+          "outputUse": false,
+          "result": "NOT_DETERMINABLE",
+          "stored": []
+        },
+        {
+          "basis": "Unchanged applicable legacy carrier; propagation only, not independent analytical judgment",
+          "edgeId": "A-E001",
+          "field": "characteristicityState",
+          "recomputed": "CHARACTERISTIC",
+          "result": "MATCH",
+          "stored": "CHARACTERISTIC"
+        },
+        {
+          "basis": "Unchanged applicable legacy carrier; propagation only, not independent analytical judgment",
+          "edgeId": "A-E001",
+          "field": "characteristicityFactIds",
+          "recomputed": [
+            "C-B04"
+          ],
+          "result": "MATCH",
+          "stored": [
+            "C-B04"
+          ]
+        },
+        {
+          "basis": "No execution-cell carrier or deterministic assignment rule from accepted recorded states. Preserved analytical input / immutable metadata; no recoding authorized.",
+          "edgeId": "A-E001",
+          "field": "formalOperativeState",
+          "outputUse": true,
+          "result": "NOT_DETERMINABLE",
+          "stored": "FORMAL_PLUS_OPERATIVE"
+        },
+        {
+          "basis": "No execution-cell carrier or deterministic assignment rule from accepted recorded states. Preserved analytical input / immutable metadata; no recoding authorized.",
+          "edgeId": "A-E001",
+          "field": "planCurrentState",
+          "outputUse": true,
+          "result": "NOT_DETERMINABLE",
+          "stored": "CURRENT"
+        },
+        {
+          "basis": "No execution-cell carrier or deterministic assignment rule from accepted recorded states. Preserved analytical input / immutable metadata; no recoding authorized.",
+          "edgeId": "A-E001",
+          "field": "evidenceForm",
+          "outputUse": false,
+          "result": "NOT_DETERMINABLE",
+          "stored": "DE-1"
+        },
+        {
+          "basis": "No execution-cell carrier or deterministic assignment rule from accepted recorded states. Preserved analytical input / immutable metadata; no recoding authorized.",
+          "edgeId": "A-E001",
+          "field": "sourceQualityState",
+          "outputUse": true,
+          "result": "NOT_DETERMINABLE",
+          "stored": "COMPETENT"
+        },
+        {
+          "basis": "No execution-cell carrier or deterministic assignment rule from accepted recorded states. Preserved analytical input / immutable metadata; no recoding authorized.",
+          "edgeId": "A-E001",
+          "field": "absenceEvidenceState",
+          "outputUse": false,
+          "result": "NOT_DETERMINABLE",
+          "stored": "NONE"
+        },
+        {
+          "basis": "Registry / frozen input / accepted recorded components / F.3-F.5; no recoding",
+          "edgeId": "A-E001",
+          "field": "sourceClass",
+          "recomputed": "OUTSIDE_FROZEN_VOCABULARY",
+          "result": "MATCH",
+          "stored": "OUTSIDE_FROZEN_VOCABULARY"
+        },
+        {
+          "basis": "No execution-cell carrier or deterministic assignment rule from accepted recorded states. Preserved analytical input / immutable metadata; no recoding authorized.",
+          "edgeId": "A-E001",
+          "field": "relevanceState",
+          "outputUse": false,
+          "result": "NOT_DETERMINABLE",
+          "stored": "ANALYTICAL_MAPPED"
+        },
+        {
+          "basis": "Registry / frozen input / accepted recorded components / F.3-F.5; no recoding",
+          "edgeId": "A-E001",
+          "field": "edgeState",
+          "recomputed": "PARTIAL",
+          "result": "MATCH",
+          "stored": "PARTIAL"
+        },
+        {
+          "basis": "No execution-cell carrier or deterministic assignment rule from accepted recorded states. Preserved analytical input / immutable metadata; no recoding authorized.",
+          "edgeId": "A-E001",
+          "field": "ambiguity",
+          "outputUse": false,
+          "result": "NOT_DETERMINABLE",
+          "stored": null
+        },
+        {
+          "basis": "Registry / frozen input / accepted recorded components / F.3-F.5; no recoding",
+          "edgeId": "A-E001",
+          "field": "sufficiencyExpression",
+          "recomputed": "ALL_OF(M-AUTH-TOPDOWN-EXPLICIT, M-ENFORCE-STRENGTH, M-ENFORCE-SANCTION, M-ENFORCE-RESOURCE-CONTROL)",
+          "result": "MISMATCH",
+          "stored": "ALL_OF(M-ENFORCE-SANCTION, M-FORMAL-RULES)"
+        },
+        {
+          "basis": "Registry / frozen input / accepted recorded components / F.3-F.5; no recoding",
+          "edgeId": "A-E001",
+          "field": "sufficiencyExpressionResult",
+          "recomputed": "OPEN",
+          "result": "MATCH",
+          "stored": "OPEN"
+        },
+        {
+          "basis": "Registry / frozen input / accepted recorded components / F.3-F.5; no recoding",
+          "edgeId": "A-E001",
+          "field": "counterevidenceFactIds",
+          "recomputed": [],
+          "result": "MATCH",
+          "stored": []
+        },
+        {
+          "basis": "Registry / frozen input / accepted recorded components / F.3-F.5; no recoding",
+          "edgeId": "A-E001",
+          "field": "conflictFactIds",
+          "recomputed": [],
+          "result": "MATCH",
+          "stored": []
+        },
+        {
+          "basis": "No execution-cell carrier or deterministic assignment rule from accepted recorded states. Preserved analytical input / immutable metadata; no recoding authorized.",
+          "edgeId": "A-E001",
+          "field": "abstention",
+          "outputUse": false,
+          "result": "NOT_DETERMINABLE",
+          "stored": null
+        },
+        {
+          "basis": "No execution-cell carrier or deterministic assignment rule from accepted recorded states. Preserved analytical input / immutable metadata; no recoding authorized.",
+          "edgeId": "A-E001",
+          "field": "nonExpansionRationale",
+          "outputUse": false,
+          "result": "NOT_DETERMINABLE",
+          "stored": "Does not establish cross-enterprise sanction authority outside platform teams or post-T0 continuity."
+        },
+        {
+          "basis": "No execution-cell carrier or deterministic assignment rule from accepted recorded states. Preserved analytical input / immutable metadata; no recoding authorized.",
+          "edgeId": "A-E001",
+          "field": "presentationLaneOnly",
+          "outputUse": false,
+          "result": "NOT_DETERMINABLE",
+          "stored": "NO"
+        },
+        {
+          "basis": "Registry / frozen input / accepted recorded components / F.3-F.5; no recoding",
+          "edgeId": "A-E001",
+          "field": "prOnlyBasis",
+          "recomputed": {
+            "adjudicatedBy": "A_E001_BEARING_DIRECTIONALITY_READJUDICATION_1",
+            "authority": "E9/07 \u00a712 (OWNER-CORR2-STJSTP); cb08b51e \u00a7F.3 l.1157; SEP-B-1b",
+            "basisComponents": [
+              "c1"
+            ],
+            "basisFactIds": [
+              "C-B04"
+            ],
+            "criterion": "one hard rule",
+            "prohibId": "PR-STJSTP",
+            "ttId": "TT-STJSTP-PW"
+          },
+          "result": "MATCH",
+          "stored": {
+            "adjudicatedBy": "A_E001_BEARING_DIRECTIONALITY_READJUDICATION_1",
+            "authority": "E9/07 \u00a712 (OWNER-CORR2-STJSTP); cb08b51e \u00a7F.3 l.1157; SEP-B-1b",
+            "basisComponents": [
+              "c1"
+            ],
+            "basisFactIds": [
+              "C-B04"
+            ],
+            "criterion": "one hard rule",
+            "prohibId": "PR-STJSTP",
+            "ttId": "TT-STJSTP-PW"
+          }
+        },
+        {
+          "basis": "Registry / frozen input / accepted recorded components / F.3-F.5; no recoding",
+          "edgeId": "A-E001",
+          "field": "bearingEvaluability",
+          "recomputed": "EVALUABLE",
+          "result": "MATCH",
+          "stored": "EVALUABLE"
+        },
+        {
+          "basis": "Registry / frozen input / accepted recorded components / F.3-F.5; no recoding",
+          "edgeId": "A-E001",
+          "field": "bearingIndeterminacyReasons",
+          "recomputed": null,
+          "result": "MATCH",
+          "stored": null
+        },
+        {
+          "basis": "Registry / frozen input / accepted recorded components / F.3-F.5; no recoding",
+          "edgeId": "A-E001",
+          "field": "supportBearing",
+          "recomputed": "NON_DISCRIMINATING",
+          "result": "MATCH",
+          "stored": "NON_DISCRIMINATING"
+        }
+      ],
+      "unexpectedDiffs": []
+    },
+    "fixture": "accepted A-E001 single-edge author compatibility test",
+    "identity": {
+      "bytes": 104722,
+      "path": "/private/tmp/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_FEVA_CORR2/FEVA_CORR2_EXACT_INPUT.jsonl",
+      "sha256": "5b37071a5fa5374c77b149bfde5c230c228cdf73d9785e5ea55346f9fab28daa"
+    },
+    "scope": "ONE EDGE; not full FEVA measurement"
+  }
+]

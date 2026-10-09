@@ -1,0 +1,97 @@
+{
+  "act": "STAGE-2 FINAL MEASUREMENT REGRESSION — HARNESS COMPATIBILITY ADAPTATION.IV1",
+  "checkedAt": "2026-10-08",
+  "repository": {
+    "root": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)",
+    "remoteName": "Inposibl/mergevue",
+    "branch": "main",
+    "HEAD": "2f7bcc5d33cf8009145aa85cbb39d2ae9084ec26",
+    "HEADMatchesExpected": true,
+    "HEADCommitSubject": "docs: bind Owner-accepted verified FEVA CORR2 final effective view assembly",
+    "preTrackedDirty": 0,
+    "postTrackedDirty": 0,
+    "preUntracked": 431,
+    "postUntracked": 431,
+    "gitMutationPerformed": false
+  },
+  "governanceHashes": {
+    "MERGEVUE_CONTROL_TREE_v2.1_2026-09-04.md": "360bafa29bad5ea93752323d4a217bf59aaec628e0e2b236350a2edd9c1f7128",
+    "MERGEVUE_GIT_WORKTREE_CLOSURE_GOVERNANCE_2026-09-05.md": "27aa43abd0d8ce93b500231ded6b47d98949ba2a475f991098081c320b270a85",
+    "MERGEVUE_MODEL_ROUTING_AND_VERIFICATION_POLICY_2026-09-08.md": "07fdf43043c3a2245c7cb0eae2e89ff42f88d66100736751227f2ddfb7d34a23",
+    "MERGEVUE_CAUSALITY_PROOF_AND_AGENT_CONTROL.md": "06770667d4abeff499d5e24b60d5af53af638a0ca1283aee0d188c17f7d1caf5",
+    "sidecarMatchForTheThreeGovernanceFilesThatHaveSidecars": true
+  },
+  "candidate": {
+    "path": "/private/tmp/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_FEVA_CORR2/ADAPTED_REGRESSION_HARNESS.py",
+    "bytes": 28712,
+    "sha256": "82f78f8c6db43473fb0c79676374227384354fee8e46537427584cd2a39fd560",
+    "matchesExpected": true,
+    "shaUnchangedAfterAudit": true,
+    "pycCreatedInCandidatePackage": false
+  },
+  "feva": {
+    "gitPath": "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_RECORDS.jsonl",
+    "gitBlob": "43335eed6a9bdec0a9685565975b36b7e7f16ef3",
+    "bytes": 104722,
+    "sha256": "5b37071a5fa5374c77b149bfde5c230c228cdf73d9785e5ea55346f9fab28daa",
+    "sourceOfBytes": "git cat-file -p HEAD:path",
+    "packageCopyMatchesGit": true,
+    "records": 116,
+    "executionCells": 110,
+    "sectionI": 6,
+    "lines1to110AreExecutionCells": true,
+    "lines111to116AreSectionI": true,
+    "legacyRawBytes": 78644,
+    "legacyRawSha256": "b382ffc52a626cc8eb796f01d1456d531cdea959bc6c23f7d31b0d392031ceca",
+    "duplicateJsonKeys": 0,
+    "duplicateRecordIdentities": 0
+  },
+  "corr4": {
+    "path": "WORKBENCH/DOWNLOADS/STAGE2_SEMANTIC_SUCCESSOR_CANDIDATE_CORR4.md",
+    "gitBytes": 250512,
+    "sha256": "2de49862fb0d63c5f1cd1745531199137e73b7b37abceecef6e735d497d38bb0"
+  },
+  "manifest": {
+    "declaredFileCountExcludingManifest": 132,
+    "memberCount": 132,
+    "diskFileCountExcludingManifest": 132,
+    "missingFromManifest": [],
+    "manifestPathsAbsentOnDisk": [],
+    "duplicatePaths": [],
+    "hashOrByteMismatches": [],
+    "coversCandidate": true
+  },
+  "pins": {
+    "count": 107,
+    "frozenPinMismatches": [],
+    "symlinkOrEscape": [],
+    "gitTracked": 50,
+    "gitMismatches": [],
+    "untracked": 57,
+    "untrackedWorktreeMismatches": [],
+    "untrackedMissingFromWorktree": []
+  },
+  "oracleFreeze": {
+    "path": "ACCEPTED_FEVA_COMPOSITION_ORACLE.json",
+    "sha256": "af58a1081eaf90e107383b3ebe5d9b75e2e4ddcea9b55e8817388e61b5ed1dc9",
+    "embeddedShaMatchesFile": true,
+    "lineIdentityMismatchesAgainstGitParse": [],
+    "orderedIdentitiesMatch": true,
+    "legacyRawMatches": true,
+    "historicalPredecessorSha256": "a1fcae68939decd0a3c4a39c0a0bc48e8d285bd9cd7ce1928b0d025056244047",
+    "historicalPredecessorBytes": 104310,
+    "independentDiffCount": 19,
+    "oracleDiffCount": 19,
+    "diffSetEqual": true,
+    "oracleOnlyPaths": [],
+    "independentOnlyPaths": []
+  },
+  "sectionIFamily": [
+    {"line": 111, "edgeId": "A-EXEC1:F-B-0025:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS", "representation": "LEGACY", "supportClass": "DIRECT_SUPPORT"},
+    {"line": 112, "edgeId": "A-EXEC1:F0024:M-RES-ROLE-CONTROLLED-ACCESS:TT-STPSTJ-RS", "representation": "LEGACY", "supportClass": "DIRECT_SUPPORT", "sourceClass": "compensation plans"},
+    {"line": 113, "edgeId": "A-RERUN1-CORR1:F-E-0182:M-RECOGNISED-COMMAND-ORDER:TT-STPSTJ-ESS", "representation": "LEGACY", "supportClass": "NON_DISCRIMINATING", "discriminatorIds": ["D-04"]},
+    {"line": 114, "edgeId": "A-RERUN1-CORR1:F-E-0182:M-RECOGNISED-COMMAND-ORDER:TT-STPSTJ-PW", "representation": "LEGACY", "supportClass": "NON_DISCRIMINATING", "discriminatorIds": ["D-04"]},
+    {"line": 115, "edgeId": "A-E001", "representation": "SUCCESSOR", "supportClass": "ABSENT", "successorKeys": ["bearingEvaluability", "bearingIndeterminacyReasons", "prOnlyBasis", "supportBearing"], "sourceClass": "OUTSIDE_FROZEN_VOCABULARY", "discriminatorIds": ["D-06"]},
+    {"line": 116, "edgeId": "A-E023", "representation": "LEGACY", "supportClass": "DIRECT_SUPPORT", "sourceClass": "OUTSIDE_FROZEN_VOCABULARY", "discriminatorIds": ["D-07"]}
+  ]
+}

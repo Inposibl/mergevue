@@ -1,0 +1,82 @@
+{
+  "act": "STAGE-2 FINAL MEASUREMENT REGRESSION — HARNESS COMPATIBILITY ADAPTATION.IV1",
+  "contractAuthorityGap": false,
+  "gapStatement": "No mapping required by this exact 116-record FEVA was left without an accepted source. A later input, field, or version is outside this verdict.",
+  "supersession": {
+    "controlTreeV21": {
+      "path": "docs/governance/MERGEVUE_CONTROL_TREE_v2.1_2026-09-04.md",
+      "sha256": "360bafa29bad5ea93752323d4a217bf59aaec628e0e2b236350a2edd9c1f7128",
+      "sidecarMatch": true,
+      "whatItSettles": "Status legend and the 2026-09-04 tree. It does not name FEVA CORR2."
+    },
+    "reconstructionCorr4": {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_VERIFIED_CURRENT_CONTROL_TREE_RECONSTRUCTION_1_CORR4/MERGEVUE_CURRENT_CONTROL_TREE_CANDIDATE.md",
+      "gitTrackedAtHead": true,
+      "b175Text": "B17.5 is still labeled FEVA CORR1, records SHA 3603c316…",
+      "whatItDoesNotSettle": "The later Git closure expressly leaves this text untouched and replaces the FEVA lane terminal identity."
+    },
+    "fevaCorr2Closure": {
+      "path": "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_GIT_CLOSURE_1.md",
+      "sha256": "c5226bc80fb48c604c4171f3518bd1afb5abfda6aa04590609e489c6f823ed51",
+      "sidecarMatch": true,
+      "whatItSettles": "Owner-accepted FEVA CORR2 records 5b37071a…, 116 records, 104722 bytes. Downstream consumers resolve to CORR2. No measurement PASS, HEDC, Environment, or production wiring."
+    }
+  },
+  "mappings": [
+    {
+      "surface": "Exact input identity",
+      "authority": "Git closure §1 and §3; Git blob HEAD:WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_RECORDS.jsonl",
+      "independentCheck": "git cat-file bytes 104722, SHA-256 5b37071a5fa5374c77b149bfde5c230c228cdf73d9785e5ea55346f9fab28daa",
+      "adapterBehavior": "load_exact_input rejects any other length or digest as EXACT_INPUT_IDENTITY",
+      "result": "MATCH"
+    },
+    {
+      "surface": "116-record composition, 110 legacy raw lines, null versus absent",
+      "authority": "Git object bytes, not the author oracle",
+      "independentCheck": "Parsed Git bytes: lines 1–110 are execution cells, raw SHA-256 b382ffc52a626cc8eb796f01d1456d531cdea959bc6c23f7d31b0d392031ceca, 78644 bytes. Lines 111–116 are SECTION_I. Oracle line records, ordered identities, and legacy raw digest equal that parse. Presence-aware diff against historical predecessor a1fcae68… has the same 19 paths as the oracle and no extra path.",
+      "adapterBehavior": "check_composition requires those identities and raw legacy bytes. Removing bearingIndeterminacyReasons null while keeping the key absent was UNAUTHORIZED_COMPOSITION.",
+      "result": "MATCH",
+      "circularity": "The oracle freezes the accepted file. Measurement expectations for sourceClass and the A-E001 bearing triple are recomputed from accepted builders."
+    },
+    {
+      "surface": "Five legacy SECTION_I records retain supportClass",
+      "authority": "SEP-BC-1 in STAGE2_SUPPORTCLASS_EVALUABILITY_SEMANTIC_SEPARATION_1_IMPLEMENTATION_1_METHODOLOGY_SUCCESSOR.md; physical keys of lines 111–114 and 116",
+      "independentCheck": "Lines 111–114 and 116 contain supportClass and none of prOnlyBasis, bearingEvaluability, bearingIndeterminacyReasons, supportBearing. section_fields matched those key sets exactly.",
+      "adapterBehavior": "Successor keys on a legacy edge raise ILLEGAL_SCHEMA_VARIANT",
+      "result": "MATCH"
+    },
+    {
+      "surface": "A-E001 successor schema and PR/bearing semantics",
+      "authority": "SEP-I-4 and SEP-BC-2/BC-5; CORR1 builder EXPECTED_AE001_OUTCOME and evaluate context at line 312; A_E001_BEARING_DIRECTIONALITY_READJUDICATION_1_DECISION.json recordedPrOnlyBasisForMaterialization; CORR2 builder refuses AE001_PRONLY_ALTERED",
+      "independentCheck": "Line 115 has no supportClass and has the four successor keys. Independent CORR10 evaluate with the empty W/T context returned ADMITTED, EVALUABLE, null reasons, NON_DISCRIMINATING, capFired B-1b. prOnlyBasis equals the decision object. Bounded _measure_subset on A-E001 recorded MATCH for those fields, sourceClass, discriminatorIds D-06, edgeState PARTIAL, missingComponents [c2], scopeBridgeState UNRESOLVED_FAIL_CLOSED, and sufficiencyExpressionResult OPEN.",
+      "adapterBehavior": "supportClass on A-E001 is SECTION_SCHEMA. A missing successor field is SECTION_SCHEMA. Any other prOnlyBasis is SUCCESSOR_PR_BASIS before evaluate. Held relevanceState is SUCCESSOR_ADMISSION_HELD.",
+      "result": "MATCH"
+    },
+    {
+      "surface": "sourceClass via PI-7 supplier identity",
+      "authority": "FEVA CORR2 BUILD.py load_pi7_index and derive_source_class, Git blob SHA-256 a34aaddbc4d4f66b970c6c9bc9e1d4668889e17d92b0566060d5576dc4e34a8d",
+      "independentCheck": "Called on the raw binding JSONL, not the adapter's canonical re-encoding. All six edges matched the stored sourceClass, including OUTSIDE_FROZEN_VOCABULARY fail-closed states and the two ASSIGNED labels. Duplicate supplier key raised ACTUAL_SOURCE_BINDING. Wrong side detail was PI7_NO_MATCH. A second fact id detail was MULTI_FACT_EDGE.",
+      "adapterBehavior": "Edge sourceClass is compared to derive_source_class. Cells still use the assignment-state classmap, which matched the same six values.",
+      "result": "MATCH"
+    },
+    {
+      "surface": "F0024 factualPackageIdentity",
+      "authority": "Frozen provenance sidecar STAGE2_CORR4_PILOT_ANALYTICAL_PROVENANCE_SIDECAR_CORR1.jsonl and closure statement that the F0024 correction is preserved",
+      "independentCheck": "Bounded measurement of A-EXEC1:F0024:… compared factualPackageIdentity to the sidecar object. Result MATCH. acceptedCorrections F0024.completeCorrectedIdentity and F0024.13OtherKeysPreserved were true.",
+      "result": "MATCH"
+    },
+    {
+      "surface": "Non-consuming legacy carrier",
+      "authority": "Closure §3 raw preservation of the 110 legacy lines, plus the exact 19-path predecessor diff",
+      "independentCheck": "Oracle diff set equals the independently recomputed presence-aware diff. No extra suppression path.",
+      "adapterBehavior": "A superseded field that is not independently recomputed is labeled NOT_DETERMINABLE instead of being rewritten from the stale cell. Recomputed fields, including discriminatorIds and sourceClass, are still compared.",
+      "result": "MATCH"
+    },
+    {
+      "surface": "F.3/F.5 and scientific boundary",
+      "authority": "Unchanged expression evaluator from the original harness; SEP-I-9 statement that F.3/F.5 are not superseded by bearing; closure §7",
+      "independentCheck": "M-FORMAL-RULES does not occur in the PD3-CLAR-1.CORR1 registry. A-E001 therefore retains ORPHAN_EXPRESSION_MECHANISM and SECTION_I_sufficiencyExpression rather than replacing the stored expression. Derived targetState is TARGET_NOT_ESTABLISHED_WITHIN_BOUND. No Environment code was emitted. environmentAssignmentFields in the census is an empty list.",
+      "result": "PRESERVED_DIAGNOSTIC_NOT_REPAIRED"
+    }
+  ]
+}
