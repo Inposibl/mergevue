@@ -1,0 +1,91 @@
+{
+  "actId": "MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1",
+  "actor": "Claude (executing model claude-opus-5-5)",
+  "role": "ANALYST / AUTHOR under AGENTS_A.md (Owner-appointed 2026-10-09)",
+  "authorizedBy": "MergeVue Owner, 2026-10-09",
+  "reservedIndependentVerifier": "Codex (separate Owner-authorized IV1)",
+  "repository": "Inposibl/mergevue",
+  "branch": "main",
+  "baseHead": "1c694b3db3a27e6385fd7716d7e59153d8df4e46",
+  "remoteMainAtAuthoring": "1c694b3db3a27e6385fd7716d7e59153d8df4e46",
+  "allowedTrackedPaths": [],
+  "allowedUntrackedWriteRoot": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1/",
+  "forbiddenPaths": [
+    "docs/governance/MERGEVUE_CONTROL_TREE_v2.1_2026-09-04.md",
+    "WORKBENCH/AUDITS/MERGEVUE_VERIFIED_CURRENT_CONTROL_TREE_RECONSTRUCTION_1_CORR4/",
+    "docs/governance/historical-corpus/MERGEVUE_POST_10_CALIBRATION_9_CASE_CORPUS_FREEZE_2026-09-25.md",
+    "docs/governance/historical-corpus/MERGEVUE_STAGE1_FACTUAL_AUTHORITY_SUCCESSOR_BINDING_AND_CLOSURE_2026-09-25.md",
+    "docs/governance/historical-corpus/MERGEVUE_B5_5_B5_6_B5_7_RECOVERED_EVIDENCE_ADDENDUM_2026-10-09.md",
+    "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_6_B5_7_HISTORICAL_EVIDENCE_RECOVERY_1/",
+    "case factual/analytical/outcome/prediction packages",
+    "src/",
+    "api/",
+    "tests and fixtures",
+    "production configuration",
+    "B5.8-B5.19 and B17 artifacts"
+  ],
+  "preActDirtyPaths": [],
+  "preActStagedPaths": [],
+  "postActTrackedDirtyPaths": [],
+  "postActStagedPaths": [],
+  "newUntrackedEntries": [
+    "?? WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1/"
+  ],
+  "candidatePaths": [
+    "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1/OWNER_REAFFIRMATION_STATUS_ADDENDUM_CANDIDATE.md",
+    "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1/B5_5_B5_6_B5_7_STATUS_DELTA.json",
+    "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1/EVIDENCE_AND_AUTHORITY_CROSSWALK.json",
+    "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1/DOWNSTREAM_DEPENDENCY_NON_PROMOTION_CHECK.md",
+    "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1/OWNER_DECISION_PROVENANCE.md",
+    "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1/AUTHOR_REPORT.md"
+  ],
+  "candidateArtifacts": [
+    {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1/OWNER_REAFFIRMATION_STATUS_ADDENDUM_CANDIDATE.md",
+      "sha256": "6b138ed787dc1a5dd992e160564d85ad8adfc97358c50dca7a96b0e995f8cbca",
+      "bytes": 16054
+    },
+    {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1/B5_5_B5_6_B5_7_STATUS_DELTA.json",
+      "sha256": "86b4b60bc73d73b57000d1d50d22216c60ece280702ecae6362c82aa8d84160c",
+      "bytes": 21380
+    },
+    {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1/EVIDENCE_AND_AUTHORITY_CROSSWALK.json",
+      "sha256": "df3e83b9fe1c9cb367e76a448f9ec0836837285efcfc7a9245e75c1137798843",
+      "bytes": 21276
+    },
+    {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1/DOWNSTREAM_DEPENDENCY_NON_PROMOTION_CHECK.md",
+      "sha256": "8589143a58630f35f302a9b5727828bc6b26f67209d463089639a0d06f887686",
+      "bytes": 8180
+    },
+    {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1/OWNER_DECISION_PROVENANCE.md",
+      "sha256": "e07ef6479a45818fc3041883d56e09bf563c739b5623b0f70726dd27eb534473",
+      "bytes": 4827
+    },
+    {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1/AUTHOR_REPORT.md",
+      "sha256": "9d76ca8d309661a52a8e1cab6000057a0c69e346593002ca9893695b2a673ac2",
+      "bytes": 10879
+    }
+  ],
+  "selfHashPolicy": "This manifest does not hash itself; it is bound by reading it from the act directory. AUTHOR_REPORT.md does not hash itself or this manifest.",
+  "selfValidationStatus": "AUTHOR_MECHANICAL_CHECKS_PASSED (pins re-hashed from bytes; Git blob identities at d52e7f4/92236dc/1c694b3; enum vocabulary; changed-dimension assertions; 33/33 protected files == HEAD) — not independent verification",
+  "independentVerificationStatus": "NOT_RUN (requires separate Owner-authorized act)",
+  "ownerAcceptanceStatus": "NOT_ACCEPTED (the 2026-10-09 Owner decision concerns B5.5/B5.7 status, not these document bytes)",
+  "gitAuthorizationStatus": "NOT_AUTHORIZED",
+  "gitClosureStatus": "NOT_CLOSED",
+  "commitSha": null,
+  "residualTrackedPaths": [],
+  "parkedArtifacts": [],
+  "terminalStatus": "CANDIDATE_READY_FOR_INDEPENDENT_VERIFICATION",
+  "verifierReproduction": [
+    "git rev-parse HEAD  # expect 1c694b3db3a27e6385fd7716d7e59153d8df4e46",
+    "shasum -a 256 WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1/*  # compare to candidateArtifacts",
+    "git show d52e7f4:docs/governance/historical-corpus/MERGEVUE_POST_10_CALIBRATION_9_CASE_CORPUS_FREEZE_2026-09-25.md | shasum -a 256  # da9b9de2...",
+    "git show 92236dc:docs/governance/historical-corpus/MERGEVUE_STAGE1_FACTUAL_AUTHORITY_SUCCESSOR_BINDING_AND_CLOSURE_2026-09-25.md | shasum -a 256  # be9593a7...",
+    "git diff --quiet HEAD && echo clean"
+  ]
+}

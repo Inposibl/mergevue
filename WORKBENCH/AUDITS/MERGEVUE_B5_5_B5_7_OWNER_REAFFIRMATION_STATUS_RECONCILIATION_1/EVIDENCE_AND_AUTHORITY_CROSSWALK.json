@@ -1,0 +1,434 @@
+{
+  "actId": "MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1",
+  "artifact": "EVIDENCE_AND_AUTHORITY_CROSSWALK.json",
+  "date": "2026-10-09",
+  "status": "CANDIDATE — evidence index, not authority",
+  "authorityLevelVocabulary": "AGENTS.md §11: OWNER-ACCEPTED FACT / METHOD FACT / SOURCE/RUNTIME FACT / DOCUMENTATION CLAIM / AGENT-REPORTED FACT / INFERENCE / NOT DETERMINABLE",
+  "evidence": [
+    {
+      "id": "EV-01",
+      "path": "docs/governance/historical-corpus/MERGEVUE_POST_10_CALIBRATION_9_CASE_CORPUS_FREEZE_2026-09-25.md",
+      "sha256": "da9b9de2ab9c49cf98100c008eb980225cf8595b2873cc4eb6eb6d8e9733cbd6",
+      "bytes": 20173,
+      "pinMatched": true,
+      "verification": "SHA256_RECOMPUTED_FROM_ACTUAL_BYTES_THIS_ACT",
+      "gitTracked": true,
+      "firstAddedInCommit": "d52e7f499eff4b2c9ee290380fe7cb7db5ec8e5f",
+      "evidenceClass": "HISTORICAL_CANDIDATE_BYTES",
+      "authorityLevel": "SOURCE FACT (bytes) / DOCUMENTATION CLAIM (content)",
+      "nodes": [
+        "B5.5"
+      ],
+      "establishes": "Exact B5.5 instrument; authoring-time status lines :6-10 (READY_FOR_INDEPENDENT_VERIFICATION, OWNER_ACCEPTED: NO, CORPUS_FREEZE_FINAL: NO); conditional freeze effect :94; methodology non-promotion :98",
+      "doesNotEstablish": "Its own IV, Owner acceptance, or current status (authoring-time statements only)"
+    },
+    {
+      "id": "EV-02",
+      "path": "docs/governance/historical-corpus/MERGEVUE_STAGE1_FACTUAL_AUTHORITY_SUCCESSOR_BINDING_AND_CLOSURE_2026-09-25.md",
+      "sha256": "be9593a767edfa1d61787458db3de1c7034d49ac60b65fe0ce8e11402fe70237",
+      "bytes": 22517,
+      "pinMatched": true,
+      "verification": "SHA256_RECOMPUTED_FROM_ACTUAL_BYTES_THIS_ACT",
+      "gitTracked": true,
+      "firstAddedInCommit": "92236dc1341c3f85565514c60029af388bc51422",
+      "evidenceClass": "HISTORICAL_CANDIDATE_BYTES",
+      "authorityLevel": "SOURCE FACT (bytes) / DOCUMENTATION CLAIM (content)",
+      "nodes": [
+        "B5.7",
+        "B5.6",
+        "B5.8"
+      ],
+      "establishes": "Exact B5.7 instrument; authoring-time :7-11 and :404-413 (STAGE1_CLOSURE_READY=YES, STAGE1_CLOSED=NO, OWNER_ACCEPTED=NO); precedence rule §14 :229-240 conditional on IV + Owner acceptance + Git binding; next-stage input rule §16 :264-285; B5.6 acceptance locus §2; :399 STAGE_2_STARTED=NO (authoring-time)",
+      "doesNotEstablish": "Its own IV, Owner acceptance, or current Stage-1 closure (authoring-time statements only)"
+    },
+    {
+      "id": "EV-03",
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_6_B5_7_HISTORICAL_EVIDENCE_RECOVERY_1/source/RECOVERED_IV/B5_5_GROK_IV1_TRANSCRIPT.txt",
+      "sha256": "9aea5e0ed4badaa2d59c3ac6529b78e8822f96a0db4721fb1998c227abe0c421",
+      "bytes": 19807,
+      "pinMatched": true,
+      "verification": "SHA256_RECOMPUTED_FROM_ACTUAL_BYTES_THIS_ACT",
+      "gitTracked": true,
+      "firstAddedInCommit": "1c694b3db3a27e6385fd7716d7e59153d8df4e46",
+      "evidenceClass": "AUDITOR_TRANSCRIPT_COPY",
+      "authorityLevel": "AGENT-REPORTED FACT (independent auditor verdict)",
+      "nodes": [
+        "B5.5"
+      ],
+      "establishes": "Grok IV1 of the exact candidate (SHA da9b9de2..., :20): PASS, BLOCKING 0 / MAJOR 0 / MINOR 0, ADVISORY A-01..A-03 (:179-207); auditor independence: Codex authored, Grok did not (:5); auditor-reported HEAD = origin/main = 6ad8933 at audit time (:9); CORPUS_FREEZE_FINAL = NO pending Owner acceptance (:205-207)",
+      "doesNotEstablish": "Owner acceptance; re-execution of the audit (copy of a transcript, not a re-run); HEDC validity, calibrated predictive performance, reports, release readiness"
+    },
+    {
+      "id": "EV-04",
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_6_B5_7_HISTORICAL_EVIDENCE_RECOVERY_1/source/RECOVERED_IV/B5_6_CODEX_IV1_REPORT_NEW_RECOVERY.md",
+      "sha256": "8eb434e40b24bd4d2ad29a1c3a2bfa4a86403d0ac7f86c8c37daf809d781c830",
+      "bytes": 20771,
+      "pinMatched": true,
+      "verification": "SHA256_RECOMPUTED_FROM_ACTUAL_BYTES_THIS_ACT",
+      "gitTracked": true,
+      "firstAddedInCommit": "1c694b3db3a27e6385fd7716d7e59153d8df4e46",
+      "evidenceClass": "AUDITOR_REPORT_COPY",
+      "authorityLevel": "AGENT-REPORTED FACT (independent auditor verdict)",
+      "nodes": [
+        "B5.6",
+        "B5.7"
+      ],
+      "establishes": "Codex IV1 of the four Grok correction candidates: PASS for DC-001..DC-019 (19/19; 8 BLOCKING / 8 MAJOR / 3 MINOR DCs) (:4, :36-56, :103-104); deferred downstream analytical dependency (4 case-local analytical lineages) recorded as outside-candidate MAJOR (:89); physical bytes match the pin carried by B5.7 :§19 and CORR4 HOLD-2",
+      "doesNotEstablish": "Owner acceptance; Stage-1 closure; correction of downstream analytical or Prediction Seal artifacts (:131)"
+    },
+    {
+      "id": "EV-05",
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_6_B5_7_HISTORICAL_EVIDENCE_RECOVERY_1/source/RECOVERED_IV/B5_7_CODEX_IV1_REPORT.md",
+      "sha256": "0484044485d7ad2986331148293f1ba05dd162fa3dc7c535f0bfded3516ec1b9",
+      "bytes": 15287,
+      "pinMatched": true,
+      "verification": "SHA256_RECOMPUTED_FROM_ACTUAL_BYTES_THIS_ACT",
+      "gitTracked": true,
+      "firstAddedInCommit": "1c694b3db3a27e6385fd7716d7e59153d8df4e46",
+      "evidenceClass": "AUDITOR_REPORT_COPY",
+      "authorityLevel": "AGENT-REPORTED FACT (independent auditor verdict)",
+      "nodes": [
+        "B5.7"
+      ],
+      "establishes": "Codex IV1 of the exact candidate (SHA be9593a7..., :12): PASS; 9/9 successor identities, 18/18 sides, 4/4 transitions, 5/5 unchanged, 4/4 stale lineages excluded (:100-104); independence: Z.ai authored, Codex did not (:8); audited Workbench copy before Git binding, auditor-reported HEAD d52e7f4 (:88); STAGE1_CLOSED = NO at IV time (:104)",
+      "doesNotEstablish": "Owner acceptance; Git binding; Stage 2 authorization; normalization; Environment inference (:106-108)"
+    },
+    {
+      "id": "EV-06",
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_6_B5_7_HISTORICAL_EVIDENCE_RECOVERY_1/source/CONTEMPORANEOUS_HANDOFFS/B5_5_POST_ACCEPTANCE_HANDOFF.txt",
+      "sha256": "1748f2dcf7227487ead14dc670b4f350c28cced5a4f434c31bac46eb36b6c1f2",
+      "bytes": 16453,
+      "pinMatched": true,
+      "verification": "SHA256_RECOMPUTED_FROM_ACTUAL_BYTES_THIS_ACT",
+      "gitTracked": true,
+      "firstAddedInCommit": "1c694b3db3a27e6385fd7716d7e59153d8df4e46",
+      "evidenceClass": "HISTORICAL_HANDOFF_SECONDARY",
+      "authorityLevel": "AGENT-REPORTED FACT (Orchestrator assertion)",
+      "nodes": [
+        "B5.5"
+      ],
+      "establishes": "Contemporaneous Orchestrator assertion that the exact candidate was Owner-accepted as frozen input authority and Git-closed at d52e7f4 (:45-76, :613)",
+      "doesNotEstablish": "The original Owner message itself (secondary only)"
+    },
+    {
+      "id": "EV-07",
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_6_B5_7_HISTORICAL_EVIDENCE_RECOVERY_1/source/CONTEMPORANEOUS_HANDOFFS/B5_7_POST_CLOSURE_HANDOFF.txt",
+      "sha256": "ce04a4c6eebcbfb3453c415e57e3242c16a36725f8085ddf15ff3b865cb2ed7d",
+      "bytes": 23276,
+      "pinMatched": true,
+      "verification": "SHA256_RECOMPUTED_FROM_ACTUAL_BYTES_THIS_ACT",
+      "gitTracked": true,
+      "firstAddedInCommit": "1c694b3db3a27e6385fd7716d7e59153d8df4e46",
+      "evidenceClass": "HISTORICAL_HANDOFF_SECONDARY",
+      "authorityLevel": "AGENT-REPORTED FACT (Orchestrator assertion)",
+      "nodes": [
+        "B5.7"
+      ],
+      "establishes": "Contemporaneous Orchestrator assertion of Owner acceptance, IV PASS (report 04840444...), Git closure 92236dc and remote verification; STAGE1_CLOSED = YES (:90-161)",
+      "doesNotEstablish": "The original Owner message itself (secondary only)"
+    },
+    {
+      "id": "EV-08",
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_6_B5_7_HISTORICAL_EVIDENCE_RECOVERY_1/source/CORRECTION_REPORTS/B5_6_CORRECTION_REPORT.md",
+      "sha256": "c5a8e7ef48f07b77ced9b33e0b796312fa34c66de4f45f8229a40359f5bacc55",
+      "bytes": 39854,
+      "pinMatched": true,
+      "verification": "SHA256_RECOMPUTED_FROM_ACTUAL_BYTES_THIS_ACT",
+      "gitTracked": true,
+      "firstAddedInCommit": "1c694b3db3a27e6385fd7716d7e59153d8df4e46",
+      "evidenceClass": "AUTHOR_REPORT",
+      "authorityLevel": "AGENT-REPORTED FACT (author)",
+      "nodes": [
+        "B5.6"
+      ],
+      "establishes": "Grok correction-campaign author report (pinned identity matched by both Codex IV reports)",
+      "doesNotEstablish": "Independent verification (author report)"
+    },
+    {
+      "id": "EV-09",
+      "path": "docs/governance/historical-corpus/MERGEVUE_B5_5_B5_6_B5_7_RECOVERED_EVIDENCE_ADDENDUM_2026-10-09.md",
+      "sha256": "229b3c79ec9fc1d28111997666d171122d34d00954f98b15ec2b982a6cac73a2",
+      "bytes": 4153,
+      "pinMatched": true,
+      "verification": "SHA256_RECOMPUTED_FROM_ACTUAL_BYTES_THIS_ACT",
+      "gitTracked": true,
+      "firstAddedInCommit": "1c694b3db3a27e6385fd7716d7e59153d8df4e46",
+      "evidenceClass": "RECOVERY_RECORD",
+      "authorityLevel": "DOCUMENTATION CLAIM (bound evidence-only addendum)",
+      "nodes": [
+        "B5.5",
+        "B5.6",
+        "B5.7"
+      ],
+      "establishes": "Predecessor provenance-only addendum; explicitly no status change; requires separate Owner-controlled status reconciliation",
+      "doesNotEstablish": "Any status change (explicitly disclaimed)"
+    },
+    {
+      "id": "EV-10",
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_6_B5_7_HISTORICAL_EVIDENCE_RECOVERY_1/CONTROL_TREE_B5_5_B5_6_B5_7_EVIDENCE_DELTA.json",
+      "sha256": "1d9c2039f39ef8cb3e4d4cfc0260a9352ce53cc5026b54894dba25c965865369",
+      "bytes": 2393,
+      "pinMatched": true,
+      "verification": "SHA256_RECOMPUTED_FROM_ACTUAL_BYTES_THIS_ACT",
+      "gitTracked": true,
+      "firstAddedInCommit": "1c694b3db3a27e6385fd7716d7e59153d8df4e46",
+      "evidenceClass": "RECOVERY_RECORD",
+      "authorityLevel": "DOCUMENTATION CLAIM",
+      "nodes": [
+        "B5.5",
+        "B5.6",
+        "B5.7"
+      ],
+      "establishes": "Predecessor evidence-only delta: authoritativeNodeStatusChange NONE x3; needsLaterOwnerControlledStatusAdjudication true",
+      "doesNotEstablish": "Any status change (explicitly disclaimed)"
+    },
+    {
+      "id": "EV-11",
+      "path": "WORKBENCH/AUDITS/MERGEVUE_VERIFIED_CURRENT_CONTROL_TREE_RECONSTRUCTION_1_CORR4/MERGEVUE_NODE_STATUS_MATRIX.json",
+      "sha256": "621eca0afeadca4b40450a41d3277fb69df9843b73c9663e93042e7d76b98a97",
+      "bytes": 73443,
+      "pinMatched": true,
+      "verification": "SHA256_RECOMPUTED_FROM_ACTUAL_BYTES_THIS_ACT",
+      "gitTracked": true,
+      "firstAddedInCommit": "9b57f0cb567d5a36e4ebcf3292cdbd18439f4faa",
+      "evidenceClass": "RECONSTRUCTION_SNAPSHOT",
+      "authorityLevel": "DOCUMENTATION CLAIM (Owner-accepted, IV5-verified current-state reference as of 2026-10-08)",
+      "nodes": [
+        "B5.5",
+        "B5.6",
+        "B5.7",
+        "B5.8",
+        "B17.5"
+      ],
+      "establishes": "Baseline node records, dimension vocabulary, 52-edge dependency set, HOLD-1..HOLD-9 as of 2026-10-08 (baseline ee55034)",
+      "doesNotEstablish": "State after 2026-10-08 (snapshot)"
+    },
+    {
+      "id": "EV-12",
+      "path": "WORKBENCH/AUDITS/MERGEVUE_VERIFIED_CURRENT_CONTROL_TREE_RECONSTRUCTION_1_CORR4/MERGEVUE_EVIDENCE_INDEX.json",
+      "sha256": "7ffa355ce60d9cc83c12d1c21bbeaa65009d91963e927676ce27ea4c08dc9011",
+      "bytes": 35011,
+      "pinMatched": true,
+      "verification": "SHA256_RECOMPUTED_FROM_ACTUAL_BYTES_THIS_ACT",
+      "gitTracked": true,
+      "firstAddedInCommit": "9b57f0cb567d5a36e4ebcf3292cdbd18439f4faa",
+      "evidenceClass": "RECONSTRUCTION_SNAPSHOT",
+      "authorityLevel": "DOCUMENTATION CLAIM",
+      "nodes": [
+        "B5.5",
+        "B5.6",
+        "B5.7"
+      ],
+      "establishes": "CORR4 search statements E10 (B5.5), E11 (B5.6), E12 (B5.7) — SEARCH_NEGATIVE as of authoring",
+      "doesNotEstablish": "That the searched evidence did not exist (missing-evidence markers only, per CORR4 dimensionRule)"
+    },
+    {
+      "id": "EV-13",
+      "path": "WORKBENCH/AUDITS/MERGEVUE_VERIFIED_CURRENT_CONTROL_TREE_RECONSTRUCTION_1_CORR4/MERGEVUE_CRITICAL_PATH.md",
+      "sha256": "e32c74d831f8076ee91a7158f5ee5b5c746e45df352d679d5d401131cf0961ec",
+      "bytes": 10683,
+      "pinMatched": true,
+      "verification": "SHA256_RECOMPUTED_FROM_ACTUAL_BYTES_THIS_ACT",
+      "gitTracked": true,
+      "firstAddedInCommit": "9b57f0cb567d5a36e4ebcf3292cdbd18439f4faa",
+      "evidenceClass": "RECONSTRUCTION_SNAPSHOT",
+      "authorityLevel": "DOCUMENTATION CLAIM",
+      "nodes": [
+        "B5.5",
+        "B5.7",
+        "B5.8",
+        "B17.5"
+      ],
+      "establishes": "Path A rows A1-A5, Path B row B2 as of 2026-10-08",
+      "doesNotEstablish": "Current state of B17.5 (superseded by later bound closures)"
+    },
+    {
+      "id": "EV-14",
+      "path": "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_GIT_CLOSURE_1.md",
+      "sha256": "c5226bc80fb48c604c4171f3518bd1afb5abfda6aa04590609e489c6f823ed51",
+      "bytes": 11513,
+      "pinMatched": true,
+      "verification": "SHA256_RECOMPUTED_FROM_ACTUAL_BYTES_THIS_ACT",
+      "gitTracked": true,
+      "firstAddedInCommit": "2f7bcc5d33cf8009145aa85cbb39d2ae9084ec26",
+      "evidenceClass": "GIT_CLOSURE_RECORD",
+      "authorityLevel": "DOCUMENTATION CLAIM (bound record of Owner acceptance)",
+      "nodes": [
+        "B17.5"
+      ],
+      "establishes": "Post-CORR4 B17.5 state: FEVA CORR2 Owner-accepted, Codex CORR2.IV1 PASS 0/0/0/2 ADVISORY, bound at 2f7bcc5",
+      "doesNotEstablish": "Whole Stage-2 measurement regression PASS, HEDC readiness, production readiness"
+    },
+    {
+      "id": "EV-15",
+      "path": "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_RECORDS.jsonl",
+      "sha256": "5b37071a5fa5374c77b149bfde5c230c228cdf73d9785e5ea55346f9fab28daa",
+      "bytes": 104722,
+      "pinMatched": true,
+      "verification": "SHA256_RECOMPUTED_FROM_ACTUAL_BYTES_THIS_ACT",
+      "gitTracked": true,
+      "firstAddedInCommit": "2f7bcc5d33cf8009145aa85cbb39d2ae9084ec26",
+      "evidenceClass": "ACCEPTED_ARTIFACT",
+      "authorityLevel": "SOURCE FACT (bytes)",
+      "nodes": [
+        "B17.5"
+      ],
+      "establishes": "Owner-accepted FEVA CORR2 records identity (116 records)",
+      "doesNotEstablish": "Stage-2 measurement execution"
+    },
+    {
+      "id": "EV-16",
+      "path": "WORKBENCH/AUDITS/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_1_GIT_CLOSURE_1.md",
+      "sha256": "7f1cd15bfd5a44f376acd80ddafd2cc87a072499e5788c090632e765a145e968",
+      "bytes": 19148,
+      "pinMatched": true,
+      "verification": "SHA256_RECOMPUTED_FROM_ACTUAL_BYTES_THIS_ACT",
+      "gitTracked": true,
+      "firstAddedInCommit": "7f544afa071658bdd9d0d243c8e172e1061a5944",
+      "evidenceClass": "GIT_CLOSURE_RECORD",
+      "authorityLevel": "DOCUMENTATION CLAIM (bound record of Owner sequencing decision)",
+      "nodes": [
+        "B17.5",
+        "B5.8"
+      ],
+      "establishes": "Owner sequencing decision (:36-41): full Stage-2 measurement regression deferred until Owner reviews recovered status of blocks already executed in prior sessions and issues new explicit authorization",
+      "doesNotEstablish": "Any authorization of B5.8 or of the regression"
+    },
+    {
+      "id": "EV-17",
+      "path": "docs/governance/MERGEVUE_CONTROL_TREE_v2.1_2026-09-04.md",
+      "sha256": "360bafa29bad5ea93752323d4a217bf59aaec628e0e2b236350a2edd9c1f7128",
+      "bytes": 36971,
+      "pinMatched": true,
+      "verification": "SHA256_RECOMPUTED_FROM_ACTUAL_BYTES_THIS_ACT",
+      "gitTracked": true,
+      "firstAddedInCommit": "7792c5e390afbbc990ab61a870a337538bf2d2e3",
+      "evidenceClass": "GOVERNANCE_AUTHORITY",
+      "authorityLevel": "OWNER-ACCEPTED (canonical tree; not modified)",
+      "nodes": [],
+      "establishes": "Status legend (:9-14): CLOSED = independently verified + Owner-accepted",
+      "doesNotEstablish": "Node-level status of B5.5/B5.7 (tree predates them)"
+    },
+    {
+      "id": "EV-18",
+      "path": "docs/governance/MERGEVUE_GIT_WORKTREE_CLOSURE_GOVERNANCE_2026-09-05.md",
+      "sha256": "27aa43abd0d8ce93b500231ded6b47d98949ba2a475f991098081c320b270a85",
+      "bytes": 12453,
+      "pinMatched": true,
+      "verification": "SHA256_RECOMPUTED_FROM_ACTUAL_BYTES_THIS_ACT",
+      "gitTracked": true,
+      "firstAddedInCommit": "3c9884984222e0d7d9ddf7f380f969b011220f14",
+      "evidenceClass": "GOVERNANCE_AUTHORITY",
+      "authorityLevel": "OWNER-ACCEPTED",
+      "nodes": [],
+      "establishes": "WORKTREE_GATE (§6), ACT_MANIFEST fields (§7), candidate identity before IV (§8), Owner acceptance is not Git closure (§20), no silent status advancement (§21)",
+      "doesNotEstablish": ""
+    },
+    {
+      "id": "EV-19",
+      "path": "docs/governance/MERGEVUE_MODEL_ROUTING_AND_VERIFICATION_POLICY_2026-09-08.md",
+      "sha256": "07fdf43043c3a2245c7cb0eae2e89ff42f88d66100736751227f2ddfb7d34a23",
+      "bytes": 21120,
+      "pinMatched": true,
+      "verification": "SHA256_RECOMPUTED_FROM_ACTUAL_BYTES_THIS_ACT",
+      "gitTracked": true,
+      "firstAddedInCommit": "d43de38a16f90500b4bf24542e6b1d476674efbe",
+      "evidenceClass": "GOVERNANCE_AUTHORITY",
+      "authorityLevel": "OWNER-ACCEPTED",
+      "nodes": [],
+      "establishes": "§8: Claude analytical author -> Codex preferred independent auditor; AUTHOR != INDEPENDENT AUDITOR",
+      "doesNotEstablish": ""
+    },
+    {
+      "id": "EV-20",
+      "path": "WORKBENCH/AUDITS/2026-10-07_REALITY_AUDIT/MERGEVUE_REALITY_AUDIT_2026-10-07.md",
+      "sha256": "085bbbd1aca7a68c7099a21e9392af5705173e7b87d1b49febe636694d8552cf",
+      "bytes": 11037,
+      "pinMatched": false,
+      "verification": "SHA256_RECOMPUTED_FROM_ACTUAL_BYTES_THIS_ACT (no external pin; recorded identity only)",
+      "gitTracked": false,
+      "firstAddedInCommit": null,
+      "evidenceClass": "AGENT_ASSERTION",
+      "authorityLevel": "AGENT-REPORTED FACT",
+      "nodes": [
+        "B5.7"
+      ],
+      "establishes": "Later agent assertion :28 that the successor binding is fully accepted and Git-closed (preserved by CORR4 HOLD-3 layer 3)",
+      "doesNotEstablish": "Authority of any kind (agent assertion; untracked Workbench material)"
+    }
+  ],
+  "ownerDecision": {
+    "id": "OD-2026-10-09",
+    "authorityLevel": "OWNER-ACCEPTED FACT (current explicit Owner instruction, AGENTS.md §3 level 1)",
+    "source": "current explicit Owner act instruction (this session); see OWNER_DECISION_PROVENANCE.md",
+    "physicalArtifact": "NONE outside this candidate; no permalink or archival identifier available"
+  },
+  "distinctionMatrix": {
+    "B5.5": {
+      "historicalAcceptanceAssertedByHandoff": "EV-06",
+      "historicalAcceptanceDirectlyObserved": "NONE (NOT RECOVERED)",
+      "currentDirectOwnerReaffirmation": "OD-2026-10-09",
+      "independentIvEvidence": "EV-03 (Grok, PASS 0/0/0 + 3 ADVISORY)",
+      "gitBinding": "d52e7f4 (instrument); 1c694b3 (IV evidence)",
+      "scientificOrRuntimeReadiness": "NOT ESTABLISHED — out of scope (EV-01 :98)"
+    },
+    "B5.6": {
+      "historicalAcceptanceAssertedByHandoff": "n/a",
+      "historicalAcceptanceDirectlyObserved": "NONE as primary message; acceptance recorded in bound successor bytes EV-02 §2 and stated as Owner instruction in EV-05 :16 (CORR4 E11 locus, unchanged)",
+      "currentDirectOwnerReaffirmation": "NOT REQUIRED / NOT GIVEN for B5.6",
+      "independentIvEvidence": "EV-04 (Codex, PASS, four candidates / DC-001..019)",
+      "gitBinding": "node N/A; IV evidence 1c694b3",
+      "scientificOrRuntimeReadiness": "NOT ESTABLISHED; downstream analytical debt intact"
+    },
+    "B5.7": {
+      "historicalAcceptanceAssertedByHandoff": "EV-07",
+      "historicalAcceptanceDirectlyObserved": "NONE (NOT RECOVERED)",
+      "currentDirectOwnerReaffirmation": "OD-2026-10-09",
+      "independentIvEvidence": "EV-05 (Codex, PASS, 9/9)",
+      "gitBinding": "92236dc (instrument); 1c694b3 (IV evidence)",
+      "scientificOrRuntimeReadiness": "NOT ESTABLISHED — normalization/HEDC/LOCO/calibration/reports/Stage-2 regression not established"
+    }
+  },
+  "dimensionToEvidence": {
+    "B5.5.governance=OWNER_ACCEPTED": [
+      "OD-2026-10-09"
+    ],
+    "B5.5.independentVerification=PASS": [
+      "EV-03",
+      "EV-01"
+    ],
+    "B5.5.gitBinding=BOUND@d52e7f4": [
+      "gitBindingChecks[0]"
+    ],
+    "B5.6.governance=OWNER_ACCEPTED (unchanged)": [
+      "EV-02 §2",
+      "EV-11"
+    ],
+    "B5.6.independentVerification=PASS (unchanged)": [
+      "EV-04",
+      "EV-11"
+    ],
+    "B5.7.governance=OWNER_ACCEPTED": [
+      "OD-2026-10-09"
+    ],
+    "B5.7.independentVerification=PASS": [
+      "EV-05",
+      "EV-02"
+    ],
+    "B5.7.gitBinding=BOUND@92236dc": [
+      "gitBindingChecks[1]"
+    ],
+    "B5.7.STAGE1_CLOSED(current, successor-binding lifecycle)=YES": [
+      "EV-02 :298-321",
+      "EV-05",
+      "OD-2026-10-09",
+      "commits.92236dc.ancestorOfHead"
+    ]
+  },
+  "notRelied": [
+    {
+      "item": "EV-06, EV-07, EV-20",
+      "reason": "Secondary/agent assertions are recorded as context only; no dimension relies on them."
+    }
+  ]
+}

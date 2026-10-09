@@ -1,0 +1,500 @@
+{
+  "actId": "MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1",
+  "artifact": "B5_5_B5_6_B5_7_STATUS_DELTA.json",
+  "date": "2026-10-09",
+  "author": "Claude (Anthropic; executing model claude-opus-5-5) — Owner-appointed ANALYST/AUTHOR under AGENTS_A.md",
+  "status": "CANDIDATE_READY_FOR_INDEPENDENT_VERIFICATION — not independently verified, not Owner-accepted as a document, not Git-bound",
+  "repository": {
+    "name": "Inposibl/mergevue",
+    "branch": "main",
+    "headAtAuthoring": "1c694b3db3a27e6385fd7716d7e59153d8df4e46",
+    "remoteMainAtAuthoring": "1c694b3db3a27e6385fd7716d7e59153d8df4e46",
+    "remoteCheck": "git ls-remote origin refs/heads/main == HEAD at authoring"
+  },
+  "baseSnapshot": {
+    "identity": "MERGEVUE_VERIFIED_CURRENT_CONTROL_TREE_RECONSTRUCTION_1.CORR4",
+    "matrixPath": "WORKBENCH/AUDITS/MERGEVUE_VERIFIED_CURRENT_CONTROL_TREE_RECONSTRUCTION_1_CORR4/MERGEVUE_NODE_STATUS_MATRIX.json",
+    "matrixSha256": "621eca0afeadca4b40450a41d3277fb69df9843b73c9663e93042e7d76b98a97",
+    "snapshotBaselineHead": "ee55034f5b40dadffc59aa3b842eb9b69157df68",
+    "boundAt": "9b57f0cb567d5a36e4ebcf3292cdbd18439f4faa",
+    "note": "Historical snapshot as of 2026-10-08; it does not incorporate the 2026-10-09 Owner decision and is not edited by this act."
+  },
+  "predecessorRecoveryDelta": {
+    "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_6_B5_7_HISTORICAL_EVIDENCE_RECOVERY_1/CONTROL_TREE_B5_5_B5_6_B5_7_EVIDENCE_DELTA.json",
+    "sha256": "1d9c2039f39ef8cb3e4d4cfc0260a9352ce53cc5026b54894dba25c965865369",
+    "relation": "additive successor; the earlier evidence-only delta (authoritativeNodeStatusChange NONE) is not edited; its needsLaterOwnerControlledStatusAdjudication flag is what this candidate answers"
+  },
+  "vocabulary": {
+    "source": "CORR4 dimensionVocabulary (copied mechanically)",
+    "dimensionVocabulary": {
+      "governance": [
+        "OWNER_ACCEPTED",
+        "OWNER_ACCEPTANCE_NOT_ESTABLISHED",
+        "OWNER_ACCEPTED_ARCHITECTURE_ONLY",
+        "OWNER_ACCEPTED_SEMANTICS_ONLY",
+        "OWNER_ACCEPTED_RESIDUALS",
+        "ACCEPTED_BY_OWNER_DESIGNATED_USE",
+        "OWNER_AUTHORIZED",
+        "CANDIDATE",
+        "NOT_REACHED",
+        "REJECTED_BY_OWNER",
+        "UNKNOWN"
+      ],
+      "independentVerification": [
+        "PASS",
+        "FAIL",
+        "NOT_RUN",
+        "NOT_ESTABLISHED"
+      ],
+      "gitBinding": [
+        "BOUND",
+        "BOUND@<commit>",
+        "REVERTED@<commit>",
+        "LOCAL_ONLY",
+        "UNTRACKED",
+        "N/A"
+      ],
+      "implementation": [
+        "COMPLETE",
+        "PARTIAL",
+        "ABSENT",
+        "N/A"
+      ],
+      "runtime": [
+        "INTEGRATED_CODE_PATH",
+        "OFFLINE_VALIDATED_ONLY",
+        "NOT_ESTABLISHED",
+        "ABSENT",
+        "N/A"
+      ]
+    },
+    "eventLabelRule": "OWNER_REAFFIRMED appears only as governanceEvent.event metadata; every governance value is a CORR4 enum."
+  },
+  "ownerDecision": {
+    "date": "2026-10-09",
+    "question": "Подтверждаешь ли ты сейчас ранее принятое состояние B5.5 и B5.7 в указанных границах, с сохранением всех исторических ограничений и без признания B5.8–B5.19 выполненными?",
+    "answer": "подтверждаю",
+    "questionUtf8Sha256": "8cde7199ffb9654b70b8138f77d116415bcea76301e4a6aafa95157fb7795725",
+    "answerUtf8Sha256": "37c9c6bce466dc8547e4dc038ea760bddd050aaba51a04b8cf0d16e298120217",
+    "fingerprintNote": "Content fingerprints of the verbatim quotation as transcribed from the Owner act text into this candidate. NOT a conversation identifier, permalink, or archival ID; none is physically available and none is asserted.",
+    "eventMetadata": "OWNER_REAFFIRMED (explanatory event label only; not a governance enum)",
+    "authorityLevel": "OWNER-ACCEPTED FACT (current explicit Owner instruction, AGENTS.md §3 level 1)",
+    "isOriginalSeptemberMessage": false,
+    "originalSeptemberOwnerMessages": "NOT_RECOVERED"
+  },
+  "nodeCount": 3,
+  "reaffirmedGovernanceNodes": [
+    "B5.5",
+    "B5.7"
+  ],
+  "preservationOnlyNodes": [
+    "B5.6"
+  ],
+  "records": [
+    {
+      "id": "B5.5",
+      "title": "Nine-case input-freeze candidate",
+      "titleNote": "Title copied verbatim from CORR4; the word \"candidate\" names the historical instrument, whose own bytes are immutable.",
+      "corr4Baseline": {
+        "governance": "CANDIDATE",
+        "independentVerification": "NOT_ESTABLISHED",
+        "gitBinding": "BOUND@d52e7f4",
+        "implementation": "N/A",
+        "runtime": "N/A",
+        "dependencies": [
+          "B5.2"
+        ]
+      },
+      "proposedCurrent": {
+        "governance": "OWNER_ACCEPTED",
+        "independentVerification": "PASS",
+        "gitBinding": "BOUND@d52e7f4",
+        "implementation": "N/A",
+        "runtime": "N/A",
+        "dependencies": [
+          "B5.2"
+        ]
+      },
+      "changedDimensions": [
+        "governance",
+        "independentVerification"
+      ],
+      "governanceEvent": {
+        "event": "OWNER_REAFFIRMED",
+        "date": "2026-10-09",
+        "resultingEnum": "OWNER_ACCEPTED",
+        "basis": "direct current Owner decision (see OWNER_DECISION_PROVENANCE.md)"
+      },
+      "ivBasis": {
+        "auditor": "Grok",
+        "verdict": "PASS",
+        "blocking": 0,
+        "major": 0,
+        "minor": 0,
+        "advisory": [
+          "A-01",
+          "A-02",
+          "A-03"
+        ],
+        "evidence": "EV-03",
+        "evidenceForm": "recovered auditor transcript copy (not a re-execution)",
+        "auditedIdentity": "da9b9de2ab9c49cf98100c008eb980225cf8595b2873cc4eb6eb6d8e9733cbd6",
+        "authorOfAuditedObject": "Codex",
+        "independence": "author != auditor (EV-03 :5)"
+      },
+      "gitBasis": {
+        "originalCandidateBinding": "d52e7f499eff4b2c9ee290380fe7cb7db5ec8e5f",
+        "recoveredIvEvidenceBinding": "1c694b3db3a27e6385fd7716d7e59153d8df4e46",
+        "reachableFromRemoteMain": true,
+        "vocabularyNote": "\"GIT_BOUND\" in the Owner act maps to the existing CORR4 value BOUND@<commit>; the node binding stays BOUND@d52e7f4 (the instrument). 1c694b3 binds evidence about the node, not the instrument, and is recorded here as metadata only."
+      },
+      "scope": "Nine-case / 18-side historical INPUT CORPUS FREEZE only (membership + the referenced factual, analytical, Prediction Seal, outcome and controlling-verification identities).",
+      "freezeEffect": {
+        "value": "OPERATIVE",
+        "class": "DERIVED",
+        "derivation": "EV-01 :94 makes the freeze effect conditional on (a) independent verification and (b) explicit Owner acceptance of the exact candidate; (a) = EV-03 PASS on da9b9de2...; (b) = 2026-10-09 Owner reaffirmation of OWNER_ACCEPTED. Current pre-T0 FACTUAL input identities for Cases 1, 3, 5, 6 are thereafter superseded by B5.7 under the freeze's own reopening clause (EV-01 :94) — the B5.5 identities remain the frozen historical record."
+      },
+      "authoringTimeStatementsPreservedVerbatim": [
+        "READY_FOR_INDEPENDENT_VERIFICATION (EV-01 :7)",
+        "OWNER_ACCEPTED: NO (EV-01 :9)",
+        "CORPUS_FREEZE_FINAL: NO (EV-01 :10)"
+      ],
+      "historicalOwnerAcceptance": {
+        "assertedByHandoff": "YES — EV-06 :45-76 (secondary)",
+        "directlyObserved": "NO — original Owner message NOT RECOVERED"
+      },
+      "doesNotEstablish": [
+        "HEDC validity",
+        "calibrated predictive performance",
+        "final historical reports",
+        "release readiness",
+        "Environment classifier validity",
+        "T10 / MD-1..MD-6 closure",
+        "Stage-1 or later execution"
+      ],
+      "holdDisposition": {
+        "HOLD-1": "RESOLVED_IN_IV_AND_GOVERNANCE_DIMENSIONS (recovered IV PASS + current Owner reaffirmation); residual R-1: original September Owner message not recovered"
+      },
+      "corr4AnomalyNote": "CORR4 recorded \"binding d52e7f4 precedes the declared IV->acceptance lifecycle\". EV-03 :9 (auditor-reported HEAD 6ad8933, candidate not yet committed) indicates IV preceded binding. Whether the original Owner acceptance preceded d52e7f4 remains NOT DETERMINABLE; non-load-bearing for current status after the 2026-10-09 reaffirmation."
+    },
+    {
+      "id": "B5.6",
+      "title": "Stage-1 transfer-integrity correction campaign (DC-001..019)",
+      "corr4Baseline": {
+        "governance": "OWNER_ACCEPTED",
+        "independentVerification": "PASS",
+        "gitBinding": "N/A",
+        "implementation": "N/A",
+        "runtime": "N/A",
+        "dependencies": [
+          "B5.1"
+        ]
+      },
+      "proposedCurrent": {
+        "governance": "OWNER_ACCEPTED",
+        "independentVerification": "PASS",
+        "gitBinding": "N/A",
+        "implementation": "N/A",
+        "runtime": "N/A",
+        "dependencies": [
+          "B5.1"
+        ]
+      },
+      "changedDimensions": [],
+      "governanceEvent": null,
+      "governanceNote": "No new acceptance, promotion, or methodology closure. Existing OWNER_ACCEPTED / PASS preserved exactly.",
+      "ivBasis": {
+        "auditor": "Codex",
+        "verdict": "PASS — four correction candidates only",
+        "scope": "four corrected packages; DC-001..DC-019 (19/19)",
+        "evidence": "EV-04",
+        "evidenceForm": "recovered auditor report copy"
+      },
+      "gitBasis": {
+        "nodeGitBinding": "N/A (unchanged)",
+        "recoveredIvEvidenceBinding": "1c694b3db3a27e6385fd7716d7e59153d8df4e46",
+        "note": "Evidence-file binding is metadata; the node dimension is not promoted."
+      },
+      "holdDisposition": {
+        "HOLD-2": "RESOLVED as of 1c694b3 — the physical IV1 report bytes are recovered and hash to the long-carried pin 8eb434e4... (EV-04)"
+      },
+      "downstreamAnalyticalDebt": "INTACT — EV-04 :89 deferred downstream analytical dependency (4 case-local analytical lineages; explicitly excluded from the next stage by EV-02 §16); not discharged by this act"
+    },
+    {
+      "id": "B5.7",
+      "title": "Stage-1 factual-authority successor binding (candidate instrument)",
+      "titleNote": "Title copied verbatim from CORR4.",
+      "corr4Baseline": {
+        "governance": "CANDIDATE",
+        "independentVerification": "NOT_ESTABLISHED",
+        "gitBinding": "BOUND@92236dc",
+        "implementation": "N/A",
+        "runtime": "N/A",
+        "dependencies": [
+          "B5.6"
+        ]
+      },
+      "proposedCurrent": {
+        "governance": "OWNER_ACCEPTED",
+        "independentVerification": "PASS",
+        "gitBinding": "BOUND@92236dc",
+        "implementation": "N/A",
+        "runtime": "N/A",
+        "dependencies": [
+          "B5.6"
+        ]
+      },
+      "changedDimensions": [
+        "governance",
+        "independentVerification"
+      ],
+      "governanceEvent": {
+        "event": "OWNER_REAFFIRMED",
+        "date": "2026-10-09",
+        "resultingEnum": "OWNER_ACCEPTED",
+        "basis": "direct current Owner decision (see OWNER_DECISION_PROVENANCE.md)"
+      },
+      "ivBasis": {
+        "auditor": "Codex",
+        "verdict": "PASS",
+        "scope": "exact candidate; 9/9 factual successor packages",
+        "evidence": "EV-05",
+        "evidenceForm": "recovered auditor report copy",
+        "auditedIdentity": "be9593a767edfa1d61787458db3de1c7034d49ac60b65fe0ce8e11402fe70237",
+        "authorOfAuditedObject": "Z.ai",
+        "independence": "author != auditor (EV-05 :8)",
+        "findings": "none (EV-05 :92); its evidence limitation PHYSICAL_IV1_ARTIFACT_NOT_LOCATED (B5.6 report) is now resolved by EV-04"
+      },
+      "gitBasis": {
+        "originalCandidateBinding": "92236dc1341c3f85565514c60029af388bc51422",
+        "recoveredIvEvidenceBinding": "1c694b3db3a27e6385fd7716d7e59153d8df4e46",
+        "reachableFromRemoteMain": true,
+        "vocabularyNote": "Node binding stays BOUND@92236dc; 1c694b3 recorded as evidence metadata only."
+      },
+      "lifecycleFlags": {
+        "STAGE1_CLOSED": {
+          "authoringTime": "NO (EV-02 :8 and :409 — preserved verbatim, never rewritten)",
+          "current": "YES",
+          "currentScope": "strictly the factual-authority successor-binding lifecycle",
+          "basis": "EV-02 :298-321 closure conditions (IV -> Owner acceptance -> Git binding/remote) all now evidenced: EV-05 PASS; Owner reaffirmation 2026-10-09; 92236dc reachable from remote main"
+        }
+      },
+      "historicalOwnerAcceptance": {
+        "assertedByHandoff": "YES — EV-07 :90-161 (secondary)",
+        "directlyObserved": "NO — original Owner acceptance message NOT RECOVERED"
+      },
+      "doesNotEstablish": [
+        "outcome-hidden mechanism normalization (B5.8)",
+        "HEDC methodology or implementation closure",
+        "LOCO or outcome falsification",
+        "final historical calibration",
+        "nine software-generated historical reports",
+        "completion of the full Stage-2 measurement regression"
+      ],
+      "preservation": "Historical analytical packages superseded for current factual input selection are NOT rewritten (EV-02 §14-§16).",
+      "holdDisposition": {
+        "HOLD-3": "RESOLVED_IN_IV_AND_GOVERNANCE_DIMENSIONS; residual R-1: original Owner acceptance message not recovered; later agent assertions (EV-20; external Grok 2026-09-26 doc) remain agent claims, now consistent with but not the source of current status"
+      },
+      "corr4AnomalyNote": "EV-05 :12/:88 shows IV of the Workbench copy at HEAD d52e7f4 before binding 92236dc (same bytes). Original acceptance-vs-binding ordering remains NOT DETERMINABLE; non-load-bearing after the reaffirmation."
+    }
+  ],
+  "holdsDisposition": {
+    "HOLD-1": "RESOLVED_IN_IV_AND_GOVERNANCE_DIMENSIONS (B5.5)",
+    "HOLD-2": "RESOLVED (B5.6 physical IV1 bytes, 1c694b3)",
+    "HOLD-3": "RESOLVED_IN_IV_AND_GOVERNANCE_DIMENSIONS (B5.7)",
+    "HOLD-4": "UNCHANGED",
+    "HOLD-5": "UNCHANGED",
+    "HOLD-6": "UNCHANGED",
+    "HOLD-7": "UNCHANGED",
+    "HOLD-8": "UNCHANGED",
+    "HOLD-9": "UNCHANGED",
+    "residuals": {
+      "R-1": "Original September 2026 Owner acceptance messages for B5.5 and B5.7: NOT RECOVERED (both nodes)",
+      "R-2": "Recovered IV evidence is copies of auditor outputs, not re-executions; no re-audit performed or claimed",
+      "R-3": "B5.6 downstream analytical debt intact (4 case-local analytical lineages)",
+      "R-4": "HOLD-4 per-case outcome/seal identities still carried, not re-hashed by this act"
+    }
+  },
+  "otherNodes": {
+    "count": 60,
+    "ids": [
+      "B0.1",
+      "B0.2",
+      "B1.1",
+      "B1.2",
+      "B1.3",
+      "B1.4",
+      "B1.5",
+      "B2.1",
+      "B3.1",
+      "B3.2",
+      "B3.3",
+      "B4.1",
+      "B4.2",
+      "B4.3",
+      "B5.1",
+      "B5.2",
+      "B5.3",
+      "B5.4",
+      "B5.8",
+      "B5.9",
+      "B5.10",
+      "B5.11",
+      "B5.12",
+      "B5.13",
+      "B5.14",
+      "B5.15",
+      "B5.16",
+      "B5.17",
+      "B5.18",
+      "B5.19",
+      "B6.1",
+      "B6.2",
+      "B6.3",
+      "B6.4",
+      "B7.1",
+      "B8.1",
+      "B8.2",
+      "B8.3",
+      "B9.1",
+      "B10.1",
+      "B10.2",
+      "B10.3",
+      "B10.4",
+      "B11.1",
+      "B12.1",
+      "B13.1",
+      "B14.1",
+      "B15.1",
+      "B15.2",
+      "B16.1",
+      "B16.2",
+      "B16.3",
+      "B16.4",
+      "B17.1",
+      "B17.2",
+      "B17.3",
+      "B17.4",
+      "B17.5",
+      "B17.6",
+      "B17.7"
+    ],
+    "statement": "No status dimension, dependency, or note of any other CORR4 node is changed by this candidate. B17.5 is additionally NOT represented by its outdated CORR4 values: its current state is governed by the post-CORR4 bound closures (EV-14/EV-15/EV-16) and is neither re-stated as changed nor rolled back here."
+  },
+  "gitBindingChecks": [
+    {
+      "check": "B5.5 candidate blob at original binding commit",
+      "commit": "d52e7f499eff4b2c9ee290380fe7cb7db5ec8e5f",
+      "path": "docs/governance/historical-corpus/MERGEVUE_POST_10_CALIBRATION_9_CASE_CORPUS_FREEZE_2026-09-25.md",
+      "sha256": "da9b9de2ab9c49cf98100c008eb980225cf8595b2873cc4eb6eb6d8e9733cbd6",
+      "matchesPin": true
+    },
+    {
+      "check": "B5.7 candidate blob at original binding commit",
+      "commit": "92236dc1341c3f85565514c60029af388bc51422",
+      "path": "docs/governance/historical-corpus/MERGEVUE_STAGE1_FACTUAL_AUTHORITY_SUCCESSOR_BINDING_AND_CLOSURE_2026-09-25.md",
+      "sha256": "be9593a767edfa1d61787458db3de1c7034d49ac60b65fe0ce8e11402fe70237",
+      "matchesPin": true
+    },
+    {
+      "check": "recovered IV blob bound in evidence-restoration commit",
+      "commit": "1c694b3db3a27e6385fd7716d7e59153d8df4e46",
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_6_B5_7_HISTORICAL_EVIDENCE_RECOVERY_1/source/RECOVERED_IV/B5_5_GROK_IV1_TRANSCRIPT.txt",
+      "sha256": "9aea5e0ed4badaa2d59c3ac6529b78e8822f96a0db4721fb1998c227abe0c421",
+      "matchesPin": true,
+      "firstAddedInCommit": "1c694b3db3a27e6385fd7716d7e59153d8df4e46"
+    },
+    {
+      "check": "recovered IV blob bound in evidence-restoration commit",
+      "commit": "1c694b3db3a27e6385fd7716d7e59153d8df4e46",
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_6_B5_7_HISTORICAL_EVIDENCE_RECOVERY_1/source/RECOVERED_IV/B5_6_CODEX_IV1_REPORT_NEW_RECOVERY.md",
+      "sha256": "8eb434e40b24bd4d2ad29a1c3a2bfa4a86403d0ac7f86c8c37daf809d781c830",
+      "matchesPin": true,
+      "firstAddedInCommit": "1c694b3db3a27e6385fd7716d7e59153d8df4e46"
+    },
+    {
+      "check": "recovered IV blob bound in evidence-restoration commit",
+      "commit": "1c694b3db3a27e6385fd7716d7e59153d8df4e46",
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_6_B5_7_HISTORICAL_EVIDENCE_RECOVERY_1/source/RECOVERED_IV/B5_7_CODEX_IV1_REPORT.md",
+      "sha256": "0484044485d7ad2986331148293f1ba05dd162fa3dc7c535f0bfded3516ec1b9",
+      "matchesPin": true,
+      "firstAddedInCommit": "1c694b3db3a27e6385fd7716d7e59153d8df4e46"
+    }
+  ],
+  "commits": {
+    "6ad8933": {
+      "full": "6ad8933dd0d2d742f8f352f0870bb164bc6053a4",
+      "authorDate": "2026-09-25T00:56:24-03:00",
+      "subject": "docs: bind accepted outcome IV authority",
+      "role": "outcome-IV durable binding; auditor-reported HEAD during B5.5 Grok IV1",
+      "ancestorOfHead": true
+    },
+    "d52e7f4": {
+      "full": "d52e7f499eff4b2c9ee290380fe7cb7db5ec8e5f",
+      "authorDate": "2026-09-25T01:42:38-03:00",
+      "subject": "docs: freeze nine-case calibration corpus",
+      "role": "B5.5 original candidate binding",
+      "ancestorOfHead": true
+    },
+    "92236dc": {
+      "full": "92236dc1341c3f85565514c60029af388bc51422",
+      "authorDate": "2026-09-25T18:20:23-03:00",
+      "subject": "docs: bind Stage 1 factual successor authority",
+      "role": "B5.7 original candidate binding",
+      "ancestorOfHead": true
+    },
+    "ee55034": {
+      "full": "ee55034f5b40dadffc59aa3b842eb9b69157df68",
+      "authorDate": "2026-10-07T23:13:05-03:00",
+      "subject": "revert(audit): remove rejected diagnostic-tree overlay (MERGEVUE_REJECTED_TREE_COMMITS_ROLLBACK_1)",
+      "role": "CORR4 authoring baseline",
+      "ancestorOfHead": true
+    },
+    "9b57f0c": {
+      "full": "9b57f0cb567d5a36e4ebcf3292cdbd18439f4faa",
+      "authorDate": "2026-10-08T16:29:27-03:00",
+      "subject": "docs: bind Owner-accepted verified control-tree reconstruction CORR4",
+      "role": "CORR4 package binding (Owner-accepted, IV5 PASS)",
+      "ancestorOfHead": true
+    },
+    "2f7bcc5": {
+      "full": "2f7bcc5d33cf8009145aa85cbb39d2ae9084ec26",
+      "authorDate": "2026-10-08T22:17:43-03:00",
+      "subject": "docs: bind Owner-accepted verified FEVA CORR2 final effective view assembly Act: STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1.CORR2.GIT-CLOSURE-1",
+      "role": "B17.5 FEVA CORR2 Git closure (post-CORR4)",
+      "ancestorOfHead": true
+    },
+    "7f544af": {
+      "full": "7f544afa071658bdd9d0d243c8e172e1061a5944",
+      "authorDate": "2026-10-09T00:02:50-03:00",
+      "subject": "docs: bind Owner-accepted verified Stage-2 measurement regression harness compatibility adaptation Act: STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_1.GIT-CLOSURE-1",
+      "role": "harness adaptation Git closure; Owner sequencing decision recorded",
+      "ancestorOfHead": true
+    },
+    "8f0085b": {
+      "full": "8f0085b699938f8f7d6adc2fbfd20cbbcea44fc9",
+      "authorDate": "2026-10-09T00:08:25-03:00",
+      "subject": "docs: correct archive verification instructions and bind ACT_MANIFEST Act: STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_1.GIT-CLOSURE-1.CORR1",
+      "role": "harness Git-closure CORR1",
+      "ancestorOfHead": true
+    },
+    "1c694b3": {
+      "full": "1c694b3db3a27e6385fd7716d7e59153d8df4e46",
+      "authorDate": "2026-10-09T08:49:22-03:00",
+      "subject": "docs: recover B5.5-B5.7 historical IV evidence without changing accepted state",
+      "role": "B5.5/B5.6/B5.7 documentary evidence restoration (current HEAD)",
+      "ancestorOfHead": true
+    }
+  },
+  "safety": {
+    "canonicalControlTreeMutation": false,
+    "corr4FilesMutation": false,
+    "historicalCandidateMutation": false,
+    "recoveryAddendumMutation": false,
+    "recoveredReportMutation": false,
+    "otherNodesMutation": false,
+    "methodologyExecution": false,
+    "gitMutation": false,
+    "selfIndependentVerification": false
+  }
+}

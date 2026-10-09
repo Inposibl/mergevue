@@ -1,0 +1,1573 @@
+{
+  "root": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)",
+  "head": "1c694b3db3a27e6385fd7716d7e59153d8df4e46",
+  "candidate": [
+    {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1/AUTHOR_REPORT.md",
+      "bytes": 10879,
+      "sha256": "9d76ca8d309661a52a8e1cab6000057a0c69e346593002ca9893695b2a673ac2",
+      "jsonParses": null,
+      "matchesOwnerPin": true,
+      "matchesCandidateManifest": true,
+      "matchesTransportMember": true
+    },
+    {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1/B5_5_B5_6_B5_7_STATUS_DELTA.json",
+      "bytes": 21380,
+      "sha256": "86b4b60bc73d73b57000d1d50d22216c60ece280702ecae6362c82aa8d84160c",
+      "jsonParses": true,
+      "matchesOwnerPin": true,
+      "matchesCandidateManifest": true,
+      "matchesTransportMember": true
+    },
+    {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1/CANDIDATE_MANIFEST.json",
+      "bytes": 5415,
+      "sha256": "ce8b7306f2ef8c5342affe4a6025d4dccf765d1b34a13f822af7b75accddccd6",
+      "jsonParses": true,
+      "matchesOwnerPin": true,
+      "matchesCandidateManifest": true,
+      "matchesTransportMember": true
+    },
+    {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1/DOWNSTREAM_DEPENDENCY_NON_PROMOTION_CHECK.md",
+      "bytes": 8180,
+      "sha256": "8589143a58630f35f302a9b5727828bc6b26f67209d463089639a0d06f887686",
+      "jsonParses": null,
+      "matchesOwnerPin": true,
+      "matchesCandidateManifest": true,
+      "matchesTransportMember": true
+    },
+    {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1/EVIDENCE_AND_AUTHORITY_CROSSWALK.json",
+      "bytes": 21276,
+      "sha256": "df3e83b9fe1c9cb367e76a448f9ec0836837285efcfc7a9245e75c1137798843",
+      "jsonParses": true,
+      "matchesOwnerPin": true,
+      "matchesCandidateManifest": true,
+      "matchesTransportMember": true
+    },
+    {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1/OWNER_DECISION_PROVENANCE.md",
+      "bytes": 4827,
+      "sha256": "e07ef6479a45818fc3041883d56e09bf563c739b5623b0f70726dd27eb534473",
+      "jsonParses": null,
+      "matchesOwnerPin": true,
+      "matchesCandidateManifest": true,
+      "matchesTransportMember": true
+    },
+    {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1/OWNER_REAFFIRMATION_STATUS_ADDENDUM_CANDIDATE.md",
+      "bytes": 16054,
+      "sha256": "6b138ed787dc1a5dd992e160564d85ad8adfc97358c50dca7a96b0e995f8cbca",
+      "jsonParses": null,
+      "matchesOwnerPin": true,
+      "matchesCandidateManifest": true,
+      "matchesTransportMember": true
+    }
+  ],
+  "evidenceRecords": [
+    {
+      "id": "EV-01",
+      "path": "docs/governance/historical-corpus/MERGEVUE_POST_10_CALIBRATION_9_CASE_CORPUS_FREEZE_2026-09-25.md",
+      "sha256": "da9b9de2ab9c49cf98100c008eb980225cf8595b2873cc4eb6eb6d8e9733cbd6",
+      "bytes": 20173,
+      "matchesCandidateHash": true,
+      "matchesCandidateSize": true,
+      "tracked": true,
+      "trackedClaimMatches": true,
+      "firstAddedInCommit": "d52e7f499eff4b2c9ee290380fe7cb7db5ec8e5f",
+      "firstAddedClaimMatches": true,
+      "lastChangedCommit": "d52e7f499eff4b2c9ee290380fe7cb7db5ec8e5f",
+      "headBlobSha256": "da9b9de2ab9c49cf98100c008eb980225cf8595b2873cc4eb6eb6d8e9733cbd6",
+      "matchesHead": true,
+      "externalPinType": "current Owner task + separate SHA sidecar + original binding blob",
+      "predecessorManifestPin": null,
+      "sidecars": [
+        {
+          "path": "docs/governance/historical-corpus/MERGEVUE_POST_10_CALIBRATION_9_CASE_CORPUS_FREEZE_2026-09-25.sha256",
+          "sha256": "c76817d70e3ac6c9a63356249fab3de82b0f37811d10db1a807893d2a852a412",
+          "containsFullPin": true,
+          "matchesHead": true
+        }
+      ],
+      "evidenceClass": "HISTORICAL_CANDIDATE_BYTES",
+      "candidatePinMatched": true,
+      "supportAssessment": "Original input-freeze text supplies the conditional authority rule, not its own acceptance or IV.",
+      "externalFullPinExists": true
+    },
+    {
+      "id": "EV-02",
+      "path": "docs/governance/historical-corpus/MERGEVUE_STAGE1_FACTUAL_AUTHORITY_SUCCESSOR_BINDING_AND_CLOSURE_2026-09-25.md",
+      "sha256": "be9593a767edfa1d61787458db3de1c7034d49ac60b65fe0ce8e11402fe70237",
+      "bytes": 22517,
+      "matchesCandidateHash": true,
+      "matchesCandidateSize": true,
+      "tracked": true,
+      "trackedClaimMatches": true,
+      "firstAddedInCommit": "92236dc1341c3f85565514c60029af388bc51422",
+      "firstAddedClaimMatches": true,
+      "lastChangedCommit": "92236dc1341c3f85565514c60029af388bc51422",
+      "headBlobSha256": "be9593a767edfa1d61787458db3de1c7034d49ac60b65fe0ce8e11402fe70237",
+      "matchesHead": true,
+      "externalPinType": "current Owner task + separate SHA sidecar + original binding blob",
+      "predecessorManifestPin": null,
+      "sidecars": [
+        {
+          "path": "docs/governance/historical-corpus/MERGEVUE_STAGE1_FACTUAL_AUTHORITY_SUCCESSOR_BINDING_AND_CLOSURE_2026-09-25.sha256",
+          "sha256": "830337006885949c28483dc094bca4eff8d1e7ded80e123d36285df5b77dad18",
+          "containsFullPin": true,
+          "matchesHead": true
+        }
+      ],
+      "evidenceClass": "HISTORICAL_CANDIDATE_BYTES",
+      "candidatePinMatched": true,
+      "supportAssessment": "Original successor text supplies closure conditions, package table and input firewall; current Owner task supplies reaffirmation.",
+      "externalFullPinExists": true
+    },
+    {
+      "id": "EV-03",
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_6_B5_7_HISTORICAL_EVIDENCE_RECOVERY_1/source/RECOVERED_IV/B5_5_GROK_IV1_TRANSCRIPT.txt",
+      "sha256": "9aea5e0ed4badaa2d59c3ac6529b78e8822f96a0db4721fb1998c227abe0c421",
+      "bytes": 19807,
+      "matchesCandidateHash": true,
+      "matchesCandidateSize": true,
+      "tracked": true,
+      "trackedClaimMatches": true,
+      "firstAddedInCommit": "1c694b3db3a27e6385fd7716d7e59153d8df4e46",
+      "firstAddedClaimMatches": true,
+      "lastChangedCommit": "1c694b3db3a27e6385fd7716d7e59153d8df4e46",
+      "headBlobSha256": "9aea5e0ed4badaa2d59c3ac6529b78e8822f96a0db4721fb1998c227abe0c421",
+      "matchesHead": true,
+      "externalPinType": "separate predecessor manifest + HEAD blob",
+      "predecessorManifestPin": "9aea5e0ed4badaa2d59c3ac6529b78e8822f96a0db4721fb1998c227abe0c421",
+      "sidecars": [],
+      "evidenceClass": "AUDITOR_TRANSCRIPT_COPY",
+      "candidatePinMatched": true,
+      "supportAssessment": "Recovered independent Grok verdict on exact B5.5 identity; historical scope and advisories only, not new scientific audit.",
+      "externalFullPinExists": true
+    },
+    {
+      "id": "EV-04",
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_6_B5_7_HISTORICAL_EVIDENCE_RECOVERY_1/source/RECOVERED_IV/B5_6_CODEX_IV1_REPORT_NEW_RECOVERY.md",
+      "sha256": "8eb434e40b24bd4d2ad29a1c3a2bfa4a86403d0ac7f86c8c37daf809d781c830",
+      "bytes": 20771,
+      "matchesCandidateHash": true,
+      "matchesCandidateSize": true,
+      "tracked": true,
+      "trackedClaimMatches": true,
+      "firstAddedInCommit": "1c694b3db3a27e6385fd7716d7e59153d8df4e46",
+      "firstAddedClaimMatches": true,
+      "lastChangedCommit": "1c694b3db3a27e6385fd7716d7e59153d8df4e46",
+      "headBlobSha256": "8eb434e40b24bd4d2ad29a1c3a2bfa4a86403d0ac7f86c8c37daf809d781c830",
+      "matchesHead": true,
+      "externalPinType": "separate predecessor manifest + HEAD blob",
+      "predecessorManifestPin": "8eb434e40b24bd4d2ad29a1c3a2bfa4a86403d0ac7f86c8c37daf809d781c830",
+      "sidecars": [],
+      "evidenceClass": "AUDITOR_REPORT_COPY",
+      "candidatePinMatched": true,
+      "supportAssessment": "Recovered independent Codex verdict on four Grok correction packages and 19 DCs; physical restoration and analytical debt.",
+      "externalFullPinExists": true
+    },
+    {
+      "id": "EV-05",
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_6_B5_7_HISTORICAL_EVIDENCE_RECOVERY_1/source/RECOVERED_IV/B5_7_CODEX_IV1_REPORT.md",
+      "sha256": "0484044485d7ad2986331148293f1ba05dd162fa3dc7c535f0bfded3516ec1b9",
+      "bytes": 15287,
+      "matchesCandidateHash": true,
+      "matchesCandidateSize": true,
+      "tracked": true,
+      "trackedClaimMatches": true,
+      "firstAddedInCommit": "1c694b3db3a27e6385fd7716d7e59153d8df4e46",
+      "firstAddedClaimMatches": true,
+      "lastChangedCommit": "1c694b3db3a27e6385fd7716d7e59153d8df4e46",
+      "headBlobSha256": "0484044485d7ad2986331148293f1ba05dd162fa3dc7c535f0bfded3516ec1b9",
+      "matchesHead": true,
+      "externalPinType": "separate predecessor manifest + HEAD blob",
+      "predecessorManifestPin": "0484044485d7ad2986331148293f1ba05dd162fa3dc7c535f0bfded3516ec1b9",
+      "sidecars": [],
+      "evidenceClass": "AUDITOR_REPORT_COPY",
+      "candidatePinMatched": true,
+      "supportAssessment": "Recovered independent Codex verdict on exact Z.ai B5.7 candidate; successor identity scope, not new scientific audit.",
+      "externalFullPinExists": true
+    },
+    {
+      "id": "EV-06",
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_6_B5_7_HISTORICAL_EVIDENCE_RECOVERY_1/source/CONTEMPORANEOUS_HANDOFFS/B5_5_POST_ACCEPTANCE_HANDOFF.txt",
+      "sha256": "1748f2dcf7227487ead14dc670b4f350c28cced5a4f434c31bac46eb36b6c1f2",
+      "bytes": 16453,
+      "matchesCandidateHash": true,
+      "matchesCandidateSize": true,
+      "tracked": true,
+      "trackedClaimMatches": true,
+      "firstAddedInCommit": "1c694b3db3a27e6385fd7716d7e59153d8df4e46",
+      "firstAddedClaimMatches": true,
+      "lastChangedCommit": "1c694b3db3a27e6385fd7716d7e59153d8df4e46",
+      "headBlobSha256": "1748f2dcf7227487ead14dc670b4f350c28cced5a4f434c31bac46eb36b6c1f2",
+      "matchesHead": true,
+      "externalPinType": "separate predecessor manifest + HEAD blob",
+      "predecessorManifestPin": "1748f2dcf7227487ead14dc670b4f350c28cced5a4f434c31bac46eb36b6c1f2",
+      "sidecars": [],
+      "evidenceClass": "HISTORICAL_HANDOFF_SECONDARY",
+      "candidatePinMatched": true,
+      "supportAssessment": "Secondary Orchestrator handoff corroborates historical narrative; not primary Owner decision.",
+      "externalFullPinExists": true
+    },
+    {
+      "id": "EV-07",
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_6_B5_7_HISTORICAL_EVIDENCE_RECOVERY_1/source/CONTEMPORANEOUS_HANDOFFS/B5_7_POST_CLOSURE_HANDOFF.txt",
+      "sha256": "ce04a4c6eebcbfb3453c415e57e3242c16a36725f8085ddf15ff3b865cb2ed7d",
+      "bytes": 23276,
+      "matchesCandidateHash": true,
+      "matchesCandidateSize": true,
+      "tracked": true,
+      "trackedClaimMatches": true,
+      "firstAddedInCommit": "1c694b3db3a27e6385fd7716d7e59153d8df4e46",
+      "firstAddedClaimMatches": true,
+      "lastChangedCommit": "1c694b3db3a27e6385fd7716d7e59153d8df4e46",
+      "headBlobSha256": "ce04a4c6eebcbfb3453c415e57e3242c16a36725f8085ddf15ff3b865cb2ed7d",
+      "matchesHead": true,
+      "externalPinType": "separate predecessor manifest + HEAD blob",
+      "predecessorManifestPin": "ce04a4c6eebcbfb3453c415e57e3242c16a36725f8085ddf15ff3b865cb2ed7d",
+      "sidecars": [],
+      "evidenceClass": "HISTORICAL_HANDOFF_SECONDARY",
+      "candidatePinMatched": true,
+      "supportAssessment": "Secondary Orchestrator handoff corroborates historical narrative; not primary Owner decision.",
+      "externalFullPinExists": true
+    },
+    {
+      "id": "EV-08",
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_6_B5_7_HISTORICAL_EVIDENCE_RECOVERY_1/source/CORRECTION_REPORTS/B5_6_CORRECTION_REPORT.md",
+      "sha256": "c5a8e7ef48f07b77ced9b33e0b796312fa34c66de4f45f8229a40359f5bacc55",
+      "bytes": 39854,
+      "matchesCandidateHash": true,
+      "matchesCandidateSize": true,
+      "tracked": true,
+      "trackedClaimMatches": true,
+      "firstAddedInCommit": "1c694b3db3a27e6385fd7716d7e59153d8df4e46",
+      "firstAddedClaimMatches": true,
+      "lastChangedCommit": "1c694b3db3a27e6385fd7716d7e59153d8df4e46",
+      "headBlobSha256": "c5a8e7ef48f07b77ced9b33e0b796312fa34c66de4f45f8229a40359f5bacc55",
+      "matchesHead": true,
+      "externalPinType": "separate predecessor manifest + HEAD blob",
+      "predecessorManifestPin": "c5a8e7ef48f07b77ced9b33e0b796312fa34c66de4f45f8229a40359f5bacc55",
+      "sidecars": [],
+      "evidenceClass": "AUTHOR_REPORT",
+      "candidatePinMatched": true,
+      "supportAssessment": "Grok author correction report is author evidence, not independent IV or Owner acceptance.",
+      "externalFullPinExists": true
+    },
+    {
+      "id": "EV-09",
+      "path": "docs/governance/historical-corpus/MERGEVUE_B5_5_B5_6_B5_7_RECOVERED_EVIDENCE_ADDENDUM_2026-10-09.md",
+      "sha256": "229b3c79ec9fc1d28111997666d171122d34d00954f98b15ec2b982a6cac73a2",
+      "bytes": 4153,
+      "matchesCandidateHash": true,
+      "matchesCandidateSize": true,
+      "tracked": true,
+      "trackedClaimMatches": true,
+      "firstAddedInCommit": "1c694b3db3a27e6385fd7716d7e59153d8df4e46",
+      "firstAddedClaimMatches": true,
+      "lastChangedCommit": "1c694b3db3a27e6385fd7716d7e59153d8df4e46",
+      "headBlobSha256": "229b3c79ec9fc1d28111997666d171122d34d00954f98b15ec2b982a6cac73a2",
+      "matchesHead": true,
+      "externalPinType": "recovery PACKAGE_MANIFEST addendum copy + HEAD blob",
+      "predecessorManifestPin": null,
+      "sidecars": [],
+      "evidenceClass": "RECOVERY_RECORD",
+      "candidatePinMatched": true,
+      "supportAssessment": "Bound evidence-only restoration addendum; no status promotion; candidate reconciliation is a separate act.",
+      "externalFullPinExists": true
+    },
+    {
+      "id": "EV-10",
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_6_B5_7_HISTORICAL_EVIDENCE_RECOVERY_1/CONTROL_TREE_B5_5_B5_6_B5_7_EVIDENCE_DELTA.json",
+      "sha256": "1d9c2039f39ef8cb3e4d4cfc0260a9352ce53cc5026b54894dba25c965865369",
+      "bytes": 2393,
+      "matchesCandidateHash": true,
+      "matchesCandidateSize": true,
+      "tracked": true,
+      "trackedClaimMatches": true,
+      "firstAddedInCommit": "1c694b3db3a27e6385fd7716d7e59153d8df4e46",
+      "firstAddedClaimMatches": true,
+      "lastChangedCommit": "1c694b3db3a27e6385fd7716d7e59153d8df4e46",
+      "headBlobSha256": "1d9c2039f39ef8cb3e4d4cfc0260a9352ce53cc5026b54894dba25c965865369",
+      "matchesHead": true,
+      "externalPinType": "separate predecessor manifest + HEAD blob",
+      "predecessorManifestPin": "1d9c2039f39ef8cb3e4d4cfc0260a9352ce53cc5026b54894dba25c965865369",
+      "sidecars": [],
+      "evidenceClass": "RECOVERY_RECORD",
+      "candidatePinMatched": true,
+      "supportAssessment": "Previous evidence-only delta establishes physical recovery without independently changing statuses.",
+      "externalFullPinExists": true
+    },
+    {
+      "id": "EV-11",
+      "path": "WORKBENCH/AUDITS/MERGEVUE_VERIFIED_CURRENT_CONTROL_TREE_RECONSTRUCTION_1_CORR4/MERGEVUE_NODE_STATUS_MATRIX.json",
+      "sha256": "621eca0afeadca4b40450a41d3277fb69df9843b73c9663e93042e7d76b98a97",
+      "bytes": 73443,
+      "matchesCandidateHash": true,
+      "matchesCandidateSize": true,
+      "tracked": true,
+      "trackedClaimMatches": true,
+      "firstAddedInCommit": "9b57f0cb567d5a36e4ebcf3292cdbd18439f4faa",
+      "firstAddedClaimMatches": true,
+      "lastChangedCommit": "9b57f0cb567d5a36e4ebcf3292cdbd18439f4faa",
+      "headBlobSha256": "621eca0afeadca4b40450a41d3277fb69df9843b73c9663e93042e7d76b98a97",
+      "matchesHead": true,
+      "externalPinType": "separate predecessor manifest + HEAD blob",
+      "predecessorManifestPin": "621eca0afeadca4b40450a41d3277fb69df9843b73c9663e93042e7d76b98a97",
+      "sidecars": [],
+      "evidenceClass": "RECONSTRUCTION_SNAPSHOT",
+      "candidatePinMatched": true,
+      "supportAssessment": "Accepted/bound CORR4 matrix supplies baseline enums, dimensions, IDs and graph; immutable historical status map.",
+      "externalFullPinExists": true
+    },
+    {
+      "id": "EV-12",
+      "path": "WORKBENCH/AUDITS/MERGEVUE_VERIFIED_CURRENT_CONTROL_TREE_RECONSTRUCTION_1_CORR4/MERGEVUE_EVIDENCE_INDEX.json",
+      "sha256": "7ffa355ce60d9cc83c12d1c21bbeaa65009d91963e927676ce27ea4c08dc9011",
+      "bytes": 35011,
+      "matchesCandidateHash": true,
+      "matchesCandidateSize": true,
+      "tracked": true,
+      "trackedClaimMatches": true,
+      "firstAddedInCommit": "9b57f0cb567d5a36e4ebcf3292cdbd18439f4faa",
+      "firstAddedClaimMatches": true,
+      "lastChangedCommit": "9b57f0cb567d5a36e4ebcf3292cdbd18439f4faa",
+      "headBlobSha256": "7ffa355ce60d9cc83c12d1c21bbeaa65009d91963e927676ce27ea4c08dc9011",
+      "matchesHead": true,
+      "externalPinType": "separate predecessor manifest + HEAD blob",
+      "predecessorManifestPin": "7ffa355ce60d9cc83c12d1c21bbeaa65009d91963e927676ce27ea4c08dc9011",
+      "sidecars": [],
+      "evidenceClass": "RECONSTRUCTION_SNAPSHOT",
+      "candidatePinMatched": true,
+      "supportAssessment": "CORR4 evidence index supplies historical evidence references; does not supersede later bound acceptance.",
+      "externalFullPinExists": true
+    },
+    {
+      "id": "EV-13",
+      "path": "WORKBENCH/AUDITS/MERGEVUE_VERIFIED_CURRENT_CONTROL_TREE_RECONSTRUCTION_1_CORR4/MERGEVUE_CRITICAL_PATH.md",
+      "sha256": "e32c74d831f8076ee91a7158f5ee5b5c746e45df352d679d5d401131cf0961ec",
+      "bytes": 10683,
+      "matchesCandidateHash": true,
+      "matchesCandidateSize": true,
+      "tracked": true,
+      "trackedClaimMatches": true,
+      "firstAddedInCommit": "9b57f0cb567d5a36e4ebcf3292cdbd18439f4faa",
+      "firstAddedClaimMatches": true,
+      "lastChangedCommit": "9b57f0cb567d5a36e4ebcf3292cdbd18439f4faa",
+      "headBlobSha256": "e32c74d831f8076ee91a7158f5ee5b5c746e45df352d679d5d401131cf0961ec",
+      "matchesHead": true,
+      "externalPinType": "separate predecessor manifest + HEAD blob",
+      "predecessorManifestPin": "e32c74d831f8076ee91a7158f5ee5b5c746e45df352d679d5d401131cf0961ec",
+      "sidecars": [],
+      "evidenceClass": "RECONSTRUCTION_SNAPSHOT",
+      "candidatePinMatched": true,
+      "supportAssessment": "CORR4 critical-path document supplies original dependency and eligibility distinctions.",
+      "externalFullPinExists": true
+    },
+    {
+      "id": "EV-14",
+      "path": "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_GIT_CLOSURE_1.md",
+      "sha256": "c5226bc80fb48c604c4171f3518bd1afb5abfda6aa04590609e489c6f823ed51",
+      "bytes": 11513,
+      "matchesCandidateHash": true,
+      "matchesCandidateSize": true,
+      "tracked": true,
+      "trackedClaimMatches": true,
+      "firstAddedInCommit": "2f7bcc5d33cf8009145aa85cbb39d2ae9084ec26",
+      "firstAddedClaimMatches": true,
+      "lastChangedCommit": "2f7bcc5d33cf8009145aa85cbb39d2ae9084ec26",
+      "headBlobSha256": "c5226bc80fb48c604c4171f3518bd1afb5abfda6aa04590609e489c6f823ed51",
+      "matchesHead": true,
+      "externalPinType": "separate SHA sidecar + HEAD blob",
+      "predecessorManifestPin": null,
+      "sidecars": [
+        {
+          "path": "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_GIT_CLOSURE_1.md.sha256",
+          "sha256": "892ac9e646aa9d02e039aa27b07f0fee37af9f0a27da9a9bdb007d11ee447a6e",
+          "containsFullPin": true,
+          "matchesHead": true
+        }
+      ],
+      "evidenceClass": "GIT_CLOSURE_RECORD",
+      "candidatePinMatched": true,
+      "supportAssessment": "Bound closure record contains FEVA CORR2 Owner acceptance and independent IV identity; applies to assembly artifacts only.",
+      "externalFullPinExists": true
+    },
+    {
+      "id": "EV-15",
+      "path": "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_RECORDS.jsonl",
+      "sha256": "5b37071a5fa5374c77b149bfde5c230c228cdf73d9785e5ea55346f9fab28daa",
+      "bytes": 104722,
+      "matchesCandidateHash": true,
+      "matchesCandidateSize": true,
+      "tracked": true,
+      "trackedClaimMatches": true,
+      "firstAddedInCommit": "2f7bcc5d33cf8009145aa85cbb39d2ae9084ec26",
+      "firstAddedClaimMatches": true,
+      "lastChangedCommit": "2f7bcc5d33cf8009145aa85cbb39d2ae9084ec26",
+      "headBlobSha256": "5b37071a5fa5374c77b149bfde5c230c228cdf73d9785e5ea55346f9fab28daa",
+      "matchesHead": true,
+      "externalPinType": "Full accepted identity in EV-14 closure §3/§4 and EV-16 §2 + HEAD blob",
+      "predecessorManifestPin": null,
+      "sidecars": [],
+      "evidenceClass": "ACCEPTED_ARTIFACT",
+      "candidatePinMatched": true,
+      "supportAssessment": "Exact FEVA output identity (116 records), matching accepted full pin in EV-14/EV-16; not evidence of full measurement execution.",
+      "externalFullPinExists": true
+    },
+    {
+      "id": "EV-16",
+      "path": "WORKBENCH/AUDITS/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_1_GIT_CLOSURE_1.md",
+      "sha256": "7f1cd15bfd5a44f376acd80ddafd2cc87a072499e5788c090632e765a145e968",
+      "bytes": 19148,
+      "matchesCandidateHash": true,
+      "matchesCandidateSize": true,
+      "tracked": true,
+      "trackedClaimMatches": true,
+      "firstAddedInCommit": "7f544afa071658bdd9d0d243c8e172e1061a5944",
+      "firstAddedClaimMatches": true,
+      "lastChangedCommit": "8f0085b699938f8f7d6adc2fbfd20cbbcea44fc9",
+      "headBlobSha256": "7f1cd15bfd5a44f376acd80ddafd2cc87a072499e5788c090632e765a145e968",
+      "matchesHead": true,
+      "externalPinType": "separate SHA sidecar + HEAD blob",
+      "predecessorManifestPin": null,
+      "sidecars": [
+        {
+          "path": "WORKBENCH/AUDITS/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_1_GIT_CLOSURE_1.md.sha256",
+          "sha256": "2119ba2144a587bed5b3db35560b7f9214ce7086bf729ac5ce6032e457b3cde3",
+          "containsFullPin": true,
+          "matchesHead": true
+        }
+      ],
+      "evidenceClass": "GIT_CLOSURE_RECORD",
+      "candidatePinMatched": true,
+      "supportAssessment": "Bound adapter closure contains Owner acceptance and IV identity; explicit sequencing hold and whole-measurement deferral.",
+      "externalFullPinExists": true
+    },
+    {
+      "id": "EV-17",
+      "path": "docs/governance/MERGEVUE_CONTROL_TREE_v2.1_2026-09-04.md",
+      "sha256": "360bafa29bad5ea93752323d4a217bf59aaec628e0e2b236350a2edd9c1f7128",
+      "bytes": 36971,
+      "matchesCandidateHash": true,
+      "matchesCandidateSize": true,
+      "tracked": true,
+      "trackedClaimMatches": true,
+      "firstAddedInCommit": "7792c5e390afbbc990ab61a870a337538bf2d2e3",
+      "firstAddedClaimMatches": true,
+      "lastChangedCommit": "7792c5e390afbbc990ab61a870a337538bf2d2e3",
+      "headBlobSha256": "360bafa29bad5ea93752323d4a217bf59aaec628e0e2b236350a2edd9c1f7128",
+      "matchesHead": true,
+      "externalPinType": "separate SHA sidecar + HEAD blob",
+      "predecessorManifestPin": null,
+      "sidecars": [
+        {
+          "path": "docs/governance/MERGEVUE_CONTROL_TREE_v2.1_2026-09-04.sha256",
+          "sha256": "253650e871f6f2e1cc7eabbcc2875544faeed1b154385c763dce3352c37f7fa4",
+          "containsFullPin": true,
+          "matchesHead": true
+        }
+      ],
+      "evidenceClass": "GOVERNANCE_AUTHORITY",
+      "candidatePinMatched": true,
+      "supportAssessment": "Control Tree v2.1 graph/status semantics; checked sidecar/current binding and later product addendum, no later numbered tree found.",
+      "externalFullPinExists": true
+    },
+    {
+      "id": "EV-18",
+      "path": "docs/governance/MERGEVUE_GIT_WORKTREE_CLOSURE_GOVERNANCE_2026-09-05.md",
+      "sha256": "27aa43abd0d8ce93b500231ded6b47d98949ba2a475f991098081c320b270a85",
+      "bytes": 12453,
+      "matchesCandidateHash": true,
+      "matchesCandidateSize": true,
+      "tracked": true,
+      "trackedClaimMatches": true,
+      "firstAddedInCommit": "3c9884984222e0d7d9ddf7f380f969b011220f14",
+      "firstAddedClaimMatches": true,
+      "lastChangedCommit": "3c9884984222e0d7d9ddf7f380f969b011220f14",
+      "headBlobSha256": "27aa43abd0d8ce93b500231ded6b47d98949ba2a475f991098081c320b270a85",
+      "matchesHead": true,
+      "externalPinType": "separate SHA sidecar + HEAD blob",
+      "predecessorManifestPin": null,
+      "sidecars": [
+        {
+          "path": "docs/governance/MERGEVUE_GIT_WORKTREE_CLOSURE_GOVERNANCE_2026-09-05.md.sha256",
+          "sha256": "add0ac70d6d634df81020de8dee935f0e7d08f8feb37e11fdbfc7b8c929d0f58",
+          "containsFullPin": true,
+          "matchesHead": true
+        }
+      ],
+      "evidenceClass": "GOVERNANCE_AUTHORITY",
+      "candidatePinMatched": true,
+      "supportAssessment": "Controlling Git/worktree lifecycle policy; not a Git authorization for this audit.",
+      "externalFullPinExists": true
+    },
+    {
+      "id": "EV-19",
+      "path": "docs/governance/MERGEVUE_MODEL_ROUTING_AND_VERIFICATION_POLICY_2026-09-08.md",
+      "sha256": "07fdf43043c3a2245c7cb0eae2e89ff42f88d66100736751227f2ddfb7d34a23",
+      "bytes": 21120,
+      "matchesCandidateHash": true,
+      "matchesCandidateSize": true,
+      "tracked": true,
+      "trackedClaimMatches": true,
+      "firstAddedInCommit": "d43de38a16f90500b4bf24542e6b1d476674efbe",
+      "firstAddedClaimMatches": true,
+      "lastChangedCommit": "d43de38a16f90500b4bf24542e6b1d476674efbe",
+      "headBlobSha256": "07fdf43043c3a2245c7cb0eae2e89ff42f88d66100736751227f2ddfb7d34a23",
+      "matchesHead": true,
+      "externalPinType": "separate SHA sidecar + HEAD blob",
+      "predecessorManifestPin": null,
+      "sidecars": [
+        {
+          "path": "docs/governance/MERGEVUE_MODEL_ROUTING_AND_VERIFICATION_POLICY_2026-09-08.md.sha256",
+          "sha256": "fce0e53da09b5c7c7ab6ab320eecb9716b3510e0924f0554b0c5d8165d18de64",
+          "containsFullPin": true,
+          "matchesHead": true
+        }
+      ],
+      "evidenceClass": "GOVERNANCE_AUTHORITY",
+      "candidatePinMatched": true,
+      "supportAssessment": "Controlling family/model routing, independence and fallback policy; no automatic waiver of exact Owner appointment.",
+      "externalFullPinExists": true
+    },
+    {
+      "id": "EV-20",
+      "path": "WORKBENCH/AUDITS/2026-10-07_REALITY_AUDIT/MERGEVUE_REALITY_AUDIT_2026-10-07.md",
+      "sha256": "085bbbd1aca7a68c7099a21e9392af5705173e7b87d1b49febe636694d8552cf",
+      "bytes": 11037,
+      "matchesCandidateHash": true,
+      "matchesCandidateSize": true,
+      "tracked": false,
+      "trackedClaimMatches": true,
+      "firstAddedInCommit": null,
+      "firstAddedClaimMatches": true,
+      "lastChangedCommit": null,
+      "headBlobSha256": null,
+      "matchesHead": null,
+      "externalPinType": "NONE; computed identity only; CORR4 partial digest is not a full external pin",
+      "predecessorManifestPin": null,
+      "sidecars": [],
+      "evidenceClass": "AGENT_ASSERTION",
+      "candidatePinMatched": false,
+      "supportAssessment": "Untracked Oct7 agent assertion provides historical context only. No independent full pin or governance authority; not load-bearing.",
+      "externalFullPinExists": false
+    }
+  ],
+  "protectedFileCount": 33,
+  "protectedFiles": [
+    {
+      "path": "docs/governance/MERGEVUE_CONTROL_TREE_v2.1_2026-09-04.md",
+      "bytes": 36971,
+      "sha256": "360bafa29bad5ea93752323d4a217bf59aaec628e0e2b236350a2edd9c1f7128",
+      "headBlobSha256": "360bafa29bad5ea93752323d4a217bf59aaec628e0e2b236350a2edd9c1f7128",
+      "equalsHead": true
+    },
+    {
+      "path": "docs/governance/MERGEVUE_CONTROL_TREE_v2.1_2026-09-04.sha256",
+      "bytes": 107,
+      "sha256": "253650e871f6f2e1cc7eabbcc2875544faeed1b154385c763dce3352c37f7fa4",
+      "headBlobSha256": "253650e871f6f2e1cc7eabbcc2875544faeed1b154385c763dce3352c37f7fa4",
+      "equalsHead": true
+    },
+    {
+      "path": "docs/governance/historical-corpus/MERGEVUE_POST_10_CALIBRATION_9_CASE_CORPUS_FREEZE_2026-09-25.md",
+      "bytes": 20173,
+      "sha256": "da9b9de2ab9c49cf98100c008eb980225cf8595b2873cc4eb6eb6d8e9733cbd6",
+      "headBlobSha256": "da9b9de2ab9c49cf98100c008eb980225cf8595b2873cc4eb6eb6d8e9733cbd6",
+      "equalsHead": true
+    },
+    {
+      "path": "docs/governance/historical-corpus/MERGEVUE_POST_10_CALIBRATION_9_CASE_CORPUS_FREEZE_2026-09-25.sha256",
+      "bytes": 130,
+      "sha256": "c76817d70e3ac6c9a63356249fab3de82b0f37811d10db1a807893d2a852a412",
+      "headBlobSha256": "c76817d70e3ac6c9a63356249fab3de82b0f37811d10db1a807893d2a852a412",
+      "equalsHead": true
+    },
+    {
+      "path": "docs/governance/historical-corpus/MERGEVUE_STAGE1_FACTUAL_AUTHORITY_SUCCESSOR_BINDING_AND_CLOSURE_2026-09-25.md",
+      "bytes": 22517,
+      "sha256": "be9593a767edfa1d61787458db3de1c7034d49ac60b65fe0ce8e11402fe70237",
+      "headBlobSha256": "be9593a767edfa1d61787458db3de1c7034d49ac60b65fe0ce8e11402fe70237",
+      "equalsHead": true
+    },
+    {
+      "path": "docs/governance/historical-corpus/MERGEVUE_STAGE1_FACTUAL_AUTHORITY_SUCCESSOR_BINDING_AND_CLOSURE_2026-09-25.sha256",
+      "bytes": 144,
+      "sha256": "830337006885949c28483dc094bca4eff8d1e7ded80e123d36285df5b77dad18",
+      "headBlobSha256": "830337006885949c28483dc094bca4eff8d1e7ded80e123d36285df5b77dad18",
+      "equalsHead": true
+    },
+    {
+      "path": "docs/governance/historical-corpus/MERGEVUE_B5_5_B5_6_B5_7_RECOVERED_EVIDENCE_ADDENDUM_2026-10-09.md",
+      "bytes": 4153,
+      "sha256": "229b3c79ec9fc1d28111997666d171122d34d00954f98b15ec2b982a6cac73a2",
+      "headBlobSha256": "229b3c79ec9fc1d28111997666d171122d34d00954f98b15ec2b982a6cac73a2",
+      "equalsHead": true
+    },
+    {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_VERIFIED_CURRENT_CONTROL_TREE_RECONSTRUCTION_1_CORR4_IV5_MINOR_CLOSURE_1.md",
+      "bytes": 14596,
+      "sha256": "7d04fe5f105138b7e174ef1302af9e9867fc78a5d79acebd3eb43bf4d300a9e0",
+      "headBlobSha256": "7d04fe5f105138b7e174ef1302af9e9867fc78a5d79acebd3eb43bf4d300a9e0",
+      "equalsHead": true
+    },
+    {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_VERIFIED_CURRENT_CONTROL_TREE_RECONSTRUCTION_1_CORR4/MERGEVUE_CORRECTION_LEDGER.md",
+      "bytes": 12411,
+      "sha256": "8c886c440a242068ab733214adfc30943139481d724ead5724ac38a79e868086",
+      "headBlobSha256": "8c886c440a242068ab733214adfc30943139481d724ead5724ac38a79e868086",
+      "equalsHead": true
+    },
+    {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_VERIFIED_CURRENT_CONTROL_TREE_RECONSTRUCTION_1_CORR4/MERGEVUE_CRITICAL_PATH.md",
+      "bytes": 10683,
+      "sha256": "e32c74d831f8076ee91a7158f5ee5b5c746e45df352d679d5d401131cf0961ec",
+      "headBlobSha256": "e32c74d831f8076ee91a7158f5ee5b5c746e45df352d679d5d401131cf0961ec",
+      "equalsHead": true
+    },
+    {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_VERIFIED_CURRENT_CONTROL_TREE_RECONSTRUCTION_1_CORR4/MERGEVUE_CURRENT_CONTROL_TREE_CANDIDATE.md",
+      "bytes": 38032,
+      "sha256": "823739148801e078b47dd6933904b8b9580b63ceddc0e5ba0b3dd9ebce865107",
+      "headBlobSha256": "823739148801e078b47dd6933904b8b9580b63ceddc0e5ba0b3dd9ebce865107",
+      "equalsHead": true
+    },
+    {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_VERIFIED_CURRENT_CONTROL_TREE_RECONSTRUCTION_1_CORR4/MERGEVUE_EVIDENCE_INDEX.json",
+      "bytes": 35011,
+      "sha256": "7ffa355ce60d9cc83c12d1c21bbeaa65009d91963e927676ce27ea4c08dc9011",
+      "headBlobSha256": "7ffa355ce60d9cc83c12d1c21bbeaa65009d91963e927676ce27ea4c08dc9011",
+      "equalsHead": true
+    },
+    {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_VERIFIED_CURRENT_CONTROL_TREE_RECONSTRUCTION_1_CORR4/MERGEVUE_MANIFEST.json",
+      "bytes": 23019,
+      "sha256": "b76789f97184028616cbf698b5204f39951f5e44955f7ced6a0248cdfd9bc932",
+      "headBlobSha256": "b76789f97184028616cbf698b5204f39951f5e44955f7ced6a0248cdfd9bc932",
+      "equalsHead": true
+    },
+    {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_VERIFIED_CURRENT_CONTROL_TREE_RECONSTRUCTION_1_CORR4/MERGEVUE_NODE_STATUS_MATRIX.json",
+      "bytes": 73443,
+      "sha256": "621eca0afeadca4b40450a41d3277fb69df9843b73c9663e93042e7d76b98a97",
+      "headBlobSha256": "621eca0afeadca4b40450a41d3277fb69df9843b73c9663e93042e7d76b98a97",
+      "equalsHead": true
+    },
+    {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_VERIFIED_CURRENT_CONTROL_TREE_RECONSTRUCTION_1_CORR4/MERGEVUE_RECONSTRUCTION_REPORT.md",
+      "bytes": 22026,
+      "sha256": "236be0de00321ae14f25dcd86957149bc6ddef3be6f1ac858fbdea66a0e60220",
+      "headBlobSha256": "236be0de00321ae14f25dcd86957149bc6ddef3be6f1ac858fbdea66a0e60220",
+      "equalsHead": true
+    },
+    {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_VERIFIED_CURRENT_CONTROL_TREE_RECONSTRUCTION_1_CORR4/build_matrix.py",
+      "bytes": 77319,
+      "sha256": "5b3fce30c96dbb2507eebe46007e8ff8c4288d6d237ef5a27e0a142dd57f7a12",
+      "headBlobSha256": "5b3fce30c96dbb2507eebe46007e8ff8c4288d6d237ef5a27e0a142dd57f7a12",
+      "equalsHead": true
+    },
+    {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_6_B5_7_HISTORICAL_EVIDENCE_RECOVERY_1/ACT_MANIFEST.json",
+      "bytes": 11627,
+      "sha256": "a3b84f6144f0d97d3029918c3dd60c34cc943bedc65f191edca0f918bc8bdae8",
+      "headBlobSha256": "a3b84f6144f0d97d3029918c3dd60c34cc943bedc65f191edca0f918bc8bdae8",
+      "equalsHead": true
+    },
+    {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_6_B5_7_HISTORICAL_EVIDENCE_RECOVERY_1/CONTROL_TREE_B5_5_B5_6_B5_7_EVIDENCE_DELTA.json",
+      "bytes": 2393,
+      "sha256": "1d9c2039f39ef8cb3e4d4cfc0260a9352ce53cc5026b54894dba25c965865369",
+      "headBlobSha256": "1d9c2039f39ef8cb3e4d4cfc0260a9352ce53cc5026b54894dba25c965865369",
+      "equalsHead": true
+    },
+    {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_6_B5_7_HISTORICAL_EVIDENCE_RECOVERY_1/GIT_CLOSURE_REPORT.md",
+      "bytes": 11504,
+      "sha256": "c21e02f4d5d66c20318fd09a54b4384345673336f3b95015340762f6ddab1273",
+      "headBlobSha256": "c21e02f4d5d66c20318fd09a54b4384345673336f3b95015340762f6ddab1273",
+      "equalsHead": true
+    },
+    {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_6_B5_7_HISTORICAL_EVIDENCE_RECOVERY_1/GIT_CLOSURE_REPORT.md.sha256",
+      "bytes": 88,
+      "sha256": "f5e9ab4dfa758d7b6e33baeb6258fecf5cac6bd10fb7bf9530cea2925bc3f380",
+      "headBlobSha256": "f5e9ab4dfa758d7b6e33baeb6258fecf5cac6bd10fb7bf9530cea2925bc3f380",
+      "equalsHead": true
+    },
+    {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_6_B5_7_HISTORICAL_EVIDENCE_RECOVERY_1/MERGEVUE_B5_5_B5_6_B5_7_EVIDENCE_BINDING_INPUT_2026-10-09.zip",
+      "bytes": 78085,
+      "sha256": "c7a2577cf0d6f57e08e63b03fcfbcd3d2b92702634572ab45918edf3b18da716",
+      "headBlobSha256": "c7a2577cf0d6f57e08e63b03fcfbcd3d2b92702634572ab45918edf3b18da716",
+      "equalsHead": true
+    },
+    {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_6_B5_7_HISTORICAL_EVIDENCE_RECOVERY_1/PACKAGE_MANIFEST.json",
+      "bytes": 2541,
+      "sha256": "e3abbf3698fee115157d8fda7daa14f32440055665fc94833ebbb3159f687791",
+      "headBlobSha256": "e3abbf3698fee115157d8fda7daa14f32440055665fc94833ebbb3159f687791",
+      "equalsHead": true
+    },
+    {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_6_B5_7_HISTORICAL_EVIDENCE_RECOVERY_1/RECOVERY_EVIDENCE_INDEX.json",
+      "bytes": 5010,
+      "sha256": "a9d295bdc3e3e0f8931d979a62260b109ffb1b0c85259727b672f429a49df9f5",
+      "headBlobSha256": "a9d295bdc3e3e0f8931d979a62260b109ffb1b0c85259727b672f429a49df9f5",
+      "equalsHead": true
+    },
+    {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_6_B5_7_HISTORICAL_EVIDENCE_RECOVERY_1/RECOVERY_README.md",
+      "bytes": 1171,
+      "sha256": "dea747c953742e2f5f104cdab32a3abe6ac63715b7b4c340b8a8d800f522000c",
+      "headBlobSha256": "dea747c953742e2f5f104cdab32a3abe6ac63715b7b4c340b8a8d800f522000c",
+      "equalsHead": true
+    },
+    {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_6_B5_7_HISTORICAL_EVIDENCE_RECOVERY_1/SOURCE_FILE_MANIFEST.json",
+      "bytes": 5197,
+      "sha256": "4e088a16f477c3e6263be208ed1ba60976d1a76ed54bdc123a9aebba0c9bfff6",
+      "headBlobSha256": "4e088a16f477c3e6263be208ed1ba60976d1a76ed54bdc123a9aebba0c9bfff6",
+      "equalsHead": true
+    },
+    {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_6_B5_7_HISTORICAL_EVIDENCE_RECOVERY_1/source/CONTEMPORANEOUS_HANDOFFS/B5_5_POST_ACCEPTANCE_HANDOFF.txt",
+      "bytes": 16453,
+      "sha256": "1748f2dcf7227487ead14dc670b4f350c28cced5a4f434c31bac46eb36b6c1f2",
+      "headBlobSha256": "1748f2dcf7227487ead14dc670b4f350c28cced5a4f434c31bac46eb36b6c1f2",
+      "equalsHead": true
+    },
+    {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_6_B5_7_HISTORICAL_EVIDENCE_RECOVERY_1/source/CONTEMPORANEOUS_HANDOFFS/B5_7_POST_CLOSURE_HANDOFF.txt",
+      "bytes": 23276,
+      "sha256": "ce04a4c6eebcbfb3453c415e57e3242c16a36725f8085ddf15ff3b865cb2ed7d",
+      "headBlobSha256": "ce04a4c6eebcbfb3453c415e57e3242c16a36725f8085ddf15ff3b865cb2ed7d",
+      "equalsHead": true
+    },
+    {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_6_B5_7_HISTORICAL_EVIDENCE_RECOVERY_1/source/CORRECTION_REPORTS/B5_6_CORRECTION_REPORT.md",
+      "bytes": 39854,
+      "sha256": "c5a8e7ef48f07b77ced9b33e0b796312fa34c66de4f45f8229a40359f5bacc55",
+      "headBlobSha256": "c5a8e7ef48f07b77ced9b33e0b796312fa34c66de4f45f8229a40359f5bacc55",
+      "equalsHead": true
+    },
+    {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_6_B5_7_HISTORICAL_EVIDENCE_RECOVERY_1/source/HISTORICAL_CANDIDATES/B5_5_FREEZE_CANDIDATE.md",
+      "bytes": 20173,
+      "sha256": "da9b9de2ab9c49cf98100c008eb980225cf8595b2873cc4eb6eb6d8e9733cbd6",
+      "headBlobSha256": "da9b9de2ab9c49cf98100c008eb980225cf8595b2873cc4eb6eb6d8e9733cbd6",
+      "equalsHead": true
+    },
+    {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_6_B5_7_HISTORICAL_EVIDENCE_RECOVERY_1/source/HISTORICAL_CANDIDATES/B5_7_SUCCESSOR_CANDIDATE.md",
+      "bytes": 22517,
+      "sha256": "be9593a767edfa1d61787458db3de1c7034d49ac60b65fe0ce8e11402fe70237",
+      "headBlobSha256": "be9593a767edfa1d61787458db3de1c7034d49ac60b65fe0ce8e11402fe70237",
+      "equalsHead": true
+    },
+    {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_6_B5_7_HISTORICAL_EVIDENCE_RECOVERY_1/source/RECOVERED_IV/B5_5_GROK_IV1_TRANSCRIPT.txt",
+      "bytes": 19807,
+      "sha256": "9aea5e0ed4badaa2d59c3ac6529b78e8822f96a0db4721fb1998c227abe0c421",
+      "headBlobSha256": "9aea5e0ed4badaa2d59c3ac6529b78e8822f96a0db4721fb1998c227abe0c421",
+      "equalsHead": true
+    },
+    {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_6_B5_7_HISTORICAL_EVIDENCE_RECOVERY_1/source/RECOVERED_IV/B5_6_CODEX_IV1_REPORT_NEW_RECOVERY.md",
+      "bytes": 20771,
+      "sha256": "8eb434e40b24bd4d2ad29a1c3a2bfa4a86403d0ac7f86c8c37daf809d781c830",
+      "headBlobSha256": "8eb434e40b24bd4d2ad29a1c3a2bfa4a86403d0ac7f86c8c37daf809d781c830",
+      "equalsHead": true
+    },
+    {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_6_B5_7_HISTORICAL_EVIDENCE_RECOVERY_1/source/RECOVERED_IV/B5_7_CODEX_IV1_REPORT.md",
+      "bytes": 15287,
+      "sha256": "0484044485d7ad2986331148293f1ba05dd162fa3dc7c535f0bfded3516ec1b9",
+      "headBlobSha256": "0484044485d7ad2986331148293f1ba05dd162fa3dc7c535f0bfded3516ec1b9",
+      "equalsHead": true
+    }
+  ],
+  "statusDelta": [
+    {
+      "id": "B5.5",
+      "baselineMatches": true,
+      "titleMatches": true,
+      "changedDimensions": [
+        "governance",
+        "independentVerification"
+      ],
+      "dependenciesUnchanged": true,
+      "before": {
+        "governance": "CANDIDATE",
+        "independentVerification": "NOT_ESTABLISHED",
+        "gitBinding": "BOUND@d52e7f4",
+        "implementation": "N/A",
+        "runtime": "N/A",
+        "dependencies": [
+          "B5.2"
+        ]
+      },
+      "proposed": {
+        "governance": "OWNER_ACCEPTED",
+        "independentVerification": "PASS",
+        "gitBinding": "BOUND@d52e7f4",
+        "implementation": "N/A",
+        "runtime": "N/A",
+        "dependencies": [
+          "B5.2"
+        ]
+      }
+    },
+    {
+      "id": "B5.6",
+      "baselineMatches": true,
+      "titleMatches": true,
+      "changedDimensions": [],
+      "dependenciesUnchanged": true,
+      "before": {
+        "governance": "OWNER_ACCEPTED",
+        "independentVerification": "PASS",
+        "gitBinding": "N/A",
+        "implementation": "N/A",
+        "runtime": "N/A",
+        "dependencies": [
+          "B5.1"
+        ]
+      },
+      "proposed": {
+        "governance": "OWNER_ACCEPTED",
+        "independentVerification": "PASS",
+        "gitBinding": "N/A",
+        "implementation": "N/A",
+        "runtime": "N/A",
+        "dependencies": [
+          "B5.1"
+        ]
+      }
+    },
+    {
+      "id": "B5.7",
+      "baselineMatches": true,
+      "titleMatches": true,
+      "changedDimensions": [
+        "governance",
+        "independentVerification"
+      ],
+      "dependenciesUnchanged": true,
+      "before": {
+        "governance": "CANDIDATE",
+        "independentVerification": "NOT_ESTABLISHED",
+        "gitBinding": "BOUND@92236dc",
+        "implementation": "N/A",
+        "runtime": "N/A",
+        "dependencies": [
+          "B5.6"
+        ]
+      },
+      "proposed": {
+        "governance": "OWNER_ACCEPTED",
+        "independentVerification": "PASS",
+        "gitBinding": "BOUND@92236dc",
+        "implementation": "N/A",
+        "runtime": "N/A",
+        "dependencies": [
+          "B5.6"
+        ]
+      }
+    }
+  ],
+  "graph": {
+    "nodeCount": 63,
+    "branchCount": 18,
+    "edgeCount": 52,
+    "edges": [
+      [
+        "B1.1",
+        "B1.2"
+      ],
+      [
+        "B1.1",
+        "B1.3"
+      ],
+      [
+        "B1.4",
+        "B4.2"
+      ],
+      [
+        "B10.1",
+        "B10.2"
+      ],
+      [
+        "B10.1",
+        "B12.1"
+      ],
+      [
+        "B10.1",
+        "B13.1"
+      ],
+      [
+        "B10.2",
+        "B10.3"
+      ],
+      [
+        "B10.2",
+        "B10.4"
+      ],
+      [
+        "B10.3",
+        "B16.2"
+      ],
+      [
+        "B11.1",
+        "B14.1"
+      ],
+      [
+        "B11.1",
+        "B16.1"
+      ],
+      [
+        "B16.2",
+        "B16.4"
+      ],
+      [
+        "B16.3",
+        "B16.4"
+      ],
+      [
+        "B16.4",
+        "B16.1"
+      ],
+      [
+        "B17.1",
+        "B17.2"
+      ],
+      [
+        "B17.2",
+        "B17.3"
+      ],
+      [
+        "B17.3",
+        "B17.4"
+      ],
+      [
+        "B17.4",
+        "B17.5"
+      ],
+      [
+        "B17.5",
+        "B5.8"
+      ],
+      [
+        "B3.1",
+        "B3.2"
+      ],
+      [
+        "B3.2",
+        "B3.3"
+      ],
+      [
+        "B3.3",
+        "B8.1"
+      ],
+      [
+        "B4.2",
+        "B10.1"
+      ],
+      [
+        "B5.1",
+        "B5.2"
+      ],
+      [
+        "B5.1",
+        "B5.6"
+      ],
+      [
+        "B5.10",
+        "B5.15"
+      ],
+      [
+        "B5.11",
+        "B5.17"
+      ],
+      [
+        "B5.12",
+        "B5.19"
+      ],
+      [
+        "B5.14",
+        "B16.3"
+      ],
+      [
+        "B5.15",
+        "B5.16"
+      ],
+      [
+        "B5.16",
+        "B5.11"
+      ],
+      [
+        "B5.17",
+        "B5.18"
+      ],
+      [
+        "B5.18",
+        "B7.1"
+      ],
+      [
+        "B5.19",
+        "B16.3"
+      ],
+      [
+        "B5.19",
+        "B5.13"
+      ],
+      [
+        "B5.19",
+        "B5.14"
+      ],
+      [
+        "B5.2",
+        "B5.3"
+      ],
+      [
+        "B5.2",
+        "B5.5"
+      ],
+      [
+        "B5.5",
+        "B5.8"
+      ],
+      [
+        "B5.6",
+        "B5.7"
+      ],
+      [
+        "B5.7",
+        "B5.8"
+      ],
+      [
+        "B5.8",
+        "B5.9"
+      ],
+      [
+        "B5.9",
+        "B5.10"
+      ],
+      [
+        "B6.1",
+        "B6.2"
+      ],
+      [
+        "B6.1",
+        "B6.4"
+      ],
+      [
+        "B6.4",
+        "B5.13"
+      ],
+      [
+        "B7.1",
+        "B5.12"
+      ],
+      [
+        "B7.1",
+        "B6.4"
+      ],
+      [
+        "B7.1",
+        "B9.1"
+      ],
+      [
+        "B8.1",
+        "B8.2"
+      ],
+      [
+        "B9.1",
+        "B11.1"
+      ],
+      [
+        "B9.1",
+        "B5.13"
+      ]
+    ],
+    "edgesUnchanged": true,
+    "changedNodeObjects": [
+      "B5.5",
+      "B5.7"
+    ],
+    "other60ExactEquality": true,
+    "other60Ids": [
+      "B0.1",
+      "B0.2",
+      "B1.1",
+      "B1.2",
+      "B1.3",
+      "B1.4",
+      "B1.5",
+      "B10.1",
+      "B10.2",
+      "B10.3",
+      "B10.4",
+      "B11.1",
+      "B12.1",
+      "B13.1",
+      "B14.1",
+      "B15.1",
+      "B15.2",
+      "B16.1",
+      "B16.2",
+      "B16.3",
+      "B16.4",
+      "B17.1",
+      "B17.2",
+      "B17.3",
+      "B17.4",
+      "B17.5",
+      "B17.6",
+      "B17.7",
+      "B2.1",
+      "B3.1",
+      "B3.2",
+      "B3.3",
+      "B4.1",
+      "B4.2",
+      "B4.3",
+      "B5.1",
+      "B5.10",
+      "B5.11",
+      "B5.12",
+      "B5.13",
+      "B5.14",
+      "B5.15",
+      "B5.16",
+      "B5.17",
+      "B5.18",
+      "B5.19",
+      "B5.2",
+      "B5.3",
+      "B5.4",
+      "B5.8",
+      "B5.9",
+      "B6.1",
+      "B6.2",
+      "B6.3",
+      "B6.4",
+      "B7.1",
+      "B8.1",
+      "B8.2",
+      "B8.3",
+      "B9.1"
+    ],
+    "directChildren": {
+      "B5.5": [
+        "B5.8"
+      ],
+      "B5.6": [
+        "B5.7"
+      ],
+      "B5.7": [
+        "B5.8"
+      ]
+    },
+    "descendants": {
+      "B5.5": [
+        "B11.1",
+        "B14.1",
+        "B16.1",
+        "B16.3",
+        "B16.4",
+        "B5.10",
+        "B5.11",
+        "B5.12",
+        "B5.13",
+        "B5.14",
+        "B5.15",
+        "B5.16",
+        "B5.17",
+        "B5.18",
+        "B5.19",
+        "B5.8",
+        "B5.9",
+        "B6.4",
+        "B7.1",
+        "B9.1"
+      ],
+      "B5.6": [
+        "B11.1",
+        "B14.1",
+        "B16.1",
+        "B16.3",
+        "B16.4",
+        "B5.10",
+        "B5.11",
+        "B5.12",
+        "B5.13",
+        "B5.14",
+        "B5.15",
+        "B5.16",
+        "B5.17",
+        "B5.18",
+        "B5.19",
+        "B5.7",
+        "B5.8",
+        "B5.9",
+        "B6.4",
+        "B7.1",
+        "B9.1"
+      ],
+      "B5.7": [
+        "B11.1",
+        "B14.1",
+        "B16.1",
+        "B16.3",
+        "B16.4",
+        "B5.10",
+        "B5.11",
+        "B5.12",
+        "B5.13",
+        "B5.14",
+        "B5.15",
+        "B5.16",
+        "B5.17",
+        "B5.18",
+        "B5.19",
+        "B5.8",
+        "B5.9",
+        "B6.4",
+        "B7.1",
+        "B9.1"
+      ]
+    },
+    "b5_8Dependencies": [
+      "B5.7",
+      "B5.5",
+      "B17.5"
+    ],
+    "enumVocabularyEqualsCorr4": true
+  },
+  "gitBindingChecks": [
+    {
+      "path": "docs/governance/historical-corpus/MERGEVUE_POST_10_CALIBRATION_9_CASE_CORPUS_FREEZE_2026-09-25.md",
+      "commit": "d52e7f499eff4b2c9ee290380fe7cb7db5ec8e5f",
+      "gitBlobId": "a086e84727e4cdc3a55d5b963874920a388e236e",
+      "blobSha256": "da9b9de2ab9c49cf98100c008eb980225cf8595b2873cc4eb6eb6d8e9733cbd6",
+      "bytes": 20173,
+      "matchesPin": true,
+      "equalsCurrent": true
+    },
+    {
+      "path": "docs/governance/historical-corpus/MERGEVUE_STAGE1_FACTUAL_AUTHORITY_SUCCESSOR_BINDING_AND_CLOSURE_2026-09-25.md",
+      "commit": "92236dc1341c3f85565514c60029af388bc51422",
+      "gitBlobId": "f8ffcf0984e3c3a9305ab705aba3d77ae0465fbb",
+      "blobSha256": "be9593a767edfa1d61787458db3de1c7034d49ac60b65fe0ce8e11402fe70237",
+      "bytes": 22517,
+      "matchesPin": true,
+      "equalsCurrent": true
+    },
+    {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_6_B5_7_HISTORICAL_EVIDENCE_RECOVERY_1/source/RECOVERED_IV/B5_5_GROK_IV1_TRANSCRIPT.txt",
+      "commit": "1c694b3db3a27e6385fd7716d7e59153d8df4e46",
+      "gitBlobId": "eb32946afeab14fe24e9172117937099073f97b3",
+      "blobSha256": "9aea5e0ed4badaa2d59c3ac6529b78e8822f96a0db4721fb1998c227abe0c421",
+      "bytes": 19807,
+      "matchesPin": true,
+      "equalsCurrent": true
+    },
+    {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_6_B5_7_HISTORICAL_EVIDENCE_RECOVERY_1/source/RECOVERED_IV/B5_6_CODEX_IV1_REPORT_NEW_RECOVERY.md",
+      "commit": "1c694b3db3a27e6385fd7716d7e59153d8df4e46",
+      "gitBlobId": "13f548890e6719241fa0f97f0a90949e4d78e166",
+      "blobSha256": "8eb434e40b24bd4d2ad29a1c3a2bfa4a86403d0ac7f86c8c37daf809d781c830",
+      "bytes": 20771,
+      "matchesPin": true,
+      "equalsCurrent": true
+    },
+    {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_6_B5_7_HISTORICAL_EVIDENCE_RECOVERY_1/source/RECOVERED_IV/B5_7_CODEX_IV1_REPORT.md",
+      "commit": "1c694b3db3a27e6385fd7716d7e59153d8df4e46",
+      "gitBlobId": "d8920b0aea034a4d81a331414abed0076ee4633e",
+      "blobSha256": "0484044485d7ad2986331148293f1ba05dd162fa3dc7c535f0bfded3516ec1b9",
+      "bytes": 15287,
+      "matchesPin": true,
+      "equalsCurrent": true
+    }
+  ],
+  "commitAncestryToOriginMain": {
+    "6ad8933dd0d2d742f8f352f0870bb164bc6053a4": true,
+    "d52e7f499eff4b2c9ee290380fe7cb7db5ec8e5f": true,
+    "92236dc1341c3f85565514c60029af388bc51422": true,
+    "ee55034f5b40dadffc59aa3b842eb9b69157df68": true,
+    "9b57f0cb567d5a36e4ebcf3292cdbd18439f4faa": true,
+    "2f7bcc5d33cf8009145aa85cbb39d2ae9084ec26": true,
+    "7f544afa071658bdd9d0d243c8e172e1061a5944": true,
+    "8f0085b699938f8f7d6adc2fbfd20cbbcea44fc9": true,
+    "1c694b3db3a27e6385fd7716d7e59153d8df4e46": true
+  },
+  "untrackedFileCount": 767,
+  "trackedDirtyPaths": [],
+  "stagedPaths": [],
+  "schemaVersion": "1.0",
+  "actId": "MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1.IV1",
+  "verdict": "HOLD",
+  "date": "2026-10-09",
+  "baseline": {
+    "repository": "Inposibl/mergevue",
+    "root": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)",
+    "branch": "main",
+    "head": "1c694b3db3a27e6385fd7716d7e59153d8df4e46",
+    "localMain": "1c694b3db3a27e6385fd7716d7e59153d8df4e46",
+    "originMain": "1c694b3db3a27e6385fd7716d7e59153d8df4e46",
+    "liveRemoteMain": "1c694b3db3a27e6385fd7716d7e59153d8df4e46",
+    "remoteUrl": "https://github.com/Inposibl/mergevue.git",
+    "remoteCheck": "read-only git ls-remote refs/heads/main; successful after network sandbox retry",
+    "trackedDirtyPaths": [],
+    "stagedPaths": [],
+    "untrackedFileCount": 767
+  },
+  "inputTransport": {
+    "path": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A WORKBENCH/DOWNLOADS/MERGEVUE_B5_5_B5_7_STATUS_RECONCILIATION_CODEX_IV1_INPUT_2026-10-09.zip",
+    "bytes": 33010,
+    "sha256": "0e6184a1211901233d70ae92462d598d661884f1260266d3b4e681a91372373c",
+    "allSevenMembersEqualLocal": true,
+    "extracted": false
+  },
+  "ownerDecision": {
+    "date": "2026-10-09",
+    "classification": "CURRENT_OWNER_REAFFIRMATION",
+    "question": "Подтверждаешь ли ты сейчас ранее принятое состояние B5.5 и B5.7 в указанных границах, с сохранением всех исторических ограничений и без признания B5.8–B5.19 выполненными?",
+    "answer": "подтверждаю",
+    "questionSha256": "8cde7199ffb9654b70b8138f77d116415bcea76301e4a6aafa95157fb7795725",
+    "answerSha256": "37c9c6bce466dc8547e4dc038ea760bddd050aaba51a04b8cf0d16e298120217",
+    "quotesIndependentlyRecomputed": true,
+    "source": "Current explicit Owner IV1 task, G2; author original conversation not physically recovered",
+    "permalink": null,
+    "messageId": null,
+    "governanceEnum": "OWNER_ACCEPTED",
+    "eventMetadata": "OWNER_REAFFIRMED",
+    "originalSeptemberMessagesRecovered": false,
+    "newCandidateAccepted": false
+  },
+  "successorPinsDocumentaryComparison": [
+    {
+      "case": "daimler-chrysler",
+      "successorSha256": [
+        "d72b8125fee09866a6a25c1415a021f891aadc15449f758a2b2f10ee521abaeb",
+        "3951b0167f01d196da53b9df758d2bf4fff8b00df6feb9158aae366e5377544d"
+      ],
+      "state": "CORRECTED_SUCCESSOR",
+      "fullPinsPresentInRecoveredIV": [
+        true,
+        true
+      ]
+    },
+    {
+      "case": "deutsche-bankers-trust",
+      "successorSha256": [
+        "d5e42537d39f52385944f9f7c1794ce5648a4f6e21439c65c834a0a8417621a0"
+      ],
+      "state": "UNCHANGED",
+      "fullPinsPresentInRecoveredIV": [
+        true
+      ]
+    },
+    {
+      "case": "pfizer-megamergers",
+      "successorSha256": [
+        "5f4e698bf696911a525e7b77b5758f8496f1cb31904c9cf8fac64ee534766af5"
+      ],
+      "state": "CORRECTED_SUCCESSOR",
+      "fullPinsPresentInRecoveredIV": [
+        true
+      ]
+    },
+    {
+      "case": "aol-time-warner",
+      "successorSha256": [
+        "9bfe1b32ab25b882b0bed81f60e550f43fcf594ca59d77275b762be6d76d468e"
+      ],
+      "state": "UNCHANGED",
+      "fullPinsPresentInRecoveredIV": [
+        true
+      ]
+    },
+    {
+      "case": "aecom-urs",
+      "successorSha256": [
+        "d8b6d21e32198c6d240954c04715ad10561af5383461c7cc56b32d56efa94517"
+      ],
+      "state": "CORRECTED_SUCCESSOR",
+      "fullPinsPresentInRecoveredIV": [
+        true
+      ]
+    },
+    {
+      "case": "exxon-mobil",
+      "successorSha256": [
+        "f50f6c74512b1c13d9253c1f6f8345136c824bf51e18587cbccfa339eb732833"
+      ],
+      "state": "CORRECTED_SUCCESSOR",
+      "fullPinsPresentInRecoveredIV": [
+        true
+      ]
+    },
+    {
+      "case": "jpmorgan-bank-one",
+      "successorSha256": [
+        "243f5cd41e0ef72cc8dc12efa56c41edbf7dd51e9d79f729c94db39008cb9b55"
+      ],
+      "state": "UNCHANGED",
+      "fullPinsPresentInRecoveredIV": [
+        true
+      ]
+    },
+    {
+      "case": "google-android",
+      "successorSha256": [
+        "3acd3a77b0272c26c7e2d3736ab370cccf043aa8401bc1398720e393e8140edf"
+      ],
+      "state": "UNCHANGED",
+      "fullPinsPresentInRecoveredIV": [
+        true
+      ]
+    },
+    {
+      "case": "amazon-whole-foods",
+      "successorSha256": [
+        "e804bafb70636b2fcc3680f33672d4a794d20b7caaadc7934993d6e68b2f9039"
+      ],
+      "state": "UNCHANGED",
+      "fullPinsPresentInRecoveredIV": [
+        true
+      ]
+    }
+  ],
+  "successorPinsVerificationBoundary": "All full successor pins agree between exact original B5.7 instrument and recovered historical IV. Underlying case packages were not rehashed/re-executed in this bounded audit.",
+  "currentDerivedStatuses": {
+    "B5_5": {
+      "freezeEffect": "OPERATIVE",
+      "scope": "nine-case/18-side historical INPUT CORPUS",
+      "rule": "original §5 conditional freeze effect + exact independent Grok IV + current Owner reaffirmation",
+      "authoringTimeFlagsUnchanged": true
+    },
+    "B5_6": {
+      "statusDimensionsChanged": false,
+      "physicalMissingReportGap": "RESOLVED",
+      "downstreamAnalyticalDebt": "PRESERVED"
+    },
+    "B5_7": {
+      "stage1Closed": "YES",
+      "scope": "STAGE-1 FACTUAL-AUTHORITY SUCCESSOR-BINDING LIFECYCLE",
+      "rule": "original §18 + exact historical IV + current Owner reaffirmation + physical binding and verified remote ancestry",
+      "historicalClosureSequence": "NOT DETERMINABLE from recovered primary September messages; no assertion of reconstructed historical timing",
+      "authoringTimeStage1Closed": "NO_UNCHANGED"
+    }
+  },
+  "b17_5": {
+    "FEVA_CORR2": "OWNER_ACCEPTED / IV PASS / BOUND@2f7bcc5",
+    "compatibilityAdapter": "OWNER_ACCEPTED / IV PASS / BOUND@7f544af; current closure text updated @8f0085b",
+    "fullStage2Measurement": "NOT_RUN / DEFERRED / REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+    "sequencingHold": "THE FULL STAGE-2 MEASUREMENT REGRESSION IS DEFERRED UNTIL THE OWNER HAS REVIEWED THE RECOVERED STATUS OF BLOCKS ALREADY EXECUTED IN PRIOR SESSIONS AND HAS ISSUED A NEW EXPLICIT AUTHORIZATION.",
+    "B5_8EligibilityCleared": false,
+    "B5_8Authorized": false,
+    "wholeNodeCompletionInferred": false
+  },
+  "evidenceCounts": {
+    "records": 20,
+    "actualHashAndLengthMatches": 20,
+    "trackedBoundObjectMatches": 19,
+    "recordsWithSeparateFullPinCorroboration": 19,
+    "untrackedUnpinnedAssertions": 1
+  },
+  "preservation": {
+    "inventoryFileCountBefore": 1351,
+    "inventoryFileCountAfter": 1351,
+    "changedPaths": [],
+    "addedPaths": [],
+    "removedPaths": [],
+    "gitStatusExactEquality": true,
+    "headUnchanged": true,
+    "scope": "Git-tracked and Git-visible untracked regular files; excludes ignored files, Git administrative metadata, and files outside repository; baseline captured during read-only setup"
+  },
+  "gates": [
+    {
+      "id": "G1",
+      "result": "HOLD",
+      "summary": "Claude family is eligible and author/auditor separation is lawful. Actual version differs from the stated Owner appointment. Exact-version exclusivity or a compliant availability fallback cannot be established from the original appointment, which was not located. Family eligibility is not permission to disregard an explicit version appointment.",
+      "findingIds": [
+        "IV1-F01"
+      ]
+    },
+    {
+      "id": "G2",
+      "result": "PASS",
+      "summary": "Current 2026-10-09 Owner reaffirmation is accurately quoted and identity-bounded to B5.5/B5.7. OWNER_ACCEPTED is the governance enum; OWNER_REAFFIRMED is event metadata. No September message recovery, permalink or acceptance of this new candidate is claimed.",
+      "findingIds": []
+    },
+    {
+      "id": "G3",
+      "result": "PASS",
+      "summary": "B5.5 original candidate, binding blob and recovered Grok IV match their full pins. Historical IV PASS 0/0/0 with 3 advisories applies to the exact Codex-authored instrument. Freeze effect is currently OPERATIVE for nine-case/18-side historical INPUT CORPUS only; limitations survive.",
+      "findingIds": []
+    },
+    {
+      "id": "G4",
+      "result": "PASS",
+      "summary": "Recovered B5.6 IV matches the pre-existing missing-report pin and concerns four Grok factual correction packages/DC-001..DC-019. Existing OWNER_ACCEPTED/PASS status remains unchanged. HOLD-2 physical-evidence gap closes; four stale analytical lineages remain deferred/excluded.",
+      "findingIds": []
+    },
+    {
+      "id": "G5",
+      "result": "PASS",
+      "summary": "B5.7 original candidate/binding and recovered Codex IV identities match. All nine successor pins agree between the original instrument and IV (four corrected/five unchanged). Current STAGE1_CLOSED=YES is supported for STAGE-1 FACTUAL-AUTHORITY SUCCESSOR-BINDING LIFECYCLE only. Historical authoring-time NO and unrecovered September chronology remain intact.",
+      "findingIds": []
+    },
+    {
+      "id": "G6",
+      "result": "PASS",
+      "summary": "20/20 hashes and lengths match actual evidence bytes; EV-01..EV-19 have separate full-pin/bound-object corroboration. EV-20 is untracked AGENT_ASSERTION with pinMatched=false and no full external pin. Exact candidate does not assert blanket 20/20 external-pin matching.",
+      "findingIds": []
+    },
+    {
+      "id": "G7",
+      "result": "PASS",
+      "summary": "Only B5.5/B5.7 governance and independentVerification change. B5.6 unchanged in every dimension. Other 60 node objects equal; 63 nodes, 18 branches, 52 dependency edges and enum vocabulary preserved.",
+      "findingIds": []
+    },
+    {
+      "id": "G8",
+      "result": "PASS",
+      "summary": "B17.5 FEVA CORR2 and adapter acceptance/binding are preserved without treating full Stage-2 measurement as completed. Predecessor summary is defensible in the stated CORR4 FEVA/input-authority sense; recommend narrower wording. Full measurement remains NOT_RUN/DEFERRED and Owner sequencing hold remains. B5.8 eligibility and authorization are not cleared.",
+      "findingIds": [
+        "IV1-F02"
+      ]
+    },
+    {
+      "id": "G9",
+      "result": "PASS",
+      "summary": "33 protected files equal HEAD bytes. Read-only session inventory of 1351 tracked/Git-visible untracked regular files and exact Git status are unchanged. No downstream promotion, historical rewrite, runtime/API/code mutation or B17.5 rollback.",
+      "findingIds": []
+    },
+    {
+      "id": "G10",
+      "result": "PASS",
+      "summary": "New seven-file set remains candidate-ready only, without self-IV, Owner acceptance, Git closure or next-act authorization.",
+      "findingIds": []
+    }
+  ],
+  "auditBoundary": {
+    "readOnlyRepository": true,
+    "noCandidateEdits": true,
+    "noHistoricalScientificReaudit": true,
+    "noMethodologyExecution": true,
+    "noRegressionOrReplay": true,
+    "noGitMutations": true,
+    "noOwnerAcceptanceGranted": true,
+    "noNextActAuthorized": true,
+    "protected33HistoricalBeforeAuthorComparison": "Current bytes equal HEAD; an independent full author pre-act untracked snapshot is not available.",
+    "ignoredFiles": "Not included in inventory; no tool performed writes there."
+  }
+}

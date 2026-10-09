@@ -1,0 +1,77 @@
+{
+  "schemaVersion": "1.0",
+  "verificationId": "MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1.IV1.G1_REASSESSMENT_1",
+  "parentActId": "MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1.IV1",
+  "date": "2026-10-09",
+  "auditor": "Codex",
+  "revisedVerdict": "PASS",
+  "originalIV1Verdict": "HOLD_PRESERVED",
+  "counts": {
+    "BLOCKING": 0,
+    "MAJOR": 0,
+    "MINOR": 0,
+    "ADVISORY": 1
+  },
+  "candidateManifestSha256": "ce8b7306f2ef8c5342affe4a6025d4dccf765d1b34a13f822af7b75accddccd6",
+  "clarificationContentSha256": "f6751cbd5577f3f61415d6b6f1e0f8bb47e08f083ab06e0a76121348d1222ce4",
+  "files": [
+    {
+      "path": "/private/tmp/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1_IV1/OWNER_CLARIFICATION_REASSESSMENT_1/REASSESSMENT_REPORT.md",
+      "file": "REASSESSMENT_REPORT.md",
+      "bytes": 8540,
+      "sha256": "c3cf1823479a386e3edd9e258ad77f33457ebafa17cff93046ab383d2a8b1b3b"
+    },
+    {
+      "path": "/private/tmp/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1_IV1/OWNER_CLARIFICATION_REASSESSMENT_1/REASSESSMENT_VERIFICATION.json",
+      "file": "REASSESSMENT_VERIFICATION.json",
+      "bytes": 34326,
+      "sha256": "8de2b5e45b2633fa824c13b73590a0a5a1ba8c0ce81513ed8e42dffd5365afc4"
+    }
+  ],
+  "selfHashExclusion": {
+    "excludedFile": "REASSESSMENT_MANIFEST.json",
+    "excluded": true,
+    "reason": "Self-hash excluded; final response gives separately recomputed identity."
+  },
+  "originalIV1Files": [
+    {
+      "path": "/private/tmp/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1_IV1/IV1_FINDINGS.json",
+      "file": "IV1_FINDINGS.json",
+      "bytes": 9392,
+      "sha256": "a4548567a4e8632e5323fad12cde2d6ebd4975e6a90ea5eab4495a5f34a98f8f",
+      "preserved": true
+    },
+    {
+      "path": "/private/tmp/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1_IV1/IV1_IDENTITY_AND_STATUS_RECOMPUTATION.json",
+      "file": "IV1_IDENTITY_AND_STATUS_RECOMPUTATION.json",
+      "bytes": 60438,
+      "sha256": "86d6a4b86d0e220f1a28d38d93b42396aeccb89fae4339201522bcb42fc9355f",
+      "preserved": true
+    },
+    {
+      "path": "/private/tmp/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1_IV1/IV1_MANIFEST.json",
+      "file": "IV1_MANIFEST.json",
+      "bytes": 2186,
+      "sha256": "4d55f37a143e681d155f86ee2ea94b2330d1bdcb77e22099d359b07e4101a83a",
+      "preserved": true
+    },
+    {
+      "path": "/private/tmp/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1_IV1/IV1_REPORT.md",
+      "file": "IV1_REPORT.md",
+      "bytes": 27510,
+      "sha256": "3af92176e1ac461205c728056811395a4df438314e9097fcba9f6bd9b8f7250e",
+      "preserved": true
+    },
+    {
+      "path": "/private/tmp/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1_IV1/IV1_REQUIRED_CORRECTIONS.md",
+      "file": "IV1_REQUIRED_CORRECTIONS.md",
+      "bytes": 11821,
+      "sha256": "941a2a8983e02c8cbbdba77c3abfab9c4a35dff81ba16ae1cd51629f124013be",
+      "preserved": true
+    }
+  ],
+  "candidateModified": false,
+  "ownerAcceptanceGranted": false,
+  "gitClosureGranted": false,
+  "nextActAuthorized": false
+}
