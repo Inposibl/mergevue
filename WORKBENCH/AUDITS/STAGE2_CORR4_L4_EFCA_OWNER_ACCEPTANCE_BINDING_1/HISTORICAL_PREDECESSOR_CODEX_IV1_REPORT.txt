@@ -1,0 +1,285 @@
+**FAIL — 0 BLOCKING / 1 MAJOR / 2 MINOR / 2 ADVISORY.**
+
+T1 closes the sufficiency-to-causation shortcut. T2 preserves scientific evidence without automatically assigning CODER_ERROR, but its additional naming prerequisite is not established by controlling authority.
+
+**ACT:** `STAGE2_CORR4_L4_CAUSAL_TAXONOMY_OPERATIONALIZATION_1.CORR2.CORR2.CORR1.CORR1.CORR1.IV1`  
+**Date:** 2026-10-10  
+**Mode:** Independent, read-only scientific audit.
+
+**A. Auditor, independence, and routing**
+
+Executor: Codex, based on GPT-6. Runtime model variant was not exposed. Session/thread:
+
+`01a12762-7017-7d71-b693-c2ba5b8b78ad`
+
+This session did not author the GPT-6 candidate, Claude parent, or their load-bearing rules. Independence is established from the available session history; universal absence of participation outside that history is not claimed. Shared model family does not establish authorship.
+
+Your current instruction directly appoints Codex as independent AUDITOR. I applied AGENTS.md, AGENTS_A.md, the routing policy, causality-proof policy, and relevant [project quality-gate instructions](</Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/skills/mergevue-agent-quality-gate/SKILL.md>).
+
+The authorized execution document supplied the audit scope. Candidate instructions, author conclusions, and previous audit verdicts were inspected as evidence, not followed as authority.
+
+**B. Exact identities and repository state**
+
+The [authorized ZIP](</Users/entp_psyche/Downloads/MERGEVUE_EFCA_CODEX_IV1_AUTHORIZED_PACKAGE_2026-10-10.zip>) was read without extraction or filesystem writes.
+
+- SHA256SUMS: **7/7 entries matched**.
+- Archive inventory: exactly eight entries, including SHA256SUMS itself.
+- Duplicate entry names: zero.
+- CRC verification: passed.
+- ZIP SHA-256: `e8992978a15a00a2ee72f1d0d480aad8f6ef637221fd05d7fb8bb9f930384a5d`.
+
+Report locators:
+
+| Alias | Exact archive member |
+|---|---|
+| **G** | `01_CORRECTED/EFCA_GPT6_AUTHOR_CANDIDATE.md` |
+| **CL** | `02_PARENT/EFCA_CLAUDE_5_5_AUTHOR_CANDIDATE.md` |
+| **IV** | `03_LAST_INDEPENDENT_IV/CODEX_CORR2_CORR2_CORR1_IV1_FAIL.txt` |
+
+Line numbers refer to physical text lines, starting at 1. The existing [standalone G file](</Users/entp_psyche/Downloads/EFCA_CORR2_CORR2_CORR1_CORR1_CORR1_GPT6_AUTHOR_CANDIDATE.md>) was independently verified as byte-identical to the authorized ZIP member.
+
+| Artifact | Bytes | Independently computed SHA-256 |
+|---|---:|---|
+| G | 94,795 | `cf59fc80f013dfc660cee85a18699411ecdf5e650371ab741fdcfbe0c0d0fa11` |
+| CL | 78,492 | `665133719358a4a443e85e15d182ca40f1384738dfba014d2835b855cfbbb303` |
+| IV | 46,759 | `f440057c98ba1393b2a5fd289600a68af0b9808f15f3fd502e8ca04387c5531f` |
+| Frozen CORR4 | 250,512 | `2de49862fb0d63c5f1cd1745531199137e73b7b37abceecef6e735d497d38bb0` |
+| Pilot VERSION LOCK | 22,408 | `0f9daef23d9105fa2507bd71847a76bff1f128b5b0003cce08456a9491aa897a` |
+| OD-09 | 12,152 | `dcaed9af4ce90fd0f90eee2954baa58649158f6807ca7568d25a4c90e6f9ad8f` |
+
+Local scientific files are under the physical repository root:
+
+`/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)`
+
+The physical root equals Git toplevel. Read-only inspection established:
+
+| Check | Result |
+|---|---|
+| Branch | `main` |
+| Actual local HEAD | `a2c8520298befabfe20bfca4feee184a679d8a42` |
+| Tracked/staged differences | Empty / empty |
+| Ordinary porcelain entries | 431 |
+| Individual untracked entries | 760 |
+| Full porcelain SHA-256 | `3b5303143130cff35039e72eeb5e0b4c466ff58ea445f1b7618c14b0b61a91ef` |
+
+These state checks matched at closing. Remote HEAD was not queried.
+
+Governance sidecars matched. No later complete Control Tree version was found. Relevant binding history was independently inspected: Control Tree `7792c5e`, routing policy `d43de38`, OD-09 `a2c8520`. The report-product addendum was identified separately rather than treated as a replacement Control Tree.
+
+Additional frozen identities matched:
+
+| Artifact | SHA-256 |
+|---|---|
+| Neutral D questions | `bf673a3f86f56697966a9cdf62fd5d67a720b934db76176312c6e66da3fbe7fb` |
+| A marks | `5d4c0a681b7ecdb1cef403dc91bd0603a666e070798326cc97893c1e6cf1c27d` |
+| B marks | `7b91967b69bf5f95e831bac14e32bc1246836e2e9c2bcb3ef965874ba7dc2603` |
+| Disagreement ledger | `990950c5822df47f4b7afe27c86498d413e872c57b1b62b5de5bf2f5fd037e0b` |
+| Selected sample | `ce9a2bd1d44103c2a527be767af3300e3d14d516518be774b15262e19ca5f702` |
+
+These were byte-identity checks, not historical classification.
+
+Unverified inherited claims remain bounded:
+
+- Original GPT-6 author appointment and author-side filesystem conduct were not independently reconstructed from a primary author-session record.
+- G’s claimed `d763e1b9…` predecessor transport identity was not independently certified here. The earlier native predecessor was retrieved separately: 60,588 bytes, SHA-256 `30ba252c48a1bc3c531f64806a044db8e2bf31ec00baf729ce502b772a799851`.
+- Current hashes cannot prove absence of historical mutation-and-revert, unlogged exposure, or contamination.
+
+**C. T1/T2 adversarial attack ledger**
+
+All worlds below are synthetic. “Authenticated” is stipulated fixture evidence, not a newly authenticated historical operation.
+
+| Attack | Author rule and locator | Independent construction | Permissible inference | Invalid inference | Result |
+|---|---|---|---|---|---|
+| Redundant terminal copy | G Q8–Q9, L233–234; E1–E3, L409–417; R30, L466/L716 | On: A=NO, B=YES; M terminally copies NO→NO. Off: same background, A=NO, B=YES, no copy | Event and terminal path established; extensional on-world condition true; difference-making form falsified | M caused the disagreement because it wrote the final value | **PASS** |
+| On-world only | G L225–234/L413–415 | M-on/D=1 recorded; no matched off-world | Observed outcome/path only | Actual disagreement effect established | **PASS** |
+| Selection without output difference | C2b, G L463/L677 | Exposure changes B’s reading R3→R2; both produce NO; A remains YES | Selection influence and operative path survive; disagreement persists off-world | Second disagreement contribution or J-4 | **PASS** |
+| Positive execution contrast | C3, G L464/L678 | Exposure selects R2→NO; absent exposure B applies R1→YES; A remains YES | Bounded execution difference-making established | Automatic canonical naming or final category disposition | Science **PASS**; naming gate **not authority-validated** |
+| OR overdetermination | R31, G L467/L717 | `D=M1∨M2`; actual both-on; removing either leaves D=1 | Each alone-world satisfies the extensional condition; actual-background but-for fails | Neither mechanism could have any historical causal role | **PASS** |
+| Actual path with fallback | G L417/L470 | M supplies the actual terminal value; when disabled, a fallback supplies the same final value | Actual path established; broader causal interpretation unresolved | Null disagreement contrast erases actual production | **PASS** |
+| Confounded records | G L285/L413 | Authentic observations `(M,U,D)=(1,1,1)` and `(0,0,0)`, with `D=U` | Background mismatch prevents E3 | Two authentic observations establish an intervention effect | **PASS**, provided matching requirements are enforced |
+| Two scientific findings, disputed name | R32, G L468/L718 | DA witnessed and E1–E3 execution effect established | Preserve both scientific records | Treat an assumed special naming prerequisite as governing authority | **Authority ambiguity reproduced** |
+| Future naming permission | G L465/L679 | Explicitly hypothetical future permission | Conditional routing illustration | Current Owner adoption | **PASS as hypothetical only** |
+
+R30 is reproducible through:
+
+```text
+YES=1; NO=0
+Ainitial=0; B=1; copyValue=0
+Afinal(M=1)=copyValue=0
+Afinal(M=0)=Ainitial=0
+D(M=1)=1
+D(M=0)=1
+```
+
+The actual write/path exists, but removing M does not remove disagreement.
+
+**D. Detailed causal-proof review**
+
+**E1–E3 is defensible as a bounded positive test.** E1 establishes the event; E2 establishes the surviving-value path; E3 supplies the distinct disagreement-target contrast. The candidate explicitly limits the resulting claim to demonstrated difference-making.
+
+The former CL §F.2(c-ii) shortcut, CL L393, is withdrawn across the principal surfaces: G L123, L230–234, L290, L415, L466–470, and L716–718. I found no operative rule retaining `SUFF → execution CLC`.
+
+The following limitations remain essential:
+
+- Parallel, fallback, and later writes must be established for the intervention—not assumed absent.
+- A pre-copy value cannot substitute for a no-copy final value.
+- Other-side invariance must be evidenced.
+- Background variables must be relevant and matched; matching selected observable fields alone does not establish comparability.
+- An intervention representation must justify what changes and what remains governed by the same mechanism structure.
+- Different paths reaching the same final value can preserve path evidence while defeating difference-making.
+- A missing off-world leaves E3 unestablished; it does not establish a null.
+
+Independent Boolean enumeration confirmed:
+
+| Pattern | Standalone extensional sufficiency | Necessity within declared domain |
+|---|---|---|
+| `D=M1∧M2` | Neither alone | Both |
+| `D=M1∨M2` | Each alone | Neither |
+
+For the both-on OR case, failed but-for tests do not establish absence of every causal interpretation. A primary scientific cross-check also supports distinguishing intervention semantics from observation and preserving possible non-but-for roles: Halpern and Pass, §§2.1–2.4, including their preemption example. This literature was used as a scientific check, not promoted to MergeVue authority. [Causality Without Causal Models](https://www.cs.cornell.edu/home/halpern/papers/causalitywithout.pdf)
+
+Two issues remain:
+
+1. The generic context-dependence falsifier is incomplete—MIN-02 below.
+2. `SUFF` remains a potentially misleading name for an extensional condition—ADV-02. Explicit Q8 disclaimers prevent a demonstrated causal promotion, so this terminology issue does not reopen T1.
+
+**E. Naming and J-4 authority review**
+
+The candidate correctly separates scientific effect evidence from accepted category assignment. Its pending-name status is a workflow state, not a fifth frozen category. C3-policy-conditional is clearly hypothetical.
+
+However, **the special prerequisite for naming a demonstrated execution effect is not independently established**.
+
+Relevant authority:
+
+- CORR4 §L-2/L-4, physical L1033/L1045, names the four categories and correction route.
+- Pilot LOCK §14, L282–291, preserves those names.
+- OD-09 D6 preserves open §L-4 disposition and downstream obligations.
+- The prior IV, L407–413, preserves the diagnostic-label question and distinguishes non-adoption *in a candidate* from a standing prohibition.
+- The primary Owner-delivered earlier correction record specifically frames the unresolved question as diagnostic use for normative departure **without an established historical mechanism**.
+
+The last source is the Grok native JSONL record 4, embedded user text L25/L59:
+
+[Primary Owner-delivered correction record](</Users/entp_psyche/.grok/sessions/%2FUsers%2Fentp_psyche%2FDesktop%2FInvestProjects2026%2FMergeVue%20PayProduct%20%28june%202026%29%2FMergeVue-M%26A%20%28August%202026%29/01a125b7-2417-7681-81a5-278d53a3c732/chat_history.jsonl:4>)
+
+It also cautions against inventing accepted policy through conservative withholding or automatic assignment.
+
+G L419/L764 extends the uncertainty to scientifically demonstrated execution disagreement effects, citing inherited CL §L.1. CL L741 is author material, not an independent Owner decision.
+
+Therefore:
+
+- I do **not** conclude that CODER_ERROR assignment is already authorized.
+- I do **not** adopt a policy forbidding that assignment.
+- I cannot validate the candidate’s assertion that a separate special Owner naming permission is an established prerequisite.
+- The asymmetric provisional treatment—counting witnessed DA while withholding the execution category pending a special naming act—requires an explicit authority basis or clear treatment as a proposed policy alternative.
+
+The preserved J-4 condition remains target-specific: two independently established contributions from **distinct named categories**, addressing the **same original disagreement**. Upstream selection, path presence, consensus, multiple mechanisms within one category, and lane coexistence do not suffice. A second physically independent path is not universally required.
+
+J-4 applicability does not resolve precedence, exclusivity, counting, or final disposition.
+
+**F. Previous findings and complete synthetic regression**
+
+The five earlier repairs were independently reconsidered:
+
+| Previous finding | Present result |
+|---|---|
+| MAJ-01: quantified sufficiency | **Closed in its stated scope.** EXISTS/FIXED/FORALL, domains, contrasts, and H-dependent controls now align. New generic context-falsifier omission is separate. |
+| MAJ-02: absence versus contradiction | **Closed.** Another reading/event does not exclude the claimed one without scoped incompatibility; application and operative Link R remain separate. |
+| MAJ-03: upstream-only premature J-4 | **Closed for C2/C2b.** Selection influence no longer automatically becomes a second disagreement contribution. The new naming prerequisite remains separately unresolved. |
+| MIN-01: evidence-bounded disposition | **Closed.** Inspected evidence bounds, non-exclusivity, hypothesis exclusion, and append-only transitions are explicit. |
+| MIN-02: complete operational protocol | **Closed.** Custody, blind packet, seals, reveal, independent reproduction, contamination recovery, Lane B sequencing, and GG admission are restored. |
+
+All **47 matrix rows** were checked. Results below concern synthetic implications, not historical validation.
+
+| Test — G line | Independent result |
+|---|---|
+| S1 — 672 | PASS: complete bound supports normative departure/reconciliation; no historical cause. |
+| S2 — 673 | PASS: admissible opposing outputs yield no winner. |
+| S3 — 674 | PASS: unexcluded flip reading prevents determinacy; incompleteness is not falsification. |
+| C1 — 675 | PASS: witnessed DA survives missing Link S. |
+| C2 — 676 | PASS: mediation retained; unproved disagreement contrast does not trigger J-4. |
+| C2b — 677 | PASS: changed selection with unchanged output preserves DA/path, not a second disagreement effect. |
+| C3 — 678 | Scientific implication PASS; asserted current special naming prerequisite not validated. |
+| C3-policy-conditional — 679 | PASS strictly as hypothetical policy-conditioned routing. |
+| S5 — 680 | PASS: complete non-carrying bypass defeats Link R, not authenticated application occurrence. |
+| S5b — 681 | PASS: carrying overwrite preserves Link R. |
+| S6 — 682 | PASS: event/production/value change do not supply a no-event final world. |
+| S7-AND — 683 | PASS within declared fixture domain. |
+| S7-OR — 684 | PASS within declared fixture domain. |
+| S8a — 685 | PASS: confirmed workshop expenditure fits the frozen expressive-expenditure row. |
+| S8b — 686 | PASS: authorization preserves type coverage without establishing occurrence. |
+| S9 — 687 | PASS: known NO→NO establishes the stated value-change null only. |
+| S10 — 688 | PASS: unknown pre-copy value is not a null. |
+| S11 — 689 | PASS: non-carrying terminal chain defeats copy production while preserving the event. |
+| S11b — 690 | PASS: incomplete chain is not contrary evidence. |
+| S12 — 691 | PASS: normative error without mechanism evidence does not establish historical causation or settle diagnostic naming. |
+| S13 — 692 | Conditional PASS: stipulated established schema insufficiency stays schema-level. The fixture supplies no actual registry-wide exclusion proof. |
+| S14 — 693 | PASS: two execution steps do not create two categories or alone-world evidence. |
+| S15 — 694 | PASS: reviewer agreement supplies no missing mechanism evidence. |
+| S16 — 695 | PASS: mark-before-seal contamination requires a different unexposed reviewer. |
+| S17 — 696 | PASS: lawful linkage failure/inner-state exclusion is not GG. |
+| S18 — 697 | PASS as negative control; no positive GG established. |
+| S19 — 698 | PASS: missing R2 record leaves application unestablished, not falsified. |
+| S20 — 699 | PASS: R1 record is compatible with unshown R2 elsewhere. |
+| S20-A — 700 | PASS: both application events survive; terminal operative links are assessed separately. |
+| S20-B — 701 | PASS: exclusive op-k evidence does not negate op-j or an incompletely covered window. |
+| S20-C — 702 | PASS: later non-carrying R1 write defeats R2 Link R, not its earlier event. |
+| S21 — 703 | PASS: Copy1 occurrence alone does not defeat Copy2 production. |
+| S22 — 704 | PASS: another tuple in a batch does not imply exclusive wrong-tuple scope. |
+| S23a — 705 | PASS: H-dependent quantifier results reproduced. |
+| S23b — 706 | PASS: fixed recorded background does not establish the wider universal claim. |
+| S23c — 707 | PASS: silence concerning another mechanism does not establish OFF. |
+| S23d — 708 | PASS: moving a named conjunct into background does not manufacture standalone sufficiency. |
+| S23e — 709 | PASS: conflicting declared-world records cannot be rescued by silent redefinition. |
+| S24 — 710 | Append-only science transition PASS; special naming-policy route remains authority-qualified. |
+| S25 — 711 | PASS: dispatch material before seal contaminates Phase 1. |
+| S26 — 712 | PASS: rationale-before-own-seal prevents blind normative adjudication. |
+| S27 — 713 | PASS: missing encoding failure reason prevents GG candidate admission. |
+| S28 — 714 | PASS: Lane B before Lane A seal contaminates that normative review. |
+| S29 — 715 | PASS: evidence defeat does not establish event negation. |
+| R30 — 716 | PASS: terminal NO→NO and extensional SUFF do not establish disagreement effect. |
+| R31 — 717 | PASS: failed actual-background but-for does not negate every redundant role. |
+| R32 — 718 | Dual science preservation PASS; special naming prerequisite not authority-validated. |
+
+The independent in-memory models covered H-dependent quantifiers, AND/OR, R30, C2b/C3, fallback/later-write alternatives, other-side changes, confounded observations, non-but-for path roles, scoped applications, custody chronology, and the new context-falsifier counterexample. No author validator or pipeline was executed.
+
+**G. New findings**
+
+| ID | Severity | Evidence, consequence, and smallest correction |
+|---|---|---|
+| **IV1-MAJ-01** | **MAJOR** | **Unsupported special naming prerequisite.** G §F.2 L419; §F.3 L434–436; §F.4 L445–454; §L.1 L764. These make a new naming permission control current candidate disposition, while the asserted authority is inherited author text. Governing sources do not establish this differentiated prerequisite. It materially changes the route from potential two-category review to a new name-policy dependency. **Correction:** distinguish the existing diagnostic-only question from the proposed execution-name gate; identify the latter as an unadopted policy proposal/ambiguity rather than an established governing prerequisite. Do not assign CODER_ERROR or decide J-4 through that correction. |
+| **IV1-MIN-01** | **MINOR** | **Wrong rubric identity in the evidence schema.** [G §I, L652](</Users/entp_psyche/Downloads/EFCA_CORR2_CORR2_CORR1_CORR1_CORR1_GPT6_AUTHOR_CANDIDATE.md:652>) still identifies the Claude parent. Records generated under the corrected E1–E3/naming rules could identify a parent containing different admission rules. **Correction:** bind rubric identity to this GPT-6 candidate and its exact digest; retain Claude identity separately as parent provenance. No emitted historical record was observed. |
+| **IV1-MIN-02** | **MINOR** | **Incomplete context-dependence falsifier.** [G §D.3, L216](</Users/entp_psyche/Downloads/EFCA_CORR2_CORR2_CORR1_CORR1_CORR1_GPT6_AUTHOR_CANDIDATE.md:216>) declares `T(on,h0)=1 ∧ T(off,h0)=0`, but lists only an off-world with T=1 as firing evidence. A same-background admissible on-world with T=0 also contradicts the declared conjunction. This conflicts with generic G2 contradiction handling at L181–183 and the reference at L291. **Correction:** include either contradicted conjunct, or explicitly define the table as an off-component test conditional on separately established on-world evidence. E1–E3 already rejects an unestablished on-world; this omission does not reopen the removed sufficiency shortcut. |
+| **IV1-ADV-01** | **ADVISORY** | **Manifest description contradicts its bytes.** `MANIFEST.json:L11` says inherited `source_claude_sha256` refers to GPT-6. Actual `06_INHERITED_PACK_MANIFEST.json:L6` equals the verified Claude parent SHA. Checksums remain correct. **Correction:** fix the descriptive note in a separately authorized package revision. |
+| **IV1-ADV-02** | **ADVISORY** | **SUFF terminology remains stronger than its declared meaning.** G L213–215/L233 and L292 use sufficiency names for extensional outcome conditions. The explicit non-promotion rule prevents a demonstrated causal error, but downstream abbreviated use could obscure the ceiling. **Recommendation:** consistently carry an extensional qualifier or use neutral outcome-condition names. This is not a required new causal doctrine. |
+
+MAJ-01 is a source/authority ambiguity with material workflow consequences. It does **not** establish which naming policy the Owner should adopt. MIN-01 and MIN-02 are directly reproduced specification inconsistencies. Advisory findings are nonblocking individually.
+
+**H. Remaining decisions, scientific ceilings, and immutability**
+
+No Owner answer is required to complete this audit. This report identifies the unresolved naming boundary without choosing a policy.
+
+The remaining boundaries are preserved:
+
+- Exactly four frozen category names.
+- EFCA J-1 bridge and J-4 disposition remain open; J-2/J-3 remain deferred. These decision labels must not be confused with CORR4’s separate §J negative-evidence rules.
+- No independently verified positive GRAMMAR_GAP.
+- No complete registry-wide MISSING_M exclusion proof.
+- No complete accepted overdetermination standard.
+- No validated four-category historical adjudication engine.
+
+[OD-09 D2–D6](</Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)/docs/decisions/MERGEVUE_STAGE2_CORR4_L2_HISTORICAL_PROOF_OWNER_DECISION_2026-10-09.md:103>) preserves `HOLD-6` closure and `G-L2-ELIG` Owner-adjudicated satisfaction. Neither is an independent full-science PASS.
+
+No files were written. Frozen hashes and inspected repository state matched at closing. No historical tuple was classified; no calibration, repair, pipeline rerun, source modification, Git mutation, freeze, or B5.8 occurred.
+
+**I. Final determination**
+
+| Required determination | Result |
+|---|---|
+| T1 targeted edit | **Closed** within the bounded difference-making rubric. |
+| T2 targeted edit | Scientific/name separation works; **not fully closed** because the special naming prerequisite lacks established governing authority. |
+| Full bounded rubric | **FAIL** — the authority ambiguity and two specification inconsistencies remain. |
+| Four-category historical adjudication readiness | **NOT independently validated.** |
+
+**Final counts: 0 BLOCKING / 1 MAJOR / 2 MINOR / 2 ADVISORY.**
+
+Audit complete. Stopping after this report.

@@ -1,0 +1,124 @@
+{
+  "manifestVersion": "1.0",
+  "packageIdentity": "STAGE2_CORR4_L4_EFCA_OWNER_ACCEPTANCE_BINDING_1",
+  "actReference": "MERGEVUE_STAGE2_CORR4_L4_EFCA_OWNER_ACCEPTANCE_BINDING_PREP_1",
+  "acceptedAct": "STAGE2_CORR4_L4_CAUSAL_TAXONOMY_OPERATIONALIZATION_1.CORR2.CORR2.CORR1.CORR1.CORR1.CORR1",
+  "date": "2026-10-10",
+  "statusTarget": "READY_FOR_INDEPENDENT_IV",
+  "repository": "Inposibl/mergevue",
+  "targetBranch": "main",
+  "preActHead": "33ed68083d1b1167f1cc3b34fab1b98573eabb3f",
+  "executor": "Antigravity",
+  "mode": "AUTHOR_SIDE_PREPARATION_ONLY",
+  "controllingOwnerDecision": {
+    "document": "docs/decisions/MERGEVUE_STAGE2_CORR4_L4_EFCA_OWNER_DECISION_2026-10-10.md",
+    "sha256": "8432f3aa6bd408bd1111208dc5957877e73d5dc34e014f6755f4e11a2449ffb4",
+    "ownerStatus": "OWNER_ACCEPTED"
+  },
+  "acceptedCandidate": {
+    "filename": "EFCA_CORR2_CORR2_CORR1_CORR1_CORR1_CORR1_GPT6_AUTHOR_CANDIDATE.md",
+    "sha256": "5bb887d269e9079754e5a4f7417cd08f58d4ad5d5ff14503ca1dd98646176eba",
+    "bytes": 97712,
+    "sourceArchive": "MERGEVUE_EFCA_GPT6_CORR_V2_CODEX_IV_PACKAGE_2026-10-10.zip",
+    "sourceArchiveSha256": "cc7de8e268013332286befbd25fd235729fd1a0e5f38e0c70412190e67975f6e"
+  },
+  "auditHistory": {
+    "originalIv1Report": {
+      "filename": "STAGE2_CORR4_L4_EFCA_CODEX_IV1_ORIGINAL_REPORT.md",
+      "sha256": "65b38dd91d777eb310e11aa579095bd87fb343366892fadc4cc9199d8a0bc17b",
+      "bytes": 26959,
+      "auditor": "Codex",
+      "auditorSessionUuid": "01a127a6-bb41-7251-8f35-32d2d1dcf30e",
+      "initialVerdict": "FAIL — 0 BLOCKING / 0 MAJOR / 2 MINOR / 1 ADVISORY"
+    },
+    "verdictReconciliation": {
+      "filename": "STAGE2_CORR4_L4_EFCA_CODEX_IV1_VERDICT_RECONCILIATION.md",
+      "sha256": "f97f4d85c24e3b37242ce006b301311d79df1f1e5e2008b315e9a63c1a7682e1",
+      "bytes": 6307,
+      "auditor": "Codex",
+      "auditorSessionUuid": "01a127a6-bb41-7251-8f35-32d2d1dcf30e",
+      "finalReconciledVerdict": "PASS — 0 BLOCKING / 0 MAJOR / 2 MINOR / 1 ADVISORY"
+    },
+    "historicalPredecessorReport": {
+      "filename": "HISTORICAL_PREDECESSOR_CODEX_IV1_REPORT.txt",
+      "sha256": "bd01c12bae75eef570336dce2e65a7202f0916a00f1e398c1169e3ae29609a1b",
+      "bytes": 23718,
+      "targetPredecessor": "CORR2.CORR2.CORR1.CORR1.CORR1"
+    },
+    "auditTaskDirective": {
+      "filename": "CODEX_IV1_AUDIT_TASK.md",
+      "sha256": "f4c4a8fb24156d0509cdf5bbad21b881c8aeb839a50d4af9d5a7daefbdc84a2e",
+      "bytes": 6471
+    }
+  },
+  "openFindings": [
+    {
+      "id": "V-IV1-MIN-01",
+      "severity": "MINOR",
+      "status": "OPEN",
+      "summary": "B.1 missing-world summary conflicts with authoritative Q10 conjunct-falsifier rule"
+    },
+    {
+      "id": "V-IV1-MIN-02",
+      "severity": "MINOR",
+      "status": "OPEN",
+      "summary": "S21 contains unjustified 'after Copy2' temporal restriction"
+    },
+    {
+      "id": "V-IV1-ADV-01",
+      "severity": "ADVISORY",
+      "status": "OPEN",
+      "summary": "Inconsistent previous auditor-session UUID locator"
+    }
+  ],
+  "scientificCeilings": {
+    "frozenDisagreementsClassification": "OPEN",
+    "finalCategoryAssignments": "OPEN",
+    "j1PolicyDecision": "OPEN",
+    "j4PolicyDecision": "OPEN",
+    "j2Phase1BlindExecution": "NOT_AUTHORIZED",
+    "j3LaneBAdjudication": "NOT_AUTHORIZED",
+    "conditionalRepairs": "OPEN",
+    "finalContractFreeze": "OPEN",
+    "b5_8AnalyticalCodingExecution": "NOT_AUTHORIZED",
+    "productionIntegration": "NOT_AUTHORIZED"
+  },
+  "packageInventory": [
+    {
+      "filename": "EFCA_CORR2_CORR2_CORR1_CORR1_CORR1_CORR1_GPT6_AUTHOR_CANDIDATE.md",
+      "sha256": "5bb887d269e9079754e5a4f7417cd08f58d4ad5d5ff14503ca1dd98646176eba",
+      "bytes": 97712,
+      "role": "ACCEPTED_EFCA_CANDIDATE"
+    },
+    {
+      "filename": "STAGE2_CORR4_L4_EFCA_CODEX_IV1_ORIGINAL_REPORT.md",
+      "sha256": "65b38dd91d777eb310e11aa579095bd87fb343366892fadc4cc9199d8a0bc17b",
+      "bytes": 26959,
+      "role": "CURRENT_CANDIDATE_IV1_ORIGINAL_REPORT_FAIL"
+    },
+    {
+      "filename": "STAGE2_CORR4_L4_EFCA_CODEX_IV1_VERDICT_RECONCILIATION.md",
+      "sha256": "f97f4d85c24e3b37242ce006b301311d79df1f1e5e2008b315e9a63c1a7682e1",
+      "bytes": 6307,
+      "role": "CURRENT_CANDIDATE_IV1_VERDICT_RECONCILIATION_PASS"
+    },
+    {
+      "filename": "HISTORICAL_PREDECESSOR_CODEX_IV1_REPORT.txt",
+      "sha256": "bd01c12bae75eef570336dce2e65a7202f0916a00f1e398c1169e3ae29609a1b",
+      "bytes": 23718,
+      "role": "HISTORICAL_PREDECESSOR_AUDIT_ATTACHMENT"
+    },
+    {
+      "filename": "CODEX_IV1_AUDIT_TASK.md",
+      "sha256": "f4c4a8fb24156d0509cdf5bbad21b881c8aeb839a50d4af9d5a7daefbdc84a2e",
+      "bytes": 6471,
+      "role": "INDEPENDENT_AUDIT_TASK_DIRECTIVE"
+    },
+    {
+      "filename": "README.md",
+      "sha256": "9732d96db4f50c7f762b88ee916e2ff55acd298d8a83e99cf3ee958d6d1720f3",
+      "bytes": 5691,
+      "role": "PACKAGE_OVERVIEW_AND_GOVERNANCE_BOUNDARIES"
+    }
+  ]
+}
