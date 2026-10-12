@@ -1,0 +1,129 @@
+{
+  "actId": "STAGE2_CORR4_L4_EFCA_CORR9_ALLOCATION_AUTHORITY_BINDING_1.CORR1",
+  "actor": "DeepSeek",
+  "role": "CODER",
+  "authorization": "Human Owner: OWNER AUTHORIZES G3.CORR1 DOCUMENTARY CORRECTION — covering exactly the Orchestrator-identified documentary defects G3-F01, G3-F02 and G3-F03. The original G3 candidate remains immutable; G2 authority bytes, allocation assignments and SHA-256 remain unchanged; no CORR9 coding and no Git action is authorized.",
+  "authorizedRepositoryRoot": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)",
+  "branch": "main",
+  "baselineHead": "1335d2e23c58d2ff2df4286bbd3d6eff2ace485f",
+  "parentAct": {
+    "actId": "STAGE2_CORR4_L4_EFCA_CORR9_ALLOCATION_AUTHORITY_BINDING_1",
+    "status": "IMMUTABLE — original four-file package unchanged by this correction",
+    "parentFileIdentities": {
+      "EFCA_CORR9_ALLOCATIONS_v1.json": {
+        "sha256": "53eb3ec43feb4de926e057e0dc17a857473872e4bbc9ff571e5937576c38ecb1",
+        "bytes": 716
+      },
+      "EFCA_CORR9_ALLOCATIONS_v1.json.sha256": {
+        "sha256": "8209554567f29c1dd0c10a9b50a4ff7f7c6ceef99012387d2a87db58b975a59d",
+        "bytes": 97
+      },
+      "README.md": {
+        "sha256": "1b99a0fcdff68845d6771e0168631181b05f52511809e5c6d32f517e153396da",
+        "bytes": 4190
+      },
+      "ACT_MANIFEST.json": {
+        "sha256": "b76052b6ddc57c5103240f52471fee4c71feb5d95afc7318c70f511bf2df1bad",
+        "bytes": 5883
+      }
+    }
+  },
+  "correctionLedger": {
+    "G3-F01": "Original G3 external closing message reported the sidecar as 103 bytes; the actual sidecar is and was 97 bytes (SHA 82095545...5a59d unchanged). Original external-return reporting error, NOT corruption — physical SHA matched at all times. The original G3 ACT_MANIFEST had recorded the correct size (97).",
+    "G3-F02": "Original G3 external closing message reported the README as 5,847 bytes; the actual original README is 4,190 bytes (SHA 1b99a0fc...396da unchanged). Original external-return reporting error, NOT corruption. The original G3 ACT_MANIFEST had recorded the correct size (4,190). This corrected README has a new actual byte length, recorded in this manifest's fileIdentities.",
+    "G3-F03": "Original G3 README stated the bound bytes were 'independently verified' by the act — a conflation of author self-validation with independent verification. Removed. Corrected status vocabulary: AUTHOR_SELF_VALIDATED (DeepSeek's own checks), ORCHESTRATOR_BYTE_REINSPECTION (the Orchestrator's separate check of the uploaded G3 package), G3_OVERALL_PREFLIGHT = FAIL / DOCUMENTARY CORRECTION REQUIRED, FORMAL_INDEPENDENT_IV = NOT_PERFORMED, G3.CORR1_OWNER_ACCEPTANCE = NOT GRANTED, GIT_CLOSURE = NOT_PERFORMED. The unqualified phrase 'independently verified' is not used for DeepSeek's own work."
+  },
+  "allowedWriteRoot": "WORKBENCH/AUDITS/STAGE2_CORR4_L4_EFCA_CORR9_ALLOCATION_AUTHORITY_1_CORR1/",
+  "allowedPaths": [
+    "WORKBENCH/AUDITS/STAGE2_CORR4_L4_EFCA_CORR9_ALLOCATION_AUTHORITY_1_CORR1/EFCA_CORR9_ALLOCATIONS_v1.json",
+    "WORKBENCH/AUDITS/STAGE2_CORR4_L4_EFCA_CORR9_ALLOCATION_AUTHORITY_1_CORR1/EFCA_CORR9_ALLOCATIONS_v1.json.sha256",
+    "WORKBENCH/AUDITS/STAGE2_CORR4_L4_EFCA_CORR9_ALLOCATION_AUTHORITY_1_CORR1/README.md",
+    "WORKBENCH/AUDITS/STAGE2_CORR4_L4_EFCA_CORR9_ALLOCATION_AUTHORITY_1_CORR1/ACT_MANIFEST.json"
+  ],
+  "ownerAcceptedAuthorityIdentity": {
+    "authorityId": "STAGE2_CORR4_L4_EFCA_CORR9_ALLOCATIONS_v1",
+    "decision": "OWNER ACCEPTS CORR9 ALLOCATION AUTHORITY G2",
+    "sha256": "53eb3ec43feb4de926e057e0dc17a857473872e4bbc9ff571e5937576c38ecb1",
+    "bytes": 716,
+    "allocations": 8,
+    "custodians": [
+      "SYN_CUST_001"
+    ],
+    "unchangedByThisCorrection": true
+  },
+  "fileIdentities": {
+    "EFCA_CORR9_ALLOCATIONS_v1.json": {
+      "sha256": "53eb3ec43feb4de926e057e0dc17a857473872e4bbc9ff571e5937576c38ecb1",
+      "bytes": 716,
+      "copiedByteForByteFromParentG3": true
+    },
+    "EFCA_CORR9_ALLOCATIONS_v1.json.sha256": {
+      "sha256": "8209554567f29c1dd0c10a9b50a4ff7f7c6ceef99012387d2a87db58b975a59d",
+      "bytes": 97,
+      "copiedByteForByteFromParentG3": true
+    },
+    "README.md": {
+      "sha256": "35ddeea82a0189a0b64f5c62ba0581eaf6c705bc5566b3c3c2ef7226d352eb55",
+      "bytes": 7380,
+      "note": "corrected README; new actual byte length (G3-F02 reconciliation)"
+    },
+    "ACT_MANIFEST.json": "NOT_EMBEDDED_IN_ITSELF (published externally in the act return; recomputable with shasum -a 256)"
+  },
+  "preflight": {
+    "branch": "main",
+    "head": "1335d2e23c58d2ff2df4286bbd3d6eff2ace485f",
+    "stagedPaths": 0,
+    "trackedDirtyPaths": 0,
+    "parentG3IdentitiesVerified": true,
+    "parentG3ActualSizesReconciled": {
+      "sidecar": 97,
+      "originalReadme": 4190,
+      "parentActManifest": 5883
+    },
+    "rubricSha256": "5bb887d269e9079754e5a4f7417cd08f58d4ad5d5ff14503ca1dd98646176eba",
+    "rubricSidecarSha256": "2fbe725aa6607ef9903c4f0220df09a590eeb3a41a122f085ee5ed8ca73bd6f9",
+    "corr1DirectoryPreExistence": "absent (expected)",
+    "mismatches": []
+  },
+  "selfValidation": {
+    "manifestByteIdentityWithParent": "cmp IDENTICAL",
+    "sidecarByteIdentityWithParent": "cmp IDENTICAL",
+    "sidecarIndependentValidationFromCorr1Directory": "shasum -a 256 -c: EFCA_CORR9_ALLOCATIONS_v1.json: OK",
+    "readmeContainsNoAuthorAsIndependentVerifierClaim": true,
+    "f01f02f03ExplicitlyReconciled": true,
+    "classification": "AUTHOR_SELF_VALIDATED_ONLY"
+  },
+  "sourcePreservation": {
+    "parentG3FourFilesUnchanged": true,
+    "rubricAndSidecarUnchanged": true,
+    "earlierEFCACandidatesUnchanged": true,
+    "governanceUnchanged": true,
+    "noEngineOrTestSourceModified": true
+  },
+  "gitState": {
+    "headBefore": "1335d2e23c58d2ff2df4286bbd3d6eff2ace485f",
+    "headAfter": "1335d2e23c58d2ff2df4286bbd3d6eff2ace485f",
+    "headUnchanged": true,
+    "stagedPaths": 0,
+    "trackedDirtyPaths": 0,
+    "gitActionsPerformed": "none (no add, commit, push, checkout, merge, branch mutation)"
+  },
+  "lifecycle": {
+    "g2OwnerApproval": "OWNER_ACCEPTED",
+    "parentG3": "IMMUTABLE",
+    "g3Corr1": "CANDIDATE_COMPLETE",
+    "independentIV": "NOT_PERFORMED",
+    "orchestratorReinspection": "REQUIRED",
+    "corr9Implementation": "NOT_AUTHORIZED",
+    "g3Corr1OwnerAcceptance": "NOT_GRANTED",
+    "gitClosure": "NOT_PERFORMED",
+    "realTupleClassification": "NOT_PERFORMED",
+    "categoryAssignment": "UNASSIGNED"
+  },
+  "remainingHolds": [
+    "independentIV NOT_PERFORMED",
+    "orchestratorReinspection REQUIRED",
+    "G3.CORR1_OWNER_ACCEPTANCE NOT_GRANTED",
+    "corr9Implementation NOT_AUTHORIZED (separate G4 authorization required, naming digest 53eb3ec43feb4de926e057e0dc17a857473872e4bbc9ff571e5937576c38ecb1)"
+  ]
+}

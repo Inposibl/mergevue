@@ -1,0 +1,20 @@
+{
+  "repoState": {
+    "root": true,
+    "branch": true,
+    "head": true,
+    "status": true,
+    "diff": true,
+    "stagedDiff": true
+  },
+  "changedRepositoryFiles": [],
+  "changedExternalEvidence": [],
+  "repoFileCount": 710,
+  "externalFileCount": 19,
+  "statusSha256": "1bfe59e3137693ba48ef94e3a97a1639328cb036ef0902fa855fb35ea81f5f64",
+  "untrackedCount": 828,
+  "trackedDirtyCount": 0,
+  "originalCandidateResidue": [],
+  "originalSyntheticRuns": [],
+  "preserved": true
+}

@@ -1,0 +1,538 @@
+{
+  "actId": "CORR9-OWNER-ACCEPTANCE-BINDING-1",
+  "actor": {
+    "agent": "Claude (Opus 5.5)",
+    "role": "ANALYST (AGENTS_A.md)",
+    "function": "DOCUMENTARY AUTHOR",
+    "independenceStatement": "Author of this package only. Did not author or audit the CORR9 implementation, the Option B contract, CORR9.IV1, the contract IV1 or CORR9.IV2. Must not independently verify this package."
+  },
+  "ownerAuthorization": {
+    "literalOwnerQuotation": {
+      "text": "CORR9-OWNER-ACCEPTANCE-BINDING-1 авторизую",
+      "source": "CORR1 execution brief (Owner-authorized, 2026-10-12) — transcription; original message bytes/timestamps not archived in this package",
+      "note": "exact wording, capitalization, Unicode and punctuation preserved"
+    },
+    "normalizedActIdentifier": "CORR9-OWNER-ACCEPTANCE-BINDING-1",
+    "assignedRoleAndFunction": {
+      "role": "ANALYST (AGENTS_A.md)",
+      "function": "DOCUMENTARY AUTHOR",
+      "executor": "Claude",
+      "nature": "assigned by the controlling execution brief; not Owner literal text"
+    },
+    "executionBriefScope": {
+      "nature": "imposed by the controlling execution brief; recorder summary, not a quotation",
+      "authorized": "bounded documentary artifact creation under WORKBENCH/AUDITS/CORR9_OWNER_ACCEPTANCE_BINDING_1/",
+      "forbidden": [
+        "implementation/source changes",
+        "methodology changes",
+        "independent self-audit",
+        "Git mutation",
+        "production or historical execution"
+      ]
+    },
+    "date": "2026-10-12",
+    "correctionAuthorization": {
+      "actId": "CORR9-OWNER-ACCEPTANCE-BINDING-1.CORR1",
+      "literalOwnerQuotation": "OWNER AUTHORIZES CORR9-OWNER-ACCEPTANCE-BINDING-1.CORR1 — CLAUDE ANALYST DOCUMENTARY AUTHOR. Correct exact Owner-decision provenance and non-verbatim attribution in the acceptance binding package; record the mandatory post-gate local Git commit and Owner-only manual push after Orchestrator PUSH ALLOWED. Preserve all accepted contract, CORR9 and archived-audit bytes. Regenerate affected manifest/index/checksum files, verify preservation, report, and STOP. No independent self-audit, Git mutation or production authorization.",
+      "source": "CORR1 execution brief (Owner-authorized, 2026-10-12) — transcription; original message bytes/timestamps not archived in this package"
+    }
+  },
+  "recordedOwnerDecisions": [
+    {
+      "id": "OF-1",
+      "literalOwnerQuotation": "OWNER SELECTS MAJ01 OPTION B — EXPLICIT TRUSTED-HOST BOUNDARY; ACCEPTS MAJ-01 AS NON-BLOCKING FOR OFFLINE SYNTHETIC-ONLY USE, SUBJECT TO REVISED INDEPENDENT VERIFICATION.",
+      "source": "accepted contract bytes OPTION_B_ACCEPTED_CONTRACT.txt (SHA-256 1cf24018e947c389ab3a4875d6223aa7c496df15fb9c33b4466f64fdab44aff2), header \"Controlling Owner decision\"",
+      "role": "Option B selection; bounded MAJ-01 risk acceptance"
+    },
+    {
+      "id": "OF-2",
+      "literalOwnerQuotation": "OWNER ACCEPTS CORR9-MAJ01-OPTIONB-CONTRACT-ALIGNMENT-1 EXACT CANDIDATE SHA256 1cf24018e947c389ab3a4875d6223aa7c496df15fb9c33b4466f64fdab44aff2 AS INDEPENDENTLY VERIFIED AND CONTROLLING FOR OFFLINE SYNTHETIC-ONLY CORR9 REVISED VERIFICATION. ORIGINAL CORR9.IV1 FAIL PRESERVED. ADVISORIES A-01/A-02 NON-BLOCKING.",
+      "source": "CORR1 execution brief (Owner-authorized, 2026-10-12) — transcription; original message bytes/timestamps not archived in this package",
+      "role": "PRIMARY Owner fact: acceptance of the Option B contract",
+      "corroboratingEvidence": [
+        "contract IV1 report (PASS 0/0/0/2)",
+        "CORR9.IV2 report section 2"
+      ],
+      "corroborationIsNotSubstitute": true
+    },
+    {
+      "id": "OF-3",
+      "literalOwnerQuotation": "OWNER ACCEPTS CORR9 EXACT IMPLEMENTATION CANDIDATE AS INDEPENDENTLY VERIFIED BY IV2, CONTROLLING STRICTLY FOR OFFLINE SYNTHETIC-ONLY TRUSTED-HOST SCOPE UNDER ACCEPTED OPTION B CONTRACT SHA256 1cf24018e947c389ab3a4875d6223aa7c496df15fb9c33b4466f64fdab44aff2. ORIGINAL IV1 FAIL AND MAJ-01 REMAIN PRESERVED. NO HISTORICAL EXECUTION, PRODUCTION OR GIT AUTHORIZED.",
+      "source": "CORR1 execution brief (Owner-authorized, 2026-10-12) — transcription; original message bytes/timestamps not archived in this package",
+      "role": "PRIMARY Owner fact: acceptance of the CORR9 implementation",
+      "corroboratingEvidence": [
+        "CORR9.IV2 report (verification result only; does not grant acceptance)"
+      ],
+      "corroborationIsNotSubstitute": true
+    },
+    {
+      "id": "OF-4",
+      "literalOwnerQuotation": null,
+      "recorderSummary": "CORR9-IV1-MAJ-01 Owner-risk-accepted in bounded scope (OF-1) and preserved (OF-2, OF-3); not repaired",
+      "nature": "recorder summary derived from OF-1/OF-2/OF-3; not a quotation"
+    },
+    {
+      "id": "OF-10",
+      "literalOwnerQuotations": [
+        "git commit этого этапа обязятелен после прохождения всех шагов",
+        "Git push я делаю в ручном режиме по твоему указанию, что можно"
+      ],
+      "source": "CORR1 execution brief (Owner-authorized, 2026-10-12) — transcription; original message bytes/timestamps not archived in this package",
+      "role": "Git operating rules: local commit mandatory after all gates; push manual by Owner only when allowed"
+    }
+  ],
+  "repository": {
+    "root": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)",
+    "branch": "main",
+    "baseHead": "1335d2e23c58d2ff2df4286bbd3d6eff2ace485f"
+  },
+  "preActState": {
+    "capturedUTC": "2026-10-12T14:26:36Z",
+    "trackedDirty": 0,
+    "unstagedDiffPaths": 0,
+    "stagedPaths": 0,
+    "untrackedEntriesExpanded": 828,
+    "expandedPorcelainSha256": "1bfe59e3137693ba48ef94e3a97a1639328cb036ef0902fa855fb35ea81f5f64",
+    "collapsedPorcelainSha256": "ac07c5e537eadf001f42a470e798e1bc9e7d555b5ee48fee9c9f33560fa39e1d",
+    "packageDirectoryExisted": false,
+    "note": "expanded porcelain hash equals the baseline recorded by CORR9.IV2"
+  },
+  "writeAllowlist": {
+    "directory": "WORKBENCH/AUDITS/CORR9_OWNER_ACCEPTANCE_BINDING_1/",
+    "createdFiles": 45
+  },
+  "forbiddenPaths": [
+    "WORKBENCH/AUDITS/STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1*/",
+    "WORKBENCH/AUDITS/STAGE2_CORR4_L4_EFCA_CORR9_ALLOCATION_AUTHORITY_1*/",
+    "WORKBENCH/AUDITS/STAGE2_CORR4_L4_EFCA_OWNER_ACCEPTANCE_BINDING_1/",
+    "docs/governance/",
+    "docs/decisions/",
+    "WORKBENCH/AUDITS/MERGEVUE_VERIFIED_CURRENT_CONTROL_TREE_RECONSTRUCTION_1_CORR4/",
+    "src/",
+    "api/",
+    "scripts/",
+    "/private/tmp/ (original audit evidence: read-only)",
+    "all other tracked and untracked paths"
+  ],
+  "packageMembers": [
+    {
+      "path": "ARCHIVED_EVIDENCE/CORR9_IV1/INDEPENDENT_IV1_REPORT.md",
+      "bytes": 36450,
+      "sha256": "2194b20106e9da2fa792ef3d4c29b26ec79b6b0180b86a959dc1c11464ea237a",
+      "kind": "BYTE_IDENTICAL_COPY"
+    },
+    {
+      "path": "ARCHIVED_EVIDENCE/CORR9_IV1/full_suite.log",
+      "bytes": 23316,
+      "sha256": "ee0b3b53f670c902d530a3c310570033465bf3612bca7d2c92728f0cfc224cf7",
+      "kind": "BYTE_IDENTICAL_COPY"
+    },
+    {
+      "path": "ARCHIVED_EVIDENCE/CORR9_IV1/independent_probes.log",
+      "bytes": 9467,
+      "sha256": "2bfcd145176a23d20a62ff517da8b02f9f0e9ec5f3aa73195e6371221a028c71",
+      "kind": "BYTE_IDENTICAL_COPY"
+    },
+    {
+      "path": "ARCHIVED_EVIDENCE/CORR9_IV1/independent_probes.py",
+      "bytes": 15256,
+      "sha256": "7c6d24e0e1981fa45526ddeb137b118b301641b3325ccb1d022d84d813fdb085",
+      "kind": "BYTE_IDENTICAL_COPY"
+    },
+    {
+      "path": "ARCHIVED_EVIDENCE/CORR9_IV1/independent_results.json",
+      "bytes": 11594,
+      "sha256": "4eb7a20107432ea7c79f12b71e42d0ecef3813c04445dd816f8fb717e5460c44",
+      "kind": "BYTE_IDENTICAL_COPY"
+    },
+    {
+      "path": "ARCHIVED_EVIDENCE/CORR9_IV1/mode_origin_contract.log",
+      "bytes": 4715,
+      "sha256": "b2935d69aa28c2837c886190a394576813b5f10bebdc25e02bb59c05feccaf64",
+      "kind": "BYTE_IDENTICAL_COPY"
+    },
+    {
+      "path": "ARCHIVED_EVIDENCE/CORR9_IV1/mode_origin_contract.py",
+      "bytes": 2443,
+      "sha256": "f1cc880dc1456671cd041413ff48df0c46667c1765a2c323529394a77d1f8f53",
+      "kind": "BYTE_IDENTICAL_COPY"
+    },
+    {
+      "path": "ARCHIVED_EVIDENCE/CORR9_IV1/mode_origin_contract_results.json",
+      "bytes": 4715,
+      "sha256": "b2935d69aa28c2837c886190a394576813b5f10bebdc25e02bb59c05feccaf64",
+      "kind": "BYTE_IDENTICAL_COPY"
+    },
+    {
+      "path": "ARCHIVED_EVIDENCE/CORR9_IV1/preservation_after.json",
+      "bytes": 384,
+      "sha256": "1543789c6e90fd0571691d1c09760a4db038b6457f5c5ac2be0d36620c0e45b5",
+      "kind": "BYTE_IDENTICAL_COPY"
+    },
+    {
+      "path": "ARCHIVED_EVIDENCE/CORR9_IV1/preservation_before.json",
+      "bytes": 225687,
+      "sha256": "f3de6cc4c2bbe2b3cd13a373262f80378b914a8ecc63f1296cefd6543ed669ad",
+      "kind": "BYTE_IDENTICAL_COPY"
+    },
+    {
+      "path": "ARCHIVED_EVIDENCE/CORR9_IV1/supplemental_probes.py",
+      "bytes": 4325,
+      "sha256": "da5d646ff3c9bb4444b4f76bb404e89a673703fefbe5f2e1afdc0fa2ccdb88ee",
+      "kind": "BYTE_IDENTICAL_COPY"
+    },
+    {
+      "path": "ARCHIVED_EVIDENCE/CORR9_IV1/supplemental_results.json",
+      "bytes": 2404,
+      "sha256": "f2bff0dbf64ffb86f72f3150207812f94f17c04cc1b87c33defe01162d6786f9",
+      "kind": "BYTE_IDENTICAL_COPY"
+    },
+    {
+      "path": "ARCHIVED_EVIDENCE/CORR9_IV2/INDEPENDENT_IV2_REPORT.md",
+      "bytes": 46428,
+      "sha256": "563d9ba44ae9cc6cadbcc5a4bbdcc98f4454cba5b483e423a5ded2c96217fd72",
+      "kind": "BYTE_IDENTICAL_COPY"
+    },
+    {
+      "path": "ARCHIVED_EVIDENCE/CORR9_IV2/api_inventory.json",
+      "bytes": 46937,
+      "sha256": "ea881a02492e8406f0a6ec7240dcf0b67c17d8dbe510337933f8454fec65695f",
+      "kind": "BYTE_IDENTICAL_COPY"
+    },
+    {
+      "path": "ARCHIVED_EVIDENCE/CORR9_IV2/audit_summary.json",
+      "bytes": 2066,
+      "sha256": "dd7114b5bd91a29d540301d6d8636000e493fe15b4278c449124060c639fc162",
+      "kind": "BYTE_IDENTICAL_COPY"
+    },
+    {
+      "path": "ARCHIVED_EVIDENCE/CORR9_IV2/evidence_index.json",
+      "bytes": 10288,
+      "sha256": "955b958a932141dc86fdedf58a9fc5251dc13bf10d7b2cbeeebe0f33935f26a7",
+      "kind": "BYTE_IDENTICAL_COPY"
+    },
+    {
+      "path": "ARCHIVED_EVIDENCE/CORR9_IV2/full_suite.log",
+      "bytes": 23316,
+      "sha256": "43b5dc35aa7d49fdea5a71c0fb97672144889e0aee72356471a9af0f7a8191b6",
+      "kind": "BYTE_IDENTICAL_COPY"
+    },
+    {
+      "path": "ARCHIVED_EVIDENCE/CORR9_IV2/independent_probes.log",
+      "bytes": 65360,
+      "sha256": "3f0ce646cc7272d14b6af995041405f6bdf204656690fe9c90b75cf8ad2ff291",
+      "kind": "BYTE_IDENTICAL_COPY"
+    },
+    {
+      "path": "ARCHIVED_EVIDENCE/CORR9_IV2/independent_results.json",
+      "bytes": 78651,
+      "sha256": "367d221dc055210b0792e05cc99f88fe314af673e13584e7b300f0bfaea72613",
+      "kind": "BYTE_IDENTICAL_COPY"
+    },
+    {
+      "path": "ARCHIVED_EVIDENCE/CORR9_IV2/iv2_probes.py",
+      "bytes": 19787,
+      "sha256": "832c0af73bc9a9f51e137df801b0e710fbbd04768ba0c2af022c3b45ef84e081",
+      "kind": "BYTE_IDENTICAL_COPY"
+    },
+    {
+      "path": "ARCHIVED_EVIDENCE/CORR9_IV2/iv2_runs/SYNSESS_b573840fa44d/host_chain/iv2_native_SIMULATION.jsonl",
+      "bytes": 5061,
+      "sha256": "45a5ec2a883355cb5dba2c791b55de5ddf22aacf5ea48d311db9392d2fde8db6",
+      "kind": "BYTE_IDENTICAL_COPY"
+    },
+    {
+      "path": "ARCHIVED_EVIDENCE/CORR9_IV2/iv2_runs/SYNSESS_d51cda31bdd0/host_chain/iv2_native_OWNER_PINNED.jsonl",
+      "bytes": 5065,
+      "sha256": "b8330d290349465affb02d93d3b5a4527760f00000a74ec2b0416a4db4c24c95",
+      "kind": "BYTE_IDENTICAL_COPY"
+    },
+    {
+      "path": "ARCHIVED_EVIDENCE/CORR9_IV2/iv2_runs/iv2_forged_to_OWNER_PINNED.jsonl",
+      "bytes": 5065,
+      "sha256": "b8330d290349465affb02d93d3b5a4527760f00000a74ec2b0416a4db4c24c95",
+      "kind": "BYTE_IDENTICAL_COPY"
+    },
+    {
+      "path": "ARCHIVED_EVIDENCE/CORR9_IV2/iv2_runs/iv2_forged_to_SIMULATION.jsonl",
+      "bytes": 5061,
+      "sha256": "45a5ec2a883355cb5dba2c791b55de5ddf22aacf5ea48d311db9392d2fde8db6",
+      "kind": "BYTE_IDENTICAL_COPY"
+    },
+    {
+      "path": "ARCHIVED_EVIDENCE/CORR9_IV2/iv2_supplement.py",
+      "bytes": 2842,
+      "sha256": "b3892744746b9755ab9814560bc8ec44cd0717b220cee68075acece6c15a1ab7",
+      "kind": "BYTE_IDENTICAL_COPY"
+    },
+    {
+      "path": "ARCHIVED_EVIDENCE/CORR9_IV2/preservation_after.json",
+      "bytes": 391881,
+      "sha256": "0fab928793bde8c68f2aea6418961a7c6347303157727a88c6ea797b560f5a2c",
+      "kind": "BYTE_IDENTICAL_COPY"
+    },
+    {
+      "path": "ARCHIVED_EVIDENCE/CORR9_IV2/preservation_before.json",
+      "bytes": 391881,
+      "sha256": "0fab928793bde8c68f2aea6418961a7c6347303157727a88c6ea797b560f5a2c",
+      "kind": "BYTE_IDENTICAL_COPY"
+    },
+    {
+      "path": "ARCHIVED_EVIDENCE/CORR9_IV2/preservation_comparison.json",
+      "bytes": 480,
+      "sha256": "e2f61e2de0fbfa0c0e5ec4f5cc7dedad7fe6d32904fd139d2fa23cf2ed285f86",
+      "kind": "BYTE_IDENTICAL_COPY"
+    },
+    {
+      "path": "ARCHIVED_EVIDENCE/CORR9_IV2/probe_setup_category_return_shape.log",
+      "bytes": 60503,
+      "sha256": "ab23ae36300a4574afa3c2c42bbcfd452a2fb3f57a2fbbbf005a686678775023",
+      "kind": "BYTE_IDENTICAL_COPY"
+    },
+    {
+      "path": "ARCHIVED_EVIDENCE/CORR9_IV2/probe_setup_dictionary_order.log",
+      "bytes": 1615,
+      "sha256": "a59cc1330f87615f424b688e994b0d04280391849109002a7161ad32741975a6",
+      "kind": "BYTE_IDENTICAL_COPY"
+    },
+    {
+      "path": "ARCHIVED_EVIDENCE/CORR9_IV2/spec_evidence_matrix.json",
+      "bytes": 12343,
+      "sha256": "e03e70bb6fa0f312641eaf3d55ed926e2145caacefe9a4886e35804b837b3646",
+      "kind": "BYTE_IDENTICAL_COPY"
+    },
+    {
+      "path": "ARCHIVED_EVIDENCE/CORR9_IV2/suite_execution.json",
+      "bytes": 447,
+      "sha256": "e80901f7622ab90de4f8e02a1c68ee781045179cf2e6fb17fc207e97afb61e35",
+      "kind": "BYTE_IDENTICAL_COPY"
+    },
+    {
+      "path": "ARCHIVED_EVIDENCE/CORR9_IV2/supplemental_probes.log",
+      "bytes": 5654,
+      "sha256": "fc324a97790b8947820657847a7b58701c6ee1acbd6510e560237616a6297e8d",
+      "kind": "BYTE_IDENTICAL_COPY"
+    },
+    {
+      "path": "ARCHIVED_EVIDENCE/CORR9_IV2/supplemental_results.json",
+      "bytes": 6211,
+      "sha256": "8f4e98941f74f34da194bc51b4d55e61668355dcad0df33403334f2d9fc4bf55",
+      "kind": "BYTE_IDENTICAL_COPY"
+    },
+    {
+      "path": "ARCHIVED_EVIDENCE/OPTIONB_CONTRACT_IV1/INDEPENDENT_CONTRACT_AUDIT_REPORT.md",
+      "bytes": 44075,
+      "sha256": "e26272de9422800f1f235ec4c242d3e6e1526fc5a80efb10a45a0c326489a52a",
+      "kind": "BYTE_IDENTICAL_COPY"
+    },
+    {
+      "path": "ARCHIVED_EVIDENCE/OPTIONB_CONTRACT_IV1/identity.json",
+      "bytes": 548,
+      "sha256": "d6512e6dcef37fcf5b785901ff8b913b08d2c49cbc98a038b13f45b4685f183d",
+      "kind": "BYTE_IDENTICAL_COPY"
+    },
+    {
+      "path": "ARCHIVED_EVIDENCE/OPTIONB_CONTRACT_IV1/preservation-check.json",
+      "bytes": 595,
+      "sha256": "4c2db3c81377f5b4e4956e070b2db606726e93078932e018017591fa05545a5d",
+      "kind": "BYTE_IDENTICAL_COPY"
+    },
+    {
+      "path": "AUDIT_LINEAGE.md",
+      "bytes": 9033,
+      "sha256": "452747e4ea1af614477031da53ed5f5c1dec489cd889464b8d51ffdfa5663b13",
+      "kind": "AUTHORED"
+    },
+    {
+      "path": "CONTROL_TREE_STATUS_PROPOSAL.md",
+      "bytes": 8191,
+      "sha256": "a4b0265d12c5d3a82e576b913aab39898d5da1fd2b45c1f7d833d69c4c6baf8f",
+      "kind": "AUTHORED"
+    },
+    {
+      "path": "EVIDENCE_INDEX.json",
+      "bytes": 82942,
+      "sha256": "dbdd6a56b0d5fa88bf3674589ce4f50d4a21ef33e192b1bde70c41a3b010eabc",
+      "kind": "GENERATED"
+    },
+    {
+      "path": "OPTION_B_ACCEPTED_CONTRACT.txt",
+      "bytes": 13499,
+      "sha256": "1cf24018e947c389ab3a4875d6223aa7c496df15fb9c33b4466f64fdab44aff2",
+      "kind": "BYTE_IDENTICAL_COPY"
+    },
+    {
+      "path": "OWNER_ACCEPTANCE_RECORD.md",
+      "bytes": 14978,
+      "sha256": "8c03697b30cb985709704e228be6d872d78a956c2df555c794ee16d4484ab369",
+      "kind": "AUTHORED"
+    },
+    {
+      "path": "README.md",
+      "bytes": 7560,
+      "sha256": "6427f3d14c0f3c692ac5b4916a744bddcf1c43f6f6762786c4aa45f3474c65e6",
+      "kind": "AUTHORED"
+    }
+  ],
+  "selfReferencePolicy": "ACT_MANIFEST.json does not record its own hash; SHA256SUMS.txt records every package file except itself (including ACT_MANIFEST.json).",
+  "authorityReferences": {
+    "corr9Candidate": "EVIDENCE_INDEX.json#corr9Candidate",
+    "optionBContract": "EVIDENCE_INDEX.json#optionBContract",
+    "rubricSha256": "5bb887d269e9079754e5a4f7417cd08f58d4ad5d5ff14503ca1dd98646176eba",
+    "g3Corr1AllocationSha256": "53eb3ec43feb4de926e057e0dc17a857473872e4bbc9ff571e5937576c38ecb1",
+    "iv2ReportSha256": "563d9ba44ae9cc6cadbcc5a4bbdcc98f4454cba5b483e423a5ded2c96217fd72",
+    "iv1ReportSha256": "2194b20106e9da2fa792ef3d4c29b26ec79b6b0180b86a959dc1c11464ea237a",
+    "contractIv1ReportSha256": "e26272de9422800f1f235ec4c242d3e6e1526fc5a80efb10a45a0c326489a52a",
+    "governance": "EVIDENCE_INDEX.json#authorities"
+  },
+  "preservation": {
+    "statement": "No existing file was created-over, modified, moved or deleted. Original CORR9 candidate, CORR1-CORR8 and ORIGINAL predecessors, G3/G3.CORR1 allocation packages, accepted rubric binding package, docs/governance, docs/decisions, the CORR4 matrix package, and all original IV1/contract-IV1/IV2 evidence were read only.",
+    "protectedSet": {
+      "roots": 23,
+      "files": 287,
+      "digestBefore": "b0e6d73c25c117a01399f040677c111a67caf800de1bdb6f81b8e60d549216d4",
+      "digestAtManifestGeneration": "b0e6d73c25c117a01399f040677c111a67caf800de1bdb6f81b8e60d549216d4",
+      "equal": true,
+      "method": "sorted \"sha256  path\" lines over all files under the protected roots (IV sandboxes excluding their disposable repo/ copies), hashed with SHA-256"
+    },
+    "historicalFieldsNotRepaired": [
+      "CORR9 ACT_MANIFEST implementationLifecycle.independentIV=NOT_PERFORMED",
+      "CORR9 ACT_MANIFEST implementationLifecycle.ownerAcceptanceOfCorr9=NOT_GRANTED",
+      "CORR9 ACT_MANIFEST implementationLifecycle.orchestratorPreflight=PENDING",
+      "G3.CORR1 README G3.CORR1_OWNER_ACCEPTANCE=NOT GRANTED",
+      "Option B contract header CONTRACT CANDIDATE — PENDING OWNER ACCEPTANCE"
+    ]
+  },
+  "scientificFirewall": {
+    "categoryAssignment": "UNASSIGNED",
+    "tupleLevelName": "UNASSIGNED",
+    "causeLink": "UNASSIGNED_PENDING_J1",
+    "phase1PacketFields": [
+      "caseId",
+      "sideId",
+      "factId",
+      "sealedFactText",
+      "questionText"
+    ],
+    "notAuthorized": [
+      "historical tuple execution",
+      "1,094 disagreement classification",
+      "J-1/J-4",
+      "J-2/J-3",
+      "B5.8",
+      "FINAL CONTRACT FREEZE / scientific freeze",
+      "production integration or deployment"
+    ]
+  },
+  "trustBoundary": {
+    "trustedEngineHostRequired": true,
+    "callerAuthentication": "NOT IMPLEMENTED",
+    "sha256ChainAuthenticatesOrigin": false,
+    "privilegedWholeHistoryModeLaundering": "REPRODUCIBLE (NG-01 / CORR9-IV1-MAJ-01)",
+    "productionIntegrationRequires": "new independent security-boundary evidence (Option B TB-04)"
+  },
+  "lifecycle": {
+    "packageAuthored": "COMPLETE",
+    "authorSelfCheck": "mechanical identity checks only (not independent)",
+    "independentVerificationStatus": "NOT_PERFORMED",
+    "ownerAcceptanceStatus": "NOT_GRANTED (for this package)",
+    "governanceBindingStatus": "NOT_PERFORMED",
+    "gitAuthorizationStatus": "NOT_AUTHORIZED (commit mandatory in future workflow; not authorized now)",
+    "gitClosureStatus": "NOT_PERFORMED",
+    "commitSha": null
+  },
+  "packageStatus": "DOCUMENTARY_CANDIDATE (CORR1) — READY_FOR_INDEPENDENT_DOCUMENTARY_IV",
+  "gitIgnoredMembers": {
+    "rule": ".gitignore:9 *.log",
+    "count": 8,
+    "paths": [
+      "ARCHIVED_EVIDENCE/CORR9_IV1/full_suite.log",
+      "ARCHIVED_EVIDENCE/CORR9_IV1/independent_probes.log",
+      "ARCHIVED_EVIDENCE/CORR9_IV1/mode_origin_contract.log",
+      "ARCHIVED_EVIDENCE/CORR9_IV2/full_suite.log",
+      "ARCHIVED_EVIDENCE/CORR9_IV2/independent_probes.log",
+      "ARCHIVED_EVIDENCE/CORR9_IV2/probe_setup_category_return_shape.log",
+      "ARCHIVED_EVIDENCE/CORR9_IV2/probe_setup_dictionary_order.log",
+      "ARCHIVED_EVIDENCE/CORR9_IV2/supplemental_probes.log"
+    ],
+    "consequence": "not listed by git status; a plain git add of the package directory would omit them; any future Git closure must handle them explicitly (Owner/Git-agent decision; not resolved by this act)"
+  },
+  "separateLifecycleFacts": [
+    {
+      "fact": "original CORR9.IV1 FAIL 0 BLOCKING / 1 MAJOR",
+      "kind": "independent verification result"
+    },
+    {
+      "fact": "CORR9-IV1-MAJ-01 historical MAJOR, preserved, not repaired",
+      "kind": "audit finding"
+    },
+    {
+      "fact": "Owner bounded risk acceptance of MAJ-01",
+      "kind": "Owner decision (OF-1)"
+    },
+    {
+      "fact": "revised CORR9.IV2 PASS, 0 new findings, 117/117, 8/8",
+      "kind": "independent verification result"
+    },
+    {
+      "fact": "Owner implementation acceptance, offline synthetic-only / trusted-host",
+      "kind": "Owner decision (OF-3)"
+    }
+  ],
+  "gitClosureWorkflow": {
+    "status": "FUTURE WORKFLOW — NOT A PERMISSION FOR THIS ACT OR CORR1",
+    "localCommit": "MANDATORY for eventual completion; NOT AUTHORIZED for execution in CORR1",
+    "push": "Owner-only, manual, only after Orchestrator PUSH ALLOWED; never inferred from local commit success",
+    "sequence": [
+      "Claude completes CORR1 documentary candidate",
+      "different authorized agent performs independent documentary verification",
+      "Owner accepts the exact independently verified candidate",
+      "Antigravity (GIT AGENT, AGENTS_G.md) executes the separately authorized local Git commit",
+      "Orchestrator verifies commit SHA, parent, exact path set, content hashes, preservation and intended remote target",
+      "Orchestrator issues PUSH ALLOWED only after positive verification",
+      "Owner performs Git push manually",
+      "remote commit and contents independently reconciled before REMOTE GIT-CLOSED"
+    ],
+    "ignoredLogRequirement": "all eight gitIgnoredMembers must be explicitly verified as included by the Git Agent using the allowed workflow; silent omission forbidden; whether a forced add of exact paths is permitted is for the separately authorized closure brief",
+    "scopeBeyondPackage": "NOT DECIDED (CORR9 engine/predecessor/G3 packages) — separately authorized closure act"
+  },
+  "correction": {
+    "actId": "CORR9-OWNER-ACCEPTANCE-BINDING-1.CORR1",
+    "date": "2026-10-12",
+    "actor": "Claude (ANALYST, documentary author)",
+    "findingsCorrected": {
+      "F-01": "paraphrase previously stored in ownerAuthorization.verbatim replaced by separated literal quotation / normalized ID / role-function / brief scope / CORR1 authorization",
+      "F-02": "OF-2 recorded as literal Owner statement (primary); contract IV1 and IV2 corroborating only",
+      "F-03": "OF-3 recorded as literal Owner statement (primary); five lifecycle facts separated",
+      "F-04": "mandatory future Git closure workflow recorded; no Git permission in CORR1"
+    },
+    "changedMembers": [
+      {
+        "path": "CONTROL_TREE_STATUS_PROPOSAL.md",
+        "previousSha256": "75fd942c8db752c6ff65494f5909db3f16b8a6f63c34939e1c83b9dda24a7011"
+      },
+      {
+        "path": "EVIDENCE_INDEX.json",
+        "previousSha256": "94351b3b9bc99614d473d71fb56fa78cd56e7141d43b8835a833713ba7825c7d"
+      },
+      {
+        "path": "OWNER_ACCEPTANCE_RECORD.md",
+        "previousSha256": "b65223b6d92188a3258b68580061c07411f61651b929c0a0b2a289df54c1ce8c"
+      },
+      {
+        "path": "README.md",
+        "previousSha256": "1822e5f5453b119463a752c471efd4babff7fc876a383c58b807505828f2a21c"
+      },
+      {
+        "path": "ACT_MANIFEST.json",
+        "previousSha256": "3b5824e52b447501ef40b0e254a40c1b79c4fa45d57aaeee20c77089494f458e"
+      },
+      {
+        "path": "SHA256SUMS.txt",
+        "previousSha256": "a4095c794bac07f22654f8cccfd954a901623c32bec99ee2866c48ba066bd5d3"
+      }
+    ],
+    "dependencyNote": "CONTROL_TREE_STATUS_PROPOSAL.md section 5 item 7 changed because it instructed the verifier to check the pre-correction attribution; AUDIT_LINEAGE.md unchanged.",
+    "immutableMembersUnchanged": "OPTION_B_ACCEPTED_CONTRACT.txt and all 37 ARCHIVED_EVIDENCE members"
+  }
+}

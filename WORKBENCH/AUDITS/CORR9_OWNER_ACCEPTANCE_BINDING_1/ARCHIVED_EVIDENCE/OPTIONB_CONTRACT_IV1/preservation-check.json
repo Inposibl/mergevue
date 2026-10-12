@@ -1,0 +1,20 @@
+{
+  "repositoryFilesChecked": 95,
+  "changedRepositoryFiles": [],
+  "gitStatusIdentical": true,
+  "headUnchanged": true,
+  "branchUnchanged": true,
+  "trackedDirtyAfter": "",
+  "candidateInputUnchanged": true,
+  "candidateCaptureUnchanged": true,
+  "originalAuditEvidenceUnchanged": {
+    "INDEPENDENT_IV1_REPORT.md": true,
+    "mode_origin_contract.py": true,
+    "mode_origin_contract_results.json": true,
+    "full_suite.log": true,
+    "independent_probes.py": true
+  },
+  "noRuntimeTestsExecutedInThisAct": true,
+  "traceabilityRequirementCount": 23,
+  "traceabilityAllRowsPresent": true
+}

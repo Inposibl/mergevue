@@ -1,0 +1,295 @@
+[
+  {
+    "id": "IV-A01-first-writer-parent-and-correction",
+    "result": "PASS",
+    "detail": {
+      "corr8": {
+        "tupleKey": "SYN_CASE_001|SYN_SIDE_A|SYN_FACT_001",
+        "canonicalHashInput": "63b1077e5ecd031653ab642fa3bda47b5578c25ee215a80c5740e4689d626596",
+        "registeredAt": {
+          "scope": "SYN_CASE_001|SYN_SIDE_A|SYN_FACT_001",
+          "scopeOrdinal": 1
+        },
+        "synthetic": true
+      },
+      "corr9": {
+        "kind": "EXCEPTION",
+        "class": "EFCAGateError",
+        "code": "NOT_ENTITLED",
+        "message": "NOT_ENTITLED: registration requires an Owner-approved custody entitlement for this precise tuple identity under the session's verified allocation authority; a registered CUSTODIAN role and knowledge of the tuple key are insufficient (OD-45-A)",
+        "args": [
+          "NOT_ENTITLED: registration requires an Owner-approved custody entitlement for this precise tuple identity under the session's verified allocation authority; a registered CUSTODIAN role and knowledge of the tuple key are insufficient (OD-45-A)"
+        ]
+      }
+    }
+  },
+  {
+    "id": "IV-B01-uniform-three-states",
+    "result": "PASS",
+    "detail": [
+      {
+        "kind": "EXCEPTION",
+        "class": "EFCAGateError",
+        "code": "NOT_ENTITLED",
+        "message": "NOT_ENTITLED: registration requires an Owner-approved custody entitlement for this precise tuple identity under the session's verified allocation authority; a registered CUSTODIAN role and knowledge of the tuple key are insufficient (OD-45-A)",
+        "args": [
+          "NOT_ENTITLED: registration requires an Owner-approved custody entitlement for this precise tuple identity under the session's verified allocation authority; a registered CUSTODIAN role and knowledge of the tuple key are insufficient (OD-45-A)"
+        ]
+      },
+      {
+        "kind": "EXCEPTION",
+        "class": "EFCAGateError",
+        "code": "NOT_ENTITLED",
+        "message": "NOT_ENTITLED: registration requires an Owner-approved custody entitlement for this precise tuple identity under the session's verified allocation authority; a registered CUSTODIAN role and knowledge of the tuple key are insufficient (OD-45-A)",
+        "args": [
+          "NOT_ENTITLED: registration requires an Owner-approved custody entitlement for this precise tuple identity under the session's verified allocation authority; a registered CUSTODIAN role and knowledge of the tuple key are insufficient (OD-45-A)"
+        ]
+      },
+      {
+        "kind": "EXCEPTION",
+        "class": "EFCAGateError",
+        "code": "NOT_ENTITLED",
+        "message": "NOT_ENTITLED: registration requires an Owner-approved custody entitlement for this precise tuple identity under the session's verified allocation authority; a registered CUSTODIAN role and knowledge of the tuple key are insufficient (OD-45-A)",
+        "args": [
+          "NOT_ENTITLED: registration requires an Owner-approved custody entitlement for this precise tuple identity under the session's verified allocation authority; a registered CUSTODIAN role and knowledge of the tuple key are insufficient (OD-45-A)"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "IV-C01-lawful-duplicate-malformed-competing",
+    "result": "PASS",
+    "detail": {
+      "tupleKey": "SYN_CASE_002|SYN_SIDE_B|SYN_FACT_002",
+      "canonicalHashInput": "93b380cbc4a0e97138b7b307ed7d526fc7a5159681f5ee458f3be22a4dfb3427",
+      "allocationDigest": "edcb34deb5528f68abcc570f6dac6c5b94d554376375535c256ab73b239b13ee",
+      "registeredAt": {
+        "scope": "SYN_CASE_002|SYN_SIDE_B|SYN_FACT_002",
+        "scopeOrdinal": 1
+      },
+      "synthetic": true
+    }
+  },
+  {
+    "id": "IV-D01-allocation-input-integrity-and-substitution",
+    "result": "PASS",
+    "detail": {
+      "extra_document": "ALLOCATIONS_MALFORMED",
+      "extra_entry": "ALLOCATIONS_MALFORMED",
+      "duplicate": "ALLOCATION_CONFLICT",
+      "conflicting": "ALLOCATION_CONFLICT",
+      "invalid_key": "NON_SYNTHETIC_IDENTIFIER",
+      "invalid_actor": "NON_SYNTHETIC_IDENTIFIER",
+      "wrong_id": "ALLOCATIONS_MALFORMED",
+      "not_list": "ALLOCATIONS_MALFORMED",
+      "malformed": "ALLOCATIONS_MALFORMED",
+      "malformed_pinned": "ALLOCATIONS_IDENTITY_MISMATCH",
+      "BOM": "ALLOCATIONS_MALFORMED",
+      "BOM_pinned": "ALLOCATIONS_IDENTITY_MISMATCH",
+      "pretty": "ALLOCATIONS_MALFORMED",
+      "pretty_pinned": "ALLOCATIONS_IDENTITY_MISMATCH",
+      "no_newline": "ALLOCATIONS_MALFORMED",
+      "no_newline_pinned": "ALLOCATIONS_IDENTITY_MISMATCH",
+      "extra_newline": "ALLOCATIONS_MALFORMED",
+      "extra_newline_pinned": "ALLOCATIONS_IDENTITY_MISMATCH",
+      "dup_json_key": "ALLOCATIONS_MALFORMED",
+      "dup_json_key_pinned": "ALLOCATIONS_IDENTITY_MISMATCH",
+      "substitute_pinned": "ALLOCATIONS_IDENTITY_MISMATCH",
+      "missing": "ALLOCATIONS_AUTHORITY_UNAVAILABLE",
+      "digest_kwarg": "TypeError"
+    }
+  },
+  {
+    "id": "IV-E01-identical-and-different-context-cross-mode",
+    "result": "PASS",
+    "detail": {
+      "same_digest": "53eb3ec43feb4de926e057e0dc17a857473872e4bbc9ff571e5937576c38ecb1",
+      "pinned_mode": "OWNER_PINNED",
+      "simulation_mode": "SIMULATION",
+      "different_digest": "4b2ae092222a48863bdf839d7db38dc9fe17b657d65b971b7f0910c2f6b6d7be"
+    }
+  },
+  {
+    "id": "IV-FG01-rehashed-semantic-forgeries-and-closed-schemas",
+    "result": "PASS",
+    "detail": {
+      "unauthorized": "PROCEDURALLY_INVALID_HISTORY",
+      "wrong_digest": "PROCEDURALLY_INVALID_HISTORY",
+      "missing_digest": "PROCEDURALLY_INVALID_HISTORY",
+      "genesis_mode": "AUTHORITY_CONTEXT_MISMATCH",
+      "genesis_digest": "AUTHORITY_CONTEXT_MISMATCH",
+      "genesis_missing_mode": "AUTHORITY_CONTEXT_MISMATCH",
+      "genesis_missing_digest": "AUTHORITY_CONTEXT_MISMATCH",
+      "extra_genesis": "PROCEDURALLY_INVALID_HISTORY",
+      "old_schema": "PROCEDURALLY_INVALID_HISTORY",
+      "mixed_event": "PROCEDURALLY_INVALID_HISTORY"
+    }
+  },
+  {
+    "id": "IV-H01-native-roundtrip-equivalence-extension",
+    "result": "PASS",
+    "detail": {
+      "first_events": 9,
+      "extended_events": 10
+    }
+  },
+  {
+    "id": "IV-I01-cross-actor-metamorphic-surfaces-F40-F44",
+    "result": "PASS",
+    "detail": {
+      "events_cust": "identical",
+      "events_p1": "identical",
+      "events_lb": "identical",
+      "diag_cust": "identical",
+      "diag_p1": "identical",
+      "own_custody": "identical",
+      "foreign_status": "identical",
+      "foreign_lane": "identical",
+      "foreign_custody": "identical",
+      "foreign_packet": "identical",
+      "foreign_issue": "identical",
+      "foreign_registration": "identical",
+      "negative_artifacts": [
+        {
+          "valid": false,
+          "reason": "not_a_lawful_projection"
+        },
+        {
+          "valid": false,
+          "reason": "not_a_lawful_projection"
+        },
+        {
+          "valid": false,
+          "reason": "not_a_lawful_projection"
+        }
+      ],
+      "lane_b_orders": [
+        {
+          "SYN_RLB_211": {
+            "laneBRecord": true,
+            "submissionId": "SYN_SUB_09b18acb28a859cd",
+            "causeLink": "UNASSIGNED_PENDING_J1"
+          },
+          "SYN_RLB_212": {
+            "laneBRecord": true,
+            "submissionId": "SYN_SUB_8a8029f81ad3331f",
+            "causeLink": "UNASSIGNED_PENDING_J1"
+          }
+        },
+        {
+          "SYN_RLB_212": {
+            "laneBRecord": true,
+            "submissionId": "SYN_SUB_8a8029f81ad3331f",
+            "causeLink": "UNASSIGNED_PENDING_J1"
+          },
+          "SYN_RLB_211": {
+            "laneBRecord": true,
+            "submissionId": "SYN_SUB_09b18acb28a859cd",
+            "causeLink": "UNASSIGNED_PENDING_J1"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "IV-J01-frozen-legacy-and-projection-firewall",
+    "result": "PASS",
+    "detail": {
+      "5": {
+        "native": "LEGACY_HISTORY_NOT_ADOPTABLE",
+        "legacy": {
+          "legacyHistory": true,
+          "engineActId": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR5",
+          "engineSha256": "e4118af938362c398a69d79f6b776b77fbfb39b71c71604b525eb9b56a02a1e0",
+          "integrityValid": true,
+          "eventCount": 9,
+          "legacyClassified": true,
+          "adopted": false,
+          "extendable": false,
+          "propositionsIndexed": 0,
+          "note": "read-only legacy admission under the frozen CORR5 semantics; the history is never extended by CORR6 events and is never upgraded to CORR6 proposition identities (compatibility guardrail)"
+        }
+      },
+      "6": {
+        "native": "NOT_A_NATIVE_HISTORY",
+        "legacy": "NOT_A_LEGACY_HISTORY"
+      },
+      "7": {
+        "native": "NOT_A_NATIVE_HISTORY",
+        "legacy": "NOT_A_LEGACY_HISTORY"
+      },
+      "8": {
+        "native": "NOT_A_NATIVE_HISTORY",
+        "legacy": "NOT_A_LEGACY_HISTORY"
+      }
+    }
+  },
+  {
+    "id": "IV-K01-scientific-firewall-and-five-field-packet",
+    "result": "PASS",
+    "detail": {
+      "packet_fields": [
+        "caseId",
+        "factId",
+        "questionText",
+        "sealedFactText",
+        "sideId"
+      ],
+      "evidence_record": {
+        "tupleKey": "SYN_CASE_001|SYN_SIDE_A|SYN_FACT_001",
+        "custodian": "SYN_CUST_001",
+        "rubricIdentity": {
+          "actId": "STAGE2_CORR4_L4_CAUSAL_TAXONOMY_OPERATIONALIZATION_1.CORR2.CORR2.CORR1.CORR1.CORR1.CORR1",
+          "fileName": "EFCA_CORR2_CORR2_CORR1_CORR1_CORR1_CORR1_GPT6_AUTHOR_CANDIDATE.md",
+          "sha256": "5bb887d269e9079754e5a4f7417cd08f58d4ad5d5ff14503ca1dd98646176eba",
+          "status": "VERIFIED_AT_RECORD_ISSUANCE"
+        },
+        "parentRubricIdentity": {
+          "actId": "STAGE2_CORR4_L4_CAUSAL_TAXONOMY_OPERATIONALIZATION_1.CORR2.CORR2.CORR1.CORR1.CORR1",
+          "sha256": "cf59fc80f013dfc660cee85a18699411ecdf5e650371ab741fdcfbe0c0d0fa11"
+        },
+        "contractIdentity": {
+          "fileName": "STAGE2_SEMANTIC_SUCCESSOR_CANDIDATE_CORR4.md",
+          "sha256": "2de49862fb0d63c5f1cd1745531199137e73b7b37abceecef6e735d497d38bb0",
+          "note": "Stage-2 controlling semantic contract identity recorded as a constant; the engine never opens this file."
+        },
+        "categoryAssignment": "UNASSIGNED",
+        "tupleLevelName": "UNASSIGNED",
+        "exclusivity": "NOT_CLAIMED",
+        "proceduralCompleteness": {
+          "phase1Sealed": false,
+          "effectivelyCleanPhase1Seals": [],
+          "custodyReceipt": false,
+          "revealed": [],
+          "deltaCount": 0,
+          "tupleLevelAtIssuance": "IN_PROGRESS",
+          "claimsAdjudicatedAtIssuance": 0,
+          "provenanceVerifiedNotAdjudicatedAtIssuance": 0,
+          "statement": "this record represents the procedural state at issuance and implies no seal, reveal, PROVISIONAL status or adjudication that did not occur",
+          "distinctBoundPropositionsAtIssuance": 0,
+          "allocationAuthorityMode": "OWNER_PINNED"
+        },
+        "synthetic": true
+      }
+    }
+  },
+  {
+    "id": "IV-L01-origin-mode-relabel-trust-characterization",
+    "result": "PASS",
+    "detail": {
+      "origin_mode": "SIMULATION",
+      "destination_mode": "OWNER_PINNED",
+      "replay": {
+        "kind": "RETURN",
+        "value": {
+          "restored": true,
+          "eventCount": 10,
+          "engineActId": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9",
+          "allocationAuthorityMode": "OWNER_PINNED"
+        }
+      },
+      "requester_evidence_mode": "OWNER_PINNED",
+      "candidate_source_modified": false
+    }
+  }
+]

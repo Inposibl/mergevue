@@ -1,0 +1,215 @@
+{
+  "actId": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9",
+  "actor": {
+    "agent": "DeepSeek",
+    "role": "CODER",
+    "mandate": "AGENTS.md section 2 (role router) + AGENTS_C.md (coder mandate, 2026-09-06 v1.1)",
+    "independenceStatement": "The implementing agent is not the Owner, the Orchestrator, the Git agent or an independent auditor of this work. This manifest and the authored test suite are self-validation evidence only."
+  },
+  "ownerAuthorization": {
+    "verbatim": "OWNER AUTHORIZES CORR9 G4 IMPLEMENTATION",
+    "controllingPrecedents": [
+      "OWNER ACCEPTS OD-45-A",
+      "OWNER ACCEPTS CORR9 ALLOCATION AUTHORITY G2",
+      "OWNER AUTHORIZES CORR9 ALLOCATION AUTHORITY G3 BINDING",
+      "OWNER AUTHORIZES G3.CORR1 DOCUMENTARY CORRECTION",
+      "Owner acceptance of the exact G3.CORR1 candidate following Orchestrator preflight PASS"
+    ],
+    "scope": "Eliminate F-45 (first-writer custody capture) by implementing the accepted OD-45-A independent custody-registration entitlement rule, using the exact G2 Owner-approved allocation authority physically bound through G3.CORR1; retain all verified CORR8 F-44 protections and the accepted EFCA scientific and procedural authority.",
+    "boundaries": [
+      "no formal Independent IV",
+      "no Git add/commit/push/checkout/branch/merge",
+      "no production wiring or deployment",
+      "no real historical tuple execution, no 1,094-ledger classification, no category assignment, no J-1/J-4, no J-2/J-3, no B5.8",
+      "no new scientific thresholds, no blind-reviewer contamination",
+      "no automatic authorization of any subsequent correction"
+    ]
+  },
+  "repository": {
+    "root": "/Users/entp_psyche/Desktop/InvestProjects2026/MergeVue PayProduct (june 2026)/MergeVue-M&A (August 2026)",
+    "branch": "main",
+    "baselineHead": "1335d2e23c58d2ff2df4286bbd3d6eff2ace485f",
+    "headAtCompletion": "1335d2e23c58d2ff2df4286bbd3d6eff2ace485f",
+    "headUnchanged": true,
+    "stagedModifications": 0,
+    "trackedModifications": 0,
+    "untrackedGrowth": "exactly WORKBENCH/AUDITS/STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1_CORR9/ (the authorized act directory); no other untracked path was created, removed or modified by this act"
+  },
+  "writeAllowlist": {
+    "directory": "WORKBENCH/AUDITS/STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1_CORR9/",
+    "finalFiles": [
+      "offline_efca.py",
+      "test_offline_efca.py",
+      "synthetic_fixtures.json",
+      "TEST_RESULTS.json",
+      "IMPLEMENTATION_REPORT.md",
+      "ACT_MANIFEST.json"
+    ],
+    "scratch": {
+      "path": "synthetic_runs/",
+      "stateAtCompletion": "empty",
+      "note": "disposable scratch; contains no surviving artifacts"
+    },
+    "readOnlyDependencies": [
+      "WORKBENCH/AUDITS/STAGE2_CORR4_L4_EFCA_CORR9_ALLOCATION_AUTHORITY_1_CORR1/ (Owner-accepted allocation authority; never written)",
+      "WORKBENCH/AUDITS/STAGE2_CORR4_L4_EFCA_OWNER_ACCEPTANCE_BINDING_1/ (accepted rubric + sidecar; never written)",
+      "WORKBENCH/AUDITS/STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1{,_CORR1.._CORR8}/ (immutable predecessors; never written)"
+    ]
+  },
+  "corr8Parent": {
+    "directory": "WORKBENCH/AUDITS/STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1_CORR8/",
+    "role": "immutable implementation parent and F-45 reproduction oracle; non-adoptable predecessor",
+    "files": {
+      "offline_efca.py": {"sha256": "b5ccce54527b23bff1a683c06ec47a3196f760436e458cd90c031da92db6a17f", "bytes": 202466},
+      "test_offline_efca.py": {"sha256": "1a770ca54e36bbb6e22d31e276b828138a60f6066652b273bbab27f2faf0c292", "bytes": 319040},
+      "synthetic_fixtures.json": {"sha256": "67de9301963539886fb43b2e3138c90d42c62d528fd715c848ea42116e4acd8c", "bytes": 6497},
+      "TEST_RESULTS.json": {"sha256": "5f778e48641e4dd1759b5c2eff8bea55f3b618bad80e09c655610a5222338074", "bytes": 146678},
+      "IMPLEMENTATION_REPORT.md": {"sha256": "45c08fb0b3779370835f7334819e6f33102735a189ecffb8a2c6866a99062e75", "bytes": 12008},
+      "ACT_MANIFEST.json": {"sha256": "7e008febba01f0fa16b1fc7ce5e4b36936f14adf21a8e476c641aba4d6f40066", "bytes": 11185}
+    },
+    "verifiedBeforeAndAfter": true,
+    "baselineSuite": "102/102 author-side tests passing (regression baseline; adapted for CORR9 to 117 tests with the F-45 family and C7 added)"
+  },
+  "g3Corr1Authority": {
+    "directory": "WORKBENCH/AUDITS/STAGE2_CORR4_L4_EFCA_CORR9_ALLOCATION_AUTHORITY_1_CORR1/",
+    "role": "read-only controlling allocation authority (G2 Owner-accepted, G3-bound, G3.CORR1-corrected)",
+    "files": {
+      "EFCA_CORR9_ALLOCATIONS_v1.json": {"sha256": "53eb3ec43feb4de926e057e0dc17a857473872e4bbc9ff571e5937576c38ecb1", "bytes": 716},
+      "EFCA_CORR9_ALLOCATIONS_v1.json.sha256": {"sha256": "8209554567f29c1dd0c10a9b50a4ff7f7c6ceef99012387d2a87db58b975a59d", "bytes": 97},
+      "README.md": {"sha256": "35ddeea82a0189a0b64f5c62ba0581eaf6c705bc5566b3c3c2ef7226d352eb55", "bytes": 7380},
+      "ACT_MANIFEST.json": {"sha256": "577cbbcc675fc2e69fac46787242491565e97a1372dd5913e909aebbb1f4e286", "bytes": 6790}
+    },
+    "allocationAuthorityId": "STAGE2_CORR4_L4_EFCA_CORR9_ALLOCATIONS_v1",
+    "ownerPinUsedByEngine": "53eb3ec43feb4de926e057e0dc17a857473872e4bbc9ff571e5937576c38ecb1",
+    "entries": 8,
+    "designatedCustodians": ["SYN_CUST_001"],
+    "encodedInEngineAs": "OWNER_ALLOCATIONS_SHA256; default path resolves the G3.CORR1 artifact relative to the module",
+    "wasWritten": false
+  },
+  "acceptedRubric": {
+    "file": "WORKBENCH/AUDITS/STAGE2_CORR4_L4_EFCA_OWNER_ACCEPTANCE_BINDING_1/EFCA_CORR2_CORR2_CORR1_CORR1_CORR1_CORR1_GPT6_AUTHOR_CANDIDATE.md",
+    "sha256": "5bb887d269e9079754e5a4f7417cd08f58d4ad5d5ff14503ca1dd98646176eba",
+    "bytes": 97712,
+    "verifiedByteExact": true
+  },
+  "files": {
+    "offline_efca.py": {"sha256": "cff11c1a25baddf4340e0dfff82923e58415505ead43fd9d257eb067c1be8143", "bytes": 233322, "lines": 4574},
+    "test_offline_efca.py": {"sha256": "d6af54af5fa76142454cff664e8d58b699e3b4de3302aafedadc430d8161a5d3", "bytes": 371607, "lines": 7132},
+    "synthetic_fixtures.json": {"sha256": "67de9301963539886fb43b2e3138c90d42c62d528fd715c848ea42116e4acd8c", "bytes": 6497, "lines": 109, "relation": "byte-identical to CORR8 (verified by cmp)"},
+    "TEST_RESULTS.json": {"sha256": "aa5eba440ecd668a17ffa9d1de536a7276d9f60155260ef8e0f1f7974c2b7eb1", "bytes": 158114},
+    "IMPLEMENTATION_REPORT.md": {"sha256": "863f0124d6200fff67b07e1d3b19bb7c58c76bc7b6a884f65f861ca40a4adf8e", "bytes": 28579},
+    "ACT_MANIFEST.json": {"sha256": "NOT_EMBEDDED_IN_ITSELF", "note": "the manifest's own SHA-256 and byte length are published in the act return report, never inside this file"}
+  },
+  "implementationSummary": {
+    "finding": "F-45 first-writer custody capture",
+    "correction": "Independent custody-registration entitlement (OD-45-A): tupleKey -> authorizedCustodian verified before any actor-facing operation; OWNER_PINNED/SIMULATION engine-derived authority modes bound as the immutable (mode, digest) pair in the CORR9-native GENESIS; engine-derived allocationDigest on TUPLE_REGISTERED recomputed live and on replay; engine-derived allocationAuthorityMode in the evidence-record proceduralCompleteness; ONE fixed uniform NOT_ENTITLED refusal across the unregistered/unallocated, foreign-allocated and foreign-registered states.",
+    "registrationOrder": ["actor identity and role", "state-independent input validation", "tuple-specific entitlement", "own registration/occupancy (entitled actors only)", "lawful registration transition"],
+    "preserved": "F-1 through F-44 (Lane B self-scoped filings, actor-local submission identity, scoped disclosure, namespace separation, oracle elimination, compatibility guardrail) except where OD-45-A explicitly alters initial registration authorization"
+  },
+  "testInventory": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 python3 test_offline_efca.py",
+    "executedFrom": "the CORR9 act directory",
+    "totals": {"total": 117, "passed": 117, "failed": 0, "errors": 0, "skipped": 0},
+    "exitCode": 0,
+    "familyCensus": {
+      "T-family retained": 42,
+      "F1-F44 retained": 54,
+      "C1-C6 retained": 6,
+      "F45 new": 14,
+      "C7 new": 1
+    },
+    "newTests": [
+      "test_F45_parent_reproduction_first_writer_capture",
+      "test_F45_uniform_refusal_across_states",
+      "test_F45_lawful_success_own_duplicate_and_digest",
+      "test_F45_actor_and_tuple_mismatch",
+      "test_F45_forged_and_malformed_authority_fail_construction",
+      "test_F45_identical_byte_cross_mode_collision",
+      "test_F45_different_manifest_cross_mode_refusal",
+      "test_F45_rehashed_forged_registrations_rejected",
+      "test_F45_genesis_relabeling_fails",
+      "test_F45_persistence_replay_and_extension",
+      "test_F45_no_foreign_authority_inference",
+      "test_F45_no_implicit_custody_from_lane_b_or_self_disclosure",
+      "test_F45_evidence_record_authority_marking",
+      "test_F45_sequential_competing_custodians_ordering",
+      "test_C7_corr8_candidate_immutable_and_non_adoptable"
+    ],
+    "retainedSuiteAdaptations": [
+      "F9: the hand-built lawful 'ahead' TUPLE_REGISTERED payload gained its engine-derived allocationDigest (005|A -> SYN_CUST_001); scenario intent (stale-writer lineage) unchanged",
+      "F15: the forged 009|A payload gained its correct allocationDigest so the synthetic-flag mutation is what the refusal exercises",
+      "F15b: dropping the GENESIS allocationsSha256/allocationAuthorityMode expects AUTHORITY_CONTEXT_MISMATCH (pre-replay construction-context refusal); drop_engineActId stays NOT_A_NATIVE_HISTORY",
+      "F19, F23, F37 (x2), F40, F41 (x2), F44_orders: explicit simulation sessions declare exactly the tuples each scenario registers; the eight-entry Owner-approved manifest was NOT broadened and no catch-all inventory exists"
+    ],
+    "assertionsWeakened": "none (no scientific, confidentiality, blindness or replay assertion changed)",
+    "postFreezeDocstringCorrection": "a retained CORR8-era class docstring describing F-45 in the present tense was corrected to historical wording (no test code, assertion or name changed); the suite was re-run and TEST_RESULTS.json regenerated with the same outcome (117/117 PASS, exit 0); this manifest binds the post-correction identities"
+  },
+  "preservationChecks": {
+    "corr8SixFiles": "byte-exact before and after (SHA-256 recomputed)",
+    "g3Corr1FourFiles": "byte-exact, never written",
+    "acceptedRubricAndSidecar": "byte-exact",
+    "predecessorEnginesCorr1Corr7AndOriginal": "byte-exact",
+    "semanticSuccessorContract": "byte-exact (snapshot)",
+    "syntheticFixtures": "byte-identical to CORR8 (cmp)",
+    "corr9FinalFileCount": 6,
+    "noPycacheOrPycResidue": true,
+    "syntheticRunsEmpty": true,
+    "gitDiffCheck": "clean",
+    "suiteEnforced": "the suite snapshots rubric, sidecar, contract, CORR9 authority + sidecar, CORR8 engine + suite and predecessor engines before/after the run and refuses exit 0 on any drift"
+  },
+  "gitReconciliation": {
+    "headUnchanged": true,
+    "staged": 0,
+    "trackedModifications": 0,
+    "untrackedGrowthLimitedToActDirectory": true,
+    "gitOperationsPerformed": "read-only inspection only (rev-parse, status --porcelain, diff --name-only, diff --cached, diff --check)",
+    "gitClosure": "NOT_PERFORMED"
+  },
+  "nativeHistoryCompatibility": {
+    "nativeRuleset": "CORR9 (selected by GENESIS act id; immutable per chain)",
+    "legacyAdmission": "frozen CORR5 only, read-only, never adopted/extended (differentially verified against the pinned CORR5 engine)",
+    "corr6Corr7Corr8Chains": "non-adoptable (NOT_A_NATIVE_HISTORY) and non-legacy (NOT_A_LEGACY_HISTORY); never relabelled CORR9-native",
+    "crossModeReplay": "an OWNER_PINNED history replays only against an OWNER_PINNED context and a simulation history only against its matching simulation context; refusal (AUTHORITY_CONTEXT_MISMATCH) adopts no partial state, including for byte-identical allocation bytes",
+    "mixedVersionHistories": "fail closed",
+    "oldSchemaEventsInCorr9History": "refused by exact-schema validation"
+  },
+  "selfValidation": {
+    "status": "PASS",
+    "classification": "AUTHOR_SELF_VALIDATION_ONLY",
+    "evidence": "TEST_RESULTS.json (all 117 test records, source-preservation before/after, git-state comparison, residue census, allocation-authority evidence block)",
+    "notClaimed": [
+      "independent verification",
+      "Owner acceptance",
+      "scientific predictive quality",
+      "production readiness",
+      "deployment fitness",
+      "security certification",
+      "multiprocess concurrency protection"
+    ]
+  },
+  "remainingHolds": [
+    "formal Independent IV: NOT_PERFORMED (not authorized in this act)",
+    "orchestratorPreflight: PENDING",
+    "ownerAcceptanceOfCorr9: NOT_GRANTED",
+    "gitClosure: NOT_PERFORMED (no Git mutation performed)",
+    "realTupleClassification: NOT_PERFORMED; categoryAssignment/tupleLevelName: UNASSIGNED; causeLink: UNASSIGNED_PENDING_J1",
+    "rubric MINOR findings V-IV1-MIN-01/V-IV1-MIN-02 and ADVISORY V-IV1-ADV-01 remain open and untouched"
+  ],
+  "implementationLifecycle": {
+    "od45a": "OWNER_ACCEPTED",
+    "g2AllocationAuthority": "OWNER_ACCEPTED",
+    "g3Corr1AuthorityBinding": "OWNER_ACCEPTED",
+    "corr9ImplementationAuthorization": "OWNER_AUTHORIZED",
+    "corr9Implementation": "CANDIDATE_COMPLETE",
+    "authorSelfValidation": "PASS",
+    "orchestratorPreflight": "PENDING",
+    "independentIV": "NOT_PERFORMED",
+    "ownerAcceptanceOfCorr9": "NOT_GRANTED",
+    "gitClosure": "NOT_PERFORMED",
+    "realTupleClassification": "NOT_PERFORMED",
+    "categoryAssignment": "UNASSIGNED",
+    "tupleLevelName": "UNASSIGNED",
+    "causeLink": "UNASSIGNED_PENDING_J1"
+  },
+  "preflightLineageNote": "The CORR9 design-preflight documents (CORR9.OD45A.DESIGN-PREFLIGHT-1 and its CORR1/CORR2 revisions) are recorded in the project's session records but are not physically present in this repository; nothing in this package relies on them as authority. The controlling inputs physically verified here are the Owner-approved allocation manifest bytes (G2/G3/G3.CORR1), the accepted rubric, the immutable predecessors and the Owner's G4 authorization."
+}

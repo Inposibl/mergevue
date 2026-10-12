@@ -1,0 +1,302 @@
+# MERGEVUE — CORR9 MAJ-01 OPTION B CONTRACT ALIGNMENT
+
+**Act:** `CORR9-MAJ01-OPTIONB-CONTRACT-ALIGNMENT-1`
+
+**Status:** CONTRACT CANDIDATE — PENDING OWNER ACCEPTANCE
+
+**Scope:** Offline, synthetic-only EFCA procedural enforcement
+
+**Implementation candidate:** `STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9`
+
+**Controlling Owner decision:**
+
+`OWNER SELECTS MAJ01 OPTION B — EXPLICIT TRUSTED-HOST BOUNDARY; ACCEPTS MAJ-01 AS NON-BLOCKING FOR OFFLINE SYNTHETIC-ONLY USE, SUBJECT TO REVISED INDEPENDENT VERIFICATION.`
+
+---
+
+## 1. Purpose
+
+Align the CORR9 verification contract with the Owner-selected trusted-host model without weakening the accepted OD-37, OD-38, OD-39, OD-45-A or EFCA scientific and procedural requirements.
+
+The alignment distinguishes three independent properties:
+
+1. Actor-level authorization and confidentiality.
+2. Native-history semantic integrity and mode-context consistency.
+3. Cryptographically authenticated historical origin.
+
+CORR9 MUST enforce properties 1 and 2 within its defined offline trust model.
+
+Property 3 is NOT established by the current implementation and is NOT required for the presently authorized synthetic-only trusted-host scope.
+
+No claim of authenticated origin may be inferred from a valid SHA-256 event chain alone.
+
+## 2. Preservation of the original audit
+
+Original independent audit:
+
+`STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1`
+
+Original result:
+
+`FAIL — BLOCKING=0, MAJOR=1`
+
+Finding:
+
+`CORR9-IV1-MAJ-01`
+
+The auditor independently demonstrated congruent, completely rehashed history relabelling between SIMULATION and OWNER_PINNED, including corresponding evidence-record relabelling, state adoption and lawful continuation.
+
+This historical finding MUST remain recorded as originally issued.
+
+The Owner's risk acceptance changes its blocking significance ONLY within the specifically approved trusted-host offline synthetic scope.
+
+The finding must not be deleted, rewritten as if it never existed, or retrospectively converted into an independent IV1 PASS.
+
+## 3. Trusted-host boundary
+
+### TB-01 — Trusted execution host
+
+The EFCA engine host is the trusted authority responsible for constructing sessions, controlling complete native histories and invoking host persistence and restoration operations.
+
+This is an external execution-boundary assumption. The existence of host-only methods in a Python module does not, by itself, establish operating-system access control, process isolation or caller authentication.
+
+### TB-02 — Actor-facing access
+
+Actors operating through authorized EFCA requester interfaces MUST NOT obtain an operation permitting arbitrary reading, replacement, rewriting or restoration of authoritative complete histories.
+
+Actor-facing operations MUST preserve the established OD-37 disclosure boundary.
+
+### TB-03 — Host persistence
+
+Within the currently authorized workflow, authoritative histories MUST be generated and restored through the trusted engine-host workflow.
+
+Untrusted external history files MUST NOT be promoted into OWNER_PINNED authority solely because they pass internal schema, SHA-256-chain and semantic-replay checks.
+
+### TB-04 — Environment prerequisites
+
+Before CORR9 is integrated into any externally reachable application, that integration must independently demonstrate:
+
+- Isolation of host persistence operations from requester operations.
+- Appropriate filesystem and process permissions.
+- Prevention of untrusted history replacement or upload-to-restore paths.
+- Preservation of the OWNER_PINNED/SIMULATION separation.
+- Explicit treatment of compromised-host and privileged-filesystem scenarios.
+
+These are future integration obligations, not claims that the current offline candidate has already proved production isolation.
+
+## 4. Mandatory implementation invariants
+
+### INV-01 — Owner authority pin
+
+OWNER_PINNED construction MUST derive its effective allocation authority from the exact Owner-approved, G3.CORR1-bound allocation artifact.
+
+The controlling allocation-document SHA-256 is:
+
+`53eb3ec43feb4de926e057e0dc17a857473872e4bbc9ff571e5937576c38ecb1`
+
+Caller-supplied JSON, caller-computed digests or alternative allocation files MUST NOT independently establish Owner approval.
+
+### INV-02 — Registration entitlement
+
+The mandatory registration order remains:
+
+1. Validate actor identity and CUSTODIAN role.
+2. Validate state-independent request inputs.
+3. Verify entitlement for the exact tuple.
+4. For an entitled actor only, inspect own registration/occupancy.
+5. Perform the lawful registration transition.
+
+A non-entitled actor MUST receive identical NOT_ENTITLED code and message for absent/unallocated, foreign-allocated and foreign-registered tuple states.
+
+Denied operations MUST NOT mutate authoritative history or requester-visible state.
+
+### INV-03 — Engine-derived modes
+
+The effective authority mode MUST be derived by the engine.
+
+Explicit simulation construction MUST remain SIMULATION even when its allocation bytes are identical to the Owner-pinned artifact.
+
+Caller-selected modes MUST NOT be accepted as proof of authority.
+
+### INV-04 — Untampered native-history separation
+
+An unchanged SIMULATION-native history MUST NOT restore into an OWNER_PINNED context.
+
+An unchanged OWNER_PINNED-native history MUST NOT restore into a SIMULATION context.
+
+Both refusals MUST be verified even when the underlying allocation bytes and allocation digest are identical.
+
+### INV-05 — Native semantic replay
+
+Live and replay execution MUST validate the same procedural entitlements and engine-derived allocationDigest.
+
+Correctly rehashing an unauthorized registration, a mismatched allocationDigest or an otherwise illegal transition MUST NOT make that event lawful.
+
+### INV-06 — Evidence mode
+
+Evidence records produced by native engine operations MUST carry the correct engine-derived allocationAuthorityMode.
+
+Native SIMULATION issuance MUST NOT claim OWNER_PINNED.
+
+A record's declared mode is procedural context metadata, NOT standalone cryptographic proof of the origin of a subsequently supplied history file.
+
+### INV-07 — Existing procedural safeguards
+
+All previously established confidentiality, blind-review, Lane B, namespace, persistence and compatibility protections F-1–F-44 MUST be retained.
+
+The CORR5 legacy admission path remains read-only and non-adoptable.
+
+CORR6, CORR7 and CORR8 histories MUST NOT be silently adopted as CORR9-native histories.
+
+### INV-08 — Scientific firewall
+
+The implementation MUST NOT assign scientific categories, decide causal links or authorize real historical execution.
+
+The following values remain:
+
+`categoryAssignment = UNASSIGNED`
+
+`tupleLevelName = UNASSIGNED`
+
+`causeLink = UNASSIGNED_PENDING_J1`
+
+Phase-1 packet structure remains exactly five fields.
+
+## 5. Explicit non-guarantee — NG-01
+
+The offline EFCA SHA-256 event chain is NOT an independently authenticated attestation of history origin.
+
+A privileged filesystem/process actor capable of replacing an entire persisted chain and recomputing its hashes may create a procedurally consistent substitute history.
+
+A congruent rewrite of GENESIS authority mode and issued evidence metadata may be accepted when the rewritten history matches the receiving host context.
+
+This is a KNOWN, INDEPENDENTLY REPRODUCED LIMITATION under the accepted trusted-host model.
+
+The limitation MUST remain visible in the audit findings and evidence documentation.
+
+No external signature, authenticated checkpoint, hardware trust anchor or equivalent origin-proof mechanism is claimed.
+
+## 6. External evidence acquisition
+
+The origin of retrieved source documents and the authority of EFCA native histories are separate matters.
+
+Obtaining corporate information from official websites, regulatory filings or other trusted document sources does NOT authenticate the origin of an EFCA persisted history.
+
+Retrieved documents are evidence inputs. They do not confer permission to modify host files, select authority modes, issue host commands or assert Owner approval.
+
+Any future retrieval-to-EFCA integration must maintain that separation.
+
+## 7. Revised independent verification — mandatory checks
+
+The next independent verification must inspect the exact unchanged CORR9 candidate, with new identity verification before execution.
+
+### RV-01 — Physical identity
+
+Verify all six CORR9 candidate hashes, the Owner-approved allocation authority, the accepted rubric and all controlling predecessors.
+
+### RV-02 — Full regression
+
+Independently reproduce the complete 117-test suite in an isolated environment.
+
+No original source or test may be modified to obtain PASS.
+
+### RV-03 — F-45 actor authorization
+
+Independently reproduce the original first-writer flaw on CORR8.
+
+Verify the corrected behavior on CORR9, including uniform refusal, lawful registration, correct entitlement and refusal immutability.
+
+### RV-04 — Authority-mode construction
+
+Prove that mode selection is engine-derived and that simulation input cannot produce OWNER_PINNED through the supported constructor interface.
+
+### RV-05 — Unchanged cross-mode history
+
+Demonstrate refusal of genuine, unmodified histories across authority modes in both directions, including identical allocation bytes.
+
+### RV-06 — Forged history transparency
+
+Retain the full MAJ-01 adversarial reproduction as a mandatory test.
+
+Do NOT expect the current engine to prevent congruent privileged-file rewrites.
+
+Document the observed success or failure faithfully.
+
+Classify a successful congruent rewrite as the accepted NG-01 limitation ONLY when the attack requires capabilities expressly outside the current trusted-host actor boundary.
+
+Any reproduction through an authorized untrusted actor-facing operation is a new in-scope defect and MUST NOT be excused by NG-01.
+
+### RV-07 — Live/replay semantic integrity
+
+Use correctly rehashed adversarial events to verify that unauthorized registration, incorrect allocationDigest, schema violations and forged transitions remain rejected.
+
+### RV-08 — Evidence semantics
+
+Verify that evidence records issued through lawful native operations represent their actual engine-derived mode.
+
+The test must distinguish lawful native issuance from privileged substitution of a persisted file.
+
+### RV-09 — Requester/host separation
+
+Inventory all requester-facing methods, their parameters, returned artifacts and reachable history operations.
+
+Confirm the absence of requester-accessible complete-history replacement or restoration functionality within the audited offline API surface.
+
+Clearly identify any host boundary assumptions that cannot be independently demonstrated without integration/runtime evidence.
+
+### RV-10 — Source and Git preservation
+
+Verify that candidate, predecessor, rubric and allocation authority bytes remain unchanged.
+
+No Git mutation, source alteration, production connection or real historical execution is permitted.
+
+## 8. Revised verdict criteria
+
+**PASS**
+
+The exact unchanged implementation satisfies all in-scope normative invariants INV-01 through INV-08 and RV-01 through RV-10; there are no unaccepted BLOCKING or MAJOR violations within the defined trusted-host offline synthetic scope.
+
+NG-01 remains expressly disclosed as an Owner-risk-accepted limitation.
+
+A revised PASS does not assert authenticated history origin.
+
+**FAIL**
+
+A reproducible violation of an in-scope invariant exists, including unauthorized first-writer registration, a requester-facing history-forgery path, simulation-to-Owner authority escalation through permitted actor operations, or regression of prior safeguards.
+
+**HOLD**
+
+The necessary authority, repository, test environment, or evidence is unavailable to establish required in-scope properties.
+
+Do not substitute a declaration of trusted-host separation for an actual verification of the available requester-facing code paths.
+
+## 9. Required output of the revised audit
+
+The independent report must contain:
+
+1. Exact audited identities.
+2. A complete 117-test execution record.
+3. Independent adversarial reproductions.
+4. Spec → Code → Test → Evidence → Trust Boundary matrix.
+5. A complete inventory of relevant actor-facing and host-facing entrypoints.
+6. A preserved MAJ-01 attack reproduction and its explicit disposition.
+7. A list of verified implementation properties.
+8. A separate list of assumed but not demonstrated host-environment properties.
+9. Any new defects, with severity and reproductions.
+10. PASS / FAIL / HOLD within the revised scope.
+
+The independent auditor MUST NOT promote the original IV1 result to PASS retroactively.
+
+## 10. Lifecycle and subsequent gates
+
+Owner selection of Option B is accepted as a bounded risk decision.
+
+This document remains an authored alignment candidate until separately accepted by the Owner.
+
+No independent verification is authorized by this alignment act alone.
+
+No Git closure, production integration, scientific categorization, 1,094-disagreement processing, J-1/J-4, J-2/J-3 or B5.8 execution is authorized.
+
+An implementation acceptance, revised independent verification, documentary binding and eventual Git closure each retain their applicable separate authority gates.
+
+Any future deployment that exposes untrusted history import, grants agents filesystem/process access to authoritative histories, or depends on externally authenticated evidence origin requires a new security/authority decision before use.

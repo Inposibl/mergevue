@@ -1,0 +1,84 @@
+{
+  "SIMULATION->OWNER_PINNED": {
+    "untouchedControl": {
+      "kind": "EXCEPTION",
+      "class": "EFCAGateError",
+      "code": "AUTHORITY_CONTEXT_MISMATCH",
+      "message": "AUTHORITY_CONTEXT_MISMATCH: the restored chain's allocation-authority context (mode='SIMULATION') does not match this session's effective construction context (mode='OWNER_PINNED'); owner-pinned and simulation histories are never interchangeable, including when the allocation bytes and digest are identical (OD-45-A/F-45)",
+      "args": [
+        "AUTHORITY_CONTEXT_MISMATCH: the restored chain's allocation-authority context (mode='SIMULATION') does not match this session's effective construction context (mode='OWNER_PINNED'); owner-pinned and simulation histories are never interchangeable, including when the allocation bytes and digest are identical (OD-45-A/F-45)"
+      ]
+    },
+    "fullyRehashedChainValid": true,
+    "observedRestore": {
+      "kind": "RETURN",
+      "value": {
+        "restored": true,
+        "eventCount": 10,
+        "engineActId": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9",
+        "allocationAuthorityMode": "OWNER_PINNED"
+      }
+    },
+    "stateBeforeSha256": "622ff4afe76d152f8fbc3d3daf5ce413b70f14bdaeea2131c5c651d57daf4b0b",
+    "stateAfterSha256": "4df39715a93c62be3a12cdd73d29ac0ac1808556ae0233f2b2483162bd9e00a7",
+    "requesterEvidenceMode": "OWNER_PINNED",
+    "continuedRegistration": {
+      "tupleKey": "SYN_CASE_003|SYN_SIDE_A|SYN_FACT_003",
+      "canonicalHashInput": "81d1a6c618ae92f296257f4ab6fcfd7fd50fafc0e9b60c6a3c1e460a2a1fd262",
+      "allocationDigest": "1926be8a915eb9fe3c8add15d2d5076a38104ccbd6334cb1178f94ee29735259",
+      "registeredAt": {
+        "scope": "SYN_CASE_003|SYN_SIDE_A|SYN_FACT_003",
+        "scopeOrdinal": 1
+      },
+      "synthetic": true
+    },
+    "continuedEvidenceMode": "OWNER_PINNED",
+    "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/SYNSESS_bfb2b9bb7157/host_chain/mode_origin_SIMULATION.jsonl",
+    "forgedPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/mode_congruent_forgery_OWNER_PINNED.jsonl",
+    "expectedUnderCurrentAuditContract": "refusal of forged cross-mode provenance without state adoption",
+    "contractSatisfied": false,
+    "sourceConstantsModified": false,
+    "allocationBytesModified": false
+  },
+  "OWNER_PINNED->SIMULATION": {
+    "untouchedControl": {
+      "kind": "EXCEPTION",
+      "class": "EFCAGateError",
+      "code": "AUTHORITY_CONTEXT_MISMATCH",
+      "message": "AUTHORITY_CONTEXT_MISMATCH: the restored chain's allocation-authority context (mode='OWNER_PINNED') does not match this session's effective construction context (mode='SIMULATION'); owner-pinned and simulation histories are never interchangeable, including when the allocation bytes and digest are identical (OD-45-A/F-45)",
+      "args": [
+        "AUTHORITY_CONTEXT_MISMATCH: the restored chain's allocation-authority context (mode='OWNER_PINNED') does not match this session's effective construction context (mode='SIMULATION'); owner-pinned and simulation histories are never interchangeable, including when the allocation bytes and digest are identical (OD-45-A/F-45)"
+      ]
+    },
+    "fullyRehashedChainValid": true,
+    "observedRestore": {
+      "kind": "RETURN",
+      "value": {
+        "restored": true,
+        "eventCount": 10,
+        "engineActId": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9",
+        "allocationAuthorityMode": "SIMULATION"
+      }
+    },
+    "stateBeforeSha256": "b2a2ef4f99fd8135e3f3717f7e752e7c708de686b3afc2a4173c2e79230b9835",
+    "stateAfterSha256": "2c6c537f12a57352c9c3e897875d7c5d06d745d6e784a29f545ffea87bb804b4",
+    "requesterEvidenceMode": "SIMULATION",
+    "continuedRegistration": {
+      "tupleKey": "SYN_CASE_003|SYN_SIDE_A|SYN_FACT_003",
+      "canonicalHashInput": "81d1a6c618ae92f296257f4ab6fcfd7fd50fafc0e9b60c6a3c1e460a2a1fd262",
+      "allocationDigest": "1926be8a915eb9fe3c8add15d2d5076a38104ccbd6334cb1178f94ee29735259",
+      "registeredAt": {
+        "scope": "SYN_CASE_003|SYN_SIDE_A|SYN_FACT_003",
+        "scopeOrdinal": 1
+      },
+      "synthetic": true
+    },
+    "continuedEvidenceMode": "SIMULATION",
+    "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/SYNSESS_dd5b9e06ecdb/host_chain/mode_origin_OWNER_PINNED.jsonl",
+    "forgedPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/mode_congruent_forgery_SIMULATION.jsonl",
+    "expectedUnderCurrentAuditContract": "refusal of forged cross-mode provenance without state adoption",
+    "contractSatisfied": false,
+    "sourceConstantsModified": false,
+    "allocationBytesModified": false
+  }
+}

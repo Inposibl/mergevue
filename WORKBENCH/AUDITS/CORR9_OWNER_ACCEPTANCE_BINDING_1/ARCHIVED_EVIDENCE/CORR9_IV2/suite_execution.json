@@ -1,0 +1,14 @@
+{
+  "command": [
+    "python3",
+    "test_offline_efca.py"
+  ],
+  "cwd": "/private/tmp/mergevue_corr9_iv2_odn67a24/repo/WORKBENCH/AUDITS/STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1_CORR9",
+  "python": "3.9.4",
+  "platform": "macOS-10.16-x86_64-i386-64bit",
+  "startUTC": "2026-10-12T11:25:58.148978+00:00",
+  "endUTC": "2026-10-12T11:26:00.779778+00:00",
+  "durationSeconds": 2.630787375,
+  "exitCode": 0,
+  "log": "full_suite.log"
+}

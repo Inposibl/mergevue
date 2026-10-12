@@ -1,0 +1,232 @@
+[
+  {
+    "specId": "TB-01",
+    "codeLocation": "EFCASession.__init__ 2984\u20133050; register_actor 3073\u20133077; host channel 4337\u20134556",
+    "test": "RV04-CONSTRUCTOR; RV09-REQUESTER-HOST",
+    "observedOutcome": "Trusted setup identified. Direct Python object can call host methods and pass foreign IDs. External identity binding/isolation is not enforced.",
+    "evidence": "api_inventory.json; independent_results.json",
+    "trustBoundary": "Trusted host / direct process access",
+    "proofClass": "STATIC + INDEPENDENT-PROBE + ASSUMPTION",
+    "verdict": "PASS"
+  },
+  {
+    "specId": "TB-02",
+    "codeLocation": "events 3997\u20134038; persist_history 4242\u20134295; verify_persisted_history 4297\u20134327; scoped workflow methods 3079\u20134187",
+    "test": "RV09-REQUESTER-HOST; F37/F40/F41/F42/F43",
+    "observedOutcome": "Scoped projections, constant negatives, no authoritative import via inspected requester calls; no transitive requester\u2192host call edge. Restricting actual caller capabilities remains external.",
+    "evidence": "api_inventory.json; independent_results.json",
+    "trustBoundary": "Actor operations with host-bound identity; withholding object/host access assumed",
+    "proofClass": "STATIC + INDEPENDENT-PROBE + ASSUMPTION",
+    "verdict": "PASS"
+  },
+  {
+    "specId": "TB-03",
+    "codeLocation": "persist_global_history 4337\u20134389; restore_global_history 4405\u20134497",
+    "test": "RV05-RV06-RV08-BIDIRECTIONAL",
+    "observedOutcome": "Native round trips work; whole-history substitutes are accepted. Trusted provenance/admission cannot be inferred from envelope/semantic checks.",
+    "evidence": "independent_results.json; supplemental_results.json; iv2_runs/iv2_forged_to_*.jsonl",
+    "trustBoundary": "Trusted host / privileged filesystem",
+    "proofClass": "INDEPENDENT-PROBE + ASSUMPTION",
+    "verdict": "PASS"
+  },
+  {
+    "specId": "TB-04",
+    "codeLocation": "No deployment isolation implementation in six-file candidate",
+    "test": "RV09-REQUESTER-HOST; source reference search",
+    "observedOutcome": "Future integration obligations preserved; no deployed isolation, upload prevention or permissions verified.",
+    "evidence": "api_inventory.json; report \u00a712",
+    "trustBoundary": "Future integration",
+    "proofClass": "STATIC + ASSUMPTION",
+    "verdict": "PASS"
+  },
+  {
+    "specId": "INV-01",
+    "codeLocation": "_load_pinned_authority 1837\u20131866; _parse_allocation_document 1767\u20131815",
+    "test": "RV04-CONSTRUCTOR; F45 authority tests",
+    "observedOutcome": "Exact approved pin only; substitute and missing pinned artifacts refuse; equal approved bytes at another path retain approval.",
+    "evidence": "independent_results.json; preservation_before.json",
+    "trustBoundary": "Trusted constructor / source pin",
+    "proofClass": "INDEPENDENT-PROBE + STATIC",
+    "verdict": "PASS"
+  },
+  {
+    "specId": "INV-02",
+    "codeLocation": "register_tuple 3079\u20133154; _check_transition 2472\u20132496",
+    "test": "RV03-F45; F45 regression tests",
+    "observedOutcome": "CORR8 captures; CORR9 uniform NOT_ENTITLED in three states, no mutation; own registration/digest/duplicate and both competing orders verified.",
+    "evidence": "independent_results.json#RV03-F45",
+    "trustBoundary": "Actor with host-bound ID / exact allocation",
+    "proofClass": "INDEPENDENT-PROBE + AUTHOR-TEST-REPRODUCED",
+    "verdict": "PASS"
+  },
+  {
+    "specId": "INV-03",
+    "codeLocation": "__init__ 2984\u20133050; _load_simulation_authority 1869\u20131898",
+    "test": "RV04-CONSTRUCTOR",
+    "observedOutcome": "All eight authority-source combinations checked; explicit simulation remains simulation at same digest; mode/digest kwargs refuse; input mutations do not alter effective mapping.",
+    "evidence": "independent_results.json#RV04-CONSTRUCTOR",
+    "trustBoundary": "Trusted host construction",
+    "proofClass": "INDEPENDENT-PROBE",
+    "verdict": "PASS"
+  },
+  {
+    "specId": "INV-04",
+    "codeLocation": "restore_global_history 4457\u20134466; _check_transition 2394\u20132424",
+    "test": "RV05-RV06-RV08-BIDIRECTIONAL",
+    "observedOutcome": "Unchanged native opposite-mode histories refuse both directions at identical allocation digest; events/index/authority unchanged.",
+    "evidence": "independent_results.json#RV05-RV06-RV08-BIDIRECTIONAL",
+    "trustBoundary": "Untouched host histories",
+    "proofClass": "INDEPENDENT-PROBE",
+    "verdict": "PASS"
+  },
+  {
+    "specId": "INV-05",
+    "codeLocation": "_check_transition 2349\u20132961; _transition 3054\u20133069; restore_global_history 4467\u20134492",
+    "test": "RV07-SEMANTIC; RV07-PHYSICAL-GATE-AND-NATIVE-DURABILITY",
+    "observedOutcome": "Correctly rehashed illegal registrations, digests, schemas, evidence and order refuse; empty/nonempty destinations adopt nothing; physical rubric failure blocks live/replay.",
+    "evidence": "independent_results.json; supplemental_results.json",
+    "trustBoundary": "Actor transitions / host replay",
+    "proofClass": "INDEPENDENT-PROBE",
+    "verdict": "PASS"
+  },
+  {
+    "specId": "INV-06",
+    "codeLocation": "_evidence_record_payload_in 2279\u20132342; issue_evidence_record 3661\u20133674; _check_transition 2939\u20132961",
+    "test": "RV05-RV06-RV08-BIDIRECTIONAL; RV07-SEMANTIC",
+    "observedOutcome": "Lawful evidence mode equals derived mode; no allocation inventory added; isolated snapshot forgeries refuse; substituted full history metadata is not origin proof.",
+    "evidence": "independent_results.json",
+    "trustBoundary": "Lawful issuance / privileged file substitution",
+    "proofClass": "INDEPENDENT-PROBE",
+    "verdict": "PASS"
+  },
+  {
+    "specId": "INV-07",
+    "codeLocation": "Scoped methods 3079\u20134327; compatibility 4405\u20134556; retained CORR8\u21929 test/AST diff",
+    "test": "117 unchanged tests; RV09-REQUESTER-HOST; RV07-RV08-INV07-INV08; supplements",
+    "observedOutcome": "All retained 102 tests executed plus 15 additions; blind/scoped/Lane B/proposition/native/legacy properties preserved in independent scenarios.",
+    "evidence": "full_suite.log; generated TEST_RESULTS.json; independent_results.json; supplemental_results.json",
+    "trustBoundary": "Actor disclosure / host durability",
+    "proofClass": "AUTHOR-TEST-REPRODUCED + INDEPENDENT-PROBE + STATIC",
+    "verdict": "PASS"
+  },
+  {
+    "specId": "INV-08",
+    "codeLocation": "fetch_packet 3175\u20133196; category_assignment 3774\u20133782; evidence 2279\u20132342; Lane B 3377\u20133440",
+    "test": "RV07-RV08-INV07-INV08; RV07-SEMANTIC",
+    "observedOutcome": "Exactly five packet fields; UNASSIGNED values and pending-J1 causeLink; scientific promotion in replay refuses; provenance is not adjudication.",
+    "evidence": "independent_results.json",
+    "trustBoundary": "Synthetic procedural / scientific firewall",
+    "proofClass": "INDEPENDENT-PROBE + AUTHOR-TEST-REPRODUCED",
+    "verdict": "PASS"
+  },
+  {
+    "specId": "NG-01",
+    "codeLocation": "restore_global_history 4457\u20134492; _check_transition 2939\u20132961",
+    "test": "RV05-RV06-RV08-BIDIRECTIONAL",
+    "observedOutcome": "Complete GENESIS/evidence rewrite plus rehash restores both directions; scoped output relabelled, state adopted, lawful extension succeeds. Accepted limitation only outside requester capability model.",
+    "evidence": "iv2_runs/iv2_forged_to_*.jsonl; independent_results.json",
+    "trustBoundary": "Privileged history filesystem + host restore",
+    "proofClass": "INDEPENDENT-PROBE",
+    "verdict": "PASS"
+  },
+  {
+    "specId": "RV-01",
+    "codeLocation": "Six-file package; fixed constants and loaders; predecessor imports",
+    "test": "Fresh hash gate and unchanged-suite pinned loaders",
+    "observedOutcome": "All mandatory candidate/contract/rubric/G3.CORR1/CORR8 identities match; predecessor sources and prior audit evidence identified.",
+    "evidence": "preservation_before.json; full_suite.log; report \u00a72",
+    "trustBoundary": "Pinned bytes / authority records",
+    "proofClass": "INDEPENDENT-PROBE",
+    "verdict": "PASS"
+  },
+  {
+    "specId": "RV-02",
+    "codeLocation": "test_offline_efca.py unchanged, 7132 lines",
+    "test": "python3 test_offline_efca.py",
+    "observedOutcome": "117 executed, 117 PASS, exit 0, no skip/error/failure; new generated records outside original repository.",
+    "evidence": "suite_execution.json; full_suite.log; generated TEST_RESULTS.json",
+    "trustBoundary": "Disposable copied repository",
+    "proofClass": "AUTHOR-TEST-REPRODUCED",
+    "verdict": "PASS"
+  },
+  {
+    "specId": "RV-03",
+    "codeLocation": "register_tuple 3079\u20133154",
+    "test": "RV03-F45",
+    "observedOutcome": "Parent capture and independent correction oracle pass; both orders and refusal immutability.",
+    "evidence": "independent_results.json; supplemental_results.json; api_inventory.json",
+    "trustBoundary": "Actor",
+    "proofClass": "INDEPENDENT-PROBE",
+    "verdict": "PASS"
+  },
+  {
+    "specId": "RV-04",
+    "codeLocation": "__init__ 2984\u20133050",
+    "test": "RV04-CONSTRUCTOR",
+    "observedOutcome": "Constructor forms/conflicts/pin/input immutability independently checked.",
+    "evidence": "independent_results.json; supplemental_results.json; api_inventory.json",
+    "trustBoundary": "Trusted construction",
+    "proofClass": "INDEPENDENT-PROBE",
+    "verdict": "PASS"
+  },
+  {
+    "specId": "RV-05",
+    "codeLocation": "restore_global_history 4457\u20134466",
+    "test": "RV05-RV06-RV08-BIDIRECTIONAL",
+    "observedOutcome": "Opposite-mode genuine histories both refuse with zero adoption.",
+    "evidence": "independent_results.json; supplemental_results.json; api_inventory.json",
+    "trustBoundary": "Untouched host history",
+    "proofClass": "INDEPENDENT-PROBE",
+    "verdict": "PASS"
+  },
+  {
+    "specId": "RV-06",
+    "codeLocation": "restore_global_history 4405\u20134497",
+    "test": "RV05-RV06-RV08-BIDIRECTIONAL",
+    "observedOutcome": "Full successful bidirectional laundering retained; NG-01 bounded disposition.",
+    "evidence": "independent_results.json; supplemental_results.json; api_inventory.json",
+    "trustBoundary": "Privileged filesystem / host",
+    "proofClass": "INDEPENDENT-PROBE",
+    "verdict": "PASS"
+  },
+  {
+    "specId": "RV-07",
+    "codeLocation": "_check_transition 2349\u20132961",
+    "test": "RV07-SEMANTIC",
+    "observedOutcome": "13 rehashed hostile chains rejected in empty and nonempty destinations; supplemental rubric and mixed-legacy failures pass.",
+    "evidence": "independent_results.json; supplemental_results.json; api_inventory.json",
+    "trustBoundary": "Actor legality / host replay",
+    "proofClass": "INDEPENDENT-PROBE",
+    "verdict": "PASS"
+  },
+  {
+    "specId": "RV-08",
+    "codeLocation": "Evidence construction 2279\u20132342, 3661\u20133674",
+    "test": "RV05-RV06-RV08-BIDIRECTIONAL",
+    "observedOutcome": "Exact native mode and procedural evidence observed both ways, contrasted with substitute history.",
+    "evidence": "independent_results.json; supplemental_results.json; api_inventory.json",
+    "trustBoundary": "Native issuance versus substituted file",
+    "proofClass": "INDEPENDENT-PROBE",
+    "verdict": "PASS"
+  },
+  {
+    "specId": "RV-09",
+    "codeLocation": "API methods 2984\u20134556",
+    "test": "RV09-REQUESTER-HOST",
+    "observedOutcome": "30 public/setup/host entrypoints inventoried; 24 scoped/constant operations; no requester-to-host self-call path; direct object counterexamples and external assumptions disclosed.",
+    "evidence": "independent_results.json; supplemental_results.json; api_inventory.json",
+    "trustBoundary": "Actor / host / future isolation",
+    "proofClass": "INDEPENDENT-PROBE + STATIC + ASSUMPTION",
+    "verdict": "PASS"
+  },
+  {
+    "specId": "RV-10",
+    "codeLocation": "Original repository/candidate/dependency/evidence set",
+    "test": "Before/after exact bytes and expanded Git status",
+    "observedOutcome": "710 repository files and 19 prior-evidence files unchanged; root/HEAD/branch/status/diffs unchanged; no original residue.",
+    "evidence": "preservation_before.json; preservation_after.json; preservation_comparison.json",
+    "trustBoundary": "Original repository versus audit sandbox",
+    "proofClass": "INDEPENDENT-PROBE",
+    "verdict": "PASS"
+  }
+]

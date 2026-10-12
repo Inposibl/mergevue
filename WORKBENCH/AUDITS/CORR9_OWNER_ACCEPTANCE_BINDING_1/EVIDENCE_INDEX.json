@@ -1,0 +1,1651 @@
+{
+  "schema": "CORR9_OWNER_ACCEPTANCE_BINDING_1.EVIDENCE_INDEX.v1",
+  "actId": "CORR9-OWNER-ACCEPTANCE-BINDING-1",
+  "generatedUTC": "2026-10-12T14:32:05Z",
+  "generator": "deterministic hash census by documentary author; not an independent verification",
+  "evidenceClasses": {
+    "OWNER_FACT": "current Owner instruction or Owner decision record",
+    "SOURCE_ARTIFACT_IMPLEMENTATION_CANDIDATE": "exact accepted CORR9 bytes",
+    "ORIGINAL_AUDIT_OUTPUT (subsequently copied)": "bytes written by an independent auditor, copied by this act without change",
+    "AGENT_AUTHORED_RECORD": "author/agent lifecycle record; preserved, not upgraded"
+  },
+  "corr9Candidate": {
+    "directory": "WORKBENCH/AUDITS/STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1_CORR9/",
+    "files": [
+      {
+        "path": "WORKBENCH/AUDITS/STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1_CORR9/offline_efca.py",
+        "bytes": 233322,
+        "sha256": "cff11c1a25baddf4340e0dfff82923e58415505ead43fd9d257eb067c1be8143",
+        "ownerStatedSha256": "cff11c1a25baddf4340e0dfff82923e58415505ead43fd9d257eb067c1be8143",
+        "evidenceClass": "SOURCE_ARTIFACT_IMPLEMENTATION_CANDIDATE",
+        "gitTracked": false,
+        "match": true
+      },
+      {
+        "path": "WORKBENCH/AUDITS/STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1_CORR9/test_offline_efca.py",
+        "bytes": 371607,
+        "sha256": "d6af54af5fa76142454cff664e8d58b699e3b4de3302aafedadc430d8161a5d3",
+        "ownerStatedSha256": "d6af54af5fa76142454cff664e8d58b699e3b4de3302aafedadc430d8161a5d3",
+        "evidenceClass": "SOURCE_ARTIFACT_IMPLEMENTATION_CANDIDATE",
+        "gitTracked": false,
+        "match": true
+      },
+      {
+        "path": "WORKBENCH/AUDITS/STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1_CORR9/synthetic_fixtures.json",
+        "bytes": 6497,
+        "sha256": "67de9301963539886fb43b2e3138c90d42c62d528fd715c848ea42116e4acd8c",
+        "ownerStatedSha256": "67de9301963539886fb43b2e3138c90d42c62d528fd715c848ea42116e4acd8c",
+        "evidenceClass": "SOURCE_ARTIFACT_IMPLEMENTATION_CANDIDATE",
+        "gitTracked": false,
+        "match": true
+      },
+      {
+        "path": "WORKBENCH/AUDITS/STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1_CORR9/TEST_RESULTS.json",
+        "bytes": 158114,
+        "sha256": "aa5eba440ecd668a17ffa9d1de536a7276d9f60155260ef8e0f1f7974c2b7eb1",
+        "ownerStatedSha256": "aa5eba440ecd668a17ffa9d1de536a7276d9f60155260ef8e0f1f7974c2b7eb1",
+        "evidenceClass": "SOURCE_ARTIFACT_IMPLEMENTATION_CANDIDATE",
+        "gitTracked": false,
+        "match": true
+      },
+      {
+        "path": "WORKBENCH/AUDITS/STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1_CORR9/IMPLEMENTATION_REPORT.md",
+        "bytes": 28579,
+        "sha256": "863f0124d6200fff67b07e1d3b19bb7c58c76bc7b6a884f65f861ca40a4adf8e",
+        "ownerStatedSha256": "863f0124d6200fff67b07e1d3b19bb7c58c76bc7b6a884f65f861ca40a4adf8e",
+        "evidenceClass": "SOURCE_ARTIFACT_IMPLEMENTATION_CANDIDATE",
+        "gitTracked": false,
+        "match": true
+      },
+      {
+        "path": "WORKBENCH/AUDITS/STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1_CORR9/ACT_MANIFEST.json",
+        "bytes": 14285,
+        "sha256": "4427d24a216fca459806cbfc19a7a94ea9b30c5c99b4a68cd15613e67cae83d6",
+        "ownerStatedSha256": "4427d24a216fca459806cbfc19a7a94ea9b30c5c99b4a68cd15613e67cae83d6",
+        "evidenceClass": "SOURCE_ARTIFACT_IMPLEMENTATION_CANDIDATE",
+        "gitTracked": false,
+        "match": true
+      }
+    ],
+    "allMatch": true,
+    "syntheticRunsEntries": []
+  },
+  "authorities": [
+    {
+      "path": "WORKBENCH/AUDITS/STAGE2_CORR4_L4_EFCA_OWNER_ACCEPTANCE_BINDING_1/EFCA_CORR2_CORR2_CORR1_CORR1_CORR1_CORR1_GPT6_AUTHOR_CANDIDATE.md",
+      "bytes": 97712,
+      "sha256": "5bb887d269e9079754e5a4f7417cd08f58d4ad5d5ff14503ca1dd98646176eba",
+      "evidenceClass": "OWNER_ACCEPTED_METHOD_AUTHORITY",
+      "gitTracked": true,
+      "role": "accepted EFCA rubric",
+      "ownerStatedSha256": "5bb887d269e9079754e5a4f7417cd08f58d4ad5d5ff14503ca1dd98646176eba"
+    },
+    {
+      "path": "WORKBENCH/AUDITS/STAGE2_CORR4_L4_EFCA_OWNER_ACCEPTANCE_BINDING_1/SHA256SUMS.txt",
+      "bytes": 727,
+      "sha256": "2fbe725aa6607ef9903c4f0220df09a590eeb3a41a122f085ee5ed8ca73bd6f9",
+      "evidenceClass": "GOVERNANCE_SIDECAR",
+      "gitTracked": true,
+      "role": "rubric binding package sidecar"
+    },
+    {
+      "path": "docs/decisions/MERGEVUE_STAGE2_CORR4_L4_EFCA_OWNER_DECISION_2026-10-10.md",
+      "bytes": 12808,
+      "sha256": "8432f3aa6bd408bd1111208dc5957877e73d5dc34e014f6755f4e11a2449ffb4",
+      "evidenceClass": "OWNER_DECISION_RECORD",
+      "gitTracked": true,
+      "role": "EFCA Owner acceptance decision"
+    },
+    {
+      "path": "docs/decisions/MERGEVUE_STAGE2_CORR4_L4_EFCA_OWNER_DECISION_2026-10-10.md.sha256",
+      "bytes": 125,
+      "sha256": "cfe7dd23b4670a50418044016ab84e4a6d960f00098a5c15fd3a71078a34d75d",
+      "evidenceClass": "GOVERNANCE_SIDECAR",
+      "gitTracked": true,
+      "role": "EFCA decision sidecar"
+    },
+    {
+      "path": "WORKBENCH/AUDITS/STAGE2_CORR4_L4_EFCA_CORR9_ALLOCATION_AUTHORITY_1_CORR1/EFCA_CORR9_ALLOCATIONS_v1.json",
+      "bytes": 716,
+      "sha256": "53eb3ec43feb4de926e057e0dc17a857473872e4bbc9ff571e5937576c38ecb1",
+      "evidenceClass": "OWNER_ACCEPTED_ALLOCATION_AUTHORITY",
+      "gitTracked": false,
+      "role": "G2 allocation bytes bound via G3.CORR1",
+      "ownerStatedSha256": "53eb3ec43feb4de926e057e0dc17a857473872e4bbc9ff571e5937576c38ecb1"
+    },
+    {
+      "path": "WORKBENCH/AUDITS/STAGE2_CORR4_L4_EFCA_CORR9_ALLOCATION_AUTHORITY_1_CORR1/EFCA_CORR9_ALLOCATIONS_v1.json.sha256",
+      "bytes": 97,
+      "sha256": "8209554567f29c1dd0c10a9b50a4ff7f7c6ceef99012387d2a87db58b975a59d",
+      "evidenceClass": "AUTHORITY_SIDECAR",
+      "gitTracked": false,
+      "role": "allocation sidecar"
+    },
+    {
+      "path": "WORKBENCH/AUDITS/STAGE2_CORR4_L4_EFCA_CORR9_ALLOCATION_AUTHORITY_1_CORR1/README.md",
+      "bytes": 7380,
+      "sha256": "35ddeea82a0189a0b64f5c62ba0581eaf6c705bc5566b3c3c2ef7226d352eb55",
+      "evidenceClass": "AGENT_AUTHORED_RECORD",
+      "gitTracked": false,
+      "role": "G3.CORR1 README; historical field G3.CORR1_OWNER_ACCEPTANCE=NOT GRANTED preserved"
+    },
+    {
+      "path": "WORKBENCH/AUDITS/STAGE2_CORR4_L4_EFCA_CORR9_ALLOCATION_AUTHORITY_1_CORR1/ACT_MANIFEST.json",
+      "bytes": 6790,
+      "sha256": "577cbbcc675fc2e69fac46787242491565e97a1372dd5913e909aebbb1f4e286",
+      "evidenceClass": "AGENT_AUTHORED_RECORD",
+      "gitTracked": false,
+      "role": "G3.CORR1 manifest"
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 23511,
+      "sha256": "f1f34b93c33ff6feea0611aa01b0d4df325dcb51c844b02180404337c9f4194d",
+      "evidenceClass": "GOVERNANCE_AUTHORITY",
+      "gitTracked": true,
+      "role": "router"
+    },
+    {
+      "path": "AGENTS_A.md",
+      "bytes": 12303,
+      "sha256": "3c73d681c25d9ed751e9b8298dd3772c15f99fc5095cc177b763416f655baa9d",
+      "evidenceClass": "GOVERNANCE_AUTHORITY",
+      "gitTracked": true,
+      "role": "analyst mandate"
+    },
+    {
+      "path": "MERGEVUE_CAUSALITY_PROOF_AND_AGENT_CONTROL.md",
+      "bytes": 23137,
+      "sha256": "06770667d4abeff499d5e24b60d5af53af638a0ca1283aee0d188c17f7d1caf5",
+      "evidenceClass": "GOVERNANCE_AUTHORITY",
+      "gitTracked": true,
+      "role": "causal-claim control"
+    },
+    {
+      "path": "docs/governance/MERGEVUE_CONTROL_TREE_v2.1_2026-09-04.md",
+      "bytes": 36971,
+      "sha256": "360bafa29bad5ea93752323d4a217bf59aaec628e0e2b236350a2edd9c1f7128",
+      "evidenceClass": "GOVERNANCE_AUTHORITY",
+      "gitTracked": true,
+      "role": "base Control Tree"
+    },
+    {
+      "path": "docs/governance/MERGEVUE_CONTROL_TREE_CURRENT_STATUS_INTEGRATION_ADDENDUM_2026-10-10.md",
+      "bytes": 19015,
+      "sha256": "6ad007cc3a7bace275de46264f4e035988267ad31f8f3402885fec9f2129eb61",
+      "evidenceClass": "GOVERNANCE_AUTHORITY",
+      "gitTracked": true,
+      "role": "current-status overlay"
+    },
+    {
+      "path": "docs/governance/MERGEVUE_MODEL_ROUTING_AND_VERIFICATION_POLICY_2026-09-08.md",
+      "bytes": 21120,
+      "sha256": "07fdf43043c3a2245c7cb0eae2e89ff42f88d66100736751227f2ddfb7d34a23",
+      "evidenceClass": "GOVERNANCE_AUTHORITY",
+      "gitTracked": true,
+      "role": "routing policy"
+    },
+    {
+      "path": "docs/governance/MERGEVUE_GIT_WORKTREE_CLOSURE_GOVERNANCE_2026-09-05.md",
+      "bytes": 12453,
+      "sha256": "27aa43abd0d8ce93b500231ded6b47d98949ba2a475f991098081c320b270a85",
+      "evidenceClass": "GOVERNANCE_AUTHORITY",
+      "gitTracked": true,
+      "role": "Git closure governance"
+    },
+    {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_VERIFIED_CURRENT_CONTROL_TREE_RECONSTRUCTION_1_CORR4/MERGEVUE_NODE_STATUS_MATRIX.json",
+      "bytes": 73443,
+      "sha256": "621eca0afeadca4b40450a41d3277fb69df9843b73c9663e93042e7d76b98a97",
+      "evidenceClass": "GOVERNANCE_AUTHORITY",
+      "gitTracked": true,
+      "role": "frozen 63-node matrix bound by overlay"
+    }
+  ],
+  "optionBContract": {
+    "act": "CORR9-MAJ01-OPTIONB-CONTRACT-ALIGNMENT-1",
+    "ownerStatedBytes": 13499,
+    "ownerStatedSha256": "1cf24018e947c389ab3a4875d6223aa7c496df15fb9c33b4466f64fdab44aff2",
+    "ownerAcceptance": "OWNER FACT — literal Owner statement OF-2 (OWNER_ACCEPTANCE_RECORD.md §1), transcribed in the Owner-authorized CORR1 execution brief; contract IV1 report and CORR9.IV2 report §2 are corroborating independent evidence only (corrected by CORR9-OWNER-ACCEPTANCE-BINDING-1.CORR1)",
+    "headerTextInBytes": "Status: CONTRACT CANDIDATE — PENDING OWNER ACCEPTANCE (historical; not edited)",
+    "captures": [
+      {
+        "path": "/Users/entp_psyche/.codex/attachments/497416a3-2dca-49e4-8384-a63f6f82e56f/Pasted text.txt",
+        "bytes": 13499,
+        "sha256": "1cf24018e947c389ab3a4875d6223aa7c496df15fb9c33b4466f64fdab44aff2",
+        "role": "original Owner-supplied input to contract IV1"
+      },
+      {
+        "path": "/private/tmp/mergevue-optionb-contract-iv1-2wvtrxgl/candidate-exact.txt",
+        "bytes": 13499,
+        "sha256": "1cf24018e947c389ab3a4875d6223aa7c496df15fb9c33b4466f64fdab44aff2",
+        "role": "contract IV1 exact capture"
+      },
+      {
+        "path": "/private/tmp/mergevue_corr9_iv2_odn67a24/accepted_contract.txt",
+        "bytes": 13499,
+        "sha256": "1cf24018e947c389ab3a4875d6223aa7c496df15fb9c33b4466f64fdab44aff2",
+        "role": "CORR9.IV2 exact copy"
+      },
+      {
+        "path": "WORKBENCH/AUDITS/CORR9_OWNER_ACCEPTANCE_BINDING_1/OPTION_B_ACCEPTED_CONTRACT.txt",
+        "bytes": 13499,
+        "sha256": "1cf24018e947c389ab3a4875d6223aa7c496df15fb9c33b4466f64fdab44aff2",
+        "role": "this package copy (copied from contract IV1 capture)"
+      }
+    ],
+    "allCapturesIdentical": true
+  },
+  "archivedCopies": [
+    {
+      "packagePath": "WORKBENCH/AUDITS/CORR9_OWNER_ACCEPTANCE_BINDING_1/ARCHIVED_EVIDENCE/CORR9_IV1/INDEPENDENT_IV1_REPORT.md",
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/INDEPENDENT_IV1_REPORT.md",
+      "bytes": 36450,
+      "sha256": "2194b20106e9da2fa792ef3d4c29b26ec79b6b0180b86a959dc1c11464ea237a",
+      "originMatchAtCopy": true,
+      "priorIndependentPin": {
+        "source": "CORR9.IV2 preservation_before.json#external",
+        "sha256": "2194b20106e9da2fa792ef3d4c29b26ec79b6b0180b86a959dc1c11464ea237a",
+        "match": true
+      },
+      "evidenceClass": "ORIGINAL_AUDIT_OUTPUT (subsequently copied)",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "auditVerdict": "FAIL — 0 BLOCKING / 1 MAJOR"
+    },
+    {
+      "packagePath": "WORKBENCH/AUDITS/CORR9_OWNER_ACCEPTANCE_BINDING_1/ARCHIVED_EVIDENCE/CORR9_IV1/full_suite.log",
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/full_suite.log",
+      "bytes": 23316,
+      "sha256": "ee0b3b53f670c902d530a3c310570033465bf3612bca7d2c92728f0cfc224cf7",
+      "originMatchAtCopy": true,
+      "priorIndependentPin": {
+        "source": "CORR9.IV2 preservation_before.json#external",
+        "sha256": "ee0b3b53f670c902d530a3c310570033465bf3612bca7d2c92728f0cfc224cf7",
+        "match": true
+      },
+      "evidenceClass": "ORIGINAL_AUDIT_OUTPUT (subsequently copied)",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "auditVerdict": "FAIL — 0 BLOCKING / 1 MAJOR"
+    },
+    {
+      "packagePath": "WORKBENCH/AUDITS/CORR9_OWNER_ACCEPTANCE_BINDING_1/ARCHIVED_EVIDENCE/CORR9_IV1/independent_probes.log",
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_probes.log",
+      "bytes": 9467,
+      "sha256": "2bfcd145176a23d20a62ff517da8b02f9f0e9ec5f3aa73195e6371221a028c71",
+      "originMatchAtCopy": true,
+      "priorIndependentPin": {
+        "source": "CORR9.IV2 preservation_before.json#external",
+        "sha256": "2bfcd145176a23d20a62ff517da8b02f9f0e9ec5f3aa73195e6371221a028c71",
+        "match": true
+      },
+      "evidenceClass": "ORIGINAL_AUDIT_OUTPUT (subsequently copied)",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "auditVerdict": "FAIL — 0 BLOCKING / 1 MAJOR"
+    },
+    {
+      "packagePath": "WORKBENCH/AUDITS/CORR9_OWNER_ACCEPTANCE_BINDING_1/ARCHIVED_EVIDENCE/CORR9_IV1/independent_probes.py",
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_probes.py",
+      "bytes": 15256,
+      "sha256": "7c6d24e0e1981fa45526ddeb137b118b301641b3325ccb1d022d84d813fdb085",
+      "originMatchAtCopy": true,
+      "priorIndependentPin": {
+        "source": "CORR9.IV2 preservation_before.json#external",
+        "sha256": "7c6d24e0e1981fa45526ddeb137b118b301641b3325ccb1d022d84d813fdb085",
+        "match": true
+      },
+      "evidenceClass": "ORIGINAL_AUDIT_OUTPUT (subsequently copied)",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "auditVerdict": "FAIL — 0 BLOCKING / 1 MAJOR"
+    },
+    {
+      "packagePath": "WORKBENCH/AUDITS/CORR9_OWNER_ACCEPTANCE_BINDING_1/ARCHIVED_EVIDENCE/CORR9_IV1/independent_results.json",
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_results.json",
+      "bytes": 11594,
+      "sha256": "4eb7a20107432ea7c79f12b71e42d0ecef3813c04445dd816f8fb717e5460c44",
+      "originMatchAtCopy": true,
+      "priorIndependentPin": {
+        "source": "CORR9.IV2 preservation_before.json#external",
+        "sha256": "4eb7a20107432ea7c79f12b71e42d0ecef3813c04445dd816f8fb717e5460c44",
+        "match": true
+      },
+      "evidenceClass": "ORIGINAL_AUDIT_OUTPUT (subsequently copied)",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "auditVerdict": "FAIL — 0 BLOCKING / 1 MAJOR"
+    },
+    {
+      "packagePath": "WORKBENCH/AUDITS/CORR9_OWNER_ACCEPTANCE_BINDING_1/ARCHIVED_EVIDENCE/CORR9_IV1/mode_origin_contract.log",
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/mode_origin_contract.log",
+      "bytes": 4715,
+      "sha256": "b2935d69aa28c2837c886190a394576813b5f10bebdc25e02bb59c05feccaf64",
+      "originMatchAtCopy": true,
+      "priorIndependentPin": {
+        "source": "CORR9.IV2 preservation_before.json#external",
+        "sha256": "b2935d69aa28c2837c886190a394576813b5f10bebdc25e02bb59c05feccaf64",
+        "match": true
+      },
+      "evidenceClass": "ORIGINAL_AUDIT_OUTPUT (subsequently copied)",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "auditVerdict": "FAIL — 0 BLOCKING / 1 MAJOR"
+    },
+    {
+      "packagePath": "WORKBENCH/AUDITS/CORR9_OWNER_ACCEPTANCE_BINDING_1/ARCHIVED_EVIDENCE/CORR9_IV1/mode_origin_contract.py",
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/mode_origin_contract.py",
+      "bytes": 2443,
+      "sha256": "f1cc880dc1456671cd041413ff48df0c46667c1765a2c323529394a77d1f8f53",
+      "originMatchAtCopy": true,
+      "priorIndependentPin": {
+        "source": "CORR9.IV2 preservation_before.json#external",
+        "sha256": "f1cc880dc1456671cd041413ff48df0c46667c1765a2c323529394a77d1f8f53",
+        "match": true
+      },
+      "evidenceClass": "ORIGINAL_AUDIT_OUTPUT (subsequently copied)",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "auditVerdict": "FAIL — 0 BLOCKING / 1 MAJOR"
+    },
+    {
+      "packagePath": "WORKBENCH/AUDITS/CORR9_OWNER_ACCEPTANCE_BINDING_1/ARCHIVED_EVIDENCE/CORR9_IV1/mode_origin_contract_results.json",
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/mode_origin_contract_results.json",
+      "bytes": 4715,
+      "sha256": "b2935d69aa28c2837c886190a394576813b5f10bebdc25e02bb59c05feccaf64",
+      "originMatchAtCopy": true,
+      "priorIndependentPin": {
+        "source": "CORR9.IV2 preservation_before.json#external",
+        "sha256": "b2935d69aa28c2837c886190a394576813b5f10bebdc25e02bb59c05feccaf64",
+        "match": true
+      },
+      "evidenceClass": "ORIGINAL_AUDIT_OUTPUT (subsequently copied)",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "auditVerdict": "FAIL — 0 BLOCKING / 1 MAJOR"
+    },
+    {
+      "packagePath": "WORKBENCH/AUDITS/CORR9_OWNER_ACCEPTANCE_BINDING_1/ARCHIVED_EVIDENCE/CORR9_IV1/preservation_after.json",
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/preservation_after.json",
+      "bytes": 384,
+      "sha256": "1543789c6e90fd0571691d1c09760a4db038b6457f5c5ac2be0d36620c0e45b5",
+      "originMatchAtCopy": true,
+      "priorIndependentPin": {
+        "source": "CORR9.IV2 preservation_before.json#external",
+        "sha256": "1543789c6e90fd0571691d1c09760a4db038b6457f5c5ac2be0d36620c0e45b5",
+        "match": true
+      },
+      "evidenceClass": "ORIGINAL_AUDIT_OUTPUT (subsequently copied)",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "auditVerdict": "FAIL — 0 BLOCKING / 1 MAJOR"
+    },
+    {
+      "packagePath": "WORKBENCH/AUDITS/CORR9_OWNER_ACCEPTANCE_BINDING_1/ARCHIVED_EVIDENCE/CORR9_IV1/preservation_before.json",
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/preservation_before.json",
+      "bytes": 225687,
+      "sha256": "f3de6cc4c2bbe2b3cd13a373262f80378b914a8ecc63f1296cefd6543ed669ad",
+      "originMatchAtCopy": true,
+      "priorIndependentPin": {
+        "source": "CORR9.IV2 preservation_before.json#external",
+        "sha256": "f3de6cc4c2bbe2b3cd13a373262f80378b914a8ecc63f1296cefd6543ed669ad",
+        "match": true
+      },
+      "evidenceClass": "ORIGINAL_AUDIT_OUTPUT (subsequently copied)",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "auditVerdict": "FAIL — 0 BLOCKING / 1 MAJOR"
+    },
+    {
+      "packagePath": "WORKBENCH/AUDITS/CORR9_OWNER_ACCEPTANCE_BINDING_1/ARCHIVED_EVIDENCE/CORR9_IV1/supplemental_probes.py",
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/supplemental_probes.py",
+      "bytes": 4325,
+      "sha256": "da5d646ff3c9bb4444b4f76bb404e89a673703fefbe5f2e1afdc0fa2ccdb88ee",
+      "originMatchAtCopy": true,
+      "priorIndependentPin": {
+        "source": "CORR9.IV2 preservation_before.json#external",
+        "sha256": "da5d646ff3c9bb4444b4f76bb404e89a673703fefbe5f2e1afdc0fa2ccdb88ee",
+        "match": true
+      },
+      "evidenceClass": "ORIGINAL_AUDIT_OUTPUT (subsequently copied)",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "auditVerdict": "FAIL — 0 BLOCKING / 1 MAJOR"
+    },
+    {
+      "packagePath": "WORKBENCH/AUDITS/CORR9_OWNER_ACCEPTANCE_BINDING_1/ARCHIVED_EVIDENCE/CORR9_IV1/supplemental_results.json",
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/supplemental_results.json",
+      "bytes": 2404,
+      "sha256": "f2bff0dbf64ffb86f72f3150207812f94f17c04cc1b87c33defe01162d6786f9",
+      "originMatchAtCopy": true,
+      "priorIndependentPin": {
+        "source": "CORR9.IV2 preservation_before.json#external",
+        "sha256": "f2bff0dbf64ffb86f72f3150207812f94f17c04cc1b87c33defe01162d6786f9",
+        "match": true
+      },
+      "evidenceClass": "ORIGINAL_AUDIT_OUTPUT (subsequently copied)",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "auditVerdict": "FAIL — 0 BLOCKING / 1 MAJOR"
+    },
+    {
+      "packagePath": "WORKBENCH/AUDITS/CORR9_OWNER_ACCEPTANCE_BINDING_1/ARCHIVED_EVIDENCE/OPTIONB_CONTRACT_IV1/INDEPENDENT_CONTRACT_AUDIT_REPORT.md",
+      "originPath": "/private/tmp/mergevue-optionb-contract-iv1-2wvtrxgl/INDEPENDENT_CONTRACT_AUDIT_REPORT.md",
+      "bytes": 44075,
+      "sha256": "e26272de9422800f1f235ec4c242d3e6e1526fc5a80efb10a45a0c326489a52a",
+      "originMatchAtCopy": true,
+      "priorIndependentPin": {
+        "source": "CORR9.IV2 preservation_before.json#external",
+        "sha256": "e26272de9422800f1f235ec4c242d3e6e1526fc5a80efb10a45a0c326489a52a",
+        "match": true
+      },
+      "evidenceClass": "ORIGINAL_AUDIT_OUTPUT (subsequently copied)",
+      "auditAct": "CORR9-MAJ01-OPTIONB-CONTRACT-ALIGNMENT-1.IV1",
+      "auditVerdict": "PASS — 0/0/0/2 ADVISORY"
+    },
+    {
+      "packagePath": "WORKBENCH/AUDITS/CORR9_OWNER_ACCEPTANCE_BINDING_1/ARCHIVED_EVIDENCE/OPTIONB_CONTRACT_IV1/identity.json",
+      "originPath": "/private/tmp/mergevue-optionb-contract-iv1-2wvtrxgl/identity.json",
+      "bytes": 548,
+      "sha256": "d6512e6dcef37fcf5b785901ff8b913b08d2c49cbc98a038b13f45b4685f183d",
+      "originMatchAtCopy": true,
+      "priorIndependentPin": "NONE — identity as found 2026-10-12 only",
+      "evidenceClass": "ORIGINAL_AUDIT_OUTPUT (subsequently copied)",
+      "auditAct": "CORR9-MAJ01-OPTIONB-CONTRACT-ALIGNMENT-1.IV1",
+      "auditVerdict": "PASS — 0/0/0/2 ADVISORY"
+    },
+    {
+      "packagePath": "WORKBENCH/AUDITS/CORR9_OWNER_ACCEPTANCE_BINDING_1/ARCHIVED_EVIDENCE/OPTIONB_CONTRACT_IV1/preservation-check.json",
+      "originPath": "/private/tmp/mergevue-optionb-contract-iv1-2wvtrxgl/preservation-check.json",
+      "bytes": 595,
+      "sha256": "4c2db3c81377f5b4e4956e070b2db606726e93078932e018017591fa05545a5d",
+      "originMatchAtCopy": true,
+      "priorIndependentPin": "NONE — identity as found 2026-10-12 only",
+      "evidenceClass": "ORIGINAL_AUDIT_OUTPUT (subsequently copied)",
+      "auditAct": "CORR9-MAJ01-OPTIONB-CONTRACT-ALIGNMENT-1.IV1",
+      "auditVerdict": "PASS — 0/0/0/2 ADVISORY"
+    },
+    {
+      "packagePath": "WORKBENCH/AUDITS/CORR9_OWNER_ACCEPTANCE_BINDING_1/ARCHIVED_EVIDENCE/CORR9_IV2/INDEPENDENT_IV2_REPORT.md",
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/INDEPENDENT_IV2_REPORT.md",
+      "bytes": 46428,
+      "sha256": "563d9ba44ae9cc6cadbcc5a4bbdcc98f4454cba5b483e423a5ded2c96217fd72",
+      "originMatchAtCopy": true,
+      "priorIndependentPin": {
+        "source": "CORR9.IV2 evidence_index.json",
+        "sha256": "563d9ba44ae9cc6cadbcc5a4bbdcc98f4454cba5b483e423a5ded2c96217fd72",
+        "match": true
+      },
+      "evidenceClass": "ORIGINAL_AUDIT_OUTPUT (subsequently copied)",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "auditVerdict": "PASS — 0 new findings"
+    },
+    {
+      "packagePath": "WORKBENCH/AUDITS/CORR9_OWNER_ACCEPTANCE_BINDING_1/ARCHIVED_EVIDENCE/CORR9_IV2/api_inventory.json",
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/api_inventory.json",
+      "bytes": 46937,
+      "sha256": "ea881a02492e8406f0a6ec7240dcf0b67c17d8dbe510337933f8454fec65695f",
+      "originMatchAtCopy": true,
+      "priorIndependentPin": {
+        "source": "CORR9.IV2 evidence_index.json",
+        "sha256": "ea881a02492e8406f0a6ec7240dcf0b67c17d8dbe510337933f8454fec65695f",
+        "match": true
+      },
+      "evidenceClass": "ORIGINAL_AUDIT_OUTPUT (subsequently copied)",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "auditVerdict": "PASS — 0 new findings"
+    },
+    {
+      "packagePath": "WORKBENCH/AUDITS/CORR9_OWNER_ACCEPTANCE_BINDING_1/ARCHIVED_EVIDENCE/CORR9_IV2/audit_summary.json",
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/audit_summary.json",
+      "bytes": 2066,
+      "sha256": "dd7114b5bd91a29d540301d6d8636000e493fe15b4278c449124060c639fc162",
+      "originMatchAtCopy": true,
+      "priorIndependentPin": {
+        "source": "CORR9.IV2 evidence_index.json",
+        "sha256": "dd7114b5bd91a29d540301d6d8636000e493fe15b4278c449124060c639fc162",
+        "match": true
+      },
+      "evidenceClass": "ORIGINAL_AUDIT_OUTPUT (subsequently copied)",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "auditVerdict": "PASS — 0 new findings"
+    },
+    {
+      "packagePath": "WORKBENCH/AUDITS/CORR9_OWNER_ACCEPTANCE_BINDING_1/ARCHIVED_EVIDENCE/CORR9_IV2/evidence_index.json",
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/evidence_index.json",
+      "bytes": 10288,
+      "sha256": "955b958a932141dc86fdedf58a9fc5251dc13bf10d7b2cbeeebe0f33935f26a7",
+      "originMatchAtCopy": true,
+      "priorIndependentPin": "NONE — identity as found 2026-10-12 only",
+      "evidenceClass": "ORIGINAL_AUDIT_OUTPUT (subsequently copied)",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "auditVerdict": "PASS — 0 new findings"
+    },
+    {
+      "packagePath": "WORKBENCH/AUDITS/CORR9_OWNER_ACCEPTANCE_BINDING_1/ARCHIVED_EVIDENCE/CORR9_IV2/full_suite.log",
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/full_suite.log",
+      "bytes": 23316,
+      "sha256": "43b5dc35aa7d49fdea5a71c0fb97672144889e0aee72356471a9af0f7a8191b6",
+      "originMatchAtCopy": true,
+      "priorIndependentPin": {
+        "source": "CORR9.IV2 evidence_index.json",
+        "sha256": "43b5dc35aa7d49fdea5a71c0fb97672144889e0aee72356471a9af0f7a8191b6",
+        "match": true
+      },
+      "evidenceClass": "ORIGINAL_AUDIT_OUTPUT (subsequently copied)",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "auditVerdict": "PASS — 0 new findings"
+    },
+    {
+      "packagePath": "WORKBENCH/AUDITS/CORR9_OWNER_ACCEPTANCE_BINDING_1/ARCHIVED_EVIDENCE/CORR9_IV2/independent_probes.log",
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/independent_probes.log",
+      "bytes": 65360,
+      "sha256": "3f0ce646cc7272d14b6af995041405f6bdf204656690fe9c90b75cf8ad2ff291",
+      "originMatchAtCopy": true,
+      "priorIndependentPin": {
+        "source": "CORR9.IV2 evidence_index.json",
+        "sha256": "3f0ce646cc7272d14b6af995041405f6bdf204656690fe9c90b75cf8ad2ff291",
+        "match": true
+      },
+      "evidenceClass": "ORIGINAL_AUDIT_OUTPUT (subsequently copied)",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "auditVerdict": "PASS — 0 new findings"
+    },
+    {
+      "packagePath": "WORKBENCH/AUDITS/CORR9_OWNER_ACCEPTANCE_BINDING_1/ARCHIVED_EVIDENCE/CORR9_IV2/independent_results.json",
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/independent_results.json",
+      "bytes": 78651,
+      "sha256": "367d221dc055210b0792e05cc99f88fe314af673e13584e7b300f0bfaea72613",
+      "originMatchAtCopy": true,
+      "priorIndependentPin": {
+        "source": "CORR9.IV2 evidence_index.json",
+        "sha256": "367d221dc055210b0792e05cc99f88fe314af673e13584e7b300f0bfaea72613",
+        "match": true
+      },
+      "evidenceClass": "ORIGINAL_AUDIT_OUTPUT (subsequently copied)",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "auditVerdict": "PASS — 0 new findings"
+    },
+    {
+      "packagePath": "WORKBENCH/AUDITS/CORR9_OWNER_ACCEPTANCE_BINDING_1/ARCHIVED_EVIDENCE/CORR9_IV2/iv2_probes.py",
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_probes.py",
+      "bytes": 19787,
+      "sha256": "832c0af73bc9a9f51e137df801b0e710fbbd04768ba0c2af022c3b45ef84e081",
+      "originMatchAtCopy": true,
+      "priorIndependentPin": {
+        "source": "CORR9.IV2 evidence_index.json",
+        "sha256": "832c0af73bc9a9f51e137df801b0e710fbbd04768ba0c2af022c3b45ef84e081",
+        "match": true
+      },
+      "evidenceClass": "ORIGINAL_AUDIT_OUTPUT (subsequently copied)",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "auditVerdict": "PASS — 0 new findings"
+    },
+    {
+      "packagePath": "WORKBENCH/AUDITS/CORR9_OWNER_ACCEPTANCE_BINDING_1/ARCHIVED_EVIDENCE/CORR9_IV2/iv2_supplement.py",
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_supplement.py",
+      "bytes": 2842,
+      "sha256": "b3892744746b9755ab9814560bc8ec44cd0717b220cee68075acece6c15a1ab7",
+      "originMatchAtCopy": true,
+      "priorIndependentPin": {
+        "source": "CORR9.IV2 evidence_index.json",
+        "sha256": "b3892744746b9755ab9814560bc8ec44cd0717b220cee68075acece6c15a1ab7",
+        "match": true
+      },
+      "evidenceClass": "ORIGINAL_AUDIT_OUTPUT (subsequently copied)",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "auditVerdict": "PASS — 0 new findings"
+    },
+    {
+      "packagePath": "WORKBENCH/AUDITS/CORR9_OWNER_ACCEPTANCE_BINDING_1/ARCHIVED_EVIDENCE/CORR9_IV2/preservation_after.json",
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/preservation_after.json",
+      "bytes": 391881,
+      "sha256": "0fab928793bde8c68f2aea6418961a7c6347303157727a88c6ea797b560f5a2c",
+      "originMatchAtCopy": true,
+      "priorIndependentPin": {
+        "source": "CORR9.IV2 evidence_index.json",
+        "sha256": "0fab928793bde8c68f2aea6418961a7c6347303157727a88c6ea797b560f5a2c",
+        "match": true
+      },
+      "evidenceClass": "ORIGINAL_AUDIT_OUTPUT (subsequently copied)",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "auditVerdict": "PASS — 0 new findings"
+    },
+    {
+      "packagePath": "WORKBENCH/AUDITS/CORR9_OWNER_ACCEPTANCE_BINDING_1/ARCHIVED_EVIDENCE/CORR9_IV2/preservation_before.json",
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/preservation_before.json",
+      "bytes": 391881,
+      "sha256": "0fab928793bde8c68f2aea6418961a7c6347303157727a88c6ea797b560f5a2c",
+      "originMatchAtCopy": true,
+      "priorIndependentPin": {
+        "source": "CORR9.IV2 evidence_index.json",
+        "sha256": "0fab928793bde8c68f2aea6418961a7c6347303157727a88c6ea797b560f5a2c",
+        "match": true
+      },
+      "evidenceClass": "ORIGINAL_AUDIT_OUTPUT (subsequently copied)",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "auditVerdict": "PASS — 0 new findings"
+    },
+    {
+      "packagePath": "WORKBENCH/AUDITS/CORR9_OWNER_ACCEPTANCE_BINDING_1/ARCHIVED_EVIDENCE/CORR9_IV2/preservation_comparison.json",
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/preservation_comparison.json",
+      "bytes": 480,
+      "sha256": "e2f61e2de0fbfa0c0e5ec4f5cc7dedad7fe6d32904fd139d2fa23cf2ed285f86",
+      "originMatchAtCopy": true,
+      "priorIndependentPin": {
+        "source": "CORR9.IV2 evidence_index.json",
+        "sha256": "e2f61e2de0fbfa0c0e5ec4f5cc7dedad7fe6d32904fd139d2fa23cf2ed285f86",
+        "match": true
+      },
+      "evidenceClass": "ORIGINAL_AUDIT_OUTPUT (subsequently copied)",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "auditVerdict": "PASS — 0 new findings"
+    },
+    {
+      "packagePath": "WORKBENCH/AUDITS/CORR9_OWNER_ACCEPTANCE_BINDING_1/ARCHIVED_EVIDENCE/CORR9_IV2/probe_setup_category_return_shape.log",
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/probe_setup_category_return_shape.log",
+      "bytes": 60503,
+      "sha256": "ab23ae36300a4574afa3c2c42bbcfd452a2fb3f57a2fbbbf005a686678775023",
+      "originMatchAtCopy": true,
+      "priorIndependentPin": {
+        "source": "CORR9.IV2 evidence_index.json",
+        "sha256": "ab23ae36300a4574afa3c2c42bbcfd452a2fb3f57a2fbbbf005a686678775023",
+        "match": true
+      },
+      "evidenceClass": "ORIGINAL_AUDIT_OUTPUT (subsequently copied)",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "auditVerdict": "PASS — 0 new findings"
+    },
+    {
+      "packagePath": "WORKBENCH/AUDITS/CORR9_OWNER_ACCEPTANCE_BINDING_1/ARCHIVED_EVIDENCE/CORR9_IV2/probe_setup_dictionary_order.log",
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/probe_setup_dictionary_order.log",
+      "bytes": 1615,
+      "sha256": "a59cc1330f87615f424b688e994b0d04280391849109002a7161ad32741975a6",
+      "originMatchAtCopy": true,
+      "priorIndependentPin": {
+        "source": "CORR9.IV2 evidence_index.json",
+        "sha256": "a59cc1330f87615f424b688e994b0d04280391849109002a7161ad32741975a6",
+        "match": true
+      },
+      "evidenceClass": "ORIGINAL_AUDIT_OUTPUT (subsequently copied)",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "auditVerdict": "PASS — 0 new findings"
+    },
+    {
+      "packagePath": "WORKBENCH/AUDITS/CORR9_OWNER_ACCEPTANCE_BINDING_1/ARCHIVED_EVIDENCE/CORR9_IV2/spec_evidence_matrix.json",
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/spec_evidence_matrix.json",
+      "bytes": 12343,
+      "sha256": "e03e70bb6fa0f312641eaf3d55ed926e2145caacefe9a4886e35804b837b3646",
+      "originMatchAtCopy": true,
+      "priorIndependentPin": {
+        "source": "CORR9.IV2 evidence_index.json",
+        "sha256": "e03e70bb6fa0f312641eaf3d55ed926e2145caacefe9a4886e35804b837b3646",
+        "match": true
+      },
+      "evidenceClass": "ORIGINAL_AUDIT_OUTPUT (subsequently copied)",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "auditVerdict": "PASS — 0 new findings"
+    },
+    {
+      "packagePath": "WORKBENCH/AUDITS/CORR9_OWNER_ACCEPTANCE_BINDING_1/ARCHIVED_EVIDENCE/CORR9_IV2/suite_execution.json",
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/suite_execution.json",
+      "bytes": 447,
+      "sha256": "e80901f7622ab90de4f8e02a1c68ee781045179cf2e6fb17fc207e97afb61e35",
+      "originMatchAtCopy": true,
+      "priorIndependentPin": {
+        "source": "CORR9.IV2 evidence_index.json",
+        "sha256": "e80901f7622ab90de4f8e02a1c68ee781045179cf2e6fb17fc207e97afb61e35",
+        "match": true
+      },
+      "evidenceClass": "ORIGINAL_AUDIT_OUTPUT (subsequently copied)",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "auditVerdict": "PASS — 0 new findings"
+    },
+    {
+      "packagePath": "WORKBENCH/AUDITS/CORR9_OWNER_ACCEPTANCE_BINDING_1/ARCHIVED_EVIDENCE/CORR9_IV2/supplemental_probes.log",
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/supplemental_probes.log",
+      "bytes": 5654,
+      "sha256": "fc324a97790b8947820657847a7b58701c6ee1acbd6510e560237616a6297e8d",
+      "originMatchAtCopy": true,
+      "priorIndependentPin": {
+        "source": "CORR9.IV2 evidence_index.json",
+        "sha256": "fc324a97790b8947820657847a7b58701c6ee1acbd6510e560237616a6297e8d",
+        "match": true
+      },
+      "evidenceClass": "ORIGINAL_AUDIT_OUTPUT (subsequently copied)",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "auditVerdict": "PASS — 0 new findings"
+    },
+    {
+      "packagePath": "WORKBENCH/AUDITS/CORR9_OWNER_ACCEPTANCE_BINDING_1/ARCHIVED_EVIDENCE/CORR9_IV2/supplemental_results.json",
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/supplemental_results.json",
+      "bytes": 6211,
+      "sha256": "8f4e98941f74f34da194bc51b4d55e61668355dcad0df33403334f2d9fc4bf55",
+      "originMatchAtCopy": true,
+      "priorIndependentPin": {
+        "source": "CORR9.IV2 evidence_index.json",
+        "sha256": "8f4e98941f74f34da194bc51b4d55e61668355dcad0df33403334f2d9fc4bf55",
+        "match": true
+      },
+      "evidenceClass": "ORIGINAL_AUDIT_OUTPUT (subsequently copied)",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "auditVerdict": "PASS — 0 new findings"
+    },
+    {
+      "packagePath": "WORKBENCH/AUDITS/CORR9_OWNER_ACCEPTANCE_BINDING_1/ARCHIVED_EVIDENCE/CORR9_IV2/iv2_runs/iv2_forged_to_OWNER_PINNED.jsonl",
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/iv2_forged_to_OWNER_PINNED.jsonl",
+      "bytes": 5065,
+      "sha256": "b8330d290349465affb02d93d3b5a4527760f00000a74ec2b0416a4db4c24c95",
+      "originMatchAtCopy": true,
+      "priorIndependentPin": {
+        "source": "CORR9.IV2 evidence_index.json",
+        "sha256": "b8330d290349465affb02d93d3b5a4527760f00000a74ec2b0416a4db4c24c95",
+        "match": true
+      },
+      "evidenceClass": "ORIGINAL_AUDIT_OUTPUT (subsequently copied)",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "auditVerdict": "PASS — 0 new findings"
+    },
+    {
+      "packagePath": "WORKBENCH/AUDITS/CORR9_OWNER_ACCEPTANCE_BINDING_1/ARCHIVED_EVIDENCE/CORR9_IV2/iv2_runs/iv2_forged_to_SIMULATION.jsonl",
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/iv2_forged_to_SIMULATION.jsonl",
+      "bytes": 5061,
+      "sha256": "45a5ec2a883355cb5dba2c791b55de5ddf22aacf5ea48d311db9392d2fde8db6",
+      "originMatchAtCopy": true,
+      "priorIndependentPin": {
+        "source": "CORR9.IV2 evidence_index.json",
+        "sha256": "45a5ec2a883355cb5dba2c791b55de5ddf22aacf5ea48d311db9392d2fde8db6",
+        "match": true
+      },
+      "evidenceClass": "ORIGINAL_AUDIT_OUTPUT (subsequently copied)",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "auditVerdict": "PASS — 0 new findings"
+    },
+    {
+      "packagePath": "WORKBENCH/AUDITS/CORR9_OWNER_ACCEPTANCE_BINDING_1/ARCHIVED_EVIDENCE/CORR9_IV2/iv2_runs/SYNSESS_d51cda31bdd0/host_chain/iv2_native_OWNER_PINNED.jsonl",
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/SYNSESS_d51cda31bdd0/host_chain/iv2_native_OWNER_PINNED.jsonl",
+      "bytes": 5065,
+      "sha256": "b8330d290349465affb02d93d3b5a4527760f00000a74ec2b0416a4db4c24c95",
+      "originMatchAtCopy": true,
+      "priorIndependentPin": {
+        "source": "CORR9.IV2 evidence_index.json",
+        "sha256": "b8330d290349465affb02d93d3b5a4527760f00000a74ec2b0416a4db4c24c95",
+        "match": true
+      },
+      "evidenceClass": "ORIGINAL_AUDIT_OUTPUT (subsequently copied)",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "auditVerdict": "PASS — 0 new findings"
+    },
+    {
+      "packagePath": "WORKBENCH/AUDITS/CORR9_OWNER_ACCEPTANCE_BINDING_1/ARCHIVED_EVIDENCE/CORR9_IV2/iv2_runs/SYNSESS_b573840fa44d/host_chain/iv2_native_SIMULATION.jsonl",
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/SYNSESS_b573840fa44d/host_chain/iv2_native_SIMULATION.jsonl",
+      "bytes": 5061,
+      "sha256": "45a5ec2a883355cb5dba2c791b55de5ddf22aacf5ea48d311db9392d2fde8db6",
+      "originMatchAtCopy": true,
+      "priorIndependentPin": {
+        "source": "CORR9.IV2 evidence_index.json",
+        "sha256": "45a5ec2a883355cb5dba2c791b55de5ddf22aacf5ea48d311db9392d2fde8db6",
+        "match": true
+      },
+      "evidenceClass": "ORIGINAL_AUDIT_OUTPUT (subsequently copied)",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "auditVerdict": "PASS — 0 new findings"
+    }
+  ],
+  "availableNotArchived": [
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/copied_identity.json",
+      "bytes": 133932,
+      "sha256": "c2e158b0ce501bac5b1782d6b0a5602fe3dc34b28669ed5da6d33d74d2387e1c",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 preservation_before.json#external"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/offline_efca.py.diff",
+      "bytes": 49164,
+      "sha256": "63ccc3644c4ce92afcdf669f16cb00dbc70021319ff20964d7c7dd57a144c4e0",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/probe_setup_locator_failure.log",
+      "bytes": 4213,
+      "sha256": "f18efb15b49c86b91cae215abb81046fb20ebd7b3dbb5a8a222f9ed0d208c766",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 preservation_before.json#external"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/probe_setup_locator_failure_2.log",
+      "bytes": 4246,
+      "sha256": "0de269d89f2ecae7e7e835cecefb372e16fc27fce2e4f88e4e0ed12df8a06b4a",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 preservation_before.json#external"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/probe_setup_remaining_failures.log",
+      "bytes": 6326,
+      "sha256": "311dd6aeb419ac0e1efb20afce840ac614e8a716a785fd98d15d466a3be0e1b3",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 preservation_before.json#external"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/supplemental_probes.log",
+      "bytes": 1940,
+      "sha256": "c82fe3b5a6c051fcc1cea0a52d349cda0ac63a41177d1209045a030772ec44f3",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 preservation_before.json#external"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/test_offline_efca.py.diff",
+      "bytes": 65682,
+      "sha256": "e0d9d977819e44f1c426a8ff30985aa80aa0f85fc861ba5bb782aa665236711d",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/allocation_BOM.json",
+      "bytes": 166,
+      "sha256": "8db2807fa79ccd1ae4f5f55e0c15659f7b949274c653d4d6d2e4c88eb80302f9",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/allocation_dup_json_key.json",
+      "bytes": 113,
+      "sha256": "e13671de00f7bddbf434199ade615f79d8ba3993df0201577e58175a2403a50f",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/allocation_extra_newline.json",
+      "bytes": 164,
+      "sha256": "1343ff9228f580d0be76d3b2b918f7ffa35b1b10a1fbb04e40aba219f01eb92c",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/allocation_malformed.json",
+      "bytes": 1,
+      "sha256": "021fb596db81e6d02bf3d2586ee3981fe519f275c0ac9ca76bbcf2ebb4097d96",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/allocation_no_newline.json",
+      "bytes": 162,
+      "sha256": "c3abfa1c552b662e33285e80818d3aad36104197d35af8e1034afca5974ad301",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/allocation_pretty.json",
+      "bytes": 201,
+      "sha256": "d695b81f7b68c0142fed87dc1fc0828382f3658a9ac281f34ee20e7a112b007c",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/evidence_schema_altered.jsonl",
+      "bytes": 5095,
+      "sha256": "8167081e61fa969f0c31201c90d4c18064f4674f1294bf4bf8c10126ac67f9ed",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/evidence_schema_digest.jsonl",
+      "bytes": 5179,
+      "sha256": "bf5b64de1a53ee4e5f83a0660ab893acdb36b63e8d9defd22cdc0032ac6704e9",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/evidence_schema_extra.jsonl",
+      "bytes": 5114,
+      "sha256": "21c0eb1098f637c253b698839cbdf1c5a32855085c8b6d7239bfa03f543de62f",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/evidence_schema_missing.jsonl",
+      "bytes": 5054,
+      "sha256": "1fb1e53b856d925ac1b14243d575549211cdbf9e2c15761db5ad770f8fbe5621",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/exact_owner_copy.json",
+      "bytes": 716,
+      "sha256": "53eb3ec43feb4de926e057e0dc17a857473872e4bbc9ff571e5937576c38ecb1",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/forged_extra_genesis.jsonl",
+      "bytes": 3433,
+      "sha256": "9a9bc72147ee982c53ec3c15a4ad971e8b76844c1552506088dd46e6a7b095da",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/forged_genesis_digest.jsonl",
+      "bytes": 3410,
+      "sha256": "e73035b953b74fdd495062151780ceaf74e2f97c491e48dfe25dd9202acaab5a",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/forged_genesis_missing_digest.jsonl",
+      "bytes": 3323,
+      "sha256": "29f5ba3b58c98af9e6dafe370f2a628be65d9b134289d351650a7cf090c42f05",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/forged_genesis_missing_mode.jsonl",
+      "bytes": 3369,
+      "sha256": "359b63f66137f312b11cd2a0a4c635c52157b465d14201d3e20d618abeee4fa0",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/forged_genesis_mode.jsonl",
+      "bytes": 3408,
+      "sha256": "b806ea7b980000cdea730b6ca04510d9fad228af90ee5ff79c7122fb5c2b1312",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/forged_missing_digest.jsonl",
+      "bytes": 3324,
+      "sha256": "98d4be620f70b0c833684c3f9092ad15e96c09500e93fb4df7c25e8d1abbb31c",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/forged_mixed_event.jsonl",
+      "bytes": 3900,
+      "sha256": "a7d22b2675ebebe5453d55549f9308f73d37a9678e355104f0d6a2f31ed40818",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/forged_old_schema.jsonl",
+      "bytes": 3324,
+      "sha256": "98d4be620f70b0c833684c3f9092ad15e96c09500e93fb4df7c25e8d1abbb31c",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/forged_unauthorized.jsonl",
+      "bytes": 3410,
+      "sha256": "a8cc97f50a2089019e15f1f2c9eafa584758d4520ac5256fc216443c25679c63",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/forged_wrong_digest.jsonl",
+      "bytes": 3410,
+      "sha256": "418b976e93a95623aca4305a3cb59d12bca8442b22211cea56cb6e21dff904a9",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/mode_congruent_forgery_OWNER_PINNED.jsonl",
+      "bytes": 5097,
+      "sha256": "f61a1e530f1025fd0c012e9e913a6e4dd1b8ff2c080c1d56bcefa25b4da34099",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/mode_congruent_forgery_SIMULATION.jsonl",
+      "bytes": 5093,
+      "sha256": "cc05a03f0d1042d3b8a5b3284ab994cd024a6528321feba54186a2a3d1b18948",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/origin_mode_relabel.jsonl",
+      "bytes": 5097,
+      "sha256": "f61a1e530f1025fd0c012e9e913a6e4dd1b8ff2c080c1d56bcefa25b4da34099",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/unapproved_canonical.json",
+      "bytes": 163,
+      "sha256": "4b2ae092222a48863bdf839d7db38dc9fe17b657d65b971b7f0910c2f6b6d7be",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/SYNSESS_bfb2b9bb7157/host_chain/mode_origin_SIMULATION.jsonl",
+      "bytes": 5093,
+      "sha256": "cc05a03f0d1042d3b8a5b3284ab994cd024a6528321feba54186a2a3d1b18948",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/SYNSESS_fc4340f532c2/projections/SYN_CUST_211/shared.json",
+      "bytes": 941,
+      "sha256": "90d07b775c554fb4a38aa5bbb148496a92ffb9cf40ba3bf94c621425ee674c2f",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/SYNSESS_fc4340f532c2/projections/SYN_CUST_001/shared.json",
+      "bytes": 2153,
+      "sha256": "df70f0e3a7ee3e3def809d9c02d65bf415d7ed581085aaf0b4bd4826360a2745",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/SYNSESS_fc4340f532c2/host_chain/shared.json",
+      "bytes": 3908,
+      "sha256": "2ec1ff481e6f2f92101b9f077faa9d16139447b117de0ab7c65cf7219d487f3d",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/SYNSESS_5e3a0d8ba7c7/host_chain/native_roundtrip.jsonl",
+      "bytes": 3410,
+      "sha256": "fedce00c415c2649202406b39e4485fa280bd85be96b1138f203e570e31488a9",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/SYNSESS_a6f1ba219d47/host_chain/native_extended.jsonl",
+      "bytes": 4391,
+      "sha256": "e0c8220f92d4c78b22d7ca3a74553c3397d234cb95799f90bd53a303d94a43b8",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/SYNSESS_9d66c2ee7f51/host_chain/pinned.jsonl",
+      "bytes": 3410,
+      "sha256": "fedce00c415c2649202406b39e4485fa280bd85be96b1138f203e570e31488a9",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/SYNSESS_db33a603abb2/host_chain/simulation.jsonl",
+      "bytes": 3408,
+      "sha256": "b806ea7b980000cdea730b6ca04510d9fad228af90ee5ff79c7122fb5c2b1312",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/SYNSESS_ecd489b91ee5/host_chain/legacy_7.jsonl",
+      "bytes": 3200,
+      "sha256": "e68a9e700a430f81e29a7d15e73e15971ede54b5473cf9cda7a5bc8e1bb57969",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/SYNSESS_f722e360e5b2/host_chain/native_extended.jsonl",
+      "bytes": 4391,
+      "sha256": "e0c8220f92d4c78b22d7ca3a74553c3397d234cb95799f90bd53a303d94a43b8",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/SYNSESS_c67f7209480c/host_chain/simulation.jsonl",
+      "bytes": 3408,
+      "sha256": "b806ea7b980000cdea730b6ca04510d9fad228af90ee5ff79c7122fb5c2b1312",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/SYNSESS_f2d68b860a2c/host_chain/od38_native.jsonl",
+      "bytes": 7098,
+      "sha256": "d79d500f30c5693d9a5020c67251c1e4388e13d028388a358044c4070a179190",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/SYNSESS_3297c725dcb8/host_chain/legacy_8.jsonl",
+      "bytes": 3200,
+      "sha256": "433d5d4c733f4182b69b793b06227b1d47348f97d83cd6e5999752e2665ed498",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/SYNSESS_70d71ceac0d7/host_chain/other.jsonl",
+      "bytes": 2427,
+      "sha256": "25fe30ebfa8a7fefa154f8127e22b8a31347efd10de6a4958e68e6479422fc15",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/SYNSESS_dd5b9e06ecdb/host_chain/mode_origin_OWNER_PINNED.jsonl",
+      "bytes": 5097,
+      "sha256": "f61a1e530f1025fd0c012e9e913a6e4dd1b8ff2c080c1d56bcefa25b4da34099",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/SYNSESS_2d2aaa77f98a/legacy_5.jsonl",
+      "bytes": 3200,
+      "sha256": "1bfaa78c8c46206a073e5ea4ea33552c7ad7b76f81cb4b568580788ca51d27ed",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/SYNSESS_c99c22954df6/host_chain/other.jsonl",
+      "bytes": 2427,
+      "sha256": "25fe30ebfa8a7fefa154f8127e22b8a31347efd10de6a4958e68e6479422fc15",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/SYNSESS_311622e957c8/projections/SYN_CUST_001/projection.json",
+      "bytes": 1830,
+      "sha256": "969bf6a7874cb6ae2bca1fdb31e35e82263c5c26ada21719deb99829ad60316a",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/SYNSESS_311622e957c8/host_chain/native_backup.jsonl",
+      "bytes": 3410,
+      "sha256": "fedce00c415c2649202406b39e4485fa280bd85be96b1138f203e570e31488a9",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/SYNSESS_c6e451eaec05/host_chain/native_roundtrip.jsonl",
+      "bytes": 3410,
+      "sha256": "fedce00c415c2649202406b39e4485fa280bd85be96b1138f203e570e31488a9",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/SYNSESS_12416401ba8a/legacy_6.jsonl",
+      "bytes": 3200,
+      "sha256": "92c6b5fc0344ccbe1cc1c4fb3d8ed5d034275709b9475f5599a0067e08909ba5",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv1_pxytpw33/independent_runs/SYNSESS_879176929d9d/host_chain/pinned.jsonl",
+      "bytes": 3410,
+      "sha256": "fedce00c415c2649202406b39e4485fa280bd85be96b1138f203e570e31488a9",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue-optionb-contract-iv1-2wvtrxgl/baseline-status.bin",
+      "bytes": 39215,
+      "sha256": "3a2bfa8faad2e162df47cf7d3e7ea3639f5fac8a141663fcdbc481578873a6cc",
+      "auditAct": "CORR9-MAJ01-OPTIONB-CONTRACT-ALIGNMENT-1.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue-optionb-contract-iv1-2wvtrxgl/candidate-exact.txt",
+      "bytes": 13499,
+      "sha256": "1cf24018e947c389ab3a4875d6223aa7c496df15fb9c33b4466f64fdab44aff2",
+      "auditAct": "CORR9-MAJ01-OPTIONB-CONTRACT-ALIGNMENT-1.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 preservation_before.json#external"
+    },
+    {
+      "originPath": "/private/tmp/mergevue-optionb-contract-iv1-2wvtrxgl/physical-identities-before.json",
+      "bytes": 27233,
+      "sha256": "8e06cc71fbfcecd57744585c960322c725c0d129682d2af24bab671e550be6f5",
+      "auditAct": "CORR9-MAJ01-OPTIONB-CONTRACT-ALIGNMENT-1.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue-optionb-contract-iv1-2wvtrxgl/source-method-inventory.json",
+      "bytes": 10455,
+      "sha256": "52b5a325bbdbba95cd998ff980829e83eceee148ad55ac0c476e4c336c85c00b",
+      "auditAct": "CORR9-MAJ01-OPTIONB-CONTRACT-ALIGNMENT-1.IV1",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "NONE"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/accepted_contract.txt",
+      "bytes": 13499,
+      "sha256": "1cf24018e947c389ab3a4875d6223aa7c496df15fb9c33b4466f64fdab44aff2",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 evidence_index.json"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/build_report.py",
+      "bytes": 44690,
+      "sha256": "791879a19aba4b21377625f4d6cf03a237eb84028c401ae33d30bc7fa28a50d8",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 evidence_index.json"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/recheck_preservation.py",
+      "bytes": 2255,
+      "sha256": "5add329986e58980494b4beed1f05db8594b289646ce94a58826cb2cd275e659",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 evidence_index.json"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/bad_rubric_OWNER_PINNED.md",
+      "bytes": 97738,
+      "sha256": "c3931d74ac720128c5f8a34e21d37b32cbd5e58fe5dc590bdfd34cc42adf6892",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 evidence_index.json"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/bad_rubric_SIMULATION.md",
+      "bytes": 97738,
+      "sha256": "c3931d74ac720128c5f8a34e21d37b32cbd5e58fe5dc590bdfd34cc42adf6892",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 evidence_index.json"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/iv2_exact_owner.json",
+      "bytes": 716,
+      "sha256": "53eb3ec43feb4de926e057e0dc17a857473872e4bbc9ff571e5937576c38ecb1",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 evidence_index.json"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/iv2_mixed_legacy_schema.jsonl",
+      "bytes": 3250,
+      "sha256": "2f12e74019370bffd23c5438f568d3737c43a2efa53a16289f0b9b820c18056a",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 evidence_index.json"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/iv2_semantic_extra_registration_field.jsonl",
+      "bytes": 5538,
+      "sha256": "05b953d4bf9eea83cc089d2af37830da09852e5fbc2ce0f334a208c07e997da0",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 evidence_index.json"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/iv2_semantic_illegal_transition_order.jsonl",
+      "bytes": 5513,
+      "sha256": "c57362806972567e5d54688eec5f4cf86a088c20642cff8bc1cb4aa9941683f0",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 evidence_index.json"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/iv2_semantic_incorrect_evidence_completeness.jsonl",
+      "bytes": 5512,
+      "sha256": "28ab21130fdb701b2402051afcb8c8125f94e6d3c58f3439b0b2655a345fe4a5",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 evidence_index.json"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/iv2_semantic_incorrect_evidence_mode.jsonl",
+      "bytes": 5511,
+      "sha256": "90f46cac4b293aed41a53999b778c9508d7bad061ce6348b077f3a05571ee0b3",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 evidence_index.json"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/iv2_semantic_invalid_packet_reviewer.jsonl",
+      "bytes": 5513,
+      "sha256": "ca5fdff1715cf56575fd4574316c31f455d341cf443dca5548c98345c18fd860",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 evidence_index.json"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/iv2_semantic_missing_entry_digest.jsonl",
+      "bytes": 5427,
+      "sha256": "504cb8038f45c0056d598d28c9de24c79e3cbf13346ed21a2cc5efc5c7794e6d",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 evidence_index.json"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/iv2_semantic_missing_evidence_mode.jsonl",
+      "bytes": 5472,
+      "sha256": "054bf449d047a188a90a8ea22a07e62192958020a95a9968a032901d73e94a45",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 evidence_index.json"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/iv2_semantic_missing_genesis_mode.jsonl",
+      "bytes": 5472,
+      "sha256": "f0a904af08e8e553251155f736ef1e100fe4c27c9c13da94092161fc321aadba",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 evidence_index.json"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/iv2_semantic_old_native_act.jsonl",
+      "bytes": 5513,
+      "sha256": "9d65b528aadec011948bbd08969f9ded1ac5313b2a663a14a3484c665a856693",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 evidence_index.json"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/iv2_semantic_scientific_promotion.jsonl",
+      "bytes": 5514,
+      "sha256": "a839b02731abd32bb45493ed8e80c1d2a6c1f47d7ea0f630f39d096409c7578f",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 evidence_index.json"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/iv2_semantic_unauthorized_registration.jsonl",
+      "bytes": 5513,
+      "sha256": "5923e292e35879cbefdedd16e1e629b0b98ae97bcd4e719225fcc7daaff8cd2e",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 evidence_index.json"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/iv2_semantic_wrong_entry_digest.jsonl",
+      "bytes": 5513,
+      "sha256": "4fc7dfb9d92499e02f520e8ff162ff88f8758237017acd789cc27e99b07ac5ad",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 evidence_index.json"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/iv2_semantic_wrong_genesis_digest.jsonl",
+      "bytes": 5513,
+      "sha256": "8be93eb8d6a55f9b799f83b71aa9878114da02831dcef66e5189c58fa93c611e",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 evidence_index.json"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/mutating_source.json",
+      "bytes": 163,
+      "sha256": "8531a3d01fa5174475283b056ae4552b96ff6f41906ec30244d5d1c7285aa71c",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 evidence_index.json"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/unapproved_owner.json",
+      "bytes": 163,
+      "sha256": "5df1cc10c41722909e514c8a3d52e914df4eb6605860d7074800bef479d00833",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 evidence_index.json"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/untrusted_projection.json",
+      "bytes": 586,
+      "sha256": "44a553c13934477aa7d28ea14604bc9749ece4def7b72df89a1e8055ed91e7df",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 evidence_index.json"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/SYNSESS_ebac4678429c/host_chain/index_comparison.jsonl",
+      "bytes": 5065,
+      "sha256": "b8330d290349465affb02d93d3b5a4527760f00000a74ec2b0416a4db4c24c95",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 evidence_index.json"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/SYNSESS_46309b684b39/projections/SYN_CUST_312/iv2_projection.json",
+      "bytes": 3934,
+      "sha256": "870aeedd8ade1212b6fba301515b0db7b632b35d361d6d1c027df1ac1cb949d8",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 evidence_index.json"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/SYNSESS_46309b684b39/projections/SYN_CUST_001/iv2_projection.json",
+      "bytes": 2089,
+      "sha256": "0c4cbc811d6809c3e38c59eec6a8a4f1fd05ecda9a610c5e0e486e3c07f340b0",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 evidence_index.json"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/SYNSESS_46309b684b39/host_chain/iv2_projection.json",
+      "bytes": 7401,
+      "sha256": "87702a4178d71ff749bb4ed2b887a98471e192de83456db356b296dfd1f7e76a",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 evidence_index.json"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/SYNSESS_9a8bc14b45b5/host_chain/iv2_roundtrip_SIMULATION.jsonl",
+      "bytes": 5061,
+      "sha256": "45a5ec2a883355cb5dba2c791b55de5ddf22aacf5ea48d311db9392d2fde8db6",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 evidence_index.json"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/SYNSESS_539d936a3298/host_chain/iv2_extension_SIMULATION.jsonl",
+      "bytes": 7699,
+      "sha256": "0b141f6bf94c3b79a3dd176f41aeb8f70ca324a3b7987bcdd67b2e4b1876b3d8",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 evidence_index.json"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/SYNSESS_b439f6fc69c5/iv2_legacy_schema.jsonl",
+      "bytes": 3164,
+      "sha256": "05d07ec8cb8c7b733c88ef43ae0eac822cfca990285f0ed3b0cc70397504d2aa",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 evidence_index.json"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/SYNSESS_f8846e024948/host_chain/iv2_corr8.jsonl",
+      "bytes": 3164,
+      "sha256": "755a50c5b6c2005604754fdacc4a062e105d2760fabab2275a3582a2dca5542e",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 evidence_index.json"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/SYNSESS_40fd2b9631d2/host_chain/iv2_extension_OWNER_PINNED.jsonl",
+      "bytes": 7705,
+      "sha256": "e2a8931e260b0a9fbbe0a06ad56a6f38a707c1cd376fa8e2746e87d42bf7141e",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 evidence_index.json"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/SYNSESS_fb00f8eb3524/iv2_legacy_schema.jsonl",
+      "bytes": 3164,
+      "sha256": "05d07ec8cb8c7b733c88ef43ae0eac822cfca990285f0ed3b0cc70397504d2aa",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 evidence_index.json"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/SYNSESS_9f5f74965376/host_chain/iv2_native_SIMULATION.jsonl",
+      "bytes": 5061,
+      "sha256": "45a5ec2a883355cb5dba2c791b55de5ddf22aacf5ea48d311db9392d2fde8db6",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 evidence_index.json"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/SYNSESS_523299547faf/iv2_corr6.jsonl",
+      "bytes": 3164,
+      "sha256": "6fcccfddaa18a7c663f5ea52b0f076f7441c07c6dd44d95496ff1172bf07802a",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 evidence_index.json"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/SYNSESS_8aca82762889/host_chain/iv2_corr7.jsonl",
+      "bytes": 3164,
+      "sha256": "590cf5e4e3c9b037c4845cd92ee28ffd21356e3f6f6d615c34bbe6a49e8e5ae5",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 evidence_index.json"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/SYNSESS_435b94bd9445/projections/SYN_CUST_312/iv2_projection.json",
+      "bytes": 3934,
+      "sha256": "870aeedd8ade1212b6fba301515b0db7b632b35d361d6d1c027df1ac1cb949d8",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 evidence_index.json"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/SYNSESS_435b94bd9445/projections/SYN_CUST_001/iv2_projection.json",
+      "bytes": 2089,
+      "sha256": "0c4cbc811d6809c3e38c59eec6a8a4f1fd05ecda9a610c5e0e486e3c07f340b0",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 evidence_index.json"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/SYNSESS_435b94bd9445/host_chain/iv2_projection.json",
+      "bytes": 7401,
+      "sha256": "87702a4178d71ff749bb4ed2b887a98471e192de83456db356b296dfd1f7e76a",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 evidence_index.json"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/SYNSESS_8c136eaa736e/host_chain/iv2_native_OWNER_PINNED.jsonl",
+      "bytes": 5065,
+      "sha256": "b8330d290349465affb02d93d3b5a4527760f00000a74ec2b0416a4db4c24c95",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 evidence_index.json"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/SYNSESS_4c2beaf0ecc1/host_chain/iv2_roundtrip_OWNER_PINNED.jsonl",
+      "bytes": 5065,
+      "sha256": "b8330d290349465affb02d93d3b5a4527760f00000a74ec2b0416a4db4c24c95",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 evidence_index.json"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/SYNSESS_42e9527299f2/host_chain/iv2_roundtrip_OWNER_PINNED.jsonl",
+      "bytes": 5065,
+      "sha256": "b8330d290349465affb02d93d3b5a4527760f00000a74ec2b0416a4db4c24c95",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 evidence_index.json"
+    },
+    {
+      "originPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/SYNSESS_af07a530fc82/iv2_corr5.jsonl",
+      "bytes": 3164,
+      "sha256": "05d07ec8cb8c7b733c88ef43ae0eac822cfca990285f0ed3b0cc70397504d2aa",
+      "auditAct": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9.IV2",
+      "status": "AVAILABLE_NOT_ARCHIVED",
+      "pinnedBy": "CORR9.IV2 evidence_index.json"
+    }
+  ],
+  "missingOrNotLocated": [
+    {
+      "item": "Standalone physical Owner decision record for acceptance of the Option B contract",
+      "status": "NOT_LOCATED",
+      "handling": "primary Owner fact is the literal statement OF-2 (OWNER_ACCEPTANCE_RECORD.md §1), known via the CORR1 execution brief transcription; contract IV1 and IV2 §2 corroborate (corrected by CORR1)"
+    },
+    {
+      "item": "Standalone physical Owner decision record for acceptance of the CORR9 implementation",
+      "status": "NOT_LOCATED",
+      "handling": "primary Owner fact is the literal statement OF-3 (OWNER_ACCEPTANCE_RECORD.md §1), known via the CORR1 execution brief transcription; IV2 establishes the verification result only (corrected by CORR1)"
+    },
+    {
+      "item": "Standalone bound transcripts for OD-37 / OD-38 / OD-39",
+      "status": "NOT_LOCATED",
+      "handling": "disclosed by IV1 section 1 and IV2 section 3; not resolved here"
+    },
+    {
+      "item": "CORR9 design-preflight documents (CORR9.OD45A.DESIGN-PREFLIGHT-1 and CORR1/CORR2)",
+      "status": "NOT_PHYSICALLY_PRESENT",
+      "handling": "per CORR9 ACT_MANIFEST preflightLineageNote; not relied on"
+    },
+    {
+      "item": "CORR9.IV1 machine-readable evidence index",
+      "status": "NOT_PRODUCED_BY_IV1",
+      "handling": "IV1 files instead anchored by CORR9.IV2 preservation_before.json#external (19 files)"
+    },
+    {
+      "item": "Third-party pin for contract IV1 identity.json and preservation-check.json",
+      "status": "NOT_AVAILABLE",
+      "handling": "identity as found 2026-10-12 only"
+    },
+    {
+      "item": "Owner IV2 brief and original IV1 brief attachments as standalone files in this package",
+      "status": "NOT_ARCHIVED",
+      "handling": "IV2 cites IV1 attachment /Users/entp_psyche/.codex/attachments/efe5c4bb-1971-493e-99e4-e18581e50bb2/Pasted text.txt; not copied (Owner brief, not audit output)"
+    }
+  ],
+  "iv2EvidenceIndexRecheck": {
+    "path": "/private/tmp/mergevue_corr9_iv2_odn67a24/evidence_index.json",
+    "entries": 65,
+    "matchingOnDisk": 65
+  },
+  "iv2ExternalPinRecheck": {
+    "entries": 19,
+    "matchingOnDisk": 19
+  },
+  "volatilityNote": "All original audit outputs reside under /private/tmp (subject to OS purge) or a Codex attachments folder; package copies are the durable in-repository copies.",
+  "correction": {
+    "actId": "CORR9-OWNER-ACCEPTANCE-BINDING-1.CORR1",
+    "date": "2026-10-12",
+    "changedFields": [
+      "optionBContract.ownerAcceptance",
+      "missingOrNotLocated[0].handling",
+      "missingOrNotLocated[1].handling"
+    ],
+    "note": "No archived-copy, authority or candidate identity entry was changed; generatedUTC refers to the original hash census."
+  }
+}

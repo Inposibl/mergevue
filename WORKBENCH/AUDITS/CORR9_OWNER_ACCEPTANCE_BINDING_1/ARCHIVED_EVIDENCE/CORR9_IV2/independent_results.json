@@ -1,0 +1,1289 @@
+[
+  {
+    "id": "RV03-F45",
+    "result": "PASS",
+    "observed": {
+      "corr8Captured": {
+        "tupleKey": "SYN_CASE_001|SYN_SIDE_A|SYN_FACT_001",
+        "canonicalHashInput": "63b1077e5ecd031653ab642fa3bda47b5578c25ee215a80c5740e4689d626596",
+        "registeredAt": {
+          "scope": "SYN_CASE_001|SYN_SIDE_A|SYN_FACT_001",
+          "scopeOrdinal": 1
+        },
+        "synthetic": true
+      },
+      "uniformThreeStates": [
+        {
+          "exception": "EFCAGateError",
+          "code": "NOT_ENTITLED",
+          "message": "NOT_ENTITLED: registration requires an Owner-approved custody entitlement for this precise tuple identity under the session's verified allocation authority; a registered CUSTODIAN role and knowledge of the tuple key are insufficient (OD-45-A)",
+          "args": [
+            "NOT_ENTITLED: registration requires an Owner-approved custody entitlement for this precise tuple identity under the session's verified allocation authority; a registered CUSTODIAN role and knowledge of the tuple key are insufficient (OD-45-A)"
+          ]
+        },
+        {
+          "exception": "EFCAGateError",
+          "code": "NOT_ENTITLED",
+          "message": "NOT_ENTITLED: registration requires an Owner-approved custody entitlement for this precise tuple identity under the session's verified allocation authority; a registered CUSTODIAN role and knowledge of the tuple key are insufficient (OD-45-A)",
+          "args": [
+            "NOT_ENTITLED: registration requires an Owner-approved custody entitlement for this precise tuple identity under the session's verified allocation authority; a registered CUSTODIAN role and knowledge of the tuple key are insufficient (OD-45-A)"
+          ]
+        },
+        {
+          "exception": "EFCAGateError",
+          "code": "NOT_ENTITLED",
+          "message": "NOT_ENTITLED: registration requires an Owner-approved custody entitlement for this precise tuple identity under the session's verified allocation authority; a registered CUSTODIAN role and knowledge of the tuple key are insufficient (OD-45-A)",
+          "args": [
+            "NOT_ENTITLED: registration requires an Owner-approved custody entitlement for this precise tuple identity under the session's verified allocation authority; a registered CUSTODIAN role and knowledge of the tuple key are insufficient (OD-45-A)"
+          ]
+        }
+      ],
+      "own": {
+        "tupleKey": "SYN_CASE_001|SYN_SIDE_A|SYN_FACT_001",
+        "canonicalHashInput": "63b1077e5ecd031653ab642fa3bda47b5578c25ee215a80c5740e4689d626596",
+        "allocationDigest": "36cd1264fa5b2359305b629f8f2ff3c0c0049b43e89392fea4ea6da5eee57ebf",
+        "registeredAt": {
+          "scope": "SYN_CASE_001|SYN_SIDE_A|SYN_FACT_001",
+          "scopeOrdinal": 1
+        },
+        "synthetic": true
+      },
+      "duplicate": {
+        "exception": "EFCAGateError",
+        "code": "DUPLICATE_TUPLE",
+        "message": "DUPLICATE_TUPLE: tuple already registered",
+        "args": [
+          "DUPLICATE_TUPLE: tuple already registered"
+        ]
+      },
+      "competingOrders": [
+        [
+          "SYN_CUST_312",
+          "SYN_CUST_001"
+        ],
+        [
+          "SYN_CUST_001",
+          "SYN_CUST_312"
+        ]
+      ],
+      "earlierInputRefusals": [
+        {
+          "exception": "EFCAGateError",
+          "code": "ROLE_MISMATCH",
+          "message": "ROLE_MISMATCH: actor 'SYN_RP1_312' has trusted role R_P1; operation requires CUSTODIAN. Caller-supplied role claims cannot override the session registry.",
+          "args": [
+            "ROLE_MISMATCH: actor 'SYN_RP1_312' has trusted role R_P1; operation requires CUSTODIAN. Caller-supplied role claims cannot override the session registry."
+          ]
+        },
+        {
+          "exception": "EFCAGateError",
+          "code": "UNKNOWN_ACTOR",
+          "message": "UNKNOWN_ACTOR: actor 'SYN_CUST_999' is not registered in this session",
+          "args": [
+            "UNKNOWN_ACTOR: actor 'SYN_CUST_999' is not registered in this session"
+          ]
+        },
+        {
+          "exception": "EFCAGateError",
+          "code": "UNKNOWN_FIELD_REJECTED",
+          "message": "UNKNOWN_FIELD_REJECTED: tuple_spec rejects unknown field(s): unexpected",
+          "args": [
+            "UNKNOWN_FIELD_REJECTED: tuple_spec rejects unknown field(s): unexpected"
+          ]
+        },
+        {
+          "exception": "EFCAGateError",
+          "code": "INVALID_PAYLOAD",
+          "message": "INVALID_PAYLOAD: custodyMarks must be {A: YES|NO, B: YES|NO}",
+          "args": [
+            "INVALID_PAYLOAD: custodyMarks must be {A: YES|NO, B: YES|NO}"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "RV04-CONSTRUCTOR",
+    "result": "PASS",
+    "observed": {
+      "forms": [
+        {
+          "form": [],
+          "mode": "OWNER_PINNED",
+          "digest": "53eb3ec43feb4de926e057e0dc17a857473872e4bbc9ff571e5937576c38ecb1"
+        },
+        {
+          "form": [
+            "allocations_path"
+          ],
+          "mode": "OWNER_PINNED",
+          "digest": "53eb3ec43feb4de926e057e0dc17a857473872e4bbc9ff571e5937576c38ecb1"
+        },
+        {
+          "form": [
+            "simulation_allocations"
+          ],
+          "mode": "SIMULATION",
+          "digest": "53eb3ec43feb4de926e057e0dc17a857473872e4bbc9ff571e5937576c38ecb1"
+        },
+        {
+          "form": [
+            "simulation_allocations_path"
+          ],
+          "mode": "SIMULATION",
+          "digest": "53eb3ec43feb4de926e057e0dc17a857473872e4bbc9ff571e5937576c38ecb1"
+        }
+      ],
+      "sourceCombinations": [
+        {
+          "forms": [
+            "simulation_allocations",
+            "simulation_allocations_path"
+          ],
+          "outcome": {
+            "exception": "EFCAGateError",
+            "code": "ALLOCATIONS_MODE_CONFLICT",
+            "message": "ALLOCATIONS_MODE_CONFLICT: declare at most one simulation allocation source",
+            "args": [
+              "ALLOCATIONS_MODE_CONFLICT: declare at most one simulation allocation source"
+            ]
+          }
+        },
+        {
+          "forms": [
+            "allocations_path",
+            "simulation_allocations_path"
+          ],
+          "outcome": {
+            "exception": "EFCAGateError",
+            "code": "ALLOCATIONS_MODE_CONFLICT",
+            "message": "ALLOCATIONS_MODE_CONFLICT: a session is either OWNER_PINNED (the Owner-pinned manifest) or SIMULATION (explicit test-only allocations); the two construction forms are never combined, so neither mode can be relabelled into the other (OD-45-A)",
+            "args": [
+              "ALLOCATIONS_MODE_CONFLICT: a session is either OWNER_PINNED (the Owner-pinned manifest) or SIMULATION (explicit test-only allocations); the two construction forms are never combined, so neither mode can be relabelled into the other (OD-45-A)"
+            ]
+          }
+        },
+        {
+          "forms": [
+            "allocations_path",
+            "simulation_allocations"
+          ],
+          "outcome": {
+            "exception": "EFCAGateError",
+            "code": "ALLOCATIONS_MODE_CONFLICT",
+            "message": "ALLOCATIONS_MODE_CONFLICT: a session is either OWNER_PINNED (the Owner-pinned manifest) or SIMULATION (explicit test-only allocations); the two construction forms are never combined, so neither mode can be relabelled into the other (OD-45-A)",
+            "args": [
+              "ALLOCATIONS_MODE_CONFLICT: a session is either OWNER_PINNED (the Owner-pinned manifest) or SIMULATION (explicit test-only allocations); the two construction forms are never combined, so neither mode can be relabelled into the other (OD-45-A)"
+            ]
+          }
+        },
+        {
+          "forms": [
+            "allocations_path",
+            "simulation_allocations",
+            "simulation_allocations_path"
+          ],
+          "outcome": {
+            "exception": "EFCAGateError",
+            "code": "ALLOCATIONS_MODE_CONFLICT",
+            "message": "ALLOCATIONS_MODE_CONFLICT: declare at most one simulation allocation source",
+            "args": [
+              "ALLOCATIONS_MODE_CONFLICT: declare at most one simulation allocation source"
+            ]
+          }
+        }
+      ],
+      "callerClaims": [
+        {
+          "exception": "TypeError",
+          "code": null,
+          "message": "__init__() got an unexpected keyword argument 'allocationAuthorityMode'",
+          "args": [
+            "__init__() got an unexpected keyword argument 'allocationAuthorityMode'"
+          ]
+        },
+        {
+          "exception": "TypeError",
+          "code": null,
+          "message": "__init__() got an unexpected keyword argument 'mode'",
+          "args": [
+            "__init__() got an unexpected keyword argument 'mode'"
+          ]
+        },
+        {
+          "exception": "TypeError",
+          "code": null,
+          "message": "__init__() got an unexpected keyword argument 'allocations_sha256'",
+          "args": [
+            "__init__() got an unexpected keyword argument 'allocations_sha256'"
+          ]
+        }
+      ],
+      "documentMutationIgnored": true,
+      "pathMutationIgnored": true,
+      "invalidAuthorities": [
+        {
+          "exception": "EFCAGateError",
+          "code": "ALLOCATIONS_MALFORMED",
+          "message": "ALLOCATIONS_MALFORMED: the simulation allocation authority must be exactly {allocationAuthority, allocations} (closed schema; unknown or missing fields are refused)",
+          "args": [
+            "ALLOCATIONS_MALFORMED: the simulation allocation authority must be exactly {allocationAuthority, allocations} (closed schema; unknown or missing fields are refused)"
+          ]
+        },
+        {
+          "exception": "EFCAGateError",
+          "code": "ALLOCATIONS_MALFORMED",
+          "message": "ALLOCATIONS_MALFORMED: the simulation allocation authority does not declare the approved authority identifier 'STAGE2_CORR4_L4_EFCA_CORR9_ALLOCATIONS_v1'",
+          "args": [
+            "ALLOCATIONS_MALFORMED: the simulation allocation authority does not declare the approved authority identifier 'STAGE2_CORR4_L4_EFCA_CORR9_ALLOCATIONS_v1'"
+          ]
+        },
+        {
+          "exception": "EFCAGateError",
+          "code": "ALLOCATION_CONFLICT",
+          "message": "ALLOCATION_CONFLICT: the simulation allocation authority contains more than one allocation for the same tuple identity; conflicting or ambiguous allocations fail closed and exactly one effective custodian per tuple is lawful (OD-45-A)",
+          "args": [
+            "ALLOCATION_CONFLICT: the simulation allocation authority contains more than one allocation for the same tuple identity; conflicting or ambiguous allocations fail closed and exactly one effective custodian per tuple is lawful (OD-45-A)"
+          ]
+        },
+        {
+          "exception": "EFCAGateError",
+          "code": "NON_SYNTHETIC_IDENTIFIER",
+          "message": "NON_SYNTHETIC_IDENTIFIER: caseId='REAL_CASE' is not a lawful synthetic identifier; this engine accepts invented SYN_* identifiers only and never historical tuples",
+          "args": [
+            "NON_SYNTHETIC_IDENTIFIER: caseId='REAL_CASE' is not a lawful synthetic identifier; this engine accepts invented SYN_* identifiers only and never historical tuples"
+          ]
+        },
+        {
+          "exception": "EFCAGateError",
+          "code": "ALLOCATIONS_IDENTITY_MISMATCH",
+          "message": "ALLOCATIONS_IDENTITY_MISMATCH: computed allocation-authority SHA-256 5df1cc10c41722909e514c8a3d52e914df4eb6605860d7074800bef479d00833 does not equal the Owner-approved pin 53eb3ec43feb4de926e057e0dc17a857473872e4bbc9ff571e5937576c38ecb1; an authority whose bytes are not the Owner-approved bytes is not Owner approval — a hash computed from arbitrary supplied JSON is not proof of Owner approval (OD-45-A)",
+          "args": [
+            "ALLOCATIONS_IDENTITY_MISMATCH: computed allocation-authority SHA-256 5df1cc10c41722909e514c8a3d52e914df4eb6605860d7074800bef479d00833 does not equal the Owner-approved pin 53eb3ec43feb4de926e057e0dc17a857473872e4bbc9ff571e5937576c38ecb1; an authority whose bytes are not the Owner-approved bytes is not Owner approval — a hash computed from arbitrary supplied JSON is not proof of Owner approval (OD-45-A)"
+          ]
+        },
+        {
+          "exception": "EFCAGateError",
+          "code": "ALLOCATIONS_AUTHORITY_UNAVAILABLE",
+          "message": "ALLOCATIONS_AUTHORITY_UNAVAILABLE: the Owner-approved allocation authority is not present at /private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/missing_owner.json; the session fails closed rather than operating without a verified entitlement mapping (OD-45-A)",
+          "args": [
+            "ALLOCATIONS_AUTHORITY_UNAVAILABLE: the Owner-approved allocation authority is not present at /private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/missing_owner.json; the session fails closed rather than operating without a verified entitlement mapping (OD-45-A)"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "RV05-RV06-RV08-BIDIRECTIONAL",
+    "result": "PASS",
+    "observed": [
+      {
+        "origin": "SIMULATION",
+        "target": "OWNER_PINNED",
+        "allocationDigest": "36cd1264fa5b2359305b629f8f2ff3c0c0049b43e89392fea4ea6da5eee57ebf",
+        "sameAllocationBytes": true,
+        "nativeEvidence": {
+          "tupleKey": "SYN_CASE_001|SYN_SIDE_A|SYN_FACT_001",
+          "custodian": "SYN_CUST_001",
+          "rubricIdentity": {
+            "actId": "STAGE2_CORR4_L4_CAUSAL_TAXONOMY_OPERATIONALIZATION_1.CORR2.CORR2.CORR1.CORR1.CORR1.CORR1",
+            "fileName": "EFCA_CORR2_CORR2_CORR1_CORR1_CORR1_CORR1_GPT6_AUTHOR_CANDIDATE.md",
+            "sha256": "5bb887d269e9079754e5a4f7417cd08f58d4ad5d5ff14503ca1dd98646176eba",
+            "status": "VERIFIED_AT_RECORD_ISSUANCE"
+          },
+          "parentRubricIdentity": {
+            "actId": "STAGE2_CORR4_L4_CAUSAL_TAXONOMY_OPERATIONALIZATION_1.CORR2.CORR2.CORR1.CORR1.CORR1",
+            "sha256": "cf59fc80f013dfc660cee85a18699411ecdf5e650371ab741fdcfbe0c0d0fa11"
+          },
+          "contractIdentity": {
+            "fileName": "STAGE2_SEMANTIC_SUCCESSOR_CANDIDATE_CORR4.md",
+            "sha256": "2de49862fb0d63c5f1cd1745531199137e73b7b37abceecef6e735d497d38bb0",
+            "note": "Stage-2 controlling semantic contract identity recorded as a constant; the engine never opens this file."
+          },
+          "categoryAssignment": "UNASSIGNED",
+          "tupleLevelName": "UNASSIGNED",
+          "exclusivity": "NOT_CLAIMED",
+          "proceduralCompleteness": {
+            "phase1Sealed": false,
+            "effectivelyCleanPhase1Seals": [],
+            "custodyReceipt": false,
+            "revealed": [],
+            "deltaCount": 0,
+            "tupleLevelAtIssuance": "IN_PROGRESS",
+            "claimsAdjudicatedAtIssuance": 0,
+            "provenanceVerifiedNotAdjudicatedAtIssuance": 0,
+            "statement": "this record represents the procedural state at issuance and implies no seal, reveal, PROVISIONAL status or adjudication that did not occur",
+            "distinctBoundPropositionsAtIssuance": 0,
+            "allocationAuthorityMode": "SIMULATION"
+          },
+          "synthetic": true
+        },
+        "untouchedRefusal": {
+          "exception": "EFCAGateError",
+          "code": "AUTHORITY_CONTEXT_MISMATCH",
+          "message": "AUTHORITY_CONTEXT_MISMATCH: the restored chain's allocation-authority context (mode='SIMULATION') does not match this session's effective construction context (mode='OWNER_PINNED'); owner-pinned and simulation histories are never interchangeable, including when the allocation bytes and digest are identical (OD-45-A/F-45)",
+          "args": [
+            "AUTHORITY_CONTEXT_MISMATCH: the restored chain's allocation-authority context (mode='SIMULATION') does not match this session's effective construction context (mode='OWNER_PINNED'); owner-pinned and simulation histories are never interchangeable, including when the allocation bytes and digest are identical (OD-45-A/F-45)"
+          ]
+        },
+        "untouchedNoAdoption": true,
+        "forgedEnvelope": {
+          "valid": true,
+          "reason": "ok",
+          "eventCount": 10
+        },
+        "restore": {
+          "restored": true,
+          "eventCount": 10,
+          "engineActId": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9",
+          "allocationAuthorityMode": "OWNER_PINNED"
+        },
+        "stateBefore": "4dce25301630ced748dd4034d976ff48f27b2c58096fbae53bfc0c21969c2f74",
+        "stateAfter": "4fa211bec182798dcfee3c15a173c9531c5290ce775eaf014715f4385e41bdd6",
+        "requesterVisibleEvidence": {
+          "categoryAssignment": "UNASSIGNED",
+          "contractIdentity": {
+            "fileName": "STAGE2_SEMANTIC_SUCCESSOR_CANDIDATE_CORR4.md",
+            "note": "Stage-2 controlling semantic contract identity recorded as a constant; the engine never opens this file.",
+            "sha256": "2de49862fb0d63c5f1cd1745531199137e73b7b37abceecef6e735d497d38bb0"
+          },
+          "custodian": "SYN_CUST_001",
+          "exclusivity": "NOT_CLAIMED",
+          "parentRubricIdentity": {
+            "actId": "STAGE2_CORR4_L4_CAUSAL_TAXONOMY_OPERATIONALIZATION_1.CORR2.CORR2.CORR1.CORR1.CORR1",
+            "sha256": "cf59fc80f013dfc660cee85a18699411ecdf5e650371ab741fdcfbe0c0d0fa11"
+          },
+          "proceduralCompleteness": {
+            "allocationAuthorityMode": "OWNER_PINNED",
+            "claimsAdjudicatedAtIssuance": 0,
+            "custodyReceipt": false,
+            "deltaCount": 0,
+            "distinctBoundPropositionsAtIssuance": 0,
+            "effectivelyCleanPhase1Seals": [],
+            "phase1Sealed": false,
+            "provenanceVerifiedNotAdjudicatedAtIssuance": 0,
+            "revealed": [],
+            "statement": "this record represents the procedural state at issuance and implies no seal, reveal, PROVISIONAL status or adjudication that did not occur",
+            "tupleLevelAtIssuance": "IN_PROGRESS"
+          },
+          "rubricIdentity": {
+            "actId": "STAGE2_CORR4_L4_CAUSAL_TAXONOMY_OPERATIONALIZATION_1.CORR2.CORR2.CORR1.CORR1.CORR1.CORR1",
+            "fileName": "EFCA_CORR2_CORR2_CORR1_CORR1_CORR1_CORR1_GPT6_AUTHOR_CANDIDATE.md",
+            "sha256": "5bb887d269e9079754e5a4f7417cd08f58d4ad5d5ff14503ca1dd98646176eba",
+            "status": "VERIFIED_AT_RECORD_ISSUANCE"
+          },
+          "synthetic": true,
+          "tupleKey": "SYN_CASE_001|SYN_SIDE_A|SYN_FACT_001",
+          "tupleLevelName": "UNASSIGNED"
+        },
+        "extension": {
+          "tupleKey": "SYN_CASE_003|SYN_SIDE_A|SYN_FACT_003",
+          "canonicalHashInput": "81d1a6c618ae92f296257f4ab6fcfd7fd50fafc0e9b60c6a3c1e460a2a1fd262",
+          "allocationDigest": "1926be8a915eb9fe3c8add15d2d5076a38104ccbd6334cb1178f94ee29735259",
+          "registeredAt": {
+            "scope": "SYN_CASE_003|SYN_SIDE_A|SYN_FACT_003",
+            "scopeOrdinal": 1
+          },
+          "synthetic": true
+        },
+        "continuedEvidence": {
+          "tupleKey": "SYN_CASE_003|SYN_SIDE_A|SYN_FACT_003",
+          "custodian": "SYN_CUST_001",
+          "rubricIdentity": {
+            "actId": "STAGE2_CORR4_L4_CAUSAL_TAXONOMY_OPERATIONALIZATION_1.CORR2.CORR2.CORR1.CORR1.CORR1.CORR1",
+            "fileName": "EFCA_CORR2_CORR2_CORR1_CORR1_CORR1_CORR1_GPT6_AUTHOR_CANDIDATE.md",
+            "sha256": "5bb887d269e9079754e5a4f7417cd08f58d4ad5d5ff14503ca1dd98646176eba",
+            "status": "VERIFIED_AT_RECORD_ISSUANCE"
+          },
+          "parentRubricIdentity": {
+            "actId": "STAGE2_CORR4_L4_CAUSAL_TAXONOMY_OPERATIONALIZATION_1.CORR2.CORR2.CORR1.CORR1.CORR1",
+            "sha256": "cf59fc80f013dfc660cee85a18699411ecdf5e650371ab741fdcfbe0c0d0fa11"
+          },
+          "contractIdentity": {
+            "fileName": "STAGE2_SEMANTIC_SUCCESSOR_CANDIDATE_CORR4.md",
+            "sha256": "2de49862fb0d63c5f1cd1745531199137e73b7b37abceecef6e735d497d38bb0",
+            "note": "Stage-2 controlling semantic contract identity recorded as a constant; the engine never opens this file."
+          },
+          "categoryAssignment": "UNASSIGNED",
+          "tupleLevelName": "UNASSIGNED",
+          "exclusivity": "NOT_CLAIMED",
+          "proceduralCompleteness": {
+            "phase1Sealed": false,
+            "effectivelyCleanPhase1Seals": [],
+            "custodyReceipt": false,
+            "revealed": [],
+            "deltaCount": 0,
+            "tupleLevelAtIssuance": "IN_PROGRESS",
+            "claimsAdjudicatedAtIssuance": 0,
+            "provenanceVerifiedNotAdjudicatedAtIssuance": 0,
+            "statement": "this record represents the procedural state at issuance and implies no seal, reveal, PROVISIONAL status or adjudication that did not occur",
+            "distinctBoundPropositionsAtIssuance": 0,
+            "allocationAuthorityMode": "OWNER_PINNED"
+          },
+          "synthetic": true
+        },
+        "nativePath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/SYNSESS_b573840fa44d/host_chain/iv2_native_SIMULATION.jsonl",
+        "forgedPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/iv2_forged_to_OWNER_PINNED.jsonl",
+        "attackerCapabilities": [
+          "privileged complete-history read/write",
+          "recompute entire SHA chain",
+          "trusted host restore invocation"
+        ],
+        "disposition": "NG-01 accepted limitation; no requester operation accepts this chain"
+      },
+      {
+        "origin": "OWNER_PINNED",
+        "target": "SIMULATION",
+        "allocationDigest": "36cd1264fa5b2359305b629f8f2ff3c0c0049b43e89392fea4ea6da5eee57ebf",
+        "sameAllocationBytes": true,
+        "nativeEvidence": {
+          "tupleKey": "SYN_CASE_001|SYN_SIDE_A|SYN_FACT_001",
+          "custodian": "SYN_CUST_001",
+          "rubricIdentity": {
+            "actId": "STAGE2_CORR4_L4_CAUSAL_TAXONOMY_OPERATIONALIZATION_1.CORR2.CORR2.CORR1.CORR1.CORR1.CORR1",
+            "fileName": "EFCA_CORR2_CORR2_CORR1_CORR1_CORR1_CORR1_GPT6_AUTHOR_CANDIDATE.md",
+            "sha256": "5bb887d269e9079754e5a4f7417cd08f58d4ad5d5ff14503ca1dd98646176eba",
+            "status": "VERIFIED_AT_RECORD_ISSUANCE"
+          },
+          "parentRubricIdentity": {
+            "actId": "STAGE2_CORR4_L4_CAUSAL_TAXONOMY_OPERATIONALIZATION_1.CORR2.CORR2.CORR1.CORR1.CORR1",
+            "sha256": "cf59fc80f013dfc660cee85a18699411ecdf5e650371ab741fdcfbe0c0d0fa11"
+          },
+          "contractIdentity": {
+            "fileName": "STAGE2_SEMANTIC_SUCCESSOR_CANDIDATE_CORR4.md",
+            "sha256": "2de49862fb0d63c5f1cd1745531199137e73b7b37abceecef6e735d497d38bb0",
+            "note": "Stage-2 controlling semantic contract identity recorded as a constant; the engine never opens this file."
+          },
+          "categoryAssignment": "UNASSIGNED",
+          "tupleLevelName": "UNASSIGNED",
+          "exclusivity": "NOT_CLAIMED",
+          "proceduralCompleteness": {
+            "phase1Sealed": false,
+            "effectivelyCleanPhase1Seals": [],
+            "custodyReceipt": false,
+            "revealed": [],
+            "deltaCount": 0,
+            "tupleLevelAtIssuance": "IN_PROGRESS",
+            "claimsAdjudicatedAtIssuance": 0,
+            "provenanceVerifiedNotAdjudicatedAtIssuance": 0,
+            "statement": "this record represents the procedural state at issuance and implies no seal, reveal, PROVISIONAL status or adjudication that did not occur",
+            "distinctBoundPropositionsAtIssuance": 0,
+            "allocationAuthorityMode": "OWNER_PINNED"
+          },
+          "synthetic": true
+        },
+        "untouchedRefusal": {
+          "exception": "EFCAGateError",
+          "code": "AUTHORITY_CONTEXT_MISMATCH",
+          "message": "AUTHORITY_CONTEXT_MISMATCH: the restored chain's allocation-authority context (mode='OWNER_PINNED') does not match this session's effective construction context (mode='SIMULATION'); owner-pinned and simulation histories are never interchangeable, including when the allocation bytes and digest are identical (OD-45-A/F-45)",
+          "args": [
+            "AUTHORITY_CONTEXT_MISMATCH: the restored chain's allocation-authority context (mode='OWNER_PINNED') does not match this session's effective construction context (mode='SIMULATION'); owner-pinned and simulation histories are never interchangeable, including when the allocation bytes and digest are identical (OD-45-A/F-45)"
+          ]
+        },
+        "untouchedNoAdoption": true,
+        "forgedEnvelope": {
+          "valid": true,
+          "reason": "ok",
+          "eventCount": 10
+        },
+        "restore": {
+          "restored": true,
+          "eventCount": 10,
+          "engineActId": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9",
+          "allocationAuthorityMode": "SIMULATION"
+        },
+        "stateBefore": "3c86a56c02f0f052eafffe132599af854cca0cdb23b1a7934106f2230d26b6c5",
+        "stateAfter": "fb260d3dac878334368d51b491d5bcdab016a39b179ee7ad7e6b2301bca4f576",
+        "requesterVisibleEvidence": {
+          "categoryAssignment": "UNASSIGNED",
+          "contractIdentity": {
+            "fileName": "STAGE2_SEMANTIC_SUCCESSOR_CANDIDATE_CORR4.md",
+            "note": "Stage-2 controlling semantic contract identity recorded as a constant; the engine never opens this file.",
+            "sha256": "2de49862fb0d63c5f1cd1745531199137e73b7b37abceecef6e735d497d38bb0"
+          },
+          "custodian": "SYN_CUST_001",
+          "exclusivity": "NOT_CLAIMED",
+          "parentRubricIdentity": {
+            "actId": "STAGE2_CORR4_L4_CAUSAL_TAXONOMY_OPERATIONALIZATION_1.CORR2.CORR2.CORR1.CORR1.CORR1",
+            "sha256": "cf59fc80f013dfc660cee85a18699411ecdf5e650371ab741fdcfbe0c0d0fa11"
+          },
+          "proceduralCompleteness": {
+            "allocationAuthorityMode": "SIMULATION",
+            "claimsAdjudicatedAtIssuance": 0,
+            "custodyReceipt": false,
+            "deltaCount": 0,
+            "distinctBoundPropositionsAtIssuance": 0,
+            "effectivelyCleanPhase1Seals": [],
+            "phase1Sealed": false,
+            "provenanceVerifiedNotAdjudicatedAtIssuance": 0,
+            "revealed": [],
+            "statement": "this record represents the procedural state at issuance and implies no seal, reveal, PROVISIONAL status or adjudication that did not occur",
+            "tupleLevelAtIssuance": "IN_PROGRESS"
+          },
+          "rubricIdentity": {
+            "actId": "STAGE2_CORR4_L4_CAUSAL_TAXONOMY_OPERATIONALIZATION_1.CORR2.CORR2.CORR1.CORR1.CORR1.CORR1",
+            "fileName": "EFCA_CORR2_CORR2_CORR1_CORR1_CORR1_CORR1_GPT6_AUTHOR_CANDIDATE.md",
+            "sha256": "5bb887d269e9079754e5a4f7417cd08f58d4ad5d5ff14503ca1dd98646176eba",
+            "status": "VERIFIED_AT_RECORD_ISSUANCE"
+          },
+          "synthetic": true,
+          "tupleKey": "SYN_CASE_001|SYN_SIDE_A|SYN_FACT_001",
+          "tupleLevelName": "UNASSIGNED"
+        },
+        "extension": {
+          "tupleKey": "SYN_CASE_003|SYN_SIDE_A|SYN_FACT_003",
+          "canonicalHashInput": "81d1a6c618ae92f296257f4ab6fcfd7fd50fafc0e9b60c6a3c1e460a2a1fd262",
+          "allocationDigest": "1926be8a915eb9fe3c8add15d2d5076a38104ccbd6334cb1178f94ee29735259",
+          "registeredAt": {
+            "scope": "SYN_CASE_003|SYN_SIDE_A|SYN_FACT_003",
+            "scopeOrdinal": 1
+          },
+          "synthetic": true
+        },
+        "continuedEvidence": {
+          "tupleKey": "SYN_CASE_003|SYN_SIDE_A|SYN_FACT_003",
+          "custodian": "SYN_CUST_001",
+          "rubricIdentity": {
+            "actId": "STAGE2_CORR4_L4_CAUSAL_TAXONOMY_OPERATIONALIZATION_1.CORR2.CORR2.CORR1.CORR1.CORR1.CORR1",
+            "fileName": "EFCA_CORR2_CORR2_CORR1_CORR1_CORR1_CORR1_GPT6_AUTHOR_CANDIDATE.md",
+            "sha256": "5bb887d269e9079754e5a4f7417cd08f58d4ad5d5ff14503ca1dd98646176eba",
+            "status": "VERIFIED_AT_RECORD_ISSUANCE"
+          },
+          "parentRubricIdentity": {
+            "actId": "STAGE2_CORR4_L4_CAUSAL_TAXONOMY_OPERATIONALIZATION_1.CORR2.CORR2.CORR1.CORR1.CORR1",
+            "sha256": "cf59fc80f013dfc660cee85a18699411ecdf5e650371ab741fdcfbe0c0d0fa11"
+          },
+          "contractIdentity": {
+            "fileName": "STAGE2_SEMANTIC_SUCCESSOR_CANDIDATE_CORR4.md",
+            "sha256": "2de49862fb0d63c5f1cd1745531199137e73b7b37abceecef6e735d497d38bb0",
+            "note": "Stage-2 controlling semantic contract identity recorded as a constant; the engine never opens this file."
+          },
+          "categoryAssignment": "UNASSIGNED",
+          "tupleLevelName": "UNASSIGNED",
+          "exclusivity": "NOT_CLAIMED",
+          "proceduralCompleteness": {
+            "phase1Sealed": false,
+            "effectivelyCleanPhase1Seals": [],
+            "custodyReceipt": false,
+            "revealed": [],
+            "deltaCount": 0,
+            "tupleLevelAtIssuance": "IN_PROGRESS",
+            "claimsAdjudicatedAtIssuance": 0,
+            "provenanceVerifiedNotAdjudicatedAtIssuance": 0,
+            "statement": "this record represents the procedural state at issuance and implies no seal, reveal, PROVISIONAL status or adjudication that did not occur",
+            "distinctBoundPropositionsAtIssuance": 0,
+            "allocationAuthorityMode": "SIMULATION"
+          },
+          "synthetic": true
+        },
+        "nativePath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/SYNSESS_d51cda31bdd0/host_chain/iv2_native_OWNER_PINNED.jsonl",
+        "forgedPath": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/iv2_forged_to_SIMULATION.jsonl",
+        "attackerCapabilities": [
+          "privileged complete-history read/write",
+          "recompute entire SHA chain",
+          "trusted host restore invocation"
+        ],
+        "disposition": "NG-01 accepted limitation; no requester operation accepts this chain"
+      }
+    ]
+  },
+  {
+    "id": "RV07-SEMANTIC",
+    "result": "PASS",
+    "observed": [
+      {
+        "attack": "unauthorized_registration",
+        "envelopeValid": true,
+        "emptyRefusal": {
+          "exception": "EFCAGateError",
+          "code": "PROCEDURALLY_INVALID_HISTORY",
+          "message": "PROCEDURALLY_INVALID_HISTORY: the history chains cryptographically but contains a transition that is not procedurally lawful: NOT_ENTITLED: NOT_ENTITLED: registration requires an Owner-approved custody entitlement for this precise tuple identity under the session's verified allocation authority; a registered CUSTODIAN role and knowledge of the tuple key are insufficient (OD-45-A) (F-7/F-8/F-13/F-15: a forged event with a valid SHA-256 is not an authorized event)",
+          "args": [
+            "PROCEDURALLY_INVALID_HISTORY: the history chains cryptographically but contains a transition that is not procedurally lawful: NOT_ENTITLED: NOT_ENTITLED: registration requires an Owner-approved custody entitlement for this precise tuple identity under the session's verified allocation authority; a registered CUSTODIAN role and knowledge of the tuple key are insufficient (OD-45-A) (F-7/F-8/F-13/F-15: a forged event with a valid SHA-256 is not an authorized event)"
+          ]
+        },
+        "nonemptyRefusal": {
+          "exception": "EFCAGateError",
+          "code": "PROCEDURALLY_INVALID_HISTORY",
+          "message": "PROCEDURALLY_INVALID_HISTORY: the history chains cryptographically but contains a transition that is not procedurally lawful: NOT_ENTITLED: NOT_ENTITLED: registration requires an Owner-approved custody entitlement for this precise tuple identity under the session's verified allocation authority; a registered CUSTODIAN role and knowledge of the tuple key are insufficient (OD-45-A) (F-7/F-8/F-13/F-15: a forged event with a valid SHA-256 is not an authorized event)",
+          "args": [
+            "PROCEDURALLY_INVALID_HISTORY: the history chains cryptographically but contains a transition that is not procedurally lawful: NOT_ENTITLED: NOT_ENTITLED: registration requires an Owner-approved custody entitlement for this precise tuple identity under the session's verified allocation authority; a registered CUSTODIAN role and knowledge of the tuple key are insufficient (OD-45-A) (F-7/F-8/F-13/F-15: a forged event with a valid SHA-256 is not an authorized event)"
+          ]
+        },
+        "noPartialAdoption": true,
+        "path": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/iv2_semantic_unauthorized_registration.jsonl"
+      },
+      {
+        "attack": "wrong_entry_digest",
+        "envelopeValid": true,
+        "emptyRefusal": {
+          "exception": "EFCAGateError",
+          "code": "PROCEDURALLY_INVALID_HISTORY",
+          "message": "PROCEDURALLY_INVALID_HISTORY: the history chains cryptographically but contains a transition that is not procedurally lawful: INVALID_TRANSITION: INVALID_TRANSITION: allocationDigest is engine-derived from the exact authorized allocation entry of this tuple and is recomputed against the verified effective allocation authority; the declared value is not this tuple's authorized entry digest (OD-45-A/F-45) (F-7/F-8/F-13/F-15: a forged event with a valid SHA-256 is not an authorized event)",
+          "args": [
+            "PROCEDURALLY_INVALID_HISTORY: the history chains cryptographically but contains a transition that is not procedurally lawful: INVALID_TRANSITION: INVALID_TRANSITION: allocationDigest is engine-derived from the exact authorized allocation entry of this tuple and is recomputed against the verified effective allocation authority; the declared value is not this tuple's authorized entry digest (OD-45-A/F-45) (F-7/F-8/F-13/F-15: a forged event with a valid SHA-256 is not an authorized event)"
+          ]
+        },
+        "nonemptyRefusal": {
+          "exception": "EFCAGateError",
+          "code": "PROCEDURALLY_INVALID_HISTORY",
+          "message": "PROCEDURALLY_INVALID_HISTORY: the history chains cryptographically but contains a transition that is not procedurally lawful: INVALID_TRANSITION: INVALID_TRANSITION: allocationDigest is engine-derived from the exact authorized allocation entry of this tuple and is recomputed against the verified effective allocation authority; the declared value is not this tuple's authorized entry digest (OD-45-A/F-45) (F-7/F-8/F-13/F-15: a forged event with a valid SHA-256 is not an authorized event)",
+          "args": [
+            "PROCEDURALLY_INVALID_HISTORY: the history chains cryptographically but contains a transition that is not procedurally lawful: INVALID_TRANSITION: INVALID_TRANSITION: allocationDigest is engine-derived from the exact authorized allocation entry of this tuple and is recomputed against the verified effective allocation authority; the declared value is not this tuple's authorized entry digest (OD-45-A/F-45) (F-7/F-8/F-13/F-15: a forged event with a valid SHA-256 is not an authorized event)"
+          ]
+        },
+        "noPartialAdoption": true,
+        "path": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/iv2_semantic_wrong_entry_digest.jsonl"
+      },
+      {
+        "attack": "missing_entry_digest",
+        "envelopeValid": true,
+        "emptyRefusal": {
+          "exception": "EFCAGateError",
+          "code": "PROCEDURALLY_INVALID_HISTORY",
+          "message": "PROCEDURALLY_INVALID_HISTORY: the history chains cryptographically but contains a transition that is not procedurally lawful: INVALID_TRANSITION: INVALID_TRANSITION: TUPLE_REGISTERED payload schema violation: expected exactly ['allocationDigest', 'canonicalHashInput', 'caseId', 'custodian', 'custodyMarks', 'd', 'factId', 'questionText', 'retrospectiveRecords', 'sealedFactText', 'sideId', 'synthetic'] (missing or extra keys are refused; F-15, CORR9 rule-set) (F-7/F-8/F-13/F-15: a forged event with a valid SHA-256 is not an authorized event)",
+          "args": [
+            "PROCEDURALLY_INVALID_HISTORY: the history chains cryptographically but contains a transition that is not procedurally lawful: INVALID_TRANSITION: INVALID_TRANSITION: TUPLE_REGISTERED payload schema violation: expected exactly ['allocationDigest', 'canonicalHashInput', 'caseId', 'custodian', 'custodyMarks', 'd', 'factId', 'questionText', 'retrospectiveRecords', 'sealedFactText', 'sideId', 'synthetic'] (missing or extra keys are refused; F-15, CORR9 rule-set) (F-7/F-8/F-13/F-15: a forged event with a valid SHA-256 is not an authorized event)"
+          ]
+        },
+        "nonemptyRefusal": {
+          "exception": "EFCAGateError",
+          "code": "PROCEDURALLY_INVALID_HISTORY",
+          "message": "PROCEDURALLY_INVALID_HISTORY: the history chains cryptographically but contains a transition that is not procedurally lawful: INVALID_TRANSITION: INVALID_TRANSITION: TUPLE_REGISTERED payload schema violation: expected exactly ['allocationDigest', 'canonicalHashInput', 'caseId', 'custodian', 'custodyMarks', 'd', 'factId', 'questionText', 'retrospectiveRecords', 'sealedFactText', 'sideId', 'synthetic'] (missing or extra keys are refused; F-15, CORR9 rule-set) (F-7/F-8/F-13/F-15: a forged event with a valid SHA-256 is not an authorized event)",
+          "args": [
+            "PROCEDURALLY_INVALID_HISTORY: the history chains cryptographically but contains a transition that is not procedurally lawful: INVALID_TRANSITION: INVALID_TRANSITION: TUPLE_REGISTERED payload schema violation: expected exactly ['allocationDigest', 'canonicalHashInput', 'caseId', 'custodian', 'custodyMarks', 'd', 'factId', 'questionText', 'retrospectiveRecords', 'sealedFactText', 'sideId', 'synthetic'] (missing or extra keys are refused; F-15, CORR9 rule-set) (F-7/F-8/F-13/F-15: a forged event with a valid SHA-256 is not an authorized event)"
+          ]
+        },
+        "noPartialAdoption": true,
+        "path": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/iv2_semantic_missing_entry_digest.jsonl"
+      },
+      {
+        "attack": "extra_registration_field",
+        "envelopeValid": true,
+        "emptyRefusal": {
+          "exception": "EFCAGateError",
+          "code": "PROCEDURALLY_INVALID_HISTORY",
+          "message": "PROCEDURALLY_INVALID_HISTORY: the history chains cryptographically but contains a transition that is not procedurally lawful: INVALID_TRANSITION: INVALID_TRANSITION: TUPLE_REGISTERED payload schema violation: expected exactly ['allocationDigest', 'canonicalHashInput', 'caseId', 'custodian', 'custodyMarks', 'd', 'factId', 'questionText', 'retrospectiveRecords', 'sealedFactText', 'sideId', 'synthetic'] (missing or extra keys are refused; F-15, CORR9 rule-set) (F-7/F-8/F-13/F-15: a forged event with a valid SHA-256 is not an authorized event)",
+          "args": [
+            "PROCEDURALLY_INVALID_HISTORY: the history chains cryptographically but contains a transition that is not procedurally lawful: INVALID_TRANSITION: INVALID_TRANSITION: TUPLE_REGISTERED payload schema violation: expected exactly ['allocationDigest', 'canonicalHashInput', 'caseId', 'custodian', 'custodyMarks', 'd', 'factId', 'questionText', 'retrospectiveRecords', 'sealedFactText', 'sideId', 'synthetic'] (missing or extra keys are refused; F-15, CORR9 rule-set) (F-7/F-8/F-13/F-15: a forged event with a valid SHA-256 is not an authorized event)"
+          ]
+        },
+        "nonemptyRefusal": {
+          "exception": "EFCAGateError",
+          "code": "PROCEDURALLY_INVALID_HISTORY",
+          "message": "PROCEDURALLY_INVALID_HISTORY: the history chains cryptographically but contains a transition that is not procedurally lawful: INVALID_TRANSITION: INVALID_TRANSITION: TUPLE_REGISTERED payload schema violation: expected exactly ['allocationDigest', 'canonicalHashInput', 'caseId', 'custodian', 'custodyMarks', 'd', 'factId', 'questionText', 'retrospectiveRecords', 'sealedFactText', 'sideId', 'synthetic'] (missing or extra keys are refused; F-15, CORR9 rule-set) (F-7/F-8/F-13/F-15: a forged event with a valid SHA-256 is not an authorized event)",
+          "args": [
+            "PROCEDURALLY_INVALID_HISTORY: the history chains cryptographically but contains a transition that is not procedurally lawful: INVALID_TRANSITION: INVALID_TRANSITION: TUPLE_REGISTERED payload schema violation: expected exactly ['allocationDigest', 'canonicalHashInput', 'caseId', 'custodian', 'custodyMarks', 'd', 'factId', 'questionText', 'retrospectiveRecords', 'sealedFactText', 'sideId', 'synthetic'] (missing or extra keys are refused; F-15, CORR9 rule-set) (F-7/F-8/F-13/F-15: a forged event with a valid SHA-256 is not an authorized event)"
+          ]
+        },
+        "noPartialAdoption": true,
+        "path": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/iv2_semantic_extra_registration_field.jsonl"
+      },
+      {
+        "attack": "missing_genesis_mode",
+        "envelopeValid": true,
+        "emptyRefusal": {
+          "exception": "EFCAGateError",
+          "code": "AUTHORITY_CONTEXT_MISMATCH",
+          "message": "AUTHORITY_CONTEXT_MISMATCH: the restored chain's allocation-authority context (mode=None) does not match this session's effective construction context (mode='OWNER_PINNED'); owner-pinned and simulation histories are never interchangeable, including when the allocation bytes and digest are identical (OD-45-A/F-45)",
+          "args": [
+            "AUTHORITY_CONTEXT_MISMATCH: the restored chain's allocation-authority context (mode=None) does not match this session's effective construction context (mode='OWNER_PINNED'); owner-pinned and simulation histories are never interchangeable, including when the allocation bytes and digest are identical (OD-45-A/F-45)"
+          ]
+        },
+        "nonemptyRefusal": {
+          "exception": "EFCAGateError",
+          "code": "AUTHORITY_CONTEXT_MISMATCH",
+          "message": "AUTHORITY_CONTEXT_MISMATCH: the restored chain's allocation-authority context (mode=None) does not match this session's effective construction context (mode='OWNER_PINNED'); owner-pinned and simulation histories are never interchangeable, including when the allocation bytes and digest are identical (OD-45-A/F-45)",
+          "args": [
+            "AUTHORITY_CONTEXT_MISMATCH: the restored chain's allocation-authority context (mode=None) does not match this session's effective construction context (mode='OWNER_PINNED'); owner-pinned and simulation histories are never interchangeable, including when the allocation bytes and digest are identical (OD-45-A/F-45)"
+          ]
+        },
+        "noPartialAdoption": true,
+        "path": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/iv2_semantic_missing_genesis_mode.jsonl"
+      },
+      {
+        "attack": "wrong_genesis_digest",
+        "envelopeValid": true,
+        "emptyRefusal": {
+          "exception": "EFCAGateError",
+          "code": "AUTHORITY_CONTEXT_MISMATCH",
+          "message": "AUTHORITY_CONTEXT_MISMATCH: the restored chain's allocation-authority context (mode='OWNER_PINNED') does not match this session's effective construction context (mode='OWNER_PINNED'); owner-pinned and simulation histories are never interchangeable, including when the allocation bytes and digest are identical (OD-45-A/F-45)",
+          "args": [
+            "AUTHORITY_CONTEXT_MISMATCH: the restored chain's allocation-authority context (mode='OWNER_PINNED') does not match this session's effective construction context (mode='OWNER_PINNED'); owner-pinned and simulation histories are never interchangeable, including when the allocation bytes and digest are identical (OD-45-A/F-45)"
+          ]
+        },
+        "nonemptyRefusal": {
+          "exception": "EFCAGateError",
+          "code": "AUTHORITY_CONTEXT_MISMATCH",
+          "message": "AUTHORITY_CONTEXT_MISMATCH: the restored chain's allocation-authority context (mode='OWNER_PINNED') does not match this session's effective construction context (mode='OWNER_PINNED'); owner-pinned and simulation histories are never interchangeable, including when the allocation bytes and digest are identical (OD-45-A/F-45)",
+          "args": [
+            "AUTHORITY_CONTEXT_MISMATCH: the restored chain's allocation-authority context (mode='OWNER_PINNED') does not match this session's effective construction context (mode='OWNER_PINNED'); owner-pinned and simulation histories are never interchangeable, including when the allocation bytes and digest are identical (OD-45-A/F-45)"
+          ]
+        },
+        "noPartialAdoption": true,
+        "path": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/iv2_semantic_wrong_genesis_digest.jsonl"
+      },
+      {
+        "attack": "incorrect_evidence_completeness",
+        "envelopeValid": true,
+        "emptyRefusal": {
+          "exception": "EFCAGateError",
+          "code": "PROCEDURALLY_INVALID_HISTORY",
+          "message": "PROCEDURALLY_INVALID_HISTORY: the history chains cryptographically but contains a transition that is not procedurally lawful: INVALID_TRANSITION: INVALID_TRANSITION: the evidence-record payload is engine-constructed from constants and engine-computed completeness; forged scientific-authority fields, wrong rubric identities or mismatched procedural snapshots are procedurally invalid (F-6/F-8/F-13) (F-7/F-8/F-13/F-15: a forged event with a valid SHA-256 is not an authorized event)",
+          "args": [
+            "PROCEDURALLY_INVALID_HISTORY: the history chains cryptographically but contains a transition that is not procedurally lawful: INVALID_TRANSITION: INVALID_TRANSITION: the evidence-record payload is engine-constructed from constants and engine-computed completeness; forged scientific-authority fields, wrong rubric identities or mismatched procedural snapshots are procedurally invalid (F-6/F-8/F-13) (F-7/F-8/F-13/F-15: a forged event with a valid SHA-256 is not an authorized event)"
+          ]
+        },
+        "nonemptyRefusal": {
+          "exception": "EFCAGateError",
+          "code": "PROCEDURALLY_INVALID_HISTORY",
+          "message": "PROCEDURALLY_INVALID_HISTORY: the history chains cryptographically but contains a transition that is not procedurally lawful: INVALID_TRANSITION: INVALID_TRANSITION: the evidence-record payload is engine-constructed from constants and engine-computed completeness; forged scientific-authority fields, wrong rubric identities or mismatched procedural snapshots are procedurally invalid (F-6/F-8/F-13) (F-7/F-8/F-13/F-15: a forged event with a valid SHA-256 is not an authorized event)",
+          "args": [
+            "PROCEDURALLY_INVALID_HISTORY: the history chains cryptographically but contains a transition that is not procedurally lawful: INVALID_TRANSITION: INVALID_TRANSITION: the evidence-record payload is engine-constructed from constants and engine-computed completeness; forged scientific-authority fields, wrong rubric identities or mismatched procedural snapshots are procedurally invalid (F-6/F-8/F-13) (F-7/F-8/F-13/F-15: a forged event with a valid SHA-256 is not an authorized event)"
+          ]
+        },
+        "noPartialAdoption": true,
+        "path": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/iv2_semantic_incorrect_evidence_completeness.jsonl"
+      },
+      {
+        "attack": "incorrect_evidence_mode",
+        "envelopeValid": true,
+        "emptyRefusal": {
+          "exception": "EFCAGateError",
+          "code": "PROCEDURALLY_INVALID_HISTORY",
+          "message": "PROCEDURALLY_INVALID_HISTORY: the history chains cryptographically but contains a transition that is not procedurally lawful: INVALID_TRANSITION: INVALID_TRANSITION: the evidence-record payload is engine-constructed from constants and engine-computed completeness; forged scientific-authority fields, wrong rubric identities or mismatched procedural snapshots are procedurally invalid (F-6/F-8/F-13) (F-7/F-8/F-13/F-15: a forged event with a valid SHA-256 is not an authorized event)",
+          "args": [
+            "PROCEDURALLY_INVALID_HISTORY: the history chains cryptographically but contains a transition that is not procedurally lawful: INVALID_TRANSITION: INVALID_TRANSITION: the evidence-record payload is engine-constructed from constants and engine-computed completeness; forged scientific-authority fields, wrong rubric identities or mismatched procedural snapshots are procedurally invalid (F-6/F-8/F-13) (F-7/F-8/F-13/F-15: a forged event with a valid SHA-256 is not an authorized event)"
+          ]
+        },
+        "nonemptyRefusal": {
+          "exception": "EFCAGateError",
+          "code": "PROCEDURALLY_INVALID_HISTORY",
+          "message": "PROCEDURALLY_INVALID_HISTORY: the history chains cryptographically but contains a transition that is not procedurally lawful: INVALID_TRANSITION: INVALID_TRANSITION: the evidence-record payload is engine-constructed from constants and engine-computed completeness; forged scientific-authority fields, wrong rubric identities or mismatched procedural snapshots are procedurally invalid (F-6/F-8/F-13) (F-7/F-8/F-13/F-15: a forged event with a valid SHA-256 is not an authorized event)",
+          "args": [
+            "PROCEDURALLY_INVALID_HISTORY: the history chains cryptographically but contains a transition that is not procedurally lawful: INVALID_TRANSITION: INVALID_TRANSITION: the evidence-record payload is engine-constructed from constants and engine-computed completeness; forged scientific-authority fields, wrong rubric identities or mismatched procedural snapshots are procedurally invalid (F-6/F-8/F-13) (F-7/F-8/F-13/F-15: a forged event with a valid SHA-256 is not an authorized event)"
+          ]
+        },
+        "noPartialAdoption": true,
+        "path": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/iv2_semantic_incorrect_evidence_mode.jsonl"
+      },
+      {
+        "attack": "scientific_promotion",
+        "envelopeValid": true,
+        "emptyRefusal": {
+          "exception": "EFCAGateError",
+          "code": "PROCEDURALLY_INVALID_HISTORY",
+          "message": "PROCEDURALLY_INVALID_HISTORY: the history chains cryptographically but contains a transition that is not procedurally lawful: INVALID_TRANSITION: INVALID_TRANSITION: the evidence-record payload is engine-constructed from constants and engine-computed completeness; forged scientific-authority fields, wrong rubric identities or mismatched procedural snapshots are procedurally invalid (F-6/F-8/F-13) (F-7/F-8/F-13/F-15: a forged event with a valid SHA-256 is not an authorized event)",
+          "args": [
+            "PROCEDURALLY_INVALID_HISTORY: the history chains cryptographically but contains a transition that is not procedurally lawful: INVALID_TRANSITION: INVALID_TRANSITION: the evidence-record payload is engine-constructed from constants and engine-computed completeness; forged scientific-authority fields, wrong rubric identities or mismatched procedural snapshots are procedurally invalid (F-6/F-8/F-13) (F-7/F-8/F-13/F-15: a forged event with a valid SHA-256 is not an authorized event)"
+          ]
+        },
+        "nonemptyRefusal": {
+          "exception": "EFCAGateError",
+          "code": "PROCEDURALLY_INVALID_HISTORY",
+          "message": "PROCEDURALLY_INVALID_HISTORY: the history chains cryptographically but contains a transition that is not procedurally lawful: INVALID_TRANSITION: INVALID_TRANSITION: the evidence-record payload is engine-constructed from constants and engine-computed completeness; forged scientific-authority fields, wrong rubric identities or mismatched procedural snapshots are procedurally invalid (F-6/F-8/F-13) (F-7/F-8/F-13/F-15: a forged event with a valid SHA-256 is not an authorized event)",
+          "args": [
+            "PROCEDURALLY_INVALID_HISTORY: the history chains cryptographically but contains a transition that is not procedurally lawful: INVALID_TRANSITION: INVALID_TRANSITION: the evidence-record payload is engine-constructed from constants and engine-computed completeness; forged scientific-authority fields, wrong rubric identities or mismatched procedural snapshots are procedurally invalid (F-6/F-8/F-13) (F-7/F-8/F-13/F-15: a forged event with a valid SHA-256 is not an authorized event)"
+          ]
+        },
+        "noPartialAdoption": true,
+        "path": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/iv2_semantic_scientific_promotion.jsonl"
+      },
+      {
+        "attack": "missing_evidence_mode",
+        "envelopeValid": true,
+        "emptyRefusal": {
+          "exception": "EFCAGateError",
+          "code": "PROCEDURALLY_INVALID_HISTORY",
+          "message": "PROCEDURALLY_INVALID_HISTORY: the history chains cryptographically but contains a transition that is not procedurally lawful: INVALID_TRANSITION: INVALID_TRANSITION: the evidence-record payload is engine-constructed from constants and engine-computed completeness; forged scientific-authority fields, wrong rubric identities or mismatched procedural snapshots are procedurally invalid (F-6/F-8/F-13) (F-7/F-8/F-13/F-15: a forged event with a valid SHA-256 is not an authorized event)",
+          "args": [
+            "PROCEDURALLY_INVALID_HISTORY: the history chains cryptographically but contains a transition that is not procedurally lawful: INVALID_TRANSITION: INVALID_TRANSITION: the evidence-record payload is engine-constructed from constants and engine-computed completeness; forged scientific-authority fields, wrong rubric identities or mismatched procedural snapshots are procedurally invalid (F-6/F-8/F-13) (F-7/F-8/F-13/F-15: a forged event with a valid SHA-256 is not an authorized event)"
+          ]
+        },
+        "nonemptyRefusal": {
+          "exception": "EFCAGateError",
+          "code": "PROCEDURALLY_INVALID_HISTORY",
+          "message": "PROCEDURALLY_INVALID_HISTORY: the history chains cryptographically but contains a transition that is not procedurally lawful: INVALID_TRANSITION: INVALID_TRANSITION: the evidence-record payload is engine-constructed from constants and engine-computed completeness; forged scientific-authority fields, wrong rubric identities or mismatched procedural snapshots are procedurally invalid (F-6/F-8/F-13) (F-7/F-8/F-13/F-15: a forged event with a valid SHA-256 is not an authorized event)",
+          "args": [
+            "PROCEDURALLY_INVALID_HISTORY: the history chains cryptographically but contains a transition that is not procedurally lawful: INVALID_TRANSITION: INVALID_TRANSITION: the evidence-record payload is engine-constructed from constants and engine-computed completeness; forged scientific-authority fields, wrong rubric identities or mismatched procedural snapshots are procedurally invalid (F-6/F-8/F-13) (F-7/F-8/F-13/F-15: a forged event with a valid SHA-256 is not an authorized event)"
+          ]
+        },
+        "noPartialAdoption": true,
+        "path": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/iv2_semantic_missing_evidence_mode.jsonl"
+      },
+      {
+        "attack": "invalid_packet_reviewer",
+        "envelopeValid": true,
+        "emptyRefusal": {
+          "exception": "EFCAGateError",
+          "code": "PROCEDURALLY_INVALID_HISTORY",
+          "message": "PROCEDURALLY_INVALID_HISTORY: the history chains cryptographically but contains a transition that is not procedurally lawful: ROLE_MISMATCH: ROLE_MISMATCH: a Phase-1 packet may be issued to R_P1 or R_IND only; 'SYN_RLB_312' is R_LB (F-7/F-8/F-13/F-15: a forged event with a valid SHA-256 is not an authorized event)",
+          "args": [
+            "PROCEDURALLY_INVALID_HISTORY: the history chains cryptographically but contains a transition that is not procedurally lawful: ROLE_MISMATCH: ROLE_MISMATCH: a Phase-1 packet may be issued to R_P1 or R_IND only; 'SYN_RLB_312' is R_LB (F-7/F-8/F-13/F-15: a forged event with a valid SHA-256 is not an authorized event)"
+          ]
+        },
+        "nonemptyRefusal": {
+          "exception": "EFCAGateError",
+          "code": "PROCEDURALLY_INVALID_HISTORY",
+          "message": "PROCEDURALLY_INVALID_HISTORY: the history chains cryptographically but contains a transition that is not procedurally lawful: ROLE_MISMATCH: ROLE_MISMATCH: a Phase-1 packet may be issued to R_P1 or R_IND only; 'SYN_RLB_312' is R_LB (F-7/F-8/F-13/F-15: a forged event with a valid SHA-256 is not an authorized event)",
+          "args": [
+            "PROCEDURALLY_INVALID_HISTORY: the history chains cryptographically but contains a transition that is not procedurally lawful: ROLE_MISMATCH: ROLE_MISMATCH: a Phase-1 packet may be issued to R_P1 or R_IND only; 'SYN_RLB_312' is R_LB (F-7/F-8/F-13/F-15: a forged event with a valid SHA-256 is not an authorized event)"
+          ]
+        },
+        "noPartialAdoption": true,
+        "path": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/iv2_semantic_invalid_packet_reviewer.jsonl"
+      },
+      {
+        "attack": "old_native_act",
+        "envelopeValid": true,
+        "emptyRefusal": {
+          "exception": "EFCAGateError",
+          "code": "NOT_A_NATIVE_HISTORY",
+          "message": "NOT_A_NATIVE_HISTORY: the restored chain must be a native history of this engine act (STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9); the immutable CORR5–CORR8 predecessors and every other foreign lineage are refused (compatibility guardrail)",
+          "args": [
+            "NOT_A_NATIVE_HISTORY: the restored chain must be a native history of this engine act (STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9); the immutable CORR5–CORR8 predecessors and every other foreign lineage are refused (compatibility guardrail)"
+          ]
+        },
+        "nonemptyRefusal": {
+          "exception": "EFCAGateError",
+          "code": "NOT_A_NATIVE_HISTORY",
+          "message": "NOT_A_NATIVE_HISTORY: the restored chain must be a native history of this engine act (STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9); the immutable CORR5–CORR8 predecessors and every other foreign lineage are refused (compatibility guardrail)",
+          "args": [
+            "NOT_A_NATIVE_HISTORY: the restored chain must be a native history of this engine act (STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9); the immutable CORR5–CORR8 predecessors and every other foreign lineage are refused (compatibility guardrail)"
+          ]
+        },
+        "noPartialAdoption": true,
+        "path": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/iv2_semantic_old_native_act.jsonl"
+      },
+      {
+        "attack": "illegal_transition_order",
+        "envelopeValid": true,
+        "emptyRefusal": {
+          "exception": "EFCAGateError",
+          "code": "PROCEDURALLY_INVALID_HISTORY",
+          "message": "PROCEDURALLY_INVALID_HISTORY: the history chains cryptographically but contains a transition that is not procedurally lawful: UNKNOWN_ACTOR: UNKNOWN_ACTOR: actor 'SYN_CUST_001' is not registered in this session (F-7/F-8/F-13/F-15: a forged event with a valid SHA-256 is not an authorized event)",
+          "args": [
+            "PROCEDURALLY_INVALID_HISTORY: the history chains cryptographically but contains a transition that is not procedurally lawful: UNKNOWN_ACTOR: UNKNOWN_ACTOR: actor 'SYN_CUST_001' is not registered in this session (F-7/F-8/F-13/F-15: a forged event with a valid SHA-256 is not an authorized event)"
+          ]
+        },
+        "nonemptyRefusal": {
+          "exception": "EFCAGateError",
+          "code": "PROCEDURALLY_INVALID_HISTORY",
+          "message": "PROCEDURALLY_INVALID_HISTORY: the history chains cryptographically but contains a transition that is not procedurally lawful: UNKNOWN_ACTOR: UNKNOWN_ACTOR: actor 'SYN_CUST_001' is not registered in this session (F-7/F-8/F-13/F-15: a forged event with a valid SHA-256 is not an authorized event)",
+          "args": [
+            "PROCEDURALLY_INVALID_HISTORY: the history chains cryptographically but contains a transition that is not procedurally lawful: UNKNOWN_ACTOR: UNKNOWN_ACTOR: actor 'SYN_CUST_001' is not registered in this session (F-7/F-8/F-13/F-15: a forged event with a valid SHA-256 is not an authorized event)"
+          ]
+        },
+        "noPartialAdoption": true,
+        "path": "/private/tmp/mergevue_corr9_iv2_odn67a24/iv2_runs/iv2_semantic_illegal_transition_order.jsonl"
+      }
+    ]
+  },
+  {
+    "id": "RV09-REQUESTER-HOST",
+    "result": "PASS",
+    "observed": {
+      "requesterNonDisclosure": {
+        "events": [
+          {
+            "localOrdinal": 1,
+            "eventType": "GENESIS",
+            "payload": {
+              "engineActId": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9",
+              "sessionLabel": "SYN_SESSION_001",
+              "syntheticOnly": true,
+              "allocationsSha256": "9e447c203886c41c9503b269c335866b14c3b016661ef748dc081afaa105930e",
+              "allocationAuthorityMode": "SIMULATION"
+            }
+          },
+          {
+            "localOrdinal": 2,
+            "eventType": "ACTOR_REGISTERED",
+            "payload": {
+              "actorId": "SYN_CUST_001",
+              "role": "CUSTODIAN"
+            }
+          },
+          {
+            "localOrdinal": 3,
+            "eventType": "TUPLE_REGISTERED",
+            "payload": {
+              "custodian": "SYN_CUST_001",
+              "caseId": "SYN_CASE_312",
+              "sideId": "SYN_SIDE_A",
+              "factId": "SYN_FACT_312",
+              "d": "SYN_D_08",
+              "canonicalHashInput": "f3c245dddd332e3edbe70d11881b43b928b3a952d4f0986cb86e0ae64bbfb0dc",
+              "sealedFactText": "SYNTHETIC IV2 invented observation 312",
+              "questionText": "SYNTHETIC does the invented observation concern this operation?",
+              "custodyMarks": {
+                "A": "NO",
+                "B": "YES"
+              },
+              "retrospectiveRecords": [
+                {
+                  "id": "SYN_RET_312",
+                  "locator": "SYN_LOCATOR_RET_312",
+                  "content": "SYNTHETIC IV2 invented record 312: an invented operation was recorded.",
+                  "sha": "480c839bdbc73105890abefe5d43eef27533fe27532824b0295aae96b68c6190"
+                }
+              ],
+              "allocationDigest": "852976c266adfecc6f28b890608aaff864b0fe0facfe3dc7f98782925f4a8523",
+              "synthetic": true,
+              "registeredAt": {
+                "scope": "SYN_CASE_312|SYN_SIDE_A|SYN_FACT_312",
+                "scopeOrdinal": 1
+              }
+            }
+          },
+          {
+            "localOrdinal": 4,
+            "eventType": "LANE_B_REGISTERED",
+            "payload": {
+              "tupleKey": "SYN_CASE_312|SYN_SIDE_A|SYN_FACT_312",
+              "reviewer": "SYN_RLB_312",
+              "submissionId": "SYN_SUB_29f0d61da5771f8a",
+              "question": "SYNTHETIC IV2 question",
+              "surface": "SYNTHETIC IV2 surface",
+              "schemaClaim": "SYNTHETIC IV2 schema claim"
+            }
+          }
+        ],
+        "anonymousEvents": [
+          {
+            "disclosure": "ANONYMOUS_METADATA_WITHHELD",
+            "reason": "anonymous event chronology can reveal tuple-specific procedural progress in a single-tuple or inferable session (F-28); authorized requesters receive scoped views",
+            "sessionSyntheticOnly": true
+          }
+        ],
+        "diagnostics": {
+          "valid": true,
+          "reason": "ok"
+        },
+        "foreignCustody": {
+          "exception": "EFCAGateError",
+          "code": "ROLE_MISMATCH",
+          "message": "ROLE_MISMATCH: actor 'SYN_CUST_001' is not the custodian of this tuple",
+          "args": [
+            "ROLE_MISMATCH: actor 'SYN_CUST_001' is not the custodian of this tuple"
+          ]
+        },
+        "foreignStatus": {
+          "disclosure": "WITHHELD_BEFORE_OWN_SEAL",
+          "tupleHistoricalCause": "NOT_ESTABLISHED",
+          "note": "tuple-specific §I status, adjudication summaries and contamination information are withheld from an unsealed reviewer (F-17); lawful post-seal access restores the full view"
+        },
+        "foreignPacket": {
+          "exception": "EFCAGateError",
+          "code": "UNISSUED_PACKET",
+          "message": "UNISSUED_PACKET: no packet is currently issued to 'SYN_RP1_312' for this tuple; the tuple's custodian issues the Phase-1 / reproduction packet (§G.4 step 1; F-41 packet-first)",
+          "args": [
+            "UNISSUED_PACKET: no packet is currently issued to 'SYN_RP1_312' for this tuple; the tuple's custodian issues the Phase-1 / reproduction packet (§G.4 step 1; F-41 packet-first)"
+          ]
+        },
+        "foreignLaneB": {
+          "exception": "EFCAGateError",
+          "code": "REFUSED_LANE_B_ACCESS",
+          "message": "REFUSED_LANE_B_ACCESS: no Lane B material is visible to this requester for this tuple (S28/F-1/F-10/F-39/F-40)",
+          "args": [
+            "REFUSED_LANE_B_ACCESS: no Lane B material is visible to this requester for this tuple (S28/F-1/F-10/F-39/F-40)"
+          ]
+        },
+        "foreignRegistration": {
+          "exception": "EFCAGateError",
+          "code": "NOT_ENTITLED",
+          "message": "NOT_ENTITLED: registration requires an Owner-approved custody entitlement for this precise tuple identity under the session's verified allocation authority; a registered CUSTODIAN role and knowledge of the tuple key are insufficient (OD-45-A)",
+          "args": [
+            "NOT_ENTITLED: registration requires an Owner-approved custody entitlement for this precise tuple identity under the session's verified allocation authority; a registered CUSTODIAN role and knowledge of the tuple key are insufficient (OD-45-A)"
+          ]
+        }
+      },
+      "projection": {
+        "artifactClass": "SCOPED_PROJECTION",
+        "authoritativeChainBackup": false,
+        "completeGlobalChainProof": false,
+        "engineActId": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9",
+        "generatedFor": {
+          "actorId": "SYN_CUST_001",
+          "role": "CUSTODIAN"
+        },
+        "scopeNote": "a scoped projection is not a complete global-chain proof and must not be accepted as an authoritative chain backup; the authoritative chain is persisted only through the engine-host durability channel (OD-37/F-37)",
+        "scopedEvents": [
+          {
+            "eventType": "GENESIS",
+            "localOrdinal": 1,
+            "payload": {
+              "allocationAuthorityMode": "SIMULATION",
+              "allocationsSha256": "9e447c203886c41c9503b269c335866b14c3b016661ef748dc081afaa105930e",
+              "engineActId": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9",
+              "sessionLabel": "SYN_SESSION_001",
+              "syntheticOnly": true
+            }
+          },
+          {
+            "eventType": "ACTOR_REGISTERED",
+            "localOrdinal": 2,
+            "payload": {
+              "actorId": "SYN_CUST_001",
+              "role": "CUSTODIAN"
+            }
+          },
+          {
+            "eventType": "TUPLE_REGISTERED",
+            "localOrdinal": 3,
+            "payload": {
+              "allocationDigest": "852976c266adfecc6f28b890608aaff864b0fe0facfe3dc7f98782925f4a8523",
+              "canonicalHashInput": "f3c245dddd332e3edbe70d11881b43b928b3a952d4f0986cb86e0ae64bbfb0dc",
+              "caseId": "SYN_CASE_312",
+              "custodian": "SYN_CUST_001",
+              "custodyMarks": {
+                "A": "NO",
+                "B": "YES"
+              },
+              "d": "SYN_D_08",
+              "factId": "SYN_FACT_312",
+              "questionText": "SYNTHETIC does the invented observation concern this operation?",
+              "registeredAt": {
+                "scope": "SYN_CASE_312|SYN_SIDE_A|SYN_FACT_312",
+                "scopeOrdinal": 1
+              },
+              "retrospectiveRecords": [
+                {
+                  "content": "SYNTHETIC IV2 invented record 312: an invented operation was recorded.",
+                  "id": "SYN_RET_312",
+                  "locator": "SYN_LOCATOR_RET_312",
+                  "sha": "480c839bdbc73105890abefe5d43eef27533fe27532824b0295aae96b68c6190"
+                }
+              ],
+              "sealedFactText": "SYNTHETIC IV2 invented observation 312",
+              "sideId": "SYN_SIDE_A",
+              "synthetic": true
+            }
+          },
+          {
+            "eventType": "LANE_B_REGISTERED",
+            "localOrdinal": 4,
+            "payload": {
+              "question": "SYNTHETIC IV2 question",
+              "reviewer": "SYN_RLB_312",
+              "schemaClaim": "SYNTHETIC IV2 schema claim",
+              "submissionId": "SYN_SUB_29f0d61da5771f8a",
+              "surface": "SYNTHETIC IV2 surface",
+              "tupleKey": "SYN_CASE_312|SYN_SIDE_A|SYN_FACT_312"
+            }
+          }
+        ],
+        "sessionLabel": "SYN_SESSION_001"
+      },
+      "constantNegatives": [
+        {
+          "valid": false,
+          "reason": "not_a_lawful_projection"
+        },
+        {
+          "valid": false,
+          "reason": "not_a_lawful_projection"
+        },
+        {
+          "valid": false,
+          "reason": "not_a_lawful_projection"
+        }
+      ],
+      "verificationNoAdoption": true,
+      "substitutedProjectionShapeDiagnostic": {
+        "valid": true,
+        "reason": "ok"
+      },
+      "projectionNotNative": {
+        "exception": "EFCAGateError",
+        "code": "PROJECTION_IS_NOT_A_CHAIN",
+        "message": "PROJECTION_IS_NOT_A_CHAIN: a scoped projection is never accepted as an authoritative chain backup (compatibility guardrail)",
+        "args": [
+          "PROJECTION_IS_NOT_A_CHAIN: a scoped projection is never accepted as an authoritative chain backup (compatibility guardrail)"
+        ]
+      },
+      "callerAuthorityKeywordsRefused": [
+        {
+          "exception": "TypeError",
+          "code": null,
+          "message": "events() got an unexpected keyword argument 'allocationAuthorityMode'",
+          "args": [
+            "events() got an unexpected keyword argument 'allocationAuthorityMode'"
+          ]
+        },
+        {
+          "exception": "TypeError",
+          "code": null,
+          "message": "persist_history() got an unexpected keyword argument 'allocationAuthorityMode'",
+          "args": [
+            "persist_history() got an unexpected keyword argument 'allocationAuthorityMode'"
+          ]
+        },
+        {
+          "exception": "TypeError",
+          "code": null,
+          "message": "verify_persisted_history() got an unexpected keyword argument 'allocationAuthorityMode'",
+          "args": [
+            "verify_persisted_history() got an unexpected keyword argument 'allocationAuthorityMode'"
+          ]
+        }
+      ],
+      "directPrivilegedObject": {
+        "completeHistoryCount": 14,
+        "restoreCallable": {
+          "restored": true,
+          "eventCount": 14,
+          "engineActId": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9",
+          "allocationAuthorityMode": "SIMULATION"
+        },
+        "foreignIDCallable": "SYN_CASE_313|SYN_SIDE_A|SYN_FACT_313",
+        "registerActorCallable": true,
+        "rebindExistingRefusal": {
+          "exception": "EFCAGateError",
+          "code": "NON_SYNTHETIC_IDENTIFIER",
+          "message": "NON_SYNTHETIC_IDENTIFIER: actorId 'SYN_CUST_314' does not match the synthetic pattern for role R_P1",
+          "args": [
+            "NON_SYNTHETIC_IDENTIFIER: actorId 'SYN_CUST_314' does not match the synthetic pattern for role R_P1"
+          ]
+        }
+      },
+      "classification": "Requester methods enforce supplied-actor scope. Authentication/binding and withholding session object/host methods are external trusted-host ASSUMPTIONS; no wrapper/OS isolation is implemented."
+    }
+  },
+  {
+    "id": "RV07-RV08-INV07-INV08",
+    "result": "PASS",
+    "observed": {
+      "packetFields": [
+        "caseId",
+        "factId",
+        "questionText",
+        "sealedFactText",
+        "sideId"
+      ],
+      "categories": [
+        "UNASSIGNED",
+        "UNASSIGNED"
+      ],
+      "causeLink": "UNASSIGNED_PENDING_J1",
+      "provenanceAttestations": 3,
+      "distinctPropositions": 2,
+      "compatibility": [
+        {
+          "version": 5,
+          "restoreRefusal": {
+            "exception": "EFCAGateError",
+            "code": "LEGACY_HISTORY_NOT_ADOPTABLE",
+            "message": "LEGACY_HISTORY_NOT_ADOPTABLE: a legacy CORR5 history is admitted only through replay_legacy_history for read-only integrity and semantic replay; it is never adopted, never extended by CORR6 events and never upgraded to CORR6 proposition identities (compatibility guardrail)",
+            "args": [
+              "LEGACY_HISTORY_NOT_ADOPTABLE: a legacy CORR5 history is admitted only through replay_legacy_history for read-only integrity and semantic replay; it is never adopted, never extended by CORR6 events and never upgraded to CORR6 proposition identities (compatibility guardrail)"
+            ]
+          },
+          "legacyAdmission": {
+            "legacyHistory": true,
+            "engineActId": "STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR5",
+            "engineSha256": "e4118af938362c398a69d79f6b776b77fbfb39b71c71604b525eb9b56a02a1e0",
+            "integrityValid": true,
+            "eventCount": 9,
+            "legacyClassified": true,
+            "adopted": false,
+            "extendable": false,
+            "propositionsIndexed": 0,
+            "note": "read-only legacy admission under the frozen CORR5 semantics; the history is never extended by CORR6 events and is never upgraded to CORR6 proposition identities (compatibility guardrail)"
+          },
+          "bytesUnchanged": true,
+          "noStateAdoption": true
+        },
+        {
+          "version": 6,
+          "restoreRefusal": {
+            "exception": "EFCAGateError",
+            "code": "NOT_A_NATIVE_HISTORY",
+            "message": "NOT_A_NATIVE_HISTORY: the restored chain must be a native history of this engine act (STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9); the immutable CORR5–CORR8 predecessors and every other foreign lineage are refused (compatibility guardrail)",
+            "args": [
+              "NOT_A_NATIVE_HISTORY: the restored chain must be a native history of this engine act (STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9); the immutable CORR5–CORR8 predecessors and every other foreign lineage are refused (compatibility guardrail)"
+            ]
+          },
+          "legacyAdmission": {
+            "exception": "EFCAGateError",
+            "code": "NOT_A_LEGACY_HISTORY",
+            "message": "NOT_A_LEGACY_HISTORY: legacy admission serves the frozen CORR5 lineage only (genesis act STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR5)",
+            "args": [
+              "NOT_A_LEGACY_HISTORY: legacy admission serves the frozen CORR5 lineage only (genesis act STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR5)"
+            ]
+          },
+          "bytesUnchanged": true,
+          "noStateAdoption": true
+        },
+        {
+          "version": 7,
+          "restoreRefusal": {
+            "exception": "EFCAGateError",
+            "code": "NOT_A_NATIVE_HISTORY",
+            "message": "NOT_A_NATIVE_HISTORY: the restored chain must be a native history of this engine act (STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9); the immutable CORR5–CORR8 predecessors and every other foreign lineage are refused (compatibility guardrail)",
+            "args": [
+              "NOT_A_NATIVE_HISTORY: the restored chain must be a native history of this engine act (STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9); the immutable CORR5–CORR8 predecessors and every other foreign lineage are refused (compatibility guardrail)"
+            ]
+          },
+          "legacyAdmission": {
+            "exception": "EFCAGateError",
+            "code": "NOT_A_LEGACY_HISTORY",
+            "message": "NOT_A_LEGACY_HISTORY: legacy admission serves the frozen CORR5 lineage only (genesis act STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR5)",
+            "args": [
+              "NOT_A_LEGACY_HISTORY: legacy admission serves the frozen CORR5 lineage only (genesis act STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR5)"
+            ]
+          },
+          "bytesUnchanged": true,
+          "noStateAdoption": true
+        },
+        {
+          "version": 8,
+          "restoreRefusal": {
+            "exception": "EFCAGateError",
+            "code": "NOT_A_NATIVE_HISTORY",
+            "message": "NOT_A_NATIVE_HISTORY: the restored chain must be a native history of this engine act (STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9); the immutable CORR5–CORR8 predecessors and every other foreign lineage are refused (compatibility guardrail)",
+            "args": [
+              "NOT_A_NATIVE_HISTORY: the restored chain must be a native history of this engine act (STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR9); the immutable CORR5–CORR8 predecessors and every other foreign lineage are refused (compatibility guardrail)"
+            ]
+          },
+          "legacyAdmission": {
+            "exception": "EFCAGateError",
+            "code": "NOT_A_LEGACY_HISTORY",
+            "message": "NOT_A_LEGACY_HISTORY: legacy admission serves the frozen CORR5 lineage only (genesis act STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR5)",
+            "args": [
+              "NOT_A_LEGACY_HISTORY: legacy admission serves the frozen CORR5 lineage only (genesis act STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1.CORR5)"
+            ]
+          },
+          "bytesUnchanged": true,
+          "noStateAdoption": true
+        }
+      ],
+      "laneBOrderIdentity": [
+        {
+          "SYN_RLB_312": {
+            "laneBRecord": true,
+            "submissionId": "SYN_SUB_2f56cfcd53d22ac0",
+            "causeLink": "UNASSIGNED_PENDING_J1"
+          },
+          "SYN_RLB_313": {
+            "laneBRecord": true,
+            "submissionId": "SYN_SUB_5ae2fd02d62b58fc",
+            "causeLink": "UNASSIGNED_PENDING_J1"
+          }
+        },
+        {
+          "SYN_RLB_313": {
+            "laneBRecord": true,
+            "submissionId": "SYN_SUB_5ae2fd02d62b58fc",
+            "causeLink": "UNASSIGNED_PENDING_J1"
+          },
+          "SYN_RLB_312": {
+            "laneBRecord": true,
+            "submissionId": "SYN_SUB_2f56cfcd53d22ac0",
+            "causeLink": "UNASSIGNED_PENDING_J1"
+          }
+        }
+      ]
+    }
+  }
+]

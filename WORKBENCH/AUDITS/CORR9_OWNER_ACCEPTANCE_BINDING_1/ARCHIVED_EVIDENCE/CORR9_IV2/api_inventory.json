@@ -1,0 +1,842 @@
+{
+  "source": "/private/tmp/mergevue_corr9_iv2_odn67a24/repo/WORKBENCH/AUDITS/STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1_CORR9/offline_efca.py",
+  "methods": [
+    {
+      "name": "__init__",
+      "start": 2984,
+      "end": 3050,
+      "signature": "self, rubric_path=None, sidecar_path=None, scratch_dir=None, session_label='SYN_SESSION_001', allocations_path=None, simulation_allocations=None, simulation_allocations_path=None",
+      "selfCalls": [],
+      "returnExpressions": [],
+      "docstring": "CORR9/OD-45-A construction. Exactly two engine-DERIVED authority\nmodes exist and there is no parameter to set the mode directly:\n\n- the default, non-override native construction loads the\n  Owner-pinned allocation manifest (fixed default path or the\n  explicitly supplied `allocations_path`, always verified against\n  the engine's Owner pin) and produces OWNER_PINNED;\n- the clearly named simulation parameters\n  (`simulation_allocations` in-memory document, or\n  `simulation_allocations_path`) declare test-only allocations and\n  ALWAYS produce SIMULATION \u2014 never OWNER_PINNED, even when the\n  supplied allocation bytes are an exact copy of the Owner-pinned\n  manifest. A caller cannot replace the Owner pin by supplying a\n  matching hash for their own manifest, and cannot declare a\n  simulation and a pinned path together.\nThe authority is verified BEFORE any actor-facing operation: an\nunavailable, malformed, conflicting or non-pinned authority fails\nconstruction with no session state.",
+      "classification": "TRUSTED_HOST"
+    },
+    {
+      "name": "_transition",
+      "start": 3054,
+      "end": 3069,
+      "signature": "self, event_type, payload",
+      "selfCalls": [],
+      "returnExpressions": [
+        "record"
+      ],
+      "docstring": null,
+      "classification": "INTERNAL"
+    },
+    {
+      "name": "register_actor",
+      "start": 3073,
+      "end": 3077,
+      "signature": "self, actor_id, role",
+      "selfCalls": [
+        "_transition"
+      ],
+      "returnExpressions": [
+        "dict(self._transition('ACTOR_REGISTERED', {'actorId': actor_id, 'role': role})['payload'])"
+      ],
+      "docstring": "Register an actor under a trusted role (E1). The role is fixed\nhere and can never be overridden by caller-supplied fields.",
+      "classification": "TRUSTED_HOST"
+    },
+    {
+      "name": "register_tuple",
+      "start": 3079,
+      "end": 3154,
+      "signature": "self, custodian_id, tuple_spec",
+      "selfCalls": [
+        "_scope_ref",
+        "_transition"
+      ],
+      "returnExpressions": [
+        "{'tupleKey': key, 'canonicalHashInput': canonical_hash, 'allocationDigest': allocation_digest, 'registeredAt': self._scope_ref(custodian_id, key, ev['t']), 'synthetic': True}"
+      ],
+      "docstring": "Register a synthetic tuple under custodian custody (E2/E3). The\nspec is validated against a CLOSED schema; marks and authenticated\nretrospective records live in custody only. Records must be exactly\n{id, locator, content, sha} with sha == sha256(content) (F-16).\n\nCORR9/OD-45-A (F-45): registration requires BOTH a registered\nCUSTODIAN role AND a matching Owner-approved entitlement for this\nprecise tuple identity \u2014 role membership and knowledge of the tuple\nkey are insufficient. The effective order is:\n  (1) actor identity and role,\n  (2) state-independent input validation,\n  (3) tuple-specific entitlement against the verified immutable\n      allocation authority,\n  (4) for an entitled actor only: own registration/occupancy,\n  (5) the lawful registration transition on an unregistered key.\nAn unauthorized requester receives ONE fixed refusal \u2014 the same\nNOT_ENTITLED code and message \u2014 for an unregistered/unallocated\nkey, a key allocated to another custodian and a key already\nregistered under another custodian's custody: no foreign\noccupancy, ownership, timestamp, counter, registration status or\nactivity detail is disclosed and a denied attempt mutates no\nauthoritative history and no requester-visible procedural state.\nAn entitled custodian receives truthful information about their own\nregistration (including their own allocationDigest).",
+      "classification": "REQUESTER_SCOPED_OR_CONSTANT"
+    },
+    {
+      "name": "issue_packet",
+      "start": 3158,
+      "end": 3173,
+      "signature": "self, custodian_id, reviewer_id, tuple_key",
+      "selfCalls": [
+        "_transition"
+      ],
+      "returnExpressions": [
+        "dict(packet)"
+      ],
+      "docstring": "Custodian-issued identity-verified blind packet (\u00a7G.4, E3).\nCORR7/F-41: the custody relationship is evaluated first; the refusal\nis identical for an unregistered key and a foreign tuple.",
+      "classification": "REQUESTER_SCOPED_OR_CONSTANT"
+    },
+    {
+      "name": "fetch_packet",
+      "start": 3175,
+      "end": 3196,
+      "signature": "self, reviewer_id, tuple_key, fields=None",
+      "selfCalls": [],
+      "returnExpressions": [
+        "{f: full[f] for f in wanted}"
+      ],
+      "docstring": "Reviewer-side blind view of an issued packet (E2).\nCORR7/F-41: packet-first; the refusal does not depend on whether the\ntuple is registered.",
+      "classification": "REQUESTER_SCOPED_OR_CONSTANT"
+    },
+    {
+      "name": "submit_phase1_review",
+      "start": 3198,
+      "end": 3250,
+      "signature": "self, reviewer_id, tuple_key, review",
+      "selfCalls": [
+        "_disclosed_contamination",
+        "_scope_ref",
+        "_transition"
+      ],
+      "returnExpressions": [
+        "{'sealedBytesSha': sealed_sha, 'sealedAt': self._scope_ref(reviewer_id, tuple_key, ev['t']), 'contamination': self._disclosed_contamination(reviewer_id, tuple_key, contamination), 'sealedBytesImmutable': True}"
+      ],
+      "docstring": "Reviewer seals a Phase-1 review (\u00a7G.4, E4). Immutable once sealed.\nA reviewer whose effective contamination includes pre-seal\ndisclosures may still seal; the seal is preserved and marked\nCONTAMINATED (\u00a7G.6) and can never serve as blind proof.",
+      "classification": "REQUESTER_SCOPED_OR_CONSTANT"
+    },
+    {
+      "name": "acknowledge_seal_receipt",
+      "start": 3252,
+      "end": 3262,
+      "signature": "self, custodian_id, tuple_key, reviewer_id",
+      "selfCalls": [
+        "_scope_ref",
+        "_transition"
+      ],
+      "returnExpressions": [
+        "{'sealReceivedAt': self._scope_ref(custodian_id, tuple_key, ev['t'])}"
+      ],
+      "docstring": "Custodian records sealReceivedAt (\u00a7G.4 step 3, E4).\nCORR7/F-41: uniform custody gate.",
+      "classification": "REQUESTER_SCOPED_OR_CONSTANT"
+    },
+    {
+      "name": "reveal",
+      "start": 3266,
+      "end": 3286,
+      "signature": "self, custodian_id, reviewer_id, tuple_key",
+      "selfCalls": [
+        "_scope_ref",
+        "_transition"
+      ],
+      "returnExpressions": [
+        "{'markA': tup['custodyMarks']['A'], 'markB': tup['custodyMarks']['B'], 'retrospectiveRecords': [{'id': r['id'], 'sha': r['sha']} for r in tup['retrospectiveRecords']], 'revealedAt': self._scope_ref(custodian_id, tuple_key, reveal_tick)}"
+      ],
+      "docstring": "Custodian reveals marks and retrospective record locators\n(\u00a7G.5: \"reveals the marks and retrospective records {id, sha}\"),\ngated on effective (derived, occurrence-aware) contamination.\nCORR7/F-41: uniform custody gate.",
+      "classification": "REQUESTER_SCOPED_OR_CONSTANT"
+    },
+    {
+      "name": "append_delta",
+      "start": 3288,
+      "end": 3301,
+      "signature": "self, reviewer_id, tuple_key, delta",
+      "selfCalls": [
+        "_transition"
+      ],
+      "returnExpressions": [
+        "{'appended': True, 'appendOnly': True}"
+      ],
+      "docstring": "Append the Phase-2 delta, including the defined 'NO_CHANGE'\ncontrol value (\u00a7G.5). Free-text deltas require the SYNTHETIC\nclassification marker (F-20; a marker is a mechanical label, not\nproof of factual provenance).",
+      "classification": "REQUESTER_SCOPED_OR_CONSTANT"
+    },
+    {
+      "name": "report_exposure",
+      "start": 3305,
+      "end": 3361,
+      "signature": "self, reporter_id, tuple_key, exposed_to_id, what, detail='', occurred=None",
+      "selfCalls": [
+        "_disclosed_contamination",
+        "_scope_ref",
+        "_transition"
+      ],
+      "returnExpressions": [
+        "{'exposedTo': exposed_to_id, 'what': what, 'occurredAtTick': None if resolved is None else self._scope_ref(reporter_id, tuple_key, resolved), 'reportedTick': self._scope_ref(reporter_id, tuple_key, ev['t']), 'phase1Contamination': self._disclosed_contamination(reporter_id, tuple_key, _contamination_snapshot_in(self._ix, tuple_key, exposed_to_id))}"
+      ],
+      "docstring": "Register a Phase-1-forbidden exposure (\u00a7G.6, S16/S25/S28).\n\nCORR6/OD-37: `occurred` is the scope-local occurrence reference\n{\"scope\": \"self\", \"scopeOrdinal\": k} naming the k-th event of the\nreporter's own recorded sequence (registration and every event\nnaming the reporter as a party). The exposure HAPPENED at that\nown-scope event; discovery may be later (F-4). None means the\noccurrence time is not established, which is treated as\ncontaminating (fail closed). The previous session-tick input was an\nindirect session-clock probe channel (acceptance/refusal revealed\nthe session-global count); the internally resolved tick preserves\nthe F-4 occurrence-time derivation exactly for equivalent\ndeclarations. Lane B deliveries, pre-seal rationale accesses and\npre-seal retrospective disclosures are contaminated by DERIVATION\nand need no companion report (F-11/F-12/F-18). A non-empty detail\nrequires the SYNTHETIC marker (F-20).",
+      "classification": "REQUESTER_SCOPED_OR_CONSTANT"
+    },
+    {
+      "name": "request_new_phase1",
+      "start": 3363,
+      "end": 3373,
+      "signature": "self, custodian_id, tuple_key, new_reviewer_id",
+      "selfCalls": [
+        "_transition",
+        "issue_packet"
+      ],
+      "returnExpressions": [
+        "self.issue_packet(custodian_id, new_reviewer_id, tuple_key)"
+      ],
+      "docstring": "Contamination recovery (\u00a7G.6 step 5): only a different reviewer\nwho never received forbidden tuple-specific material.\nCORR7/F-41: uniform custody gate.",
+      "classification": "REQUESTER_SCOPED_OR_CONSTANT"
+    },
+    {
+      "name": "register_lane_b",
+      "start": 3377,
+      "end": 3410,
+      "signature": "self, r_lb_id, tuple_key, lane_b_spec",
+      "selfCalls": [
+        "_transition"
+      ],
+      "returnExpressions": [
+        "{'laneBRecord': True, 'submissionId': submission_id, 'causeLink': 'UNASSIGNED_PENDING_J1'}"
+      ],
+      "docstring": "Register one Lane B schema-inspection record on its own surface\n(causeLink UNASSIGNED_PENDING_J1; no category fields exist; no\nassignment protocol is invented). F-39/OD-39: several registered\nR_LB actors may file independent submissions on the same tuple and\nthe first submission does not monopolize it. The submissionId is\nengine-constructed as the tuple-local ordinal of registrations, so\nit is stable, unique and replay-deterministic.\nCORR7/F-41: the standard-form Lane B filing is a self-scoped content\nrecord bound to the well-formed tuple key; it does not require prior\nregistration, so its outcome does not disclose registration status\n(uniform success in both states; no new scientific meaning \u2014 the\ntuple binding is the key itself).\nCORR8/F-44: the identity is ACTOR-LOCAL DETERMINISTIC \u2014 derived\nonly from the filer's own actor id, the tuple key and the filer's\nown prior-filing count through a one-way hash \u2014 so the returned\nidentifier reveals no other reviewer's filing count, order or\nexistence.",
+      "classification": "REQUESTER_SCOPED_OR_CONSTANT"
+    },
+    {
+      "name": "deliver_lane_b_to",
+      "start": 3412,
+      "end": 3440,
+      "signature": "self, custodian_id, actor_id, tuple_key, submission_id",
+      "selfCalls": [
+        "_scope_ref",
+        "_transition"
+      ],
+      "returnExpressions": [
+        "{'deliveredTo': actor_id, 'submissionId': submission_id, 'tick': self._scope_ref(custodian_id, tuple_key, ev['t']), 'contaminationEffect': contamination_effect}"
+      ],
+      "docstring": "Deliver ONE exact Lane B submission to an actor (F-2/F-11,\nF-39/OD-39: the custodian's delivery references a particular\nsubmission).\n\nIf the recipient is an R_P1/R_IND reviewer who has NOT sealed this\ntuple \u2014 packet issued or not \u2014 the delivery is a contaminating\nexposure by DERIVATION from this event alone (no companion event is\nrequired, live or replayed). Delivery after that reviewer's seal is\nlawful and registers no incident. CORR7/F-41: uniform custody\ngate.",
+      "classification": "REQUESTER_SCOPED_OR_CONSTANT"
+    },
+    {
+      "name": "begin_independent_reproduction",
+      "start": 3444,
+      "end": 3474,
+      "signature": "self, r_ind_id, tuple_key",
+      "selfCalls": [],
+      "returnExpressions": [
+        "_packet_content_of(self._ix['tuples'][tuple_key])"
+      ],
+      "docstring": "Return the reproducer's own custodian-issued Phase-1 packet\n(distinct non-author). CORR7/F-41: the reproducer no longer\nself-issues \u2014 the tuple's custodian issues the R_IND packet exactly\nas any Phase-1 packet (\u00a7G.4 step 1). Without that packet the\nrefusal is the identical UNISSUED_PACKET for an unregistered key and\na foreign tuple, so registration status is not observable.",
+      "classification": "REQUESTER_SCOPED_OR_CONSTANT"
+    },
+    {
+      "name": "receive_first_rationale",
+      "start": 3476,
+      "end": 3500,
+      "signature": "self, r_ind_id, tuple_key",
+      "selfCalls": [
+        "_transition"
+      ],
+      "returnExpressions": [
+        "{'rationaleOf': original_reviewer, 'sealedBytesSha': original_seal['sealedBytesSha'], 'interpretationBound': json.loads(json.dumps(original_seal['sealedPayload']['interpretationBound'])), 'rationale': original_seal['sealedPayload']['rationale'], 'normativeStates': json.loads(json.dumps(original_seal['sealedPayload']['normativeStates']))}"
+      ],
+      "docstring": "Expose the original reviewer's sealed rationale to the reproducer\n(the ONLY public path). ownPhase1SealedBeforeRationale is computed\nfrom event ordering, never declared. Access before the reproducer's\nown seal contaminates the reproducer's Phase 1 BY DERIVATION from\nthis event alone (S26/F-12). CORR7/F-41: packet-first; the\nreproducer participates only in tuples whose custodian issued them a\nreproduction packet.",
+      "classification": "REQUESTER_SCOPED_OR_CONSTANT"
+    },
+    {
+      "name": "declare_records_rederived",
+      "start": 3502,
+      "end": 3520,
+      "signature": "self, r_ind_id, tuple_key, record_refs",
+      "selfCalls": [
+        "_transition"
+      ],
+      "returnExpressions": [
+        "{'recordsRederived': True, 'recordRefs': json.loads(json.dumps(normalized))}"
+      ],
+      "docstring": "Separately declared recordsRederived prerequisite (\u00a7G.7), made\nproof-carrying (F-16): each reference cites an authenticated record\nby {recordId, locator, content} and the content must hash to the\nauthenticated record digest. CORR7/F-41: packet-first.",
+      "classification": "REQUESTER_SCOPED_OR_CONSTANT"
+    },
+    {
+      "name": "adjudicate_claim",
+      "start": 3522,
+      "end": 3606,
+      "signature": "self, r_ind_id, tuple_key, claim_type, claim_id, record_refs=None, proposition=None, observation=None",
+      "selfCalls": [
+        "_scope_ref",
+        "_transition"
+      ],
+      "returnExpressions": [
+        "{'claimId': claim_id, 'claimType': claim_type, 'claimLevelStatus': 'PROVENANCE_VERIFIED_NOT_ADJUDICATED' if bounded else 'ADJUDICATED', 'mechanicalVerificationOnly': bounded, 'boundProposition': json.loads(json.dumps(prerequisites['boundProposition'])), 'tick': self._scope_ref(r_ind_id, tuple_key, ev['t']), 'scopeNote': 'ADJUDICATED attaches to this named normative claim only' if not bounded else 'only mechanical record provenance was verified against the complete declared proposition scope; substantive adjudication of the named historical proposition is an unresolved gate requiring separate scientific authority (F-27/F-38)'}"
+      ],
+      "docstring": "Claim-specific adjudication gate (\u00a7G.7, E8/F-3/F-5/F-16).\nProcedural, never scientific (E11).\n\n- NORMATIVE_*: requires the reproducer's own Phase 1 sealed BEFORE\n  the first rationale access (observed ordering), uncontaminated,\n  and the reproduced proposition identical to the identified\n  original claim.\n- HISTORICAL_RECORD_*: requires the declared re-derivation AND the\n  per-claim proof-carrying reconstruction (`record_refs`) AND the\n  complete declared proposition scope (`proposition`, rubric \u00a7D.4 /\n  OD-38/F-38); a missing mandatory scope fails closed. The bound\n  proposition is the declared content + type-specific scope; each\n  verification is a separate attestation and several attestations\n  may concern one proposition. No scientific adjudication of the\n  historical proposition and no semantic-equivalence algorithm are\n  performed.\nCORR7/F-41: packet-first; the refusal is existence-blind.",
+      "classification": "REQUESTER_SCOPED_OR_CONSTANT"
+    },
+    {
+      "name": "_rubric_identity_gate",
+      "start": 3610,
+      "end": 3659,
+      "signature": "self",
+      "selfCalls": [],
+      "returnExpressions": [
+        "digest"
+      ],
+      "docstring": "\u00a7I.2 + F-6: computed SHA == sidecar SHA == Owner-pinned SHA.\nIdentity gate only; never a scientific falsifier. Executed on both\nthe live issuance path and the replay path (F-13).",
+      "classification": "INTERNAL"
+    },
+    {
+      "name": "issue_evidence_record",
+      "start": 3661,
+      "end": 3674,
+      "signature": "self, custodian_id, tuple_key",
+      "selfCalls": [
+        "_rubric_identity_gate",
+        "_transition"
+      ],
+      "returnExpressions": [
+        "json.loads(json.dumps(ev['payload']))"
+      ],
+      "docstring": "Issue a synthetic EFCA evidence record after the triple identity\ngate. The payload \u2014 including the procedural completeness snapshot \u2014\nis engine-constructed (F-6); a partial procedural record is issued\nwith its incompleteness represented explicitly and implies nothing\nthat did not occur. CORR7/F-41: uniform custody gate.",
+      "classification": "REQUESTER_SCOPED_OR_CONSTANT"
+    },
+    {
+      "name": "workflow_status",
+      "start": 3678,
+      "end": 3772,
+      "signature": "self, tuple_key, requester_id=None",
+      "selfCalls": [],
+      "returnExpressions": [
+        "{'tupleLevel': 'PROVISIONAL' if provisional else 'IN_PROGRESS', 'claimLevel': claim_level, 'effectiveSeals': sorted(effective_seals, key=lambda s: s['reviewer']), 'effectiveAdjudications': effective, 'mechanicalProvenanceVerifications': provenance, 'provenanceAttestationCount': len(provenance), 'distinctBoundPropositionCount': len([k for (k, v) in self._ix['propositions'].items() if v['tupleKey'] == tuple_key]), 'suspendedAdjudications': suspended, 'tupleHistoricalCause': 'NOT_ESTABLISHED', 'note': 'engine is a procedural gate; it never establishes historical causation or any frozen \u00a7L-4 category; status reflects current effective derived contamination across the append-only history (F-4/F-11/F-12)'}",
+        "{'disclosure': 'WITHHELD_BEFORE_OWN_SEAL', 'tupleHistoricalCause': 'NOT_ESTABLISHED', 'note': 'tuple-specific \u00a7I status, adjudication summaries and contamination information are withheld from an unsealed reviewer (F-17); lawful post-seal access restores the full view'}"
+      ],
+      "docstring": "\u00a7I workflow status derived from CURRENT EFFECTIVE evidence and\nderived incident state (F-4/F-11/F-12/F-18). Nothing historical is\nrewritten. F-17: while an R_P1/R_IND requester has not sealed the\ntuple (or no requester is given), all \u00a7I status values and\nadjudication summaries are WITHHELD \u2014 procedural state is not\nexposed through a read API merely because events are append-only.\nFull status is visible to the tuple's custodian and to an\nalready-sealed reviewer. F-32: filing a Lane B evidence record\ndoes not authorize this read. The accepted rubric does not define\na custodian-issued Lane B assignment, and none is invented here.\nCORR7/F-41: existence-blind \u2014 the withheld shape is returned for any\nwell-formed key to any requester without an authorized relationship,\nwhether or not the tuple is registered.",
+      "classification": "REQUESTER_SCOPED_OR_CONSTANT"
+    },
+    {
+      "name": "category_assignment",
+      "start": 3774,
+      "end": 3782,
+      "signature": "self, tuple_key",
+      "selfCalls": [],
+      "returnExpressions": [
+        "{'categoryAssignment': CATEGORY_ASSIGNMENT, 'tupleLevelName': TUPLE_LEVEL_NAME, 'frozenNames': list(FROZEN_CATEGORY_NAMES), 'unresolvedIsWorkflowDispositionNotCategory': True}"
+      ],
+      "docstring": "Read-only: always UNASSIGNED; no public operation can change it.\nCORR7/F-41: a constant record for any well-formed key; registration\nstatus is not consulted.",
+      "classification": "REQUESTER_SCOPED_OR_CONSTANT"
+    },
+    {
+      "name": "_blind_for",
+      "start": 3786,
+      "end": 3795,
+      "signature": "self, requester_id, tuple_key",
+      "selfCalls": [],
+      "returnExpressions": [
+        "False",
+        "True",
+        "(tuple_key, requester_id) not in self._ix['seals']"
+      ],
+      "docstring": "F-17: the requester is an R_P1/R_IND actor who has not yet sealed\nthis tuple \u2014 no OTHER actor's tuple-specific analytical or\nprocedural results may be disclosed to them.",
+      "classification": "INTERNAL"
+    },
+    {
+      "name": "_own_event",
+      "start": 3798,
+      "end": 3804,
+      "signature": "payload, requester_id",
+      "selfCalls": [],
+      "returnExpressions": [
+        "payload.get('reviewer') == requester_id or payload.get('deliveredTo') == requester_id or payload.get('newReviewer') == requester_id or (payload.get('exposedTo') == requester_id)"
+      ],
+      "docstring": "True when the disclosed event is the requester's own act; a\nreviewer always has access to what they themselves submitted.",
+      "classification": "INTERNAL"
+    },
+    {
+      "name": "_may_observe_event",
+      "start": 3806,
+      "end": 3823,
+      "signature": "self, requester_id, role, e",
+      "selfCalls": [
+        "_event_tuple_key",
+        "_reviewer_may_observe"
+      ],
+      "returnExpressions": [
+        "self._reviewer_may_observe(requester_id, e['eventType'], e['payload'])",
+        "isinstance(tk, str) and self._ix['tuples'].get(tk, {}).get('custodian') == requester_id",
+        "True",
+        "e['payload'].get('actorId') == requester_id"
+      ],
+      "docstring": "F-37/OD-37: the single tuple-scope visibility predicate used by\nevents() and by every scope-local clock reference. A custodian sees\nGENESIS, their own registration, and events of tuples under their\nown custody \u2014 foreign tuples and foreign registrations are omitted\nentirely (supersedes F-19's minimal foreign projections). Every\nother role keeps the F-31/F-33 reviewer boundary.",
+      "classification": "INTERNAL"
+    },
+    {
+      "name": "_event_scope_name",
+      "start": 3825,
+      "end": 3832,
+      "signature": "self, e",
+      "selfCalls": [
+        "_event_tuple_key"
+      ],
+      "returnExpressions": [
+        "tk if isinstance(tk, str) else 'session'",
+        "'session'",
+        "'self'"
+      ],
+      "docstring": null,
+      "classification": "INTERNAL"
+    },
+    {
+      "name": "_scope_ref",
+      "start": 3834,
+      "end": 3851,
+      "signature": "self, requester_id, scope_name, tick",
+      "selfCalls": [
+        "_event_scope_name",
+        "_may_observe_event"
+      ],
+      "returnExpressions": [
+        "{'scope': scope_name, 'scopeOrdinal': count}"
+      ],
+      "docstring": "F-37/OD-37: every disclosed clock value is a scope-local\nreference \u2014 the count of the requester's OBSERVABLE events of that\nscope at or before the referenced time. No global seq, tick, count\nor chain hash is ever attached to a requester-scoped surface, so\nforeign activity cannot be inferred from gaps, magnitudes or\npolling diffs.",
+      "classification": "INTERNAL"
+    },
+    {
+      "name": "_disclosed_contamination",
+      "start": 3853,
+      "end": 3868,
+      "signature": "self, requester_id, tuple_key, snapshot",
+      "selfCalls": [
+        "_scope_ref"
+      ],
+      "returnExpressions": [
+        "out"
+      ],
+      "docstring": "Disclosure form of a contamination snapshot: every incident tick\nbecomes a scope-local reference (OD-37/F-37).",
+      "classification": "INTERNAL"
+    },
+    {
+      "name": "_custodian_projection",
+      "start": 3870,
+      "end": 3894,
+      "signature": "self, et, p, t, requester_id",
+      "selfCalls": [
+        "_event_tuple_key",
+        "_scope_ref"
+      ],
+      "returnExpressions": [
+        "payload"
+      ],
+      "docstring": "F-19 substance under F-37: the tuple's custodian retains full\nCONTENT visibility over their own tuples, disclosed as a scoped\nprojection \u2014 envelope sequence, ids, ticks and chain hashes are\nnever attached, and clock-bearing fields become scope-local\nreferences. The reporter's own-scope occurrence declaration\n(occurredScopeRef) is an internal representation and is not\nre-disclosed; the disclosed occurrence time is recomputed as a\nreference relative to THIS requester's observable record.",
+      "classification": "INTERNAL"
+    },
+    {
+      "name": "_event_tuple_key",
+      "start": 3896,
+      "end": 3900,
+      "signature": "self, et, payload",
+      "selfCalls": [],
+      "returnExpressions": [
+        "payload.get('tupleKey')",
+        "tuple_key_of(payload.get('caseId'), payload.get('sideId'), payload.get('factId'))"
+      ],
+      "docstring": null,
+      "classification": "INTERNAL"
+    },
+    {
+      "name": "_reviewer_may_observe",
+      "start": 3902,
+      "end": 3916,
+      "signature": "self, requester_id, et, payload",
+      "selfCalls": [
+        "_event_tuple_key",
+        "_own_event"
+      ],
+      "returnExpressions": [
+        "isinstance(tk, str) and (tk, requester_id) in self._ix['seals']",
+        "True",
+        "payload.get('actorId') == requester_id",
+        "True"
+      ],
+      "docstring": "F-31/F-33. Omit foreign procedural progress. Keep the requester's\nown submissions. After the requester has sealed a tuple, that\ntuple's redacted events are visible. Authorization matches\nworkflow_status: custodian handling is separate; an R_LB filing is\nnot tuple access.",
+      "classification": "INTERNAL"
+    },
+    {
+      "name": "_projected_payload",
+      "start": 3918,
+      "end": 3995,
+      "signature": "self, et, p, t, requester_id",
+      "selfCalls": [
+        "_scope_ref"
+      ],
+      "returnExpressions": [
+        "{'eventType': et}",
+        "{'engineActId': p['engineActId'], 'sessionLabel': p['sessionLabel'], 'syntheticOnly': True}",
+        "{'actorId': p['actorId'], 'role': p['role']}",
+        "{'caseId': p['caseId'], 'sideId': p['sideId'], 'factId': p['factId'], 'registeredAt': self._scope_ref(requester_id, tk, t), 'synthetic': True}",
+        "{'tupleKey': p['tupleKey'], 'reviewer': p['reviewer'], 'packetSha': p['packetSha'], 'issuedAt': self._scope_ref(requester_id, p['tupleKey'], p['issuedAt']), 'phase': p['phase']}",
+        "view",
+        "{'tupleKey': p['tupleKey'], 'reviewer': p['reviewer']}",
+        "{'tupleKey': p['tupleKey'], 'reviewer': p['reviewer'], 'revealedAt': self._scope_ref(requester_id, p['tupleKey'], t)}",
+        "view",
+        "view",
+        "{'tupleKey': p['tupleKey'], 'deliveredTo': p['deliveredTo'], 'submissionId': p['submissionId']}",
+        "{'tupleKey': p['tupleKey'], 'exposedTo': p['exposedTo'], 'what': p['what']}",
+        "{'tupleKey': p['tupleKey'], 'newReviewer': p['newReviewer']}",
+        "{'tupleKey': p['tupleKey'], 'reviewer': p['reviewer']}",
+        "view",
+        "view",
+        "json.loads(json.dumps(p))"
+      ],
+      "docstring": "Post-seal and own-submission projection. No global seq, event id\nor envelope tick is attached by the caller; clock-bearing fields are\nscope-local references (F-37/OD-37).",
+      "classification": "INTERNAL"
+    },
+    {
+      "name": "events",
+      "start": 3997,
+      "end": 4038,
+      "signature": "self, requester_id=None",
+      "selfCalls": [
+        "_custodian_projection",
+        "_may_observe_event",
+        "_projected_payload"
+      ],
+      "returnExpressions": [
+        "visible",
+        "[{'disclosure': 'ANONYMOUS_METADATA_WITHHELD', 'reason': 'anonymous event chronology can reveal tuple-specific procedural progress in a single-tuple or inferable session (F-28); authorized requesters receive scoped views', 'sessionSyntheticOnly': True}]"
+      ],
+      "docstring": "Append-only event history under the OD-37 scoped-disclosure\nboundary (F-1/F-10/F-17/F-19/F-31/F-33 as corrected by F-37).\n\n- requester_id None (anonymous): one fixed withheld aggregate. No\n  per-event chronology, counts or chain material (F-28).\n- CUSTODIAN: scoped projections of the tuples under their OWN\n  custody (F-19 substance), plus their own registration and\n  GENESIS. Foreign tuples and foreign registrations are omitted\n  entirely; envelope seq/eventId/t/hashes are never attached and\n  clock-bearing fields are scope-local references (F-37/OD-37).\n- Every other role: foreign procedural events are omitted while the\n  requester has not sealed that tuple (F-31/F-33). The visible list\n  uses a local ordinal and does not carry global seq, eventId or\n  tick, so omitted events leave no gap. Own submissions stay\n  visible. After the requester's own seal, the redacted projections\n  apply, including Lane B content (F-10).",
+      "classification": "REQUESTER_SCOPED_OR_CONSTANT"
+    },
+    {
+      "name": "custody_view",
+      "start": 4040,
+      "end": 4132,
+      "signature": "self, custodian_id, tuple_key",
+      "selfCalls": [
+        "_disclosed_contamination",
+        "_scope_ref",
+        "workflow_status"
+      ],
+      "returnExpressions": [
+        "{'tupleKey': tuple_key, 'tupleId': json.loads(json.dumps(tup['tupleId'])), 'canonicalHashInput': tup['canonicalHashInput'], 'custodyMarks': dict(tup['custodyMarks']), 'retrospectiveRecords': json.loads(json.dumps(tup['retrospectiveRecords'])), 'packets': packets, 'seals': seals, 'receipts': {r: self._scope_ref(custodian_id, tuple_key, tick) for ((tk, r), tick) in self._ix['receipts'].items() if tk == tuple_key}, 'reveals': {r: self._scope_ref(custodian_id, tuple_key, tick) for ((tk, r), tick) in self._ix['reveals'].items() if tk == tuple_key}, 'deltas': [{'reviewer': d[1], 'delta': d[2], 'at': self._scope_ref(custodian_id, tuple_key, d[3])} for d in self._ix['deltas'] if d[0] == tuple_key], 'incidents': {actor: [dict(entry, occurredAtTick=None if entry.get('occurredAtTick') is None else self._scope_ref(custodian_id, tuple_key, entry['occurredAtTick']), reportedTick=self._scope_ref(custodian_id, tuple_key, entry['reportedTick'])) for entry in incs] for (actor, incs) in self._ix['incidents'].get(tuple_key, {}).items()}, 'effectiveContaminationByActor': {actor: self._disclosed_contamination(custodian_id, tuple_key, _contamination_snapshot_in(self._ix, tuple_key, actor)) for actor in sorted(exposure_actors)}, 'adjudications': [dict(json.loads(json.dumps({k: v for (k, v) in a.items() if k != 'tick'})), at=self._scope_ref(custodian_id, tuple_key, a['tick'])) for a in self._ix['adjudications'] if a['tupleKey'] == tuple_key], 'provenanceVerifications': [dict(json.loads(json.dumps({k: v for (k, v) in a.items() if k != 'tick'})), at=self._scope_ref(custodian_id, tuple_key, a['tick'])) for a in self._ix['provenance'] if a['tupleKey'] == tuple_key], 'provenanceAttestationCount': len([a for a in self._ix['provenance'] if a['tupleKey'] == tuple_key]), 'distinctBoundPropositionCount': len([k for (k, v) in self._ix['propositions'].items() if v['tupleKey'] == tuple_key]), 'evidenceRecords': json.loads(json.dumps([r for r in self._ix['evidence_records'] if r['tupleKey'] == tuple_key])), 'status': self.workflow_status(tuple_key, custodian_id)}"
+      ],
+      "docstring": "Full custody/audit view of one tuple, restricted to the tuple's\ncustodian (F-1 explicit custody context). F-37/OD-37: every clock\nvalue in the view is a scope-local reference; no session-global\ntick, count or chain material is disclosed. CORR7/F-41: uniform\ncustody gate.",
+      "classification": "REQUESTER_SCOPED_OR_CONSTANT"
+    },
+    {
+      "name": "lane_b_view",
+      "start": 4134,
+      "end": 4174,
+      "signature": "self, requester_id, tuple_key",
+      "selfCalls": [
+        "_scope_ref"
+      ],
+      "returnExpressions": [
+        "{'tupleKey': tuple_key, 'submissions': submissions}"
+      ],
+      "docstring": "Lane B submission view (F-1/F-10, F-39/OD-39). CORR7/F-40:\nauthorization is decided BEFORE any existence-dependent lookup, and\nthe refusal for every requester without a lawful Lane B relationship\nis ONE constant shape \u2014 identical whether the tuple is unregistered\nor foreign and whether or not foreign submissions exist, so no\nforeign-submission or registration-status oracle remains. The\ntuple's custodian and an already-sealed reviewer receive the\ntuple's submissions (an empty list when there are none); a\nregistering R_LB receives only their own. Registration grants no\ntuple status (F-32) and causeLink stays UNASSIGNED_PENDING_J1.",
+      "classification": "REQUESTER_SCOPED_OR_CONSTANT"
+    },
+    {
+      "name": "_constant_diagnostic",
+      "start": 4178,
+      "end": 4185,
+      "signature": "self, ok",
+      "selfCalls": [],
+      "returnExpressions": [
+        "{'valid': bool(ok), 'reason': 'ok' if ok else 'integrity_failure'}"
+      ],
+      "docstring": "OD-37/F-37: integrity diagnostics are constant for EVERY\nrequester. The session-global eventCount and any seq-bearing failure\nreason are leak channels (they reveal foreign procedural activity\ndirectly or indirectly) and are never returned to a requester;\ndetailed chain diagnostics exist only on the engine-host channel.\n(Supersedes F-30's custodian eventCount.)",
+      "classification": "INTERNAL"
+    },
+    {
+      "name": "verify_integrity",
+      "start": 4187,
+      "end": 4191,
+      "signature": "self, requester_id=None",
+      "selfCalls": [
+        "_constant_diagnostic"
+      ],
+      "returnExpressions": [
+        "self._constant_diagnostic(ok)"
+      ],
+      "docstring": null,
+      "classification": "REQUESTER_SCOPED_OR_CONSTANT"
+    },
+    {
+      "name": "_require_scratch_path",
+      "start": 4193,
+      "end": 4206,
+      "signature": "self, path",
+      "selfCalls": [],
+      "returnExpressions": [
+        "target"
+      ],
+      "docstring": "F-14: every public file operation is bounded to the configured\nsynthetic scratch directory. The engine exposes no general-purpose\nfile reader.",
+      "classification": "INTERNAL"
+    },
+    {
+      "name": "_session_dir",
+      "start": 4208,
+      "end": 4211,
+      "signature": "self, part",
+      "selfCalls": [],
+      "returnExpressions": [
+        "target"
+      ],
+      "docstring": null,
+      "classification": "INTERNAL"
+    },
+    {
+      "name": "_resolve_bare_name",
+      "start": 4214,
+      "end": 4220,
+      "signature": "name",
+      "selfCalls": [],
+      "returnExpressions": [
+        "name"
+      ],
+      "docstring": null,
+      "classification": "INTERNAL"
+    },
+    {
+      "name": "_host_history_path",
+      "start": 4222,
+      "end": 4226,
+      "signature": "self, name",
+      "selfCalls": [
+        "_resolve_bare_name",
+        "_session_dir"
+      ],
+      "returnExpressions": [
+        "self._session_dir('host_chain') / self._resolve_bare_name(name)"
+      ],
+      "docstring": "CORR7/F-43: the authoritative host-chain namespace, physically\nseparate from requester projections; a public projection can never\nreserve, shadow or block a host-backup filename and vice versa.",
+      "classification": "INTERNAL"
+    },
+    {
+      "name": "_projection_path",
+      "start": 4228,
+      "end": 4240,
+      "signature": "self, actor_id, name",
+      "selfCalls": [
+        "_resolve_bare_name",
+        "_session_dir"
+      ],
+      "returnExpressions": [
+        "target"
+      ],
+      "docstring": "CORR7/F-42: per-actor projection namespace inside the session.\nFilename selection, collisions (PROJECTION_EXISTS) and polling are\nactor-local and cannot reveal or interfere with another actor's\nexports.",
+      "classification": "INTERNAL"
+    },
+    {
+      "name": "persist_history",
+      "start": 4242,
+      "end": 4295,
+      "signature": "self, name, requester_id=None",
+      "selfCalls": [
+        "_projection_path",
+        "events"
+      ],
+      "returnExpressions": [
+        "{'path': str(target), 'artifactClass': PROJECTION_ARTIFACT_CLASS, 'completeGlobalChainProof': False, 'authoritativeChainBackup': False}"
+      ],
+      "docstring": "REQUESTER-SCOPED persistence (OD-37/F-37). Emits ONLY a marked\nscoped projection artifact \u2014 the requester's own scoped view, with\nno global chain material (no seq, eventId, ticks, chain hashes or\nsession-global counts). The artifact declares explicitly that it is\nNOT a complete global-chain proof and NOT an authoritative chain\nbackup, and it is never accepted as one (verify_persisted_history\naccepts only projections; restore_global_history accepts only\nchain artifacts). A registered requester is required; anonymous\nexports are refused. Re-exporting an identical projection is\nidempotent; a diverging file at the same path is refused.\nCORR7/F-42/F-43: the artifact is written into the requester's OWN\nprojection namespace (projections/<actorId>/ inside the session\ndirectory), physically separate from the engine-host chain\nnamespace; no other actor's filename selection, collision or poll\ncan observe or affect it.",
+      "classification": "REQUESTER_SCOPED_OR_CONSTANT"
+    },
+    {
+      "name": "verify_persisted_history",
+      "start": 4297,
+      "end": 4327,
+      "signature": "self, path, requester_id=None",
+      "selfCalls": [
+        "_require_scratch_path"
+      ],
+      "returnExpressions": [
+        "{'valid': bool(ok), 'reason': 'ok' if ok else 'not_a_lawful_projection'}",
+        "{'valid': False, 'reason': 'not_a_lawful_projection'}"
+      ],
+      "docstring": "REQUESTER-SCOPED read-only diagnostic (OD-37/F-37/F-14).\nAccepts only this requester's own marked scoped-projection artifact;\na complete-chain artifact is never accepted through a\nrequester-scoped path and never treated as a chain backup. The\nresponse is constant (valid/ok or a generic reason); no counts,\nchain material or seq-bearing reasons are disclosed.\nCORR7/F-42: ONE constant negative shape for every artifact that is\nnot the requester's own lawful projection \u2014 absent, unparseable,\nanother actor's projection or a chain artifact \u2014 so existence at a\nguessed path is not observable.",
+      "classification": "REQUESTER_SCOPED_OR_CONSTANT"
+    },
+    {
+      "name": "persist_global_history",
+      "start": 4337,
+      "end": 4389,
+      "signature": "self, name",
+      "selfCalls": [
+        "_host_history_path"
+      ],
+      "returnExpressions": [
+        "{'path': str(target), 'artifactClass': CHAIN_ARTIFACT_CLASS, 'engineActId': ENGINE_ACT_ID, 'allocationAuthorityMode': self._authority.mode, 'sessionToken': self.session_token, 'eventCount': len(self._events)}"
+      ],
+      "docstring": "ENGINE-HOST durability: persist the COMPLETE authoritative\nappend-only chain as JSONL under the session's own namespace. The\nF-9 overwrite discipline is preserved: an existing file must\nchain-verify, belong to this session lineage and be a prefix of the\ncurrent chain; foreign lineage, a stale writer, truncated and\ntampered files fail closed. This artifact is the authoritative\nchain backup and is never produced or accepted by requester-scoped\npaths. CORR7/F-43: written to the dedicated host_chain/ namespace,\nphysically separate from requester projections.",
+      "classification": "TRUSTED_HOST"
+    },
+    {
+      "name": "verify_global_history",
+      "start": 4391,
+      "end": 4403,
+      "signature": "self, path",
+      "selfCalls": [
+        "_require_scratch_path"
+      ],
+      "returnExpressions": [
+        "{'valid': ok, 'reason': reason, 'eventCount': len(events)}",
+        "{'valid': False, 'reason': exc.code + ': ' + str(exc), 'eventCount': None}"
+      ],
+      "docstring": "ENGINE-HOST read-only envelope verification with a detailed\nreason. Semantic (procedural) validity requires\nrestore_global_history \u2014 a chain that verifies here is not yet\nproven procedurally lawful (F-7).",
+      "classification": "TRUSTED_HOST"
+    },
+    {
+      "name": "restore_global_history",
+      "start": 4405,
+      "end": 4497,
+      "signature": "self, path",
+      "selfCalls": [
+        "_require_scratch_path"
+      ],
+      "returnExpressions": [
+        "{'restored': True, 'eventCount': len(events), 'engineActId': ENGINE_ACT_ID, 'allocationAuthorityMode': self._authority.mode}"
+      ],
+      "docstring": "ENGINE-HOST recovery: adopt the authoritative chain only if it\n(1) chain-verifies, (2) is a NATIVE CORR9 history \u2014 the genesis\nnames this engine act; legacy and foreign lineages (including the\nimmutable CORR5\u2013CORR8 predecessors) are refused and schema-version\nselection never allows a mixed-version live transition\n(guardrail), (3) declares the SAME effective allocation-authority\ncontext as this session \u2014 the GENESIS (mode, digest) pair must\nequal this session's derived pair, so an OWNER_PINNED chain\nreplays only against an OWNER_PINNED context and a simulation\nchain only against its matching simulation context, even when the\nallocation bytes and digest are identical (OD-45-A/F-45); a\nmismatch refuses restoration WITHOUT partial state adoption,\n(4) passes the SAME per-event semantic transition validation as\nlive execution (F-7/F-8/F-13/F-15, F-38/F-39 and the F-45\nentitlement/digest checks), and (5) verifiably extends the current\nchain (F-9 lineage rules).",
+      "classification": "TRUSTED_HOST"
+    },
+    {
+      "name": "replay_legacy_history",
+      "start": 4499,
+      "end": 4556,
+      "signature": "self, path",
+      "selfCalls": [
+        "_require_scratch_path"
+      ],
+      "returnExpressions": [
+        "{'legacyHistory': True, 'engineActId': act_id, 'engineSha256': LEGACY_ENGINE_SHA256, 'integrityValid': True, 'eventCount': len(events), 'legacyClassified': True, 'adopted': False, 'extendable': False, 'propositionsIndexed': 0, 'note': 'read-only legacy admission under the frozen CORR5 semantics; the history is never extended by CORR6 events and is never upgraded to CORR6 proposition identities (compatibility guardrail)'}"
+      ],
+      "docstring": "ENGINE-HOST read-only legacy admission (compatibility guardrail).\nA genuine CORR5 history (genesis act CORR5, engine SHA\ne4118af9...) is verified and semantically replayed under the FROZEN\nCORR5 rule-set and classified as legacy. Original bytes are read\nonly and are preserved byte-for-byte. The chain is never adopted,\nnever extended, never indexed for complete propositions and never\nupgraded; legacy provenance remains mechanical provenance\n(PROVENANCE_VERIFIED_NOT_ADJUDICATED) and legacy Lane B records\ncannot be referenced by any CORR6 delivery. The regression suite\ndifferentially verifies this rule-set against the physically pinned\nCORR5 engine.",
+      "classification": "TRUSTED_HOST"
+    }
+  ],
+  "transitiveRequesterCalls": {
+    "register_tuple": [
+      "_event_scope_name",
+      "_event_tuple_key",
+      "_may_observe_event",
+      "_own_event",
+      "_reviewer_may_observe",
+      "_scope_ref",
+      "_transition"
+    ],
+    "issue_packet": [
+      "_transition"
+    ],
+    "fetch_packet": [],
+    "submit_phase1_review": [
+      "_disclosed_contamination",
+      "_event_scope_name",
+      "_event_tuple_key",
+      "_may_observe_event",
+      "_own_event",
+      "_reviewer_may_observe",
+      "_scope_ref",
+      "_transition"
+    ],
+    "acknowledge_seal_receipt": [
+      "_event_scope_name",
+      "_event_tuple_key",
+      "_may_observe_event",
+      "_own_event",
+      "_reviewer_may_observe",
+      "_scope_ref",
+      "_transition"
+    ],
+    "reveal": [
+      "_event_scope_name",
+      "_event_tuple_key",
+      "_may_observe_event",
+      "_own_event",
+      "_reviewer_may_observe",
+      "_scope_ref",
+      "_transition"
+    ],
+    "append_delta": [
+      "_transition"
+    ],
+    "report_exposure": [
+      "_disclosed_contamination",
+      "_event_scope_name",
+      "_event_tuple_key",
+      "_may_observe_event",
+      "_own_event",
+      "_reviewer_may_observe",
+      "_scope_ref",
+      "_transition"
+    ],
+    "request_new_phase1": [
+      "_transition",
+      "issue_packet"
+    ],
+    "register_lane_b": [
+      "_transition"
+    ],
+    "deliver_lane_b_to": [
+      "_event_scope_name",
+      "_event_tuple_key",
+      "_may_observe_event",
+      "_own_event",
+      "_reviewer_may_observe",
+      "_scope_ref",
+      "_transition"
+    ],
+    "begin_independent_reproduction": [],
+    "receive_first_rationale": [
+      "_transition"
+    ],
+    "declare_records_rederived": [
+      "_transition"
+    ],
+    "adjudicate_claim": [
+      "_event_scope_name",
+      "_event_tuple_key",
+      "_may_observe_event",
+      "_own_event",
+      "_reviewer_may_observe",
+      "_scope_ref",
+      "_transition"
+    ],
+    "issue_evidence_record": [
+      "_rubric_identity_gate",
+      "_transition"
+    ],
+    "workflow_status": [],
+    "category_assignment": [],
+    "events": [
+      "_custodian_projection",
+      "_event_scope_name",
+      "_event_tuple_key",
+      "_may_observe_event",
+      "_own_event",
+      "_projected_payload",
+      "_reviewer_may_observe",
+      "_scope_ref"
+    ],
+    "custody_view": [
+      "_disclosed_contamination",
+      "_event_scope_name",
+      "_event_tuple_key",
+      "_may_observe_event",
+      "_own_event",
+      "_reviewer_may_observe",
+      "_scope_ref",
+      "workflow_status"
+    ],
+    "lane_b_view": [
+      "_event_scope_name",
+      "_event_tuple_key",
+      "_may_observe_event",
+      "_own_event",
+      "_reviewer_may_observe",
+      "_scope_ref"
+    ],
+    "verify_integrity": [
+      "_constant_diagnostic"
+    ],
+    "persist_history": [
+      "_custodian_projection",
+      "_event_scope_name",
+      "_event_tuple_key",
+      "_may_observe_event",
+      "_own_event",
+      "_projected_payload",
+      "_projection_path",
+      "_resolve_bare_name",
+      "_reviewer_may_observe",
+      "_scope_ref",
+      "_session_dir",
+      "events"
+    ],
+    "verify_persisted_history": [
+      "_require_scratch_path"
+    ]
+  }
+}

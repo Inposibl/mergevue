@@ -1,0 +1,242 @@
+test_C1_native_roundtrip_and_live_restore_equivalence (__main__.CompatibilityGuardrailTests)
+GATE: GUARDRAIL NATIVE PERSISTENCE — native histories are fully persistent, recoverable, extendable and semantically replayable ... ok
+test_C2_legacy_readonly_replay_with_pinned_oracle (__main__.CompatibilityGuardrailTests)
+GATE: GUARDRAIL LEGACY ADMISSION — genuine CORR5 histories are admitted read-only under the frozen semantics; bytes preserved; never adopted ... ok
+test_C3_mixed_version_rejection (__main__.CompatibilityGuardrailTests)
+GATE: GUARDRAIL REPLAY FIREWALL — schema-version selection never allows mixed-version transitions ... ok
+test_C4_immutable_sources_and_pinned_oracles (__main__.CompatibilityGuardrailTests)
+GATE: GUARDRAIL PROVENANCE — the frozen predecessors and the accepted rubric stay byte-identical ... ok
+test_T27_exposed_reviewer_cannot_cure_by_repeating (__main__.ContaminationAndReproductionTests)
+GATE: §9 NC-17 EXPOSED REVIEWER REPEAT — the exposed reviewer cannot restore blindness ... ok
+test_T28_other_exposed_reviewer_cannot_recover (__main__.ContaminationAndReproductionTests)
+GATE: §9 NC-18 DIFFERENT-BUT-EXPOSED REVIEWER — only a never-exposed reviewer may recover ... ok
+test_T29_s26_rationale_before_own_seal_refuses_normative (__main__.ContaminationAndReproductionTests)
+GATE: S26 BLINDNESS — reproducer reading the first rationale before their own seal cannot adjudicate normative claims ... ok
+test_T30_caller_supplied_ordering_flag_rejected (__main__.ContaminationAndReproductionTests)
+GATE: §9 NC-20 SELF-DECLARED PREREQUISITE — ownPhase1SealedBeforeRationale is engine-observed only ... ok
+test_T31_records_rederived_prerequisite_enforced (__main__.ContaminationAndReproductionTests)
+GATE: §9 NC-21 / F-16 RECORDS RE-DERIVATION — historical claims require the declared, proof-carrying reconstruction of the named claim ... ok
+test_T32_agreement_never_yields_causal_adjudication (__main__.ContaminationAndReproductionTests)
+GATE: §9 NC-22 / S15 AGREEMENT — reviewer agreement cannot produce causal ADJUDICATED ... ok
+test_T37_s16_mark_exposure_contaminates_blind_proof (__main__.ContaminationSemanticsTests)
+GATE: S16 PRE-SEAL MARK EXPOSURE — contaminated Phase 1 preserved but never blind proof ... ok
+test_T38_s25_registry_row_exposure_contaminates (__main__.ContaminationSemanticsTests)
+GATE: S25 REGISTRY ROW — M dispatch material reaching the reviewer contaminates Phase 1 ... ok
+test_T40_post_seal_exposure_and_mismatched_seal_reveal (__main__.ContaminationSemanticsTests)
+GATE: §9 NC-12/E5 ALTERED PACKET IDENTITY — unestablished post-seal exposure blocks reveal (fail closed) ... ok
+test_T41_independent_chain_recheck (__main__.ContaminationSemanticsTests)
+GATE: §10.3 INDEPENDENT INSPECTION — an independent walker re-verifies the persisted history ... ok
+test_T42_static_no_production_or_network_surface (__main__.ContaminationSemanticsTests)
+GATE: §10.9 STATIC FIREWALL — no production entrypoint, application import or network surface ... ok
+test_F10_lane_b_content_hidden_from_unsealed_events (__main__.Corr2FindingTests)
+GATE: F-10 UNSEALED REVIEWER INSPECTING LANE B VIA events() — tuple-specific Lane B content is never disclosed pre-seal ... ok
+test_F11_imported_lane_b_delivery_contaminates (__main__.Corr2FindingTests)
+GATE: F-11 IMPORTED LANE B DELIVERY BYPASSES CONTAMINATION — the mandatory consequence is derived from the disclosure event itself ... ok
+test_F12_imported_rationale_access_contaminates (__main__.Corr2FindingTests)
+GATE: F-12 IMPORTED PRIOR-RATIONALE ACCESS BYPASSES CONTAMINATION — pre-seal rationale access irreversibly invalidates blindness ... ok
+test_F13_imported_issuance_requires_physical_identity_gate (__main__.Corr2FindingTests)
+GATE: F-13 EVIDENCE ISSUANCE IDENTITY GATE BYPASSED ON IMPORT — replay executes the physical gate ... ok
+test_F14_file_reads_are_scratch_bounded (__main__.Corr2FindingTests)
+GATE: F-14 OUT-OF-SCRATCH ARBITRARY FILE READING — every public file operation is path-bounded ... ok
+test_F15_forged_flags_and_missing_extra_fields_refused (__main__.Corr2FindingTests)
+GATE: F-15 FORGED NON-SYNTHETIC SEAL ACCEPTED ON REPLAY — exact event schemas and mandatory synthetic=true ... ok
+test_F15b_every_event_type_missing_or_extra_keys_refused (__main__.Corr2FindingTests)
+GATE: F-15 EXTENSION — the exact-schema invariant holds for EVERY event type ... ok
+test_F16_historical_claim_needs_proof_carrying_reconstruction (__main__.Corr2FindingTests)
+GATE: F-16 HISTORICAL CLAIM ADJUDICATED ON BARE RE-DERIVATION ASSERTION — refused ... ok
+test_F16b_reconstruction_content_never_leaks_to_other_reviewers (__main__.Corr2FindingTests)
+GATE: F-16 DISCLOSURE — reconstruction content stays with its own reviewer and the custodian ... ok
+test_F_extra_replay_of_forged_claim_and_receipt (__main__.Corr2FindingTests)
+GATE: F-7 EXTENSION — forged CLAIM_ADJUDICATED and forged custody receipt fail semantic replay ... ok
+test_F17_blind_cross_reviewer_boundary (__main__.Corr3FindingTests)
+GATE: F-17 CROSS-REVIEWER PROCEDURAL DISCLOSURE — an unsealed reviewer sees no other actor's tuple-specific results ... ok
+test_F18_retrospective_exposure_before_blind_seal (__main__.Corr3FindingTests)
+GATE: F-18 RETROSPECTIVE-RECORD EXPOSURE BEFORE BLIND SEAL — pre-seal reconstruction destroys that blind Phase 1; post-seal reconstruction stays lawful ... ok
+test_F19_custodian_scoped_reads (__main__.Corr3FindingTests)
+GATE: F-19 CROSS-CUSTODIAN DISCLOSURE THROUGH GLOBAL HISTORY — custodial visibility is tuple-scoped ... ok
+test_F20_full_synthetic_text_firewall (__main__.Corr3FindingTests)
+GATE: F-20 INCOMPLETE SYNTHETIC-ONLY INPUT FIREWALL — every free-text entrypoint requires the marker; NO_CHANGE stays lawful ... ok
+test_F21_exact_event_envelope_validation (__main__.Corr3FindingTests)
+GATE: F-21 INCOMPLETE EVENT-ENVELOPE VALIDATION ON IMPORT — the outer envelope must be engine-constructible ... ok
+test_F22_reads_are_detached_immutable_values (__main__.Corr3FindingTests)
+GATE: F-22 PUBLIC READ MUTATING AUTHORITATIVE STATE — every public view returns deep copies ... ok
+test_F23_status_disclosure_is_tuple_scoped (__main__.Corr4FindingTests)
+GATE: F-23 CROSS-CUSTODIAN STATUS DISCLOSURE — status visibility follows an authorized relationship to THAT tuple ... ok
+test_F24_exposure_attestation_is_role_bounded (__main__.Corr4FindingTests)
+GATE: F-24 UNAUTHORIZED FOREIGN EXPOSURE REPORT — only the tuple's custodian or the exposed actor may attest ... ok
+test_F25_exact_tick_types_enforced (__main__.Corr4FindingTests)
+GATE: F-25 BOOLEAN OCCURRENCE TICK — only plain integers are lawful occurrences ... ok
+test_F26_single_effective_contamination_model (__main__.Corr4FindingTests)
+GATE: F-26 RETROSPECTIVE EXPOSURE OMITTED FROM AGGREGATES — one effective model everywhere ... ok
+test_F27_historical_verification_is_bounded (__main__.Corr4FindingTests)
+GATE: F-27 HISTORICAL CLAIM PROMOTED WITHOUT A VERIFIABLE NAMED PROPOSITION — mechanical provenance is no longer reported as ADJUDICATED ... ok
+test_F28_anonymous_surface_withheld (__main__.Corr4FindingTests)
+GATE: F-28 ANONYMOUS EVENT METADATA DEFEATS BLINDNESS — the anonymous surface is a fixed aggregate with zero inference ... ok
+test_F29_normative_coherence_enforced (__main__.Corr4FindingTests)
+GATE: F-29 INTERNALLY CONTRADICTORY NORMATIVE PROOF — refused at seal and at replay, exactly within the accepted contract ... ok
+test_F30_diagnostics_are_constant_and_counts_are_host_level (__main__.Corr5FindingTests)
+GATE: F-30→F-37 SESSION-GLOBAL DIAGNOSTIC LEAK — integrity diagnostics are constant for EVERY requester; counts live on the host channel only ... ok
+test_F31_blind_reviewer_omits_foreign_milestones (__main__.Corr5FindingTests)
+GATE: F-31 BLIND REVIEWER SEES FOREIGN MILESTONES — omitted, not projected ... ok
+test_F32_lane_b_registration_is_not_tuple_access (__main__.Corr5FindingTests)
+GATE: F-32 UNAUTHORIZED LANE B SELF-REGISTRATION GRANTS STATUS — registration is not access ... ok
+test_F33_unrelated_lane_b_omits_foreign_event_details (__main__.Corr5FindingTests)
+GATE: F-33 UNRELATED LANE B ACTOR SEES FOREIGN EVENT DETAILS — one disclosure model ... ok
+test_F34_claim_identity_is_unique_per_tuple (__main__.Corr5FindingTests)
+GATE: F-34 DUPLICATE AND CONFLICTING CLAIM IDS — one claimId, one identity ... ok
+test_F35_provenance_is_not_adjudication (__main__.Corr5FindingTests)
+GATE: F-35 HISTORICAL VERIFICATION MISLABELED AS ADJUDICATION — event, aggregate and evidence record agree ... ok
+test_F36_normative_claim_is_bound_to_the_named_proposition (__main__.Corr5FindingTests)
+GATE: F-36 NORMATIVE CLAIM NOT BOUND TO A NAMED PROPOSITION — one determinacy proposition per tuple ... ok
+test_F37_custodian_view_hides_foreign_activity (__main__.Corr6FindingTests)
+GATE: F-37 FOREIGN-CUSTODIAN INFERENCE FROM GLOBAL COORDINATES — foreign activity is omitted; polling is stable ... ok
+test_F37_probe_firewall_occurrence_bound_is_scope_local (__main__.Corr6FindingTests)
+GATE: F-37 SESSION-CLOCK PROBE THROUGH OCCURRENCE ACCEPTANCE — the bound is the reporter's own record, not the session clock ... ok
+test_F37_projection_artifacts_are_not_chain_backups (__main__.Corr6FindingTests)
+GATE: F-37 SCOPED PROJECTION vs AUTHORITATIVE BACKUP — public persistence never exposes the global chain ... ok
+test_F38_attestations_and_shared_evidence_are_independent (__main__.Corr6FindingTests)
+GATE: F-38 ATTESTATION VS PROPOSITION VS EVIDENCE IDENTITY — repeated attestations kept separately; distinct propositions counted independently; shared evidence never merges propositions ... ok
+test_F38_proposition_scope_completeness_and_fidelity (__main__.Corr6FindingTests)
+GATE: F-38 INCOMPLETE OR LOSSY HISTORICAL PROPOSITION SCOPE — fails closed; the declared scope survives serialization exactly ... ok
+test_F39_submission_identity_delivery_and_no_monopoly (__main__.Corr6FindingTests)
+GATE: F-39 LANE B FIRST-SUBMISSION MONOPOLY AND UNSCOPED DELIVERY — several independent submissions with stable identities; delivery references one exact submission ... ok
+test_C5_corr6_candidate_immutable_and_non_adoptable (__main__.Corr7LineageTests)
+GATE: CORR7 PRESERVATION — the immutable CORR6 candidate stays byte-pinned, non-adoptable and non-legacy ... ok
+test_F42_cross_actor_projection_namespace_isolation (__main__.Corr7NamespaceTests)
+GATE: F-42 CROSS-ACTOR PROJECTION COLLISION AND OBSERVATION — actor-local namespaces; one constant verification shape ... ok
+test_F43_requester_and_host_storage_are_separate (__main__.Corr7NamespaceTests)
+GATE: F-43 REQUESTER/HOST PERSISTENCE COLLISION — a projection never reserves, shadows or blocks a host-backup filename ... ok
+test_F40_lane_b_view_authorization_before_existence (__main__.Corr7OracleTests)
+GATE: F-40 FOREIGN LANE B EXISTENCE ORACLE — authorization is decided before existence; one constant refusal ... ok
+test_F41_foreign_tuple_registration_oracle_eliminated (__main__.Corr7OracleTests)
+GATE: F-41 FOREIGN TUPLE REGISTRATION ORACLE — every requester-scoped refusal is existence-blind ... ok
+test_F41_self_scoped_records_are_uniform_and_replay_consistent (__main__.Corr7OracleTests)
+GATE: F-41 SELF-SCOPED CONTENT RECORDS — uniform outcome on unregistered and foreign keys; packet-first reproduction positives; live/replay consistency ... ok
+test_C6_corr7_candidate_immutable_and_non_adoptable (__main__.Corr8LineageTests)
+GATE: CORR8 PRESERVATION — the immutable CORR7 candidate stays byte-pinned, non-adoptable and non-legacy ... ok
+test_F44_forgery_replay_and_refusal_immutability (__main__.Corr8SubmissionIdentityTests)
+GATE: F-44 FORGERY, REPLAY AND REFUSAL IMMUTABILITY — forged/reused identities fail closed; replay is deterministic; refusals mutate nothing ... ok
+test_F44_no_counter_leak_anywhere (__main__.Corr8SubmissionIdentityTests)
+GATE: F-44 NO COUNTER LEAK — the identifier and every scoped surface reveal no ordinal, order or cross-reviewer count ... ok
+test_F44_orders_repeats_scopes_and_delivery (__main__.Corr8SubmissionIdentityTests)
+GATE: F-44 IDENTITY INVARIANTS — both orders, several submissions per actor, actor-scoped views, exact custodian delivery, pre-registration filing ... ok
+test_F44_ordinal_leak_reproduced_on_corr7 (__main__.Corr8SubmissionIdentityTests)
+GATE: F-44 CROSS-REVIEWER ORDINAL LEAKAGE — reproduced on the immutable CORR7 engine ... ok
+test_F45_actor_and_tuple_mismatch (__main__.Corr9EntitlementTests)
+GATE: F-45 ACTOR AND TUPLE MISMATCH — correct tuple/wrong custodian and correct custodian/wrong tuple both give the fixed refusal ... ok
+test_F45_different_manifest_cross_mode_refusal (__main__.Corr9EntitlementTests)
+GATE: F-45 DIFFERENT-MANIFEST CROSS-MODE REFUSAL — mismatched modes or digests never restore into one another ... ok
+test_F45_evidence_record_authority_marking (__main__.Corr9EntitlementTests)
+GATE: F-45 EVIDENCE-RECORD AUTHORITY MARKING — the record identifies its effective authority mode, simulation evidence stays identifiable and no inventory or authority identifier is added ... ok
+test_F45_forged_and_malformed_authority_fail_construction (__main__.Corr9EntitlementTests)
+GATE: F-45 AUTHORITY INTEGRITY — a tampered, missing, malformed or conflicting authority fails construction before any actor-facing operation ... ok
+test_F45_genesis_relabeling_fails (__main__.Corr9EntitlementTests)
+GATE: F-45 GENESIS RELABELLING — a fully rehashed mode or digest change in GENESIS never restores ... ok
+test_F45_identical_byte_cross_mode_collision (__main__.Corr9EntitlementTests)
+GATE: F-45 IDENTICAL-BYTE CROSS-MODE COLLISION — a SIMULATION session holding the exact Owner-manifest bytes stays SIMULATION and never restores into pinned mode (or vice versa) ... ok
+test_F45_lawful_success_own_duplicate_and_digest (__main__.Corr9EntitlementTests)
+GATE: F-45 LAWFUL SUCCESS — the entitled custodian registers once, receives truthful own information, and a repeat refuses truthfully without mutation ... ok
+test_F45_no_foreign_authority_inference (__main__.Corr9EntitlementTests)
+GATE: F-45 NO FOREIGN AUTHORITY INFERENCE — unauthorized operations disclose no registration, allocation or activity detail and mutate nothing ... ok
+test_F45_no_implicit_custody_from_lane_b_or_self_disclosure (__main__.Corr9EntitlementTests)
+GATE: F-45 NO IMPLICIT CUSTODY — Lane B filings and exposure self-disclosures before registration confer no custody entitlement ... ok
+test_F45_parent_reproduction_first_writer_capture (__main__.Corr9EntitlementTests)
+GATE: F-45 FIRST-WRITER CUSTODY CAPTURE — reproduced on the immutable CORR8 engine ... ok
+test_F45_persistence_replay_and_extension (__main__.Corr9EntitlementTests)
+GATE: F-45 PERSISTENCE — an Owner-pinned history survives the disk round trip, stays semantically replayable and remains extendable ... ok
+test_F45_rehashed_forged_registrations_rejected (__main__.Corr9EntitlementTests)
+GATE: F-45 REHASHED FORGERY — a correctly rehashed registration without a valid entitlement or digest is semantically rejected ... ok
+test_F45_sequential_competing_custodians_ordering (__main__.Corr9EntitlementTests)
+GATE: F-45 ORDERING — sequential attempts by competing custodians never give lawful custody to an unassigned actor ... ok
+test_F45_uniform_refusal_across_states (__main__.Corr9EntitlementTests)
+GATE: F-45 UNIFORM REFUSAL — one fixed refusal across the unallocated, foreign-allocated and foreign-registered states ... ok
+test_C7_corr8_candidate_immutable_and_non_adoptable (__main__.Corr9LineageTests)
+GATE: CORR9 PRESERVATION — the immutable CORR8 candidate stays byte-pinned, non-adoptable and non-legacy ... ok
+test_F1_role_aware_read_boundary (__main__.FindingClosureTests)
+GATE: F-1 PHASE-1 BLINDNESS BYPASS VIA PUBLIC HISTORY — reviewer-accessible reads never disclose forbidden material ... ok
+test_F2_lane_b_exposure_before_issuance (__main__.FindingClosureTests)
+GATE: F-2 LANE B EXPOSURE BEFORE PACKET ISSUANCE — exposure is occurrence-based, not packet-based ... ok
+test_F3_contradictory_normative_reproduction_refused (__main__.FindingClosureTests)
+GATE: F-3 CONTRADICTORY NORMATIVE REPRODUCTION — disagreement is a failure to reproduce, not an adjudication ... ok
+test_F4_late_discovered_contamination_affects_status (__main__.FindingClosureTests)
+GATE: F-4 LATE-DISCOVERED CONTAMINATION — status derives from effective evidence; history never rewritten ... ok
+test_F5_no_adjudication_without_original_reviewer (__main__.FindingClosureTests)
+GATE: F-5 INDEPENDENT ADJUDICATION WITHOUT AN ORIGINAL REVIEWER — refused ... ok
+test_F6_pinned_identity_and_premature_issuance (__main__.FindingClosureTests)
+GATE: F-6 RUBRIC IDENTITY + PREMATURE EVIDENCE ISSUANCE — pinned identity and explicit procedural incompleteness ... ok
+test_F7_semantic_replay_rejects_forged_ordering (__main__.FindingClosureTests)
+GATE: F-7 CRYPTOGRAPHICALLY VALID BUT PROCEDURALLY INVALID REPLAY — rejected ... ok
+test_F8_forged_category_assignment_rejected_at_replay (__main__.FindingClosureTests)
+GATE: F-8 FORGED CAUSAL-CATEGORY ASSIGNMENT VIA IMPORTED HISTORY — rejected ... ok
+test_F9_cross_session_persistence_isolation (__main__.FindingClosureTests)
+GATE: F-9 CROSS-SESSION HISTORY OVERWRITE — identity-bound persistence with fail-closed lineage rules ... ok
+test_T33_r34_missing_sidecar_not_issuable (__main__.IdentityAndAuthorityTests)
+GATE: R34 / §9 NC-23 MISSING SIDECAR — absent SHA256SUMS.txt makes the record NOT ISSUABLE ... ok
+test_T34_r34_wrong_sidecar_not_issuable (__main__.IdentityAndAuthorityTests)
+GATE: R34 / §9 NC-24 WRONG SIDECAR — digest mismatch and missing entry both make the record NOT ISSUABLE ... ok
+test_T35_non_synthetic_and_path_inputs_rejected (__main__.IdentityAndAuthorityTests)
+GATE: §7 SYNTHETIC FIREWALL / §9 NC-25 — non-synthetic identifiers and historical path access rejected ... ok
+test_T36_automatic_category_assignment_rejected (__main__.IdentityAndAuthorityTests)
+GATE: §9 NC-26 / E11 SCIENTIFIC AUTHORITY — no automatic frozen-category assignment exists ... ok
+test_T10_unissued_packet_rejected (__main__.InputFirewallTests)
+GATE: §9 NC-2 UNISSUED PACKET — review without issuance is rejected ... ok
+test_T11_forbidden_registration_fields_rejected (__main__.InputFirewallTests)
+GATE: §9 NC-3 FORBIDDEN PHASE-1 FIELD — closed tuple schema rejects smuggled forbidden inputs ... ok
+test_T12_ab_mark_leakage_rejected (__main__.InputFirewallTests)
+GATE: §9 NC-4 A/B MARK LEAKAGE — packet views can never request marks ... ok
+test_T13_outcome_environment_leakage_rejected (__main__.InputFirewallTests)
+GATE: §9 NC-5 OUTCOME/ENVIRONMENT LEAKAGE — forbidden classes rejected at registration and packet view ... ok
+test_T14_m_tt_grammar_leakage_rejected (__main__.InputFirewallTests)
+GATE: §9 NC-6 M/TT REGISTRY OR GRAMMAR LEAKAGE — registry and grammar never enter the Phase-1 surface ... ok
+test_T01_clean_phase1_seal_reveal_succeeds (__main__.LawfulSequenceTests)
+GATE: E1–E5 CLEAN SEQUENCE — a fully lawful synthetic session reaches PROVISIONAL ... ok
+test_T02_blind_packet_is_exactly_five_fields (__main__.LawfulSequenceTests)
+GATE: E2 EXACT BLIND PACKET — packet carries only the five permitted fields ... ok
+test_T03_integrity_chain_and_host_roundtrip (__main__.LawfulSequenceTests)
+GATE: E9 APPEND-ONLY CHAIN — in-memory chain verifies; the HOST channel persists/verifies/restores it; requester projections are separate ... ok
+test_T04_host_restore_extension_accepted (__main__.LawfulSequenceTests)
+GATE: E9 VERIFIED EXTENSION — a same-genesis session restores a longer verified lawful history; foreign genesis is rejected ... ok
+test_T05_independent_reproduction_and_adjudication (__main__.LawfulSequenceTests)
+GATE: E8 CLAIM-SPECIFIC REPRODUCTION — normative claim adjudicated only when the original proposition is reproduced ... ok
+test_T06_contamination_recovery_by_different_reviewer (__main__.LawfulSequenceTests)
+GATE: E6 RECOVERY — contaminated Phase 1 never counts as blind proof; a different unexposed reviewer restores PROVISIONAL ... ok
+test_T07_evidence_record_issued_after_identity_gate (__main__.LawfulSequenceTests)
+GATE: E10 RUBRIC IDENTITY — record issued only against the Owner-pinned physical rubric digest ... ok
+test_T08_lane_b_separate_surface_pending_j1 (__main__.LawfulSequenceTests)
+GATE: E7 LANE B ISOLATION — schema record on its own surface, causeLink UNASSIGNED_PENDING_J1 ... ok
+test_T09_all_records_marked_synthetic (__main__.LawfulSequenceTests)
+GATE: §7 SYNTHETIC-ONLY DATA FIREWALL — every registered record carries synthetic classification ... ok
+test_T15_s28_lane_b_before_seal_contaminates (__main__.RoleAndSequencingTests)
+GATE: S28 LANE B PRE-SEAL — Lane B material delivered to the unsealed Phase-1 reviewer contaminates BY DERIVATION ... ok
+test_T16_custodian_cannot_review_same_tuple (__main__.RoleAndSequencingTests)
+GATE: §9 NC-8 CUSTODIAN SELF-REVIEW — the custodian is structurally barred from reviewing ... ok
+test_T17_author_cannot_impersonate_reproducer (__main__.RoleAndSequencingTests)
+GATE: §9 NC-9 IMPERSONATION — the Phase-1 author cannot act as independent reproducer ... ok
+test_T18_reveal_before_seal_rejected (__main__.RoleAndSequencingTests)
+GATE: §9 NC-10 REVEAL BEFORE SEAL — premature reveal fails closed ... ok
+test_T19_reveal_before_custody_receipt_rejected (__main__.RoleAndSequencingTests)
+GATE: §9 NC-11 REVEAL BEFORE RECEIPT — seal alone is insufficient ... ok
+test_T20_seal_tampering_after_receipt_rejected (__main__.RoleAndSequencingTests)
+GATE: §9 NC-12 SEAL TAMPERING — sealed bytes cannot be edited, replaced or re-acknowledged ... ok
+test_T21_client_supplied_hash_and_role_rejected (__main__.SubstitutionAndHistoryTests)
+GATE: §9 NC-13 PACKET/HASH SUBSTITUTION — client hashes and role claims cannot override engine identity ... ok
+test_T22_repeated_and_reordered_reveal_rejected (__main__.SubstitutionAndHistoryTests)
+GATE: §9 NC-14 REPEATED/REORDERED REVEAL — reveal happens once; delta only after reveal ... ok
+test_T23_duplicate_event_replay_detected (__main__.SubstitutionAndHistoryTests)
+GATE: §9 NC-15 DUPLICATE EVENT REPLAY — a duplicated event line fails host chain verification ... ok
+test_T24_corrupt_history_detected (__main__.SubstitutionAndHistoryTests)
+GATE: §9 NC-16a CORRUPT HISTORY — a payload edit without rehash fails host verification ... ok
+test_T25_truncated_history_blocked_from_live_session (__main__.SubstitutionAndHistoryTests)
+GATE: §9 NC-16b TRUNCATED HISTORY — truncation cannot roll back a live session ... ok
+test_T26_reordered_history_detected (__main__.SubstitutionAndHistoryTests)
+GATE: §9 NC-16c REORDERED HISTORY — swapped event lines break the chain ... ok
+test_T39_stale_session_restore_rejected (__main__.SubstitutionAndHistoryTests)
+GATE: §6 BYPASS — a stale (shorter) snapshot cannot be restored over a longer chain ... ok
+
+----------------------------------------------------------------------
+Ran 117 tests in 1.951s
+
+OK
+
+TEST_RESULTS.json written to /private/tmp/mergevue_corr9_iv1_pxytpw33/repo/WORKBENCH/AUDITS/STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1_CORR9/TEST_RESULTS.json
+totals: {'total': 117, 'passed': 117, 'failed': 0, 'errors': 0, 'skipped': 0}

@@ -1,0 +1,68 @@
+[
+  {
+    "id": "IV-M01-OD38-complete-proposition-independent-identity",
+    "result": "PASS",
+    "detail": {
+      "attestations": 3,
+      "distinctPropositions": 2,
+      "claimLevel": "PROVENANCE_VERIFIED_NOT_ADJUDICATED"
+    }
+  },
+  {
+    "id": "IV-M02-mode-conflicts-and-input-copying",
+    "result": "PASS",
+    "detail": {
+      "construction_refusals": {
+        "dual_sim": {
+          "kind": "EXCEPTION",
+          "class": "EFCAGateError",
+          "code": "ALLOCATIONS_MODE_CONFLICT",
+          "message": "ALLOCATIONS_MODE_CONFLICT: declare at most one simulation allocation source",
+          "args": [
+            "ALLOCATIONS_MODE_CONFLICT: declare at most one simulation allocation source"
+          ]
+        },
+        "mixed": {
+          "kind": "EXCEPTION",
+          "class": "EFCAGateError",
+          "code": "ALLOCATIONS_MODE_CONFLICT",
+          "message": "ALLOCATIONS_MODE_CONFLICT: a session is either OWNER_PINNED (the Owner-pinned manifest) or SIMULATION (explicit test-only allocations); the two construction forms are never combined, so neither mode can be relabelled into the other (OD-45-A)",
+          "args": [
+            "ALLOCATIONS_MODE_CONFLICT: a session is either OWNER_PINNED (the Owner-pinned manifest) or SIMULATION (explicit test-only allocations); the two construction forms are never combined, so neither mode can be relabelled into the other (OD-45-A)"
+          ]
+        },
+        "supplied_mode": {
+          "kind": "EXCEPTION",
+          "class": "TypeError",
+          "code": null,
+          "message": "__init__() got an unexpected keyword argument 'allocationAuthorityMode'",
+          "args": [
+            "__init__() got an unexpected keyword argument 'allocationAuthorityMode'"
+          ]
+        }
+      },
+      "mode_from_copied_bytes": [
+        "OWNER_PINNED",
+        "SIMULATION"
+      ],
+      "caller_document_mutation_ignored": true
+    }
+  },
+  {
+    "id": "IV-M03-evidence-mode-rehashed-closed-payload",
+    "result": "PASS",
+    "detail": {
+      "missing": "PROCEDURALLY_INVALID_HISTORY",
+      "altered": "PROCEDURALLY_INVALID_HISTORY",
+      "extra": "PROCEDURALLY_INVALID_HISTORY",
+      "digest": "PROCEDURALLY_INVALID_HISTORY"
+    }
+  },
+  {
+    "id": "IV-M04-pre-registration-filing-is-not-custody",
+    "result": "PASS",
+    "detail": {
+      "lane_b_filing_grants_no_registration_or_custody": true
+    }
+  }
+]
