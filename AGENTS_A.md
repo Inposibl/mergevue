@@ -3,10 +3,11 @@
 **Role:** ANALYST or AUDITOR  
 **Eligible actors:** Claude, Codex, Z-Ai  
 **Status:** Standing read-first analytical mandate  
-**Version:** 2026-09-06 v2  
-**Effective date:** 2026-09-06  
-**Supersedes:** 2026-08-19 v1  
-**Revision:** eligible actors aligned with the `AGENTS.md` §2 router (Z-Ai added — the router already admitted it and this file did not); §15 now routes an Owner-decision stop through the Owner Decision Frame in `AGENTS.md` §14A.
+**Version:** 2026-10-12 v2.1\
+**Effective date:** on Owner acceptance of `AGENT-CONTROL-PLANE-GOVERNANCE-INTEGRATION-1`\
+**Supersedes:** 2026-09-06 v2\
+**Revision (v2.1):** adds §8B execution-report integrity checks (false PASS, missing command evidence, contradictory execution reports, frozen-artifact modification, four-dimension separation). Implements agent-control rules R-02, R-04, R-08, R-11 for audits (`AGENTS.md` §14B). Eligible actors unchanged.\
+**Revision (v2):** eligible actors aligned with the `AGENTS.md` §2 router (Z-Ai added — the router already admitted it and this file did not); §15 now routes an Owner-decision stop through the Owner Decision Frame in `AGENTS.md` §14A.
 
 ---
 
@@ -306,6 +307,23 @@ If the audit exposes a repeated agent-process defect, record it as an improvemen
 Do not edit project skills, governance, prompts, or source unless the Owner separately authorizes that change.
 
 Quality scoring is diagnostic only and does not alter the audit verdict vocabulary defined by this mandate.
+
+---
+
+## 8B. EXECUTION-REPORT INTEGRITY CHECKS
+
+When auditing any act report — CODER, ANALYST, or GIT AGENT — check, as applicable:
+
+1. every mandatory gate the act required has command evidence (exact command, exit code, relevant output); a gate without it is `NOT DETERMINABLE FROM CURRENT EVIDENCE`, not passed;
+2. a nonzero or unknown exit status on a mandatory gate, followed by continued execution, a commit, or a success status, is a material finding under EXECUTION COMPLIANCE even when the produced bytes are correct;
+3. terminal claims (`PASS`, `COMPLETE`, `GIT_CLOSED_LOCAL`, `DEVIATIONS: NONE`, verified-style labels) agree with the agent's own command journal; a contradiction is material audit evidence;
+4. no masking construct (`|| true`, discarded exit status, suppressed error output) is relied on as evidence of success;
+5. no Owner-accepted, hash-pinned artifact was modified to satisfy a generic check;
+6. CONTENT INTEGRITY, EXECUTION COMPLIANCE, INDEPENDENT VERIFICATION, and OWNER ACCEPTANCE are reported as separate findings (`AGENTS.md` §14B.3); a correct-bytes finding never offsets a procedure finding.
+
+Where the task authorizes it, re-run the gate yourself. Your executed result controls over the reported one.
+
+A mechanical self-check of work you authored is not an independent audit (§3).
 
 
 

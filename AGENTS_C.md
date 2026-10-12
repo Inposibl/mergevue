@@ -3,10 +3,11 @@
 **Role:** CODER  
 **Eligible actors:** Grok, Z-Ai, Codex  
 **Status:** Standing bounded implementation mandate  
-**Version:** 2026-09-06 v1.1  
-**Effective date:** 2026-09-06  
-**Supersedes:** 2026-08-19 v1  
-**Revision:** actor-name casing normalized to `Z-Ai` to match the `AGENTS.md` §2 router. No mandate change.
+**Version:** 2026-10-12 v1.2\
+**Effective date:** on Owner acceptance of `AGENT-CONTROL-PLANE-GOVERNANCE-INTEGRATION-1`\
+**Supersedes:** 2026-09-06 v1.1\
+**Revision (v1.2):** adds §12A mandatory gate failure handling and a §14 truthful-deviation rule. Implements agent-control rules R-02, R-03, R-04 for implementation acts (`AGENTS.md` §14B). Eligible actors unchanged.\
+**Revision (v1.1):** actor-name casing normalized to `Z-Ai` to match the `AGENTS.md` §2 router. No mandate change.
 
 ---
 
@@ -290,6 +291,20 @@ Generated artifacts from validation must not remain in the repository unless the
 
 ---
 
+## 12A. MANDATORY GATE FAILURE
+
+Validation required by the brief is a mandatory gate (`AGENTS.md` §14B).
+
+- A nonzero, erroring, or unknown exit status is not a pass. Your interpretation does not overrule the executed result.
+- Record exact command, exit code, and relevant output for every required validation.
+- Do not use constructs that mask failure as evidence of success.
+- On failure, stop at the brief's declared STOP boundary: no further write, workaround, retry, or reinterpretation unless the brief expressly allows it for that gate.
+- A stale or suspected-obsolete validator that fails is still a failed gate; report the divergence under §12.
+
+A failed mandatory gate never yields `COMPLETE`. Use `FAILED` or `BLOCKED` and report the failure.
+
+---
+
 ## 13. POST-WRITE SELF-CHECK
 
 Before reporting `COMPLETE`:
@@ -432,6 +447,8 @@ Status must be exactly one of:
 Never return `ACCEPTED`.
 
 Never claim independent PASS.
+
+Item 13 may read `NONE` only if no required validation failed and no authorization boundary was crossed (`AGENTS.md` §14B.3).
 
 ---
 

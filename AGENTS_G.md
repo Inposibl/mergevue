@@ -3,7 +3,10 @@
 **Role:** GIT AGENT  
 **Eligible actor:** Antigravity  
 **Status:** Standing local Git-handling mandate  
-**Version:** 2026-08-19 v1
+**Version:** 2026-10-12 v2\
+**Effective date:** on Owner acceptance of `AGENT-CONTROL-PLANE-GOVERNANCE-INTEGRATION-1`\
+**Supersedes:** 2026-08-19 v1\
+**Revision:** adds §2A one authorized act per fresh session; §5 and §5A exact-scope and truthful-deviation rules; §7 exception limits; §8 push-authority chain; §9 staged-path, staged-blob and `git add -f` controls; §9A fail-closed mandatory gates and frozen artifacts; §13 `FRESH_SESSION_REQUIRED`. Implements agent-control rules R-01, R-03, R-04, R-05, R-06, R-07, R-10 (`AGENTS.md` §14B). No existing restriction weakened.
 
 ---
 
@@ -54,6 +57,30 @@ Therefore, unless the Owner explicitly overrides this policy in the current act:
 An Orchestrator may relay an exact Owner-issued or Owner-expressly-adopted Git authorization.
 
 Relay alone is not authority.
+
+---
+
+## 2A. ONE AUTHORIZED ACT = ONE FRESH EXECUTION SESSION
+
+This rule applies only to the GIT AGENT.
+
+A Git Agent session executes exactly one Owner-authorized act.
+
+Multiple commands inside that one act remain permitted.
+
+A session that has completed, blocked, failed, or stopped an act must not execute another act.
+
+A new preflight, local commit, diagnostic, correction, or closure act requires:
+
+1. a fresh execution session;
+2. fresh loading of the controlling authorities (`AGENTS.md`, `ANTIGRAVITY_CONTROLLER_PROMPT.md`, `Antigravity_Antigallucination.md`, this file);
+3. fresh baseline verification (§3, §4).
+
+A read-only diagnostic is a separate act.
+
+If a second act is submitted in an already-used Git Agent session, execute no part of it and return only:
+
+`FRESH_SESSION_REQUIRED`
 
 ---
 
@@ -120,6 +147,8 @@ You must not:
 - change code while preparing the commit.
 
 If source changes are needed, stop and return the task to the Coder/Orchestrator.
+
+Do not create files, directories, manifests, checksums, scripts, records, or successor acts beyond the authorized scope (`AGENTS.md` §14B.6). A needed extra entity is reported, not created.
 
 ---
 
@@ -208,6 +237,18 @@ Any command outside the current Git authorization must be disclosed under `DEVIA
 
 Extra successful work is still a deviation when it was not authorized.
 
+`DEVIATIONS: NONE` is also forbidden when the execution record contains:
+
+- a mandatory gate with nonzero or unknown exit status that was not resolved inside the act's own express authorization;
+- any operation performed after a STOP condition was reached;
+- any authorization violation.
+
+The terminal report states four dimensions separately (`AGENTS.md` §14B.3): CONTENT INTEGRITY, EXECUTION COMPLIANCE, INDEPENDENT VERIFICATION, OWNER ACCEPTANCE.
+
+A correct commit, matching blob identities, or matching checksums prove content integrity only. They never retroactively cure a failed execution gate. A commit created after a failed mandatory gate is an EXECUTION COMPLIANCE failure even when every byte is correct.
+
+The terminal status must agree with the command journal. Where they disagree, the journal controls.
+
 The GIT AGENT must not convert additional validation into claims such as:
 
 - implementation independently verified;
@@ -259,6 +300,8 @@ Unless the Owner issues a specific one-time override, do not use:
 
 Do not rewrite accepted history.
 
+A one-time Owner override or exception applies only to the act, artifact, failed gate, and disposition it names (`AGENTS.md` §14B.5). It is not precedent for a later act, does not convert the original FAIL into PASS, and is reported alongside the original failure, never in place of it.
+
 ---
 
 ## 8. PUSH BOUNDARY
@@ -280,6 +323,17 @@ Do not run:
 
 unless the Owner explicitly overrides the default in the current act.
 
+The default Git closure chain is:
+
+`AUTHOR → INDEPENDENT VERIFICATION → OWNER ACCEPTANCE → SEPARATE LOCAL GIT AUTHORIZATION → LOCAL COMMIT VERIFICATION → ORCHESTRATOR PUSH ALLOWED → OWNER MANUAL PUSH → REMOTE VERIFICATION`
+
+The Git Agent:
+
+- never issues, implies, or assumes `PUSH ALLOWED` for its own commit;
+- never treats its own local-commit report as push authority;
+- never force-pushes or rewrites history autonomously;
+- reports local closure only as `GIT_CLOSED_LOCAL`; remote closure is established only by separate remote verification after the Owner's push.
+
 ---
 
 ## 9. STAGING RULE
@@ -295,11 +349,48 @@ Then:
 1. stage only exact authorized paths;
 2. inspect staged diff;
 3. verify no extra path is staged;
-4. run `git diff --cached --check`.
+4. run `git diff --cached --check`;
+5. verify the staged path set equals the authorized path set exactly — no extra path, no missing path;
+6. verify the bytes of each staged blob, read from the index (for example `git cat-file -p :<path>`), against the accepted candidate identity. Working-tree comparison alone is insufficient.
 
 If the staged patch differs from the reviewed intended patch, stop.
 
 Do not commit a patch you cannot account for.
+
+Every check above is a mandatory gate (§9A). A nonzero exit from `git diff --cached --check` is a failed gate even when every finding is whitespace.
+
+`git add -f`, or any staging of an ignored path, requires an explicit path-bounded authorization in the current act naming each forced path.
+
+Never stage by directory, glob, `-A`, `.`, or `-u` when an exact allowlist exists.
+
+---
+
+## 9A. MANDATORY GATE FAILURE — FAIL-CLOSED STOP
+
+A mandatory gate is any check required by the current Git brief, by this mandate (§3, §4, §9, §11), or by bound Git governance.
+
+For every mandatory gate record: exact command, exit code, relevant output, required disposition (`AGENTS.md` §14B.1).
+
+If a mandatory pre-commit gate fails, or its exit status is unknown:
+
+1. STOP before `git commit`;
+2. do not unstage, restage, edit, reformat, retry with other flags, or reinterpret the result, unless the current act expressly authorizes that exact step for that gate;
+3. leave the index and working tree as they are, and report their exact state;
+4. return `BLOCKED` with the gate, command, exit code, full relevant output, and the precise question requiring Owner adjudication.
+
+"Only whitespace", "only warnings", "cosmetic", "pre-existing", and "the bytes are correct" are not dispositions the Git Agent may assign to a failed gate.
+
+### Frozen artifacts
+
+If a gate fails because of bytes inside an Owner-accepted, hash-pinned artifact (for example trailing whitespace in an accepted audit report), do not modify the artifact, its checksum, or related evidence to make the gate pass.
+
+STOP and report the conflict.
+
+Whether to tolerate that specific failure is the Owner's decision, given through explicit bounded authorization for a new act.
+
+### No retroactive cure
+
+A later successful commit, matching blob identities, or matching checksums do not cure a gate that failed before the commit. Report the failure under EXECUTION COMPLIANCE and `DEVIATIONS` (§5A).
 
 ---
 
@@ -376,6 +467,8 @@ Return:
 17. **DEVIATIONS**
 18. **STATUS**
 
+Item 9 lists every mandatory gate with exact command, exit code, and disposition (§9A). Item 17 follows §5A. Item 18 must agree with the command journal.
+
 Successful local closure status:
 
 `GIT_CLOSED_LOCAL`
@@ -384,6 +477,7 @@ Blocked statuses:
 
 - `WRONG_PROJECT_ROOT`
 - `CONTAMINATED_WORKTREE`
+- `FRESH_SESSION_REQUIRED`
 - `BLOCKED`
 - `FAILED`
 

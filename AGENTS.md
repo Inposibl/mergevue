@@ -3,10 +3,11 @@
 **Project:** MergeVue — Post-Deal Behavior Forecast / M&A Integration Risk Diagnostic  
 **Status:** Controlling router and shared rules for AI-agent work  
 **Owner:** Human project owner  
-**Version:** 2026-09-06 v2  
-**Effective date:** 2026-09-06  
-**Supersedes:** 2026-08-19 v1  
-**Revision:** adds §5.4 physical authority map (status / staleness / workbench / design-canon rules) and §14A Owner Decision Frame (six gates, evidence ledger, required frame, batching). §7 demoted to historical investigation flags; the Control Tree is the single current status map. §10 aligned with the §2 router on eligible independent verifiers. No existing rule weakened or removed.
+**Version:** 2026-10-12 v3\
+**Effective date:** on Owner acceptance of `AGENT-CONTROL-PLANE-GOVERNANCE-INTEGRATION-1`\
+**Supersedes:** 2026-09-06 v2\
+**Revision (v3):** adds §14B mechanical gate, status and exception integrity (agent-control rules R-01–R-11, recorded in `docs/governance/MERGEVUE_CONTROL_TREE_AGENT_CONTROL_ADDENDUM_2026-10-12.md`) and one §15 line on single-act GIT AGENT sessions. No role eligibility, authority-hierarchy rule or existing restriction changed.\
+**Revision (v2):** adds §5.4 physical authority map (status / staleness / workbench / design-canon rules) and §14A Owner Decision Frame (six gates, evidence ledger, required frame, batching). §7 demoted to historical investigation flags; the Control Tree is the single current status map. §10 aligned with the §2 router on eligible independent verifiers. No existing rule weakened or removed.
 
 ---
 
@@ -659,6 +660,78 @@ Stop asking as soon as no material irreducible decision remains for the next act
 
 ---
 
+## 14B. MECHANICAL GATE, STATUS AND EXCEPTION INTEGRITY
+
+Applies to every role. Labels `R-01`–`R-11` refer to the agent-control rule set recorded in `docs/governance/MERGEVUE_CONTROL_TREE_AGENT_CONTROL_ADDENDUM_2026-10-12.md`.
+
+A **mandatory gate** is any command or check that the active act, the role mandate, or bound governance requires to succeed before the act may proceed or close.
+
+### 14B.1 Machine result controls (R-02)
+
+- A mandatory gate that returns nonzero, errors, or has no observable exit status has not passed.
+- Unknown exit status never establishes success.
+- No interpretation ("only whitespace", "only warnings", "cosmetic", "pre-existing", "bytes are correct") and no later successful step overrides the executed result.
+- For every mandatory gate record: exact command, exit code, relevant output, required disposition.
+- Constructs that mask a failure (`|| true`, discarded exit status, a gate piped into another command without preserving its status, suppressed error output) are never evidence of PASS.
+
+### 14B.2 Fail-closed STOP (R-03)
+
+A failed mandatory gate triggers the act's declared STOP boundary.
+
+No continuation, commit, source edit, workaround, retry, or reinterpretation, unless the original act expressly allows that step for that gate.
+
+If adjudication is required, halt and return the precise question (§14A).
+
+An Owner exception given afterwards is a separate Owner decision. An agent may not anticipate it or act as if it had been given.
+
+### 14B.3 Truthful deviation reporting (R-04)
+
+`DEVIATIONS: NONE` is forbidden when the execution record contains an authorization violation or an unresolved failed mandatory gate.
+
+Terminal reports keep four dimensions separate:
+
+- **CONTENT INTEGRITY** — are the produced bytes the intended bytes?
+- **EXECUTION COMPLIANCE** — did execution follow the authorized procedure and its gates?
+- **INDEPENDENT VERIFICATION** — has an eligible non-author verified it?
+- **OWNER ACCEPTANCE** — has the Owner accepted it?
+
+Correct bytes do not cure a procedure violation. No terminal `PASS`, `COMPLETE`, or closure status may conceal that contradiction.
+
+### 14B.4 Frozen artifacts (R-05)
+
+Owner-accepted, hash-pinned artifacts are not modified to satisfy generic formatting, lint, or whitespace checks.
+
+If such a check fails because of accepted immutable bytes: STOP and report the conflict (artifact, identity, gate, exact output). Do not rewrite whitespace, reports, checksums, or historical evidence.
+
+Tolerating that specific failure is an Owner decision, given through explicit bounded authorization.
+
+### 14B.5 Exceptions do not generalize (R-06)
+
+An Owner exception is limited to the act, artifact, failed gate, and disposition it names.
+
+It does not convert a historical FAIL into PASS, suppress original evidence, authorize recurring bypass, amend standing policy, or authorize a later act by analogy.
+
+### 14B.6 Exact scope (R-07)
+
+No agent creates files, directories, contracts, governance entities, manifests, scripts, tests, audit records, or successor acts beyond the approved scope.
+
+A newly discovered material requirement is reported, not satisfied. Scope expansion requires separate authority. Useful but unauthorized extra work is still a deviation (§12, §13).
+
+### 14B.7 Proof states stay separate (R-11)
+
+Keep separate: agent claim · mechanical result · independent audit · Owner acceptance · local Git binding · remote Git binding.
+
+Do not promote one state into another. Unknown remains `UNKNOWN`. An agent's terminal narrative never supersedes contradictory machine evidence.
+
+### 14B.8 Role-specific routing
+
+- Author / auditor separation (R-08): §10; `AGENTS_A.md` §3 and §8B.
+- Self-contained execution briefs (R-09): `AGENTS_O.md` §7.
+- Git closure invariants (R-10): `AGENTS_G.md` §8, §9, §9A; `AGENTS_O.md` §11A.
+- One authorized act per fresh session (R-01): `AGENTS_G.md` §2A. This rule applies only to the GIT AGENT; it does not apply to Claude, Codex, Z-Ai, Grok, or the Orchestrator.
+
+---
+
 ## 15. SESSION START RULE
 
 After a role is assigned:
@@ -671,5 +744,7 @@ After a role is assigned:
 6. act only inside that boundary.
 
 Do not continue automatically into a new task after finishing the current one.
+
+A GIT AGENT session executes at most one authorized act (`AGENTS_G.md` §2A).
 
 The Owner controls the next act.

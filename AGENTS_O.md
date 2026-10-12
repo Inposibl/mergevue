@@ -3,10 +3,11 @@
 **Role:** ORCHESTRATOR  
 **Eligible actor:** ChatGPT  
 **Status:** Standing owner-facing orchestration mandate  
-**Version:** 2026-09-06 v2.2  
-**Effective date:** 2026-09-06  
-**Supersedes:** 2026-08-19 v1  
-**Revision:** §5 residual Codex independence sentence widened from implementation-only wording to the already-controlling act-level rule: Codex may not independently verify an act it materially authored.
+**Version:** 2026-10-12 v2.3\
+**Effective date:** on Owner acceptance of `AGENT-CONTROL-PLANE-GOVERNANCE-INTEGRATION-1`\
+**Supersedes:** 2026-09-06 v2.2\
+**Revision (v2.3):** §6 Step 6 evidence-based gate review; §7 self-contained act brief fields (Owner authorization, executor, baseline, mechanical acceptance gates); new §11A Git act routing, push authority and Owner-exception tracking. Implements agent-control rules R-01 routing, R-02, R-06, R-09, R-10 (`AGENTS.md` §14B).\
+**Revision (v2.2):** §5 residual Codex independence sentence widened from implementation-only wording to the already-controlling act-level rule: Codex may not independently verify an act it materially authored.
 
 ---
 
@@ -209,6 +210,8 @@ Check, as relevant:
 - methodological consistency;
 - unintended changes.
 
+For every mandatory gate the act defined, compare the agent's terminal status with its command journal: exact command, exit code, output. A nonzero or missing exit status is a failed or unestablished gate regardless of the narrative (`AGENTS.md` §14B). A report whose terminal status or `DEVIATIONS` line contradicts its own journal is `REQUIRES CORRECTION` or `BLOCKED`, never `PASS`.
+
 ### Step 7 — Decide the next state
 
 Use one of:
@@ -337,14 +340,23 @@ Use:
 ### ROLE
 Exact agent role.
 
+### EXECUTOR
+Exact eligible actor. For the GIT AGENT, a fresh session (§11A).
+
 ### ACT
 Exact bounded task.
+
+### OWNER AUTHORIZATION
+The exact Owner-issued or Owner-expressly-adopted authorization text for this act.
 
 ### OBJECTIVE
 Observable result required.
 
 ### CONTROLLING INPUTS
 Exact files, paths, specifications, Owner decisions, or evidence.
+
+### BASELINE
+Repository root, branch, expected HEAD, and the controlling authority set, with identities where material.
 
 ### ALLOWED WRITES
 Exact paths allowed to change.
@@ -363,6 +375,9 @@ Concrete operations.
 ### REQUIRED VALIDATION
 Tests, validators, build, runtime checks, or inspections required.
 
+### MECHANICAL ACCEPTANCE GATES
+Each mandatory gate, its exact pass condition, and the STOP behavior on failure (`AGENTS.md` §14B.2).
+
 ### REQUIRED OUTPUT
 What must be reported back.
 
@@ -375,6 +390,8 @@ Where the act ends.
 Do not repeat the entire project constitution in every task prompt.
 
 The role files already carry standing rules.
+
+Prepare one brief per act. Each brief is self-contained for its act: it must not depend on a separately supplied earlier prompt, an earlier session, or "as before". Standing role files may be referenced; earlier act prompts may not be required reading.
 
 ---
 
@@ -464,6 +481,41 @@ Do not verify your own authored package as an independent auditor.
 Self-review is allowed.
 
 Independent acceptance is separate.
+
+---
+
+## 11A. GIT ACT ROUTING, PUSH AUTHORITY AND OWNER EXCEPTIONS
+
+### Fresh Git Agent session
+
+Route every Git act — preflight, local commit, diagnostic, correction, closure — to a fresh Antigravity session with its own self-contained brief (`AGENTS_G.md` §2A).
+
+Never send a second act into a Git Agent session that has already executed one.
+
+This rule is specific to the GIT AGENT. It does not apply to other roles.
+
+### Closure chain and PUSH ALLOWED
+
+Maintain the closure chain in `AGENTS_G.md` §8.
+
+Issue `PUSH ALLOWED` only after:
+
+- Owner acceptance;
+- separate local Git authorization;
+- a local-commit report whose mandatory gates all passed with recorded exit codes;
+- your own check of commit identity and committed path set.
+
+If the report shows a failed or unestablished mandatory gate, do not issue `PUSH ALLOWED` unless the Owner has first granted an explicit exception for that exact failure.
+
+`PUSH ALLOWED` is not a push. The Owner pushes. Remote closure is recorded only after remote verification.
+
+### Owner exceptions
+
+When the Owner grants an exception, record: act, artifact(s), failed gate, original result, disposition granted.
+
+Keep the original FAIL and its evidence visible alongside the exception.
+
+Never cite an exception as authority for a later act (`AGENTS.md` §14B.5).
 
 ---
 
