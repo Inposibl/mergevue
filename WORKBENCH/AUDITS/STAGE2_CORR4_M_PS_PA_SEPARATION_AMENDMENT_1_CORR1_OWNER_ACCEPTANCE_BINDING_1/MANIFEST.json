@@ -1,0 +1,117 @@
+{
+  "manifestVersion": "1.0",
+  "packageIdentity": "STAGE2_CORR4_M_PS_PA_SEPARATION_AMENDMENT_1_CORR1_OWNER_ACCEPTANCE_BINDING_1",
+  "actReference": "STAGE2-CORR4-M-PS-PA-SEPARATION-AMENDMENT-1.CORR1.GOVERNANCE-BINDING-1",
+  "acceptedAct": "STAGE2-CORR4-M-PS-PA-SEPARATION-AMENDMENT-1.CORR1",
+  "parentAct": "STAGE2-CORR4-M-PS-PA-SEPARATION-AMENDMENT-1",
+  "date": "2026-10-12",
+  "statusTarget": "BINDING_PACKAGE_PREPARED",
+  "repository": "Inposibl/mergevue",
+  "targetBranch": "main",
+  "preActHead": "25355825222d36f1e636438fb29923e7e5e06494",
+  "executor": "Antigravity",
+  "mode": "AUTHOR_SIDE_DOCUMENTARY_PREPARATION",
+  "controllingOwnerDecision": {
+    "document": "docs/decisions/MERGEVUE_STAGE2_CORR4_M_PS_PA_SEPARATION_AMENDMENT_1_CORR1_OWNER_DECISION_2026-10-12.md",
+    "ownerStatus": "OWNER_ACCEPTED"
+  },
+  "associatedStatusOverlay": {
+    "document": "docs/governance/MERGEVUE_CONTROL_TREE_STAGE2_CORR1_STATUS_ADDENDUM_2026-10-12.md"
+  },
+  "acceptedCandidate": {
+    "filename": "STAGE2-CORR4-M-PS-PA-SEPARATION-AMENDMENT-1.CORR1.md",
+    "sha256": "c794c50b90c5860d4d1d8631885803fe8ab44c3991aa7cf1997ded1269765a59",
+    "bytes": 21653,
+    "author": "GPT-6 / ChatGPT"
+  },
+  "directParent": {
+    "filename": "STAGE2-CORR4-M-PS-PA-SEPARATION-AMENDMENT-1.md",
+    "sha256": "23349420e8a19c03df8a51b3e058531e34415e011abd6ac89ee0242a48e79fc9",
+    "bytes": 15938,
+    "author": "GPT-6 / ChatGPT"
+  },
+  "originalFrozenCorr4": {
+    "path": "WORKBENCH/DOWNLOADS/STAGE2_SEMANTIC_SUCCESSOR_CANDIDATE_CORR4.md",
+    "sha256": "2de49862fb0d63c5f1cd1745531199137e73b7b37abceecef6e735d497d38bb0",
+    "pilotLockBytes": 250512
+  },
+  "auditHistory": {
+    "parentIv1Report": {
+      "filename": "STAGE2-CORR4-M-PS-PA-SEPARATION-AMENDMENT-1.IV1_REPORT.md",
+      "sha256": "55e8aa933ea37834d051bf94e6e8fb523be9da3b108b04681962a6bfc507e0db",
+      "bytes": 18590,
+      "auditor": "Codex",
+      "verdict": "FAIL — 1 BLOCKING / 0 MAJOR / 0 MINOR / 1 ADVISORY",
+      "blockingFinding": "IV1-F-01"
+    },
+    "corr1Iv1Report": {
+      "filename": "STAGE2-CORR4-M-PS-PA-SEPARATION-AMENDMENT-1.CORR1.IV1_REPORT.md",
+      "sha256": "ddafa743bde61a89c4be20c6e8b29a16cecd0a3cb3198dcbc71ff75e9fca6cf7",
+      "bytes": 17730,
+      "auditor": "Codex",
+      "verdict": "PASS — 0 BLOCKING / 0 MAJOR / 0 MINOR / 1 carried ADVISORY"
+    }
+  },
+  "findingsDisposition": {
+    "IV1-F-01": {
+      "status": "CLOSED_AT_FRAMEWORK_CONTRACT_LEVEL_ONLY",
+      "summary": "Failure to define scientifically testable protocol and decision rule for eligibility exclusions",
+      "resolution": "Resolved at contract level by defining mandatory SI-0 pre-registered protocol, independent eligibility reference, 4-strata evaluation, falsifiers F-PS-01–07, and fail-closed SI-6 rule"
+    },
+    "carriedAdvisory": {
+      "status": "CARRIED_FORWARD_OPEN",
+      "summary": "Exact primary bytes of earlier R-01 addendum and IV1 report not located in repository workspace; R-01 metric reproduced in-memory from frozen marks"
+    }
+  },
+  "scientificCeilings": {
+    "si0ProtocolExistenceOrAcceptance": "NOT_ESTABLISHED",
+    "si1ThroughSi6EmpiricalSatisfaction": "NOT_ESTABLISHED",
+    "absenceOfEligibilityBias": "NOT_ESTABLISHED",
+    "pa17DisagreementsClosure": "OPEN / NOT_ESTABLISHED",
+    "efcaJ1J4PolicyAdjudication": "OPEN",
+    "efcaJ2J3ForwardExecution": "NOT_AUTHORIZED",
+    "postPilotSemanticContractAcceptance": "OPEN",
+    "finalContractFreeze": "OPEN",
+    "b5_8AnalyticalCodingExecution": "NOT_AUTHORIZED",
+    "productionIntegration": "NOT_AUTHORIZED",
+    "stage2ScientificCompletion": "OPEN / INCOMPLETE"
+  },
+  "packageInventory": [
+    {
+      "filename": "STAGE2-CORR4-M-PS-PA-SEPARATION-AMENDMENT-1.CORR1.md",
+      "sha256": "c794c50b90c5860d4d1d8631885803fe8ab44c3991aa7cf1997ded1269765a59",
+      "bytes": 21653,
+      "role": "ACCEPTED_CORR1_CANDIDATE"
+    },
+    {
+      "filename": "STAGE2-CORR4-M-PS-PA-SEPARATION-AMENDMENT-1.md",
+      "sha256": "23349420e8a19c03df8a51b3e058531e34415e011abd6ac89ee0242a48e79fc9",
+      "bytes": 15938,
+      "role": "DIRECT_PARENT_CANDIDATE"
+    },
+    {
+      "filename": "STAGE2-CORR4-M-PS-PA-SEPARATION-AMENDMENT-1.IV1_REPORT.md",
+      "sha256": "55e8aa933ea37834d051bf94e6e8fb523be9da3b108b04681962a6bfc507e0db",
+      "bytes": 18590,
+      "role": "PARENT_IV1_REPORT_FAIL"
+    },
+    {
+      "filename": "STAGE2-CORR4-M-PS-PA-SEPARATION-AMENDMENT-1.CORR1.IV1_REPORT.md",
+      "sha256": "ddafa743bde61a89c4be20c6e8b29a16cecd0a3cb3198dcbc71ff75e9fca6cf7",
+      "bytes": 17730,
+      "role": "CORR1_IV1_REPORT_PASS"
+    },
+    {
+      "filename": "README.md",
+      "role": "PACKAGE_DESCRIPTION_AND_GOVERNANCE_OVERVIEW"
+    },
+    {
+      "filename": "MANIFEST.json",
+      "role": "PACKAGE_MANIFEST"
+    },
+    {
+      "filename": "SHA256SUMS.txt",
+      "role": "CHECKSUM_MANIFEST"
+    }
+  ]
+}
