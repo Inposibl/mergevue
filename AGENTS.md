@@ -263,7 +263,8 @@ Do not "consider consulting relevant sources". Open these, by path.
 | Router and global rules | `AGENTS.md` |
 | Active role mandate | `AGENTS_O.md` / `AGENTS_A.md` / `AGENTS_C.md` / `AGENTS_G.md` |
 | Causal-claim control | `MERGEVUE_CAUSALITY_PROOF_AND_AGENT_CONTROL.md` |
-| Status map for every workstream | `docs/governance/MERGEVUE_CONTROL_TREE_v2.1_2026-09-04.md` (check for a later version first) |
+| Primary current-status source for every workstream | `docs/governance/MERGEVUE_CONTROL_TREE_CURRENT.json` — check `documentStatus`, `statusAsOf`, `baselineHead`, and the authority boundary before relying on a state |
+| Compact complete human-readable current-status projection | `docs/governance/MERGEVUE_CONTROL_TREE_CURRENT.md` — generated from the JSON; every current node, direct dependency and primary blocker is shown; detailed dimensions and evidence stay in JSON |
 | Bound governance authorities | `docs/governance/*.md` with matching `.sha256` |
 | Accepted architecture contracts | `docs/contracts/*_ACCEPTED.md` — carry their own supersession order and schema versions |
 | Accepted product-design authority — **governance and behavior** | `docs/design-corpus/00-44/`, bounded by `docs/design-corpus/MERGEVUE_REMAINING_CORPUS_MANIFEST_v1.0.md` |
@@ -272,9 +273,13 @@ Do not "consider consulting relevant sources". Open these, by path.
 | Accepted design authority — **visual only** | `docs/reference/print-canon/` and accepted print/Framer specs |
 | Candidate material, never authority | `MergeVue-M&A WORKBENCH/` |
 
-Five rules govern this table.
+The following rules govern this table.
 
-**Status rule.** Use the Control Tree legend: ✅ CLOSED (independently verified **and** Owner-accepted), ☑️ COMPLETED CANDIDATE (evidence, not authority), ⚠️ ACTIVE/OPEN, ❌ FUTURE. Never collapse the states the Tree separates: independent verification, Owner adoption, physical governance-artifact binding, production implementation.
+**Status rule.** Read the canonical JSON first for consolidated current status, detailed dimensions and evidence; use its compact Markdown projection for the complete human tree, blockers and critical path. Its indicators are ✅ COMPLETE, ◐ PARTIAL, ☑️ ACCEPTED_DEFINITION_ONLY, 🟠 OPEN_OR_CANDIDATE, ⬜ NOT_STARTED, and ⛔ BLOCKED_OR_REJECTED. Never collapse Owner acceptance, independent verification, local Git binding, remote Git binding, implementation, and runtime/deployment evidence. COMPLETE applies only to the node's stated scope and applicable closure requirements.
+
+**Candidate activation boundary.** The new current tree initially remains CANDIDATE. This routing change makes it discoverable; it does not grant it controlling authority. Only explicit Owner acceptance and authorized Git closure activate it as the primary controlling current-status presentation. Until activation, use it as a candidate consolidation and verify material status claims against its cited accepted authorities and subsequent Owner decisions. After activation it replaces the older Control Tree/status-overlay presentations only for current status; the underlying scientific, report-product, methodological, and agent authorities retain their substantive force. Preserve historical documents without treating them as competing current dashboards.
+
+**Status maintenance.** An Owner-accepted change identifies the affected current node. Under authorized scope update the JSON, its source evidence and status timestamp; regenerate Markdown with `python3 scripts/mergevue_control_tree.py --render`; check with `python3 scripts/mergevue_control_tree.py`; then use the separately authorized verification, acceptance and Git process. Do not create a dated status overlay as the default update mechanism. A later accepted decision may take effect before synchronization; the tree is a timestamped snapshot, not an automatically current authority or an execution authorization.
 
 **Staleness rule.** A `docs/governance/` artifact is controlling only after checking its `.sha256` and its date against any later binding commit. A filename and a folder are not proof of binding. The repository history contains an erroneous authority binding that was reverted and re-bound.
 

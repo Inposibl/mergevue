@@ -1,0 +1,3703 @@
+{
+  "schemaVersion": "1.0",
+  "documentStatus": "OWNER_ACCEPTED",
+  "act": "MERGEVUE-CURRENT-CONTROL-TREE-CLEAN-REPLACEMENT-1",
+  "authorityBoundary": "Owner acceptance: GRANTED; независимая verification нового дерева: NOT_PERFORMED. Фактическое remote binding устанавливается проверкой ветки и коммита в Git, а не статичной записью в метаданных.",
+  "statusAsOf": "2026-10-17",
+  "timezone": "America/Asuncion",
+  "repository": "Inposibl/mergevue",
+  "branch": "main",
+  "baselineHead": "167d05d1079319a39652850dddb09eeed55597ee",
+  "branches": [
+    {
+      "id": "F1",
+      "title": "1. Принятые научные и дефиниционные основы"
+    },
+    {
+      "id": "E2",
+      "title": "2. Документальные доказательства и provenance"
+    },
+    {
+      "id": "Q3",
+      "title": "3. Анкеты и прямое определение Environment"
+    },
+    {
+      "id": "H4",
+      "title": "4. Исторический корпус девяти кейсов"
+    },
+    {
+      "id": "S5",
+      "title": "5. Stage-2: научная целостность и post-pilot obligations"
+    },
+    {
+      "id": "H6",
+      "title": "6. Метод исторического определения Environment"
+    },
+    {
+      "id": "C7",
+      "title": "7. Калибровка, фальсификация и Method Freeze"
+    },
+    {
+      "id": "M8",
+      "title": "8. Математический аппарат и детерминированный Core"
+    },
+    {
+      "id": "R9",
+      "title": "9. Исторические алгоритмические отчёты и публикация"
+    },
+    {
+      "id": "P10",
+      "title": "10. Отчётная и runtime архитектура MergeVue"
+    },
+    {
+      "id": "L11",
+      "title": "11. Продуктовые и коммерческие функции roadmap"
+    },
+    {
+      "id": "G12",
+      "title": "12. Гейты готовности и публичного выпуска"
+    }
+  ],
+  "activeCorpus": [
+    "daimler-chrysler",
+    "deutsche-bankers-trust",
+    "pfizer-megamergers",
+    "aol-time-warner",
+    "aecom-urs",
+    "exxon-mobil",
+    "jpmorgan-bank-one",
+    "google-android",
+    "amazon-whole-foods"
+  ],
+  "recommendedNextAction": "Отдельный ограниченный акт предисполнительской готовности принятого V: прежде E0 требуется явное Owner disposition RES-03; затем в разрешённом объёме — хранение точного V, проверенный совместимый путь исполнения и подтверждённые IDs/isolation/custody. Научные наблюдения до отдельной авторизации запрещены.",
+  "criticalPaths": [
+    {
+      "title": "Допуск к научной оценке P-S",
+      "nodes": [
+        "SI-0",
+        "SI0-AMENDMENT",
+        "SI0-READINESS",
+        "SI-1",
+        "SI-2",
+        "SI-3",
+        "SI-4",
+        "SI-5",
+        "SI-6"
+      ],
+      "constraint": "SI-2 и SI-3 — параллельные требования после SI-1; перечисление не разрешает исполнение. RES-03, identity/storage V и совместимый execution path блокируют E0.",
+      "steps": [
+        [
+          "SI-0",
+          "SI0-AMENDMENT"
+        ],
+        [
+          "SI0-READINESS"
+        ],
+        [
+          "SI-1"
+        ],
+        [
+          "SI-2",
+          "SI-3"
+        ],
+        [
+          "SI-4"
+        ],
+        [
+          "SI-5"
+        ],
+        [
+          "SI-6"
+        ]
+      ]
+    },
+    {
+      "title": "Закрытие Stage-2 до механического кодирования",
+      "nodes": [
+        "SI-6",
+        "PA-DISPOSITION",
+        "J-1",
+        "J-4",
+        "J-2",
+        "J-3",
+        "POST-PILOT",
+        "FINAL-CONTRACT-FREEZE",
+        "B5.8"
+      ],
+      "constraint": "Первый блок показывает сходящиеся требования. J-гейты применяются только по установленной applicability и lawful disposition §8E(5); порядок panels здесь не задаётся. SI-6 sufficient снимает blanket P-S duty только решением Owner. Полный measurement regression — отдельный отложенный lane, не выдуманный prerequisite semantic freeze.",
+      "steps": [
+        [
+          "SI-6",
+          "PA-DISPOSITION",
+          "J-1",
+          "J-4",
+          "J-2",
+          "J-3"
+        ],
+        [
+          "POST-PILOT"
+        ],
+        [
+          "FINAL-CONTRACT-FREEZE"
+        ],
+        [
+          "B5.8"
+        ]
+      ]
+    },
+    {
+      "title": "Историческая научная и программная цепочка",
+      "nodes": [
+        "B5.8",
+        "B5.9",
+        "B5.10",
+        "B5.15",
+        "B5.16",
+        "B5.11",
+        "B5.17",
+        "B5.18",
+        "B7.1",
+        "B5.12",
+        "B5.19",
+        "B5.13",
+        "B5.14",
+        "B16.3"
+      ],
+      "constraint": "B5.13 дополнительно требует независимо проверенных B6.4 и B9.1 после Method Freeze. Publication content требует verified final replay. PRODUCT READY — параллельный release gate, и сам public release требует отдельного Owner решения.",
+      "steps": [
+        [
+          "B5.8"
+        ],
+        [
+          "B5.9"
+        ],
+        [
+          "B5.10"
+        ],
+        [
+          "B5.15"
+        ],
+        [
+          "B5.16"
+        ],
+        [
+          "B5.11"
+        ],
+        [
+          "B5.17"
+        ],
+        [
+          "B5.18"
+        ],
+        [
+          "B7.1"
+        ],
+        [
+          "B5.12"
+        ],
+        [
+          "B5.19"
+        ],
+        [
+          "B5.13",
+          "B5.14"
+        ],
+        [
+          "B16.3"
+        ]
+      ]
+    }
+  ],
+  "maintenanceRules": [
+    "Owner-accepted state change называет затронутый node ID и точные evidence identities; одно поле статуса не повышает остальные.",
+    "В разрешённом акте изменяется только canonical JSON; обновляются statusAsOf/baselineHead и source pins. Более поздние принятые решения сверяются до переноса прежнего статуса.",
+    "Markdown регенерируется: python3 scripts/mergevue_control_tree.py --render. Отдельное ручное редактирование Markdown/status tables запрещено.",
+    "Проверка: python3 scripts/mergevue_control_tree.py. Validator сверяет schema vocabulary, IDs, DAG, scientific dependencies, source hashes, routing и byte-identical projection. Scientific truth и Owner acceptance не выводятся из PASS.",
+    "Изменение уходит в отдельный authorized independent review / Owner acceptance / Git closure процесс. Дерево не выдаёт Git или execution authority.",
+    "Canonical current-status authority активируется только после явного Owner acceptance и авторизованного Git closure. Предметные scientific/report/methodological/agent authorities и их внешняя provenance сохраняются без изменения; activation condition пока не выполнено.",
+    "Новый dated status overlay не используется как обычный механизм обновления. Предметное scientific решение может вступить в силу раньше синхронизации; несинхронизированный snapshot не объявляется автоматически актуальным.",
+    "Открытые научные узлы и protected dependencies меняются только при точном Owner-authorized state transition с независимыми evidence. Принятие нового определения не означает исполнение эксперимента.",
+    "Local-only unaccepted candidate evidence явно помечается unavailable in baseline; его bytes не требуются для clean-checkout validation и не используются для accepted/COMPLETE claims. Все REQUIRED_TRACKED sources остаются обязательными с проверкой SHA-256."
+  ],
+  "invariants": [
+    "Interaction Environment → Evidence → Environment Resolution → Acquirer × Target Pair → Contradictions → Resource Conflict → Time-Dependent Friction → Integration Risk → Actionable Controls.",
+    "Answer is evidence; direct determination и historical hypothesis не смешиваются. NOT DETERMINABLE — допустимый итог.",
+    "Ни structure/resource → Environment shortcut, ни outcome → Environment inference, ни retrospective analytical credit не допускаются.",
+    "Все существующие научные obligations SI-0…SI-6, HEDC, blind reproduction, falsification, LOCO, T10/MD verdicts и Method Freeze сохраняются. Ускорение продукта их не обходит.",
+    "RP-1/RP-2: report — projection upstream authority; UX не создаёт method entities. RP-3/RP-4: uncertainty/contradictions/alternatives/falsifiers/scope и отсутствие synthetic precision сохраняются.",
+    "RP-5/RP-6/RP-7: commercial ceiling не создаёт analytical/evidence/Decision Gap; purchase добровольна; paid гарантирует effort, не ответ.",
+    "RP-8/RP-9: released versions immutable и bound к evidence/as-of/method/math; rerun только materially dependent reports. RP-10/RP-11: user cutoff ≠ canonical T0; replay ≠ validation.",
+    "RP-12/RP-13: real/private companies используют один analytical universe; MergeVue domain-bounded decision support без autonomous transaction verdict.",
+    "Root Theory/NewLogic и accepted scientific contracts сохраняют substantive authority; дерево не меняет equations, thresholds, seal/package bytes или приложение.",
+    "Design corpus 00–44 — governance/behavior authority; print/Framer canon — только visual/layout. Старые rendered numbers не numerical oracle.",
+    "Исторический процедурный FAIL SI-0 и ограниченная exception сохраняются; RES-03 не закрывается новой eligibility amendment. Unknown evidence не превращается в отрицание или completion.",
+    "Runtime code path, deployed runtime, independent verification, Owner acceptance, local binding и remote binding — отдельные proof states. Remote binding в текущем акте не перепроверялся.",
+    "Ни одному перечисленному будущему научному или продуктовому действию не предоставлена новая авторизация этим деревом."
+  ],
+  "dimensionVocabulary": {
+    "governance": [
+      "ACCEPTED_BY_OWNER_DESIGNATED_USE",
+      "CANDIDATE",
+      "NOT_REACHED",
+      "OWNER_ACCEPTANCE_NOT_ESTABLISHED",
+      "OWNER_ACCEPTED",
+      "OWNER_ACCEPTED_ARCHITECTURE_ONLY",
+      "OWNER_ACCEPTED_RESIDUALS",
+      "OWNER_ACCEPTED_SEMANTICS_ONLY",
+      "OWNER_AUTHORIZED",
+      "UNKNOWN"
+    ],
+    "independentVerification": [
+      "PASS",
+      "FAIL",
+      "NOT_RUN",
+      "NOT_ESTABLISHED"
+    ],
+    "gitBinding": [
+      "BOUND",
+      "UNTRACKED",
+      "NOT_APPLICABLE"
+    ],
+    "implementation": [
+      "COMPLETE",
+      "PARTIAL",
+      "ABSENT",
+      "NOT_APPLICABLE"
+    ],
+    "runtime": [
+      "INTEGRATED_CODE_PATH",
+      "OFFLINE_VALIDATED_ONLY",
+      "NOT_ESTABLISHED",
+      "ABSENT",
+      "NOT_APPLICABLE"
+    ]
+  },
+  "protectedDependencies": [
+    [
+      "SI-0",
+      "PS-PA-FRAMEWORK"
+    ],
+    [
+      "SI0-READINESS",
+      "SI-0"
+    ],
+    [
+      "SI0-READINESS",
+      "SI0-AMENDMENT"
+    ],
+    [
+      "SI-1",
+      "SI0-READINESS"
+    ],
+    [
+      "SI-2",
+      "SI-1"
+    ],
+    [
+      "SI-3",
+      "SI-1"
+    ],
+    [
+      "SI-4",
+      "SI-2"
+    ],
+    [
+      "SI-4",
+      "SI-3"
+    ],
+    [
+      "SI-5",
+      "SI-4"
+    ],
+    [
+      "SI-6",
+      "SI-5"
+    ],
+    [
+      "PA-DISPOSITION",
+      "B17.5"
+    ],
+    [
+      "PA-DISPOSITION",
+      "EFCA-SPEC"
+    ],
+    [
+      "J-1",
+      "EFCA-SPEC"
+    ],
+    [
+      "J-4",
+      "EFCA-SPEC"
+    ],
+    [
+      "J-2",
+      "EFCA-SPEC"
+    ],
+    [
+      "J-3",
+      "EFCA-SPEC"
+    ],
+    [
+      "S2-REGRESSION",
+      "B17.5"
+    ],
+    [
+      "POST-PILOT",
+      "SI-6"
+    ],
+    [
+      "POST-PILOT",
+      "PA-DISPOSITION"
+    ],
+    [
+      "POST-PILOT",
+      "J-1"
+    ],
+    [
+      "POST-PILOT",
+      "J-4"
+    ],
+    [
+      "POST-PILOT",
+      "J-2"
+    ],
+    [
+      "POST-PILOT",
+      "J-3"
+    ],
+    [
+      "FINAL-CONTRACT-FREEZE",
+      "POST-PILOT"
+    ],
+    [
+      "B5.8",
+      "B5.7"
+    ],
+    [
+      "B5.8",
+      "B5.5"
+    ],
+    [
+      "B5.8",
+      "B17.5"
+    ],
+    [
+      "B5.8",
+      "FINAL-CONTRACT-FREEZE"
+    ],
+    [
+      "B5.9",
+      "B5.8"
+    ],
+    [
+      "B5.10",
+      "B5.9"
+    ],
+    [
+      "B5.15",
+      "B5.10"
+    ],
+    [
+      "B5.16",
+      "B5.15"
+    ],
+    [
+      "B5.11",
+      "B5.16"
+    ],
+    [
+      "B5.17",
+      "B5.11"
+    ],
+    [
+      "B5.18",
+      "B5.17"
+    ],
+    [
+      "B7.1",
+      "B5.18"
+    ],
+    [
+      "B5.12",
+      "B7.1"
+    ],
+    [
+      "B5.19",
+      "B5.12"
+    ],
+    [
+      "B6.4",
+      "B7.1"
+    ],
+    [
+      "B6.4",
+      "B6.1"
+    ],
+    [
+      "B9.1",
+      "B7.1"
+    ],
+    [
+      "B5.13",
+      "B5.19"
+    ],
+    [
+      "B5.13",
+      "B6.4"
+    ],
+    [
+      "B5.13",
+      "B9.1"
+    ],
+    [
+      "B5.14",
+      "B5.19"
+    ],
+    [
+      "B16.2",
+      "B10.3"
+    ],
+    [
+      "B16.3",
+      "B5.14"
+    ],
+    [
+      "B16.3",
+      "B5.19"
+    ],
+    [
+      "B16.3",
+      "B5.13"
+    ],
+    [
+      "B16.4",
+      "B16.2"
+    ],
+    [
+      "B16.4",
+      "B16.3"
+    ]
+  ],
+  "unclosedScientificNodes": [
+    "SI-0",
+    "SI0-READINESS",
+    "SI-1",
+    "SI-2",
+    "SI-3",
+    "SI-4",
+    "SI-5",
+    "SI-6",
+    "PA-DISPOSITION",
+    "J-1",
+    "J-4",
+    "J-2",
+    "J-3",
+    "S2-REGRESSION",
+    "POST-PILOT",
+    "FINAL-CONTRACT-FREEZE",
+    "B5.8",
+    "B5.9",
+    "B5.10",
+    "B5.15",
+    "B5.16",
+    "B5.11",
+    "B5.17",
+    "B5.18",
+    "B7.1",
+    "B5.12",
+    "B5.19",
+    "B6.4",
+    "B9.1",
+    "B5.13",
+    "B5.14",
+    "PAIR-EVALUATION",
+    "MATH-FOUNDATION"
+  ],
+  "sources": {
+    "ROOT": {
+      "path": "docs/reference/root-definitional-v1.7/00_README.txt",
+      "label": "Root Definitional Authority v1.7",
+      "sha256": "b65e2afe3d7585b8a9b70d8860fd5e34ab1a4665a418d48d2bd5e21daf6357b4",
+      "scope": "Принятая дефиниционная основа; эмпирические гипотезы не становятся классификаторами.",
+      "availability": "REQUIRED_TRACKED",
+      "availableInBaselineGit": true
+    },
+    "E9": {
+      "path": "docs/reference/root-definitional-e9-corr3/16_OWNER_DECISION_INTEGRATION_RECORD.md",
+      "label": "E9 semantic authority",
+      "sha256": "2be87287f1ef1497bbe68a41ba73e450c9039ead9010e299b51d43cc4f65364c",
+      "scope": "Принятая семантика девяти Environment.",
+      "availability": "REQUIRED_TRACKED",
+      "availableInBaselineGit": true
+    },
+    "DOC": {
+      "path": "docs/reference/root-definitional-v1.7/contract/CASE-3.4_CONTRACT_v1.3.md",
+      "label": "CASE-3.4 documentary contract",
+      "sha256": "dae8143899cd4fb7e406b4b410e9730a6f8bf7853989f3ef9757edeec293ae39",
+      "scope": "Контракт доказательств, применяемый по Owner-designated authority.",
+      "availability": "REQUIRED_TRACKED",
+      "availableInBaselineGit": true
+    },
+    "TRACK": {
+      "path": "docs/governance/MERGEVUE_POST_10_CASE_ENVIRONMENT_RECALIBRATION_TRACK_2026-09-05.md",
+      "label": "Принятый маршрут исторической калибровки",
+      "sha256": "3adf1fbd4756186de8c64719b4ada086f7a03d79e0510c14ae24f61f0daf3f76",
+      "scope": "Научная последовательность; активная геометрия уточнена до девяти кейсов.",
+      "availability": "REQUIRED_TRACKED",
+      "availableInBaselineGit": true
+    },
+    "CORPUS": {
+      "path": "docs/governance/MERGEVUE_CALIBRATION_9_CASE_CORPUS_ADDENDUM_2026-09-25.md",
+      "label": "Девять кейсов / восемнадцать сторон",
+      "sha256": "fb602181de969bcc91d5ff76f01afefcc2bc1705870e51a677eb2135877b8229",
+      "scope": "Только состав и механически зависимая геометрия; принятие результатов циклов подтверждается OUTCOME.",
+      "availability": "REQUIRED_TRACKED",
+      "availableInBaselineGit": true
+    },
+    "OUTCOME": {
+      "path": "docs/governance/historical-corpus/outcome-iv/MERGEVUE_OUTCOME_IV_DURABLE_AUTHORITY_BINDING_2026-09-25.md",
+      "label": "Принятые результаты blind cycles",
+      "sha256": "568b51643d4103d0777bd35acf37d514ad9166516aec7748a0addc6b98bb8f94",
+      "scope": "Точные Owner acceptances и independent IV; не новая калибровка.",
+      "availability": "REQUIRED_TRACKED",
+      "availableInBaselineGit": true
+    },
+    "FACTUAL": {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1/OWNER_DECISION_PROVENANCE.md",
+      "label": "Owner reaffirmation factual authority",
+      "sha256": "e07ef6479a45818fc3041883d56e09bf563c739b5623b0f70726dd27eb534473",
+      "scope": "Прямое решение Owner о B5.5 и B5.7 от 2026-10-09; принятое связывание на 9b1a501. Первоначальные сентябрьские сообщения не восстановлены.",
+      "availability": "REQUIRED_TRACKED",
+      "availableInBaselineGit": true
+    },
+    "FACTUAL-IV": {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B5_5_B5_7_OWNER_REAFFIRMATION_STATUS_RECONCILIATION_1/OWNER_REAFFIRMATION_STATUS_ADDENDUM_CANDIDATE.md",
+      "label": "Проверенная factual-state reconciliation",
+      "sha256": "6b138ed787dc1a5dd992e160564d85ad8adfc97358c50dca7a96b0e995f8cbca",
+      "scope": "Восстановленные candidate-specific IV и границы factual closure; кандидатский заголовок сохранён как байты, последующее связывание 9b1a501.",
+      "availability": "REQUIRED_TRACKED",
+      "availableInBaselineGit": true
+    },
+    "FEVA": {
+      "path": "WORKBENCH/AUDITS/STAGE2_FINAL_EFFECTIVE_VIEW_ASSEMBLY_1_CORR2_GIT_CLOSURE_1.md",
+      "label": "Принятый Final Effective View",
+      "sha256": "c5226bc80fb48c604c4171f3518bd1afb5abfda6aa04590609e489c6f823ed51",
+      "scope": "Терминальная принятая идентичность FEVA; не полный Stage-2 regression.",
+      "availability": "REQUIRED_TRACKED",
+      "availableInBaselineGit": true
+    },
+    "ADAPTER": {
+      "path": "WORKBENCH/AUDITS/STAGE2_FINAL_MEASUREMENT_REGRESSION_HARNESS_COMPATIBILITY_ADAPTATION_1_GIT_CLOSURE_1.md",
+      "label": "Принятый measurement adapter",
+      "sha256": "7f1cd15bfd5a44f376acd80ddafd2cc87a072499e5788c090632e765a145e968",
+      "scope": "Совместимость harness с FEVA; полный regress не выполнен, отложен Owner.",
+      "availability": "REQUIRED_TRACKED",
+      "availableInBaselineGit": true
+    },
+    "L2": {
+      "path": "docs/decisions/MERGEVUE_STAGE2_CORR4_L2_HISTORICAL_PROOF_OWNER_DECISION_2026-10-09.md",
+      "label": "Owner adjudication pilot eligibility",
+      "sha256": "dcaed9af4ce90fd0f90eee2954baa58649158f6807ca7568d25a4c90e6f9ad8f",
+      "scope": "Достаточность исторических процессных свидетельств для ограниченного допуска; не независимое восстановление процесса.",
+      "availability": "REQUIRED_TRACKED",
+      "availableInBaselineGit": true
+    },
+    "EFCA": {
+      "path": "docs/decisions/MERGEVUE_STAGE2_CORR4_L4_EFCA_OWNER_DECISION_2026-10-10.md",
+      "label": "Принятая EFCA specification",
+      "sha256": "8432f3aa6bd408bd1111208dc5957877e73d5dc34e014f6755f4e11a2449ffb4",
+      "scope": "Принятие спецификации; J-гейты и научное исполнение отдельно.",
+      "availability": "REQUIRED_TRACKED",
+      "availableInBaselineGit": true
+    },
+    "EFCA-OFFLINE": {
+      "path": "WORKBENCH/AUDITS/CORR9_OWNER_ACCEPTANCE_BINDING_1/OWNER_ACCEPTANCE_RECORD.md",
+      "label": "Принятый offline synthetic EFCA contour",
+      "sha256": "8c03697b30cb985709704e228be6d872d78a956c2df555c794ee16d4484ab369",
+      "scope": "Только trusted-host synthetic scope; принятие и документальное связывание 36084e9; MAJ-01 не исправлен.",
+      "availability": "REQUIRED_TRACKED",
+      "availableInBaselineGit": true
+    },
+    "FRAMEWORK": {
+      "path": "docs/decisions/MERGEVUE_STAGE2_CORR4_M_PS_PA_SEPARATION_AMENDMENT_1_CORR1_OWNER_DECISION_2026-10-12.md",
+      "label": "Принятая P-S/P-A separation",
+      "sha256": "e64e1701638791937ff88d2945ed746b98310ad7d2100a7201985172cd97c5da",
+      "scope": "SI-0…SI-6 заменяют blanket P-S classification только при подтверждённой достаточности и решении Owner; P-A сохраняется отдельно.",
+      "availability": "REQUIRED_TRACKED",
+      "availableInBaselineGit": true
+    },
+    "SI0": {
+      "path": "docs/governance/MERGEVUE_SI0_COMPACT_PROTOCOL_v1.0_CORR2_ACCEPTED.md",
+      "label": "Принятый SI-0 protocol B",
+      "sha256": "719826ab98ea25220781b062c69b243718b7ad764429a6602e1c44946745e847",
+      "scope": "Нормативный дизайн эксперимента, включая Annex A–G; сам эксперимент не исполнен.",
+      "availability": "REQUIRED_TRACKED",
+      "availableInBaselineGit": true
+    },
+    "SI0-DECISIONS": {
+      "path": "docs/governance/MERGEVUE_SI0_CORR2_OWNER_DECISIONS_AND_DISPOSITION_2026-10-14.md",
+      "label": "Owner decisions SI-0",
+      "sha256": "2379b320c2b4a78d37825c2704c8ae40c304a685a97b71c3d44c3f3f1fc7f41a",
+      "scope": "Восемь решений и ограниченное procedural disposition; исторический FAIL и RES-03 сохранены. Запись физически связана a8a5033.",
+      "availability": "REQUIRED_TRACKED",
+      "availableInBaselineGit": true
+    },
+    "AMENDMENT": {
+      "path": "docs/governance/MERGEVUE_SI0_RES01_OD_A_GEMINI_ELIGIBILITY_AMENDMENT_1_ACCEPTED.md",
+      "label": "Принятая eligibility amendment A",
+      "sha256": "a8f87879a4dc2c43f45ee3a84dfc4d0febb692af0af039ed44341c8b02a5e1fa",
+      "scope": "Точные принятые байты поправки; связывание 167d05d; не scientific execution.",
+      "availability": "REQUIRED_TRACKED",
+      "availableInBaselineGit": true
+    },
+    "AMENDMENT-DECISIONS": {
+      "path": "docs/governance/MERGEVUE_SI0_RES01_OD_A_GEMINI_ELIGIBILITY_OWNER_ACCEPTANCE_2026-10-15.md",
+      "label": "Owner acceptance A и V",
+      "sha256": "187c4f04f99ee762cea905745a35368b18aae346a8749f6ba3f9afadc1b89586",
+      "scope": "Option A, семейства слотов и две обязательные оговорки Owner; запись связана 7b6170a. V не материализован.",
+      "availability": "REQUIRED_TRACKED",
+      "availableInBaselineGit": true
+    },
+    "OFFLINE-TOOL": {
+      "path": "scripts/si0-corr2-readiness/si0_readiness.py",
+      "label": "Offline readiness component",
+      "sha256": "94035bb695507205dd66f034155431adc984bac055b2683ff0c0780fb05ecebc",
+      "scope": "Связанный инструмент фиксирует B; load_annex_g отвергает V. Компонент не исполнялся в текущем акте.",
+      "availability": "REQUIRED_TRACKED",
+      "availableInBaselineGit": true
+    },
+    "REPORT": {
+      "path": "docs/governance/MERGEVUE_REPORT_PRODUCT_AUTHORITY_v1.0_2026-09-21.md",
+      "label": "Report Product Authority",
+      "sha256": "e52029d9187b2dae708a3796603a5cc94e367734068e32f37b861b1124526f33",
+      "scope": "Содержательная report/commercial authority сохраняется; не свидетельство реализации.",
+      "availability": "REQUIRED_TRACKED",
+      "availableInBaselineGit": true
+    },
+    "ACQUISITION": {
+      "path": "docs/contracts/MERGEVUE_FREE_VALUE_RANKED_ACQUISITION_CONTRACT_v1.0_CORR3_ACCEPTED.md",
+      "label": "Value-ranked acquisition contract",
+      "sha256": "4e60019e0cee20e650727dd0fcd5026f088ac0a4cf7457c486a994927a06a5f7",
+      "scope": "Exact accepted CORR3 contract: 44 035 bytes; acceptance/independent PASS прямо подтверждены текущей Owner instruction; blob identity совпадает с binding commit 9461f912b7c6e02d2eb54e73bc9d06a29554f8aa. Candidate header исторический; production implementation отдельно.",
+      "availability": "REQUIRED_TRACKED",
+      "availableInBaselineGit": true
+    },
+    "AGENT-CONTRACT": {
+      "path": "docs/contracts/FREE_AGENT_PROBABILITY_INTERPRETATION_LAYER_CONTRACT_ACCEPTED.md",
+      "label": "Agent interpretation contract",
+      "sha256": "c4709a9be1d0646934b09f0f81672964301dd88f1cabba5955aee32b7adb84a9",
+      "scope": "Принятая граница интерпретации; исторические сведения о non-activation не заменяют текущий код.",
+      "availability": "REQUIRED_TRACKED",
+      "availableInBaselineGit": true
+    },
+    "EVALUATION": {
+      "path": "docs/contracts/MERGEVUE_V0_2_CORR3_HISTORICAL_PAIR_COLLISION_EVALUATION_ACCEPTED.md",
+      "label": "Historical pair-collision evaluation specification",
+      "sha256": "df6bd528253150a0c48e582e08638940c01b8b7c4e1047175a11bc61635a93ef",
+      "scope": "Принята specification freeze; executable model и empirical evaluation не завершены.",
+      "availability": "REQUIRED_TRACKED",
+      "availableInBaselineGit": true
+    },
+    "MATH": {
+      "path": "docs/math/MERGEVUE_PREDICTIVE_MATH_FOUNDATION_v0.1.md",
+      "label": "Predictive mathematical foundation candidate",
+      "sha256": "44c52465ac0134310bb01c2ce480e1e1074fde0467230ba693389db2338c1618",
+      "scope": "Кандидат и условные математические ограничения; принятие и достигнутая точность не установлены. Историческая геометрия не применяется как текущая.",
+      "availability": "REQUIRED_TRACKED",
+      "availableInBaselineGit": true
+    },
+    "DESIGN": {
+      "path": "docs/design-corpus/MERGEVUE_REMAINING_CORPUS_MANIFEST_v1.0.md",
+      "label": "Design corpus 00–44",
+      "sha256": "2ad2f035ffdc41779369dc95bc87cca009b30cf045b3982465454dd0498aef92",
+      "scope": "Принятая governance/behavior authority; не certification реализации.",
+      "availability": "REQUIRED_TRACKED",
+      "availableInBaselineGit": true
+    },
+    "COMMERCIAL": {
+      "path": "docs/governance/MERGEVUE_COMMERCIAL_NORTH_STAR_AND_SEQUENCING_GUARDRAIL_v1.2_2026-09-08.md",
+      "label": "Commercial North Star",
+      "sha256": "d10366dbb2a800745d0e29aadf14901fdd8e935c6f8771d4c48964b43f8858d0",
+      "scope": "Стратегическая последовательность; коммерческое ускорение не обходит научные гейты.",
+      "availability": "REQUIRED_TRACKED",
+      "availableInBaselineGit": true
+    },
+    "PERF": {
+      "path": "docs/governance/MERGEVUE_POST_FREE_ENGINEERING_OPTIMIZATION_TRACK_2026-09-05.md",
+      "label": "Deferred engineering optimization",
+      "sha256": "dd9fb891d78b30f4123d8470303c6a4a759c013346044f1b9062eea84c52ae22",
+      "scope": "PERF-0 открывается только после FREE release; отдельная авторизация.",
+      "availability": "REQUIRED_TRACKED",
+      "availableInBaselineGit": true
+    },
+    "CAUSAL": {
+      "path": "MERGEVUE_CAUSALITY_PROOF_AND_AGENT_CONTROL.md",
+      "label": "Causal proof policy",
+      "sha256": "06770667d4abeff499d5e24b60d5af53af638a0ca1283aee0d188c17f7d1caf5",
+      "scope": "Критические runtime claims требуют причинного доказательства, отрицательных и bypass проверок.",
+      "availability": "REQUIRED_TRACKED",
+      "availableInBaselineGit": true
+    },
+    "MD2": {
+      "path": "src/historical/md2.js",
+      "label": "MD-2 offline kernel",
+      "sha256": "9d191b0ffbdc9e321e29f7e667b3ca67e9f117ce27fed7abe4cc081359abe404",
+      "scope": "Механический факт: environmentBinding = NONE, c1…c7 NOT_ESTABLISHABLE.",
+      "availability": "REQUIRED_TRACKED",
+      "availableInBaselineGit": true
+    },
+    "DELIVERABLE": {
+      "path": "src/flow/finalDeliverableFlow.js",
+      "label": "Текущие ECS и friction foundations",
+      "sha256": "c4447823372b8c82d04506f8a27f4f794fbdafa8d60391aa5725eab0fbf411ea",
+      "scope": "Механика homogeneous computation и heterogeneous lookup; не доказательство научной калибровки.",
+      "availability": "REQUIRED_TRACKED",
+      "availableInBaselineGit": true
+    },
+    "DELIVERY": {
+      "path": "api/final-report.ts",
+      "label": "Report-authority and delivery route",
+      "sha256": "edba4ed843c3f5de1773fd5ee96402071e18d5aa62c1031274334ddece10dbce",
+      "scope": "Существует серверный путь PDF/Resend; deployed delivery этим актом не доказана.",
+      "availability": "REQUIRED_TRACKED",
+      "availableInBaselineGit": true
+    },
+    "PREFLIGHT": {
+      "path": "WORKBENCH/AUDITS/MERGEVUE_B17_FULL_CLOSURE_PREFLIGHT_1_CORR1/B17_MINIMUM_CLOSURE_SEQUENCE.md",
+      "label": "Принятый minimum closure preflight",
+      "scope": "Bound 3852ca4, independent PASS в bounded documentary scope; последующие SI/Owner решения приоритетны. Measurement diagnostic не новый обязательный predecessor semantic freeze.",
+      "sha256": "b28bc838176461b66903f87ec74d29820692cc4fdf39cba79661ea99767c82b1",
+      "availability": "REQUIRED_TRACKED",
+      "availableInBaselineGit": true
+    },
+    "EFCA-ENGINE": {
+      "path": "WORKBENCH/AUDITS/STAGE2_CORR4_L4_EFCA_OFFLINE_ENFORCEMENT_IMPLEMENTATION_1_CORR9/offline_efca.py",
+      "label": "Связанный offline EFCA component",
+      "scope": "Механическое наличие engine; вместе с accepted Option-B scope и independent verification EFCA-OFFLINE, связывание 36084e9.",
+      "sha256": "cff11c1a25baddf4340e0dfff82923e58415505ead43fd9d257eb067c1be8143",
+      "availability": "REQUIRED_TRACKED",
+      "availableInBaselineGit": true
+    },
+    "MODE-D": {
+      "path": "src/server/_level1ModeDSlice1.ts",
+      "label": "Mode-D factual slice",
+      "sha256": "9decd1a93e8bc7153cbd669adfc7c04f53b5bad287759261c084a2b66e9de628",
+      "scope": "Механическое существование bounded factual code path; deployment не доказывается.",
+      "availability": "REQUIRED_TRACKED",
+      "availableInBaselineGit": true
+    },
+    "HISTORICAL-INGRESS": {
+      "path": "src/historical/hmir.js",
+      "label": "Historical documentary controls",
+      "sha256": "c342b1cbb460c365fe03589b92397fa96480f0478335231bd3b144d61e582e77",
+      "scope": "Offline baseline/manifest/semantic control; не production archive collector.",
+      "availability": "REQUIRED_TRACKED",
+      "availableInBaselineGit": true
+    },
+    "SOURCECLASS": {
+      "path": "WORKBENCH/DOWNLOADS/SOURCECLASS-SENTENCE-BOUNDARY-EVIDENCE-INTEGRITY-CLOSURE-1.CORR1.IV1_REPORT.md",
+      "label": "sourceClass independent verification",
+      "sha256": "8daad06750499162a22493ebecc0d205dfb937c7e19fef9e5228f4b3e5df34de",
+      "scope": "Принятый bounded assignment result с сохранёнными residuals; первоначальные evidence bytes сохранены.",
+      "availability": "REQUIRED_TRACKED",
+      "availableInBaselineGit": true
+    },
+    "DOCUMENTARY-CANDIDATE": {
+      "path": "WORKBENCH/DOWNLOADS/MERGEVUE_SEC_HISTORICAL_ENTITY_NAME_AUTHORITY_v1_CORR1_CONTRACT.md",
+      "label": "Documentary eligibility candidate",
+      "scope": "Prior local-only candidate identity; bytes отсутствуют в Git tree baseline HEAD и недоступны в clean checkout. Наличие или отсутствие локальной копии не является accepted evidence; validator не читает её bytes.",
+      "availability": "LOCAL_ONLY_UNAVAILABLE_IN_BASELINE",
+      "availableInBaselineGit": false,
+      "observedLocalSha256": "84289d0899d68167c0510b9774200f878eed73cb515b776a69258f9c6bae885e",
+      "evidenceClass": "UNACCEPTED_LOCAL_CANDIDATE",
+      "candidateNodes": [
+        "B17.7"
+      ]
+    },
+    "QUESTIONNAIRE": {
+      "path": "src/flow/layeredEvidenceScoring.js",
+      "label": "Questionnaire evidence processing",
+      "sha256": "85d4eccd96cd1e3991b358e1da3e459f766511a7a0cd89a5e34aa528fd055e9e",
+      "scope": "Механическая evidence/contradiction основа; не новая methodological verification.",
+      "availability": "REQUIRED_TRACKED",
+      "availableInBaselineGit": true
+    },
+    "PAIR-SELECTOR": {
+      "path": "src/flow/candidatePairSelector.js",
+      "label": "Respondent candidate-pair selector",
+      "sha256": "9aa93625d3a3f19b9fbc002504b97d0acf284d084a9c91f3f0dc119ad3404d43",
+      "scope": "Текущий bounded code component; не полный universe M&A пар.",
+      "availability": "REQUIRED_TRACKED",
+      "availableInBaselineGit": true
+    },
+    "STAGE2-CONTRACT": {
+      "path": "WORKBENCH/DOWNLOADS/STAGE2_SEMANTIC_SUCCESSOR_CANDIDATE_CORR4.md",
+      "label": "Stage-2 semantic authority",
+      "sha256": "2de49862fb0d63c5f1cd1745531199137e73b7b37abceecef6e735d497d38bb0",
+      "scope": "Точный accepted semantic contract; порядок научных gates сохраняется.",
+      "availability": "REQUIRED_TRACKED",
+      "availableInBaselineGit": true
+    },
+    "PILOT-LOCK": {
+      "path": "docs/governance/MERGEVUE_SI0_COMPACT_PROTOCOL_v1.0_CORR2_ACCEPTED.md",
+      "label": "Принятая tracked фиксация pilot-lock identity",
+      "sha256": "719826ab98ea25220781b062c69b243718b7ad764429a6602e1c44946745e847",
+      "availability": "REQUIRED_TRACKED",
+      "availableInBaselineGit": true,
+      "scope": "Accepted SI-0 protocol §2.3 фиксирует точный Pilot Version Lock SHA; §§3.1–3.3 фиксируют frozen pilot population/sample. Normative pilot design находится в tracked STAGE2-CONTRACT §L; Owner L2 decision §2.6 сохраняет selected-sample identity и byte-freeze. Это не выдаёт полный исходный lock-файл за доступный в checkout.",
+      "locator": "§2.3, строка Pilot Version Lock; §§3.1–3.3",
+      "referencedLocalArtifact": {
+        "path": "WORKBENCH/DOWNLOADS/STAGE2_CORR4_PILOT_VERSION_LOCK.md",
+        "sha256": "0f9daef23d9105fa2507bd71847a76bff1f128b5b0003cce08456a9491aa897a",
+        "availability": "NOT_PRESENT_IN_BASELINE_GIT_TREE",
+        "meaning": "Идентичность закреплена в принятом tracked protocol; полные исходные bytes не поставляются baseline checkout."
+      }
+    },
+    "MD2-OPERATOR": {
+      "path": "docs/MD-2_HISTORICAL_ENVIRONMENT_INFERENCE_OPERATOR_v0.1_CORR6.md",
+      "label": "Historical inference operator candidate",
+      "scope": "Prior local-only candidate identity; bytes отсутствуют в Git tree baseline HEAD и недоступны в clean checkout. Наличие или отсутствие локальной копии не является accepted evidence; validator не читает её bytes.",
+      "availability": "LOCAL_ONLY_UNAVAILABLE_IN_BASELINE",
+      "availableInBaselineGit": false,
+      "observedLocalSha256": "02b769126c3b6477fb93b29652d2866da8e86473a08f3d871dc052d00b50f5ba",
+      "evidenceClass": "UNACCEPTED_LOCAL_CANDIDATE",
+      "candidateNodes": [
+        "B6.3"
+      ]
+    },
+    "PREDICTION-LEDGER": {
+      "path": "src/server/_predictionLedger.ts",
+      "label": "Product prediction ledger",
+      "sha256": "387278057b46db187373241ddb0f3410a93110a8afa333788fb542d8ae50166f",
+      "scope": "Текущий in-memory ledger и точный seal preimage; не historical research seal authority.",
+      "availability": "REQUIRED_TRACKED",
+      "availableInBaselineGit": true
+    },
+    "CASE-SURFACE": {
+      "path": "src/data/caseStudies.js",
+      "label": "Existing case-study fixtures",
+      "sha256": "6112d737ddf4b0c69675897fb6a55482cf22f9a60253896d2ef77cd1ef7c8e14",
+      "scope": "Механическое наличие legacy fixtures; не calibrated publication proof.",
+      "availability": "REQUIRED_TRACKED",
+      "availableInBaselineGit": true
+    },
+    "REPORT-REGISTRY": {
+      "path": "src/reporting/mergevueCanonicalPublicReportRegistry.js",
+      "label": "Canonical public report registry",
+      "sha256": "7b766bb8c601524be9e32aba9213ebfe959f8324bd1341b16f478385f9db44ca",
+      "scope": "Текущий 12-block registry; не полное entitlement implementation.",
+      "availability": "REQUIRED_TRACKED",
+      "availableInBaselineGit": true
+    },
+    "ROUTES": {
+      "path": "src/routes/routeModel.js",
+      "label": "Current public routes",
+      "sha256": "506d9fc2abdaa4de3a9050172b9330ad2c19805daae5e62f91a7f45df71a100e",
+      "scope": "Текущая code reachability; не deployed runtime proof.",
+      "availability": "REQUIRED_TRACKED",
+      "availableInBaselineGit": true
+    }
+  },
+  "nodes": [
+    {
+      "id": "B1.1",
+      "branch": "F1",
+      "title": "Root Definitional Authority v1.7",
+      "summary": "Принята дефиниционная основа Structural Typology, A1–A4, R1–R4 и T1/T4. Теоретическое принятие не устанавливает эмпирические классификаторы.",
+      "governance": "OWNER_ACCEPTED",
+      "independentVerification": "PASS",
+      "gitBinding": "BOUND",
+      "bindingReferences": [
+        "7792c5e"
+      ],
+      "remoteGitBinding": "NOT_RECHECKED",
+      "implementation": "COMPLETE",
+      "runtime": "NOT_ESTABLISHED",
+      "deployment": "NOT_ESTABLISHED",
+      "overallDisposition": "COMPLETE",
+      "dependencies": [],
+      "blockers": [],
+      "limitations": [
+        "Report-file SHA первоначальной re-verification не связан в исходной authority; это provenance debt",
+        "T2, T3-H, T5–T11 в гипотетических частях, T6(b), T11 сохраняют эмпирический статус"
+      ],
+      "completionCondition": "Принятый и независимо проверенный дефиниционный пакет сохранён.",
+      "nextAction": {
+        "authorization": "NONE_WITHIN_CLOSED_SCOPE",
+        "action": "Поддерживать принятый результат в указанных границах."
+      },
+      "evidence": [
+        "ROOT"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B1.2",
+      "branch": "F1",
+      "title": "Пространство девяти Environment",
+      "summary": "R1 → 26, R2 → 14, R3 → 10, R4 → 9; публичные aliases и internal codes разделены.",
+      "governance": "OWNER_ACCEPTED",
+      "independentVerification": "PASS",
+      "gitBinding": "BOUND",
+      "bindingReferences": [
+        "7792c5e"
+      ],
+      "remoteGitBinding": "NOT_RECHECKED",
+      "implementation": "COMPLETE",
+      "runtime": "INTEGRATED_CODE_PATH",
+      "deployment": "NOT_ESTABLISHED",
+      "overallDisposition": "COMPLETE",
+      "dependencies": [
+        "B1.1"
+      ],
+      "blockers": [],
+      "limitations": [],
+      "completionCondition": "Принятые определения и существующие enum/alias foundations сохранены.",
+      "nextAction": {
+        "authorization": "NONE_WITHIN_CLOSED_SCOPE",
+        "action": "Поддерживать принятый результат в указанных границах."
+      },
+      "evidence": [
+        "ROOT",
+        "E9"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B1.3",
+      "branch": "F1",
+      "title": "Семантическая authority E9",
+      "summary": "Принятая семантика девяти сред действует в своих дефиниционных границах.",
+      "governance": "OWNER_ACCEPTED",
+      "independentVerification": "PASS",
+      "gitBinding": "BOUND",
+      "bindingReferences": [
+        "cb8f890"
+      ],
+      "remoteGitBinding": "NOT_RECHECKED",
+      "implementation": "NOT_APPLICABLE",
+      "runtime": "NOT_APPLICABLE",
+      "deployment": "NOT_APPLICABLE",
+      "overallDisposition": "COMPLETE",
+      "dependencies": [
+        "B1.1"
+      ],
+      "blockers": [],
+      "limitations": [],
+      "completionCondition": "Принятая semantic authority связана и независимо проверена.",
+      "nextAction": {
+        "authorization": "NONE_WITHIN_CLOSED_SCOPE",
+        "action": "Поддерживать принятый результат в указанных границах."
+      },
+      "evidence": [
+        "E9"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B1.5",
+      "branch": "F1",
+      "title": "Source fidelity дефиниционной основы",
+      "summary": "Семантика исторической топологии 13 связей и точность tier labels остаются открытыми.",
+      "governance": "CANDIDATE",
+      "independentVerification": "NOT_RUN",
+      "gitBinding": "NOT_APPLICABLE",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_APPLICABLE",
+      "implementation": "ABSENT",
+      "runtime": "ABSENT",
+      "deployment": "NOT_ESTABLISHED",
+      "overallDisposition": "OPEN_OR_CANDIDATE",
+      "dependencies": [],
+      "blockers": [
+        "Тип семантической связи 13-edge topology не разрешён",
+        "Source wording/tier-label fidelity не закрыты"
+      ],
+      "limitations": [],
+      "completionCondition": "Отдельная definitional-delta verification и решение Owner без автоматической отмены v1.7.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "ROOT",
+        "E9"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B2.1",
+      "branch": "F1",
+      "title": "Epistemic safety и causal proof",
+      "summary": "Приняты запреты hindsight, synthetic respondents, shortcuts structure/resource → Environment и потери неопределённости. Часть проверок работает offline.",
+      "governance": "OWNER_ACCEPTED",
+      "independentVerification": "PASS",
+      "gitBinding": "BOUND",
+      "bindingReferences": [
+        "7792c5e"
+      ],
+      "remoteGitBinding": "NOT_RECHECKED",
+      "implementation": "PARTIAL",
+      "runtime": "OFFLINE_VALIDATED_ONLY",
+      "deployment": "NOT_ESTABLISHED",
+      "overallDisposition": "PARTIAL",
+      "dependencies": [],
+      "blockers": [
+        "Production enforcement всех epistemic boundaries не доказан"
+      ],
+      "limitations": [
+        "Принятая политика не равна причинно доказанному runtime контролю"
+      ],
+      "completionCondition": "Требуемые runtime enforcement и независимое причинное доказательство для заявляемого scope.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "CAUSAL"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B1.4",
+      "branch": "E2",
+      "title": "Документальный контракт CASE-3.4",
+      "summary": "Контракт v1.3 применяется как controlling по последующим Owner-designated acts; независимая проверка закрыта.",
+      "governance": "ACCEPTED_BY_OWNER_DESIGNATED_USE",
+      "independentVerification": "PASS",
+      "gitBinding": "BOUND",
+      "bindingReferences": [
+        "7792c5e"
+      ],
+      "remoteGitBinding": "NOT_RECHECKED",
+      "implementation": "NOT_APPLICABLE",
+      "runtime": "NOT_APPLICABLE",
+      "deployment": "NOT_APPLICABLE",
+      "overallDisposition": "COMPLETE",
+      "dependencies": [],
+      "blockers": [],
+      "limitations": [
+        "Отдельный первоначальный Owner-acceptance record остаётся documentary debt"
+      ],
+      "completionCondition": "Принятые правила source identity, excerpt, locator, scope, atomicity и temporal eligibility сохранены.",
+      "nextAction": {
+        "authorization": "NONE_WITHIN_CLOSED_SCOPE",
+        "action": "Поддерживать принятый результат в указанных границах."
+      },
+      "evidence": [
+        "DOC"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B4.1",
+      "branch": "E2",
+      "title": "Documentary evidence certification",
+      "summary": "Принята цепочка CASE-1/CASE-2/CASE-3.4: точная цитата, locator, атомарный факт, provenance, temporal eligibility, противоречия и исключения.",
+      "governance": "OWNER_ACCEPTED",
+      "independentVerification": "PASS",
+      "gitBinding": "BOUND",
+      "bindingReferences": [
+        "7792c5e"
+      ],
+      "remoteGitBinding": "NOT_RECHECKED",
+      "implementation": "NOT_APPLICABLE",
+      "runtime": "NOT_APPLICABLE",
+      "deployment": "NOT_APPLICABLE",
+      "overallDisposition": "COMPLETE",
+      "dependencies": [],
+      "blockers": [],
+      "limitations": [],
+      "completionCondition": "Принятая documentary authority сохранена; seal остаётся отдельным обязательным действием.",
+      "nextAction": {
+        "authorization": "NONE_WITHIN_CLOSED_SCOPE",
+        "action": "Поддерживать принятый результат в указанных границах."
+      },
+      "evidence": [
+        "DOC"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B4.2",
+      "branch": "E2",
+      "title": "Level-1 Mode-D factual research slice",
+      "summary": "Реализованы SEC filing metadata, bounded gap states, reference-data binding и guards. Это factual/envelope слой.",
+      "governance": "OWNER_ACCEPTED",
+      "independentVerification": "PASS",
+      "gitBinding": "BOUND",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_RECHECKED",
+      "implementation": "COMPLETE",
+      "runtime": "INTEGRATED_CODE_PATH",
+      "deployment": "NOT_ESTABLISHED",
+      "overallDisposition": "COMPLETE",
+      "dependencies": [
+        "B1.4"
+      ],
+      "blockers": [],
+      "limitations": [
+        "Работа live SEC из deployment environment не установлена",
+        "Нет права выводить Environment из metadata"
+      ],
+      "completionCondition": "Существующий bounded code component принят и проверен; аналитическое расширение не входит в его closure.",
+      "nextAction": {
+        "authorization": "NONE_WITHIN_CLOSED_SCOPE",
+        "action": "Поддерживать принятый результат в указанных границах."
+      },
+      "evidence": [
+        "ACQUISITION",
+        "MODE-D"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B4.3",
+      "branch": "E2",
+      "title": "Historical documentary ingress",
+      "summary": "Offline retrieval governance, manifest freeze, factual baseline и semantic controls реализованы; production archive collector отсутствует.",
+      "governance": "NOT_REACHED",
+      "independentVerification": "PASS",
+      "gitBinding": "BOUND",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_RECHECKED",
+      "implementation": "PARTIAL",
+      "runtime": "OFFLINE_VALIDATED_ONLY",
+      "deployment": "NOT_ESTABLISHED",
+      "overallDisposition": "PARTIAL",
+      "dependencies": [],
+      "blockers": [
+        "Автоматизированный внешний archive collector отсутствует",
+        "Production ingress wiring отсутствует"
+      ],
+      "limitations": [],
+      "completionCondition": "Авторизованный collector и served-path ingress независимо проверены без ослабления documentary controls.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "CAUSAL",
+        "HISTORICAL-INGRESS"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B17.6",
+      "branch": "E2",
+      "title": "sourceClass assignment",
+      "summary": "Принята и проверена цепочка sourceClass assignment с сохранёнными Owner-accepted residuals.",
+      "governance": "OWNER_ACCEPTED_RESIDUALS",
+      "independentVerification": "PASS",
+      "gitBinding": "BOUND",
+      "bindingReferences": [
+        "31fd56e"
+      ],
+      "remoteGitBinding": "NOT_RECHECKED",
+      "implementation": "NOT_APPLICABLE",
+      "runtime": "NOT_APPLICABLE",
+      "deployment": "NOT_APPLICABLE",
+      "overallDisposition": "COMPLETE",
+      "dependencies": [],
+      "blockers": [],
+      "limitations": [
+        "Принятые residuals не означают universal source coverage",
+        "Никакая production интеграция этим documentary результатом не заявляется"
+      ],
+      "completionCondition": "Принятый bounded assignment result сохранён.",
+      "nextAction": {
+        "authorization": "NONE_WITHIN_CLOSED_SCOPE",
+        "action": "Поддерживать принятый результат в указанных границах."
+      },
+      "evidence": [
+        "SOURCECLASS"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B17.7",
+      "branch": "E2",
+      "title": "Незавершённые documentary eligibility candidates",
+      "summary": "Зафиксирован непринятый local-only documentary eligibility candidate; его bytes не входят в baseline Git tree. Methodology authority и independent acceptance не установлены.",
+      "governance": "CANDIDATE",
+      "independentVerification": "NOT_ESTABLISHED",
+      "gitBinding": "UNTRACKED",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_ESTABLISHED",
+      "implementation": "NOT_APPLICABLE",
+      "runtime": "NOT_APPLICABLE",
+      "deployment": "NOT_APPLICABLE",
+      "overallDisposition": "OPEN_OR_CANDIDATE",
+      "dependencies": [],
+      "blockers": [
+        "Local-only evidence отсутствует в baseline Git; bytes недоступны в clean checkout",
+        "Приёмка и verification отдельных локальных кандидатов NOT_ESTABLISHED"
+      ],
+      "limitations": [
+        "Локальное наличие файла не создаёт authority",
+        "Observed local hash — историческая идентичность локальной копии, не portable accepted evidence; source availability не повышает статус узла"
+      ],
+      "completionCondition": "Для материально нужных кандидатов установлены identity, независимый verdict, Owner acceptance и binding.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "DOCUMENTARY-CANDIDATE"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "ACQUISITION",
+      "branch": "E2",
+      "title": "Value-ranked evidence acquisition",
+      "summary": "Точный FREE-VALUE-RANKED-EVIDENCE-ACQUISITION-CONTRACT-1.CORR3 принят Owner, независимо проверен и Git-bound. Discovery envelope, need-activated acquisition, active-ladder authority, symmetry, sufficiency и counterevidence определены; полная production implementation не завершена.",
+      "governance": "OWNER_ACCEPTED",
+      "independentVerification": "PASS",
+      "gitBinding": "BOUND",
+      "bindingReferences": [
+        "9461f912b7c6e02d2eb54e73bc9d06a29554f8aa"
+      ],
+      "remoteGitBinding": "NOT_RECHECKED",
+      "implementation": "PARTIAL",
+      "runtime": "NOT_ESTABLISHED",
+      "deployment": "NOT_ESTABLISHED",
+      "overallDisposition": "ACCEPTED_DEFINITION_ONLY",
+      "dependencies": [],
+      "blockers": [
+        "Полная production implementation и execution-ready active ladders не завершены"
+      ],
+      "limitations": [
+        "Original candidate header сохранён как authoring-time запись и не определяет текущий acceptance status",
+        "Принятие и independent PASS контракта не закрывают implementation, calibration или deployment",
+        "Public-document acquisition не активирует документарную Environment support без accepted methodological gates"
+      ],
+      "completionCondition": "Принятый контракт реализован в разрешённом production scope; implementation независимо проверена, причинно доказана и принята Owner.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "ACQUISITION"
+      ],
+      "dependencyConditions": {},
+      "statusEvidence": {
+        "actId": "FREE-VALUE-RANKED-EVIDENCE-ACQUISITION-CONTRACT-1.CORR3",
+        "bytes": 44035,
+        "sha256": "4e60019e0cee20e650727dd0fcd5026f088ac0a4cf7457c486a994927a06a5f7",
+        "localBindingCommit": "9461f912b7c6e02d2eb54e73bc9d06a29554f8aa",
+        "boundBlobSha256": "4e60019e0cee20e650727dd0fcd5026f088ac0a4cf7457c486a994927a06a5f7",
+        "acceptanceAndVerificationAuthority": "CURRENT_EXPLICIT_OWNER_INSTRUCTION",
+        "ownerInstructionVerbatim": "Reconcile `ACQUISITION` against the exact Owner-accepted, independently verified and Git-closed `FREE-VALUE-RANKED-EVIDENCE-ACQUISITION-CONTRACT-1.CORR3`. Do not confuse its original candidate header with later acceptance. Keep contract acceptance separate from incomplete production implementation.",
+        "independentVerificationThisCorrection": "NOT_PERFORMED; prior PASS reaffirmed by Owner"
+      }
+    },
+    {
+      "id": "B3.1",
+      "branch": "Q3",
+      "title": "Анкетная NewLogic основа",
+      "summary": "Анкеты, generated NewLogic artifacts и adapters существуют в исходниках. Ответ остаётся свидетельством.",
+      "governance": "OWNER_ACCEPTED",
+      "independentVerification": "PASS",
+      "gitBinding": "BOUND",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_RECHECKED",
+      "implementation": "COMPLETE",
+      "runtime": "INTEGRATED_CODE_PATH",
+      "deployment": "NOT_ESTABLISHED",
+      "overallDisposition": "COMPLETE",
+      "dependencies": [],
+      "blockers": [],
+      "limitations": [],
+      "completionCondition": "Принятая анкетная основа и экспорт сохранены.",
+      "nextAction": {
+        "authorization": "NONE_WITHIN_CLOSED_SCOPE",
+        "action": "Поддерживать принятый результат в указанных границах."
+      },
+      "evidence": [
+        "QUESTIONNAIRE"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B3.2",
+      "branch": "Q3",
+      "title": "Evidence scoring, contradictions и dual respondents",
+      "summary": "Существуют evidence calibration, temporal validity, contradiction processing и direct respondent route. Direct determination отличается от documentary hypothesis.",
+      "governance": "OWNER_ACCEPTED",
+      "independentVerification": "PASS",
+      "gitBinding": "BOUND",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_RECHECKED",
+      "implementation": "COMPLETE",
+      "runtime": "INTEGRATED_CODE_PATH",
+      "deployment": "NOT_ESTABLISHED",
+      "overallDisposition": "COMPLETE",
+      "dependencies": [
+        "B3.1"
+      ],
+      "blockers": [],
+      "limitations": [
+        "Не устанавливает завершение будущего evidence-native Core"
+      ],
+      "completionCondition": "Существующая принятая bounded evidence/dual-respondent логика сохранена.",
+      "nextAction": {
+        "authorization": "NONE_WITHIN_CLOSED_SCOPE",
+        "action": "Поддерживать принятый результат в указанных границах."
+      },
+      "evidence": [
+        "AGENT-CONTRACT",
+        "QUESTIONNAIRE"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B3.3",
+      "branch": "Q3",
+      "title": "Candidate-pair determination",
+      "summary": "Реализован fail-closed выбор Acquirer-respondent hypothesis candidates: четыре reachable candidates и whitelist из пяти. Это не ограничение пространства M&A пар.",
+      "governance": "OWNER_ACCEPTED",
+      "independentVerification": "PASS",
+      "gitBinding": "BOUND",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_RECHECKED",
+      "implementation": "PARTIAL",
+      "runtime": "INTEGRATED_CODE_PATH",
+      "deployment": "NOT_ESTABLISHED",
+      "overallDisposition": "PARTIAL",
+      "dependencies": [
+        "B3.2"
+      ],
+      "blockers": [
+        "Dynamic pair determination не operational"
+      ],
+      "limitations": [
+        "Нельзя превращать внутренние hypothesis candidates в полный universe транзакций"
+      ],
+      "completionCondition": "Полный разрешённый dynamic pair-determination scope реализован и проверен.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "PAIR-SELECTOR"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B5.1",
+      "branch": "H4",
+      "title": "Активный корпус: 9 кейсов / 18 сторон",
+      "summary": "Состав фиксирован; Pfizer — один canonical case; замена кейсов и selection по исходу запрещены.",
+      "governance": "OWNER_ACCEPTED",
+      "independentVerification": "NOT_ESTABLISHED",
+      "gitBinding": "BOUND",
+      "bindingReferences": [
+        "d177386"
+      ],
+      "remoteGitBinding": "NOT_RECHECKED",
+      "implementation": "NOT_APPLICABLE",
+      "runtime": "NOT_APPLICABLE",
+      "deployment": "NOT_APPLICABLE",
+      "overallDisposition": "PARTIAL",
+      "dependencies": [],
+      "blockers": [
+        "Candidate-specific IV governance bytes membership addendum NOT_ESTABLISHED"
+      ],
+      "limitations": [
+        "Это documentary evidence gap; состав корпуса принят и не открывается повторно"
+      ],
+      "completionCondition": "Состав принят; документальная independent verification самого membership addendum отдельно установлена.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "CORPUS",
+        "OUTCOME",
+        "FACTUAL"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B5.2",
+      "branch": "H4",
+      "title": "Девять case-level blind cycles",
+      "summary": "Все девять активных кейсов прошли case-level blind cycles и приняты в границах собственных research packages.",
+      "governance": "OWNER_ACCEPTED",
+      "independentVerification": "PASS",
+      "gitBinding": "BOUND",
+      "bindingReferences": [
+        "6ad8933"
+      ],
+      "remoteGitBinding": "NOT_RECHECKED",
+      "implementation": "NOT_APPLICABLE",
+      "runtime": "NOT_APPLICABLE",
+      "deployment": "NOT_APPLICABLE",
+      "overallDisposition": "COMPLETE",
+      "dependencies": [
+        "B5.1"
+      ],
+      "blockers": [],
+      "limitations": [
+        "Case-level completion не равна финальной corpus calibration",
+        "Все seal/package identities не переаудировались в текущем акте"
+      ],
+      "completionCondition": "Принятые case-level cycles сохранены; исход не меняет pre-T0 evidence и pre-outcome hypotheses.",
+      "nextAction": {
+        "authorization": "NONE_WITHIN_CLOSED_SCOPE",
+        "action": "Поддерживать принятый результат в указанных границах."
+      },
+      "evidence": [
+        "OUTCOME",
+        "FACTUAL-IV"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B5.3",
+      "branch": "H4",
+      "title": "Исторические Prediction Seals",
+      "summary": "Существуют принятые pre-outcome prediction packages девяти активных кейсов. Их содержание и identities сохраняются.",
+      "governance": "OWNER_ACCEPTED",
+      "independentVerification": "PASS",
+      "gitBinding": "NOT_APPLICABLE",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_APPLICABLE",
+      "implementation": "NOT_APPLICABLE",
+      "runtime": "NOT_APPLICABLE",
+      "deployment": "NOT_APPLICABLE",
+      "overallDisposition": "COMPLETE",
+      "dependencies": [
+        "B5.2"
+      ],
+      "blockers": [],
+      "limitations": [
+        "Исторический seal не гарантирует наличие полного материального прогноза",
+        "Не равен product-side in-memory sealing component"
+      ],
+      "completionCondition": "Pre-outcome seals и lawful outcome ordering сохранены.",
+      "nextAction": {
+        "authorization": "NONE_WITHIN_CLOSED_SCOPE",
+        "action": "Поддерживать принятый результат в указанных границах."
+      },
+      "evidence": [
+        "OUTCOME"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B5.5",
+      "branch": "H4",
+      "title": "Принятый historical input freeze",
+      "summary": "Input corpus из девяти кейсов и восемнадцати сторон принят и независимо проверен; Owner reaffirmation действует для точных frozen identities.",
+      "governance": "OWNER_ACCEPTED",
+      "independentVerification": "PASS",
+      "gitBinding": "BOUND",
+      "bindingReferences": [
+        "d52e7f4",
+        "9b1a501"
+      ],
+      "remoteGitBinding": "NOT_RECHECKED",
+      "implementation": "NOT_APPLICABLE",
+      "runtime": "NOT_APPLICABLE",
+      "deployment": "NOT_APPLICABLE",
+      "overallDisposition": "COMPLETE",
+      "dependencies": [
+        "B5.2"
+      ],
+      "blockers": [],
+      "limitations": [
+        "Первоначальные сентябрьские acceptance messages не восстановлены; действует прямое reaffirmation Owner",
+        "Текущие factual inputs изменённых кейсов берутся из B5.7"
+      ],
+      "completionCondition": "Точный historical INPUT CORPUS FREEZE принят и связан; determination-rule freeze остаётся отдельным.",
+      "nextAction": {
+        "authorization": "NONE_WITHIN_CLOSED_SCOPE",
+        "action": "Поддерживать принятый результат в указанных границах."
+      },
+      "evidence": [
+        "FACTUAL",
+        "FACTUAL-IV"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B5.7",
+      "branch": "H4",
+      "title": "Принятая factual authority корпуса",
+      "summary": "Принят и независимо проверен sealed factual corpus: 905 фактов / 18 сторон / 9 пакетов. STAGE1_CLOSED = YES только для factual-authority lifecycle.",
+      "governance": "OWNER_ACCEPTED",
+      "independentVerification": "PASS",
+      "gitBinding": "BOUND",
+      "bindingReferences": [
+        "92236dc",
+        "9b1a501",
+        "1c694b3"
+      ],
+      "remoteGitBinding": "NOT_RECHECKED",
+      "implementation": "NOT_APPLICABLE",
+      "runtime": "NOT_APPLICABLE",
+      "deployment": "NOT_APPLICABLE",
+      "overallDisposition": "COMPLETE",
+      "dependencies": [
+        "B5.1"
+      ],
+      "blockers": [],
+      "limitations": [
+        "Closure только factual lifecycle; Stage-2 scientific completion не следует",
+        "905 фактов; counts по кейсам 43/35/38/50/86/428/61/51/113; исключены четыре stale analytical lineages",
+        "Accepted factual transfer-integrity result включён в эту authority; четыре stale analytical lineages исключены downstream"
+      ],
+      "completionCondition": "Точные factual input identities, transfer integrity 19/19 и successor authority приняты, независимо проверены и физически связаны.",
+      "nextAction": {
+        "authorization": "NONE_WITHIN_CLOSED_SCOPE",
+        "action": "Поддерживать принятый результат в указанных границах."
+      },
+      "evidence": [
+        "FACTUAL",
+        "FACTUAL-IV"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B17.1",
+      "branch": "S5",
+      "title": "Stage-2 semantic contract и frozen pilot design",
+      "summary": "Приняты semantic contract, version lock и pilot design. Два frozen набора по 11 765 marks существуют; G-L2-ELIG удовлетворён ограниченным Owner adjudication.",
+      "governance": "OWNER_ACCEPTED",
+      "independentVerification": "PASS",
+      "gitBinding": "BOUND",
+      "bindingReferences": [
+        "2567223"
+      ],
+      "remoteGitBinding": "NOT_RECHECKED",
+      "implementation": "NOT_APPLICABLE",
+      "runtime": "NOT_APPLICABLE",
+      "deployment": "NOT_APPLICABLE",
+      "overallDisposition": "COMPLETE",
+      "dependencies": [],
+      "blockers": [],
+      "limitations": [
+        "Owner evidence-sufficiency adjudication не является независимым full-scientific PASS",
+        "Agreement 10 671/11 765 не доказывает отсутствие общих eligibility errors",
+        "Полный исходный Pilot Version Lock отсутствует в baseline Git; portable proof опирается на tracked accepted contract §L, accepted protocol §2.3 и Owner L2 §2.6, без заявления доступности полного lock-файла"
+      ],
+      "completionCondition": "Принятый pilot contract/design и его identity сохранены.",
+      "nextAction": {
+        "authorization": "NONE_WITHIN_CLOSED_SCOPE",
+        "action": "Поддерживать принятый результат в указанных границах."
+      },
+      "evidence": [
+        "L2",
+        "STAGE2-CONTRACT",
+        "PILOT-LOCK"
+      ],
+      "dependencyConditions": {},
+      "evidenceSupport": {
+        "STAGE2-CONTRACT": "§L — нормативный outcome-hidden pilot design; §M — отделение pilot lock от FINAL CONTRACT FREEZE",
+        "PILOT-LOCK": "Принятый tracked SI-0 §2.3 фиксирует точный lock digest; §§3.1–3.3 фиксируют frozen pilot inputs",
+        "L2": "§2.6 — immutable scientific references, selected sample и запрет переписывания frozen outputs"
+      }
+    },
+    {
+      "id": "B17.4",
+      "branch": "S5",
+      "title": "Post-pilot semantic correction substrate",
+      "summary": "Три post-pilot correction результата имеют независимые PASS и Git binding; отдельная точная Owner acceptance каждого не установлена.",
+      "governance": "OWNER_ACCEPTANCE_NOT_ESTABLISHED",
+      "independentVerification": "PASS",
+      "gitBinding": "BOUND",
+      "bindingReferences": [
+        "9b1545e",
+        "3d7b777",
+        "fcbcf86"
+      ],
+      "remoteGitBinding": "NOT_RECHECKED",
+      "implementation": "NOT_APPLICABLE",
+      "runtime": "NOT_APPLICABLE",
+      "deployment": "NOT_APPLICABLE",
+      "overallDisposition": "PARTIAL",
+      "dependencies": [
+        "B17.1"
+      ],
+      "blockers": [
+        "Отдельные exact Owner acceptance records corrections NOT_ESTABLISHED"
+      ],
+      "limitations": [
+        "Принятый терминальный FEVA result не превращает каждый predecessor acceptance в найденный первичный record"
+      ],
+      "completionCondition": "Exact acceptance lineage материально применяемых corrections установлена без подмены последующей FEVA acceptance.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "FEVA",
+        "PREFLIGHT",
+        "STAGE2-CONTRACT"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B17.5",
+      "branch": "S5",
+      "title": "Принятый Final Effective View",
+      "summary": "FEVA принят и независимо проверен: 116 records, sha256 5b37071a5fa5374c77b149bfde5c230c228cdf73d9785e5ea55346f9fab28daa. Downstream должен использовать эту identity.",
+      "governance": "OWNER_ACCEPTED",
+      "independentVerification": "PASS",
+      "gitBinding": "BOUND",
+      "bindingReferences": [
+        "2f7bcc5"
+      ],
+      "remoteGitBinding": "NOT_RECHECKED",
+      "implementation": "NOT_APPLICABLE",
+      "runtime": "NOT_APPLICABLE",
+      "deployment": "NOT_APPLICABLE",
+      "overallDisposition": "COMPLETE",
+      "dependencies": [
+        "B17.4"
+      ],
+      "blockers": [],
+      "limitations": [
+        "Некоторые builder inputs/fixtures остаются вне tracked closure; clean-checkout rebuild не hermetic",
+        "Полный Stage-2 measurement regression не выполнен",
+        "Принятые advisory limitations сохраняются"
+      ],
+      "completionCondition": "Принятый terminal FEVA result связан; consumers разрешают его точную identity.",
+      "nextAction": {
+        "authorization": "NONE_WITHIN_CLOSED_SCOPE",
+        "action": "Поддерживать принятый результат в указанных границах."
+      },
+      "evidence": [
+        "FEVA",
+        "FACTUAL-IV"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "PS-PA-FRAMEWORK",
+      "branch": "S5",
+      "title": "P-S/P-A scientific-integrity framework",
+      "summary": "Принято разделение stratifier agreement P-S и analytical disagreements P-A. Blanket causal classification P-S заменяется только при законно подтверждённой SI-6 sufficiency и решении Owner.",
+      "governance": "OWNER_ACCEPTED",
+      "independentVerification": "PASS",
+      "gitBinding": "BOUND",
+      "bindingReferences": [
+        "7af4d9a"
+      ],
+      "remoteGitBinding": "NOT_RECHECKED",
+      "implementation": "NOT_APPLICABLE",
+      "runtime": "NOT_APPLICABLE",
+      "deployment": "NOT_APPLICABLE",
+      "overallDisposition": "COMPLETE",
+      "dependencies": [
+        "B17.1"
+      ],
+      "blockers": [],
+      "limitations": [
+        "Не отменяет post-pilot acceptance, conditional repairs или FINAL CONTRACT FREEZE",
+        "Первичные bytes прежнего R-01 reconciliation/report не найдены; arithmetic reproduced, provenance limitation остаётся"
+      ],
+      "completionCondition": "Принят и проверен нормативный framework; эмпирическая достаточность вынесена в SI-1…SI-6.",
+      "nextAction": {
+        "authorization": "NONE_WITHIN_CLOSED_SCOPE",
+        "action": "Поддерживать принятый результат в указанных границах."
+      },
+      "evidence": [
+        "FRAMEWORK"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "EFCA-SPEC",
+      "branch": "S5",
+      "title": "Evidence-first causal adjudication specification",
+      "summary": "Приняты EFCA rubric и четыре причинные категории: CODER_ERROR, DEFINITION_AMBIGUITY, MISSING_M, GRAMMAR_GAP. UNRESOLVED — disposition, не пятая категория.",
+      "governance": "OWNER_ACCEPTED",
+      "independentVerification": "PASS",
+      "gitBinding": "BOUND",
+      "bindingReferences": [
+        "1335d2e"
+      ],
+      "remoteGitBinding": "NOT_RECHECKED",
+      "implementation": "NOT_APPLICABLE",
+      "runtime": "NOT_APPLICABLE",
+      "deployment": "NOT_APPLICABLE",
+      "overallDisposition": "COMPLETE",
+      "dependencies": [
+        "B17.1"
+      ],
+      "blockers": [],
+      "limitations": [
+        "Два MINOR текстовых/fixture расхождения и ADVISORY metadata сохраняются открытыми",
+        "Принятие спецификации не разрешает J execution или присвоение категорий"
+      ],
+      "completionCondition": "Принятая и независимо проверенная EFCA specification сохранена.",
+      "nextAction": {
+        "authorization": "NONE_WITHIN_CLOSED_SCOPE",
+        "action": "Поддерживать принятый результат в указанных границах."
+      },
+      "evidence": [
+        "EFCA"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "EFCA-OFFLINE",
+      "branch": "S5",
+      "title": "Offline synthetic EFCA enforcement",
+      "summary": "Шестикомпонентный trusted-host offline contour принят в synthetic-only scope. Проверка в этом scope пройдена; историческое использование и production не разрешены.",
+      "governance": "ACCEPTED_BY_OWNER_DESIGNATED_USE",
+      "independentVerification": "PASS",
+      "gitBinding": "BOUND",
+      "bindingReferences": [
+        "36084e9"
+      ],
+      "remoteGitBinding": "NOT_RECHECKED",
+      "implementation": "COMPLETE",
+      "runtime": "OFFLINE_VALIDATED_ONLY",
+      "deployment": "NOT_ESTABLISHED",
+      "overallDisposition": "COMPLETE",
+      "dependencies": [
+        "EFCA-SPEC"
+      ],
+      "blockers": [],
+      "limitations": [
+        "MAJ-01 не исправлен; Owner принял риск только для offline synthetic trusted-host",
+        "Исходный independent FAIL сохраняется; последующий scoped PASS не доказывает isolation/authentication",
+        "TB-04 future integration obligations и открытые advisories сохраняются"
+      ],
+      "completionCondition": "Принятый и независимо проверенный offline synthetic-only trusted-host component физически связан; production и historical execution за пределами closure.",
+      "nextAction": {
+        "authorization": "NONE_WITHIN_CLOSED_SCOPE",
+        "action": "Сохранять accepted offline synthetic-only scope. Любое historical/production расширение — отдельный Owner-authorized act с TB-04 evidence."
+      },
+      "evidence": [
+        "EFCA-OFFLINE",
+        "EFCA",
+        "EFCA-ENGINE"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "SI-0",
+      "branch": "S5",
+      "title": "Принятый протокол SI-0 B",
+      "summary": "Принят точный CORR2 protocol B, 338 049 bytes, sha256 719826ab98ea25220781b062c69b243718b7ad764429a6602e1c44946745e847. Это дизайн конечного эксперимента.",
+      "governance": "OWNER_ACCEPTED",
+      "independentVerification": "FAIL",
+      "gitBinding": "BOUND",
+      "bindingReferences": [
+        "a8a5033"
+      ],
+      "remoteGitBinding": "NOT_RECHECKED",
+      "implementation": "NOT_APPLICABLE",
+      "runtime": "NOT_APPLICABLE",
+      "deployment": "NOT_APPLICABLE",
+      "overallDisposition": "PARTIAL",
+      "dependencies": [
+        "PS-PA-FRAMEWORK"
+      ],
+      "blockers": [
+        "RES-03: соответствие framework требованию independently verified после процедурного FAIL не определено Owner"
+      ],
+      "limitations": [
+        "Содержание независимо проверено без научных/математических regressions; общий verdict FAIL 0 BLOCKING / 1 MAJOR / 0 MINOR сохраняется",
+        "C2-EXEC-F01: execution compliance FAIL; разовая exception разрешает использование двух rerun results, не переписывает FAIL",
+        "OD-B = DECISION, X_DEC = 3 536; 8 229 unexamined agreement tuples вне притязания",
+        "OD-C = EXTERNAL: pre-freeze H-2.1 внутри SI-0 запрещён",
+        "AI-1 collective materiality ESTABLISHED/CONDITIONAL/NONE; AI-2 три bounded dispositions; AI-3 constants §11.9; AI-4 claim ceiling §10.4; AI-5 PRC §6.9",
+        "RES-02/RES-04: первичные решения и mandate/report provenance частично остаются в session logs"
+      ],
+      "completionCondition": "Authored/accepted protocol имеет законно установленный P1 допуск; никакой SI-6 outcome из текста не выводится.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "SI0",
+        "SI0-DECISIONS"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "SI0-AMENDMENT",
+      "branch": "S5",
+      "title": "Принятая eligibility amendment и composite V",
+      "summary": "OD-A Option A: R1 = Z.ai, R2 = Gemini 4 Argon для одного будущего executionActId. Приняты A и V = B ‖ S ‖ A; V identity ad917a1f99cab6de5e7d69087a0b48c8132fc5cb2352dc71a1b9fabdee3727fb, 377 195 bytes.",
+      "governance": "OWNER_ACCEPTED",
+      "independentVerification": "PASS",
+      "gitBinding": "BOUND",
+      "bindingReferences": [
+        "7b6170a",
+        "167d05d"
+      ],
+      "remoteGitBinding": "NOT_RECHECKED",
+      "implementation": "NOT_APPLICABLE",
+      "runtime": "NOT_APPLICABLE",
+      "deployment": "NOT_APPLICABLE",
+      "overallDisposition": "COMPLETE",
+      "dependencies": [
+        "SI-0"
+      ],
+      "blockers": [],
+      "limitations": [
+        "PASS ограничен дельтой A и compatibility/composition с B; base B независимо не пересертифицирован",
+        "Codex — автор A — исключён из independent IV научного исполнения V",
+        "Замена model family после failed QUAL требует новой версии и отдельного Owner decision; automatic fallback запрещён",
+        "Gemini — isolated scientific R2/CHAL participant, не новая проектная роль",
+        "RES-01 разрешён в указанной области; RES-03 не закрыт",
+        "Материализация V и scientific execution не выполнены"
+      ],
+      "completionCondition": "Принятые eligibility rule, identity A/V и две Owner clarifications документально связаны.",
+      "nextAction": {
+        "authorization": "NONE_WITHIN_CLOSED_SCOPE",
+        "action": "Поддерживать принятый результат в указанных границах."
+      },
+      "evidence": [
+        "AMENDMENT",
+        "AMENDMENT-DECISIONS"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "SI0-READINESS",
+      "branch": "S5",
+      "title": "Предисполнительская готовность V",
+      "summary": "Связанный offline readiness component фиксирует B и отвергает V. Допуск семейства не подтверждает provider/model IDs, availability, blindness, custody или QUAL.",
+      "governance": "NOT_REACHED",
+      "independentVerification": "NOT_ESTABLISHED",
+      "gitBinding": "BOUND",
+      "bindingReferences": [
+        "04c19cd"
+      ],
+      "remoteGitBinding": "NOT_RECHECKED",
+      "implementation": "PARTIAL",
+      "runtime": "OFFLINE_VALIDATED_ONLY",
+      "deployment": "NOT_ESTABLISHED",
+      "overallDisposition": "BLOCKED_OR_REJECTED",
+      "dependencies": [
+        "SI-0",
+        "SI0-AMENDMENT"
+      ],
+      "blockers": [
+        "RES-03 открыт: P1 для V не установлен",
+        "V не материализован и не хранится как полный accepted composite",
+        "Инструмент pin B несовместим с V",
+        "Provider/model IDs, версии, конфигурации, fresh isolation и custody R1/R2 не подтверждены",
+        "E0/E1 и scientific invocation не авторизованы"
+      ],
+      "limitations": [
+        "Git binding B readiness component не означает V readiness; отдельный full IV record tool в текущем акте не установлен",
+        "RES-02/RES-04 остаются provenance limitations"
+      ],
+      "completionCondition": "RES-03 имеет Owner disposition; V сохранён в разрешённом месте; совместимый путь независимо проверен; IDs/config/isolation/custody установлены; отдельный E0 разрешён.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельный ограниченный акт предисполнительской готовности V с явным решением RES-03 до E0; без научных наблюдений."
+      },
+      "evidence": [
+        "OFFLINE-TOOL",
+        "AMENDMENT-DECISIONS",
+        "SI0-DECISIONS"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "SI-1",
+      "branch": "S5",
+      "title": "Неизменность и temporal eligibility входов",
+      "summary": "Проверка frozen Π, выборки, source identities, pre-T0 blindness и gates EG-01…EG-12; никакой новой stratification.",
+      "governance": "NOT_REACHED",
+      "independentVerification": "NOT_RUN",
+      "gitBinding": "NOT_APPLICABLE",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_APPLICABLE",
+      "implementation": "NOT_APPLICABLE",
+      "runtime": "NOT_APPLICABLE",
+      "deployment": "NOT_APPLICABLE",
+      "overallDisposition": "NOT_STARTED",
+      "dependencies": [
+        "SI0-READINESS"
+      ],
+      "blockers": [
+        "Эмпирическое выполнение не авторизовано; результат NOT_ESTABLISHED"
+      ],
+      "limitations": [
+        "Scientific sufficiency не доказывает HEDC, Pair/ECS, predictive accuracy или report readiness"
+      ],
+      "completionCondition": "Все применимые integrity gates имеют наблюдаемый exit 0; outcome firewall сохранён.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "SI0",
+        "SI0-DECISIONS",
+        "AMENDMENT-DECISIONS",
+        "FRAMEWORK"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "SI-2",
+      "branch": "S5",
+      "title": "Охват четырёх strata",
+      "summary": "Исследуются последствия YY/YN/NY/NN в принятом X_DEC; required cells и структурно пустые cells учитываются отдельно.",
+      "governance": "NOT_REACHED",
+      "independentVerification": "NOT_RUN",
+      "gitBinding": "NOT_APPLICABLE",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_APPLICABLE",
+      "implementation": "NOT_APPLICABLE",
+      "runtime": "NOT_APPLICABLE",
+      "deployment": "NOT_APPLICABLE",
+      "overallDisposition": "NOT_STARTED",
+      "dependencies": [
+        "SI-1"
+      ],
+      "blockers": [
+        "Эмпирическое выполнение не авторизовано; результат NOT_ESTABLISHED"
+      ],
+      "limitations": [
+        "Scientific sufficiency не доказывает HEDC, Pair/ECS, predictive accuracy или report readiness"
+      ],
+      "completionCondition": "Coverage ledger построен по протоколу; обязательные существенные NOT_ESTABLISHED не скрыты.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "SI0",
+        "SI0-DECISIONS",
+        "AMENDMENT-DECISIONS",
+        "FRAMEWORK"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "SI-3",
+      "branch": "S5",
+      "title": "Независимый procedural reference",
+      "summary": "QUAL, blind MAIN, независимые sealed records, PRC и один CHAL round формируют bounded reference; это не golden truth.",
+      "governance": "NOT_REACHED",
+      "independentVerification": "NOT_RUN",
+      "gitBinding": "NOT_APPLICABLE",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_APPLICABLE",
+      "implementation": "NOT_APPLICABLE",
+      "runtime": "NOT_APPLICABLE",
+      "deployment": "NOT_APPLICABLE",
+      "overallDisposition": "NOT_STARTED",
+      "dependencies": [
+        "SI-1"
+      ],
+      "blockers": [
+        "Эмпирическое выполнение не авторизовано; результат NOT_ESTABLISHED"
+      ],
+      "limitations": [
+        "Scientific sufficiency не доказывает HEDC, Pair/ECS, predictive accuracy или report readiness"
+      ],
+      "completionCondition": "Admissibility reference, isolation, challenge и process screening доказаны в разрешённом scope.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "SI0",
+        "SI0-DECISIONS",
+        "AMENDMENT-DECISIONS",
+        "FRAMEWORK"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "SI-4",
+      "branch": "S5",
+      "title": "Предпринятое правило существенности",
+      "summary": "Оцениваются EP-1/EP-2, collective materiality и definition-channel consequences без новых статистических thresholds.",
+      "governance": "NOT_REACHED",
+      "independentVerification": "NOT_RUN",
+      "gitBinding": "NOT_APPLICABLE",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_APPLICABLE",
+      "implementation": "NOT_APPLICABLE",
+      "runtime": "NOT_APPLICABLE",
+      "deployment": "NOT_APPLICABLE",
+      "overallDisposition": "NOT_STARTED",
+      "dependencies": [
+        "SI-2",
+        "SI-3"
+      ],
+      "blockers": [
+        "Эмпирическое выполнение не авторизовано; результат NOT_ESTABLISHED"
+      ],
+      "limitations": [
+        "Scientific sufficiency не доказывает HEDC, Pair/ECS, predictive accuracy или report readiness"
+      ],
+      "completionCondition": "Оценка по принятому Annex G и независимой реимплементации совпадает; OD-C EXTERNAL соблюдён.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "SI0",
+        "SI0-DECISIONS",
+        "AMENDMENT-DECISIONS",
+        "FRAMEWORK"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "SI-5",
+      "branch": "S5",
+      "title": "Фальсификаторы F-PS-01…F-PS-07",
+      "summary": "Проверяются false exclusions, selection distortion, coverage, reference validity, definitions, downstream validity и protocol drift.",
+      "governance": "NOT_REACHED",
+      "independentVerification": "NOT_RUN",
+      "gitBinding": "NOT_APPLICABLE",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_APPLICABLE",
+      "implementation": "NOT_APPLICABLE",
+      "runtime": "NOT_APPLICABLE",
+      "deployment": "NOT_APPLICABLE",
+      "overallDisposition": "NOT_STARTED",
+      "dependencies": [
+        "SI-4"
+      ],
+      "blockers": [
+        "Эмпирическое выполнение не авторизовано; результат NOT_ESTABLISHED"
+      ],
+      "limitations": [
+        "Scientific sufficiency не доказывает HEDC, Pair/ECS, predictive accuracy или report readiness"
+      ],
+      "completionCondition": "Все семь falsifiers проверены; NOT_TESTED/NOT_DETERMINABLE сохранены как ограничения.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "SI0",
+        "SI0-DECISIONS",
+        "AMENDMENT-DECISIONS",
+        "FRAMEWORK"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "SI-6",
+      "branch": "S5",
+      "title": "Scientific sufficiency verdict",
+      "summary": "Результат NOT_ESTABLISHED / SCIENTIFICALLY_INSUFFICIENT / SCIENTIFICALLY_SUFFICIENT_WITHIN_BOUND требует P1…P9 и independent execution verification.",
+      "governance": "NOT_REACHED",
+      "independentVerification": "NOT_RUN",
+      "gitBinding": "NOT_APPLICABLE",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_APPLICABLE",
+      "implementation": "NOT_APPLICABLE",
+      "runtime": "NOT_APPLICABLE",
+      "deployment": "NOT_APPLICABLE",
+      "overallDisposition": "NOT_STARTED",
+      "dependencies": [
+        "SI-5"
+      ],
+      "blockers": [
+        "Эмпирическое выполнение не авторизовано; результат NOT_ESTABLISHED"
+      ],
+      "limitations": [
+        "Scientific sufficiency не доказывает HEDC, Pair/ECS, predictive accuracy или report readiness"
+      ],
+      "completionCondition": "Законное исполнение и independent IV поддерживают точный bounded verdict; только Owner распоряжается изменением prerequisites.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "SI0",
+        "SI0-DECISIONS",
+        "AMENDMENT-DECISIONS",
+        "FRAMEWORK"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "PA-DISPOSITION",
+      "branch": "S5",
+      "title": "P-A disagreement closure и conditional repairs",
+      "summary": "17 analytical coder disagreements — 4 CODER_ERROR и 13 DEFINITION_AMBIGUITY — требуют lawful disposition, affected-cell repairs где нужны и independent re-verification.",
+      "governance": "NOT_REACHED",
+      "independentVerification": "NOT_RUN",
+      "gitBinding": "NOT_APPLICABLE",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_APPLICABLE",
+      "implementation": "NOT_APPLICABLE",
+      "runtime": "NOT_APPLICABLE",
+      "deployment": "NOT_APPLICABLE",
+      "overallDisposition": "OPEN_OR_CANDIDATE",
+      "dependencies": [
+        "B17.5",
+        "EFCA-SPEC"
+      ],
+      "blockers": [
+        "17 P-A disagreements не закрыты",
+        "Conditional repairs и повторная независимая проверка не установлены"
+      ],
+      "limitations": [],
+      "completionCondition": "P-A dispositions, repairs и re-verification приняты в разрешённом scope.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "FRAMEWORK",
+        "EFCA"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "J-1",
+      "branch": "S5",
+      "title": "EFCA J-1 policy adjudication",
+      "summary": "Предусмотренный accepted EFCA gate остаётся отдельно открытым; принятие synthetic инструмента его не исполняет.",
+      "governance": "NOT_REACHED",
+      "independentVerification": "NOT_RUN",
+      "gitBinding": "NOT_APPLICABLE",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_APPLICABLE",
+      "implementation": "NOT_APPLICABLE",
+      "runtime": "NOT_APPLICABLE",
+      "deployment": "NOT_APPLICABLE",
+      "overallDisposition": "OPEN_OR_CANDIDATE",
+      "dependencies": [
+        "EFCA-SPEC"
+      ],
+      "blockers": [
+        "Policy decision не принято"
+      ],
+      "limitations": [
+        "Применимость к P-S после SI-6 определяется lawful Owner disposition; blanket повторная классификация не назначается этим деревом"
+      ],
+      "completionCondition": "Законное отдельное решение/исполнение и требуемая проверка в accepted scope.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "EFCA",
+        "FRAMEWORK"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "J-4",
+      "branch": "S5",
+      "title": "EFCA J-4 precedence/exclusivity adjudication",
+      "summary": "Предусмотренный accepted EFCA gate остаётся отдельно открытым; принятие synthetic инструмента его не исполняет.",
+      "governance": "NOT_REACHED",
+      "independentVerification": "NOT_RUN",
+      "gitBinding": "NOT_APPLICABLE",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_APPLICABLE",
+      "implementation": "NOT_APPLICABLE",
+      "runtime": "NOT_APPLICABLE",
+      "deployment": "NOT_APPLICABLE",
+      "overallDisposition": "OPEN_OR_CANDIDATE",
+      "dependencies": [
+        "EFCA-SPEC"
+      ],
+      "blockers": [
+        "Policy decision не принято"
+      ],
+      "limitations": [
+        "Применимость к P-S после SI-6 определяется lawful Owner disposition; blanket повторная классификация не назначается этим деревом"
+      ],
+      "completionCondition": "Законное отдельное решение/исполнение и требуемая проверка в accepted scope.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "EFCA",
+        "FRAMEWORK"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "J-2",
+      "branch": "S5",
+      "title": "EFCA J-2 blind Phase-1 panel",
+      "summary": "Предусмотренный accepted EFCA gate остаётся отдельно открытым; принятие synthetic инструмента его не исполняет.",
+      "governance": "NOT_REACHED",
+      "independentVerification": "NOT_RUN",
+      "gitBinding": "NOT_APPLICABLE",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_APPLICABLE",
+      "implementation": "NOT_APPLICABLE",
+      "runtime": "NOT_APPLICABLE",
+      "deployment": "NOT_APPLICABLE",
+      "overallDisposition": "NOT_STARTED",
+      "dependencies": [
+        "EFCA-SPEC"
+      ],
+      "blockers": [
+        "Научное исполнение не авторизовано"
+      ],
+      "limitations": [
+        "Применимость к P-S после SI-6 определяется lawful Owner disposition; blanket повторная классификация не назначается этим деревом"
+      ],
+      "completionCondition": "Законное отдельное решение/исполнение и требуемая проверка в accepted scope.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "EFCA",
+        "FRAMEWORK"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "J-3",
+      "branch": "S5",
+      "title": "EFCA J-3 Lane-B adjudication",
+      "summary": "Предусмотренный accepted EFCA gate остаётся отдельно открытым; принятие synthetic инструмента его не исполняет.",
+      "governance": "NOT_REACHED",
+      "independentVerification": "NOT_RUN",
+      "gitBinding": "NOT_APPLICABLE",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_APPLICABLE",
+      "implementation": "NOT_APPLICABLE",
+      "runtime": "NOT_APPLICABLE",
+      "deployment": "NOT_APPLICABLE",
+      "overallDisposition": "NOT_STARTED",
+      "dependencies": [
+        "EFCA-SPEC"
+      ],
+      "blockers": [
+        "Научное исполнение не авторизовано"
+      ],
+      "limitations": [
+        "Применимость к P-S после SI-6 определяется lawful Owner disposition; blanket повторная классификация не назначается этим деревом"
+      ],
+      "completionCondition": "Законное отдельное решение/исполнение и требуемая проверка в accepted scope.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "EFCA",
+        "FRAMEWORK"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "S2-REGRESSION",
+      "branch": "S5",
+      "title": "Полный Stage-2 measurement regression",
+      "summary": "Совместимый с принятым FEVA adapter принят и проверен; полный regress по всем 116 records остаётся NOT_RUN / DEFERRED по Owner sequencing.",
+      "governance": "OWNER_ACCEPTED_ARCHITECTURE_ONLY",
+      "independentVerification": "NOT_RUN",
+      "gitBinding": "BOUND",
+      "bindingReferences": [
+        "7f544af",
+        "8f0085b"
+      ],
+      "remoteGitBinding": "NOT_RECHECKED",
+      "implementation": "PARTIAL",
+      "runtime": "OFFLINE_VALIDATED_ONLY",
+      "deployment": "NOT_ESTABLISHED",
+      "overallDisposition": "PARTIAL",
+      "dependencies": [
+        "B17.5"
+      ],
+      "blockers": [
+        "Whole-Stage-2 measurement regression не выполнен",
+        "Owner sequencing hold не снят"
+      ],
+      "limitations": [
+        "PASS adapter compatibility не равен full regression PASS",
+        "Принятые MINOR/ADVISORY adapter остаются в пределах его scope",
+        "Исторический full measurement verdict FAIL и correction HOLD, включая REG-007, не превращаются в PASS",
+        "Regression — отдельный diagnostic/measurement lane; его положение относительно B5.8 NOT_DETERMINED, нового обязательного dependency edge к semantic freeze не добавляется"
+      ],
+      "completionCondition": "Отдельно авторизованный полный regression выполнен и независимо проверен на точном FEVA без methodological drift.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "ADAPTER",
+        "FEVA",
+        "FACTUAL-IV",
+        "PREFLIGHT"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "POST-PILOT",
+      "branch": "S5",
+      "title": "Post-pilot semantic contract acceptance",
+      "summary": "Owner должен принять semantic contract после lawful resolution scientific integrity, P-A, conditional repairs и всех применимых EFCA gates.",
+      "governance": "NOT_REACHED",
+      "independentVerification": "NOT_RUN",
+      "gitBinding": "NOT_APPLICABLE",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_APPLICABLE",
+      "implementation": "NOT_APPLICABLE",
+      "runtime": "NOT_APPLICABLE",
+      "deployment": "NOT_APPLICABLE",
+      "overallDisposition": "BLOCKED_OR_REJECTED",
+      "dependencies": [
+        "SI-6",
+        "PA-DISPOSITION",
+        "J-1",
+        "J-4",
+        "J-2",
+        "J-3"
+      ],
+      "blockers": [
+        "Scientific integrity и P-A не закрыты",
+        "Применимые J-gates не закрыты",
+        "Post-pilot Owner acceptance не получено"
+      ],
+      "limitations": [
+        "SI-6 sufficient result не снимает prerequisite автоматически",
+        "Условные documentary acceptances не заменяют eligibility-producing acceptance",
+        "Порядок J panels не конструируется деревом; triggered gates определяются accepted EFCA/LOCK authorities"
+      ],
+      "completionCondition": "Все применимые post-pilot prerequisites исполнены либо явно распоряжены Owner в пределах научной authority; exact contract принят.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "FRAMEWORK",
+        "EFCA",
+        "SI0",
+        "PREFLIGHT"
+      ],
+      "dependencyConditions": {
+        "J-1": "только при установленной применимости; lawful disposition по §8E(5) обязателен",
+        "J-4": "только при установленной применимости; lawful disposition по §8E(5) обязателен",
+        "J-2": "только при установленной применимости; lawful disposition по §8E(5) обязателен",
+        "J-3": "только при установленной применимости; lawful disposition по §8E(5) обязателен"
+      }
+    },
+    {
+      "id": "FINAL-CONTRACT-FREEZE",
+      "branch": "S5",
+      "title": "Stage-2 FINAL CONTRACT FREEZE",
+      "summary": "Итоговый semantic contract должен быть физически заморожен под accepted §M до semantic binding 905 фактов.",
+      "governance": "NOT_REACHED",
+      "independentVerification": "NOT_RUN",
+      "gitBinding": "NOT_APPLICABLE",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_APPLICABLE",
+      "implementation": "NOT_APPLICABLE",
+      "runtime": "NOT_APPLICABLE",
+      "deployment": "NOT_APPLICABLE",
+      "overallDisposition": "BLOCKED_OR_REJECTED",
+      "dependencies": [
+        "POST-PILOT"
+      ],
+      "blockers": [
+        "Post-pilot contract acceptance отсутствует",
+        "FINAL CONTRACT FREEZE не установлен"
+      ],
+      "limitations": [],
+      "completionCondition": "Post-pilot contract принят, exact-byte freeze установлен; отдельный B5.8 execution authorisation остаётся необходимым.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "FRAMEWORK",
+        "SI0"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B5.8",
+      "branch": "H6",
+      "title": "Outcome-hidden mechanism normalization",
+      "summary": "905 фактов восемнадцати сторон должны получить lawful semantic binding и нормализованные механизмы без исходов и shortcuts к Environment.",
+      "governance": "UNKNOWN",
+      "independentVerification": "NOT_ESTABLISHED",
+      "gitBinding": "NOT_APPLICABLE",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_APPLICABLE",
+      "implementation": "ABSENT",
+      "runtime": "ABSENT",
+      "deployment": "NOT_ESTABLISHED",
+      "overallDisposition": "BLOCKED_OR_REJECTED",
+      "dependencies": [
+        "B5.7",
+        "B5.5",
+        "B17.5",
+        "FINAL-CONTRACT-FREEZE"
+      ],
+      "blockers": [
+        "FINAL CONTRACT FREEZE не установлен",
+        "Forward B5.8 execution NOT_AUTHORIZED",
+        "Текущие execution/IV evidence NOT_ESTABLISHED"
+      ],
+      "limitations": [
+        "Недостаток execution evidence не доказывает, что работа никогда не выполнялась",
+        "Full-corpus coder-view design и permitted inputs требуют lawful act; outcome prior knowledge остаётся disclosed limitation",
+        "Нужность full measurement перед B5.8 остаётся NOT_DETERMINED; eligibility не равна execution authorization"
+      ],
+      "completionCondition": "Принятые predecessor gates закрыты; отдельный act разрешён, выполнен и независимо проверен.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "TRACK",
+        "FRAMEWORK",
+        "SI0",
+        "FACTUAL",
+        "PREFLIGHT"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B5.9",
+      "branch": "H6",
+      "title": "Independent dual coding и candidate HEDC",
+      "summary": "Два независимых аналитических актора кодируют восемнадцать outcome-hidden сторон; строится candidate Historical Environment Determination Contract.",
+      "governance": "NOT_REACHED",
+      "independentVerification": "NOT_RUN",
+      "gitBinding": "NOT_APPLICABLE",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_APPLICABLE",
+      "implementation": "ABSENT",
+      "runtime": "ABSENT",
+      "deployment": "NOT_ESTABLISHED",
+      "overallDisposition": "NOT_STARTED",
+      "dependencies": [
+        "B5.8"
+      ],
+      "blockers": [
+        "B5.8 не допущен к исполнению"
+      ],
+      "limitations": [],
+      "completionCondition": "Candidate HEDC выведен из допустимых mechanisms с disagreement, alternatives, falsifiers и uncertainty; не production classifier.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "TRACK",
+        "CORPUS"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B5.10",
+      "branch": "H6",
+      "title": "Физический HEDC determination-rule freeze",
+      "summary": "Одна версия candidate rule должна быть физически frozen до первого blind replay; per-case adjust-look-adjust запрещён.",
+      "governance": "NOT_REACHED",
+      "independentVerification": "NOT_RUN",
+      "gitBinding": "NOT_APPLICABLE",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_APPLICABLE",
+      "implementation": "ABSENT",
+      "runtime": "ABSENT",
+      "deployment": "NOT_ESTABLISHED",
+      "overallDisposition": "NOT_STARTED",
+      "dependencies": [
+        "B5.9"
+      ],
+      "blockers": [
+        "Candidate HEDC не принят для rule freeze"
+      ],
+      "limitations": [],
+      "completionCondition": "Точный candidate contract заморожен до replay всех восемнадцати сторон.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "TRACK"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B6.1",
+      "branch": "H6",
+      "title": "OD-MS-9 historical route design",
+      "summary": "Owner-authorized design различает DETERMINED и HYPOTHESIZED; LEADING, BOUNDED_SET, UNRESOLVED, INSUFFICIENT, scope/domain/interval, counterevidence и falsifier.",
+      "governance": "CANDIDATE",
+      "independentVerification": "NOT_RUN",
+      "gitBinding": "NOT_APPLICABLE",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_APPLICABLE",
+      "implementation": "NOT_APPLICABLE",
+      "runtime": "NOT_APPLICABLE",
+      "deployment": "NOT_APPLICABLE",
+      "overallDisposition": "OPEN_OR_CANDIDATE",
+      "dependencies": [],
+      "blockers": [
+        "Полный independent OD-MS-9 methodology audit не выполнен"
+      ],
+      "limitations": [
+        "GENERIC ≥4/9, BOUNDED_SET max=3, ties и resource dominance остаются некалиброванными",
+        "T2/T6(b)/T11 empirical dependencies сохраняются"
+      ],
+      "completionCondition": "Полный independent methodology audit, необходимые corrections и отдельная Owner acceptance.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "TRACK",
+        "E9"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B6.2",
+      "branch": "H6",
+      "title": "MD-2 offline structural kernel",
+      "summary": "Реализован offline structural-inference kernel; environmentBinding = NONE, c1…c7 = NOT_ESTABLISHABLE.",
+      "governance": "OWNER_ACCEPTED",
+      "independentVerification": "PASS",
+      "gitBinding": "BOUND",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_RECHECKED",
+      "implementation": "COMPLETE",
+      "runtime": "OFFLINE_VALIDATED_ONLY",
+      "deployment": "NOT_ESTABLISHED",
+      "overallDisposition": "COMPLETE",
+      "dependencies": [
+        "B6.1"
+      ],
+      "blockers": [],
+      "limitations": [
+        "Не выполняет исторический Environment classifier; imported by validators",
+        "MD-2 methodology debt не закрыт"
+      ],
+      "completionCondition": "Принятый offline kernel сохранён в bounded scope.",
+      "nextAction": {
+        "authorization": "NONE_WITHIN_CLOSED_SCOPE",
+        "action": "Поддерживать принятый результат в указанных границах."
+      },
+      "evidence": [
+        "MD2"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B6.3",
+      "branch": "H6",
+      "title": "Historical inference operator candidate",
+      "summary": "Зафиксирован непринятый local-only historical inference operator candidate; его bytes не входят в baseline Git tree. Methodology authority и independent acceptance не установлены.",
+      "governance": "CANDIDATE",
+      "independentVerification": "NOT_ESTABLISHED",
+      "gitBinding": "UNTRACKED",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_ESTABLISHED",
+      "implementation": "NOT_APPLICABLE",
+      "runtime": "NOT_APPLICABLE",
+      "deployment": "NOT_APPLICABLE",
+      "overallDisposition": "OPEN_OR_CANDIDATE",
+      "dependencies": [],
+      "blockers": [
+        "Local-only evidence отсутствует в baseline Git; bytes недоступны в clean checkout",
+        "Independent verification/Owner acceptance NOT_ESTABLISHED",
+        "Документ не связан в Git и не имеет governing sidecar"
+      ],
+      "limitations": [
+        "Observed local hash — историческая идентичность локальной копии, не portable accepted evidence; source availability не повышает статус узла"
+      ],
+      "completionCondition": "Exact candidate отдельно проверен, принят Owner и связан, если остаётся материально нужен.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "TRACK",
+        "MD2-OPERATOR"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B5.15",
+      "branch": "C7",
+      "title": "Frozen blind replay candidate rules",
+      "summary": "Одинаковая frozen candidate rule применяется к восемнадцати sealed pre-T0 сторонам; prior labels, pair outputs, ECS, friction и outcomes исключены.",
+      "governance": "NOT_REACHED",
+      "independentVerification": "NOT_RUN",
+      "gitBinding": "NOT_APPLICABLE",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_APPLICABLE",
+      "implementation": "ABSENT",
+      "runtime": "ABSENT",
+      "deployment": "NOT_ESTABLISHED",
+      "overallDisposition": "NOT_STARTED",
+      "dependencies": [
+        "B5.10"
+      ],
+      "blockers": [
+        "Научные predecessors не завершены; отдельное исполнение не авторизовано"
+      ],
+      "limitations": [],
+      "completionCondition": "Полные side determination records, strongest alternatives, falsifiers, confidence и NOT DETERMINABLE сохранены.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "TRACK",
+        "CORPUS"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B5.16",
+      "branch": "C7",
+      "title": "Независимое воспроизведение blind replay",
+      "summary": "Другой независимый исполнитель воспроизводит frozen determination на тех же sealed facts и rule identity.",
+      "governance": "NOT_REACHED",
+      "independentVerification": "NOT_RUN",
+      "gitBinding": "NOT_APPLICABLE",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_APPLICABLE",
+      "implementation": "ABSENT",
+      "runtime": "ABSENT",
+      "deployment": "NOT_ESTABLISHED",
+      "overallDisposition": "NOT_STARTED",
+      "dependencies": [
+        "B5.15"
+      ],
+      "blockers": [
+        "Научные predecessors не завершены; отдельное исполнение не авторизовано"
+      ],
+      "limitations": [],
+      "completionCondition": "Независимая reproduction подтверждает classification reproducibility без case-specific overrides.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "TRACK",
+        "CORPUS"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B5.11",
+      "branch": "C7",
+      "title": "Behavioral и program falsification",
+      "summary": "После blind reproduction проверяются mechanisms, predictions, alternatives, baselines и оправданность сложности; outcome не становится ground-truth Environment.",
+      "governance": "NOT_REACHED",
+      "independentVerification": "NOT_RUN",
+      "gitBinding": "NOT_APPLICABLE",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_APPLICABLE",
+      "implementation": "ABSENT",
+      "runtime": "ABSENT",
+      "deployment": "NOT_ESTABLISHED",
+      "overallDisposition": "NOT_STARTED",
+      "dependencies": [
+        "B5.16"
+      ],
+      "blockers": [
+        "Научные predecessors не завершены; отдельное исполнение не авторизовано"
+      ],
+      "limitations": [],
+      "completionCondition": "Явный YES/PARTIAL/NO verdict подготовлен; отсутствие retroactive analytical credit доказано.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "TRACK",
+        "CORPUS"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B5.17",
+      "branch": "C7",
+      "title": "Leave-one-case-out stability",
+      "summary": "Для каждого из девяти кейсов: восемь → calibration, один → held-out test. Тестируются tuned thresholds/confidence/falsifiers и sensitivity к удалению кейса.",
+      "governance": "NOT_REACHED",
+      "independentVerification": "NOT_RUN",
+      "gitBinding": "NOT_APPLICABLE",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_APPLICABLE",
+      "implementation": "ABSENT",
+      "runtime": "ABSENT",
+      "deployment": "NOT_ESTABLISHED",
+      "overallDisposition": "NOT_STARTED",
+      "dependencies": [
+        "B5.11"
+      ],
+      "blockers": [
+        "Научные predecessors не завершены; отдельное исполнение не авторизовано"
+      ],
+      "limitations": [],
+      "completionCondition": "Все девять folds выполнены; нестабильное tuning не объявляется robust.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "TRACK",
+        "CORPUS"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B5.18",
+      "branch": "C7",
+      "title": "Realized coverage и отдельные T10/MD verdicts",
+      "summary": "Realized coverage сопоставляется с frozen 54-cell map. T10 и MD-1…MD-6 получают отдельные evidence-bounded verdicts.",
+      "governance": "NOT_REACHED",
+      "independentVerification": "NOT_RUN",
+      "gitBinding": "NOT_APPLICABLE",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_APPLICABLE",
+      "implementation": "ABSENT",
+      "runtime": "ABSENT",
+      "deployment": "NOT_ESTABLISHED",
+      "overallDisposition": "NOT_STARTED",
+      "dependencies": [
+        "B5.17"
+      ],
+      "blockers": [
+        "Научные predecessors не завершены; отдельное исполнение не авторизовано"
+      ],
+      "limitations": [
+        "T10/MD-1: validity не установлена; MD-2: accepted narrowing → Environment rule отсутствует; MD-3: counterevidence portability; MD-4: T6 provisioning gap; MD-5: negative-confidence vocabulary; MD-6: single-side friction",
+        "Cross-case mechanism/discriminator/failure-mode/observability/Environment×role matrices и GENERIC/BOUNDED_SET/tie/resource-dominance calibration сохраняются как обязательства"
+      ],
+      "completionCondition": "Сохранены 9 Environment × 2 roles × 3 scales, исходные 54 NON_COVERED; отдельные итоговые verdicts подготовлены.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "TRACK",
+        "CORPUS"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B7.1",
+      "branch": "C7",
+      "title": "Owner Method Freeze decision",
+      "summary": "После falsification, LOCO и coverage Owner выбирает FULL FREEZE, PARTIAL/TIERED FREEZE либо REJECT/REDESIGN и принимает final determination contract.",
+      "governance": "NOT_REACHED",
+      "independentVerification": "NOT_RUN",
+      "gitBinding": "NOT_APPLICABLE",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_APPLICABLE",
+      "implementation": "ABSENT",
+      "runtime": "ABSENT",
+      "deployment": "NOT_ESTABLISHED",
+      "overallDisposition": "NOT_STARTED",
+      "dependencies": [
+        "B5.18"
+      ],
+      "blockers": [
+        "Научные predecessors не завершены; отдельное исполнение не авторизовано"
+      ],
+      "limitations": [],
+      "completionCondition": "Только явное Owner acceptance точного final contract создаёт methodology authority.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "TRACK",
+        "CORPUS"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B5.12",
+      "branch": "C7",
+      "title": "Финальный calibrated replay девяти кейсов",
+      "summary": "После Method Freeze одна принятая frozen methodology generation применяется ко всем девяти кейсам / восемнадцати сторонам.",
+      "governance": "NOT_REACHED",
+      "independentVerification": "NOT_RUN",
+      "gitBinding": "NOT_APPLICABLE",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_APPLICABLE",
+      "implementation": "ABSENT",
+      "runtime": "ABSENT",
+      "deployment": "NOT_ESTABLISHED",
+      "overallDisposition": "NOT_STARTED",
+      "dependencies": [
+        "B7.1"
+      ],
+      "blockers": [
+        "Научные predecessors не завершены; отдельное исполнение не авторизовано"
+      ],
+      "limitations": [],
+      "completionCondition": "Same-rule final replay выполнен, materially affected cases replayed, historical deltas сохранены.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "TRACK",
+        "CORPUS"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B5.19",
+      "branch": "C7",
+      "title": "Независимая full-corpus verification final replay",
+      "summary": "Проверяются exact inputs, accepted contract, восемнадцать side outputs, no leakage, alternatives/falsifiers/confidence, reproducibility и pair construction.",
+      "governance": "NOT_REACHED",
+      "independentVerification": "NOT_RUN",
+      "gitBinding": "NOT_APPLICABLE",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_APPLICABLE",
+      "implementation": "ABSENT",
+      "runtime": "ABSENT",
+      "deployment": "NOT_ESTABLISHED",
+      "overallDisposition": "NOT_STARTED",
+      "dependencies": [
+        "B5.12"
+      ],
+      "blockers": [
+        "Научные predecessors не завершены; отдельное исполнение не авторизовано"
+      ],
+      "limitations": [],
+      "completionCondition": "Final replay независимо проверен и принят; только тогда возникает calibrated historical authority.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "TRACK",
+        "CORPUS"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B8.1",
+      "branch": "M8",
+      "title": "Существующий ECS foundation",
+      "summary": "Homogeneous ECS вычисляется по accepted resource-priority formula; при same Environment C=0 → ECS=100. Heterogeneous ECS — stored lookup.",
+      "governance": "OWNER_ACCEPTED",
+      "independentVerification": "PASS",
+      "gitBinding": "BOUND",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_RECHECKED",
+      "implementation": "COMPLETE",
+      "runtime": "INTEGRATED_CODE_PATH",
+      "deployment": "NOT_ESTABLISHED",
+      "overallDisposition": "COMPLETE",
+      "dependencies": [
+        "B3.3"
+      ],
+      "blockers": [],
+      "limitations": [
+        "Не калиброванный evidence-native uncertainty-preserving ECS",
+        "Static resource matrix 17×9 не получает новой numerical authority от дерева"
+      ],
+      "completionCondition": "Существующая принятая mechanics сохранена без подмены stored values вычисленными.",
+      "nextAction": {
+        "authorization": "NONE_WITHIN_CLOSED_SCOPE",
+        "action": "Поддерживать принятый результат в указанных границах."
+      },
+      "evidence": [
+        "DELIVERABLE"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B8.2",
+      "branch": "M8",
+      "title": "Существующий friction foundation",
+      "summary": "72 generated pair narratives и friction lookup существуют как статические таблицы.",
+      "governance": "OWNER_ACCEPTED",
+      "independentVerification": "PASS",
+      "gitBinding": "BOUND",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_RECHECKED",
+      "implementation": "COMPLETE",
+      "runtime": "INTEGRATED_CODE_PATH",
+      "deployment": "NOT_ESTABLISHED",
+      "overallDisposition": "COMPLETE",
+      "dependencies": [
+        "B8.1"
+      ],
+      "blockers": [],
+      "limitations": [
+        "Это stored friction, не dynamically calculated forecast",
+        "Не закрывает single-side/multi-domain/hypothesis-conditioned friction"
+      ],
+      "completionCondition": "Принятая static lookup mechanics сохранена.",
+      "nextAction": {
+        "authorization": "NONE_WITHIN_CLOSED_SCOPE",
+        "action": "Поддерживать принятый результат в указанных границах."
+      },
+      "evidence": [
+        "DELIVERABLE"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B8.3",
+      "branch": "M8",
+      "title": "Product prediction-seal component",
+      "summary": "In-memory ledger сохраняет prediction fields; hash preimage содержит ровно environments, три anchors и sealedAt.",
+      "governance": "OWNER_ACCEPTED",
+      "independentVerification": "PASS",
+      "gitBinding": "BOUND",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_RECHECKED",
+      "implementation": "PARTIAL",
+      "runtime": "INTEGRATED_CODE_PATH",
+      "deployment": "NOT_ESTABLISHED",
+      "overallDisposition": "PARTIAL",
+      "dependencies": [],
+      "blockers": [
+        "Prediction texts и falsificationCondition вне текущего hash preimage",
+        "Durable immutable prediction-package persistence не установлена"
+      ],
+      "limitations": [
+        "Recorded code observations не являются разрешением исправлять seal semantics",
+        "Исторические research Prediction Seals — отдельный B5.3"
+      ],
+      "completionCondition": "Для заявляемого future immutable forecast package установлен полный accepted sealing/persistence scope.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "PREDICTION-LEDGER"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B6.4",
+      "branch": "M8",
+      "title": "Детерминированный HEDC classifier",
+      "summary": "После Owner methodology acceptance accepted rules переводятся в schemas/functions/rules и production classifier.",
+      "governance": "NOT_REACHED",
+      "independentVerification": "NOT_RUN",
+      "gitBinding": "NOT_APPLICABLE",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_APPLICABLE",
+      "implementation": "ABSENT",
+      "runtime": "ABSENT",
+      "deployment": "NOT_ESTABLISHED",
+      "overallDisposition": "NOT_STARTED",
+      "dependencies": [
+        "B7.1",
+        "B6.1"
+      ],
+      "blockers": [
+        "Method Freeze отсутствует",
+        "Детерминированный HEDC classifier отсутствует"
+      ],
+      "limitations": [],
+      "completionCondition": "Реализация, independent implementation IV и causal integration proof завершены после Method Freeze.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "TRACK",
+        "CAUSAL"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B9.1",
+      "branch": "M8",
+      "title": "Evidence-native deterministic analytical Core",
+      "summary": "Целевой Core: admissibility/reconciliation, domains, direct/documentary states, competing hypotheses, alternatives, scope/time/uncertainty propagation, pair/resource authority, ECS/friction, scenarios/predictions/watchpoints/controls.",
+      "governance": "NOT_REACHED",
+      "independentVerification": "NOT_RUN",
+      "gitBinding": "NOT_APPLICABLE",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_APPLICABLE",
+      "implementation": "ABSENT",
+      "runtime": "ABSENT",
+      "deployment": "NOT_ESTABLISHED",
+      "overallDisposition": "NOT_STARTED",
+      "dependencies": [
+        "B7.1"
+      ],
+      "blockers": [
+        "Method Freeze отсутствует",
+        "Целевой full analytical Core отсутствует"
+      ],
+      "limitations": [
+        "Исследовательские multi-agent процессы не становятся production reasoning engine",
+        "B6.4 и B9.1 — параллельные downstream children Method Freeze, не скрытая последовательная зависимость"
+      ],
+      "completionCondition": "Accepted method реализован детерминированно; independent IV, negative/bypass controls и causal integration proof установлены.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "TRACK",
+        "CAUSAL"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "PAIR-EVALUATION",
+      "branch": "M8",
+      "title": "Historical pair-collision evaluation specification",
+      "summary": "Принята и frozen bounded evaluation specification; executable historical model остаётся INCOMPLETE, empirical ≥80% не tested/validated.",
+      "governance": "OWNER_ACCEPTED_ARCHITECTURE_ONLY",
+      "independentVerification": "PASS",
+      "gitBinding": "BOUND",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_RECHECKED",
+      "implementation": "ABSENT",
+      "runtime": "ABSENT",
+      "deployment": "NOT_ESTABLISHED",
+      "overallDisposition": "ACCEPTED_DEFINITION_ONLY",
+      "dependencies": [],
+      "blockers": [
+        "Predicate/template registry и lawful historical adapter не установлены",
+        "ASTRA-A/MD-2 inputs и scientific readiness не закрыты"
+      ],
+      "limitations": [
+        "Spec acceptance не numerical freeze, не ASTRA-B acceptance и не publication authority"
+      ],
+      "completionCondition": "Открытые pre-execution зависимости specification закрыты, отдельно разрешено и независимо проверено empirical evaluation.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "EVALUATION",
+        "TRACK"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "MATH-FOUNDATION",
+      "branch": "M8",
+      "title": "Predictive mathematical foundation candidate",
+      "summary": "Существуют условные математические инструменты и границы применимости; bridge к observable constructs, идентифицируемость и predictive performance не установлены.",
+      "governance": "CANDIDATE",
+      "independentVerification": "NOT_ESTABLISHED",
+      "gitBinding": "BOUND",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_RECHECKED",
+      "implementation": "PARTIAL",
+      "runtime": "OFFLINE_VALIDATED_ONLY",
+      "deployment": "NOT_ESTABLISHED",
+      "overallDisposition": "OPEN_OR_CANDIDATE",
+      "dependencies": [],
+      "blockers": [
+        "Independent acceptance/verification mathematical candidate NOT_ESTABLISHED",
+        "Ни numerical illustrations, ни желаемая accuracy не доказательство empirical performance"
+      ],
+      "limitations": [
+        "Исторические описания состава корпуса в candidate не переопределяют активные девять кейсов"
+      ],
+      "completionCondition": "Отдельная независимая mathematical verification и accepted bridge к действующему corpus/method установлены.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "MATH",
+        "TRACK"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B5.13",
+      "branch": "R9",
+      "title": "Девять algorithm-generated historical reports",
+      "summary": "Требуются девять software-produced internal reports по принятым method, verified classifier/Core и verified final replay.",
+      "governance": "NOT_REACHED",
+      "independentVerification": "NOT_RUN",
+      "gitBinding": "NOT_APPLICABLE",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_APPLICABLE",
+      "implementation": "ABSENT",
+      "runtime": "ABSENT",
+      "deployment": "NOT_ESTABLISHED",
+      "overallDisposition": "NOT_STARTED",
+      "dependencies": [
+        "B5.19",
+        "B6.4",
+        "B9.1"
+      ],
+      "blockers": [
+        "Final replay IV, HEDC implementation и Core не завершены"
+      ],
+      "limitations": [
+        "Accepted case-level research packages не являются этими отчётами"
+      ],
+      "completionCondition": "Все девять отчётов созданы алгоритмом на accepted artifacts и независимо проверены; право публикации отдельно.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "TRACK"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B5.14",
+      "branch": "R9",
+      "title": "Publication-ready case studies",
+      "summary": "Публичные материалы должны происходить из verified Final Calibrated Replay и соблюдать disclosure/anti-gaming boundary, uncertainty и limitations.",
+      "governance": "NOT_REACHED",
+      "independentVerification": "NOT_RUN",
+      "gitBinding": "NOT_APPLICABLE",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_APPLICABLE",
+      "implementation": "ABSENT",
+      "runtime": "ABSENT",
+      "deployment": "NOT_ESTABLISHED",
+      "overallDisposition": "NOT_STARTED",
+      "dependencies": [
+        "B5.19"
+      ],
+      "blockers": [
+        "Verified Final Calibrated Replay отсутствует"
+      ],
+      "limitations": [
+        "Не восстанавливается obsolete case-selection sequence",
+        "Оригинальные seals не переписываются при final replay"
+      ],
+      "completionCondition": "Девять case studies независимо проверены на disclosure compliance и готовы к отдельному Owner publication decision.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "TRACK",
+        "REPORT"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B15.2",
+      "branch": "R9",
+      "title": "Существующие case-study routes и renderers",
+      "summary": "Есть index/detail routes и legacy marketing fixtures; эта поверхность не является принятым calibrated nine-case public proof.",
+      "governance": "CANDIDATE",
+      "independentVerification": "NOT_ESTABLISHED",
+      "gitBinding": "BOUND",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_RECHECKED",
+      "implementation": "PARTIAL",
+      "runtime": "INTEGRATED_CODE_PATH",
+      "deployment": "NOT_ESTABLISHED",
+      "overallDisposition": "PARTIAL",
+      "dependencies": [],
+      "blockers": [
+        "Содержание не связано с verified calibrated nine-case proof"
+      ],
+      "limitations": [
+        "Исторические fixture numbers не canonical numerical authority",
+        "Наличие экранов не означает deployed exposure или publication authorization"
+      ],
+      "completionCondition": "Publication-ready proof content lawful и aligned; legacy presentation disposition отдельно авторизована.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "CASE-SURFACE",
+        "ROUTES"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B10.1",
+      "branch": "P10",
+      "title": "FREE registry и bounded Mode-D projection",
+      "summary": "Существуют registry 12 blocks, canonical shape assertions и evidence-availability projection: Block 1 LIMITED, 2–8 INSUFFICIENT_PUBLIC_EVIDENCE, 9 NOT_APPLICABLE, 10 LIMITED, 11–12 AVAILABLE.",
+      "governance": "OWNER_ACCEPTED",
+      "independentVerification": "PASS",
+      "gitBinding": "BOUND",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_RECHECKED",
+      "implementation": "COMPLETE",
+      "runtime": "INTEGRATED_CODE_PATH",
+      "deployment": "NOT_ESTABLISHED",
+      "overallDisposition": "COMPLETE",
+      "dependencies": [
+        "B4.2"
+      ],
+      "blockers": [],
+      "limitations": [
+        "Evidence-availability statuses не доказывают коммерческое entitlement enforcement",
+        "Это factual slice, не заполненные аналитические отчёты"
+      ],
+      "completionCondition": "Принятый bounded registry/projection component сохранён.",
+      "nextAction": {
+        "authorization": "NONE_WITHIN_CLOSED_SCOPE",
+        "action": "Поддерживать принятый результат в указанных границах."
+      },
+      "evidence": [
+        "REPORT",
+        "REPORT-REGISTRY",
+        "MODE-D"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B10.2",
+      "branch": "P10",
+      "title": "Public flow и API wiring",
+      "summary": "Public screens, company resolution и public research routes существуют и связаны в исходниках.",
+      "governance": "OWNER_ACCEPTED",
+      "independentVerification": "NOT_ESTABLISHED",
+      "gitBinding": "BOUND",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_RECHECKED",
+      "implementation": "COMPLETE",
+      "runtime": "INTEGRATED_CODE_PATH",
+      "deployment": "NOT_ESTABLISHED",
+      "overallDisposition": "PARTIAL",
+      "dependencies": [
+        "B10.1"
+      ],
+      "blockers": [
+        "Независимая verification assembled flow NOT_ESTABLISHED",
+        "Deployed runtime NOT_ESTABLISHED"
+      ],
+      "limitations": [],
+      "completionCondition": "Independent end-to-end verification и required release acceptance для заявляемого flow установлены.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "ROUTES"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B10.4",
+      "branch": "P10",
+      "title": "Report delivery и persistence",
+      "summary": "Реальный code path: report authority → authorized PDF → Resend; email failure paths fail closed. Session ledger использует Upstash KV; prediction ledger остаётся in-memory.",
+      "governance": "CANDIDATE",
+      "independentVerification": "NOT_ESTABLISHED",
+      "gitBinding": "BOUND",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_RECHECKED",
+      "implementation": "PARTIAL",
+      "runtime": "INTEGRATED_CODE_PATH",
+      "deployment": "NOT_ESTABLISHED",
+      "overallDisposition": "PARTIAL",
+      "dependencies": [
+        "B10.2"
+      ],
+      "blockers": [
+        "Deployed PDF/email success и production persistence evidence не установлены",
+        "Canonical artifact/projection consistency release verification не завершена"
+      ],
+      "limitations": [
+        "Client session annotation не является delivery mechanism",
+        "Наличие orphaned ReportDocument не создаёт второго accepted canonical artifact"
+      ],
+      "completionCondition": "Разрешённая canonical delivery/persistence architecture независимо проверена в assembled runtime.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "DELIVERY"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B12.1",
+      "branch": "P10",
+      "title": "Anonymous и Expanded FREE",
+      "summary": "Приняты семантика Anonymous 12-block FREE и registered evidence deepening. Финальная market assembly не завершена.",
+      "governance": "OWNER_ACCEPTED",
+      "independentVerification": "NOT_RUN",
+      "gitBinding": "BOUND",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_RECHECKED",
+      "implementation": "PARTIAL",
+      "runtime": "INTEGRATED_CODE_PATH",
+      "deployment": "NOT_ESTABLISHED",
+      "overallDisposition": "PARTIAL",
+      "dependencies": [
+        "B10.1"
+      ],
+      "blockers": [
+        "Registered Expanded FREE deepening не завершён",
+        "Anonymous Blocks 7–10 LIMITED alignment NOT_ESTABLISHED"
+      ],
+      "limitations": [],
+      "completionCondition": "Registered Expanded FREE, lawful market assembly и canonical LIMITED mechanics реализованы и независимо проверены.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "REPORT"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B13.1",
+      "branch": "P10",
+      "title": "Report-product и FREE/PAID epistemic controls",
+      "summary": "Приняты RP-1…RP-13. Частичные shape/leak guards существуют; tier-sensitive ceilings и полный lifecycle не установлены.",
+      "governance": "OWNER_ACCEPTED",
+      "independentVerification": "NOT_RUN",
+      "gitBinding": "BOUND",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_RECHECKED",
+      "implementation": "PARTIAL",
+      "runtime": "INTEGRATED_CODE_PATH",
+      "deployment": "NOT_ESTABLISHED",
+      "overallDisposition": "PARTIAL",
+      "dependencies": [
+        "B10.1"
+      ],
+      "blockers": [
+        "RP-5 entitlement ceiling enforcement NOT_ESTABLISHED",
+        "Полная entitlement matrix, RP-8 lifecycle и methodology/as-of binding отсутствуют",
+        "Cutoff vs canonical T0, replay vs validation и private-company ingress не реализованы полностью",
+        "Expert assurance, secondary-use governance и forecast accountability остаются открытыми"
+      ],
+      "limitations": [
+        "LIMITED — product display ceiling, не сообщение об отсутствии evidence",
+        "Ceiling не создаёт Decision Gap; Block 11 информирует без hidden-result pressure",
+        "UI/PDF/Brief/PPTX обязаны сохранять одну аналитическую семантику"
+      ],
+      "completionCondition": "Projection consistency, entitlement/access/redaction/versioning, temporal identity и lawful claim controls реализованы, проверены и приняты.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "REPORT",
+        "DESIGN"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B15.1",
+      "branch": "P10",
+      "title": "Публичный web слой",
+      "summary": "React/Vite SPA и aliases существуют; требуется финальная адаптация к post-calibration архитектуре и release validation.",
+      "governance": "OWNER_ACCEPTED",
+      "independentVerification": "NOT_ESTABLISHED",
+      "gitBinding": "BOUND",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_RECHECKED",
+      "implementation": "PARTIAL",
+      "runtime": "NOT_ESTABLISHED",
+      "deployment": "NOT_ESTABLISHED",
+      "overallDisposition": "PARTIAL",
+      "dependencies": [],
+      "blockers": [
+        "Post-calibration adaptation и deployed release proof не установлены"
+      ],
+      "limitations": [],
+      "completionCondition": "Публичный слой соответствует accepted behavior/design и independently verified release scope.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "REPORT",
+        "DESIGN",
+        "ROUTES"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B11.1",
+      "branch": "L11",
+      "title": "Paid diagnostic и 19-block report",
+      "summary": "Принята собственная MergeVue paid архитектура: evidence snapshot/deltas, independent collection/audit, verified evidence packs, gap maps, analyst workbench, schema-bound input, readiness по стадиям, analyst review/seal и writer/verifier projections.",
+      "governance": "OWNER_ACCEPTED_ARCHITECTURE_ONLY",
+      "independentVerification": "NOT_RUN",
+      "gitBinding": "NOT_APPLICABLE",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_APPLICABLE",
+      "implementation": "ABSENT",
+      "runtime": "ABSENT",
+      "deployment": "NOT_ESTABLISHED",
+      "overallDisposition": "ACCEPTED_DEFINITION_ONLY",
+      "dependencies": [
+        "B9.1"
+      ],
+      "blockers": [
+        "Paid diagnostic pipeline и 19-block builder отсутствуют"
+      ],
+      "limitations": [
+        "Snapshot_0 — начало engagement, не anti-hindsight cutoff; post-start dealGeneratedRisk сохраняется",
+        "Gap maps/workbench генерируются из Core objects; private analyst notes не потребляются Core",
+        "Две required questionnaire sides и reconciliation не подменяются LLM",
+        "FULL PREDICTIVE / CONDITIONAL SCENARIO / EVIDENCE-LIMITED определяются evidence, не ценой",
+        "Digital analyst seal immutable; writer/verifier не меняют смысл; person vs role dependency и assurance сохраняются"
+      ],
+      "completionCondition": "Paid diagnostic pipeline, 19-block schema, independent IV и Owner implementation/release acceptance завершены.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "REPORT",
+        "DESIGN"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B14.1",
+      "branch": "L11",
+      "title": "Integration Monitor",
+      "summary": "Будущий post-close контур: evidence deltas, domain/authority/resource transitions, hypotheses, falsifiers, predicted-vs-observed, early warning и controls.",
+      "governance": "NOT_REACHED",
+      "independentVerification": "NOT_RUN",
+      "gitBinding": "NOT_APPLICABLE",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_APPLICABLE",
+      "implementation": "ABSENT",
+      "runtime": "ABSENT",
+      "deployment": "NOT_ESTABLISHED",
+      "overallDisposition": "NOT_STARTED",
+      "dependencies": [
+        "B11.1"
+      ],
+      "blockers": [
+        "Paid sealed analytical package и monitor implementation отсутствуют"
+      ],
+      "limitations": [
+        "Later narrative не заменяет sealed prediction"
+      ],
+      "completionCondition": "Monitor использует exact digitally sealed prediction package по digest; наблюдения отделены от неизменного baseline.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "COMMERCIAL"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B16.1",
+      "branch": "L11",
+      "title": "Коммерческая лестница MergeVue",
+      "summary": "Приняты Anonymous FREE, Registered Expanded FREE, Private Evidence Review, Economic Linkage Analysis, Multi-Dependency Review и Investment Committee Analysis в одном report universe.",
+      "governance": "OWNER_ACCEPTED_SEMANTICS_ONLY",
+      "independentVerification": "NOT_RUN",
+      "gitBinding": "BOUND",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_RECHECKED",
+      "implementation": "ABSENT",
+      "runtime": "ABSENT",
+      "deployment": "NOT_ESTABLISHED",
+      "overallDisposition": "ACCEPTED_DEFINITION_ONLY",
+      "dependencies": [
+        "B11.1",
+        "B16.4"
+      ],
+      "blockers": [
+        "Реализация и коммерческий release не завершены"
+      ],
+      "limitations": [
+        "Принятые cumulative block levels 12 → 13 → 15 → 17 → 19 не гарантируют более определённого результата",
+        "Никакого autonomous whole-transaction BUY/NO-BUY verdict"
+      ],
+      "completionCondition": "Каждая разрешённая ступень реализована/проверена; market release разрешён Owner после обязательных gates.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "REPORT",
+        "COMMERCIAL"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "PERF-0",
+      "branch": "L11",
+      "title": "Отложенная engineering optimization",
+      "summary": "Resource/complexity/concurrency audit, memory/provider/persistence/PDF cost и semantic consistency отложены до FREE RELEASE COMPLETED.",
+      "governance": "OWNER_AUTHORIZED",
+      "independentVerification": "NOT_RUN",
+      "gitBinding": "NOT_APPLICABLE",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_APPLICABLE",
+      "implementation": "NOT_APPLICABLE",
+      "runtime": "NOT_APPLICABLE",
+      "deployment": "NOT_APPLICABLE",
+      "overallDisposition": "NOT_STARTED",
+      "dependencies": [
+        "B16.4"
+      ],
+      "blockers": [
+        "FREE release trigger не наступил"
+      ],
+      "limitations": [
+        "Не допускает преждевременного refactor или смены языка/infra"
+      ],
+      "completionCondition": "После release trigger отдельно авторизован measured engineering audit и bounded improvements.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "PERF"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B10.3",
+      "branch": "G12",
+      "title": "FREE Product-Ready residual scope",
+      "summary": "Остались precision/report alignment, internal-code leak removal, end-to-end release validation, UX/onboarding/positioning, deploy package и verified proof content.",
+      "governance": "NOT_REACHED",
+      "independentVerification": "NOT_RUN",
+      "gitBinding": "NOT_APPLICABLE",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_APPLICABLE",
+      "implementation": "ABSENT",
+      "runtime": "ABSENT",
+      "deployment": "NOT_ESTABLISHED",
+      "overallDisposition": "BLOCKED_OR_REJECTED",
+      "dependencies": [
+        "B10.2",
+        "B12.1",
+        "B13.1",
+        "B10.4"
+      ],
+      "blockers": [
+        "Release alignment и проверки не завершены",
+        "Production deploy proof отсутствует"
+      ],
+      "limitations": [],
+      "completionCondition": "FREE product-ready requirements independently verified и Owner-accepted; bare routes отдельно от proof content.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "REPORT",
+        "DESIGN"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B16.2",
+      "branch": "G12",
+      "title": "PRODUCT READY",
+      "summary": "Техническая готовность собственного FREE продукта должна быть доказана независимо от scientific proof readiness.",
+      "governance": "NOT_REACHED",
+      "independentVerification": "NOT_RUN",
+      "gitBinding": "NOT_APPLICABLE",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_APPLICABLE",
+      "implementation": "NOT_APPLICABLE",
+      "runtime": "NOT_APPLICABLE",
+      "deployment": "NOT_APPLICABLE",
+      "overallDisposition": "BLOCKED_OR_REJECTED",
+      "dependencies": [
+        "B10.3"
+      ],
+      "blockers": [
+        "B10.3 не завершён"
+      ],
+      "limitations": [],
+      "completionCondition": "Product-ready scope independently verified и принят Owner.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "CAUSAL",
+        "REPORT",
+        "DESIGN"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B16.3",
+      "branch": "G12",
+      "title": "PUBLIC PROOF READY",
+      "summary": "Требуются verified final calibrated replay, publication-ready материалы, сохранённые pre-outcome seals, limitations и disclosure compliance.",
+      "governance": "NOT_REACHED",
+      "independentVerification": "NOT_RUN",
+      "gitBinding": "NOT_APPLICABLE",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_APPLICABLE",
+      "implementation": "NOT_APPLICABLE",
+      "runtime": "NOT_APPLICABLE",
+      "deployment": "NOT_APPLICABLE",
+      "overallDisposition": "BLOCKED_OR_REJECTED",
+      "dependencies": [
+        "B5.14",
+        "B5.19",
+        "B5.13"
+      ],
+      "blockers": [
+        "Final replay, algorithm-generated reports и publication-ready content отсутствуют"
+      ],
+      "limitations": [],
+      "completionCondition": "Public proof requirements independently verified и приняты без подмены legacy fixtures.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "TRACK",
+        "REPORT"
+      ],
+      "dependencyConditions": {}
+    },
+    {
+      "id": "B16.4",
+      "branch": "G12",
+      "title": "Owner public-release authorization",
+      "summary": "Публичный выпуск требует PRODUCT READY AND PUBLIC PROOF READY и отдельного явного решения Owner.",
+      "governance": "NOT_REACHED",
+      "independentVerification": "NOT_RUN",
+      "gitBinding": "NOT_APPLICABLE",
+      "bindingReferences": [],
+      "remoteGitBinding": "NOT_APPLICABLE",
+      "implementation": "NOT_APPLICABLE",
+      "runtime": "NOT_APPLICABLE",
+      "deployment": "NOT_APPLICABLE",
+      "overallDisposition": "BLOCKED_OR_REJECTED",
+      "dependencies": [
+        "B16.2",
+        "B16.3"
+      ],
+      "blockers": [
+        "PRODUCT READY не закрыт",
+        "PUBLIC PROOF READY не закрыт",
+        "Owner release authorization не получена"
+      ],
+      "limitations": [],
+      "completionCondition": "Оба gates закрыты; Owner отдельно разрешил конкретный public release.",
+      "nextAction": {
+        "authorization": "REQUIRES_SEPARATE_OWNER_AUTHORIZATION",
+        "action": "Отдельно авторизовать незавершённую часть после выполнения зависимостей."
+      },
+      "evidence": [
+        "REPORT",
+        "COMMERCIAL"
+      ],
+      "dependencyConditions": {}
+    }
+  ]
+}
